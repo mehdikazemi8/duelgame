@@ -1,0 +1,46 @@
+@font-face { font-family: "IranianSans"; src: url('../font/AIranianSans.ttf'); }
+
+body {
+ background-color: #F2F1EF;
+}
+input, select, select option, button, table{
+  text-align: right;
+  font-family: "IranianSans";
+  font-size: 20px;
+}
+table tr {
+ font-size: 16px;
+}
+
+input, select, select option {
+  float: right;
+  overflow: hidden;
+}
+
+select {
+  width:200px;
+}
+
+.form-control {
+  width: auto;
+  text-align: right;
+  clear: both;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.clear {
+  clear: both; 
+}
+
+.btn-warning {
+ margin-right: 5px;
+}
+
+td {
+ 
+}
+
+.tdtd {
+ min-width: 150px;
+}

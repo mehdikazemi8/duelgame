@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\MeHdi\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-70739583fe7a45de418c5d4e5fbf3c4593540eb8.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\classes-35c5f1d673a07eede06ff29fd800beb3040e07a0.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\DuelGame\app\libs\java_websocket.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="35f488c2a8cb28569c1bbf69abcb1b8b04db8e01">
+        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\java_websocket-7b1182abd885e50cbb2e1a4010c42ab5d43d263f.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\classes-c5061c7294fbf5f7045177cd74068ba4a5990763.jar" />
+    </item>
+
+</items>

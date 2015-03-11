@@ -1,0 +1,86 @@
+$def with (questions)
+
+<div class="container-fluid" style="padding: 20px;">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+              <input type="text" class="form-control" style="width:100%;" id="question_title" placeholder="سوال">
+            </div>
+            <select class="form-control" id="category">
+                <option value="1">تاریخی</option>
+                <option value="2">ورزشی</option>
+                <option value="3">هنری</option>
+                <option value="4">علمی</option>
+                <option value="5">سرگرمی</option>
+                <option value="6">جغرافی</option>
+            </select>
+            
+            <input type="text" id="item_id" style="visibility: hidden;">
+            <div class="form-group">
+                <input type="text" class="form-control" id="answer" placeholder="جواب">
+            </div>
+            <div class="clear"></div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="option_two" placeholder="گزینه ۲">
+            </div>
+            <div class="clear"></div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="option_three" placeholder="گزینه ۳">
+            </div>
+            <div class="clear"></div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="option_four" placeholder="گزینه ۴">
+            </div>
+            <div class="clear"></div>
+            <center>
+                <button type="button" class="btn btn-primary">تایید</button>
+            </center>
+            <div class="clear"></div>
+        </form>
+        
+        
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+<div class="container-fluid" style="padding: 20px;">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr class="first">
+                    <td></td>
+                    <td>گزینه ۴</td>
+                    <td>گزینه ۳</td>
+                    <td>گزینه ۲</td>
+                    <td>جواب</td>
+                    <td>سوال</td>
+                    <td></td>
+                </tr>
+                $for question in questions:
+                    <tr id="$question['_id']">
+                        <td><button type="button" class="btn btn-warning">X</button><button type="button" class="btn btn-info">E</button></td>
+                        <td>$question['option_four']</td>
+                        <td>$question['option_three']</td>
+                        <td>$question['option_two']</td>
+                        <td>$question['answer']</td>
+                        <td>$question['title']</td>
+                        $if question['category'] == 1: 
+                            <td>تاریخی</td>
+                        $elif question['category'] == 2:  
+                            <td>ورزشی</td>
+                        $elif question['category'] == 3:  
+                            <td>هنری</td>
+                        $elif question['category'] == 4:  
+                            <td>علمی</td>
+                        $elif question['category'] == 5:  
+                            <td>سرگرمی</td>
+                        $elif question['category'] == 6:  
+                            <td>جغرافی</td>
+                            
+                    </tr>    
+            </table>    
+        </div>
+    </div>
+</div>
