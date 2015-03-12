@@ -31,12 +31,12 @@ public class StartActivity extends MyBaseActivity {
 
         String identify = deviceId + simSerialNumber;
 
-        /*
         if(wsc.isConnected() == false)
         {
-            PrintError in Dialogue until it is connected.
+            Log.d("^^^^^", "not connected");
+            startActivity(new Intent(this, TryToConnectActivity.class));
         }
-        * */
+
 
         /*
         else
@@ -53,8 +53,8 @@ public class StartActivity extends MyBaseActivity {
         * */
 
 
-        startActivity(new Intent(this, ProfileActivity.class));
-        this.finish();
+        //startActivity(new Intent(this, ProfileActivity.class));
+        //this.finish();
     }
 
     @Override

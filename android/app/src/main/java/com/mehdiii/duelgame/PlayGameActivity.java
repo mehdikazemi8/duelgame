@@ -135,7 +135,7 @@ public class PlayGameActivity extends MyBaseActivity {
                                     query.put("time", -1);
                                     query.put("ok", 0);
 
-                                    wsc.send(query.toString());
+                                    wsc.sendTextMessage(query.toString());
                                 } catch (JSONException e) {
                                     Log.d("---- GQ GQ GQ", e.toString());
                                 }
@@ -165,7 +165,7 @@ public class PlayGameActivity extends MyBaseActivity {
                                     query.put("time", -1);
                                     query.put("ok", 0);
 
-                                    wsc.send(query.toString());
+                                    wsc.sendTextMessage(query.toString());
                                 } catch (JSONException e) {
                                     Log.d("---- GQ GQ GQ", e.toString());
                                 }
@@ -229,7 +229,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
             Log.d("aaaaaaa", query.toString());
 
-            wsc.send(query.toString());
+            wsc.sendTextMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }
@@ -268,7 +268,7 @@ public class PlayGameActivity extends MyBaseActivity {
             query.put("time", -1);
             query.put("ok", 0);
 
-            wsc.send(query.toString());
+            wsc.sendTextMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }

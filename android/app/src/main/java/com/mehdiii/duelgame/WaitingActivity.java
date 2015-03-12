@@ -55,7 +55,7 @@ public class WaitingActivity extends MyBaseActivity {
                         JSONObject query = new JSONObject();
                         try {
                             query.put("code", "RTP");
-                            wsc.send(query.toString());
+                            wsc.sendTextMessage(query.toString());
                         } catch (JSONException e) {
                             Log.d("---- StartActivity JSON", e.toString());
                         }
