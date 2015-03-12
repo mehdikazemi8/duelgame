@@ -18,6 +18,7 @@ class User(object):
         self.time = 10 * 60
         self.score = 0
         self.friends = {}
+        self.seen_data = None
         
         if not len(kwargs.keys()):
             return

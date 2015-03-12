@@ -10,8 +10,7 @@ class ClientMessageHandler(MessageHandler):
         print 'logined:', self.client.user_number
         
     def on_your_opponent_is(self):
-        print self.payload['oppData']
-        print 'Your opponent is', self.payload['oppData'][0]['name']
+        print 'Your opponent is', self.payload['opponents'][0]['name']
         self.client.loading()
     
     def on_start_playing(self):
@@ -42,17 +41,17 @@ class ClientMessageHandler(MessageHandler):
     def on_opponent_has_left(self):
         print 'opponent %s has left the game.'%self.payload['user_number']
         
-    def on_friend_is_in(self):
+    def on_friend_logged_in(self):
         print 'friend %s logged in.'%self.payload['user_number']
         
-    def on_friend_is_out(self):
+    def on_friend_logged_out(self):
         print 'friend %s logged out.'%self.payload['user_number']
         
-    def on_friend_request(self):
+    def on_recieve_friend_request(self):
         print self.payload['user_number'], self.payload['name'], self.payload['elo'], self.payload['avatar']
         self.client.send_answer_friend_request(self.payload['user_number'])
         
-    def on_recieve_friend_list(self):
+    def on_receive_friend_list(self):
         print self.payload['friends']
         
     def time(self):
@@ -83,11 +82,11 @@ class DuelClientProtocol(WebSocketClientProtocol):
     def onOpen(self):
         a = raw_input()
         if a == '':
-            self.sendMessage({'code':'RU', 'user_id':'2', 'name':'mehdi', 'ostan':'tehran', 'email':'2@2.com', 'avatar':'av2'})
+            self.sendMessage({'code':'RU', 'user_id':'3', 'name':'hesam', 'ostan':'tehran', 'email':'3@3.com', 'avatar':'av3'})
         else:
             self.sendMessage({'code':'UL', 'user_id':a})
         
-        #self.sendMessage({'code':'WP', 'category':1})
+        self.sendMessage({'code':'WP', 'category':5})
         self.sendMessage({'code':'GFL'})
         self.answeredThis = False
         
