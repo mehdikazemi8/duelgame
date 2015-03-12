@@ -6,35 +6,49 @@
         jumboMode="false"
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
     </item>
     <item
-        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\libs\autobahn-0.5.0.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-70739583fe7a45de418c5d4e5fbf3c4593540eb8.jar" />
+        sha1="5f62bc6117f905fd37955f6e2ebd3aad68701b60">
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-bbe7a9c2dd5f2d03997e668c2e50ceb5aabcc3b0.jar" />
     </item>
     <item
-        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\libs\jackson-core-asl-1.9.7.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2dd41e7570f5c73e63a6a1311671a60c817e1989">
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\jackson-core-asl-1.9.7-a5301df4858f0478cedf69bfd9db6694d2f59040.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\classes-35c5f1d673a07eede06ff29fd800beb3040e07a0.jar" />
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\classes-ea45ca9d331bc372d0b20a624051f9736268fe06.jar" />
     </item>
     <item
-        jar="E:\programming_languages\android\projects\DuelGame\app\libs\java_websocket.jar"
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="35f488c2a8cb28569c1bbf69abcb1b8b04db8e01">
-        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\java_websocket-7b1182abd885e50cbb2e1a4010c42ab5d43d263f.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ab17633cd3a1e3e034af545de94ffd2e231233eb.jar" />
     </item>
     <item
-        jar="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="E:\programming_languages\android\projects\DuelGame\app\build\intermediates\pre-dexed\debug\classes-c5061c7294fbf5f7045177cd74068ba4a5990763.jar" />
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\classes-721367b98aac0e2c35a52e2c64cce9d46ccef2bb.jar" />
+    </item>
+    <item
+        jar="E:\programming_languages\android\projects\duel333\duel\android\app\libs\jackson-mapper-asl-1.9.7.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3bc2efad5ceb9e24e44f731d4282b5df3ea6d23f">
+        <dex dex="E:\programming_languages\android\projects\duel333\duel\android\app\build\intermediates\pre-dexed\debug\jackson-mapper-asl-1.9.7-baae504463552e6cb7c5a93510f21cad614cea7f.jar" />
     </item>
 
 </items>

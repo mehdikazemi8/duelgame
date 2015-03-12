@@ -1,20 +1,21 @@
 package com.mehdiii.duelgame;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
-
-import java.net.URI;
 import java.util.Random;
+
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketException;
+import de.tavendo.autobahn.WebSocketHandler;
 
 public class MyBaseActivity extends Activity {
 
-    static protected WebSocketClient wsc = null;
+    static protected WebSocketConnection wsc = new WebSocketConnection();
     static protected String wsuri = "ws://192.168.128.168:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
 //    static protected String wsuri = "ws://192.168.1.5:9000";
@@ -25,9 +26,41 @@ public class MyBaseActivity extends Activity {
 
     static String myNameIs;
     static String oppNameIs;
-
     static int myPoints;
+
     static int oppPoints;
+
+    private String TAG = "---------------- ???";
+
+    protected boolean doConnect() {
+        try {
+            wsc.connect(wsuri, new WebSocketHandler() {
+                @Override
+                public void onOpen() {
+                    Log.d(TAG, "Status: Connected to " + wsuri);
+                }
+
+                @Override
+                public void onTextMessage(String payload) {
+                    Log.d(TAG, "Got echo: " + payload);
+
+                    Intent i = new Intent();
+                    i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    i.setAction("MESSAGE");
+                    i.putExtra("inputMessage", payload);
+                    sendBroadcast(i);
+                }
+
+                @Override
+                public void onClose(int code, String reason) {
+                    Log.d(TAG, "Connection lost.");
+                }
+            });
+        } catch (WebSocketException e) {
+            return false;
+        }
+        return true;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,37 +69,7 @@ public class MyBaseActivity extends Activity {
         myNameIs = "MEHDI";
 
         if (DONE == false) {
-            wsc = new WebSocketClient(URI.create(wsuri)) {
-                @Override
-                public void onOpen(ServerHandshake serverHandshake) {
-                    Log.d("-----", "onOpen " + serverHandshake.toString());
-                }
-
-                @Override
-                public void onMessage(String inputMessage) {
-                    Log.d("+++++++++++++++++", "onMessage " + inputMessage);
-
-
-                    Intent i = new Intent();
-                    i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    i.setAction("MESSAGE");
-                    i.putExtra("inputMessage", inputMessage);
-                    sendBroadcast(i);
-
-                }
-
-                @Override
-                public void onClose(int i, String s, boolean b) {
-                    Log.d("-----", "onClose " + s);
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.d("-----", "onError " + e.toString());
-                }
-            };
-            wsc.connect();
-
+            doConnect();
             DONE = true;
         }
     }
@@ -84,10 +87,9 @@ public class MyBaseActivity extends Activity {
     }
 
     static Random rnd = new Random();
-    static void shuffleArray(String[] ar)
-    {
-        for (int i = ar.length - 1; i > 0; i--)
-        {
+
+    static void shuffleArray(String[] ar) {
+        for (int i = ar.length - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
             // Simple swap
             String a = ar[index];
