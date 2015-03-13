@@ -1,7 +1,6 @@
 import sys, json, datetime, time, random, bson, string
 from duel import db
-from trueskill import Rating, TrueSkill
-env = TrueSkill()
+from trueskill import Rating
 
 class RegisterUserException(Exception):
     pass
