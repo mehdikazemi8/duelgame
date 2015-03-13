@@ -91,7 +91,7 @@ class User(object):
             raise RegisterUserException('user_id or name are not specified.')
 
         self.load(kwargs)
-        db.user.save(self.to_dict())
+        db.user.update({'user_id':self.user_id}, {'$set':self.to_dict()}, True)
 
     def update(self, **kwargs):
         if len(kwargs.keys()):
