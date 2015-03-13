@@ -1,5 +1,5 @@
 import sys, json, datetime, time, random, operator
-
+from random import shuffle
 from duel import db
 NUMBER_OF_PROBLEMS = 6
 
@@ -58,35 +58,45 @@ class Game(object):
                 continue
             participant.send_opponent_has_left(client)
     
-    def prepare(self):
-        to_ask_list = []
-        allProblems = list(db.question.find({}))
-        db_length = len(allProblems)
-        
-        self.to_ask = []
-        while True:
-            if len(self.to_ask) >= NUMBER_OF_PROBLEMS:
-                break
-        
-            push_index = random.randint(0, db_length-1)
-            if push_index in to_ask_list:
+    def prepare(self, category):
+        cat = str(category)
+        for key, participant in self.participants.iteritems():
+            if participant.user.seen_data:
                 continue
-            else:
-                to_ask_list.append(push_index)
-            
-            thisProblem = { 'question_text':allProblems[push_index]['title'], 
-                            'question_id':allProblems[push_index]['_id'],
-                            'options':[ allProblems[push_index]['answer'],
-                                        allProblems[push_index]['option_two'],
-                                        allProblems[push_index]['option_three'],
-                                        allProblems[push_index]['option_four']
+            seen_data = db.seen_data.find_one({'user_number':participant.user.user_number})
+            if seen_data is None:
+                seen_data = {}
+            participant.user.seen_data = seen_data
+        
+        all_cat_questions = participant.factory.all_questions[cat]
+        res = {}
+        for q_n in all_cat_questions:
+            values = []
+            for key, participant in self.participants.iteritems():
+                if participant.user.seen_data.has_key(cat) and participant.user.seen_data[cat].has_key(q_n):
+                    values.append(participant.user.seen_data[cat][q_n])
+                else:
+                    values.append(0)
+            res[q_n] = (abs(values[0]-values[1]), sum(values))
+        
+        res = sorted(res.items(), key=operator.itemgetter(1, 0))
+        res = [int(item[0]) for item in res[:12]]
+        res = sorted(res, key=lambda k: random.random())[:6]
+        
+        for question in db.question.find({'question_number': { '$in': res}}):
+            thisProblem = { 'question_text':question['title'], 
+                            'question_number':question['question_number'],
+                            'category':question['category'],
+                            'options':[ question['answer'],
+                                        question['option_two'],
+                                        question['option_three'],
+                                        question['option_four']
                                     ],
-                            
                         }
             self.to_ask.append(thisProblem)
-                
+            
         for key, participant in self.participants.iteritems():
-            participant.send_recieve_game_data()
+            participant.send_receive_game_data()
 
     def start(self):
         for key, participant in self.participants.iteritems():
@@ -150,11 +160,28 @@ class Game(object):
         to_save = []
         for key, participant in self.participants.iteritems():
             for item in participant.game_data.scores:
-                item['question_id'] = self.to_ask[item['question_index']]['question_id']
+                item['question_number'] = self.to_ask[item['question_index']]['question_number']
                 item['user_number'] = participant.user.user_number
                 item['game_id'] = self.hashid
                 to_save.append(item)
-        db.question_user.insert(to_save)
+        db.question_log.insert(to_save)
+    
+        query = {}
+        for question in self.to_ask:
+            query['%s.%s'%(str(question['category']), str(question['question_number']))] = 1
+        
+        for key, participant in self.participants.iteritems():
+            db.seen_data.update({'user_number':participant.user.user_number}, {'$inc':query}, True)
+            
+            if participant.user.seen_data:
+                for question in self.to_ask:
+                    cat = str(question['category'])
+                    q_n = str(question['question_number'])
+                    if not participant.user.seen_data.has_key(cat):
+                        participant.user.seen_data[cat] = {}
+                    if not participant.user.seen_data[cat].has_key(q_n):
+                        participant.user.seen_data[cat][q_n] = 0
+                    participant.user.seen_data[cat][q_n] += 1
     
     def delete(self):
         for key, participant in self.participants.iteritems():
