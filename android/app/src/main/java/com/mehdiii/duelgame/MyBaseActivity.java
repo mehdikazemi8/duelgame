@@ -16,9 +16,10 @@ import de.tavendo.autobahn.WebSocketHandler;
 public class MyBaseActivity extends Activity {
 
     static protected WebSocketConnection wsc = new WebSocketConnection();
-    static protected String wsuri = "ws://192.168.128.168:9000";
+//    static protected String wsuri = "ws://192.168.128.168:9000";
+//      static protected String wsuri = "ws://192.168.128.243:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-//    static protected String wsuri = "ws://192.168.1.5:9000";
+    static protected String wsuri = "ws://192.168.1.3:9000";
 
     static boolean DONE = false;
     static int NUMBER_OF_QUESTIONS = 6;
@@ -31,6 +32,23 @@ public class MyBaseActivity extends Activity {
     static int oppPoints;
 
     private String TAG = "---------------- ???";
+
+    static final int NUMBER_OF_AVATARS = 10;
+    static int[] avatarId = new int[NUMBER_OF_AVATARS + 1];
+
+    public void initAvatarIds()
+    {
+        avatarId[1] = R.drawable.av1;
+        avatarId[2] = R.drawable.av2;
+        avatarId[3] = R.drawable.av3;
+        avatarId[4] = R.drawable.av4;
+        avatarId[5] = R.drawable.av5;
+        avatarId[6] = R.drawable.av6;
+        avatarId[7] = R.drawable.av7;
+        avatarId[8] = R.drawable.av8;
+        avatarId[9] = R.drawable.av9;
+        avatarId[10] = R.drawable.av10;
+    }
 
     protected boolean doConnect() {
         try {
@@ -70,6 +88,7 @@ public class MyBaseActivity extends Activity {
 
         if (DONE == false) {
             doConnect();
+            initAvatarIds();
             DONE = true;
         }
     }

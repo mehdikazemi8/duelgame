@@ -9,23 +9,62 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity">
 
-    <EditText
-        android:id="@+id/input_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:background="@android:color/white"
-        android:gravity="center"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/input_name"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/duel"
-        android:clickable="true"
-        android:onClick="wantToPlay" />
+            <EditText
+                android:id="@+id/start_player_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="50dp"
+                android:background="@android:color/white"
+                android:hint="اسم" />
+
+            <Spinner
+                android:id="@+id/start_ostan_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/ostan_array"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/start_player_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="50dp"
+                android:background="@android:color/white"
+                android:hint="ایمیل"
+                android:inputType="textEmailAddress" />
+
+            <ImageView
+                android:id="@+id/start_his_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chooseAvatar"
+                android:text="انتخاب آواتار" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/duel"
+                android:clickable="true"
+                android:onClick="wantToPlay" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

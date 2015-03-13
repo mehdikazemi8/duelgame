@@ -78,6 +78,11 @@ public class StartActivity extends MyBaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void chooseAvatar(View v)
+    {
+        //startActivity();
+    }
 }
 
 
