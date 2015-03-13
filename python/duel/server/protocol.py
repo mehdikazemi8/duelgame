@@ -9,19 +9,11 @@ from duel import db
 from duel.base.user import User
 from duel.base.game import *
 
-from trueskill import TrueSkill
-env = TrueSkill()
-
 class ServerMessageHandler(MessageHandler):
     def on_register_user(self):
-        user = User()
-        user.create(**self.payload)
+        user = User(user_id=self.payload['user_id'])
+        user.save(**self.payload)
         self.client.login(user)
-        
-    def on_update_user_info(self):
-        user = User(user_number=self.payload['user_number'])
-        del self.payload['user_number']
-        user.update(**self.payload)
         
     def on_user_login(self):
         user = User(user_id=self.payload['user_id'])
@@ -53,14 +45,14 @@ class ServerMessageHandler(MessageHandler):
         
         #update self.client with new friendship request.
         self.client.user.friends[target_user_number] = {'status':'pending'}
-        self.client.user.update(friends=self.client.user.friends)
+        self.client.user.save(friends=self.client.user.friends)
         
         if self.client.factory.clients.has_key(target_user_number):
             #target_user_number is online
             #update target_client
             target_client = self.client.factory.clients[target_user_number]
             target_client.user.friends[self.client.user.user_number] = {'status':'request'}
-            target_client.user.update(friends=target_client.user.friends)
+            target_client.user.save(friends=target_client.user.friends)
             
             #send to target that you have one new friend request
             target_client.send_receive_friend_request(self.client)
@@ -69,7 +61,7 @@ class ServerMessageHandler(MessageHandler):
             #update target_user
             target_user = User(user_number=target_user_number)
             target_user.friends[self.client.user.user_number] = {'status':'request'}
-            target_user.update(friends=target_user.friends)
+            target_user.save(friends=target_user.friends)
         
     def on_answer_friend_request(self):
         # self.client.user.user_number answered friend request of target_user_number
@@ -82,7 +74,7 @@ class ServerMessageHandler(MessageHandler):
             friends[target_user_number] = {'status':'friend'}
         else:
             del friends[target_user_number]
-        self.client.user.update(friends=friends)
+        self.client.user.save(friends=friends)
         
         if self.client.factory.clients.has_key(target_user_number):
             #target_user_number is online
@@ -91,7 +83,7 @@ class ServerMessageHandler(MessageHandler):
                 target_client.user.friends[self.client.user.user_number] = {'status':'friend'}
             else:
                 del target_client.user.friends[self.client.user.user_number]
-            target_client.user.update(friends=target_client.user.friends)
+            target_client.user.save(friends=target_client.user.friends)
         else:
             #target user number is offline
             target_user = User(user_number=target_user_number)
@@ -99,7 +91,7 @@ class ServerMessageHandler(MessageHandler):
                 target_user.friends[self.client.user.user_number] = {'status':'friend'}
             else:
                 del target_user.friends[self.client.user.user_number]
-            target_user.update(friends=target_user.friends)
+            target_user.save(friends=target_user.friends)
         
     def on_get_friends_list(self):
         self.client.send_receive_friends_list()
@@ -158,7 +150,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         
     def send_login_info(self, user):
         if user:
-            msg = {'code':'LI', 'user_number':user.user_number, 'avatar':user.avatar, 'score':user.score, 'time':user.time, 'elo':env.expose(user.elo), 'events':[]}
+            msg = {'code':'LI', 'user_number':user.user_number, 'avatar':user.avatar, 'ostan':user.ostan, 'score':user.score, 'time':user.time, 'elo':user.elo.mu, 'events':[]}
         else:
             msg = {'code':'LI', 'user_number':None}
         self.sendMessage(msg)
@@ -167,7 +159,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         msg = {'code':'YOI', 'opponents':[]}
         
         for opponent in opponents:
-            msg['opponents'].append({'name':opponent.user.name, 'avatar':opponent.user.avatar, 'elo':env.expose(opponent.user.elo), 'user_number':opponent.user.user_number})
+            msg['opponents'].append({'name':opponent.user.name, 'avatar':opponent.user.avatar, 'elo':opponent.user.elo.mu, 'user_number':opponent.user.user_number, 'ostan':opponent.user.ostan})
         
         self.sendMessage(msg)
     
@@ -195,11 +187,11 @@ class DuelServerProtocol(WebSocketServerProtocol):
         self.sendMessage(msg)
     
     def send_the_end(self, result, rank, saved_time, new_elo):
-        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':env.expose(new_elo)}
+        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':new_elo.mu}
         self.sendMessage(msg)
         
     def send_receive_friend_request(self, client):
-        msg = {'code':'RFR', 'user_number': client.user.user_number, 'name':client.user.name, 'elo':env.expose(client.user.elo), 'avatar':client.user.avatar}
+        msg = {'code':'RFR', 'user_number': client.user.user_number, 'name':client.user.name, 'elo':client.user.elo.mu, 'avatar':client.user.avatar}
         self.sendMessage(msg)
         
     def send_opponent_has_left(self, client):
@@ -207,7 +199,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         self.sendMessage(msg)
         
     def send_friend_logged_in(self):
-        msg = {'code':'FLI', 'user_number': self.user.user_number, 'name':self.user.name, 'elo':env.expose(self.user.elo), 'avatar':self.user.avatar}
+        msg = {'code':'FLI', 'user_number': self.user.user_number, 'name':self.user.name, 'elo':self.user.elo.mu, 'avatar':self.user.avatar}
         for friend_user_number, friend_data in self.user.friends.iteritems():
             if friend_data['status'] != 'friend':
                 continue
@@ -216,7 +208,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
                 friend_client.sendMessage(msg)
                 
     def send_friend_logged_out(self):
-        msg = {'code':'FLO', 'user_number': self.user.user_number, 'name':self.user.name, 'elo':env.expose(self.user.elo), 'avatar':self.user.avatar}
+        msg = {'code':'FLO', 'user_number': self.user.user_number, 'name':self.user.name, 'elo':self.user.elo.mu, 'avatar':self.user.avatar}
         for friend_user_number, friend_data in self.user.friends.iteritems():
             if friend_data['status'] != 'friend':
                 continue

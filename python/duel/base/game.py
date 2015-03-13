@@ -108,7 +108,7 @@ class Game(object):
             participant.send_start_playing()
             
         for key, participant in self.participants.iteritems():
-            participant.user.update(time=participant.user.time-120)
+            participant.user.save(time=participant.user.time-120)
     
     def ask_question(self):
         first_player_step = self.participants.values()[0].game_data.current_step
@@ -182,7 +182,7 @@ class Game(object):
                 participant.user.statistics['draw'] += 1
                 participant.user.time += participant.game_data.saved_time
             participant.user.score += participant.game_data.score
-            participant.user.update()
+            participant.user.save()
         db.game_log.save({'game_id':self.hashid, 'participants':participants_user_number, 'winner':winners, 'dt':datetime.datetime.now()})
         
         to_save = []
@@ -199,7 +199,7 @@ class Game(object):
             query['%s.%s'%(str(question['category']), str(question['question_number']))] = 1
         
         for key, participant in self.participants.iteritems():
-            db.seen_data.update({'user_number':participant.user.user_number}, {'$inc':query}, True)
+            db.seen_data.save({'user_number':participant.user.user_number}, {'$inc':query}, True)
             
             if participant.user.seen_data:
                 for question in self.to_ask:

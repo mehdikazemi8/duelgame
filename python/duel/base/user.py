@@ -1,7 +1,6 @@
 import sys, json, datetime, time, random, bson, string
 from duel import db
-from trueskill import Rating, TrueSkill
-env = TrueSkill()
+from trueskill import Rating
 
 class RegisterUserException(Exception):
     pass
@@ -27,13 +26,7 @@ class User(object):
             return
         
         q = {}
-        if kwargs.has_key('_id'):
-            if type(kwargs['_id']) == str:
-                q['_id'] = bson.ObjectId(kwargs['_id'])
-            else:
-                q['_id'] = kwargs['_id']
-    
-        elif kwargs.has_key('user_number'):
+        if kwargs.has_key('user_number'):
             q['user_number'] = kwargs['user_number']
         elif kwargs.has_key('user_id'):
             q['user_id'] = kwargs['user_id']
@@ -83,23 +76,21 @@ class User(object):
             'friends':self.friends,
             'statistics':self.statistics
         }
-        
-    def create(self, **kwargs):
-        user_number = 1000000 + db.info.find_and_modify({'name':'user_number'}, {'$inc':{'value':1}}, new=True)['value']
-        self.user_number = self.int2base(int(user_number), 16)
-        
-        if not kwargs.has_key('user_id') or not kwargs.has_key('name'):
-            raise RegisterUserException('user_id or name are not specified.')
 
+    def save(self, **kwargs):
+        if not len(kwargs.keys()):
+            kwargs = self.to_dict()
+        
+        if self.user_number is None:
+            user_number = 1000000 + db.info.find_and_modify({'name':'user_number'}, {'$inc':{'value':1}}, new=True)['value']
+            self.user_number = self.int2base(int(user_number), 16)
+        
+        if self.user_id is None:
+            if not kwargs.has_key('user_id') or not kwargs.has_key('name'):
+                raise RegisterUserException('user_id or name are not specified.')
+        
         self.load(kwargs)
-        db.user.save(self.to_dict())
-
-    def update(self, **kwargs):
-        if len(kwargs.keys()):
-            db.user.update({'user_number':self.user_number}, {'$set':dict(kwargs)})
-            self.load(kwargs)
-        else:
-            db.user.update({'user_number':self.user_number}, {'$set':self.to_dict()})
+        db.user.update({'user_number':self.user_number}, {'$set':dict(kwargs)}, True)
         
     def int2base(self, x, base):
         digs = string.digits + string.letters
