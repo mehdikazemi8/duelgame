@@ -1,5 +1,7 @@
 import sys, json, datetime, time, random, bson, string
 from duel import db
+from trueskill import Rating, TrueSkill
+env = TrueSkill()
 
 class RegisterUserException(Exception):
     pass
@@ -14,11 +16,12 @@ class User(object):
         self.name = ''
         self.email = ''
         self.ostan = ''
-        self.elo = 1400
+        self.elo = Rating(1400)
         self.time = 10 * 60
         self.score = 0
         self.friends = {}
         self.seen_data = None
+        self.statistics = {'win':0, 'draw':0, 'lose':0}
         
         if not len(kwargs.keys()):
             return
@@ -53,13 +56,18 @@ class User(object):
         if data.has_key('ostan'):
             self.ostan = data['ostan']
         if data.has_key('elo'):
-            self.elo = data['elo']
+            if isinstance(Rating, type(data['elo'])):
+                self.elo = data['elo']
+            elif data['elo']:
+                self.elo = Rating(mu=float(data['elo'][0]), sigma=float(data['elo'][1]))
         if data.has_key('score'):
             self.score = data['score']
         if data.has_key('time'):
             self.time = data['time']
         if data.has_key('friends'):
             self.friends = data['friends']
+        if data.has_key('statistics'):
+            self.statistics = data['statistics']
     
     def to_dict(self):
         return {
@@ -69,26 +77,29 @@ class User(object):
             'email':self.email,
             'user_number':self.user_number,
             'ostan':self.ostan,
-            'elo':self.elo,
+            'elo':(self.elo.mu, self.elo.sigma),
             'score':self.score,
             'time':self.time,
-            'friends':self.friends
+            'friends':self.friends,
+            'statistics':self.statistics
         }
         
     def create(self, **kwargs):
-        user_number = db.info.find_and_modify({'name':'user_number'}, {'$inc':{'value':1}}, new=True)['value']
+        user_number = 1000000 + db.info.find_and_modify({'name':'user_number'}, {'$inc':{'value':1}}, new=True)['value']
         self.user_number = self.int2base(int(user_number), 16)
         
         if not kwargs.has_key('user_id') or not kwargs.has_key('name'):
             raise RegisterUserException('user_id or name are not specified.')
 
         self.load(kwargs)
-        
         db.user.save(self.to_dict())
 
     def update(self, **kwargs):
-        db.user.update({'user_number':self.user_number}, {'$set':dict(kwargs)})
-        self.load(kwargs)
+        if len(kwargs.keys()):
+            db.user.update({'user_number':self.user_number}, {'$set':dict(kwargs)})
+            self.load(kwargs)
+        else:
+            db.user.update({'user_number':self.user_number}, {'$set':self.to_dict()})
         
     def int2base(self, x, base):
         digs = string.digits + string.letters
