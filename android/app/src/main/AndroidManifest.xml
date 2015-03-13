@@ -46,6 +46,10 @@
             android:name=".TryToConnectActivity"
             android:label="@string/app_name"></activity>
 
+        <activity
+            android:name=".ChooseAvatarActivity"
+            android:label="@string/app_name"></activity>
+
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@ public class MyBaseActivity extends Activity {
 //    static protected String wsuri = "ws://192.168.128.168:9000";
 //      static protected String wsuri = "ws://192.168.128.243:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-    static protected String wsuri = "ws://192.168.1.3:9000";
+    static protected String wsuri = "ws://192.168.1.5:9000";
 
     static boolean DONE = false;
     static int NUMBER_OF_QUESTIONS = 6;
@@ -30,6 +30,8 @@ public class MyBaseActivity extends Activity {
     static int myPoints;
 
     static int oppPoints;
+
+    static int avatarIndex = -1;
 
     private String TAG = "---------------- ???";
 

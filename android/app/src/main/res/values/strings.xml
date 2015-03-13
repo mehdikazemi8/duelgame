@@ -9,6 +9,7 @@
 
     <string-array name="ostan_array">
         <item>استان</item>
+        <item>خارج از ایران</item>
         <item>آذربایجان شرقی</item>
         <item>آذربایجان غربی</item>
         <item>اردبیل</item>
