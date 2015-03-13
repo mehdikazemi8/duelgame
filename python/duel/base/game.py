@@ -1,6 +1,7 @@
 import sys, json, datetime, time, random, operator
 from random import shuffle
 from duel import db
+from trueskill import rate_1vs1
 NUMBER_OF_PROBLEMS = 6
 
 WAITING_FOR_OPPONENT = 0
@@ -105,6 +106,9 @@ class Game(object):
 
         for key, participant in self.participants.iteritems():
             participant.send_start_playing()
+            
+        for key, participant in self.participants.iteritems():
+            participant.user.update(time=participant.user.time-120)
     
     def ask_question(self):
         first_player_step = self.participants.values()[0].game_data.current_step
@@ -143,20 +147,44 @@ class Game(object):
                 rank += 1
             self.participants[rank_list[i][0]].game_data.rank_in_game = rank
         
-        if self.participants[rank_list[0][0]].game_data.rank_in_game == self.participants[rank_list[1][0]].game_data.rank_in_game:
-            self.participants[rank_list[0][0]].game_data.result_in_game = 0
-            self.participants[rank_list[1][0]].game_data.result_in_game = 0
+        p_a = self.participants[rank_list[0][0]]
+        p_b = self.participants[rank_list[1][0]]
+        
+        is_draw = False
+        if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
+            p_a.game_data.result_in_game = 0
+            p_b.game_data.result_in_game = 0
+            is_draw = True
         else:
-            self.participants[rank_list[0][0]].game_data.result_in_game = 1
-            self.participants[rank_list[1][0]].game_data.result_in_game = -1
-            
+            p_a.game_data.result_in_game = 1
+            p_b.game_data.result_in_game = -1
+        
+        p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=is_draw) 
+         
         for key, participant in self.participants.iteritems():
-            participant.send_the_end(result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time)
+            participant.send_the_end(result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
         
         self.save()
         self.delete()
 
     def save(self):
+        participants_user_number = []
+        winners = []
+        for key, participant in self.participants.iteritems():
+            participants_user_number.append(key)
+            if participant.game_data.result_in_game == 1:
+                winners.append(key)
+                participant.user.statistics['win'] += 1
+                participant.user.time += 120 + participant.game_data.saved_time
+            elif participant.game_data.result_in_game == -1:
+                participant.user.statistics['lose'] += 1
+            elif participant.game_data.result_in_game == 0:
+                participant.user.statistics['draw'] += 1
+                participant.user.time += participant.game_data.saved_time
+            participant.user.score += participant.game_data.score
+            participant.user.update()
+        db.game_log.save({'game_id':self.hashid, 'participants':participants_user_number, 'winner':winners, 'dt':datetime.datetime.now()})
+        
         to_save = []
         for key, participant in self.participants.iteritems():
             for item in participant.game_data.scores:
@@ -165,7 +193,7 @@ class Game(object):
                 item['game_id'] = self.hashid
                 to_save.append(item)
         db.question_log.insert(to_save)
-    
+        
         query = {}
         for question in self.to_ask:
             query['%s.%s'%(str(question['category']), str(question['question_number']))] = 1
@@ -191,8 +219,6 @@ class Game(object):
         try:
             del participant.factory.games[self.hashid]
         except: pass
-
-
-
-
-
+        
+        
+        
