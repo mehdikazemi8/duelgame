@@ -28,10 +28,11 @@ public class MyBaseActivity extends Activity {
     static String myNameIs;
     static String oppNameIs;
     static int myPoints;
-
     static int oppPoints;
 
     static int avatarIndex = -1;
+    static String playerName;
+    static String playerOstan;
 
     private String TAG = "---------------- ???";
 

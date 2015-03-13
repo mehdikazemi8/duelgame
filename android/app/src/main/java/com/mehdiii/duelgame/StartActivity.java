@@ -129,6 +129,7 @@ public class StartActivity extends MyBaseActivity {
     public void onResume()
     {
         super.onResume();
+
         if(avatarIndex != -1)
         {
             ImageView hisAvatar = (ImageView) findViewById(R.id.start_his_avatar);
