@@ -40,6 +40,8 @@ class DuelServerFactory(WebSocketServerFactory):
             if l is None:
                 l = client
             else:
+                if l.game_data.category == client.game_data.category:
+                    continue
                 r = client
             
             if l and r:

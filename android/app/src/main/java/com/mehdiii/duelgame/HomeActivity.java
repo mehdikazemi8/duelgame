@@ -1,35 +1,58 @@
 package com.mehdiii.duelgame;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProfileActivity extends MyBaseActivity {
+public class HomeActivity extends MyBaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_home);
 
-        ImageView pic = (ImageView) findViewById(R.id.pic);
-        Bitmap logobit = BitmapFactory.decodeResource(getResources(), R.drawable.pic);
-        logobit = ImageHelper.getResizedBitmap(logobit, 400, 400);
-        logobit = ImageHelper.getRoundedCornerBitmap(this, logobit,
-                100, 400, 400, false, false, false, false);
-        pic.setImageBitmap(logobit);
+        try{
+            JSONObject parser = new JSONObject(loginInfo);
+            myAvatarIndex = parser.getInt("avatar");
+            myTime = parser.getInt("time");
+            myOstanInt = parser.getInt("ostan");
+            myScore = parser.getInt("score");
+            myUserNumber = parser.getString("user_number");
+            myElo = (int) parser.getDouble("elo");
+            myName = parser.getString("name");
 
+        }catch (JSONException e)
+        {
+            Log.d("---- HOME Activity, loginInfo", e.toString());
+        }
+
+        setData();
+    }
+
+    public void setTextView(int id, String str)
+    {
+        ((TextView) findViewById(id)).setText(str);
+    }
+
+    public void setData()
+    {
+        setTextView(R.id.home_my_name, myName);
+        setTextView(R.id.home_my_elo, ""+myElo);
+        setTextView(R.id.home_my_score, ""+myScore);
+        setTextView(R.id.home_my_time, ""+myTime);
+
+        ((ImageView) findViewById(R.id.home_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
     }
 
     @Override
@@ -51,6 +74,13 @@ public class ProfileActivity extends MyBaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        setData();
     }
 
     public void wantToPlay(View v) {

@@ -78,12 +78,14 @@ class Game(object):
                     values.append(participant.user.seen_data[cat][q_n])
                 else:
                     values.append(0)
+            print "Values ", values
             res[q_n] = (abs(values[0]-values[1]), sum(values))
         
         res = sorted(res.items(), key=operator.itemgetter(1, 0))
         res = [int(item[0]) for item in res[:12]]
+        # print "res11 ", res
         res = sorted(res, key=lambda k: random.random())[:6]
-        
+        # print "res22 ", res
         for question in db.question.find({'question_number': { '$in': res}}):
             thisProblem = { 'question_text':question['title'], 
                             'question_number':question['question_number'],
@@ -94,6 +96,7 @@ class Game(object):
                                         question['option_four']
                                     ],
                         }
+            # print "problem ", thisProblem
             self.to_ask.append(thisProblem)
             
         for key, participant in self.participants.iteritems():
@@ -162,6 +165,8 @@ class Game(object):
         p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=is_draw) 
          
         for key, participant in self.participants.iteritems():
+            if participant.game_data.result_in_game == -1:
+                participant.game_data.saved_time = 0
             participant.send_the_end(result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
         
         self.save()

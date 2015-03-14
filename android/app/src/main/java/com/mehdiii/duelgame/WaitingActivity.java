@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,16 +32,35 @@ public class WaitingActivity extends MyBaseActivity {
                     parser = new JSONObject(inputMessage);
                     messageCode = parser.getString("code");
                     if (messageCode.compareTo("YOI") == 0) {
-                        String oppName = parser.getString("data");
+
+                        String allOpponentsStr = parser.getString("opponents");
+                        Log.d("---- allOpponentsStr", allOpponentsStr);
+                        JSONArray allOpponents = new JSONArray(allOpponentsStr);
+                        JSONObject firstOpponent = new JSONObject( allOpponents.get(0).toString() );
+
+                        Log.d("------ firstOpponent.toString()", firstOpponent.toString());
+
+                        oppName = firstOpponent.getString("name");
+                        oppAvatarIndex = firstOpponent.getInt("avatar");
 
                         TextView oppNameTV = (TextView) findViewById(R.id.opponent_name);
                         oppNameTV.setText(oppName);
 
-                        oppNameIs = oppName;
+                        int oppOstanInt = firstOpponent.getInt("ostan");
+                        int oppElo = (int)firstOpponent.getDouble("elo");
+
+                    } else if (messageCode.compareTo("SP") == 0) {
+                        myTime -= 120;
+                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+                        finish();
+                    } else if (messageCode.compareTo("RGD") == 0){
 
                         for(int problemIndex = 0; problemIndex < NUMBER_OF_QUESTIONS; problemIndex ++)
                         {
                             questionsToAsk[problemIndex] = new Question();
+
+                            Log.d("!!!! parser.getString() ", parser.toString());
+
                             JSONObject thisQuestion = new JSONObject( parser.getString("problem"+problemIndex) );
                             questionsToAsk[problemIndex].questionText = thisQuestion.getString("question_text");
                             JSONArray options = thisQuestion.getJSONArray("options");
@@ -59,9 +77,8 @@ public class WaitingActivity extends MyBaseActivity {
                         } catch (JSONException e) {
                             Log.d("---- StartActivity JSON", e.toString());
                         }
-                    } else if (messageCode.compareTo("SP") == 0) {
-                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
-                        finish();
+
+                        Log.d("===== so'alat khoonde shod", "ddd");
                     }
                 } catch (JSONException e) {
                     Log.d("---------", "can not parse string Waiting Activity");

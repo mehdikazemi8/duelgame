@@ -1,12 +1,7 @@
 package com.mehdiii.duelgame;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +46,7 @@ public class ChooseAvatarActivity extends MyBaseActivity {
                 avat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        avatarIndex = Integer.parseInt( v.getContentDescription().toString() );
+                        myAvatarIndex = Integer.parseInt( v.getContentDescription().toString() );
                         finish();
                     }
                 });

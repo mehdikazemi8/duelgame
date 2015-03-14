@@ -9,6 +9,20 @@
         <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-bb50a78df3a1c75e42c76ddb01b0343df6b9f92e.jar" />
     </item>
     <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-e5b36b3b63fa00f349a32e9bca8c4dace5739c0c.jar" />
+    </item>
+    <item
+        jar="C:\Users\MeHdi\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
+    </item>
+    <item
         jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -28,20 +42,6 @@
         revision="21.1.2"
         sha1="3bc2efad5ceb9e24e44f731d4282b5df3ea6d23f">
         <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\jackson-mapper-asl-1.9.7-2b910c62904269fd58d75f1ab5e05f0cacdf16eb.jar" />
-    </item>
-    <item
-        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-e5b36b3b63fa00f349a32e9bca8c4dace5739c0c.jar" />
-    </item>
-    <item
-        jar="C:\Users\MeHdi\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
     </item>
 
 </items>

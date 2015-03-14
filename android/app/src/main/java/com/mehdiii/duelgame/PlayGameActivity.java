@@ -14,10 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class PlayGameActivity extends MyBaseActivity {
 
@@ -185,6 +183,8 @@ public class PlayGameActivity extends MyBaseActivity {
 
                         Log.d("sssssssssssss", inputMessage.toString());
                     } else if (messageCode.compareTo("GE") == 0) {
+
+                        resultInfo = inputMessage;
                         startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
                         finish();
                     }
@@ -252,8 +252,8 @@ public class PlayGameActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
-        setTextView(R.id.my_name, myNameIs);
-        setTextView(R.id.op_name, oppNameIs);
+        setTextView(R.id.my_name, myName);
+        setTextView(R.id.op_name, oppName);
 
         oppPoints = myPoints = 0;
         problemIndex = 0;

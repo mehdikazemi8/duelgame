@@ -14,15 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/game_result_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="تو بردی"
-            android:textColor="@android:color/white"
-            android:textSize="25sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,44 +21,21 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/game_result_opponent_avatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1.0"
-                android:src="@drawable/my_circle" />
-
-            <ImageView
-                android:id="@+id/game_result_my_avatar"
+                android:id="@+id/home_my_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1.0"
                 android:src="@drawable/pic" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/home_my_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/game_result_opponent_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:gravity="center"
-                android:src="@drawable/pic"
-                android:text="999" />
-
-            <TextView
-                android:id="@+id/game_result_my_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:gravity="center"
-                android:src="@drawable/pic"
-                android:text="999" />
-        </LinearLayout>
+            android:gravity="center"
+            android:text="اسم شما" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +57,7 @@
                     android:text="زمان شما" />
 
                 <TextView
-                    android:id="@+id/game_result_saved_time"
+                    android:id="@+id/home_my_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -113,7 +81,7 @@
                     android:text="score" />
 
                 <TextView
-                    android:id="@+id/game_result_new_score"
+                    android:id="@+id/home_my_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -137,7 +105,7 @@
                     android:text="رده ی شما" />
 
                 <TextView
-                    android:id="@+id/game_result_new_elo"
+                    android:id="@+id/home_my_elo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -147,35 +115,13 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center|center_vertical|center_horizontal"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/game_result_add_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="دوئل با دیگران" />
-
-            <Button
-                android:id="@+id/game_result_play_again_the_same"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="دوئل دوباره" />
-
-            <Button
-                android:id="@+id/game_result_play_again_other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="افزودن به دوستان" />
-
-        </LinearLayout>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/duel"
+            android:clickable="true"
+            android:onClick="wantToPlay" />
 
     </LinearLayout>
 

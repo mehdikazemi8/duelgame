@@ -1,62 +1,98 @@
 package com.mehdiii.duelgame;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.UUID;
-
 public class StartActivity extends MyBaseActivity {
+
+    protected class TitleBarListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("%%%%%%%%%%%", "onReceive Start Activity");
+
+            if (intent.getAction().equals("MESSAGE")) {
+                Log.d("-------", "tooye if MESSAGE");
+
+                String inputMessage = intent.getExtras().getString("inputMessage");
+                String messageCode;
+                JSONObject parser = null;
+
+                try {
+                    parser = new JSONObject(inputMessage);
+                    messageCode = parser.getString("code");
+                    if (messageCode.compareTo("LI") == 0) {
+                        Log.d("**** Start Activity ", inputMessage);
+                        Log.d("**** Start Activity ", "--" + parser.getString("user_number") + "--");
+
+                        if(parser.getString("user_number").equals("null"))
+                        {
+                            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                        }
+                        else
+                        {
+                            loginInfo = inputMessage;
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        }
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    Log.d("---------", "can not parse string");
+                }
+            }
+        }
+    }
+
+    TitleBarListener mListener;
+    String userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        TelephonyManager teleManager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        mListener = new TitleBarListener();
+        registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
+        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
         final String deviceId, simSerialNumber;
         deviceId = "" + teleManager.getDeviceId();
         simSerialNumber = "" + teleManager.getSimSerialNumber();
+        userId = deviceId + simSerialNumber;
 
-        String identify = deviceId + simSerialNumber;
-
-        if(wsc.isConnected() == false)
-        {
+        if (wsc.isConnected() == false) {
             Log.d("^^^^^", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
 
+        ViewCompat.postOnAnimationDelayed(new TextView(this), new Runnable() {
+            public void run() {
+                if (wsc.isConnected() == true) {
+                    JSONObject query = new JSONObject();
+                    try {
+                        query.put("code", "UL");
+                        query.put("user_id", userId);
 
-        /*
-        else
-        {
-            send 'identify' to server to see if this device has registered before.
-            if(this device has been registered before)
-            {
-                get the name and put it in some variable.
-                go to Profile Page
+                        Log.d("--- Start Activity", query.toString());
+
+                        wsc.sendTextMessage(query.toString());
+                    } catch (JSONException e) {
+                        Log.d("---- START ACTIVITY", e.toString());
+                    }
+                }
             }
-            else
-                show First Login Page.
-        }
-        * */
-
-
-        //startActivity(new Intent(this, ProfileActivity.class));
-        //this.finish();
+        }, 2000);
     }
 
     @Override
@@ -77,77 +113,13 @@ public class StartActivity extends MyBaseActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    public String getStringFromEditText(int id)
-    {
-        EditText et = (EditText) findViewById(id);
-        return et.getText().toString();
-    }
-
-    public String getStringFromSpinner(int id)
-    {
-        Spinner sp = (Spinner) findViewById(id);
-        return sp.getSelectedItem().toString();
-    }
-
-    public void registerMe(View v)
-    {
-        String playerName = getStringFromEditText(R.id.start_player_name);
-        String playerEmail = getStringFromEditText(R.id.start_player_email);
-        String playerAvatar = "" + avatarIndex;
-        String playerOstan = getStringFromSpinner(R.id.start_ostan_name);
-
-        Log.d("%%%% ", playerName);
-        Log.d("%%%% ", playerEmail);
-        Log.d("%%%% ", playerAvatar);
-        Log.d("%%%% ", playerOstan);
-
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "RU");
-            query.put("user_id", "abc");
-            query.put("name", playerName);
-            query.put("ostan", playerOstan);
-            query.put("email", playerEmail);
-            query.put("avatar", ""+avatarIndex);
-
-            wsc.sendTextMessage(query.toString());
-        } catch (JSONException e) {
-            Log.d("---- START ACTIVITY", e.toString());
-        }
-    }
-
-    public void chooseAvatar(View v)
-    {
-        startActivity(new Intent(this, ChooseAvatarActivity.class));
-    }
-
     @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        if(avatarIndex != -1)
-        {
-            ImageView hisAvatar = (ImageView) findViewById(R.id.start_his_avatar);
-            hisAvatar.setImageResource(avatarId[avatarIndex]);
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mListener);
     }
+
 }
-
-
-/*
-        EditText inputName = (EditText) findViewById(R.id.input_name);
-
-        Log.d("--- input", "^^^" + inputName.getText().toString() + "$$$");
-
-        if (inputName.toString() == null || inputName.toString().isEmpty()) {
-            Log.d("----- ", "inputName empty!");
-            return;
-        }
-
-
-* */

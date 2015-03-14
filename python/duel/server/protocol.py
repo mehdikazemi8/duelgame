@@ -149,8 +149,8 @@ class DuelServerProtocol(WebSocketServerProtocol):
         self.send_friend_logged_in()
         
     def send_login_info(self, user):
-        if user:
-            msg = {'code':'LI', 'user_number':user.user_number, 'avatar':user.avatar, 'ostan':user.ostan, 'score':user.score, 'time':user.time, 'elo':user.elo.mu, 'events':[]}
+        if user.user_number:
+            msg = {'code':'LI', 'name':user.name, 'user_number':user.user_number, 'avatar':user.avatar, 'ostan':user.ostan, 'score':user.score, 'time':user.time, 'elo':user.elo.mu, 'events':[]}
         else:
             msg = {'code':'LI', 'user_number':None}
         self.sendMessage(msg)
@@ -172,6 +172,9 @@ class DuelServerProtocol(WebSocketServerProtocol):
             del question_i['question_number']
             msg['problem' + str(i)] = question_i
             
+            # print i, "------------"
+            
+        # print msg
         self.sendMessage(msg)
         
     def send_start_playing(self):

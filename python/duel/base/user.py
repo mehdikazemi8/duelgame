@@ -11,10 +11,10 @@ class User(object):
         """
         self.user_number = None
         self.user_id = None
-        self.avatar = 'av1'
+        self.avatar = 1
         self.name = ''
         self.email = ''
-        self.ostan = ''
+        self.ostan = -1
         self.elo = Rating(1400)
         self.time = 10 * 60
         self.score = 0

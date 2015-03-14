@@ -86,7 +86,7 @@ class DuelClientProtocol(WebSocketClientProtocol):
         else:
             self.sendMessage({'code':'UL', 'user_id':a})
         
-        self.sendMessage({'code':'WP', 'category':5})
+        self.sendMessage({'code':'WP', 'category':2})
         self.sendMessage({'code':'GFL'})
         self.answeredThis = False
         

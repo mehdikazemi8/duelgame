@@ -53,7 +53,10 @@ public class CategoryActivity extends MyBaseActivity {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "WP");
-            query.put("category", "1");
+            query.put("category", v.getContentDescription().toString());
+
+            Log.d("-- send WP", query.toString());
+
             wsc.sendTextMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- StartActivity JSON", e.toString());
