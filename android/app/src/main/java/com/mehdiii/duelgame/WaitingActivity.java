@@ -60,14 +60,16 @@ public class WaitingActivity extends MyBaseActivity {
                     } else if (messageCode.compareTo("SP") == 0) {
                         myTime -= 120;
 
-                        android.os.Handler waitingHandler = new android.os.Handler();
-                        waitingHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
-                                finish();
-                            }
-                        }, 2000);
+//                        android.os.Handler waitingHandler = new android.os.Handler();
+//                        waitingHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                            }
+//                        }, 2000);
+
+                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+                        finish();
 
                     } else if (messageCode.compareTo("RGD") == 0) {
 
