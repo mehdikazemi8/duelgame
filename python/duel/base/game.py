@@ -155,10 +155,10 @@ class Game(object):
         if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
             p_a.game_data.result_in_game = 0
             p_b.game_data.result_in_game = 0
-        elif p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
+        elif p_a.game_data.rank_in_game < p_b.game_data.rank_in_game:
             p_a.game_data.result_in_game = 1
             p_b.game_data.result_in_game = -1
-        elif p_a.game_data.rank_in_game < p_b.game_data.rank_in_game:
+        elif p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
             p_b.game_data.result_in_game = 1
             p_a.game_data.result_in_game = -1
         
