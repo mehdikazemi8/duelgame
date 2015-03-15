@@ -17,6 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 public class WaitingActivity extends MyBaseActivity {
 
     protected class TitleBarListener extends BroadcastReceiver {
@@ -43,11 +47,13 @@ public class WaitingActivity extends MyBaseActivity {
                         oppName = firstOpponent.getString("name");
                         oppAvatarIndex = firstOpponent.getInt("avatar");
 
-                        TextView oppNameTV = (TextView) findViewById(R.id.opponent_name);
-                        oppNameTV.setText(oppName);
-
                         int oppOstanInt = firstOpponent.getInt("ostan");
                         int oppElo = (int)firstOpponent.getDouble("elo");
+
+                        ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(avatarId[oppAvatarIndex]);
+                        setTextView(R.id.waiting_opponent_name, oppName);
+                        setTextView(R.id.waiting_opponent_ostan, getOstanStr(oppOstanInt) );
+                        setTextView(R.id.waiting_opponent_elo, ""+oppElo);
 
                     } else if (messageCode.compareTo("SP") == 0) {
                         myTime -= 120;
@@ -94,15 +100,18 @@ public class WaitingActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
 
-        ImageView pic = (ImageView) findViewById(R.id.pic);
-        Bitmap logobit = BitmapFactory.decodeResource(getResources(), R.drawable.pic);
-        logobit = ImageHelper.getResizedBitmap(logobit, 400, 400);
-        logobit = ImageHelper.getRoundedCornerBitmap(this, logobit,
-                100, 400, 400, false, false, false, false);
-        pic.setImageBitmap(logobit);
-
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
+
+        ((ImageView) findViewById(R.id.waiting_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
+        setTextView(R.id.waiting_my_name, myName);
+        setTextView(R.id.waiting_my_ostan, getOstanStr(myOstanInt));
+        setTextView(R.id.waiting_my_elo, ""+myElo);
+    }
+
+    public void setTextView(int id, String str)
+    {
+        ((TextView) findViewById(id)).setText(str);
     }
 
     @Override
