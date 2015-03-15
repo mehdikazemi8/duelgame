@@ -167,7 +167,7 @@ class Game(object):
         for key, participant in self.participants.iteritems():
             if participant.game_data.result_in_game == -1:
                 participant.game_data.saved_time = 0
-            participant.send_the_end(result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
+            participant.send_the_end(score=participant.game_data.score, result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
         
         self.save()
         self.delete()

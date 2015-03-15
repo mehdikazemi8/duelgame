@@ -12,7 +12,9 @@ from duel.base.game import *
 class ServerMessageHandler(MessageHandler):
     def on_register_user(self):
         user = User(user_id=self.payload['user_id'])
-        user.save(**self.payload)
+        data = self.payload
+        del data['code']
+        user.save(**data)
         self.client.login(user)
         
     def on_user_login(self):
@@ -188,8 +190,8 @@ class DuelServerProtocol(WebSocketServerProtocol):
         msg = {'code':'OS', 'user_number':user_number, 'time':time, 'ok':ok}
         self.sendMessage(msg)
     
-    def send_the_end(self, result, rank, saved_time, new_elo):
-        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':new_elo.mu}
+    def send_the_end(self, score, result, rank, saved_time, new_elo):
+        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':new_elo.mu, 'score':score}
         self.sendMessage(msg)
         
     def send_receive_friend_request(self, client):
