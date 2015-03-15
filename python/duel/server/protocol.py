@@ -112,16 +112,19 @@ class ServerMessageHandler(MessageHandler):
 class DuelServerProtocol(WebSocketServerProtocol):
     """ Handle the server side of a client connection.
     """
-    def onOpen(self):
-        self.is_connected = True
+    def __init__(self):
+        self.is_connected = False
         self.status = None
         
         self.game_data = None
         self.game = None
-        self.hashid = self.peer.split(':')[2]
+        self.hashid = None
         self.user = None
-        self.factory.register(self)
         
+    def onOpen(self):
+        self.is_connected = True
+        self.hashid = self.peer.split(':')[2]
+        self.factory.register(self)
         print 'Connection %s established.'%self.hashid
         
     def do_ping(self, payload=None):
@@ -141,7 +144,8 @@ class DuelServerProtocol(WebSocketServerProtocol):
         WebSocketServerProtocol.connectionLost(self, reason)
         if self.game:
             self.game.left(self)
-        self.send_friend_logged_out()
+        if self.user and self.user.user_number:
+            self.send_friend_logged_out()
         self.factory.unregister(self)
 
     def login(self, user):
