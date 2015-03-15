@@ -23,6 +23,9 @@ class ServerMessageHandler(MessageHandler):
         except: user = None
         self.client.login(user)
     
+    def on_user_change_status(self):
+        pass
+    
     def on_wanna_play(self):
         self.client.game_data = GameData()
         self.client.game_data.category = self.payload['category']
@@ -32,7 +35,10 @@ class ServerMessageHandler(MessageHandler):
         self.client.game.start()
     
     def on_get_question(self):
-        self.client.game.new_score(self.client, self.payload['time'], self.payload['ok'])
+        hint_options = []
+        if self.payload.has_key('hint_options'):
+            hint_options = self.payload['hint_options']
+        self.client.game.new_score(self.client, self.payload['time'], self.payload['ok'], hint_options)
         
         self.client.game_data.current_step += 1
         if self.client.game_data.current_step <= 6:
