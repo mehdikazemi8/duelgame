@@ -14,7 +14,7 @@ class DuelServerFactory(WebSocketServerFactory):
         
     """
     
-    def __init__(self, url, debug = False, debugCodePaths = False):
+    def __init__(self, url, debug = False, debugCodePaths=False):
         WebSocketServerFactory.__init__(self, url, debug=debug, debugCodePaths=debugCodePaths)
         
         # Initialize data structures
@@ -33,14 +33,14 @@ class DuelServerFactory(WebSocketServerFactory):
         """
         
         l = r = None
-        for hashid, client in self.clients.iteritems():
+        for key, client in self.clients.iteritems():
             if client.game_data is None or client.game_data.status != WAITING_FOR_OPPONENT:
                 continue
             
             if l is None:
                 l = client
             else:
-                if l.game_data.category == client.game_data.category:
+                if l.game_data.category != client.game_data.category:
                     continue
                 r = client
             
@@ -83,17 +83,23 @@ class DuelServerFactory(WebSocketServerFactory):
                 
     def update_questions(self):
         l_q_n = int(db.info.find_one({'name':'question_number'})['value'])
-        if l_q_n <= self.last_question_number_added_to_db:
-            return
         for question in db.question.find({'accepted':{'$ne':False}, 'question_number':{'$gt':self.last_question_number_added_to_db}}, {'question_number':1, 'category':1}):
+            if question['question_number'] == 1000000000:
+                l_q_n += 1
+                question['question_number'] = l_q_n
+                db.question.update({'_id':question['_id']}, {'$set':{'question_number':l_q_n}})
+
             cat = str(question['category'])
             q_n = str(question['question_number'])
+            
             if not self.all_questions.has_key(cat):
                 self.all_questions[cat] = []
             if q_n not in self.all_questions[cat]:
                 self.all_questions[cat].append(q_n)
-        self.last_question_number_added_to_db = l_q_n
         
+        if l_q_n > self.last_question_number_added_to_db:
+            db.info.update({'name':'question_number'}, {'$set':{'value':l_q_n}})
+            self.last_question_number_added_to_db = l_q_n
         
         
         

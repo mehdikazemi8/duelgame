@@ -116,10 +116,11 @@ class DuelServerProtocol(WebSocketServerProtocol):
         
         self.game_data = None
         self.game = None
-        self.hashid = self.peer
+        self.hashid = self.peer.split(':')[2]
         self.user = None
-        
         self.factory.register(self)
+        
+        print 'Connection %s established.'%self.hashid
         
     def do_ping(self, payload=None):
         pass
@@ -147,6 +148,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         
         self.send_login_info(user)
         self.send_friend_logged_in()
+        print '%s(%s) loginned.'%(self.user.name, self.hashid)
         
     def send_login_info(self, user):
         if user.user_number:
@@ -172,9 +174,6 @@ class DuelServerProtocol(WebSocketServerProtocol):
             del question_i['question_number']
             msg['problem' + str(i)] = question_i
             
-            # print i, "------------"
-            
-        # print msg
         self.sendMessage(msg)
         
     def send_start_playing(self):
