@@ -12,7 +12,9 @@ from duel.base.game import *
 class ServerMessageHandler(MessageHandler):
     def on_register_user(self):
         user = User(user_id=self.payload['user_id'])
-        user.save(**self.payload)
+        data = self.payload
+        del data['code']
+        user.save(**data)
         self.client.login(user)
         
     def on_user_login(self):
@@ -116,10 +118,11 @@ class DuelServerProtocol(WebSocketServerProtocol):
         
         self.game_data = None
         self.game = None
-        self.hashid = self.peer
+        self.hashid = self.peer.split(':')[2]
         self.user = None
-        
         self.factory.register(self)
+        
+        print 'Connection %s established.'%self.hashid
         
     def do_ping(self, payload=None):
         pass
@@ -147,6 +150,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         
         self.send_login_info(user)
         self.send_friend_logged_in()
+        print '%s(%s) loginned.'%(self.user.name, self.hashid)
         
     def send_login_info(self, user):
         if user.user_number:
@@ -172,9 +176,6 @@ class DuelServerProtocol(WebSocketServerProtocol):
             del question_i['question_number']
             msg['problem' + str(i)] = question_i
             
-            # print i, "------------"
-            
-        # print msg
         self.sendMessage(msg)
         
     def send_start_playing(self):
@@ -189,8 +190,8 @@ class DuelServerProtocol(WebSocketServerProtocol):
         msg = {'code':'OS', 'user_number':user_number, 'time':time, 'ok':ok}
         self.sendMessage(msg)
     
-    def send_the_end(self, result, rank, saved_time, new_elo):
-        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':new_elo.mu}
+    def send_the_end(self, score, result, rank, saved_time, new_elo):
+        msg = {'code':'GE', 'result':result, 'rank':rank, 'saved_time':saved_time, 'new_elo':new_elo.mu, 'score':score}
         self.sendMessage(msg)
         
     def send_receive_friend_request(self, client):

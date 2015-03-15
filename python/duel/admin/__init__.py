@@ -52,9 +52,10 @@ class Save:
                 'category':category,
                 'answer':answer}
         if item_id != '':
-            db.question.update({'_id':bson.ObjectId(item_id)}, data)
+            db.question.update({'_id':bson.ObjectId(item_id)}, {'$set':data})
             _id = item_id
         else:
+            data['question_number'] = 1000000000
             _id = db.question.save(data)
         return json.dumps({'_id':str(_id), 'msg':'OK'})
 

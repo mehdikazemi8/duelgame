@@ -31,7 +31,7 @@ class GameData(object):
                 self.score += 5
             self.saved_time += time
         else:
-            self.score += -1
+            pass#self.score += -1
         
 class Game(object):
     def __init__(self):
@@ -82,10 +82,9 @@ class Game(object):
             res[q_n] = (abs(values[0]-values[1]), sum(values))
         
         res = sorted(res.items(), key=operator.itemgetter(1, 0))
-        res = [int(item[0]) for item in res[:12]]
-        # print "res11 ", res
+        res = [int(item[0]) for item in res[:10]]
         res = sorted(res, key=lambda k: random.random())[:6]
-        # print "res22 ", res
+        
         for question in db.question.find({'question_number': { '$in': res}}):
             thisProblem = { 'question_text':question['title'], 
                             'question_number':question['question_number'],
@@ -96,7 +95,6 @@ class Game(object):
                                         question['option_four']
                                     ],
                         }
-            # print "problem ", thisProblem
             self.to_ask.append(thisProblem)
             
         for key, participant in self.participants.iteritems():
@@ -139,35 +137,37 @@ class Game(object):
             if participant.game_data.status != GAME_END:
                 return
         
+        #make rank list
         rank_list = {}
         for key, participant in self.participants.iteritems():
-            rank_list[key] = participant.game_data.score    
-        rank_list = sorted(rank_list.items(), key=operator.itemgetter(1), reverse=True)
+            if not rank_list.has_key(participant.game_data.score):
+                rank_list[participant.game_data.score] = []
+            rank_list[participant.game_data.score].append(key)
+        rank_list = sorted(rank_list.items(), key=operator.itemgetter(0), reverse=True)
         
-        rank = 1
-        for i in range(len(rank_list)):
-            if i > 0 and rank_list[i-1][1] != rank_list[i][1]:
-                rank += 1
-            self.participants[rank_list[i][0]].game_data.rank_in_game = rank
-        
-        p_a = self.participants[rank_list[0][0]]
-        p_b = self.participants[rank_list[1][0]]
-        
-        is_draw = False
+        #make rank for participants
+        for key, participant in self.participants.iteritems():
+            for i in range(len(rank_list)):
+                if key in rank_list[i][1]:
+                    participant.game_data.rank_in_game = i + 1
+            
+        p_a, p_b = self.participants.values()
         if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
             p_a.game_data.result_in_game = 0
             p_b.game_data.result_in_game = 0
-            is_draw = True
-        else:
+        elif p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
             p_a.game_data.result_in_game = 1
             p_b.game_data.result_in_game = -1
+        elif p_a.game_data.rank_in_game < p_b.game_data.rank_in_game:
+            p_b.game_data.result_in_game = 1
+            p_a.game_data.result_in_game = -1
         
-        p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=is_draw) 
+        p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=p_a.game_data.rank_in_game==p_b.game_data.rank_in_game) 
          
         for key, participant in self.participants.iteritems():
             if participant.game_data.result_in_game == -1:
                 participant.game_data.saved_time = 0
-            participant.send_the_end(result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
+            participant.send_the_end(score=participant.game_data.score, result=participant.game_data.result_in_game, rank=participant.game_data.rank_in_game, saved_time=participant.game_data.saved_time, new_elo=participant.user.elo)
         
         self.save()
         self.delete()
