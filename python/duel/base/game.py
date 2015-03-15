@@ -152,15 +152,15 @@ class Game(object):
                     participant.game_data.rank_in_game = i + 1
             
         p_a, p_b = self.participants.values()
+        if p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
+            p_a, p_b = p_b, p_a
+            
         if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
             p_a.game_data.result_in_game = 0
             p_b.game_data.result_in_game = 0
-        elif p_a.game_data.rank_in_game < p_b.game_data.rank_in_game:
+        else:
             p_a.game_data.result_in_game = 1
             p_b.game_data.result_in_game = -1
-        elif p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
-            p_b.game_data.result_in_game = 1
-            p_a.game_data.result_in_game = -1
         
         p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=p_a.game_data.rank_in_game==p_b.game_data.rank_in_game) 
          
