@@ -21,14 +21,17 @@ class GameData(object):
         self.rank_in_game = None
         self.result_in_game = None
     
-    def add_score(self, time, ok):
+    def add_score(self, time, ok, is_first):
         self.scores.append({'time':time, 'ok':ok, 'dt':datetime.datetime.now(), 'question_index':self.current_step - 1})
         
         if ok == 1:
-            if self.current_step <=5:
-                self.score += 3
+            if is_first:
+                if self.current_step <=5:
+                    self.score += 3
+                else:
+                    self.score += 5
             else:
-                self.score += 5
+                self.score += 1
             self.saved_time += time
         else:
             pass#self.score += -1
@@ -125,7 +128,17 @@ class Game(object):
         if self.participants[client.user.user_number].game_data.current_step < 1:
             return
         
-        self.participants[client.user.user_number].game_data.add_score(time, ok)
+        is_first = True
+        opponent = None
+        for key, participant in self.participants.iteritems():
+            if key == client.user.user_number:
+                continue
+            opponent = participant
+            break
+            
+        if len(opponent.game_data.scores) == len(client.game_data.scores) + 1 and opponent.game_data.scores[-1]['ok'] == 1:
+            is_first = False
+        self.participants[client.user.user_number].game_data.add_score(time, ok, is_first)
         
         for key, participant in self.participants.iteritems():
             if key == client.user.user_number:

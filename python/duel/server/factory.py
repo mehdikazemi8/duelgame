@@ -64,7 +64,7 @@ class DuelServerFactory(WebSocketServerFactory):
     def register(self, client):
         """ Registering server side client (server protocol) into factory
         """
-        if client.user:
+        if client.user and client.user.user_number:
             self.clients[client.user.user_number] = client
             if self.clients.has_key(client.hashid):
                 del self.clients[client.hashid]
