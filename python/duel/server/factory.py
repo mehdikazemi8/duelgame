@@ -46,7 +46,7 @@ class DuelServerFactory(WebSocketServerFactory):
                 continue
             
             
-            print "match_making  ", client.user.name, GAMESTATUS[ client.game_data.status ]
+            print "match_making  ", client.user.name, GAMESTATUS[client.game_data.status]
             
             if l is None:
                 l = client
