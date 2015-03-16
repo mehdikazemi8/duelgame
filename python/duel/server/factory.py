@@ -31,11 +31,22 @@ class DuelServerFactory(WebSocketServerFactory):
         """ Mach making loops every second in reactor,
             and make an appropriate opponent to every client that wants to play.
         """
-        
+                
+        GAMESTATUS = []
+        GAMESTATUS.append("WAITING_FOR_OPPONENT")
+        GAMESTATUS.append("JOINING")
+        GAMESTATUS.append("PREGAME_GAP")
+        GAMESTATUS.append("READY_TO_PLAY")
+        GAMESTATUS.append("PLAYING")
+        GAMESTATUS.append("GAME_END")
+    
         l = r = None
         for key, client in self.clients.iteritems():
             if client.game_data is None or client.game_data.status != WAITING_FOR_OPPONENT:
                 continue
+            
+            
+            print "match_making  ", client.user.name, GAMESTATUS[ client.game_data.status ]
             
             if l is None:
                 l = client
@@ -54,6 +65,8 @@ class DuelServerFactory(WebSocketServerFactory):
                 game.prepare(r.game_data.category)
                 
                 l = r = None
+        
+        print "-"*50
         
         reactor.callLater(1, self.match_making)
         

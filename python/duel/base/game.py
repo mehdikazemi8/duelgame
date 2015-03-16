@@ -22,19 +22,20 @@ class GameData(object):
         self.result_in_game = None
         self.hint_options = []
         self.hint_options_cost = 0
-        self.client.game_data.times = {}
+        self.times = {}
     
-    def add_score(self, time, ok, is_first, hint_options):
+    def add_score(self, time, ok, hint_options):
         self.scores.append({'time':time, 'ok':ok, 'dt':datetime.datetime.now(), 'question_index':self.current_step - 1})
                 
         if ok == 1:
-            if is_first:
-                if self.current_step <=5:
+            if time >= 10:
+                if self.current_step < 5:
                     self.score += 3
                 else:
                     self.score += 5
             else:
                 self.score += 1
+                
             self.saved_time += time
         else:
             pass#self.score += -1
@@ -66,7 +67,7 @@ class Game(object):
                 continue
             participant.send_opponent_has_left(client)
     
-        del self.participants[client.user.user_name]
+        del self.participants[client.user.user_number]
         
     def prepare(self, category):
         cat = str(category)
@@ -127,29 +128,26 @@ class Game(object):
         for key, participant in self.participants.iteritems():
             if participant.game_data.current_step != first_player_step:
                 return
-            
+        
         for key, participant in self.participants.iteritems():
             participant.send_ask_question()
 
     def new_score(self, client, time, ok, hint_options):
-        if self.participants[client.user.user_number].game_data.current_step < 1:
-            return
+        # is_first = True
+        # opponent = None
+        # for key, participant in self.participants.iteritems():
+            # if key == client.user.user_number:
+                # continue
+            # opponent = participant
+            # break
         
-        is_first = True
-        opponent = None
-        for key, participant in self.participants.iteritems():
-            if key == client.user.user_number:
-                continue
-            opponent = participant
-            break
+        # for item in opponent.game_data.scores:
+            # if item['question_index'] != client.game_data.current_step:
+                # continue
+            # if item['ok'] == 1:
+                # is_first = False
         
-        for item in opponent.game_data.scores:
-            if item['question_index'] != client.game_data.current_index - 1:
-                continue
-            if item['ok'] == 1:
-                is_first = False
-        
-        self.participants[client.user.user_number].game_data.add_score(time, ok, is_first, hint_options)
+        self.participants[client.user.user_number].game_data.add_score(time, ok, hint_options)
         
         for key, participant in self.participants.iteritems():
             if key == client.user.user_number:

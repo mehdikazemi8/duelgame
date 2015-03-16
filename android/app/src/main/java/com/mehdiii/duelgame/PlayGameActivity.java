@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,11 +23,10 @@ public class PlayGameActivity extends MyBaseActivity {
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
 
-    String rightAnswer;
-    int answeredThis;
-    boolean answeredThisCorrect;
-    int opponentAnsweredThis;
-    int whenDoIDisable;
+    String correctAnswer;
+    int iAnsweredThisTime;
+    boolean iAnsweredThisCorrect;
+    int opponentAnsweredThisTime;
     int problemIndex;
 
     protected class TitleBarListener extends BroadcastReceiver {
@@ -38,89 +36,16 @@ public class PlayGameActivity extends MyBaseActivity {
                 String inputMessage = intent.getExtras().getString("inputMessage");
                 String messageCode;
                 JSONObject parser = null;
-
                 try {
                     parser = new JSONObject(inputMessage);
                     messageCode = parser.getString("code");
                     if (messageCode.compareTo("AQ") == 0) {
-
-                        if (timeToAnswer != null)
-                            timeToAnswer.cancel();
-
-                        answeredThisCorrect = false;
-                        answeredThis = -1;
-                        opponentAnsweredThis = -1;
-                        remainingTimeOfThisQuestion = 20;
-
-                        ((Button) findViewById(R.id.option_0)).setClickable(true);
-                        ((Button) findViewById(R.id.option_1)).setClickable(true);
-                        ((Button) findViewById(R.id.option_2)).setClickable(true);
-                        ((Button) findViewById(R.id.option_3)).setClickable(true);
-
-                        ((Button) findViewById(R.id.option_0)).setBackgroundResource(android.R.drawable.btn_default);
-                        ((Button) findViewById(R.id.option_1)).setBackgroundResource(android.R.drawable.btn_default);
-                        ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
-                        ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
-
-                        String questionText = questionsToAsk[problemIndex].questionText;
-                        setTextView(R.id.question, questionText);
-
-                        String[] opts = questionsToAsk[problemIndex].options;
-                        problemIndex++;
-
-                        rightAnswer = opts[0];
-
-                        shuffleArray(opts);
-                        shuffleArray(opts);
-
-                        setButton(R.id.option_0, opts[0]);
-                        setButton(R.id.option_1, opts[1]);
-                        setButton(R.id.option_2, opts[2]);
-                        setButton(R.id.option_3, opts[3]);
-
-                        timeToAnswer = new CountDownTimer(DURATION, 1000) {
-                            @Override
-                            public void onTick(long arg0) {
-                                TextView remainingTime = (TextView) findViewById(R.id.remaining_time);
-                                remainingTimeOfThisQuestion = arg0 / 1000;
-
-                                if (remainingTimeOfThisQuestion <= whenDoIDisable) {
-                                    return;
-                                }
-                                remainingTime.setText("" + (arg0 / 1000));
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                doDisableButtons();
-                                TextView remainingTime = (TextView) findViewById(R.id.remaining_time);
-                                remainingTime.setText("0");
-
-                                JSONObject query = new JSONObject();
-                                try {
-                                    query.put("code", "GQ");
-                                    query.put("time", -1);
-                                    query.put("ok", 0);
-
-                                    wsc.sendTextMessage(query.toString());
-                                } catch (JSONException e) {
-                                    Log.d("---- GQ GQ GQ", e.toString());
-                                }
-                            }
-                        };
-
-                        timeToAnswer.start();
-                        whenDoIDisable = 0;
-
+                        askQuestion();
                     } else if (messageCode.compareTo("OS") == 0) {
-                        TextView opScore = (TextView) findViewById(R.id.op_score);
-
                         if (parser.getInt("ok") == 1) {
-                            whenDoIDisable = parser.getInt("time") - 1;
+                            opponentAnsweredThisTime = parser.getInt("time");
 
-                            opponentAnsweredThis = parser.getInt("time");
-
-                            if (answeredThisCorrect == false || answeredThis <= opponentAnsweredThis) {
+                            if (opponentAnsweredThisTime >= 10) {
                                 if (problemIndex == 6)
                                     oppPoints += 5;
                                 else
@@ -135,9 +60,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
                             }
                         }
-
-                        opScore.setText("" + oppPoints);
-
+                        setTextView(R.id.op_score, "" + oppPoints);
                     } else if (messageCode.compareTo("GE") == 0) {
 
                         resultInfo = inputMessage;
@@ -151,21 +74,86 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
-    public void answered(View v) {
+    public void askQuestion() {
+        if (timeToAnswer != null)
+            timeToAnswer.cancel();
 
-        if (answeredThis != -1) {
+        ((Button) findViewById(R.id.option_0)).setClickable(true);
+        ((Button) findViewById(R.id.option_1)).setClickable(true);
+        ((Button) findViewById(R.id.option_2)).setClickable(true);
+        ((Button) findViewById(R.id.option_3)).setClickable(true);
+
+        ((Button) findViewById(R.id.option_0)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_1)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
+
+        iAnsweredThisCorrect = false;
+        iAnsweredThisTime = -1;
+        opponentAnsweredThisTime = -1;
+        remainingTimeOfThisQuestion = 20;
+
+        String questionText = questionsToAsk[problemIndex].questionText;
+        setTextView(R.id.question, questionText);
+
+        String[] opts = questionsToAsk[problemIndex].options;
+        problemIndex++;
+        correctAnswer = opts[0];
+
+        shuffleArray(opts);
+        shuffleArray(opts);
+
+        setButton(R.id.option_0, opts[0]);
+        setButton(R.id.option_1, opts[1]);
+        setButton(R.id.option_2, opts[2]);
+        setButton(R.id.option_3, opts[3]);
+
+        timeToAnswer = new CountDownTimer(DURATION, 1000) {
+            @Override
+            public void onTick(long arg0) {
+                remainingTimeOfThisQuestion = arg0 / 1000;
+                setTextView(R.id.remaining_time, "" + (arg0 / 1000));
+
+                Log.d("--- ", myName + " - " + remainingTimeOfThisQuestion);
+            }
+
+            @Override
+            public void onFinish() {
+                setTextView(R.id.remaining_time, "0");
+
+                if (iAnsweredThisCorrect == true)
+                    return;
+
+                JSONObject query = new JSONObject();
+                try {
+                    query.put("code", "GQ");
+                    query.put("time", -1);
+                    query.put("ok", 0);
+
+                    wsc.sendTextMessage(query.toString());
+                } catch (JSONException e) {
+                    Log.d("---- GQ GQ GQ", e.toString());
+                }
+            }
+        };
+
+        timeToAnswer.start();
+    }
+
+    public void answered(View v) {
+        if (iAnsweredThisTime != -1) {
             return;
         }
 
-        answeredThis = (int) remainingTimeOfThisQuestion;
+        iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
         doDisableButtons();
 
         int ok = 0;
-        if (rightAnswer.compareTo(((Button) v).getText().toString()) == 0) {
+        if (correctAnswer.compareTo(((Button) v).getText().toString()) == 0) {
 
-            answeredThisCorrect = true;
-            if (answeredThis >= opponentAnsweredThis) {
+            iAnsweredThisCorrect = true;
+            if (iAnsweredThisTime >= 10) {
                 if (problemIndex == 6)
                     myPoints += 5;
                 else
@@ -212,26 +200,16 @@ public class PlayGameActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
+        mListener = new TitleBarListener();
+        registerReceiver(mListener, new IntentFilter("MESSAGE"));
+
         setTextView(R.id.my_name, myName);
         setTextView(R.id.op_name, oppName);
 
         oppPoints = myPoints = 0;
         problemIndex = 0;
 
-        mListener = new TitleBarListener();
-        registerReceiver(mListener, new IntentFilter("MESSAGE"));
-
-        // ************* Start of the game
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "GQ");
-            query.put("time", -1);
-            query.put("ok", 0);
-
-            wsc.sendTextMessage(query.toString());
-        } catch (JSONException e) {
-            Log.d("---- GQ GQ GQ", e.toString());
-        }
+        askQuestion();
     }
 
     @Override
@@ -266,5 +244,22 @@ public class PlayGameActivity extends MyBaseActivity {
         ((Button) findViewById(R.id.option_1)).setClickable(false);
         ((Button) findViewById(R.id.option_2)).setClickable(false);
         ((Button) findViewById(R.id.option_3)).setClickable(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(" --- ", myName + " pressed onBack");
+
+        JSONObject query = new JSONObject();
+        try {
+            query.put("code", "ULG");
+
+            wsc.sendTextMessage(query.toString());
+        } catch (JSONException e) {
+            Log.d("---- GQ GQ GQ", e.toString());
+        }
+
+        timeToAnswer.cancel();
+        finish();
     }
 }

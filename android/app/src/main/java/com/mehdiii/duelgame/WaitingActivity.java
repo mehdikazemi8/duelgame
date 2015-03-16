@@ -162,4 +162,20 @@ public class WaitingActivity extends MyBaseActivity {
         super.onDestroy();
         unregisterReceiver(mListener);
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(" --- ", myName + " pressed onBack Waiting");
+
+        JSONObject query = new JSONObject();
+        try {
+            query.put("code", "ULG");
+
+            wsc.sendTextMessage(query.toString());
+        } catch (JSONException e) {
+            Log.d("---- GQ GQ GQ", e.toString());
+        }
+
+        finish();
+    }
 }

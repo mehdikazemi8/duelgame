@@ -41,12 +41,11 @@ class ServerMessageHandler(MessageHandler):
             hint_options = self.payload['hint_options']
             
         self.client.game.new_score(self.client, self.payload['time'], self.payload['ok'], hint_options)
-        
         if self.payload['ok'] == 0 and self.payload['time'] >= 0:
             return
         
         self.client.game_data.current_step += 1
-        if self.client.game_data.current_step <= 6:
+        if self.client.game_data.current_step < 6:
             self.client.game.ask_question()
         else:
             self.client.game_data.status = GAME_END
@@ -146,6 +145,7 @@ class DuelServerProtocol(WebSocketServerProtocol):
         pass
         
     def onMessage(self, payload, isBinary):
+        print payload
         ServerMessageHandler(self, payload, isBinary)
     
     def sendMessage(self, payload, isBinary=False, fragmentSize=None, sync=False, doNotCompress=False):
