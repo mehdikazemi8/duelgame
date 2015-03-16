@@ -21,6 +21,10 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 
 public class WaitingActivity extends MyBaseActivity {
@@ -64,12 +68,21 @@ public class WaitingActivity extends MyBaseActivity {
 //                        waitingHandler.postDelayed(new Runnable() {
 //                            @Override
 //                            public void run() {
-//
+//                                Log.d("-- runnable ", "start play Game");
+//                                startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+//                                finish();
 //                            }
 //                        }, 2000);
 
-                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
-                        finish();
+                        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+                        ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("-- runnable ", "start play Game");
+                                startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+                                finish();
+                            }
+                        }, 2, TimeUnit.SECONDS);
 
                     } else if (messageCode.compareTo("RGD") == 0) {
 

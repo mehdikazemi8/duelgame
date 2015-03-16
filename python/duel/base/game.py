@@ -23,7 +23,7 @@ class GameData(object):
     
     def add_score(self, time, ok):
         self.scores.append({'time':time, 'ok':ok, 'dt':datetime.datetime.now(), 'question_index':self.current_step - 1})
-        
+                
         if ok == 1:
             if self.current_step <=5:
                 self.score += 3

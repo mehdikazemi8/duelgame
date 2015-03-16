@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,25 +25,16 @@ public class PlayGameActivity extends MyBaseActivity {
     CountDownTimer timeToAnswer = null;
 
     String rightAnswer;
-    boolean answeredThis;
+    int answeredThis;
+    boolean answeredThisCorrect;
+    int opponentAnsweredThis;
     int whenDoIDisable;
-
     int problemIndex;
-
-    Color ccc;
-
-    public void callCancel() {
-        timeToAnswer.onFinish();
-    }
 
     protected class TitleBarListener extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("%%%%%%%%%%%", "salam, onReceive Play Game");
-
             if (intent.getAction().equals("MESSAGE")) {
-                Log.d("-------", "tooye if MESSAGE");
-
                 String inputMessage = intent.getExtras().getString("inputMessage");
                 String messageCode;
                 JSONObject parser = null;
@@ -55,7 +47,9 @@ public class PlayGameActivity extends MyBaseActivity {
                         if (timeToAnswer != null)
                             timeToAnswer.cancel();
 
-                        answeredThis = false;
+                        answeredThisCorrect = false;
+                        answeredThis = -1;
+                        opponentAnsweredThis = -1;
                         remainingTimeOfThisQuestion = 20;
 
                         ((Button) findViewById(R.id.option_0)).setClickable(true);
@@ -68,9 +62,7 @@ public class PlayGameActivity extends MyBaseActivity {
                         ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
                         ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
 
-
                         String questionText = questionsToAsk[problemIndex].questionText;
-
                         setTextView(R.id.question, questionText);
 
                         String[] opts = questionsToAsk[problemIndex].options;
@@ -92,27 +84,7 @@ public class PlayGameActivity extends MyBaseActivity {
                                 TextView remainingTime = (TextView) findViewById(R.id.remaining_time);
                                 remainingTimeOfThisQuestion = arg0 / 1000;
 
-                                Log.d("------ on tick ", "" + remainingTimeOfThisQuestion + " " + whenDoIDisable);
                                 if (remainingTimeOfThisQuestion <= whenDoIDisable) {
-                                    Log.d("--- finished", "aaa");
-                                    doDisableButtons();
-//                                    this.onFinish();
-//                                    timeToAnswer = null;
-//                                    callCancel();
-
-//                                    this.cancel();
-
-
-//                                    JSONObject query = new JSONObject();
-//                                    try {
-//                                        query.put("code", "GQ");
-//                                        query.put("time", -1);
-//                                        query.put("ok", 0);
-//
-//                                        wsc.send(query.toString());
-//                                    } catch (JSONException e) {
-//                                        Log.d("---- GQ GQ GQ", e.toString());
-//                                    }
                                     return;
                                 }
                                 remainingTime.setText("" + (arg0 / 1000));
@@ -120,12 +92,9 @@ public class PlayGameActivity extends MyBaseActivity {
 
                             @Override
                             public void onFinish() {
+                                doDisableButtons();
                                 TextView remainingTime = (TextView) findViewById(R.id.remaining_time);
                                 remainingTime.setText("0");
-
-                                if (answeredThis == true) {
-                                    return;
-                                }
 
                                 JSONObject query = new JSONObject();
                                 try {
@@ -146,42 +115,29 @@ public class PlayGameActivity extends MyBaseActivity {
                     } else if (messageCode.compareTo("OS") == 0) {
                         TextView opScore = (TextView) findViewById(R.id.op_score);
 
-                        Log.d("-----", "here");
-
                         if (parser.getInt("ok") == 1) {
                             whenDoIDisable = parser.getInt("time") - 1;
-                            Log.d("#### remaining ", "" + remainingTimeOfThisQuestion);
-                            Log.d("#### time to disable ", "" + whenDoIDisable);
 
-                            // ****************************** delete this
-                            timeToAnswer.cancel();
-                            doDisableButtons();
-                            if (answeredThis == false) {
-                                JSONObject query = new JSONObject();
-                                try {
-                                    query.put("code", "GQ");
-                                    query.put("time", -1);
-                                    query.put("ok", 0);
+                            opponentAnsweredThis = parser.getInt("time");
 
-                                    wsc.sendTextMessage(query.toString());
-                                } catch (JSONException e) {
-                                    Log.d("---- GQ GQ GQ", e.toString());
-                                }
+                            if (answeredThisCorrect == false || answeredThis <= opponentAnsweredThis) {
+                                if (problemIndex == 6)
+                                    oppPoints += 5;
+                                else
+                                    oppPoints += 3;
+                            } else {
+                                oppPoints += 1;
                             }
-
-                            if (problemIndex == 6)
-                                oppPoints += 5;
-                            else
-                                oppPoints += 3;
                         } else {
-                            if (parser.getInt("time") != -1) {
-                                oppPoints += -1;
+                            if (parser.getInt("time") != -1) {  // wrong answer
+                                //oppPoints += -1;
+                            } else if (parser.getInt("time") == -1) {   // not answered
+
                             }
                         }
 
                         opScore.setText("" + oppPoints);
 
-                        Log.d("sssssssssssss", inputMessage.toString());
                     } else if (messageCode.compareTo("GE") == 0) {
 
                         resultInfo = inputMessage;
@@ -196,38 +152,42 @@ public class PlayGameActivity extends MyBaseActivity {
     }
 
     public void answered(View v) {
-        //timeToAnswer.cancel();
+
+        if (answeredThis != -1) {
+            return;
+        }
+
+        answeredThis = (int) remainingTimeOfThisQuestion;
 
         doDisableButtons();
 
-        answeredThis = true;
-
         int ok = 0;
         if (rightAnswer.compareTo(((Button) v).getText().toString()) == 0) {
-            if (problemIndex == 6)
-                myPoints += 5;
-            else
-                myPoints += 3;
+
+            answeredThisCorrect = true;
+            if (answeredThis >= opponentAnsweredThis) {
+                if (problemIndex == 6)
+                    myPoints += 5;
+                else
+                    myPoints += 3;
+            } else {
+                myPoints += 1;
+            }
             setTextView(R.id.my_score, "" + myPoints);
             ((Button) v).setBackgroundColor(Color.GREEN);
             ok = 1;
         } else {
-            myPoints += -1;
-            setTextView(R.id.my_score, "" + myPoints);
+            //myPoints += -1;
+            //setTextView(R.id.my_score, "" + myPoints);
 
             ((Button) v).setBackgroundColor(Color.RED);
         }
-
-        Log.d("$$$$", rightAnswer);
-        Log.d("$$$$", ((Button) v).getText().toString());
 
         JSONObject query = new JSONObject();
         try {
             query.put("code", "GQ");
             query.put("time", remainingTimeOfThisQuestion);
             query.put("ok", ok);
-
-            Log.d("aaaaaaa", query.toString());
 
             wsc.sendTextMessage(query.toString());
         } catch (JSONException e) {

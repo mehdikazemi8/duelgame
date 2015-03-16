@@ -86,63 +86,91 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/question"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="صورت سوال"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/option_0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:contentDescription="0"
-                android:onClick="answered"
-                android:text="گزینه ی اول"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="صورت سوال"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/option_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:contentDescription="1"
-                android:onClick="answered"
-                android:text="گزینه ی دوم"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                <Button
+                    android:id="@+id/option_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:contentDescription="0"
+                    android:onClick="answered"
+                    android:text="گزینه ی اول"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/option_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:contentDescription="2"
-                android:onClick="answered"
-                android:text="گزینه ی سوم"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                <Button
+                    android:id="@+id/option_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:contentDescription="1"
+                    android:onClick="answered"
+                    android:text="گزینه ی دوم"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/option_3"
+                <Button
+                    android:id="@+id/option_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:contentDescription="2"
+                    android:onClick="answered"
+                    android:text="گزینه ی سوم"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/option_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:contentDescription="3"
+                    android:onClick="answered"
+                    android:text="گزینه ی چهارم"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:contentDescription="3"
-                android:onClick="answered"
-                android:text="گزینه ی چهارم"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/play_game_remove_one_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="حذف یک گزینه" />
+
+                <Button
+                    android:id="@+id/play_game_select_two_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="انتخاب دو گزینه" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

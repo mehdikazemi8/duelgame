@@ -60,6 +60,8 @@ public class GameResultActivity extends MyBaseActivity {
             gameStatus = parser.getInt("result");       // just this class
             savedTime = parser.getInt("saved_time");    // just this class
 
+            Log.d("-- score ye nafar ", myName + " " + parser.getInt("score"));
+
             if(gameStatus == 0){
                 myTime = myTime + savedTime;
                 gameVertict = "مساوی شد";
