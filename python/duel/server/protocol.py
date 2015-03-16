@@ -23,11 +23,12 @@ class ServerMessageHandler(MessageHandler):
         except: user = None
         self.client.login(user)
     
-    def on_user_change_status(self):
-        pass
+    def on_user_left_game(self):
+        print 'ULG', self.client.user.user_number
     
     def on_wanna_play(self):
         self.client.game_data = GameData()
+        self.client.game_data.times['WP'] = datetime.datetime.now()
         self.client.game_data.category = self.payload['category']
         
     def on_ready_to_play(self):
@@ -38,7 +39,11 @@ class ServerMessageHandler(MessageHandler):
         hint_options = []
         if self.payload.has_key('hint_options'):
             hint_options = self.payload['hint_options']
+            
         self.client.game.new_score(self.client, self.payload['time'], self.payload['ok'], hint_options)
+        
+        if self.payload['ok'] == 0 and self.payload['time'] >= 0:
+            return
         
         self.client.game_data.current_step += 1
         if self.client.game_data.current_step <= 6:
@@ -110,6 +115,7 @@ class ServerMessageHandler(MessageHandler):
                 'option_two':self.payload['option_two'],
                 'option_three':self.payload['option_three'],
                 'option_four':self.payload['option_four'],
+                'author':self.client.user.user_number,
                 'accepted':False,
                 }
         db.question.save(data)
@@ -183,7 +189,8 @@ class DuelServerProtocol(WebSocketServerProtocol):
         to_ask = self.game.to_ask
         for i in range(len(to_ask)):
             question_i = to_ask[i].copy()
-            del question_i['question_number']
+            for key in ['question_number', 'category']:
+                del question_i[key]
             msg['problem' + str(i)] = question_i
             
         self.sendMessage(msg)
@@ -229,7 +236,6 @@ class DuelServerProtocol(WebSocketServerProtocol):
             if self.factory.clients.has_key(friend_user_number):
                 friend_client = self.factory.clients[friend_user_number]
                 friend_client.sendMessage(msg)
-        
         
     def send_receive_friends_list(self):
         msg = {'code':'RFL', 'friends': {}}

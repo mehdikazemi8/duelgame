@@ -20,11 +20,12 @@ class GameData(object):
         self.saved_time = 0
         self.rank_in_game = None
         self.result_in_game = None
+        self.hint_options = []
         self.hint_options_cost = 0
+        self.client.game_data.times = {}
     
     def add_score(self, time, ok, is_first, hint_options):
         self.scores.append({'time':time, 'ok':ok, 'dt':datetime.datetime.now(), 'question_index':self.current_step - 1})
-        self.hint_options_cost += len(hint_options)
         
         if ok == 1:
             if is_first:
@@ -44,6 +45,7 @@ class Game(object):
         self.category = None
         self.to_ask = []
         self.hashid = id(self)
+        self.game_cost = 120
     
     def join(self, client):
         client.game_data.status = JOINING
@@ -113,10 +115,11 @@ class Game(object):
                 return
 
         for key, participant in self.participants.iteritems():
+            participant.game_data.status = PLAYING
             participant.send_start_playing()
             
         for key, participant in self.participants.iteritems():
-            participant.user.save(time=participant.user.time-120)
+            participant.user.save(time=participant.user.time - self.game_cost)
     
     def ask_question(self):
         first_player_step = self.participants.values()[0].game_data.current_step
@@ -139,9 +142,13 @@ class Game(object):
                 continue
             opponent = participant
             break
-            
-        if len(opponent.game_data.scores) == len(client.game_data.scores) + 1 and opponent.game_data.scores[-1]['ok'] == 1:
-            is_first = False
+        
+        for item in opponent.game_data.scores:
+            if item['question_index'] != client.game_data.current_index - 1:
+                continue
+            if item['ok'] == 1:
+                is_first = False
+        
         self.participants[client.user.user_number].game_data.add_score(time, ok, is_first, hint_options)
         
         for key, participant in self.participants.iteritems():
@@ -197,7 +204,7 @@ class Game(object):
             if participant.game_data.result_in_game == 1:
                 winners.append(key)
                 participant.user.statistics['win'] += 1
-                participant.user.time += 120 + participant.game_data.saved_time
+                participant.user.time += self.game_cost + participant.game_data.saved_time
             elif participant.game_data.result_in_game == -1:
                 participant.user.statistics['lose'] += 1
             elif participant.game_data.result_in_game == 0:
@@ -207,12 +214,14 @@ class Game(object):
             participant.user.time -= participant.game_data.hint_options_cost
             participant.user.score += participant.game_data.score
             participant.user.save()
+        
         db.game_log.save({'game_id':self.hashid, 'participants':participants_user_number, 'winner':winners, 'dt':datetime.datetime.now()})
         
         to_save = []
         for key, participant in self.participants.iteritems():
             for item in participant.game_data.scores:
                 item['question_number'] = self.to_ask[item['question_index']]['question_number']
+                item['category'] = self.to_ask[item['question_index']]['category']
                 item['user_number'] = participant.user.user_number
                 item['game_id'] = self.hashid
                 to_save.append(item)
