@@ -173,19 +173,23 @@ class Game(object):
                 if key in rank_list[i][1]:
                     participant.game_data.rank_in_game = i + 1
             
-        p_a, p_b = self.participants.values()
-        if p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
-            p_a, p_b = p_b, p_a
+        p_a = self.participants.values()[0]
+        if len(self.participants.values) > 1:
+            p_b = self.participants.values()[1]
+            if p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
+                p_a, p_b = p_b, p_a
+                
+            if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
+                p_a.game_data.result_in_game = 0
+                p_b.game_data.result_in_game = 0
+            else:
+                p_a.game_data.result_in_game = 1
+                p_b.game_data.result_in_game = -1
             
-        if p_a.game_data.rank_in_game == p_b.game_data.rank_in_game:
-            p_a.game_data.result_in_game = 0
-            p_b.game_data.result_in_game = 0
+            p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=p_a.game_data.rank_in_game==p_b.game_data.rank_in_game) 
         else:
             p_a.game_data.result_in_game = 1
-            p_b.game_data.result_in_game = -1
-        
-        p_a.user.elo, p_b.user.elo = rate_1vs1(p_a.user.elo, p_b.user.elo, drawn=p_a.game_data.rank_in_game==p_b.game_data.rank_in_game) 
-         
+            
         for key, participant in self.participants.iteritems():
             if participant.game_data.result_in_game == -1:
                 participant.game_data.saved_time = 0
