@@ -27,15 +27,16 @@ class ServerMessageHandler(MessageHandler):
         self.client.login(user)
     
     def on_user_left_game(self):
-        if self.client.game_data.staus in [WAITING_FOR_OPPONENT, JOINING, PREGAME_GAP, READY_TO_PLAY]:
-            for key, participant in self.participants.iteritems():
-                if key == self.client.user.user_number:
-                    continue
-                participant.game_data.status = WAITING_FOR_OPPONENT
-                participant.game = None
+        if self.client.game_data.status in [WAITING_FOR_OPPONENT, JOINING, PREGAME_GAP, READY_TO_PLAY]:
             if self.client.game:
+                for key, participant in self.client.game.participants.iteritems():
+                    if key == self.client.user.user_number:
+                        continue
+                    participant.game_data.status = WAITING_FOR_OPPONENT
+                    participant.game = None
+            
                 del self.client.factory.games[self.client.game.hashid]
-        elif self.client.game_data.staus in [PLAYING, GAME_END]:
+        elif self.client.game_data.status in [PLAYING, GAME_END]:
             if self.client.game:
                 self.client.game.left(self.client)
             
@@ -49,6 +50,8 @@ class ServerMessageHandler(MessageHandler):
         self.client.game_data.category = self.payload['category']
         
     def on_ready_to_play(self):
+        if self.client.game_data.status != PREGAME_GAP:
+            return
         self.client.game_data.status = READY_TO_PLAY
         self.client.game.start()
     
