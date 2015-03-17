@@ -34,6 +34,8 @@ public class PlayGameActivity extends MyBaseActivity {
     int opponentAnsweredThisTime;
     int problemIndex;
 
+    boolean thisQuestionHasEnded;
+
     boolean hintRemoveClicked;
     boolean hintAgainClicked;
 
@@ -190,10 +192,27 @@ public class PlayGameActivity extends MyBaseActivity {
             setTextView(R.id.my_score, "" + myPoints);
             ((Button) v).setBackgroundColor(Color.GREEN);
             ok = 1;
+
+            ((Button) findViewById(R.id.play_game_hint_again)).setClickable(false);
+            ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
         } else {
             //myPoints += -1;
             //setTextView(R.id.my_score, "" + myPoints);
 
+            if(hintAgainClicked == true)
+            {
+                iAnsweredThisTime = -1;
+                hintAgainClicked = false;
+
+                if(choseOption[0] == false)
+                    ((Button) findViewById(R.id.option_0)).setClickable(true);
+                if(choseOption[1] == false)
+                    ((Button) findViewById(R.id.option_1)).setClickable(true);
+                if(choseOption[2] == false)
+                    ((Button) findViewById(R.id.option_2)).setClickable(true);
+                if(choseOption[3] == false)
+                    ((Button) findViewById(R.id.option_3)).setClickable(true);
+            }
             ((Button) v).setBackgroundColor(Color.RED);
         }
 
@@ -232,6 +251,7 @@ public class PlayGameActivity extends MyBaseActivity {
         setTextView(R.id.my_name, myName);
         setTextView(R.id.op_name, oppName);
 
+        thisQuestionHasEnded = false;
         oppPoints = myPoints = 0;
         problemIndex = 0;
 
@@ -242,6 +262,13 @@ public class PlayGameActivity extends MyBaseActivity {
     final int BB = 6;
     final int CC = 8;
     final int DD = 10;
+
+
+    public void checkWhetherHasEnded()
+    {
+        thisQuestionHasEnded
+
+    }
 
     public void hintRemoveMethod(View v)
     {
@@ -273,23 +300,27 @@ public class PlayGameActivity extends MyBaseActivity {
 
         Log.d("-- correct option", "" + correctOption);
 
-        int removeItem = canRemove.get( rand.nextInt( (int)canRemove.size() ) );
+        int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
 
         if(removeItem == 0) {
             ((Button) findViewById(R.id.option_0)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_0)).setClickable(false);
+            choseOption[0] = true;
         }
         else if(removeItem == 1){
             ((Button)findViewById(R.id.option_1)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_1)).setClickable(false);
+            choseOption[1] = true;
         }
         else if(removeItem == 2) {
             ((Button) findViewById(R.id.option_2)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_2)).setClickable(false);
+            choseOption[2] = true;
         }
         else {
             ((Button) findViewById(R.id.option_3)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_3)).setClickable(false);
+            choseOption[3] = true;
         }
 
         ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
@@ -297,7 +328,20 @@ public class PlayGameActivity extends MyBaseActivity {
 
     public void hintAgainMethod(View v)
     {
+        if(iAnsweredThisTime == -1) {
+            hintAgainClicked = true;
+        }
 
+        iAnsweredThisTime = -1;
+
+        if(choseOption[0] == false)
+            ((Button) findViewById(R.id.option_0)).setClickable(true);
+        if(choseOption[1] == false)
+            ((Button) findViewById(R.id.option_1)).setClickable(true);
+        if(choseOption[2] == false)
+            ((Button) findViewById(R.id.option_2)).setClickable(true);
+        if(choseOption[3] == false)
+            ((Button) findViewById(R.id.option_3)).setClickable(true);
 
         ((Button)findViewById(R.id.play_game_hint_again)).setClickable(false);
     }

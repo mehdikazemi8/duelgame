@@ -50,6 +50,8 @@ class ServerMessageHandler(MessageHandler):
         self.client.game_data.category = self.payload['category']
         
     def on_ready_to_play(self):
+        if self.client.game_data.status != PREGAME_GAP:
+            return
         self.client.game_data.status = READY_TO_PLAY
         self.client.game.start()
     
