@@ -9,6 +9,9 @@ from duel import db
 from duel.base.user import User
 from duel.base.game import *
 
+from duel.base.game import WAITING_FOR_OPPONENT, JOINING, PREGAME_GAP, READY_TO_PLAY, PLAYING, GAME_END
+
+
 class ServerMessageHandler(MessageHandler):
     def on_register_user(self):
         user = User(user_id=self.payload['user_id'])
@@ -24,8 +27,22 @@ class ServerMessageHandler(MessageHandler):
         self.client.login(user)
     
     def on_user_left_game(self):
-        print 'ULG', self.client.user.user_number
-    
+        if self.client.game_data.staus in [WAITING_FOR_OPPONENT, JOINING, PREGAME_GAP, READY_TO_PLAY]:
+            for key, participant in self.participants.iteritems():
+                if key == self.client.user.user_number:
+                    continue
+                participant.game_data.status = WAITING_FOR_OPPONENT
+                participant.game = None
+            if self.client.game:
+                del self.client.factory.games[self.client.game.hashid]
+        elif self.client.game_data.staus in [PLAYING, GAME_END]:
+            if self.client.game:
+                self.client.game.left(self.client)
+            
+        self.client.game = None
+        self.client.game_data = None
+        
+        
     def on_wanna_play(self):
         self.client.game_data = GameData()
         self.client.game_data.times['WP'] = datetime.datetime.now()

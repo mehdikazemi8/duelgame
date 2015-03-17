@@ -247,9 +247,7 @@ class Game(object):
             participant.game_data = None
             participant.game = None
         
-        try:
-            del participant.factory.games[self.hashid]
-        except: pass
+        del participant.factory.games[self.hashid]
         
         
         
