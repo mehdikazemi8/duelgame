@@ -157,18 +157,20 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/play_game_remove_one_option"
+                    android:id="@+id/play_game_hint_again"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="حذف یک گزینه" />
+                    android:onClick="hintAgainMethod"
+                    android:text="انتخاب دو گزینه" />
 
                 <Button
-                    android:id="@+id/play_game_select_two_options"
+                    android:id="@+id/play_game_hint_remove"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="انتخاب دو گزینه" />
+                    android:onClick="hintRemoveMethod"
+                    android:text="حذف یک گزینه" />
 
             </LinearLayout>
         </LinearLayout>

@@ -16,10 +16,12 @@ import de.tavendo.autobahn.WebSocketHandler;
 public class MyBaseActivity extends Activity {
 
     static protected WebSocketConnection wsc = new WebSocketConnection();
-    //    static protected String wsuri = "ws://192.168.128.216:9000";
-    static protected String wsuri = "ws://192.168.128.222:9000";
+    static protected String wsuri = "ws://192.168.128.189:9000";
+//    static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-//    static protected String wsuri = "ws://192.168.1.3:9000";
+//    static protected String wsuri = "ws://192.168.1.2:9000";
+
+    static Random rand = new Random();
 
     static boolean DONE = false;
     static int NUMBER_OF_QUESTIONS = 6;

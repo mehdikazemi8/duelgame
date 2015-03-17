@@ -17,17 +17,25 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PlayGameActivity extends MyBaseActivity {
 
     final int DURATION = 20000;
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
 
-    String correctAnswer;
+    String correctAnswerStr;
+    int correctOption;
+    boolean[] choseOption = new boolean[4];
+
     int iAnsweredThisTime;
     boolean iAnsweredThisCorrect;
     int opponentAnsweredThisTime;
     int problemIndex;
+
+    boolean hintRemoveClicked;
+    boolean hintAgainClicked;
 
     protected class TitleBarListener extends BroadcastReceiver {
         @Override
@@ -78,15 +86,8 @@ public class PlayGameActivity extends MyBaseActivity {
         if (timeToAnswer != null)
             timeToAnswer.cancel();
 
-        ((Button) findViewById(R.id.option_0)).setClickable(true);
-        ((Button) findViewById(R.id.option_1)).setClickable(true);
-        ((Button) findViewById(R.id.option_2)).setClickable(true);
-        ((Button) findViewById(R.id.option_3)).setClickable(true);
-
-        ((Button) findViewById(R.id.option_0)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_1)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
+        choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = false;
+        hintRemoveClicked = hintAgainClicked = false;
 
         iAnsweredThisCorrect = false;
         iAnsweredThisTime = -1;
@@ -98,10 +99,19 @@ public class PlayGameActivity extends MyBaseActivity {
 
         String[] opts = questionsToAsk[problemIndex].options;
         problemIndex++;
-        correctAnswer = opts[0];
+        correctAnswerStr = opts[0];
 
         shuffleArray(opts);
         shuffleArray(opts);
+
+        if(opts[0].equals(correctAnswerStr))
+            correctOption = 0;
+        else if(opts[1].equals(correctAnswerStr))
+            correctOption = 1;
+        else if(opts[2].equals(correctAnswerStr))
+            correctOption = 2;
+        else
+            correctOption = 3;
 
         setButton(R.id.option_0, opts[0]);
         setButton(R.id.option_1, opts[1]);
@@ -138,6 +148,19 @@ public class PlayGameActivity extends MyBaseActivity {
         };
 
         timeToAnswer.start();
+
+        ((Button) findViewById(R.id.option_0)).setClickable(true);
+        ((Button) findViewById(R.id.option_1)).setClickable(true);
+        ((Button) findViewById(R.id.option_2)).setClickable(true);
+        ((Button) findViewById(R.id.option_3)).setClickable(true);
+
+        ((Button) findViewById(R.id.option_0)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_1)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
+
+        ((Button) findViewById(R.id.play_game_hint_again)).setClickable(true);
+        ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(true);
     }
 
     public void answered(View v) {
@@ -147,10 +170,11 @@ public class PlayGameActivity extends MyBaseActivity {
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
+        choseOption[ Integer.parseInt(v.getContentDescription().toString()) ] = true;
         doDisableButtons();
 
         int ok = 0;
-        if (correctAnswer.compareTo(((Button) v).getText().toString()) == 0) {
+        if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
 
             iAnsweredThisCorrect = true;
             if (iAnsweredThisTime >= 10) {
@@ -210,6 +234,65 @@ public class PlayGameActivity extends MyBaseActivity {
         problemIndex = 0;
 
         askQuestion();
+    }
+
+    final int AA = 4;
+    final int BB = 6;
+    final int CC = 8;
+    final int DD = 10;
+
+    public void hintRemoveMethod(View v)
+    {
+        if(hintRemoveClicked == true)
+            return;
+        hintRemoveClicked = true;
+
+        ArrayList<Integer> canRemove = new ArrayList<Integer>();
+
+        if(correctOption != 0 && choseOption[0] == false)
+            canRemove.add(0);
+        if(correctOption != 1 && choseOption[1] == false)
+            canRemove.add(1);
+        if(correctOption != 2 && choseOption[2] == false)
+            canRemove.add(2);
+        if(correctOption != 3 && choseOption[3] == false)
+            canRemove.add(3);
+
+        Log.d("--- canRemove ", ""+canRemove.size());
+        Log.d("&&&& clickable ", ""+
+                (((Button)findViewById(R.id.option_0)).isClickable()) +
+                (((Button)findViewById(R.id.option_1)).isClickable()) +
+                (((Button)findViewById(R.id.option_2)).isClickable()) +
+                (((Button)findViewById(R.id.option_3)).isClickable()) );
+        Log.d("-- correct option", "" + correctOption);
+
+        int removeItem = rand.nextInt( (int)canRemove.size() );
+
+        if(removeItem == 0) {
+            ((Button) findViewById(R.id.option_0)).setBackgroundColor(Color.BLUE);
+            ((Button) findViewById(R.id.option_0)).setClickable(false);
+        }
+        else if(removeItem == 1){
+            ((Button)findViewById(R.id.option_1)).setBackgroundColor(Color.BLUE);
+            ((Button) findViewById(R.id.option_1)).setClickable(false);
+        }
+        else if(removeItem == 2) {
+            ((Button) findViewById(R.id.option_2)).setBackgroundColor(Color.BLUE);
+            ((Button) findViewById(R.id.option_2)).setClickable(false);
+        }
+        else {
+            ((Button) findViewById(R.id.option_3)).setBackgroundColor(Color.BLUE);
+            ((Button) findViewById(R.id.option_3)).setClickable(false);
+        }
+
+        ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
+    }
+
+    public void hintAgainMethod(View v)
+    {
+
+
+        ((Button)findViewById(R.id.play_game_hint_again)).setClickable(false);
     }
 
     @Override
