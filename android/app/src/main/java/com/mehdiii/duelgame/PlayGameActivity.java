@@ -170,6 +170,8 @@ public class PlayGameActivity extends MyBaseActivity {
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
+        Log.d("---- option entekhab shode ", ""+Integer.parseInt(v.getContentDescription().toString()));
+
         choseOption[ Integer.parseInt(v.getContentDescription().toString()) ] = true;
         doDisableButtons();
 
@@ -258,15 +260,20 @@ public class PlayGameActivity extends MyBaseActivity {
         if(correctOption != 3 && choseOption[3] == false)
             canRemove.add(3);
 
-        Log.d("--- canRemove ", ""+canRemove.size());
-        Log.d("&&&& clickable ", ""+
-                (((Button)findViewById(R.id.option_0)).isClickable()) +
-                (((Button)findViewById(R.id.option_1)).isClickable()) +
-                (((Button)findViewById(R.id.option_2)).isClickable()) +
-                (((Button)findViewById(R.id.option_3)).isClickable()) );
+        for(int e = 0; e < canRemove.size(); e ++)
+        {
+            Log.d("--- canRemove ", ""+canRemove.get(e));
+        }
+
+        Log.d( "&&&& chose? ", ""+
+                choseOption[0] +
+                choseOption[1] +
+                choseOption[2] +
+                choseOption[3] );
+
         Log.d("-- correct option", "" + correctOption);
 
-        int removeItem = rand.nextInt( (int)canRemove.size() );
+        int removeItem = canRemove.get( rand.nextInt( (int)canRemove.size() ) );
 
         if(removeItem == 0) {
             ((Button) findViewById(R.id.option_0)).setBackgroundColor(Color.BLUE);
