@@ -72,108 +72,163 @@
             android:text="0"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
-
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/scores"
-        android:layout_marginTop="30dp">
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ProgressBar
+                android:id="@+id/play_game_op_progress"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:max="25"
+                android:progress="5" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="10"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_below="@id/scores"
+                android:layout_marginTop="30dp">
 
-                <TextView
-                    android:id="@+id/question"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="صورت سوال"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp" />
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/option_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:contentDescription="0"
-                    android:onClick="answered"
-                    android:text="گزینه ی اول"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp" />
+                    <ProgressBar
+                        android:id="@+id/my_progress"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:max="100"
+                        android:progress="1" />
 
-                <Button
-                    android:id="@+id/option_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:contentDescription="1"
-                    android:onClick="answered"
-                    android:text="گزینه ی دوم"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/option_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:contentDescription="2"
-                    android:onClick="answered"
-                    android:text="گزینه ی سوم"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp" />
+                        <TextView
+                            android:id="@+id/question"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:text="صورت سوال"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
 
-                <Button
-                    android:id="@+id/option_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:contentDescription="3"
-                    android:onClick="answered"
-                    android:text="گزینه ی چهارم"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp" />
-            </LinearLayout>
+                        <Button
+                            android:id="@+id/option_0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:contentDescription="0"
+                            android:onClick="answered"
+                            android:text="گزینه ی اول"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/option_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:contentDescription="1"
+                            android:onClick="answered"
+                            android:text="گزینه ی دوم"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
 
-                <Button
-                    android:id="@+id/play_game_hint_again"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="hintAgainMethod"
-                    android:text="انتخاب دو گزینه" />
+                        <Button
+                            android:id="@+id/option_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:contentDescription="2"
+                            android:onClick="answered"
+                            android:text="گزینه ی سوم"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
 
-                <Button
-                    android:id="@+id/play_game_hint_remove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="hintRemoveMethod"
-                    android:text="حذف یک گزینه" />
+                        <Button
+                            android:id="@+id/option_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:contentDescription="3"
+                            android:onClick="answered"
+                            android:text="گزینه ی چهارم"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/play_game_hint_again"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="hintAgainMethod"
+                            android:text="انتخاب دو گزینه" />
+
+                        <Button
+                            android:id="@+id/play_game_hint_remove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="hintRemoveMethod"
+                            android:text="حذف یک گزینه" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ProgressBar
+                android:id="@+id/play_game_my_progress"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:max="25"
+                android:progress="5" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>

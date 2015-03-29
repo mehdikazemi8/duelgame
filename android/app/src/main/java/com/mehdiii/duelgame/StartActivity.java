@@ -96,6 +96,15 @@ public class StartActivity extends MyBaseActivity {
     }
 
     @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        Intent svc = new Intent(this, MusicPlayer.class);
+        startService(svc);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_start, menu);
@@ -110,7 +119,7 @@ public class StartActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);

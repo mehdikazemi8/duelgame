@@ -57,6 +57,7 @@ public class WaitingActivity extends MyBaseActivity {
 
                         int oppOstanInt = firstOpponent.getInt("ostan");
                         int oppElo = (int) firstOpponent.getDouble("elo");
+                        oppUserNumber = firstOpponent.getString("user_number");
 
                         ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(avatarId[oppAvatarIndex]);
                         setTextView(R.id.waiting_opponent_name, oppName);
@@ -157,7 +158,7 @@ public class WaitingActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -174,7 +174,7 @@ class Game(object):
                     participant.game_data.rank_in_game = i + 1
             
         p_a = self.participants.values()[0]
-        if len(self.participants.values) > 1:
+        if len(self.participants.values()) > 1:
             p_b = self.participants.values()[1]
             if p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
                 p_a, p_b = p_b, p_a

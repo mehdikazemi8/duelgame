@@ -1,17 +1,22 @@
 package com.mehdiii.duelgame;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -28,6 +33,7 @@ public class PlayGameActivity extends MyBaseActivity {
     String correctAnswerStr;
     int correctOption;
     boolean[] choseOption = new boolean[4];
+    int numberOfOptionChose;
 
     int iAnsweredThisTime;
     boolean iAnsweredThisCorrect;
@@ -38,6 +44,9 @@ public class PlayGameActivity extends MyBaseActivity {
 
     boolean hintRemoveClicked;
     boolean hintAgainClicked;
+
+    MediaPlayer myPlayer;
+    int WRONG_ANSWER, CORRECT_ANSWER;
 
     protected class TitleBarListener extends BroadcastReceiver {
         @Override
@@ -71,6 +80,8 @@ public class PlayGameActivity extends MyBaseActivity {
                             }
                         }
                         setTextView(R.id.op_score, "" + oppPoints);
+                        setProgressBar(R.id.play_game_op_progress, oppPoints);
+
                     } else if (messageCode.compareTo("GE") == 0) {
 
                         resultInfo = inputMessage;
@@ -84,10 +95,17 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
+    ProgressBar pb = null;
+
+    public void setProgressBar(int id, int progress) {
+        ((ProgressBar) findViewById(id)).setProgress(progress + 5);
+    }
+
     public void askQuestion() {
         if (timeToAnswer != null)
             timeToAnswer.cancel();
 
+        numberOfOptionChose = 0;
         choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = false;
         hintRemoveClicked = hintAgainClicked = false;
 
@@ -106,11 +124,11 @@ public class PlayGameActivity extends MyBaseActivity {
         shuffleArray(opts);
         shuffleArray(opts);
 
-        if(opts[0].equals(correctAnswerStr))
+        if (opts[0].equals(correctAnswerStr))
             correctOption = 0;
-        else if(opts[1].equals(correctAnswerStr))
+        else if (opts[1].equals(correctAnswerStr))
             correctOption = 1;
-        else if(opts[2].equals(correctAnswerStr))
+        else if (opts[2].equals(correctAnswerStr))
             correctOption = 2;
         else
             correctOption = 3;
@@ -120,13 +138,22 @@ public class PlayGameActivity extends MyBaseActivity {
         setButton(R.id.option_2, opts[2]);
         setButton(R.id.option_3, opts[3]);
 
+        pb.setProgress(0);
+        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 100);
+        animation.setDuration(DURATION); // 0.5 second
+        animation.setInterpolator(new LinearInterpolator());
+        animation.start();
+
         timeToAnswer = new CountDownTimer(DURATION, 1000) {
             @Override
             public void onTick(long arg0) {
                 remainingTimeOfThisQuestion = arg0 / 1000;
                 setTextView(R.id.remaining_time, "" + (arg0 / 1000));
 
-                Log.d("--- ", myName + " - " + remainingTimeOfThisQuestion);
+//                pb.setProgress(100 * ((int) arg0) / DURATION);
+//                pb.setProgress(25);
+//
+//                Log.d("--- ", myName + " - " + remainingTimeOfThisQuestion);
             }
 
             @Override
@@ -136,16 +163,7 @@ public class PlayGameActivity extends MyBaseActivity {
                 if (iAnsweredThisCorrect == true)
                     return;
 
-                JSONObject query = new JSONObject();
-                try {
-                    query.put("code", "GQ");
-                    query.put("time", -1);
-                    query.put("ok", 0);
-
-                    wsc.sendTextMessage(query.toString());
-                } catch (JSONException e) {
-                    Log.d("---- GQ GQ GQ", e.toString());
-                }
+                sendGQMinusOne();
             }
         };
 
@@ -170,15 +188,20 @@ public class PlayGameActivity extends MyBaseActivity {
             return;
         }
 
+        numberOfOptionChose += 1;
+
+        Log.d("-- numberOfOptionChose", "" + numberOfOptionChose);
+
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
-        Log.d("---- option entekhab shode ", ""+Integer.parseInt(v.getContentDescription().toString()));
+        Log.d("---- option entekhab shode ", "" + Integer.parseInt(v.getContentDescription().toString()));
 
-        choseOption[ Integer.parseInt(v.getContentDescription().toString()) ] = true;
+        choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
         doDisableButtons();
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
+            myPlayer = MediaPlayer.create(this, CORRECT_ANSWER);
 
             iAnsweredThisCorrect = true;
             if (iAnsweredThisTime >= 10) {
@@ -190,31 +213,36 @@ public class PlayGameActivity extends MyBaseActivity {
                 myPoints += 1;
             }
             setTextView(R.id.my_score, "" + myPoints);
+
+            setProgressBar(R.id.play_game_my_progress, myPoints);
+
             ((Button) v).setBackgroundColor(Color.GREEN);
             ok = 1;
 
             ((Button) findViewById(R.id.play_game_hint_again)).setClickable(false);
             ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
         } else {
+            myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
             //myPoints += -1;
             //setTextView(R.id.my_score, "" + myPoints);
 
-            if(hintAgainClicked == true)
-            {
+            if (hintAgainClicked == true) {
                 iAnsweredThisTime = -1;
                 hintAgainClicked = false;
 
-                if(choseOption[0] == false)
+                if (choseOption[0] == false)
                     ((Button) findViewById(R.id.option_0)).setClickable(true);
-                if(choseOption[1] == false)
+                if (choseOption[1] == false)
                     ((Button) findViewById(R.id.option_1)).setClickable(true);
-                if(choseOption[2] == false)
+                if (choseOption[2] == false)
                     ((Button) findViewById(R.id.option_2)).setClickable(true);
-                if(choseOption[3] == false)
+                if (choseOption[3] == false)
                     ((Button) findViewById(R.id.option_3)).setClickable(true);
             }
             ((Button) v).setBackgroundColor(Color.RED);
         }
+
+        myPlayer.start();
 
         JSONObject query = new JSONObject();
         try {
@@ -225,6 +253,11 @@ public class PlayGameActivity extends MyBaseActivity {
             wsc.sendTextMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
+        }
+
+        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
+            iAnsweredThisCorrect = true;
+            sendGQMinusOne();
         }
     }
 
@@ -245,13 +278,17 @@ public class PlayGameActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
+        WRONG_ANSWER = R.raw.wrong_answer;
+        CORRECT_ANSWER = R.raw.correct_answer;
+
+        pb = (ProgressBar) findViewById(R.id.my_progress);
+
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         setTextView(R.id.my_name, myName);
         setTextView(R.id.op_name, oppName);
 
-        thisQuestionHasEnded = false;
         oppPoints = myPoints = 0;
         problemIndex = 0;
 
@@ -263,61 +300,67 @@ public class PlayGameActivity extends MyBaseActivity {
     final int CC = 8;
     final int DD = 10;
 
+    public void sendGQMinusOne() {
+        JSONObject query = new JSONObject();
+        try {
+            query.put("code", "GQ");
+            query.put("time", -1);
+            query.put("ok", 0);
 
-    public void checkWhetherHasEnded()
-    {
-        thisQuestionHasEnded
-
+            wsc.sendTextMessage(query.toString());
+        } catch (JSONException e) {
+            Log.d("---- GQ GQ GQ", e.toString());
+        }
     }
 
-    public void hintRemoveMethod(View v)
-    {
-        if(hintRemoveClicked == true)
+    public void hintRemoveMethod(View v) {
+        if (hintRemoveClicked == true)
             return;
         hintRemoveClicked = true;
 
-        ArrayList<Integer> canRemove = new ArrayList<Integer>();
-
-        if(correctOption != 0 && choseOption[0] == false)
-            canRemove.add(0);
-        if(correctOption != 1 && choseOption[1] == false)
-            canRemove.add(1);
-        if(correctOption != 2 && choseOption[2] == false)
-            canRemove.add(2);
-        if(correctOption != 3 && choseOption[3] == false)
-            canRemove.add(3);
-
-        for(int e = 0; e < canRemove.size(); e ++)
-        {
-            Log.d("--- canRemove ", ""+canRemove.get(e));
+        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
+            iAnsweredThisCorrect = true;
+            sendGQMinusOne();
         }
 
-        Log.d( "&&&& chose? ", ""+
+        ArrayList<Integer> canRemove = new ArrayList<Integer>();
+
+        if (correctOption != 0 && choseOption[0] == false)
+            canRemove.add(0);
+        if (correctOption != 1 && choseOption[1] == false)
+            canRemove.add(1);
+        if (correctOption != 2 && choseOption[2] == false)
+            canRemove.add(2);
+        if (correctOption != 3 && choseOption[3] == false)
+            canRemove.add(3);
+
+        for (int e = 0; e < canRemove.size(); e++) {
+            Log.d("--- canRemove ", "" + canRemove.get(e));
+        }
+
+        Log.d("&&&& chose? ", "" +
                 choseOption[0] +
                 choseOption[1] +
                 choseOption[2] +
-                choseOption[3] );
+                choseOption[3]);
 
         Log.d("-- correct option", "" + correctOption);
 
         int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
 
-        if(removeItem == 0) {
+        if (removeItem == 0) {
             ((Button) findViewById(R.id.option_0)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_0)).setClickable(false);
             choseOption[0] = true;
-        }
-        else if(removeItem == 1){
-            ((Button)findViewById(R.id.option_1)).setBackgroundColor(Color.BLUE);
+        } else if (removeItem == 1) {
+            ((Button) findViewById(R.id.option_1)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_1)).setClickable(false);
             choseOption[1] = true;
-        }
-        else if(removeItem == 2) {
+        } else if (removeItem == 2) {
             ((Button) findViewById(R.id.option_2)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_2)).setClickable(false);
             choseOption[2] = true;
-        }
-        else {
+        } else {
             ((Button) findViewById(R.id.option_3)).setBackgroundColor(Color.BLUE);
             ((Button) findViewById(R.id.option_3)).setClickable(false);
             choseOption[3] = true;
@@ -326,24 +369,23 @@ public class PlayGameActivity extends MyBaseActivity {
         ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
     }
 
-    public void hintAgainMethod(View v)
-    {
-        if(iAnsweredThisTime == -1) {
+    public void hintAgainMethod(View v) {
+        if (iAnsweredThisTime == -1) {
             hintAgainClicked = true;
         }
 
         iAnsweredThisTime = -1;
 
-        if(choseOption[0] == false)
+        if (choseOption[0] == false)
             ((Button) findViewById(R.id.option_0)).setClickable(true);
-        if(choseOption[1] == false)
+        if (choseOption[1] == false)
             ((Button) findViewById(R.id.option_1)).setClickable(true);
-        if(choseOption[2] == false)
+        if (choseOption[2] == false)
             ((Button) findViewById(R.id.option_2)).setClickable(true);
-        if(choseOption[3] == false)
+        if (choseOption[3] == false)
             ((Button) findViewById(R.id.option_3)).setClickable(true);
 
-        ((Button)findViewById(R.id.play_game_hint_again)).setClickable(false);
+        ((Button) findViewById(R.id.play_game_hint_again)).setClickable(false);
     }
 
     @Override
@@ -361,7 +403,7 @@ public class PlayGameActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);

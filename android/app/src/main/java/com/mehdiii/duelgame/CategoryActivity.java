@@ -38,7 +38,7 @@ public class CategoryActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -50,10 +50,12 @@ public class CategoryActivity extends MyBaseActivity {
         Log.d("------ letsPlay", ">>" + duelCategory);
         */
 
+        category = v.getContentDescription().toString();
+
         JSONObject query = new JSONObject();
         try {
             query.put("code", "WP");
-            query.put("category", v.getContentDescription().toString());
+            query.put("category", category);
 
             Log.d("-- send WP", query.toString());
 

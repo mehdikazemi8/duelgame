@@ -5,9 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <color name="background_color">@android:color/holo_green_light</color>
+    <color name="background_color">#F5EBDB</color>
 
     <color name="waiting_separator_line">#F2E4D7</color>
+
+    <color name="action_bar_background_color">#F3676F</color>
 
     <string-array name="ostan_array">
         <item>استان</item>

@@ -2,92 +2,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@drawable/category_background"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="در کدام بخش می خواهی دوئل کنی؟"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="1"
-            android:onClick="letsPlay"
-            android:text="تاریخی"
-            android:textColor="@android:color/white" />
+            <ImageView
+                android:id="@+id/adabiat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="1"
+                android:onClick="letsPlay"
+                android:padding="20dp"
+                android:src="@drawable/adabiat" />
 
-        <Button
-            android:id="@+id/sports"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="2"
-            android:onClick="letsPlay"
-            android:text="ورزشی"
-            android:textColor="@android:color/white" />
+            <ImageView
+                android:id="@+id/arabi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="2"
+                android:onClick="letsPlay"
+                android:padding="20dp"
+                android:src="@drawable/arabi" />
 
-        <Button
-            android:id="@+id/art"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="3"
-            android:onClick="letsPlay"
-            android:text="فرهنگی هنری"
-            android:textColor="@android:color/white" />
+            <ImageView
+                android:id="@+id/din_o_zendegi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="3"
+                android:onClick="letsPlay"
+                android:padding="20dp"
+                android:src="@drawable/din_o_zendegi" />
 
-        <Button
-            android:id="@+id/science"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="4"
-            android:onClick="letsPlay"
-            android:text="علمی"
-            android:textColor="@android:color/white" />
+            <ImageView
+                android:id="@+id/zaban_englisi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="4"
+                android:onClick="letsPlay"
+                android:padding="20dp"
+                android:src="@drawable/zaban_englisi" />
 
-        <Button
-            android:id="@+id/entertainment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="5"
-            android:onClick="letsPlay"
-            android:text="سرگرمی"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/geography"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="6"
-            android:onClick="letsPlay"
-            android:text="جغرافی"
-            android:textColor="@android:color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 

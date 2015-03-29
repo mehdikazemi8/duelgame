@@ -3,6 +3,7 @@ package com.mehdiii.duelgame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -13,15 +14,17 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
-public class MyBaseActivity extends Activity {
+public class MyBaseActivity extends ActionBarActivity {
 
     static protected WebSocketConnection wsc = new WebSocketConnection();
-    static protected String wsuri = "ws://192.168.128.189:9000";
+//    static protected String wsuri = "ws://192.168.128.189:9000";
 //    static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-//    static protected String wsuri = "ws://192.168.1.2:9000";
+    static protected String wsuri = "ws://192.168.1.103:9000";
 
     static Random rand = new Random();
+
+    static String category;
 
     static boolean DONE = false;
     static int NUMBER_OF_QUESTIONS = 6;
@@ -30,6 +33,7 @@ public class MyBaseActivity extends Activity {
     static String oppName;
     static int myPoints;
     static int oppPoints;
+    static String oppUserNumber;
 
     static int myAvatarIndex = 1;
     static int oppAvatarIndex = 1;
@@ -120,8 +124,13 @@ public class MyBaseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //8888888888888888888888888888888888888888888888
         if (DONE == false) {
+
+            Intent svc = new Intent(this, MusicPlayer.class);
+            startService(svc);
+
             doConnect();
             initAvatarIds();
             DONE = true;
