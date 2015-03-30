@@ -33,6 +33,9 @@ class Save:
         option_two = _input['option_two'].strip()
         option_three = _input['option_three'].strip()
         option_four = _input['option_four'].strip()
+        exam_year = int(_input['exam_year'].strip())
+        exam_field_of_study = int(_input['exam_field_of_study'].strip())
+        exam_category = int(_input['exam_category'].strip())
         
         if title == '' or answer == '' or option_two == '' or option_three == '' or option_four == '' :
             return json.dumps({'msg':'NOKEY'})
@@ -50,7 +53,10 @@ class Save:
                 'option_three':option_three,
                 'option_four':option_four,
                 'category':category,
-                'answer':answer}
+                'answer':answer,
+                'exam_year':exam_year,
+                'exam_field_of_study':exam_field_of_study,
+                'exam_category':exam_category}
         if item_id != '':
             db.question.update({'_id':bson.ObjectId(item_id)}, {'$set':data})
             _id = item_id
