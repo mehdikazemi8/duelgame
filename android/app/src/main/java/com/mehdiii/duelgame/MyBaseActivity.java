@@ -1,6 +1,5 @@
 package com.mehdiii.duelgame;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -20,7 +19,8 @@ public class MyBaseActivity extends ActionBarActivity {
 //    static protected String wsuri = "ws://192.168.128.189:9000";
 //    static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-    static protected String wsuri = "ws://192.168.1.103:9000";
+//    static protected String wsuri = "ws://192.168.1.103:9000";
+    static protected String wsuri = "ws://192.168.1.236:9000";
 
     static Random rand = new Random();
 
