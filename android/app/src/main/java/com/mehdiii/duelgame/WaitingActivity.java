@@ -29,6 +29,8 @@ import java.util.logging.Handler;
 
 public class WaitingActivity extends MyBaseActivity {
 
+    boolean hasLeft;
+
     protected class TitleBarListener extends BroadcastReceiver {
 
         @Override
@@ -55,6 +57,7 @@ public class WaitingActivity extends MyBaseActivity {
 
                         int oppOstanInt = firstOpponent.getInt("ostan");
                         int oppElo = (int) firstOpponent.getDouble("elo");
+                        oppUserNumber = firstOpponent.getString("user_number");
 
                         ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(avatarId[oppAvatarIndex]);
                         setTextView(R.id.waiting_opponent_name, oppName);
@@ -73,17 +76,8 @@ public class WaitingActivity extends MyBaseActivity {
 //                                finish();
 //                            }
 //                        }, 2000);
-
-                        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-                        ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("-- runnable ", "start play Game");
-                                startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
-                                finish();
-                            }
-                        }, 2, TimeUnit.SECONDS);
-
+                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+                        finish();
                     } else if (messageCode.compareTo("RGD") == 0) {
 
                         for (int problemIndex = 0; problemIndex < NUMBER_OF_QUESTIONS; problemIndex++) {
@@ -99,13 +93,24 @@ public class WaitingActivity extends MyBaseActivity {
                             }
                         }
 
-                        JSONObject query = new JSONObject();
-                        try {
-                            query.put("code", "RTP");
-                            wsc.sendTextMessage(query.toString());
-                        } catch (JSONException e) {
-                            Log.d("---- StartActivity JSON", e.toString());
-                        }
+                        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+                        ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (hasLeft == true)
+                                    return;
+
+                                JSONObject query = new JSONObject();
+                                try {
+                                    query.put("code", "RTP");
+                                    wsc.sendTextMessage(query.toString());
+                                } catch (JSONException e) {
+                                    Log.d("---- StartActivity JSON", e.toString());
+                                }
+
+                                Log.d("-- runnable ", "RTP SEND runnable");
+                            }
+                        }, 4, TimeUnit.SECONDS);
 
                         Log.d("===== so'alat khoonde shod", "ddd");
                     }
@@ -122,6 +127,8 @@ public class WaitingActivity extends MyBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
+
+        hasLeft = false;
 
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
@@ -151,7 +158,7 @@ public class WaitingActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -166,6 +173,8 @@ public class WaitingActivity extends MyBaseActivity {
     @Override
     public void onBackPressed() {
         Log.d(" --- ", myName + " pressed onBack Waiting");
+
+        hasLeft = true;
 
         JSONObject query = new JSONObject();
         try {

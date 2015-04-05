@@ -33,8 +33,8 @@ class ServerMessageHandler(MessageHandler):
                         continue
                     participant.game_data.status = WAITING_FOR_OPPONENT
                     participant.game = None
-            
                 del self.client.factory.games[self.client.game.hashid]
+                
         elif self.client.game_data.status in [PLAYING, GAME_END]:
             if self.client.game:
                 self.client.game.left(self.client)
@@ -179,7 +179,12 @@ class DuelServerProtocol(WebSocketServerProtocol):
         pass
         
     def onMessage(self, payload, isBinary):
-        print payload
+        print payload,
+        if self.user:
+            print self.user.name
+        else:
+            print 
+        
         ServerMessageHandler(self, payload, isBinary)
     
     def sendMessage(self, payload, isBinary=False, fragmentSize=None, sync=False, doNotCompress=False):

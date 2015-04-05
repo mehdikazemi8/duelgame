@@ -17,7 +17,6 @@ public class ChooseAvatarActivity extends MyBaseActivity {
 
         LinearLayout avatarList = (LinearLayout) findViewById(R.id.choose_avatar_list);
 
-
         int i = 1;
         while(i <= NUMBER_OF_AVATARS)
         {
@@ -80,7 +79,7 @@ public class ChooseAvatarActivity extends MyBaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
             return true;
         }
         return super.onOptionsItemSelected(item);

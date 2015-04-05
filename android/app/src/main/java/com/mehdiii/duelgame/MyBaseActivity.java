@@ -2,8 +2,11 @@ package com.mehdiii.duelgame;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,13 +16,17 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
-public class MyBaseActivity extends Activity {
-
+public class MyBaseActivity extends ActionBarActivity {
     static protected WebSocketConnection wsc = new WebSocketConnection();
-    //    static protected String wsuri = "ws://192.168.128.216:9000";
+
+//    static protected String wsuri = "ws://192.168.128.189:9000";
     static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-//    static protected String wsuri = "ws://192.168.1.3:9000";
+//    static protected String wsuri = "ws://192.168.1.102:9000";
+
+    static Random rand = new Random();
+
+    static String category;
 
     static boolean DONE = false;
     static int NUMBER_OF_QUESTIONS = 6;
@@ -28,6 +35,7 @@ public class MyBaseActivity extends Activity {
     static String oppName;
     static int myPoints;
     static int oppPoints;
+    static String oppUserNumber;
 
     static int myAvatarIndex = 1;
     static int oppAvatarIndex = 1;
@@ -120,6 +128,10 @@ public class MyBaseActivity extends Activity {
 
         //8888888888888888888888888888888888888888888888
         if (DONE == false) {
+
+            Intent svc = new Intent(this, MusicPlayer.class);
+            startService(svc);
+
             doConnect();
             initAvatarIds();
             DONE = true;
@@ -138,11 +150,10 @@ public class MyBaseActivity extends Activity {
         super.onDestroy();
     }
 
-    static Random rnd = new Random();
 
     static void shuffleArray(String[] ar) {
         for (int i = ar.length - 1; i > 0; i--) {
-            int index = rnd.nextInt(i + 1);
+            int index = rand.nextInt(i + 1);
             // Simple swap
             String a = ar[index];
             ar[index] = ar[i];
