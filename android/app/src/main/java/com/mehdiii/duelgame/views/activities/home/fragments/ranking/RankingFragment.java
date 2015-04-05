@@ -16,7 +16,6 @@ public class RankingFragment extends FlipableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ranking, container, false);
-
         return view;
     }
 
