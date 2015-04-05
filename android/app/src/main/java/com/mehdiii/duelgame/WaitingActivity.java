@@ -4,10 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +15,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
 public class WaitingActivity extends MyBaseActivity {
 
@@ -50,7 +43,7 @@ public class WaitingActivity extends MyBaseActivity {
                         JSONArray allOpponents = new JSONArray(allOpponentsStr);
                         JSONObject firstOpponent = new JSONObject(allOpponents.get(0).toString());
 
-                        Log.d("------ firstOpponent.toString()", firstOpponent.toString());
+                        Log.d("------ firstOpponent", firstOpponent.toString());
 
                         oppName = firstOpponent.getString("name");
                         oppAvatarIndex = firstOpponent.getInt("avatar");
@@ -83,7 +76,7 @@ public class WaitingActivity extends MyBaseActivity {
                         for (int problemIndex = 0; problemIndex < NUMBER_OF_QUESTIONS; problemIndex++) {
                             questionsToAsk[problemIndex] = new Question();
 
-                            Log.d("!!!! parser.getString() ", parser.toString());
+                            Log.d("parser.getString()", parser.toString());
 
                             JSONObject thisQuestion = new JSONObject(parser.getString("problem" + problemIndex));
                             questionsToAsk[problemIndex].questionText = thisQuestion.getString("question_text");
@@ -112,7 +105,7 @@ public class WaitingActivity extends MyBaseActivity {
                             }
                         }, 4, TimeUnit.SECONDS);
 
-                        Log.d("===== so'alat khoonde shod", "ddd");
+                        Log.d("khoonde shod", "ddd");
                     }
                 } catch (JSONException e) {
                     Log.d("---------", "can not parse string Waiting Activity");

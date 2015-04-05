@@ -1,14 +1,11 @@
 package com.mehdiii.duelgame;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +16,6 @@ public class CategoryActivity extends MyBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
-
     }
 
     @Override
