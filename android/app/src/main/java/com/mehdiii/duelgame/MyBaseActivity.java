@@ -1,9 +1,12 @@
 package com.mehdiii.duelgame;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,13 +17,12 @@ import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
 public class MyBaseActivity extends ActionBarActivity {
-
     static protected WebSocketConnection wsc = new WebSocketConnection();
+
 //    static protected String wsuri = "ws://192.168.128.189:9000";
 //    static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
-//    static protected String wsuri = "ws://192.168.1.103:9000";
-    static protected String wsuri = "ws://192.168.1.236:9000";
+    static protected String wsuri = "ws://192.168.1.103:9000";
 
     static Random rand = new Random();
 
@@ -124,7 +126,6 @@ public class MyBaseActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //8888888888888888888888888888888888888888888888
         if (DONE == false) {
 
@@ -149,11 +150,10 @@ public class MyBaseActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
-    static Random rnd = new Random();
 
     static void shuffleArray(String[] ar) {
         for (int i = ar.length - 1; i > 0; i--) {
-            int index = rnd.nextInt(i + 1);
+            int index = rand.nextInt(i + 1);
             // Simple swap
             String a = ar[index];
             ar[index] = ar[i];
