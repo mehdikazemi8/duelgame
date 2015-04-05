@@ -174,10 +174,10 @@ public class PlayGameActivity extends MyBaseActivity {
         ((Button) findViewById(R.id.option_2)).setClickable(true);
         ((Button) findViewById(R.id.option_3)).setClickable(true);
 
-        ((Button) findViewById(R.id.option_0)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_1)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_2)).setBackgroundResource(android.R.drawable.btn_default);
-        ((Button) findViewById(R.id.option_3)).setBackgroundResource(android.R.drawable.btn_default);
+        ((Button) findViewById(R.id.option_0)).setBackgroundResource(R.drawable.buy_button);
+        ((Button) findViewById(R.id.option_1)).setBackgroundResource(R.drawable.buy_button);
+        ((Button) findViewById(R.id.option_2)).setBackgroundResource(R.drawable.buy_button);
+        ((Button) findViewById(R.id.option_3)).setBackgroundResource(R.drawable.buy_button);
 
         ((Button) findViewById(R.id.play_game_hint_again)).setClickable(true);
         ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(true);

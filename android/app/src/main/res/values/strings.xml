@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <color name="background_color">#F5EBDB</color>
+    <color name="game_bg_color">#4F3545</color>
 
     <color name="waiting_separator_line">#F2E4D7</color>
 
