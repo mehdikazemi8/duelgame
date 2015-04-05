@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.mehdiii.duelgame"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -22,6 +22,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile files('libs/java_websocket.jar')
     compile files('libs/autobahn-0.5.0.jar')
 }
