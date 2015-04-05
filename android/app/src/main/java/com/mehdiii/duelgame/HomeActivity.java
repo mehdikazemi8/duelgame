@@ -25,14 +25,8 @@ public class HomeActivity extends MyBaseActivity {
         LayoutInflater inflator = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.action_bar_title, null);
-
         TextView titleTV = (TextView) v.findViewById(R.id.title);
-//        Typeface font = Typeface.createFromAsset(getAssets(),
-//                "fonts/your_custom_font.ttf");
-//        titleTV.setTypeface(font);
-
         ab.setCustomView(v);
-
         ab.setDisplayHomeAsUpEnabled(false);
     }
 
@@ -54,7 +48,7 @@ public class HomeActivity extends MyBaseActivity {
             myName = parser.getString("name");
 
         } catch (JSONException e) {
-//            Log.d("---- HOME Activity, loginInfo", e.toString());
+
         }
 
         setData();
