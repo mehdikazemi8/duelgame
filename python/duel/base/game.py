@@ -23,6 +23,7 @@ class GameData(object):
         self.hint_options = []
         self.hint_options_cost = 0
         self.times = {}
+        self.is_bot = False
     
     def add_score(self, time, ok, hint_options):
         self.scores.append({'time':time, 'ok':ok, 'dt':datetime.datetime.now(), 'question_index':self.current_step - 1})
@@ -58,7 +59,6 @@ class Game(object):
         if len(self.participants.keys()):
             client.send_your_opponent_is(self.participants.values())
         client.game_data.status = PREGAME_GAP
-        
         self.participants[client.user.user_number] = client
     
     def left(self, client):
@@ -73,6 +73,9 @@ class Game(object):
         cat = str(category)
         for key, participant in self.participants.iteritems():
             if participant.user.seen_data:
+                continue
+            if participant.game_data.is_bot:
+                participant.user.seen_data = {}
                 continue
             seen_data = db.seen_data.find_one({'user_number':participant.user.user_number})
             if seen_data is None:
@@ -174,7 +177,7 @@ class Game(object):
                     participant.game_data.rank_in_game = i + 1
             
         p_a = self.participants.values()[0]
-        if len(self.participants.values) > 1:
+        if len(self.participants.values()) > 1:
             p_b = self.participants.values()[1]
             if p_a.game_data.rank_in_game > p_b.game_data.rank_in_game:
                 p_a, p_b = p_b, p_a
@@ -202,6 +205,8 @@ class Game(object):
         participants_user_number = []
         winners = []
         for key, participant in self.participants.iteritems():
+            if participant.game_data.is_bot:
+                continue
             participants_user_number.append(key)
             if participant.game_data.result_in_game == 1:
                 winners.append(key)
@@ -221,6 +226,8 @@ class Game(object):
         
         to_save = []
         for key, participant in self.participants.iteritems():
+            if participant.game_data.is_bot:
+                continue
             for item in participant.game_data.scores:
                 item['question_number'] = self.to_ask[item['question_index']]['question_number']
                 item['category'] = self.to_ask[item['question_index']]['category']
@@ -234,6 +241,8 @@ class Game(object):
             query['%s.%s'%(str(question['category']), str(question['question_number']))] = 1
         
         for key, participant in self.participants.iteritems():
+            if participant.game_data.is_bot:
+                continue
             db.seen_data.save({'user_number':participant.user.user_number}, {'$inc':query}, True)
             
             if participant.user.seen_data:

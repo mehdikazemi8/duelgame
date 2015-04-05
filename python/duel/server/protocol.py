@@ -11,7 +11,6 @@ from duel.base.game import *
 
 from duel.base.game import WAITING_FOR_OPPONENT, JOINING, PREGAME_GAP, READY_TO_PLAY, PLAYING, GAME_END
 
-
 class ServerMessageHandler(MessageHandler):
     def on_register_user(self):
         user = User(user_id=self.payload['user_id'])
@@ -70,7 +69,22 @@ class ServerMessageHandler(MessageHandler):
         else:
             self.client.game_data.status = GAME_END
             self.client.game.the_end()
-       
+    
+    def on_user_challenge(self):
+        # self.client.user.user_number challenged target_user_number
+        target_user_number = self.payload['user_number']
+        category = self.payload['category']
+        
+        if self.client.factory.clients.has_key(target_user_number):
+            #target_user_number is online
+            #update target_client
+            target_client = self.client.factory.clients[target_user_number]
+            target_client.send_challenge_request(self.client.user.user_number, category)
+        else:
+            #target_user_number is offline
+            #update target_user
+            pass
+            
     def on_add_friend(self):
         # self.client.user.user_number requested friendship to target_user_number
         target_user_number = self.payload['user_number']
@@ -266,6 +280,10 @@ class DuelServerProtocol(WebSocketServerProtocol):
             else:
                 msg['friends'][friend_user_number]['is_online'] = False
                 
+        self.sendMessage(msg)
+        
+    def send_challenge_request(self, user, category):
+        msg = {'code':'CR', 'user_number':user.user_number, 'name':user.name, 'avatar':user.avatar}
         self.sendMessage(msg)
         
     def send_add_question_successful(self):
