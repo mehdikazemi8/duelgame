@@ -26,7 +26,7 @@ public class RegisterActivity extends MyBaseActivity {
 
     String userId;
 
-    protected class TitleBarListener extends BroadcastReceiver {
+    BroadcastReceiver mListener = new BroadcastReceiver(){
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("%%%%%%%%%%%", "onReceive register Activity");
@@ -52,15 +52,13 @@ public class RegisterActivity extends MyBaseActivity {
                 }
             }
         }
-    }
-    TitleBarListener mListener;
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
@@ -69,7 +67,7 @@ public class RegisterActivity extends MyBaseActivity {
         simSerialNumber = "" + teleManager.getSimSerialNumber();
         userId = deviceId + simSerialNumber;
 
-        if (wsc.isConnected() == false) {
+        if (wsc == null || !wsc.isConnected()) {
             Log.d("^^^^^", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
@@ -153,8 +151,6 @@ public class RegisterActivity extends MyBaseActivity {
         Log.d("!!!!!!!", ">>" + ((Spinner) findViewById(R.id.start_ostan_name)).getSelectedItemPosition());
         myOstanInt = ((Spinner) findViewById(R.id.start_ostan_name)).getSelectedItemPosition();
 
-        myName = myName;
-
         JSONObject query = new JSONObject();
         try {
             query.put("code", "RU");
@@ -190,17 +186,3 @@ public class RegisterActivity extends MyBaseActivity {
         unregisterReceiver(mListener);
     }
 }
-
-
-/*
-        EditText inputName = (EditText) findViewById(R.id.input_name);
-
-        Log.d("--- input", "^^^" + inputName.getText().toString() + "$$$");
-
-        if (inputName.toString() == null || inputName.toString().isEmpty()) {
-            Log.d("----- ", "inputName empty!");
-            return;
-        }
-
-
-* */
