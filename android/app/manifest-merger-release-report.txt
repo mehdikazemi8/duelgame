@@ -39,55 +39,55 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 		ADDED from AndroidManifest.xml:12:9
 	android:theme
 		ADDED from AndroidManifest.xml:15:9
-activity#com.mehdiii.duelgame.RegisterActivity
+activity#com.mehdiii.duelgame.views.activities.RegisterActivity
 ADDED from AndroidManifest.xml:16:9
 	android:label
 		ADDED from AndroidManifest.xml:18:13
 	android:name
 		ADDED from AndroidManifest.xml:17:13
-activity#com.mehdiii.duelgame.HomeActivity
+activity#com.mehdiii.duelgame.views.activities.home.HomeActivity
 ADDED from AndroidManifest.xml:20:9
 	android:label
 		ADDED from AndroidManifest.xml:22:13
 	android:name
 		ADDED from AndroidManifest.xml:21:13
-activity#com.mehdiii.duelgame.CategoryActivity
+activity#com.mehdiii.duelgame.views.activities.CategoryActivity
 ADDED from AndroidManifest.xml:24:9
 	android:label
 		ADDED from AndroidManifest.xml:26:13
 	android:name
 		ADDED from AndroidManifest.xml:25:13
-activity#com.mehdiii.duelgame.WaitingActivity
+activity#com.mehdiii.duelgame.views.activities.WaitingActivity
 ADDED from AndroidManifest.xml:28:9
 	android:label
 		ADDED from AndroidManifest.xml:30:13
 	android:name
 		ADDED from AndroidManifest.xml:29:13
-activity#com.mehdiii.duelgame.PlayGameActivity
+activity#com.mehdiii.duelgame.views.activities.PlayGameActivity
 ADDED from AndroidManifest.xml:32:9
 	android:label
 		ADDED from AndroidManifest.xml:34:13
 	android:name
 		ADDED from AndroidManifest.xml:33:13
-activity#com.mehdiii.duelgame.GameResultActivity
+activity#com.mehdiii.duelgame.views.activities.GameResultActivity
 ADDED from AndroidManifest.xml:36:9
 	android:label
 		ADDED from AndroidManifest.xml:38:13
 	android:name
 		ADDED from AndroidManifest.xml:37:13
-activity#com.mehdiii.duelgame.TryToConnectActivity
+activity#com.mehdiii.duelgame.views.activities.TryToConnectActivity
 ADDED from AndroidManifest.xml:40:9
 	android:label
 		ADDED from AndroidManifest.xml:42:13
 	android:name
 		ADDED from AndroidManifest.xml:41:13
-activity#com.mehdiii.duelgame.ChooseAvatarActivity
+activity#com.mehdiii.duelgame.views.activities.ChooseAvatarActivity
 ADDED from AndroidManifest.xml:44:9
 	android:label
 		ADDED from AndroidManifest.xml:46:13
 	android:name
 		ADDED from AndroidManifest.xml:45:13
-activity#com.mehdiii.duelgame.StartActivity
+activity#com.mehdiii.duelgame.views.activities.StartActivity
 ADDED from AndroidManifest.xml:48:9
 	android:label
 		ADDED from AndroidManifest.xml:50:13

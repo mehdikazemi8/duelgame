@@ -1,8 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="Widget"></style>
@@ -25,6 +27,15 @@
         </item>
         <item name="android:minWidth">1dip</item>
         <item name="android:maxWidth">12dip</item>
+    </style>
+
+    <style name="home_nav_buttons">
+            <item name="android:layout_width">0dp</item>
+            <item name="android:layout_height">match_parent</item>
+            <item name="android:layout_weight">1</item>
+            <item name="android:background">@drawable/bg_home_nav</item>
+            <item name="android:textColor">#fff</item>
+            <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

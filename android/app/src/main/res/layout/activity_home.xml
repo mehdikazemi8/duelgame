@@ -10,121 +10,42 @@
     tools:context=".StartActivity">
 
     <LinearLayout
+        android:id="@+id/container_page_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_settings"
+            style="@style/home_nav_buttons"
+            android:text="SETTINGS" />
 
-            <ImageView
-                android:id="@+id/home_my_avatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1.0"
-                android:src="@drawable/av1" />
-        </LinearLayout>
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_ranking"
+            style="@style/home_nav_buttons"
+            android:text="RANKING" />
 
-        <TextView
-            android:id="@+id/home_my_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="اسم شما" />
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_friends"
+            style="@style/home_nav_buttons"
+            android:text="FRIENDS" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_store"
+            style="@style/home_nav_buttons"
+            android:text="STORE" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="زمان شما" />
-
-                <TextView
-                    android:id="@+id/home_my_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="+30" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="score" />
-
-                <TextView
-                    android:id="@+id/home_my_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="+30" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="رده ی شما" />
-
-                <TextView
-                    android:id="@+id/home_my_elo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:text="+30" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/duel"
-            android:clickable="true"
-            android:onClick="wantToPlay" />
-
-
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_home"
+            style="@style/home_nav_buttons"
+            android:text="HOME" />
     </LinearLayout>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/container_page_selector" />
 
 </RelativeLayout>

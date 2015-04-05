@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.mehdiii.duelgame.models.Question;
+import com.mehdiii.duelgame.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

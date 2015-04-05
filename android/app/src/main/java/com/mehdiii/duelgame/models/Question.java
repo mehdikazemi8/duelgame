@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.models;
 
 /**
  * Created by MeHdi on 3/2/2015.

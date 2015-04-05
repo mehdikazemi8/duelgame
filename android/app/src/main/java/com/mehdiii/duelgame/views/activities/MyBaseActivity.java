@@ -1,9 +1,13 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+
+import com.mehdiii.duelgame.MusicPlayer;
+import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.Question;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,24 +39,24 @@ public class MyBaseActivity extends ActionBarActivity {
     static int oppPoints;
     static String oppUserNumber;
 
-    static int myAvatarIndex = 1;
-    static int oppAvatarIndex = 1;
-    static String myName;
-    static String myOstanStr;
-    static int myOstanInt;
-    static String myEmail;
-    static int myElo;
-    static int myScore;
-    static int myTime;
-    static String myUserNumber;
+    public static int myAvatarIndex = 1;
+    public static int oppAvatarIndex = 1;
+    public static String myName;
+    public static String myOstanStr;
+    public static int myOstanInt;
+    public static String myEmail;
+    public static int myElo;
+    public static int myScore;
+    public static int myTime;
+    public static String myUserNumber;
 
-    static String loginInfo;
+    public static String loginInfo;
     static String resultInfo;
 
     private String TAG = "---------------- ???";
 
     static final int NUMBER_OF_AVATARS = 6;
-    static int[] avatarId = new int[NUMBER_OF_AVATARS + 1];
+    public static int[] avatarId = new int[NUMBER_OF_AVATARS + 1];
 
     public String getOstanStr(int idx) {
         List<String> ostans = Arrays.asList(getResources().getStringArray(R.array.ostan_array));
@@ -123,7 +127,6 @@ public class MyBaseActivity extends ActionBarActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         //8888888888888888888888888888888888888888888888
         if (DONE == false) {

@@ -1,20 +1,14 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import com.mehdiii.duelgame.R;
 
 public class TryToConnectActivity extends MyBaseActivity {
 

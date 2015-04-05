@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.mehdiii.duelgame.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

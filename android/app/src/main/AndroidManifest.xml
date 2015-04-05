@@ -18,39 +18,39 @@
         <service android:name=".MusicPlayer"></service>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".views.activities.RegisterActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".views.activities.home.HomeActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".CategoryActivity"
+            android:name=".views.activities.CategoryActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".WaitingActivity"
+            android:name=".views.activities.WaitingActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".PlayGameActivity"
+            android:name=".views.activities.PlayGameActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".GameResultActivity"
+            android:name=".views.activities.GameResultActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".TryToConnectActivity"
+            android:name=".views.activities.TryToConnectActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".ChooseAvatarActivity"
+            android:name=".views.activities.ChooseAvatarActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name=".StartActivity"
+            android:name=".views.activities.StartActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

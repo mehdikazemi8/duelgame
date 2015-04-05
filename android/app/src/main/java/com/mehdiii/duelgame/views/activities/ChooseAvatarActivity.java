@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.mehdiii.duelgame.R;
 
 public class ChooseAvatarActivity extends MyBaseActivity {
 

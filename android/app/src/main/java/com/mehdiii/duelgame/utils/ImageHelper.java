@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,9 +9,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * Created by MeHdi on 2/20/2015.

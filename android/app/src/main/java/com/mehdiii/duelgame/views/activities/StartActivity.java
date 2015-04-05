@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame;
+package com.mehdiii.duelgame.views.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.mehdiii.duelgame.MusicPlayer;
+import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +69,7 @@ public class StartActivity extends MyBaseActivity {
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         final String deviceId, simSerialNumber;
         deviceId = "" + teleManager.getDeviceId();
         simSerialNumber = "" + teleManager.getSimSerialNumber();
