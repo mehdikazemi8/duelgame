@@ -163,18 +163,23 @@ public class HomeActivity extends MyBaseActivity {
             switch (position) {
                 case 0:
                     selection = settingsButton;
+                    settingsFragment.onBringToFront();
                     break;
                 case 1:
                     selection = rankingButton;
+                    rankingFragment.onBringToFront();
                     break;
                 case 2:
                     selection = friendsButton;
+                    friendsFagment.onBringToFront();
                     break;
                 case 3:
                     selection = storeButton;
+                    storeFragment.onBringToFront();
                     break;
                 case 4:
                     selection = homeButton;
+                    homeFragment.onBringToFront();
                     break;
             }
 
