@@ -71,12 +71,23 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     public void setData() {
-        setTextView(R.id.home_my_name, myName);
-        setTextView(R.id.home_my_elo, "" + myElo);
-        setTextView(R.id.home_my_score, "" + myScore);
-        setTextView(R.id.home_my_time, "" + myTime);
 
-        ((ImageView) findViewById(R.id.home_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
+//        setTextView(R.id.home_my_name, myName);
+        setTextView(R.id.home_my_degree, "دیپلم");
+        //setTextView(R.id.home_my_elo, "" + myElo);
+        //setTextView(R.id.home_my_score, "" + myScore);
+        //setTextView(R.id.home_my_time, "" + myTime);
+
+//        ((ImageView) findViewById(R.id.home_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
+
+        ImageView pic = (ImageView) findViewById(R.id.home_my_avatar);
+
+        Bitmap logobit = BitmapFactory.decodeResource(getResources(), avatarId[myAvatarIndex]);
+        logobit = ImageHelper.getResizedBitmap(logobit, 100, 100);
+        logobit = ImageHelper.getRoundedCornerBitmap(this, logobit,
+                100, 100, 100, false, false, false, false);
+
+        pic.setImageBitmap(logobit);
     }
 
     @Override

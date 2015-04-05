@@ -17,7 +17,6 @@ public class ChooseAvatarActivity extends MyBaseActivity {
 
         LinearLayout avatarList = (LinearLayout) findViewById(R.id.choose_avatar_list);
 
-
         int i = 1;
         while(i <= NUMBER_OF_AVATARS)
         {
