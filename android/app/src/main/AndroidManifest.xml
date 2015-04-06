@@ -2,52 +2,52 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mehdiii.duelgame">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true"
-        android:largeHeap="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".MusicPlayer"></service>
+        <service android:name=".MusicPlayer" />
 
         <activity
             android:name=".views.activities.RegisterActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.home.HomeActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.CategoryActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.WaitingActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.PlayGameActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.GameResultActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.TryToConnectActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.ChooseAvatarActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".views.activities.StartActivity"
