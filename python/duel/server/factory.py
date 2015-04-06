@@ -4,6 +4,7 @@ from twisted.internet import reactor
 from autobahn.twisted.websocket import WebSocketServerFactory
 from duel.base.game import Game, WAITING_FOR_OPPONENT
 
+from duel.server.bot import DuelBotProtocol
 from duel import db
 class DuelServerFactory(WebSocketServerFactory):
     """ Server Factory gather all informations about
@@ -28,32 +29,34 @@ class DuelServerFactory(WebSocketServerFactory):
         self.match_making()
         
     def match_making(self):
-        """ Mach making loops every second in reactor,
+        """ Match making loops every second in reactor,
             and make an appropriate opponent to every client that wants to play.
         """
                 
-        GAMESTATUS = []
-        GAMESTATUS.append("WAITING_FOR_OPPONENT")
-        GAMESTATUS.append("JOINING")
-        GAMESTATUS.append("PREGAME_GAP")
-        GAMESTATUS.append("READY_TO_PLAY")
-        GAMESTATUS.append("PLAYING")
-        GAMESTATUS.append("GAME_END")
+        GAMESTATUS = ["WAITING_FOR_OPPONENT", "JOINING", "PREGAME_GAP", "READY_TO_PLAY", "PLAYING", "GAME_END"]
     
         l = r = None
-        for key, client in self.clients.iteritems():
+        keys = self.clients.keys()
+        for key in keys:
+            client = self.clients[key]
             if client.game_data is None or client.game_data.status != WAITING_FOR_OPPONENT:
                 continue
             
-            
             print "match_making  ", client.user.name, GAMESTATUS[client.game_data.status]
-            
+                
             if l is None:
                 l = client
             else:
                 if l.game_data.category != client.game_data.category:
                     continue
                 r = client
+            
+            if l is not None and r is None and (datetime.datetime.now() - client.game_data.times['WP']).seconds > 2:
+                bot = DuelBotProtocol()
+                bot.factory = self
+                bot.category = l.game_data.category
+                bot.start()
+                r = bot
             
             if l and r:
                 game = Game()
