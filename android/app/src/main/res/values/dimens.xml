@@ -9,5 +9,6 @@
     <dimen name="fontsize.normal">20sp</dimen>
     <dimen name="fontsize.large">25sp</dimen>
     <dimen name="fontsize.small">15sp</dimen>
+    <dimen name="fontsize.smallx">10sp</dimen>
 
 </resources>

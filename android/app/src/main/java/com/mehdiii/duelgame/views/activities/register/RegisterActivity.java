@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -26,10 +27,11 @@ import org.json.JSONObject;
 public class RegisterActivity extends MyBaseActivity {
 
     String userId;
+    TextView hintTextView;
     EditText usernameEditText;
     EditText emailEditText;
     Button registerButton;
-    Button chooseAvatarButton;
+//    Button chooseAvatarButton;
     Spinner provinceSpinner;
 
     BroadcastReceiver mListener = new BroadcastReceiver() {
@@ -93,15 +95,16 @@ public class RegisterActivity extends MyBaseActivity {
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         emailEditText = (EditText) findViewById(R.id.editText_email);
         registerButton = (Button) findViewById(R.id.button_register);
-        chooseAvatarButton = (Button) findViewById(R.id.button_choose_avatar);
+//        chooseAvatarButton = (Button) findViewById(R.id.button);
         provinceSpinner = (Spinner) findViewById(R.id.spinner_province);
+        hintTextView = (TextView) findViewById(R.id.textView_hint_avatat);
     }
 
     private void configure() {
         /**
          * set font to controls
          */
-        FontHelper.setKoodakFor(this, usernameEditText, registerButton, emailEditText, chooseAvatarButton);
+        FontHelper.setKoodakFor(this, usernameEditText, registerButton, emailEditText/*, chooseAvatarButton*/, hintTextView);
     }
 
 

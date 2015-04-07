@@ -12,29 +12,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/start_his_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="15dp"
+            android:onClick="chooseAvatar"
             android:src="@drawable/av8" />
 
-        <Button
-            android:id="@+id/button_choose_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space.short"
-            android:background="@drawable/bg_button_azure"
-            android:onClick="chooseAvatar"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="@string/button_choose_avatar"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fontsize.normal" />
+        <!--<Button-->
+        <!--android:id="@+id/button_choose_avatar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/space.short"-->
+        <!--android:background="@drawable/bg_button_azure"-->
+        <!--android:onClick="chooseAvatar"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:text="@string/button_choose_avatar"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/fontsize.small" />-->
 
+        <TextView
+            android:id="@+id/textView_hint_avatat"
+            android:text="@string/message_click_photo_to_choose_avatar"
+            android:textSize="@dimen/fontsize.small"
+            android:textColor="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
 
         <EditText
             android:id="@+id/editText_username"
@@ -67,13 +77,13 @@
 
         <Button
             android:id="@+id/button_register"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space.long"
             android:background="@drawable/bg_button_indian_red"
             android:onClick="registerMe"
             android:text="@string/button_register"
             android:textColor="@color/white"
-            android:textSize="@dimen/fontsize.normal" />
+            android:textSize="@dimen/fontsize.large" />
     </LinearLayout>
 </ScrollView>
