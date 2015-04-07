@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <color name="background_color">#F5EBDB</color>
+
     <color name="game_bg_color">#4F3545</color>
 
     <color name="waiting_separator_line">#F2E4D7</color>
@@ -13,7 +13,7 @@
     <color name="action_bar_background_color">#F3676F</color>
 
     <string-array name="ostan_array">
-        <item>استان</item>
+        <item>انتخاب استان</item>
         <item>خارج از ایران</item>
         <item>آذربایجان شرقی</item>
         <item>آذربایجان غربی</item>
@@ -47,5 +47,30 @@
         <item>همدان</item>
         <item>یزد</item>
     </string-array>
-
+    <string-array name="avatars">
+        <item>@drawable/av1</item>
+        <item>@drawable/av2</item>
+        <item>@drawable/av3</item>
+        <item>@drawable/av4</item>
+        <item>@drawable/av5</item>
+        <item>@drawable/av6</item>
+        <item>@drawable/av7</item>
+        <item>@drawable/av8</item>
+        <item>@drawable/av9</item>
+        <item>@drawable/av10</item>
+        <item>@drawable/av11</item>
+        <item>@drawable/av12</item>
+        <item>@drawable/av13</item>
+        <item>@drawable/av14</item>
+        <item>@drawable/av15</item>
+        <item>@drawable/av16</item>
+        <item>@drawable/av17</item>
+        <item>@drawable/av18</item>
+        <item>@drawable/av19</item>
+        <item>@drawable/av20</item>
+        <item>@drawable/av21</item>
+        <item>@drawable/av22</item>
+        <item>@drawable/av23</item>
+        <item>@drawable/av24</item>
+    </string-array>
 </resources>

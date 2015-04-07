@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#fff</color>
+    <color name="cream_light">#FBE6E1</color>
+    <color name="azure">#9FC2BB</color>
+    <color name="azure_dark">#89ABA4</color>
+    <color name="azure_dark2">#759690</color>
+    <color name="blue_dark">#485868</color>
+    <color name="yellow">#F3C766</color>
+</resources>
