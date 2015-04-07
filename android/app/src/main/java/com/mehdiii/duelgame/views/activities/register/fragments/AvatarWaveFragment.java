@@ -13,6 +13,8 @@ import android.widget.TableLayout;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.custom.AvatarViewer;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +22,15 @@ import com.squareup.picasso.Picasso;
  * Created by omid on 4/6/2015.
  */
 public class AvatarWaveFragment extends Fragment {
+    public static final int ROWS = 3;
+    public static final int COLUMNS = 2;
+
+    OnCompleteListener onCompleteListener;
+
+    public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
+        this.onCompleteListener = onCompleteListener;
+    }
+
 
     public static String ARGS_START_INDEX = "ARGS_START_INDEX";
 
@@ -28,7 +39,6 @@ public class AvatarWaveFragment extends Fragment {
 
     int screenW;
     int screenH;
-    int rows = 3, columns = 2;
 
     int startIndex;
 
@@ -52,6 +62,14 @@ public class AvatarWaveFragment extends Fragment {
         startIndex = bundle.getInt(ARGS_START_INDEX, 0);
     }
 
+    private View.OnClickListener avatarClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int selection = ((AvatarViewer) view).getPosition();
+            MyBaseActivity.myAvatarIndex = selection;
+            onCompleteListener.onComplete(selection);
+        }
+    };
 
     private void loadImages() {
 
@@ -61,17 +79,21 @@ public class AvatarWaveFragment extends Fragment {
         screenH = metrics.heightPixels;
         int avatarHeight = screenH / 5;
 
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < ROWS; i++) {
             LinearLayout row = new LinearLayout(getActivity());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(0, 20, 0, 20);
             row.setLayoutParams(params);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
-            for (int j = 0; j < columns; j++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 AvatarViewer viewer = new AvatarViewer(getActivity());
                 viewer.setLayoutParams(new TableLayout.LayoutParams(0, avatarHeight, 1f));
-                Picasso.with(getActivity()).load(AvatarHelper.getAvatarResource(getActivity(), startIndex * (rows * columns) + i * 3 + j + 1)).resize(screenW / 2, avatarHeight).centerInside().into(viewer);
+                viewer.setBackgroundColor(getActivity().getResources().getColor(android.R.color.transparent));
+                viewer.setOnClickListener(avatarClickListener);
+                int index = startIndex * (ROWS * COLUMNS) + i * 3 + j + 1;
+                viewer.setPosition(index);
+                Picasso.with(getActivity()).load(AvatarHelper.getResourceId(getActivity(), index)).resize(screenW / 2, avatarHeight).centerInside().into(viewer);
 
                 row.addView(viewer);
             }

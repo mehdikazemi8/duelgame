@@ -13,16 +13,11 @@ import com.mehdiii.duelgame.R;
 public class AvatarHelper {
     static int[] avatars = null;
 
-    public static String getSampleChar() {
-        return String.valueOf((char) 0xe998);
+    public static Bitmap getBitmap(Context context, int position) {
+        return BitmapFactory.decodeResource(context.getResources(), getResourceId(context, position));
     }
 
-
-    public static Bitmap getAvatarBitmap(Context context, int position) {
-        return BitmapFactory.decodeResource(context.getResources(), getAvatarResource(context, position));
-    }
-
-    private static void loadAvatars(Context context) {
+    private static void load(Context context) {
         TypedArray imgs = context.getResources().obtainTypedArray(R.array.avatars);
         int length = imgs.length();
         avatars = new int[length];
@@ -31,13 +26,19 @@ public class AvatarHelper {
         imgs.recycle();
     }
 
-    public static int getAvatarResource(Context context, int position) {
+    public static int getResourceId(Context context, int position) {
         if (avatars == null)
-            loadAvatars(context);
+            load(context);
 
         if (avatars.length > position)
             return avatars[position - 1];
         else
             return avatars[avatars.length - 1];
+    }
+
+    public static int getCount(Context context) {
+        if (avatars  == null)
+            load(context);
+        return avatars.length;
     }
 }

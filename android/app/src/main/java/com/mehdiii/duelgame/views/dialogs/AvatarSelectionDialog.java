@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -16,7 +15,10 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment;
 import com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter;
 
 /**
@@ -28,7 +30,7 @@ public class AvatarSelectionDialog extends DialogFragment {
     TextView avatarTextView;
     ViewPager viewPager;
 
-    PagerAdapter pagerAdapter;
+    AvatarSliderAdapter pagerAdapter;
 
     int screenW;
     int screenH;
@@ -70,18 +72,22 @@ public class AvatarSelectionDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
     }
 
     private void find(View view) {
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
-//        avatarTextView = (TextView) view.findViewById(R.id.textView_avatar);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_avatars);
     }
 
     private void configure() {
         FontHelper.setKoodakFor(getActivity(), titleTextView);
         pagerAdapter = new AvatarSliderAdapter(getChildFragmentManager());
+        pagerAdapter.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                getDialog().dismiss();
+            }
+        }, AvatarHelper.getCount(getActivity()) / AvatarWaveFragment.ROWS / AvatarWaveFragment.COLUMNS);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
 
