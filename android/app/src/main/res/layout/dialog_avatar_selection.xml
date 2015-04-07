@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark"
-    android:gravity="center|top"
-    android:orientation="vertical">
+    android:background="@color/blue_dark">
 
-    <TextView
-        android:id="@+id/textView_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space.long"
-        android:text="@string/button_choose_avatar"
-        android:textColor="@color/yellow"
-        android:textSize="@dimen/fontsize.large" />
-
-    <View
+    <LinearLayout
+        android:id="@+id/container_header"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="@dimen/space.medium"
-        android:background="@color/white" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.long"
+            android:text="@string/button_choose_avatar"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/fontsize.large" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/space.medium"
+            android:background="@color/white" />
+
+    </LinearLayout>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_avatars"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/container_header"
         android:layout_marginTop="10dp" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator_avatars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp" />
+
 
     <!--<LinearLayout-->
     <!--android:layout_width="match_parent"-->
@@ -55,4 +71,4 @@
     <!--app:position="3" />-->
 
     <!--</LinearLayout>-->
-</LinearLayout>
+</RelativeLayout>

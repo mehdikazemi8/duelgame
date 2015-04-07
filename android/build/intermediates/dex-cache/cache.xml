@@ -16,6 +16,13 @@
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-8b1560e0e84321dec823b4d68bd069a9dd403d65.jar" />
     </item>
     <item
+        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\android\ViewPagerIndicator\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e33ed0f07e5172d3da5aa7376b8491e60b4a5a9f">
+        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-5941c4fdda7d51687514713c174e622c29c5d97a.jar" />
+    </item>
+    <item
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"

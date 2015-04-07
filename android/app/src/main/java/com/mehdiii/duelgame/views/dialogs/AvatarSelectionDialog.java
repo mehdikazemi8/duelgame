@@ -20,6 +20,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment;
 import com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter;
+import com.viewpagerindicator.CirclePageIndicator;
 
 /**
  * Created by omid on 4/6/2015.
@@ -31,6 +32,7 @@ public class AvatarSelectionDialog extends DialogFragment {
     ViewPager viewPager;
 
     AvatarSliderAdapter pagerAdapter;
+    CirclePageIndicator indicator;
 
     int screenW;
     int screenH;
@@ -39,6 +41,7 @@ public class AvatarSelectionDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_avatar_selection, container, false);
+
         return view;
     }
 
@@ -50,7 +53,7 @@ public class AvatarSelectionDialog extends DialogFragment {
         screenW = metrics.widthPixels;
         screenH = metrics.heightPixels;
 
-        getDialog().getWindow().setLayout((int) (screenW * 0.9), (int) (screenH * 0.9));
+        getDialog().getWindow().setLayout((int) (screenW * 0.9), (int) (screenH * 0.95));
     }
 
     @NonNull
@@ -77,6 +80,7 @@ public class AvatarSelectionDialog extends DialogFragment {
     private void find(View view) {
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_avatars);
+        indicator = (CirclePageIndicator) view.findViewById(R.id.indicator_avatars);
     }
 
     private void configure() {
@@ -90,6 +94,8 @@ public class AvatarSelectionDialog extends DialogFragment {
         }, AvatarHelper.getCount(getActivity()) / AvatarWaveFragment.ROWS / AvatarWaveFragment.COLUMNS);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
+
+        indicator.setViewPager(viewPager);
 
     }
 }
