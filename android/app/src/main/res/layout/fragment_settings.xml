@@ -1,12 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@drawable/register_user_bg"
+    android:focusableInTouchMode="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings Fragment" />
-</LinearLayout>
+        android:layout_margin="20dp"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/start_his_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:onClick="chooseAvatar"
+            android:src="@drawable/av8" />
+
+        <TextView
+            android:id="@+id/textView_hint_avatat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/message_click_photo_to_choose_avatar"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/fontsize.small" />
+
+        <EditText
+            android:id="@+id/editText_username"
+            style="@style/edit_text_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.long"
+            android:hint="@string/caption_username"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/editText_email"
+            style="@style/edit_text_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.short"
+            android:hint="@string/caption_email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+
+        <Spinner
+            android:id="@+id/spinner_province"
+            style="@style/spinner_default_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.short"
+            android:entries="@array/ostan_array"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.medium"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView_girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/switch_gender"
+                android:text="@string/caption_girl"
+                android:textSize="@dimen/fontsize.normal" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/switch_gender"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:offColor="@color/pink" />
+
+            <TextView
+                android:id="@+id/textView_boy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/switch_gender"
+                android:text="@string/caption_boy"
+                android:textSize="@dimen/fontsize.normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.medium"
+            android:gravity="center">
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView_music_off"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toLeftOf="@id/switch_music"-->
+                <!--android:text="@string/caption_play_music_not"-->
+                <!--android:textSize="@dimen/fontsize.normal" />-->
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/switch_music"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:enabled="true" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView_music_on"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@id/switch_music"-->
+                <!--android:text="@string/caption_play_music"-->
+                <!--android:textSize="@dimen/fontsize.normal" />-->
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.long"
+            android:background="@drawable/bg_button_indian_red"
+            android:text="@string/button_save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large" />
+    </LinearLayout>
+</ScrollView>

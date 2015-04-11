@@ -10,9 +10,11 @@ import android.widget.TextView;
 public class FontHelper {
     private static final String FONT_APP_NAME = "roya_bold.ttf";
     private static final String FONT_AVATAR_NAME = "avatars.ttf";
+    private static final String FONT_MENU_NAME = "menu.ttf";
 
     private static Typeface koodak = null;
     private static Typeface avatars = null;
+    private static Typeface menu = null;
 
     public static Typeface getKoodak(Context context) {
         if (koodak == null)
@@ -31,5 +33,11 @@ public class FontHelper {
         if (avatars == null)
             avatars = Typeface.createFromAsset(context.getAssets(), FONT_AVATAR_NAME);
         return avatars;
+    }
+
+    public static Typeface getMenu(Context context) {
+        if (menu == null)
+            menu = Typeface.createFromAsset(context.getAssets(), FONT_MENU_NAME);
+        return menu;
     }
 }

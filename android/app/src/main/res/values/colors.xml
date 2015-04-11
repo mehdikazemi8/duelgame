@@ -7,8 +7,7 @@
     <color name="azure_dark2">#759690</color>
     <color name="blue_dark">#485868</color>
     <color name="yellow">#F3C766</color>
+    <color name="yellow_light">#d0bc77</color>
     <color name="gray">#717171</color>
-
-
-
+    <color name="pink">#DC559B</color>
 </resources>

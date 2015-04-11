@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="button_register">ورود</string>
+    <string name="button_save">ذخیره</string>
     <string name="button_choose_avatar">انتخاب صورتک</string>
 </resources>

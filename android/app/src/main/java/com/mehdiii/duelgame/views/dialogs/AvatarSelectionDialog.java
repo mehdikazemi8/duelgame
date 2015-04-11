@@ -37,6 +37,9 @@ public class AvatarSelectionDialog extends DialogFragment {
     int screenW;
     int screenH;
 
+
+    OnCompleteListener onCompleteListener = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +93,8 @@ public class AvatarSelectionDialog extends DialogFragment {
             @Override
             public void onComplete(Object data) {
                 getDialog().dismiss();
+                if (onCompleteListener != null)
+                    onCompleteListener.onComplete(data);
             }
         }, AvatarHelper.getCount(getActivity()) / AvatarWaveFragment.ROWS / AvatarWaveFragment.COLUMNS);
         viewPager.setAdapter(pagerAdapter);
@@ -98,4 +103,9 @@ public class AvatarSelectionDialog extends DialogFragment {
         indicator.setViewPager(viewPager);
 
     }
+
+    public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
+        this.onCompleteListener = onCompleteListener;
+    }
+
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="caption_username">نام کاربری</string>
-    <string name="caption_email">ایمیل</string>
+    <string name="caption_email">ایمیل (اختیاری)</string>
+    <string name="caption_girl">دختر</string>
+    <string name="caption_boy">پسر</string>
+    <string name="caption_play_music">موزیک</string>
+    <string name="caption_play_music_not">خفه</string>
 </resources>
