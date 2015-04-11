@@ -31,6 +31,7 @@ if __name__ == '__main__':
          reactor.run()
       elif sys.argv[1] == 'admin':
          from duel.admin import start
-         #os.system('gnome-terminal -e "sudo"')
-
+         start()
+      elif sys.argv[1] == 'processor':
+         from duel.processor import start
          start()

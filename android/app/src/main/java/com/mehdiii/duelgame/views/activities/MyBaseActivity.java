@@ -20,10 +20,11 @@ import de.tavendo.autobahn.WebSocketHandler;
 public class MyBaseActivity extends ActionBarActivity {
 
     static protected WebSocketConnection wsc = new WebSocketConnection();
-//    static protected String wsuri = "ws://192.168.128.189:9000";
-    static protected String wsuri = "ws://192.168.128.222:9000";
+    //    static protected String wsuri = "ws://192.168.128.189:9000";
+//    static protected String wsuri = "ws://192.168.128.222:9000";
 //    static protected String wsuri = "ws://52.16.134.157:9000";
 //    static protected String wsuri = "ws://192.168.1.103:9000";
+    static protected String wsuri = "ws://192.168.128.174:9000";
 
     static Random rand = new Random();
 
@@ -127,9 +128,9 @@ public class MyBaseActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //8888888888888888888888888888888888888888888888
         if (DONE == false) {
+
 
             Intent svc = new Intent(this, MusicPlayer.class);
             startService(svc);

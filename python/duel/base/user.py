@@ -21,18 +21,18 @@ class User(object):
         self.friends = {}
         self.seen_data = None
         self.statistics = {'win':0, 'draw':0, 'lose':0}
-        
+
         if not len(kwargs.keys()):
             return
-        
+
         q = {}
         if kwargs.has_key('user_number'):
             q['user_number'] = kwargs['user_number']
         elif kwargs.has_key('user_id'):
             q['user_id'] = kwargs['user_id']
-        
+
         self.load(db.user.find_one(q))
-     
+
     def load(self, data):
         if data is None:
             return
@@ -61,7 +61,7 @@ class User(object):
             self.friends = data['friends']
         if data.has_key('statistics'):
             self.statistics = data['statistics']
-    
+
     def to_dict(self):
         return {
             'user_id':self.user_id,
@@ -80,32 +80,26 @@ class User(object):
     def save(self, **kwargs):
         if not len(kwargs.keys()):
             kwargs = self.to_dict()
-        
+
         if self.user_number is None:
             user_number = 1000000 + db.info.find_and_modify({'name':'user_number'}, {'$inc':{'value':1}}, new=True)['value']
             self.user_number = self.int2base(int(user_number), 16)
-        
+
         if self.user_id is None:
             if not kwargs.has_key('user_id') or not kwargs.has_key('name'):
                 raise RegisterUserException('user_id or name are not specified.')
-        
+
         self.load(kwargs)
         db.user.update({'user_number':self.user_number}, {'$set':dict(kwargs)}, True)
-        
+
     def int2base(self, x, base):
         digs = string.digits + string.letters
-        
+
         digits = []
-        
+
         while x:
             digits.append(digs[x % base])
             x /= base
-        
+
         digits.reverse()
         return ''.join(digits)
-    
-    
-    
-    
-    
-    

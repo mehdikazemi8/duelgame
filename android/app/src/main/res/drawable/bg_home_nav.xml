@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--<item android:state_selected="true">-->
+    <!--<shape android:shape="rectangle">-->
+    <!--<solid android:color="#22272D" />-->
+    <!--</shape>-->
+    <!--</item>-->
+    <!--<item android:state_pressed="true">-->
+    <!--<shape android:shape="rectangle">-->
+    <!--<solid android:color="#483435" />-->
+    <!--</shape>-->
+    <!--</item>-->
     <item android:state_selected="true">
-        <shape android:shape="rectangle">
-            <solid android:color="#22272D" />
-        </shape>
-    </item>
-    <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <solid android:color="#46525E" />
-        </shape>
-    </item>
-    <item>
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#2D343E" />
+                    <solid android:color="#493637" />
                 </shape>
             </item>
-            <item android:right="1dp">
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <!--<item>-->
+            <!--<shape android:shape="rectangle">-->
+            <!--<solid android:color="@color/yellow_light" />-->
+            <!--</shape>-->
+            <!--</item>-->
+            <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#353E47" />
+                    <solid android:color="#483435" />
                 </shape>
             </item>
         </layer-list>

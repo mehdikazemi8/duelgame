@@ -13,30 +13,19 @@ class ClientMessageHandler(MessageHandler):
         print 'Your opponent is', self.payload['opponents'][0]['name']
         self.client.loading()
     
-    def on_start_playing(self):
-        self.client.sendMessage({'code':'GQ', 'time':-1, 'ok':0})
-        
     def on_opponent_score(self):
         time = self.payload['time']
         ok = self.payload['ok']
-        print time, ok
-        return
-        self.whenDoIDisable = time - 1
         
-        if self.client.answeredThis == False:
-            self.client.sendMessage({'code':'GQ', 'time':-1, 'ok':0})
-        
+    def on_start_playing(self):
+        self.client.answer()
+    
     def on_game_ended(self):
         res = {0:'tie', 1:'win', -1:'lose'}
         print res[self.payload['result']], self.payload['rank'], self.payload['saved_time']
         
     def on_ask_question(self):
-        # self.client.question_no += 1
-        self.client.answeredThis = False
-        self.whenDoIDisable = 0
-        self.answer_time = random.randint(19, 20)
-        reactor.callLater(1, self.time)
-        self.remaining = 20
+        self.client.answer()
     
     def on_opponent_has_left(self):
         print 'opponent %s has left the game.'%self.payload['user_number']
@@ -54,28 +43,6 @@ class ClientMessageHandler(MessageHandler):
     def on_receive_friend_list(self):
         print self.payload['friends']
         
-    def time(self):
-        
-        if self.whenDoIDisable > 0:
-            return
-        
-        self.remaining -= 1
-        
-        if self.whenDoIDisable == self.remaining:
-            self.client.sendMessage({'code':'GQ', 'time':-1, 'ok':0})
-            return
-        
-        if self.remaining <= self.answer_time:
-            self.client.answeredThis = True
-            self.client.sendMessage({'code':'GQ', 'time':self.remaining, 'ok':random.randint(0,1)})
-            #self.client.sendMessage({'code':'GQ', 'time':self.remaining, 'ok':1})
-            return;
-            
-        if self.remaining > 0:
-            reactor.callLater(1, self.time)
-        else:
-            self.client.sendMessage({'code':'GQ', 'time':-1, 'ok':0})
-            
 class DuelClientProtocol(WebSocketClientProtocol):
     """ Handle clinet side of a client connection
     """
@@ -86,7 +53,7 @@ class DuelClientProtocol(WebSocketClientProtocol):
         else:
             self.sendMessage({'code':'UL', 'user_id':a})
         
-        self.sendMessage({'code':'WP', 'category':2})
+        self.sendMessage({'code':'WP', 'category':1001})
         self.sendMessage({'code':'GFL'})
         self.answeredThis = False
         
@@ -115,3 +82,24 @@ class DuelClientProtocol(WebSocketClientProtocol):
         print 'wait for loading', rand
         time.sleep(rand)
         reactor.callLater(1, self.send_ready_to_play)
+    
+    def answer(self):
+        self.time = 20 - random.randint(1, 6)
+        self.timer = 20
+        self.answered_this = False
+        reactor.callLater(1, self.countdown)
+        
+    def countdown(self):
+        if self.answered_this:
+            return
+        self.timer -= 1
+        
+        if self.timer == self.time:
+            self.answered_this = random.randint(0, 1)
+            self.sendMessage({'code':'GQ', 'time':20 - self.time, 'ok':self.answered_this})
+            
+        if self.timer < 0:
+            self.sendMessage({'code':'GQ', 'time':-1, 'ok':0})
+            return
+        
+        reactor.callLater(1, self.countdown)

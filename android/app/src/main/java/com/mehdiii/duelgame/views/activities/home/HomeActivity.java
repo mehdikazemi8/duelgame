@@ -124,13 +124,13 @@ public class HomeActivity extends MyBaseActivity {
                 case R.id.button_home:
                     viewPager.setCurrentItem(4, true);
                     break;
-                case R.id.button_store:
+                case R.id.button_friends:
                     viewPager.setCurrentItem(3, true);
                     break;
-                case R.id.button_friends:
+                case R.id.button_ranking:
                     viewPager.setCurrentItem(2, true);
                     break;
-                case R.id.button_ranking:
+                case R.id.button_store:
                     viewPager.setCurrentItem(1, true);
                     break;
                 case R.id.button_settings:
@@ -166,16 +166,16 @@ public class HomeActivity extends MyBaseActivity {
                     settingsFragment.onBringToFront();
                     break;
                 case 1:
+                    selection = storeButton;
+                    storeFragment.onBringToFront();
+                    break;
+                case 2:
                     selection = rankingButton;
                     rankingFragment.onBringToFront();
                     break;
-                case 2:
+                case 3:
                     selection = friendsButton;
                     friendsFagment.onBringToFront();
-                    break;
-                case 3:
-                    selection = storeButton;
-                    storeFragment.onBringToFront();
                     break;
                 case 4:
                     selection = homeButton;
@@ -206,9 +206,9 @@ public class HomeActivity extends MyBaseActivity {
         homeFragment = (FlipableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
         childFragments.add(settingsFragment);
+        childFragments.add(storeFragment);
         childFragments.add(rankingFragment);
         childFragments.add(friendsFagment);
-        childFragments.add(storeFragment);
         childFragments.add(homeFragment);
     }
 

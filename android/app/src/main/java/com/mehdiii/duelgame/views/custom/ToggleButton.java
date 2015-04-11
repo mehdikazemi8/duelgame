@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.Button;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 /**
  * Created by omid on 4/5/2015.
@@ -19,11 +20,13 @@ public class ToggleButton extends Button {
 
     public ToggleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setTypeface(FontHelper.getMenu(getContext()));
         unselect();
     }
 
     public ToggleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setTypeface(FontHelper.getMenu(getContext()));
         unselect();
     }
 

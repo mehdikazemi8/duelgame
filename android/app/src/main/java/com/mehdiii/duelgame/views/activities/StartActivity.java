@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
+import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

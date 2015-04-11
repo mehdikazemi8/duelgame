@@ -16,30 +16,32 @@
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
+
         <com.mehdiii.duelgame.views.custom.ToggleButton
             android:id="@+id/button_settings"
             style="@style/home_nav_buttons"
-            android:text="SETTINGS" />
-
-        <com.mehdiii.duelgame.views.custom.ToggleButton
-            android:id="@+id/button_ranking"
-            style="@style/home_nav_buttons"
-            android:text="RANKING" />
-
-        <com.mehdiii.duelgame.views.custom.ToggleButton
-            android:id="@+id/button_friends"
-            style="@style/home_nav_buttons"
-            android:text="FRIENDS" />
+            android:text="C" />
 
         <com.mehdiii.duelgame.views.custom.ToggleButton
             android:id="@+id/button_store"
             style="@style/home_nav_buttons"
-            android:text="STORE" />
+            android:text="E" />
+
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_ranking"
+            style="@style/home_nav_buttons"
+            android:text="D" />
+
+        <com.mehdiii.duelgame.views.custom.ToggleButton
+            android:id="@+id/button_friends"
+            style="@style/home_nav_buttons"
+            android:text="B" />
 
         <com.mehdiii.duelgame.views.custom.ToggleButton
             android:id="@+id/button_home"
             style="@style/home_nav_buttons"
-            android:text="HOME" />
+            android:text="A" />
+
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
