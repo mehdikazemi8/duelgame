@@ -6,7 +6,7 @@ import com.mehdiii.duelgame.models.base.SerializableModel;
 /**
  * Created by omid on 4/8/2015.
  */
-public class RegisterUser extends SerializableModel {
+public class User extends SerializableModel {
 
     @SerializedName("code")
     private String command = "RU";
@@ -17,9 +17,11 @@ public class RegisterUser extends SerializableModel {
     @SerializedName("name")
     private String username;
     @SerializedName("ostan")
-    private int ostan;
+    private int province;
     @SerializedName("avatar")
     private int avatar;
+    @SerializedName("level")
+    private int level;
 
     public String getEmail() {
         return email;
@@ -37,12 +39,12 @@ public class RegisterUser extends SerializableModel {
         this.userId = userId;
     }
 
-    public int getOstan() {
-        return ostan;
+    public int getProvince() {
+        return province;
     }
 
-    public void setOstan(int ostan) {
-        this.ostan = ostan;
+    public void setProvince(int province) {
+        this.province = province;
     }
 
     public int getAvatar() {
@@ -59,5 +61,13 @@ public class RegisterUser extends SerializableModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

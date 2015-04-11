@@ -41,5 +41,16 @@
         <item name="android:textSize">@dimen/fontsize.large</item>
     </style>
 
+    <style name="friends_nav_buttons">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:gravity">top|center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:background">@drawable/bg_friends_nav</item>
+        <item name="android:textColor">@color/yellow_light</item>
+        <item name="android:textSize">@dimen/fontsize.large</item>
+    </style>
+
 
 </resources>

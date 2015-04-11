@@ -3,4 +3,6 @@
     <string name="button_register">ورود</string>
     <string name="button_save">ذخیره</string>
     <string name="button_choose_avatar">انتخاب صورتک</string>
+    <string name="button_friends">دوستان</string>
+    <string name="button_requests">درخواست‌ها</string>
 </resources>

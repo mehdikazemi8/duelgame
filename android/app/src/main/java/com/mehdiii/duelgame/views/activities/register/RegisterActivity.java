@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.RegisterUser;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
@@ -158,10 +158,10 @@ public class RegisterActivity extends MyBaseActivity {
         myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
-            RegisterUser registerUser = new RegisterUser();
+            User registerUser = new User();
             registerUser.setUserId(userId);
             registerUser.setUsername(myName);
-            registerUser.setOstan(myOstanInt);
+            registerUser.setProvince(myOstanInt);
             registerUser.setEmail(myEmail);
             registerUser.setAvatar(myAvatarIndex);
 
