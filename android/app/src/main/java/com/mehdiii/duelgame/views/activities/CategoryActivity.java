@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
 
@@ -20,7 +21,7 @@ public class CategoryActivity extends MyBaseActivity {
         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
         category = v.getContentDescription().toString();
         cat.setCategory(v.getContentDescription().toString());
-        wsc.sendTextMessage(cat.serialize());
+        DuelApp.getInstance().sendMessage(cat.serialize());
 
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();

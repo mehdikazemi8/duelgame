@@ -23,9 +23,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFra
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,19 +193,19 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     private void readData() {
-        try {
-            JSONObject parser = new JSONObject(loginInfo);
-            myAvatarIndex = parser.getInt("avatar");
-            myTime = parser.getInt("time");
-            myOstanInt = parser.getInt("ostan");
-            myScore = parser.getInt("score");
-            myUserNumber = parser.getString("user_number");
-            myElo = (int) parser.getDouble("elo");
-            myName = parser.getString("name");
-
-        } catch (JSONException e) {
-
-        }
+//        try {
+//            JSONObject parser = new JSONObject(loginInfo);
+//            myAvatarIndex = parser.getInt("avatar");
+//            myTime = parser.getInt("time");
+//            myOstanInt = parser.getInt("ostan");
+//            myScore = parser.getInt("score");
+//            myUserNumber = parser.getString("user_number");
+//            myElo = (int) parser.getDouble("elo");
+//            myName = parser.getString("name");
+//
+//        } catch (JSONException e) {
+//
+//        }
     }
 
     @Override

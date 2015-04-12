@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
@@ -100,7 +101,7 @@ public class WaitingActivity extends MyBaseActivity {
                                 JSONObject query = new JSONObject();
                                 try {
                                     query.put("code", "RTP");
-                                    wsc.sendTextMessage(query.toString());
+                                    DuelApp.getInstance().sendMessage(query.toString());
                                 } catch (JSONException e) {
                                     Log.d("---- StartActivity JSON", e.toString());
                                 }
@@ -177,7 +178,7 @@ public class WaitingActivity extends MyBaseActivity {
         try {
             query.put("code", "ULG");
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }

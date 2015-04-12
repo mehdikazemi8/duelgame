@@ -8,20 +8,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 
 public class TryToConnectActivity extends MyBaseActivity {
 
-    public void checkConnection()
-    {
-        if(wsc.isConnected())
-        {
+    public void checkConnection() {
+        if (DuelApp.getInstance().getSocket().isConnected()) {
             Log.d("****", "vasl shod");
 
             finish();
-        }
-        else
-        {
+        } else {
             Log.d("****", "vasl nashod");
 
             TextView status = (TextView) findViewById(R.id.try_to_connect_status);
@@ -29,24 +26,21 @@ public class TryToConnectActivity extends MyBaseActivity {
         }
     }
 
-    public void reconnect(View v)
-    {
+    public void reconnect(View v) {
         TextView status = (TextView) findViewById(R.id.try_to_connect_status);
         status.setText("در حال اتصال به سرور بازی");
 
-        doConnect();
+//        doConnect();
 
         Runnable task = new Runnable() {
             public void run() {
                 checkConnection();
             }
         };
-
         ViewCompat.postOnAnimationDelayed(v, task, 2000);
     }
 
-    public void exit(View v)
-    {
+    public void exit(View v) {
         TextView status = (TextView) findViewById(R.id.try_to_connect_status);
         status.setText("eeeeeeeeeeeee");
     }
