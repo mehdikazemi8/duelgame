@@ -61,7 +61,7 @@ public class FriendsListAdapter extends ArrayAdapter<User> {
 
     private void initializeViews(User friend, ViewHolder holder) {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), friend.getAvatar())).into(holder.imageViewAvatar);
-        holder.textViewTitle.setText(friend.getUsername());
+        holder.textViewTitle.setText(friend.getName());
         holder.textViewProvince.setText(friend.getProvince());
         holder.textViewLevel.setText("lvl" + friend);
     }

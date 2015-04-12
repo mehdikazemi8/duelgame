@@ -159,9 +159,9 @@ public class RegisterActivity extends MyBaseActivity {
         myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
-            User registerUser = User.newInstance(User.CommandType.Register);
-            registerUser.setUserId(userId);
-            registerUser.setUsername(myName);
+            User registerUser = User.newInstance(User.CommandType.REGISTER);
+            registerUser.setDeviceId(userId);
+            registerUser.setName(myName);
             registerUser.setProvince(myOstanInt);
             registerUser.setEmail(myEmail);
             registerUser.setAvatar(myAvatarIndex);

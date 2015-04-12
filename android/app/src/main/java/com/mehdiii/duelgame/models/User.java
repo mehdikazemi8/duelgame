@@ -9,18 +9,22 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 public class User extends BaseModel {
 
     public enum CommandType {
-        Register,
-        Login
+        REGISTER,
+        LOGIN,
+        GET_INFO
     }
 
     public static User newInstance(CommandType type) {
         User user = new User();
         switch (type) {
-            case Register:
+            case REGISTER:
                 user.setCommand("RU");
                 break;
-            case Login:
+            case LOGIN:
                 user.setCommand("UL");
+                break;
+            case GET_INFO:
+                user.setCommand("LI");
                 break;
             default:
                 user.setCommand("UNKNOWN");
@@ -29,19 +33,31 @@ public class User extends BaseModel {
         return user;
     }
 
+    public CommandType getCommandType() {
+        if (this.getCommand().equals("LI"))
+            return CommandType.GET_INFO;
+        else if (this.getCommand().equals("UL"))
+            return CommandType.LOGIN;
+        else
+            return CommandType.REGISTER;
+    }
 
     @SerializedName("email")
     private String email;
     @SerializedName("user_id")
-    private String userId;
+    private String deviceId;
     @SerializedName("name")
-    private String username;
+    private String name;
     @SerializedName("ostan")
     private int province;
     @SerializedName("avatar")
     private int avatar;
     @SerializedName("level")
     private int level;
+    @SerializedName("time")
+    private int diamond;
+    @SerializedName("user_number")
+    private String id;
 
     public String getEmail() {
         return email;
@@ -51,12 +67,12 @@ public class User extends BaseModel {
         this.email = email;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public int getProvince() {
@@ -75,12 +91,12 @@ public class User extends BaseModel {
         this.avatar = avatar;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLevel() {
@@ -89,5 +105,21 @@ public class User extends BaseModel {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public void setDiamond(int diamond) {
+        this.diamond = diamond;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

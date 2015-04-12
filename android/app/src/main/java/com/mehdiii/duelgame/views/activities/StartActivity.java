@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
 
@@ -25,32 +27,18 @@ public class StartActivity extends MyBaseActivity {
     protected class TitleBarListener extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("%%%%%%%%%%%", "onReceive Start Activity");
 
             if (intent.getAction().equals("MESSAGE")) {
-                Log.d("-------", "tooye if MESSAGE");
-
-                String inputMessage = intent.getExtras().getString("inputMessage");
-                String messageCode;
-                JSONObject parser = null;
-
-                try {
-                    parser = new JSONObject(inputMessage);
-                    messageCode = parser.getString("code");
-                    if (messageCode.compareTo("LI") == 0) {
-                        Log.d("**** Start Activity ", inputMessage);
-                        Log.d("**** Start Activity ", "--" + parser.getString("user_number") + "--");
-
-                        if (parser.getString("user_number").equals("null")) {
-                            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                        } else {
-                            loginInfo = inputMessage;
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        }
-                        finish();
+                User user = User.deserialize(intent.getExtras().getString("inputMessage"),
+                        User.class);
+                if (user.getCommandType() == User.CommandType.GET_INFO) {
+                    if (user.getId().equals("null"))
+                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                    else {
+                        AuthManager.authenticate(user);
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     }
-                } catch (JSONException e) {
-                    Log.d("---------", "can not parse string");
+                    finish();
                 }
             }
         }
