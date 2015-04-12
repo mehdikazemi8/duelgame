@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class WaitingActivity extends MyBaseActivity {
                         int oppElo = (int) firstOpponent.getDouble("elo");
                         oppUserNumber = firstOpponent.getString("user_number");
 
-                        ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(avatarId[oppAvatarIndex]);
+                        ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(WaitingActivity.this, oppAvatarIndex));
                         setTextView(R.id.waiting_opponent_name, oppName);
                         setTextView(R.id.waiting_opponent_ostan, getOstanStr(oppOstanInt));
                         setTextView(R.id.waiting_opponent_elo, "" + oppElo);
@@ -129,7 +130,7 @@ public class WaitingActivity extends MyBaseActivity {
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        ((ImageView) findViewById(R.id.waiting_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
+        ((ImageView) findViewById(R.id.waiting_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
         setTextView(R.id.waiting_my_name, myName);
         setTextView(R.id.waiting_my_ostan, getOstanStr(myOstanInt));
         setTextView(R.id.waiting_my_elo, "" + myElo);

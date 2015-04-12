@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 
 public class ChooseAvatarActivity extends MyBaseActivity {
 
@@ -20,8 +21,7 @@ public class ChooseAvatarActivity extends MyBaseActivity {
         LinearLayout avatarList = (LinearLayout) findViewById(R.id.choose_avatar_list);
 
         int i = 1;
-        while(i <= NUMBER_OF_AVATARS)
-        {
+        while (i <= NUMBER_OF_AVATARS) {
             LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             rowParams.setMargins(0, 0, 0, 0);
 
@@ -29,13 +29,12 @@ public class ChooseAvatarActivity extends MyBaseActivity {
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setLayoutParams(rowParams);
 
-            if(i % 2 == 0)
+            if (i % 2 == 0)
                 row.setBackgroundColor(Color.CYAN);
             else
                 row.setBackgroundColor(Color.RED);
 
-            for(int j = 0; j < 3 && i <= NUMBER_OF_AVATARS; i ++, j ++)
-            {
+            for (int j = 0; j < 3 && i <= NUMBER_OF_AVATARS; i++, j++) {
                 LinearLayout.LayoutParams avatarParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 avatarParams.weight = 1;
                 avatarParams.setMargins(0, 0, 0, 0);
@@ -43,22 +42,22 @@ public class ChooseAvatarActivity extends MyBaseActivity {
                 ImageView avat = new ImageView(this);
                 avat.setLayoutParams(avatarParams);
                 avat.setAdjustViewBounds(true);
-                avat.setContentDescription(""+i);
+                avat.setContentDescription("" + i);
                 avat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myAvatarIndex = Integer.parseInt( v.getContentDescription().toString() );
+                        myAvatarIndex = Integer.parseInt(v.getContentDescription().toString());
                         finish();
                     }
                 });
 
-                if(i%2 == 0)
+                if (i % 2 == 0)
                     avat.setBackgroundColor(Color.GREEN);
                 else
                     avat.setBackgroundColor(Color.LTGRAY);
 
 
-                avat.setImageResource(avatarId[i]);
+                avat.setImageResource(AvatarHelper.getResourceId(this, i));
                 row.addView(avat);
             }
 

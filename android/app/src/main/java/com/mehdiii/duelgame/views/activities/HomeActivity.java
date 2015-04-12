@@ -15,9 +15,8 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.ImageHelper;
-import com.mehdiii.duelgame.views.activities.CategoryActivity;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +28,7 @@ public class HomeActivity extends MyBaseActivity {
         ab.setDisplayShowCustomEnabled(true);
         ab.setDisplayShowTitleEnabled(false);
         ab.setIcon(R.drawable.icon_friends);
-        ab.setBackgroundDrawable( getResources().getDrawable( R.drawable.my_action_bar_pic ) );
+        ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_action_bar_pic));
         LayoutInflater inflator = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.action_bar_title, null);
@@ -84,7 +83,7 @@ public class HomeActivity extends MyBaseActivity {
 
         ImageView pic = (ImageView) findViewById(R.id.home_my_avatar);
 
-        Bitmap logobit = BitmapFactory.decodeResource(getResources(), avatarId[myAvatarIndex]);
+        Bitmap logobit = BitmapFactory.decodeResource(getResources(), AvatarHelper.getResourceId(this, myAvatarIndex));
         logobit = ImageHelper.getResizedBitmap(logobit, 100, 100);
         logobit = ImageHelper.getRoundedCornerBitmap(this, logobit,
                 100, 100, 100, false, false, false, false);

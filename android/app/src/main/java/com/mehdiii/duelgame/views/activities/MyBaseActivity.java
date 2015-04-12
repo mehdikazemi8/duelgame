@@ -56,7 +56,7 @@ public class MyBaseActivity extends ActionBarActivity {
     private String TAG = "---------------- ???";
 
     static final int NUMBER_OF_AVATARS = 6;
-    public static int[] avatarId = new int[NUMBER_OF_AVATARS + 1];
+//    public static int[] avatarId = new int[NUMBER_OF_AVATARS + 1];
 
     public String getOstanStr(int idx) {
         List<String> ostans = Arrays.asList(getResources().getStringArray(R.array.ostan_array));
@@ -68,32 +68,6 @@ public class MyBaseActivity extends ActionBarActivity {
         return "errorOstan";
     }
 
-    public void initAvatarIds() {
-        avatarId[1] = R.drawable.av1;
-        avatarId[2] = R.drawable.av2;
-        avatarId[3] = R.drawable.av3;
-        avatarId[4] = R.drawable.av4;
-        avatarId[5] = R.drawable.av5;
-        avatarId[6] = R.drawable.av6;
-//        avatarId[7] = R.drawable.av7;
-//        avatarId[8] = R.drawable.av8;
-//        avatarId[9] = R.drawable.av9;
-//        avatarId[10] = R.drawable.av10;
-//        avatarId[11] = R.drawable.av11;
-//        avatarId[12] = R.drawable.av12;
-//        avatarId[13] = R.drawable.av13;
-//        avatarId[14] = R.drawable.av14;
-//        avatarId[15] = R.drawable.av15;
-//        avatarId[16] = R.drawable.av16;
-//        avatarId[17] = R.drawable.av17;
-//        avatarId[18] = R.drawable.av18;
-//        avatarId[19] = R.drawable.av19;
-//        avatarId[20] = R.drawable.av20;
-//        avatarId[21] = R.drawable.av21;
-//        avatarId[22] = R.drawable.av22;
-//        avatarId[23] = R.drawable.av23;
-//        avatarId[24] = R.drawable.av24;
-    }
 
     protected boolean doConnect() {
         try {
@@ -133,7 +107,6 @@ public class MyBaseActivity extends ActionBarActivity {
             startService(svc);
 
             doConnect();
-            initAvatarIds();
             isConnected = true;
         }
     }

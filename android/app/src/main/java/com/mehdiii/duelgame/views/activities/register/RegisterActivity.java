@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
@@ -189,7 +190,7 @@ public class RegisterActivity extends MyBaseActivity {
 
     private void setAvatar() {
         if (myAvatarIndex != -1) {
-            selectedAvatarImageView.setImageResource(avatarId[myAvatarIndex]);
+            selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
         }
     }
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,15 +88,15 @@ public class GameResultActivity extends MyBaseActivity {
                 myPlayer = MediaPlayer.create(this, LOSE);
             }
         } catch (JSONException e) {
-            Log.d("---- Game Result Activity, loginInfo", e.toString());
+            e.printStackTrace();
         }
 
         myPlayer.start();
 
         setTextView(R.id.game_result_status, gameVertict);
 
-        ((ImageView) findViewById(R.id.game_result_my_avatar)).setImageResource(avatarId[myAvatarIndex]);
-        ((ImageView) findViewById(R.id.game_result_opponent_avatar)).setImageResource(avatarId[oppAvatarIndex]);
+        ((ImageView) findViewById(R.id.game_result_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
+        ((ImageView) findViewById(R.id.game_result_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(this, oppAvatarIndex));
 
         setTextView(R.id.game_result_opponent_points, "" + oppPoints);
         setTextView(R.id.game_result_my_points, "" + myPoints);
@@ -132,7 +133,7 @@ public class GameResultActivity extends MyBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addToFriends(View v){
+    public void addToFriends(View v) {
 
         boolean everythingOK = true;
 
@@ -149,9 +150,8 @@ public class GameResultActivity extends MyBaseActivity {
             Log.d("---- GameResult JSON", e.toString());
         }
 
-        if(everythingOK == true)
-        {
-            String msg ="به لیست دوستان شما اضافه شد." ;
+        if (everythingOK == true) {
+            String msg = "به لیست دوستان شما اضافه شد.";
             Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 10);
             toast.show();
