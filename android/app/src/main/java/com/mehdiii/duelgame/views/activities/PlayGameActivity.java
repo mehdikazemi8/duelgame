@@ -1,24 +1,31 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +35,10 @@ import java.util.ArrayList;
 public class PlayGameActivity extends MyBaseActivity {
 
     final int DURATION = 20000;
+    final int durationNumberOfProblem = 1000;
+    final int durationOptions = 1000;
+    final int durationCorrectOption = 1000;
+
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
 
@@ -41,13 +52,22 @@ public class PlayGameActivity extends MyBaseActivity {
     int opponentAnsweredThisTime;
     int problemIndex;
 
-    boolean thisQuestionHasEnded;
-
     boolean hintRemoveClicked;
     boolean hintAgainClicked;
 
+    Button option0Btn, option1Btn, option2Btn, option3Btn;
+    ImageView hintRemoveBtn, hintAgainBtn;
+
+    private Display mobileDisplay;
+    private Point screenSize = new Point();
+    private int screenHeight;
+
     MediaPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
+
+    ProgressBar myProgress, opProgress;
+
+    private String[] round = new String[NUMBER_OF_QUESTIONS];
 
     protected class TitleBarListener extends BroadcastReceiver {
         @Override
@@ -60,7 +80,7 @@ public class PlayGameActivity extends MyBaseActivity {
                     parser = new JSONObject(inputMessage);
                     messageCode = parser.getString("code");
                     if (messageCode.compareTo("AQ") == 0) {
-                        askQuestion();
+                        endQuestionAnimation(false);
                     } else if (messageCode.compareTo("OS") == 0) {
                         if (parser.getInt("ok") == 1) {
                             opponentAnsweredThisTime = parser.getInt("time");
@@ -80,14 +100,12 @@ public class PlayGameActivity extends MyBaseActivity {
 
                             }
                         }
-                        setTextView(R.id.op_score, "" + oppPoints);
-                        setProgressBar(R.id.play_game_op_progress, oppPoints);
+                        setTextView(playGameOpScore, "" + oppPoints);
+                        setProgressBar(opProgress, oppPoints);
 
                     } else if (messageCode.compareTo("GE") == 0) {
-
                         resultInfo = inputMessage;
-                        startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
-                        finish();
+                        endQuestionAnimation(true);
                     }
                 } catch (JSONException e) {
                     Log.d("---------", "can not parse string");
@@ -96,16 +114,11 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
-    ProgressBar pb = null;
-
-    public void setProgressBar(int id, int progress) {
-        ((ProgressBar) findViewById(id)).setProgress(progress + 5);
+    public void setProgressBar(ProgressBar pb, int progress) {
+        pb.setProgress(progress);
     }
 
     public void askQuestion() {
-        if (timeToAnswer != null)
-            timeToAnswer.cancel();
-
         numberOfOptionChose = 0;
         choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = false;
         hintRemoveClicked = hintAgainClicked = false;
@@ -116,7 +129,7 @@ public class PlayGameActivity extends MyBaseActivity {
         remainingTimeOfThisQuestion = 20;
 
         String questionText = questionsToAsk[problemIndex].questionText;
-        setTextView(R.id.question, questionText);
+        setTextView(playGameQuestionText, questionText);
 
         String[] opts = questionsToAsk[problemIndex].options;
         problemIndex++;
@@ -134,32 +147,23 @@ public class PlayGameActivity extends MyBaseActivity {
         else
             correctOption = 3;
 
-        setButton(R.id.option_0, opts[0]);
-        setButton(R.id.option_1, opts[1]);
-        setButton(R.id.option_2, opts[2]);
-        setButton(R.id.option_3, opts[3]);
+        setButton(option0Btn, opts[0]);
+        setButton(option1Btn, opts[1]);
+        setButton(option2Btn, opts[2]);
+        setButton(option3Btn, opts[3]);
 
-        pb.setProgress(0);
-        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 100);
-        animation.setDuration(DURATION); // 0.5 second
-        animation.setInterpolator(new LinearInterpolator());
-        animation.start();
+        setTextView(playGameRemainingTime, "" + 20);
 
         timeToAnswer = new CountDownTimer(DURATION, 1000) {
             @Override
             public void onTick(long arg0) {
                 remainingTimeOfThisQuestion = arg0 / 1000;
-                setTextView(R.id.remaining_time, "" + (arg0 / 1000));
-
-//                pb.setProgress(100 * ((int) arg0) / DURATION);
-//                pb.setProgress(25);
-//
-//                Log.d("--- ", myName + " - " + remainingTimeOfThisQuestion);
+                setTextView(playGameRemainingTime, "" + (arg0 / 1000));
             }
 
             @Override
             public void onFinish() {
-                setTextView(R.id.remaining_time, "0");
+                setTextView(playGameRemainingTime, "0");
 
                 if (iAnsweredThisCorrect == true)
                     return;
@@ -168,20 +172,81 @@ public class PlayGameActivity extends MyBaseActivity {
             }
         };
 
-        timeToAnswer.start();
+        option0Btn.setClickable(true);
+        option1Btn.setClickable(true);
+        option2Btn.setClickable(true);
+        option3Btn.setClickable(true);
 
-        ((Button) findViewById(R.id.option_0)).setClickable(true);
-        ((Button) findViewById(R.id.option_1)).setClickable(true);
-        ((Button) findViewById(R.id.option_2)).setClickable(true);
-        ((Button) findViewById(R.id.option_3)).setClickable(true);
+        option0Btn.setBackgroundResource(R.drawable.option_button);
+        option1Btn.setBackgroundResource(R.drawable.option_button);
+        option2Btn.setBackgroundResource(R.drawable.option_button);
+        option3Btn.setBackgroundResource(R.drawable.option_button);
 
-        ((Button) findViewById(R.id.option_0)).setBackgroundResource(R.drawable.buy_button);
-        ((Button) findViewById(R.id.option_1)).setBackgroundResource(R.drawable.buy_button);
-        ((Button) findViewById(R.id.option_2)).setBackgroundResource(R.drawable.buy_button);
-        ((Button) findViewById(R.id.option_3)).setBackgroundResource(R.drawable.buy_button);
+//        option0Btn.setVisibility(View.VISIBLE);
+//        option1Btn.setVisibility(View.VISIBLE);
+//        option2Btn.setVisibility(View.VISIBLE);
+//        option3Btn.setVisibility(View.VISIBLE);
 
-        ((Button) findViewById(R.id.play_game_hint_again)).setClickable(true);
-        ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(true);
+        option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+
+        hintAgainBtn.setClickable(true);
+        hintRemoveBtn.setClickable(true);
+
+        Log.d("-- AGAIN AskQuestion", hintAgainView.getLeft() + " " + hintAgainView.getRight());
+        Log.d("-- Remove AskQuestion", hintRemoveView.getLeft() + " " + hintRemoveView.getRight());
+
+        hintAgainView.setPivotX(hintAgainView.getRight());
+        hintAgainView.setPivotY(0);
+        hintRemoveView.setPivotX(0);
+        hintRemoveView.setPivotY(0);
+
+        hintAgainViewIsOpen = hintRemoveViewIsOpen = true;
+        doAnimateHintOption(hintRemoveView, 0f, 1f, 1000, 1000);
+        doAnimateHintOption(hintAgainView, 0f, 1f, 1000, 1000);
+
+        setStartAnimation(0f, 1f, playGameQuestionText, option0Btn, option1Btn, option2Btn, option3Btn);
+    }
+
+    public void setStartAnimation(float from, float to, TextView... views) {
+
+        int idx = 0;
+        for (TextView view : views) {
+            view.setAlpha(0f);
+            view.setVisibility(View.VISIBLE);
+
+            ObjectAnimator fadeIn = ObjectAnimator.ofFloat(view,
+                    "alpha", 0f, 1f);
+            fadeIn.setDuration(1000);
+            fadeIn.setInterpolator(new LinearInterpolator());
+            if (idx != 0) {
+                fadeIn.setStartDelay(1000);
+            }
+            if (idx == 1) {
+                fadeIn.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        timeToAnswer.start();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+            }
+            fadeIn.start();
+            idx++;
+        }
     }
 
     public void answered(View v) {
@@ -213,34 +278,64 @@ public class PlayGameActivity extends MyBaseActivity {
             } else {
                 myPoints += 1;
             }
-            setTextView(R.id.my_score, "" + myPoints);
+            setTextView(playGameMyScore, "" + myPoints);
 
-            setProgressBar(R.id.play_game_my_progress, myPoints);
+            setProgressBar(myProgress, myPoints);
 
-            ((Button) v).setBackgroundColor(Color.GREEN);
+            //((Button) v).setBackgroundColor(Color.GREEN);
+            ((Button) v).setTextColor(getResources().getColor(R.color.correct_answer));
             ok = 1;
 
-            ((Button) findViewById(R.id.play_game_hint_again)).setClickable(false);
-            ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
+            hintAgainBtn.setClickable(false);
+            hintRemoveBtn.setClickable(false);
         } else {
             myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
             //myPoints += -1;
-            //setTextView(R.id.my_score, "" + myPoints);
+            //setTextView(R.id.play_game_my_score, "" + myPoints);
 
             if (hintAgainClicked == true) {
                 iAnsweredThisTime = -1;
                 hintAgainClicked = false;
 
                 if (choseOption[0] == false)
-                    ((Button) findViewById(R.id.option_0)).setClickable(true);
+                    option0Btn.setClickable(true);
                 if (choseOption[1] == false)
-                    ((Button) findViewById(R.id.option_1)).setClickable(true);
+                    option1Btn.setClickable(true);
                 if (choseOption[2] == false)
-                    ((Button) findViewById(R.id.option_2)).setClickable(true);
+                    option2Btn.setClickable(true);
                 if (choseOption[3] == false)
-                    ((Button) findViewById(R.id.option_3)).setClickable(true);
+                    option3Btn.setClickable(true);
             }
-            ((Button) v).setBackgroundColor(Color.RED);
+//            ((Button) v).setBackgroundColor(Color.RED);
+            ((Button) v).setTextColor(getResources().getColor(R.color.wrong_answer));
+
+            if(numberOfOptionChose == 1 && hintAgainViewIsOpen == true)
+            {
+//                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
+//                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
+
+                ObjectAnimator shakeButton = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
+                shakeButton.setDuration(1000);
+                shakeButton.setRepeatCount(1);
+                shakeButton.setInterpolator(new BounceInterpolator());
+                shakeButton.setRepeatMode(ObjectAnimator.REVERSE);
+                shakeButton.start();
+
+                ObjectAnimator shakeButton1 = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
+                shakeButton1.setDuration(1000);
+                shakeButton1.setRepeatCount(1);
+                shakeButton1.setInterpolator(new AccelerateDecelerateInterpolator());
+                shakeButton1.setRepeatMode(ObjectAnimator.REVERSE);
+                shakeButton1.start();
+
+//                RotateAnimation rotate = new RotateAnimation(-20, 20, Animation.RELATIVE_TO_SELF,
+//                        0.5f,  Animation.RELATIVE_TO_SELF, 0.5f);
+//                rotate.setRepeatMode(RotateAnimation.INFINITE);
+//                rotate.setRepeatMode(RotateAnimation.REVERSE);
+//                rotate.setInterpolator( new () );
+//                rotate.setDuration(2000);
+//                hintAgainView.startAnimation(rotate);
+            }
         }
 
         myPlayer.start();
@@ -264,36 +359,98 @@ public class PlayGameActivity extends MyBaseActivity {
 
     TitleBarListener mListener;
 
-    public void setButton(int viewId, String s) {
-        Button tv = (Button) findViewById(viewId);
+    public void setButton(Button tv, String s) {
         tv.setText(s);
     }
 
-    public void setTextView(int viewId, String s) {
-        TextView tv = (TextView) findViewById(viewId);
+    public void setTextView(TextView tv, String s) {
         tv.setText(s);
     }
+
+    private TextView playGameOpName;
+    private TextView playGameOpScore;
+    private TextView playGameRemainingTime;
+    private TextView playGameMyName;
+    private TextView playGameMyScore;
+    private TextView playGameQuestionText;
+
+    private TextView playGameHintAgainCost;
+    private TextView playGameHintAgainText;
+    private TextView playGameHintRemoveCost;
+    private TextView playGameHintRemoveText;
+
+    private RelativeLayout hintAgainView, hintRemoveView;
+    private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
+        hintAgainViewIsOpen = hintRemoveViewIsOpen = false;
+
+        round[0] = "سوال اول";
+        round[1] = "سوال دوم";
+        round[2] = "سوال سوم";
+        round[3] = "سوال چهارم";
+        round[4] = "سوال پنجم";
+        round[5] = "سوال ششم";
+
         WRONG_ANSWER = R.raw.wrong_answer;
         CORRECT_ANSWER = R.raw.correct_answer;
-
-        pb = (ProgressBar) findViewById(R.id.my_progress);
 
         mListener = new TitleBarListener();
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        setTextView(R.id.my_name, myName);
-        setTextView(R.id.op_name, oppName);
+        playGameOpName = (TextView) findViewById(R.id.play_game_op_name);
+        playGameOpScore = (TextView) findViewById(R.id.play_game_op_score);
+        playGameRemainingTime = (TextView) findViewById(R.id.play_game_remaining_time);
+        playGameMyName = (TextView) findViewById(R.id.play_game_my_name);
+        playGameMyScore = (TextView) findViewById(R.id.play_game_my_score);
+        playGameQuestionText = (TextView) findViewById(R.id.play_game_question_text);
+
+        setTextView(playGameMyName, myName);
+        setTextView(playGameOpName, oppName);
 
         oppPoints = myPoints = 0;
         problemIndex = 0;
 
-        askQuestion();
+        option0Btn = (Button) findViewById(R.id.play_game_option_0);
+        option1Btn = (Button) findViewById(R.id.play_game_option_1);
+        option2Btn = (Button) findViewById(R.id.play_game_option_2);
+        option3Btn = (Button) findViewById(R.id.play_game_option_3);
+        hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
+        hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
+
+        mobileDisplay = getWindowManager().getDefaultDisplay();
+        screenSize = new Point();
+        mobileDisplay.getSize(screenSize);
+        screenHeight = screenSize.y;
+
+        myProgress = (ProgressBar) findViewById(R.id.play_game_my_progress);
+        opProgress = (ProgressBar) findViewById(R.id.play_game_op_progress);
+
+        playGameHintAgainCost = (TextView) findViewById(R.id.play_game_hint_again_cost);
+        playGameHintAgainText = (TextView) findViewById(R.id.play_game_hint_again_text);
+        playGameHintRemoveCost = (TextView) findViewById(R.id.play_game_hint_remove_cost);
+        playGameHintRemoveText = (TextView) findViewById(R.id.play_game_hint_remove_text);
+
+        FontHelper.setKoodakFor(getApplicationContext(),
+                option0Btn, option1Btn, option2Btn, option3Btn,
+                playGameOpName, playGameOpScore,
+                playGameMyName, playGameMyScore,
+                playGameRemainingTime,
+                playGameQuestionText,
+                playGameHintAgainCost, playGameHintRemoveCost,
+                playGameHintAgainText, playGameHintRemoveText);
+
+        hintAgainView = (RelativeLayout) findViewById(R.id.play_game_hint_again_view);
+        hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
+
+        Log.d("-- AGAIN OnCreate", hintAgainView.getLeft() + " " + hintAgainView.getRight());
+        Log.d("-- Remove OnCreaet", hintRemoveView.getLeft() + " " + hintRemoveView.getRight());
+
+        startGameAnimation();
     }
 
     final int AA = 4;
@@ -314,10 +471,207 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
+    public void doAnimateHintOption(final RelativeLayout hintView, float from, float to, int duration, int startDelay) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(hintView,
+                "scaleX", from, to);
+        animation.setDuration(duration);
+        animation.setStartDelay(startDelay);
+        animation.setInterpolator(new LinearInterpolator());
+
+        animation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                hintView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+
+        animation.start();
+    }
+
+    public void doAnimateProgressBar(ProgressBar pb, int fromX, int toX, int duration) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(pb,
+                "translationX", fromX, toX);
+        animation.setDuration(duration);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.start();
+    }
+
+    public void startGameAnimation() {
+        doAnimateProgressBar(myProgress, 100, 0, 500);
+        doAnimateProgressBar(opProgress, -100, 0, 500);
+
+        startQuestionAnimation();
+    }
+
+    public void startQuestionAnimation() {
+        if (timeToAnswer != null)
+            timeToAnswer.cancel();
+
+//        option0Btn.setVisibility(View.INVISIBLE);
+//        option1Btn.setVisibility(View.INVISIBLE);
+//        option2Btn.setVisibility(View.INVISIBLE);
+//        option3Btn.setVisibility(View.INVISIBLE);
+        setTextView(playGameRemainingTime, "" + 20);
+
+        setTextView(playGameQuestionText, round[problemIndex]);
+        Log.d("------------ problem Index", "" + problemIndex);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(playGameQuestionText,
+                "alpha", 0f, 1f);
+        fadeIn.setDuration(1000);
+        fadeIn.setInterpolator(new LinearInterpolator());
+        fadeIn.start();
+
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(playGameQuestionText,
+                "alpha", 1f, 0f);
+        fadeOut.setDuration(1000);
+        fadeOut.setStartDelay(1000);
+        fadeOut.setInterpolator(new LinearInterpolator());
+
+        fadeOut.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                askQuestion();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        fadeOut.start();
+    }
+
+    public void endQuestionAnimation(final boolean goToResult) {
+
+        ObjectAnimator fadeOut0 = ObjectAnimator.ofFloat(option0Btn, "alpha", 1f, 0f);
+        fadeOut0.setDuration(1000);
+        fadeOut0.setInterpolator(new LinearInterpolator());
+
+        ObjectAnimator fadeOut1 = ObjectAnimator.ofFloat(option1Btn, "alpha", 1f, 0f);
+        fadeOut1.setDuration(1000);
+        fadeOut1.setInterpolator(new LinearInterpolator());
+
+        ObjectAnimator fadeOut2 = ObjectAnimator.ofFloat(option2Btn, "alpha", 1f, 0f);
+        fadeOut2.setDuration(1000);
+        fadeOut2.setInterpolator(new LinearInterpolator());
+
+        ObjectAnimator fadeOut3 = ObjectAnimator.ofFloat(option3Btn, "alpha", 1f, 0f);
+        fadeOut3.setDuration(1000);
+        fadeOut3.setInterpolator(new LinearInterpolator());
+
+        if (correctOption == 0) {
+            option0Btn.setTextColor(getResources().getColor(R.color.correct_answer));
+            fadeOut1.start();
+            fadeOut2.start();
+            fadeOut3.start();
+        } else if (correctOption == 1) {
+            option1Btn.setTextColor(getResources().getColor(R.color.correct_answer));
+            fadeOut0.start();
+            fadeOut2.start();
+            fadeOut3.start();
+        } else if (correctOption == 2) {
+            option2Btn.setTextColor(getResources().getColor(R.color.correct_answer));
+            fadeOut0.start();
+            fadeOut1.start();
+            fadeOut3.start();
+        } else // if(correctOption == 3)
+        {
+            option3Btn.setTextColor(getResources().getColor(R.color.correct_answer));
+            fadeOut0.start();
+            fadeOut1.start();
+            fadeOut2.start();
+        }
+
+        if (hintAgainViewIsOpen == true) {
+            doAnimateHintOption(hintAgainView, 1f, 0f, 1000, 0);
+            hintAgainViewIsOpen = false;
+        }
+        if (hintRemoveViewIsOpen == true) {
+            doAnimateHintOption(hintRemoveView, 1f, 0f, 1000, 0);
+            hintRemoveViewIsOpen = false;
+        }
+
+        ObjectAnimator questionFadeOut = ObjectAnimator.ofFloat(playGameQuestionText, "alpha", 1f, 0f);
+        questionFadeOut.setDuration(1000);
+        questionFadeOut.setStartDelay(1000);
+        questionFadeOut.setInterpolator(new LinearInterpolator());
+        questionFadeOut.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (goToResult == true) {
+
+                    startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
+                    finish();
+                } else {
+                    startQuestionAnimation();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+
+        switch (correctOption) {
+            case 0:
+                fadeOut0.setStartDelay(1000);
+                fadeOut0.start();
+                questionFadeOut.start();
+                break;
+            case 1:
+                fadeOut1.setStartDelay(1000);
+                fadeOut1.start();
+                questionFadeOut.start();
+                break;
+            case 2:
+                fadeOut2.setStartDelay(1000);
+                fadeOut2.start();
+                questionFadeOut.start();
+                break;
+            case 3:
+                fadeOut3.setStartDelay(1000);
+                fadeOut3.start();
+                questionFadeOut.start();
+                break;
+        }
+    }
+
     public void hintRemoveMethod(View v) {
         if (hintRemoveClicked == true)
             return;
         hintRemoveClicked = true;
+
+        if (hintRemoveViewIsOpen == true) {
+            doAnimateHintOption(hintRemoveView, 1f, 0f, 100, 0);
+            hintRemoveViewIsOpen = false;
+        }
 
         if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
             iAnsweredThisCorrect = true;
@@ -350,24 +704,36 @@ public class PlayGameActivity extends MyBaseActivity {
         int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
 
         if (removeItem == 0) {
-            ((Button) findViewById(R.id.option_0)).setBackgroundColor(Color.BLUE);
-            ((Button) findViewById(R.id.option_0)).setClickable(false);
+//            option0Btn.setBackgroundColor(Color.BLUE);
+//            option0Btn.setClickable(false);
+
+            option0Btn.setVisibility(View.INVISIBLE);
+
             choseOption[0] = true;
         } else if (removeItem == 1) {
-            ((Button) findViewById(R.id.option_1)).setBackgroundColor(Color.BLUE);
-            ((Button) findViewById(R.id.option_1)).setClickable(false);
+//            option1Btn.setBackgroundColor(Color.BLUE);
+//            option1Btn.setClickable(false);
+
+            option1Btn.setVisibility(View.INVISIBLE);
+
             choseOption[1] = true;
         } else if (removeItem == 2) {
-            ((Button) findViewById(R.id.option_2)).setBackgroundColor(Color.BLUE);
-            ((Button) findViewById(R.id.option_2)).setClickable(false);
+//            option2Btn.setBackgroundColor(Color.BLUE);
+//            option2Btn.setClickable(false);
+
+            option2Btn.setVisibility(View.INVISIBLE);
+
             choseOption[2] = true;
         } else {
-            ((Button) findViewById(R.id.option_3)).setBackgroundColor(Color.BLUE);
-            ((Button) findViewById(R.id.option_3)).setClickable(false);
+//            option3Btn.setBackgroundColor(Color.BLUE);
+//            option3Btn.setClickable(false);
+
+            option3Btn.setVisibility(View.INVISIBLE);
+
             choseOption[3] = true;
         }
 
-        ((Button) findViewById(R.id.play_game_hint_remove)).setClickable(false);
+        hintRemoveBtn.setClickable(false);
     }
 
     public void hintAgainMethod(View v) {
@@ -375,18 +741,23 @@ public class PlayGameActivity extends MyBaseActivity {
             hintAgainClicked = true;
         }
 
+        if (hintAgainViewIsOpen == true) {
+            doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
+            hintAgainViewIsOpen = false;
+        }
+
         iAnsweredThisTime = -1;
 
         if (choseOption[0] == false)
-            ((Button) findViewById(R.id.option_0)).setClickable(true);
+            option0Btn.setClickable(true);
         if (choseOption[1] == false)
-            ((Button) findViewById(R.id.option_1)).setClickable(true);
+            option1Btn.setClickable(true);
         if (choseOption[2] == false)
-            ((Button) findViewById(R.id.option_2)).setClickable(true);
+            option2Btn.setClickable(true);
         if (choseOption[3] == false)
-            ((Button) findViewById(R.id.option_3)).setClickable(true);
+            option3Btn.setClickable(true);
 
-        ((Button) findViewById(R.id.play_game_hint_again)).setClickable(false);
+        hintAgainBtn.setClickable(false);
     }
 
     @Override
@@ -417,10 +788,10 @@ public class PlayGameActivity extends MyBaseActivity {
     }
 
     public void doDisableButtons() {
-        ((Button) findViewById(R.id.option_0)).setClickable(false);
-        ((Button) findViewById(R.id.option_1)).setClickable(false);
-        ((Button) findViewById(R.id.option_2)).setClickable(false);
-        ((Button) findViewById(R.id.option_3)).setClickable(false);
+        option0Btn.setClickable(false);
+        option1Btn.setClickable(false);
+        option2Btn.setClickable(false);
+        option3Btn.setClickable(false);
     }
 
     @Override
