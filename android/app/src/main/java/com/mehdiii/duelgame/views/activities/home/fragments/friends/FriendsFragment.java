@@ -68,7 +68,6 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
     private void getFriendListing() {
         User user = AuthManager.getCurrentUser();
-
-        wsc.sendTextMessage(query.toString());
+//        wsc.sendTextMessage(query.toString());
     }
 }

@@ -37,9 +37,9 @@ public class User extends BaseModel {
         return user;
     }
 
-    public static CommandType getCommandType(String type) {
-
-    }
+//    public static CommandType getCommandType(String type) {
+//
+//    }
     public CommandType getCommandType() {
         if (this.getCommand().equals("LI"))
             return CommandType.GET_INFO;
@@ -69,7 +69,7 @@ public class User extends BaseModel {
     private String id;
 
     public void getFriendsRequest() {
-        setCommand(getCommandType());
+//        setCommand(getCommandType());
     }
 
     public String getEmail() {

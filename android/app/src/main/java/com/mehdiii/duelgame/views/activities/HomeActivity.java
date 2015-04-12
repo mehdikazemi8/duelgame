@@ -18,9 +18,6 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.ImageHelper;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class HomeActivity extends MyBaseActivity {
 
     private void setupActionBar() {
@@ -50,19 +47,19 @@ public class HomeActivity extends MyBaseActivity {
 
         setupActionBar();
 
-        try {
-            JSONObject parser = new JSONObject(loginInfo);
-            myAvatarIndex = parser.getInt("avatar");
-            myTime = parser.getInt("time");
-            myOstanInt = parser.getInt("ostan");
-            myScore = parser.getInt("score");
-            myUserNumber = parser.getString("user_number");
-            myElo = (int) parser.getDouble("elo");
-            myName = parser.getString("name");
-
-        } catch (JSONException e) {
-//            Log.d("---- HOME Activity, loginInfo", e.toString());
-        }
+//        try {
+////            JSONObject parser = new JSONObject(loginInfo);
+////            myAvatarIndex = parser.getInt("avatar");
+////            myTime = parser.getInt("time");
+////            myOstanInt = parser.getInt("ostan");
+////            myScore = parser.getInt("score");
+////            myUserNumber = parser.getString("user_number");
+////            myElo = (int) parser.getDouble("elo");
+////            myName = parser.getString("name");
+//
+//        } catch (JSONException e) {
+////            Log.d("---- HOME Activity, loginInfo", e.toString());
+//        }
 
         setData();
     }
