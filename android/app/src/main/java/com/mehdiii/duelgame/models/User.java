@@ -11,7 +11,8 @@ public class User extends BaseModel {
     public enum CommandType {
         REGISTER,
         LOGIN,
-        GET_INFO
+        GET_INFO,
+        GET_FRIEND_LIST
     }
 
     public static User newInstance(CommandType type) {
@@ -26,6 +27,9 @@ public class User extends BaseModel {
             case GET_INFO:
                 user.setCommand("LI");
                 break;
+            case GET_FRIEND_LIST:
+                user.setCommand("GFL");
+                break;
             default:
                 user.setCommand("UNKNOWN");
         }
@@ -33,11 +37,16 @@ public class User extends BaseModel {
         return user;
     }
 
+    public static CommandType getCommandType(String type) {
+
+    }
     public CommandType getCommandType() {
         if (this.getCommand().equals("LI"))
             return CommandType.GET_INFO;
         else if (this.getCommand().equals("UL"))
             return CommandType.LOGIN;
+        else if (this.getCommand().equals("GFL"))
+            return CommandType.GET_FRIEND_LIST;
         else
             return CommandType.REGISTER;
     }
@@ -58,6 +67,10 @@ public class User extends BaseModel {
     private int diamond;
     @SerializedName("user_number")
     private String id;
+
+    public void getFriendsRequest() {
+        setCommand(getCommandType());
+    }
 
     public String getEmail() {
         return email;
