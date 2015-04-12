@@ -58,7 +58,7 @@ public class RegisterActivity extends MyBaseActivity {
                     messageCode = parser.getString("code");
                     if (messageCode.compareTo("LI") == 0) {
 //                        Log.d("**** Start Activity ", inputMessage);
-                        loginInfo = inputMessage;
+//                        loginInfo = inputMessage;
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         finish();
                     }
