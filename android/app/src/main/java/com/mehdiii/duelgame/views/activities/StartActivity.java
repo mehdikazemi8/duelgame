@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -63,14 +64,14 @@ public class StartActivity extends MyBaseActivity {
         simSerialNumber = teleManager.getSimSerialNumber();
         userId = deviceId + simSerialNumber;
 
-        if (!wsc.isConnected()) {
-            Log.d("^^^^^", "not connected");
+        if (!DuelApp.getInstance().getSocket().isConnected()) {
+            Log.d("DUELAPP", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
 
         ViewCompat.postOnAnimationDelayed(new TextView(this), new Runnable() {
             public void run() {
-                if (wsc.isConnected()) {
+                if (DuelApp.getInstance().getSocket().isConnected()) {
                     JSONObject query = new JSONObject();
                     try {
                         query.put("code", "UL");
@@ -78,7 +79,7 @@ public class StartActivity extends MyBaseActivity {
 
                         Log.d("--- Start Activity", query.toString());
 
-                        wsc.sendTextMessage(query.toString());
+                        DuelApp.getInstance().sendMessage(query.toString());
                     } catch (JSONException e) {
                         Log.d("---- START ACTIVITY", e.toString());
                     }

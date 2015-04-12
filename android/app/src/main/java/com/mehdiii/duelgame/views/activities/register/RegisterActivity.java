@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
@@ -57,8 +58,6 @@ public class RegisterActivity extends MyBaseActivity {
                     parser = new JSONObject(inputMessage);
                     messageCode = parser.getString("code");
                     if (messageCode.compareTo("LI") == 0) {
-//                        Log.d("**** Start Activity ", inputMessage);
-//                        loginInfo = inputMessage;
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         finish();
                     }
@@ -92,7 +91,7 @@ public class RegisterActivity extends MyBaseActivity {
         simSerialNumber = "" + teleManager.getSimSerialNumber();
         userId = deviceId + simSerialNumber;
 
-        if (wsc == null || !wsc.isConnected()) {
+        if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
             Log.d("^^^^^", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
@@ -166,7 +165,7 @@ public class RegisterActivity extends MyBaseActivity {
             registerUser.setEmail(myEmail);
             registerUser.setAvatar(myAvatarIndex);
 
-            wsc.sendTextMessage(registerUser.serialize());
+            DuelApp.getInstance().sendMessage(registerUser.serialize());
         }
     }
 

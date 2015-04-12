@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 
@@ -144,7 +145,7 @@ public class GameResultActivity extends MyBaseActivity {
 
             Log.d("-- send ADD FRIEND", query.toString());
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             everythingOK = false;
             Log.d("---- GameResult JSON", e.toString());
@@ -166,7 +167,7 @@ public class GameResultActivity extends MyBaseActivity {
 
             Log.d("-- send WP", query.toString());
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GameResult JSON", e.toString());
         }

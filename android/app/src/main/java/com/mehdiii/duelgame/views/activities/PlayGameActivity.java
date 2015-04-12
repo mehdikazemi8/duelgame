@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
 
@@ -309,8 +310,7 @@ public class PlayGameActivity extends MyBaseActivity {
 //            ((Button) v).setBackgroundColor(Color.RED);
             ((Button) v).setTextColor(getResources().getColor(R.color.wrong_answer));
 
-            if(numberOfOptionChose == 1 && hintAgainViewIsOpen == true)
-            {
+            if (numberOfOptionChose == 1 && hintAgainViewIsOpen == true) {
 //                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
 //                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
 
@@ -346,7 +346,7 @@ public class PlayGameActivity extends MyBaseActivity {
             query.put("time", remainingTimeOfThisQuestion);
             query.put("ok", ok);
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }
@@ -465,7 +465,7 @@ public class PlayGameActivity extends MyBaseActivity {
             query.put("time", -1);
             query.put("ok", 0);
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }
@@ -802,7 +802,7 @@ public class PlayGameActivity extends MyBaseActivity {
         try {
             query.put("code", "ULG");
 
-            wsc.sendTextMessage(query.toString());
+            DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             Log.d("---- GQ GQ GQ", e.toString());
         }

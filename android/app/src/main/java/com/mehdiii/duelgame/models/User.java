@@ -37,18 +37,19 @@ public class User extends BaseModel {
         return user;
     }
 
-//    public static CommandType getCommandType(String type) {
-//
-//    }
-    public CommandType getCommandType() {
-        if (this.getCommand().equals("LI"))
+    public static CommandType getCommandType(String type) {
+        if (type.equals("LI"))
             return CommandType.GET_INFO;
-        else if (this.getCommand().equals("UL"))
+        else if (type.equals("UL"))
             return CommandType.LOGIN;
-        else if (this.getCommand().equals("GFL"))
+        else if (type.equals("GFL"))
             return CommandType.GET_FRIEND_LIST;
         else
             return CommandType.REGISTER;
+    }
+
+    public CommandType getCommandType() {
+        return getCommandType(getCommand());
     }
 
     @SerializedName("email")
@@ -68,8 +69,9 @@ public class User extends BaseModel {
     @SerializedName("user_number")
     private String id;
 
-    public void getFriendsRequest() {
-//        setCommand(getCommandType());
+    public User getFriendsRequest() {
+        setCommand("GFL");
+        return this;
     }
 
     public String getEmail() {
