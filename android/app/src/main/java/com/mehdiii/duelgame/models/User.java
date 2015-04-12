@@ -1,15 +1,35 @@
 package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
-import com.mehdiii.duelgame.models.base.SerializableModel;
+import com.mehdiii.duelgame.models.base.BaseModel;
 
 /**
  * Created by omid on 4/8/2015.
  */
-public class User extends SerializableModel {
+public class User extends BaseModel {
 
-    @SerializedName("code")
-    private String command = "RU";
+    public enum CommandType {
+        Register,
+        Login
+    }
+
+    public static User newInstance(CommandType type) {
+        User user = new User();
+        switch (type) {
+            case Register:
+                user.setCommand("RU");
+                break;
+            case Login:
+                user.setCommand("UL");
+                break;
+            default:
+                user.setCommand("UNKNOWN");
+        }
+
+        return user;
+    }
+
+
     @SerializedName("email")
     private String email;
     @SerializedName("user_id")

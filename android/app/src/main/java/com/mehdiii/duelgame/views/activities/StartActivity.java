@@ -41,12 +41,9 @@ public class StartActivity extends MyBaseActivity {
                         Log.d("**** Start Activity ", inputMessage);
                         Log.d("**** Start Activity ", "--" + parser.getString("user_number") + "--");
 
-                        if(parser.getString("user_number").equals("null"))
-                        {
+                        if (parser.getString("user_number").equals("null")) {
                             startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                        }
-                        else
-                        {
+                        } else {
                             loginInfo = inputMessage;
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         }
@@ -68,22 +65,24 @@ public class StartActivity extends MyBaseActivity {
         setContentView(R.layout.activity_start);
 
         mListener = new TitleBarListener();
+
         registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         final String deviceId, simSerialNumber;
-        deviceId = "" + teleManager.getDeviceId();
-        simSerialNumber = "" + teleManager.getSimSerialNumber();
+
+        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        deviceId = teleManager.getDeviceId();
+        simSerialNumber = teleManager.getSimSerialNumber();
         userId = deviceId + simSerialNumber;
 
-        if (wsc.isConnected() == false) {
+        if (!wsc.isConnected()) {
             Log.d("^^^^^", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
 
         ViewCompat.postOnAnimationDelayed(new TextView(this), new Runnable() {
             public void run() {
-                if (wsc.isConnected() == true) {
+                if (wsc.isConnected()) {
                     JSONObject query = new JSONObject();
                     try {
                         query.put("code", "UL");
@@ -101,8 +100,7 @@ public class StartActivity extends MyBaseActivity {
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
         Intent svc = new Intent(this, MusicPlayer.class);
