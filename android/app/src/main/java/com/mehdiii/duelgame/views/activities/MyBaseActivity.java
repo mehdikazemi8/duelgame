@@ -30,7 +30,7 @@ public class MyBaseActivity extends ActionBarActivity {
 
     static String category;
 
-    static boolean DONE = false;
+    static boolean isConnected = false;
     static int NUMBER_OF_QUESTIONS = 6;
     static Question[] questionsToAsk = new Question[NUMBER_OF_QUESTIONS];
 
@@ -128,16 +128,13 @@ public class MyBaseActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        //8888888888888888888888888888888888888888888888
-        if (DONE == false) {
-
+        if (!isConnected) {
             Intent svc = new Intent(this, MusicPlayer.class);
             startService(svc);
 
             doConnect();
             initAvatarIds();
-            DONE = true;
+            isConnected = true;
         }
     }
 
