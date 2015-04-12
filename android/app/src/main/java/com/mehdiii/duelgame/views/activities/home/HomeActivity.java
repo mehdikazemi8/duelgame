@@ -10,12 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -232,15 +230,6 @@ public class HomeActivity extends MyBaseActivity {
         } catch (JSONException e) {
 
         }
-    }
-
-    public void setData() {
-//        setTextView(R.id.home_my_name, myName);
-//        setTextView(R.id.home_my_elo, "" + myElo);
-//        setTextView(R.id.home_my_score, "" + myScore);
-//        setTextView(R.id.home_my_time, "" + myTime);
-
-        ((ImageView) findViewById(R.id.home_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
     }
 
     @Override
