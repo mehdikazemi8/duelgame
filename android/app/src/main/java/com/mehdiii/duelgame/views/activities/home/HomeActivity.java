@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.MusicPlayer;
@@ -51,29 +50,9 @@ public class HomeActivity extends MyBaseActivity {
 
     List<Fragment> childFragments;
 
-    private void hideActionbar() {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
-    }
-
-    private void setupActionBar() {
-//        android.support.v7.app.ActionBar ab = getSupportActionBar();
-//        ab.setDisplayShowCustomEnabled(true);
-//        ab.setDisplayShowTitleEnabled(false);
-//        ab.setIcon(R.drawable.icon_friends);
-//        ab.setBackgroundDrawable( getResources().getDrawable( R.drawable.my_action_bar_pic ) );
-//        LayoutInflater inflator = (LayoutInflater) this
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflator.inflate(R.layout.action_bar_title, null);
-//        TextView titleTV = (TextView) v.findViewById(R.id.title);
-//        ab.setCustomView(v);
-//        ab.setDisplayHomeAsUpEnabled(false);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        hideActionbar();
         setContentView(R.layout.activity_home);
         find();
         configure();
