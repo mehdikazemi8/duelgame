@@ -16,24 +16,31 @@
         android:background="@drawable/game_header"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:paddingBottom="13dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
 
             <ImageView
                 android:id="@+id/play_game_op_avatar"
-                android:layout_width="60dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:padding="5dp"
+                android:layout_weight="4"
                 android:src="@drawable/av1" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_toRightOf="@id/play_game_op_avatar"
+                android:layout_weight="3"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -46,7 +53,7 @@
                     android:singleLine="true"
                     android:text="هایمان"
                     android:textColor="@color/play_game_names"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/play_game_op_score"
@@ -56,15 +63,16 @@
                     android:padding="3dp"
                     android:text="0"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/play_game_remaining_time"
@@ -76,27 +84,32 @@
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
             <ImageView
-                android:id="@+id/play_game_my_avatar"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_vertical"
-                android:padding="5dp"
-                android:src="@drawable/av2" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:src="@drawable/clock" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:src="@drawable/tick0" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:paddingBottom="13dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@id/play_game_my_avatar"
+                android:layout_toRightOf="@id/play_game_op_avatar"
+                android:layout_weight="3"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -109,7 +122,7 @@
                     android:singleLine="true"
                     android:text="هایمان"
                     android:textColor="@color/play_game_names"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/play_game_my_score"
@@ -119,9 +132,22 @@
                     android:padding="3dp"
                     android:text="0"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
-        </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/play_game_my_avatar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:src="@drawable/av1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -277,7 +303,7 @@
 
         <RelativeLayout
             android:id="@+id/play_game_hint_again_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignRight="@id/play_game_empty_text"
             android:layout_marginLeft="8dp"
@@ -285,9 +311,10 @@
 
             <ImageView
                 android:id="@+id/play_game_hint_again"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="hintAgainMethod"
+                android:scaleType="fitXY"
                 android:src="@drawable/hint_btn_left" />
 
             <TextView
@@ -323,7 +350,7 @@
 
         <RelativeLayout
             android:id="@+id/play_game_hint_remove_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignLeft="@id/play_game_empty_text"
             android:layout_marginRight="8dp"
@@ -331,9 +358,10 @@
 
             <ImageView
                 android:id="@+id/play_game_hint_remove"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="hintRemoveMethod"
+                android:scaleType="fitXY"
                 android:src="@drawable/hint_btn_right" />
 
             <TextView
