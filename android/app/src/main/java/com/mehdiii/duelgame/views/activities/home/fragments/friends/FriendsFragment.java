@@ -21,6 +21,7 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_add_friend:
+                openAddFriendDialog();
                 break;
         }
     }
@@ -98,4 +100,9 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 //            User.deserialize(json, User.class);
         }
     };
+
+    private void openAddFriendDialog() {
+        AddFriendDialog dialog = new AddFriendDialog(getActivity());
+        dialog.show();
+    }
 }

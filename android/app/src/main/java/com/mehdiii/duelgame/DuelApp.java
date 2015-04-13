@@ -2,6 +2,8 @@ package com.mehdiii.duelgame;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
@@ -17,7 +19,7 @@ public class DuelApp extends Application {
     static boolean isConnected = false;
     private String TAG = "DUEL_APP";
 
-    static protected String wsuri = "ws://192.168.128.145:9000";
+    static protected String wsuri = "ws://192.168.128.227:9000";
 
     @Override
     public void onCreate() {
@@ -63,7 +65,11 @@ public class DuelApp extends Application {
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.setAction("MESSAGE");
         i.putExtra("inputMessage", json);
-        sendBroadcast(i);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+    }
+
+    public IntentFilter getIntentFilter() {
+        return new IntentFilter("MESSAGE");
     }
 
     public void sendMessage(String json) {

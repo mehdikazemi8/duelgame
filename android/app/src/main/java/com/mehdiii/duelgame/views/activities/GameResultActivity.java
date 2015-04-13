@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -64,7 +65,7 @@ public class GameResultActivity extends MyBaseActivity {
         LOSE = R.raw.lose;
 
         mListener = new TitleBarListener();
-        registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         try {
             JSONObject parser = new JSONObject(resultInfo);
@@ -179,6 +180,6 @@ public class GameResultActivity extends MyBaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 }

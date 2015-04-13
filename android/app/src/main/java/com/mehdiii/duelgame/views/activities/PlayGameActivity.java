@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -400,7 +401,7 @@ public class PlayGameActivity extends MyBaseActivity {
         CORRECT_ANSWER = R.raw.correct_answer;
 
         mListener = new TitleBarListener();
-        registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         playGameOpName = (TextView) findViewById(R.id.play_game_op_name);
         playGameOpScore = (TextView) findViewById(R.id.play_game_op_score);
@@ -784,7 +785,7 @@ public class PlayGameActivity extends MyBaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 
     public void doDisableButtons() {

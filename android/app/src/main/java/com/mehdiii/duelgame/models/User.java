@@ -69,6 +69,10 @@ public class User extends BaseModel {
     @SerializedName("user_number")
     private String id;
 
+    public User  getAddFriendRequest() {
+        setCommand("AF");
+        return this;
+    }
     public User getFriendsRequest() {
         setCommand("GFL");
         return this;

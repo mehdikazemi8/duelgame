@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -55,7 +56,7 @@ public class StartActivity extends MyBaseActivity {
 
         mListener = new TitleBarListener();
 
-        registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         final String deviceId, simSerialNumber;
 
@@ -120,7 +121,7 @@ public class StartActivity extends MyBaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 
 }

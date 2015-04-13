@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/space.medium">
+
+    <TextView
+        android:id="@+id/textView_label_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/caption_friend_id"
+        android:textSize="@dimen/fontsize.normal" />
+
+    <EditText
+        android:id="@+id/editText_code"
+        style="@style/edit_text_bordered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fontsize.normal" />
+
+    <Button
+        android:id="@+id/button_add_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_azure"
+        android:text="@string/button_add"
+        android:textColor="#084F73" />
+</LinearLayout>
