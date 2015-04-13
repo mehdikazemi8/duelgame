@@ -20,13 +20,13 @@ public class ToggleButton extends Button {
 
     public ToggleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setTypeface(FontHelper.getMenu(getContext()));
+        setTypeface(FontHelper.getIcons(getContext()));
         unselect();
     }
 
     public ToggleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setTypeface(FontHelper.getMenu(getContext()));
+        setTypeface(FontHelper.getIcons(getContext()));
         unselect();
     }
 

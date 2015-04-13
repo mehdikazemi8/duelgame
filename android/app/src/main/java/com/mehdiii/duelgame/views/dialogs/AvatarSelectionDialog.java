@@ -43,9 +43,7 @@ public class AvatarSelectionDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_avatar_selection, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.dialog_avatar_selection, container, false);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class DuelApp extends Application {
     static boolean isConnected = false;
     private String TAG = "DUEL_APP";
 
-    static protected String wsuri = "ws://192.168.128.227:9000";
+    static protected String wsuri = "ws://188.166.118.149:9000";
 
     @Override
     public void onCreate() {

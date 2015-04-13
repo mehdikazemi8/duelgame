@@ -16,7 +16,9 @@
             android:id="@+id/button_add_friend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_add_friend" />
+            android:background="@drawable/bg_button_indian_red"
+            android:text="@string/button_add_friend"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/textView_code"

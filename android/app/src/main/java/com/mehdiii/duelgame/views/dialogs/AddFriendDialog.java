@@ -1,10 +1,12 @@
 package com.mehdiii.duelgame.views.dialogs;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,7 +16,7 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceived;
@@ -38,6 +40,10 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_add_friend);
+
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        getWindow().setLayout((int) (metrics.widthPixels * 0.9), ActionBar.LayoutParams.WRAP_CONTENT);
+
 
         find();
         configure();
@@ -72,7 +78,10 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
     }
 
     private void sendAddFriendRequest() {
-        DuelApp.getInstance().sendMessage(AuthManager.getCurrentUser().getAddFriendRequest().serialize());
+        User user = new User();
+        user.setId(editTextCode.getText().toString());
+
+        DuelApp.getInstance().sendMessage(user.getAddFriendRequest().serialize());
         DuelApp.getInstance().toast(R.string.toast_friend_request_sent, Toast.LENGTH_SHORT);
         dismiss();
     }

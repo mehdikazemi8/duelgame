@@ -9,8 +9,8 @@ import android.widget.TextView;
  */
 public class FontHelper {
     private static final String FONT_APP_NAME = "roya_bold.ttf";
-    private static final String FONT_AVATAR_NAME = "avatars.ttf";
-    private static final String FONT_MENU_NAME = "menu.ttf";
+//    private static final String FONT_AVATAR_NAME = "avatars.ttf";
+    private static final String FONT_MENU_NAME = "icons.ttf";
 
     private static Typeface koodak = null;
     private static Typeface avatars = null;
@@ -29,13 +29,13 @@ public class FontHelper {
         }
     }
 
-    public static Typeface getAvatars(Context context) {
-        if (avatars == null)
-            avatars = Typeface.createFromAsset(context.getAssets(), FONT_AVATAR_NAME);
-        return avatars;
-    }
+//    public static Typeface getAvatars(Context context) {
+//        if (avatars == null)
+//            avatars = Typeface.createFromAsset(context.getAssets(), FONT_AVATAR_NAME);
+//        return avatars;
+//    }
 
-    public static Typeface getMenu(Context context) {
+    public static Typeface getIcons(Context context) {
         if (menu == null)
             menu = Typeface.createFromAsset(context.getAssets(), FONT_MENU_NAME);
         return menu;

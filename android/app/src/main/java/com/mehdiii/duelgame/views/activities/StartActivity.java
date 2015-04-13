@@ -34,7 +34,7 @@ public class StartActivity extends MyBaseActivity {
                 User user = User.deserialize(intent.getExtras().getString("inputMessage"),
                         User.class);
                 if (user.getCommandType() == User.CommandType.GET_INFO) {
-                    if (user.getId().equals("null"))
+                    if (user.getId() == null)
                         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                     else {
                         AuthManager.authenticate(user);
