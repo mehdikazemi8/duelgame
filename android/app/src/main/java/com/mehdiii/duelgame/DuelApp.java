@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
@@ -83,4 +84,9 @@ public class DuelApp extends Application {
     public static synchronized DuelApp getInstance() {
         return instance;
     }
+
+    public void toast(int resourceId, int length) {
+        Toast.makeText(getApplicationContext(), getResources().getString(resourceId), Toast.LENGTH_LONG).show();
+    }
+
 }

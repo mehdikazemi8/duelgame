@@ -18,12 +18,15 @@
         style="@style/edit_text_bordered"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space.short"
+        android:singleLine="true"
         android:textSize="@dimen/fontsize.normal" />
 
     <Button
         android:id="@+id/button_add_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space.short"
         android:background="@drawable/bg_button_azure"
         android:text="@string/button_add"
         android:textColor="#084F73" />
