@@ -55,6 +55,7 @@ public class DuelApp extends Application {
                 @Override
                 public void onTextMessage(String payload) {
                     Log.d(TAG, "&&&&& Got echo: " + payload);
+
                     dispatchMessage(payload);
                 }
 
@@ -81,7 +82,7 @@ public class DuelApp extends Application {
         i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
 
-        // use local broadcast manager to avoid unnecessary messages to other apps
+        // use local broadcast manager to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
 
@@ -113,7 +114,7 @@ public class DuelApp extends Application {
     }
 
     /**
-     * used as tell android display a  global toast messages in screen
+     * used as tell android display a global toast messages in screen.
      *
      * @param resourceId reference to the string resource in which toast is going to display
      * @param length     length of the toast, i.e. typically TOAST.LENGTH_SHORT or TOAST.LENGTH_LONG
