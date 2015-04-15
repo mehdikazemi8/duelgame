@@ -20,7 +20,7 @@ import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
-import com.mehdiii.duelgame.utils.OnMessageReceived;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
@@ -130,7 +130,7 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
         DuelApp.getInstance().sendMessage(user.getFriendsRequest().serialize());
     }
 
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceived() {
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, String type) {
             if (type.equals("RFL")) {
