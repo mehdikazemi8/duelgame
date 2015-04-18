@@ -16,6 +16,13 @@
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\gson-2.3.1-58926214adf7cb28ab6307594d4a7710b87f3d39.jar" />
     </item>
     <item
+        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\libs\eventbus-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\eventbus-2.4.0-75a8e5c08a76e77bbec1621d8ce7cc79d6aaaf37.jar" />
+    </item>
+    <item
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\libs\autobahn-0.5.0.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -33,7 +40,7 @@
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\android\switchButton\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="ef726755f0bc9c040f9a8938a4d652a2f4fe4783">
+        sha1="fc82222f17fba477a1ffb2590837eb258bbe5504">
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-0ed518e0bb5cd8dc8e83a2be9e98011d2e4aa411.jar" />
     </item>
     <item
@@ -47,7 +54,7 @@
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\android\ViewPagerIndicator\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="5dd12044ff68968eb7f71fc406fd947b5ae9426d">
+        sha1="6f5f15760df63860b1283b65b29029c0f8a01a5c">
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-5941c4fdda7d51687514713c174e622c29c5d97a.jar" />
     </item>
     <item

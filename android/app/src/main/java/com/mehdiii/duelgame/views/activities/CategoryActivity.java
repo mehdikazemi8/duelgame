@@ -17,11 +17,11 @@ public class CategoryActivity extends MyBaseActivity {
     }
 
     public void letsPlay(View v) {
-        
+
         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
         category = v.getContentDescription().toString();
         cat.setCategory(v.getContentDescription().toString());
-        DuelApp.getInstance().sendMessage(cat);
+        DuelApp.getInstance().sendMessage(cat.serialize());
 
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();

@@ -40,15 +40,15 @@ public class DuelApp extends Application {
             startService(svc);
 
             doConnect();
-            isConnected = true;
         }
     }
 
-    protected boolean doConnect() {
+    protected void doConnect() {
         try {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
                 public void onOpen() {
+                    isConnected = true;
                     Log.d(TAG, "Status: Connected to " + wsuri);
                 }
 
@@ -61,14 +61,13 @@ public class DuelApp extends Application {
 
                 @Override
                 public void onClose(int code, String reason) {
+                    isConnected = false;
                     Log.d(TAG, "Connection lost.");
                 }
             });
         } catch (WebSocketException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     /**
@@ -77,10 +76,15 @@ public class DuelApp extends Application {
      * @param json the message received from server
      */
     public void dispatchMessage(String json) {
+
         Intent i = new Intent();
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
+
+        // detect ke in message delivery
+        // detect konam ke in message vase kie?
+        // call konam ino
 
         // use local broadcast manager to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);

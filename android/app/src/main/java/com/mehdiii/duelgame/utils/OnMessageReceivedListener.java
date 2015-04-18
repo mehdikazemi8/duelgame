@@ -5,4 +5,5 @@ package com.mehdiii.duelgame.utils;
  */
 public interface OnMessageReceivedListener {
     void onReceive(String json, String type);
+
 }

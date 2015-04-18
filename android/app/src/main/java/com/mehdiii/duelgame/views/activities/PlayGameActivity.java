@@ -262,7 +262,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
-        Log.d("---- option entekhab shode ", "" + Integer.parseInt(v.getContentDescription().toString()));
+        Log.d("option entekhab shode", "" + Integer.parseInt(v.getContentDescription().toString()));
 
         choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
         doDisableButtons();
@@ -527,7 +527,7 @@ public class PlayGameActivity extends MyBaseActivity {
         setTextView(playGameRemainingTime, "" + 20);
 
         setTextView(playGameQuestionText, round[problemIndex]);
-        Log.d("------------ problem Index", "" + problemIndex);
+        Log.d("problem Index", "" + problemIndex);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(playGameQuestionText,
                 "alpha", 0f, 1f);
         fadeIn.setDuration(1000);
