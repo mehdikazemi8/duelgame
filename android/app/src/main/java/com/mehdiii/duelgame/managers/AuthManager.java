@@ -21,5 +21,4 @@ public class AuthManager {
         MemoryCache.set(CACHE_TAG, user);
         return user;
     }
-
 }

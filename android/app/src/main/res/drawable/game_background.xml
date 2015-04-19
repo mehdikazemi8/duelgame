@@ -3,9 +3,5 @@
     <item>
         <color android:color="@color/game_bg_color" />
     </item>
-    <item>
-        <bitmap
-            android:src="@drawable/game_bg_pattern"
-            android:tileMode="repeat" />
-    </item>
+
 </layer-list>

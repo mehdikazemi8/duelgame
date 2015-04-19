@@ -16,11 +16,14 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.BounceInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
+    RotateAnimation rotateTickAnimation = null;
 
     String correctAnswerStr;
     int correctOption;
@@ -63,6 +67,8 @@ public class PlayGameActivity extends MyBaseActivity {
     private Display mobileDisplay;
     private Point screenSize = new Point();
     private int screenHeight;
+
+    private ImageView tick;
 
     MediaPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
@@ -86,18 +92,13 @@ public class PlayGameActivity extends MyBaseActivity {
                     } else if (messageCode.compareTo("OS") == 0) {
                         if (parser.getInt("ok") == 1) {
                             opponentAnsweredThisTime = parser.getInt("time");
-
-                            if (opponentAnsweredThisTime >= 10) {
-                                if (problemIndex == 6)
-                                    oppPoints += 5;
-                                else
-                                    oppPoints += 3;
-                            } else {
-                                oppPoints += 1;
-                            }
+                            if (problemIndex == 6)
+                                oppPoints += 5;
+                            else
+                                oppPoints += 3;
                         } else {
                             if (parser.getInt("time") != -1) {  // wrong answer
-                                //oppPoints += -1;
+                                oppPoints += -1;
                             } else if (parser.getInt("time") == -1) {   // not answered
 
                             }
@@ -117,6 +118,13 @@ public class PlayGameActivity extends MyBaseActivity {
     }
 
     public void setProgressBar(ProgressBar pb, int progress) {
+        if(progress < 0) {
+            pb.setProgressDrawable(getResources().getDrawable(R.drawable.vertical_progress_bar_red));
+            progress *= -1;
+        }
+        else
+            pb.setProgressDrawable( getResources().getDrawable(R.drawable.vertical_progress_bar) );
+
         pb.setProgress(progress);
     }
 
@@ -154,18 +162,14 @@ public class PlayGameActivity extends MyBaseActivity {
         setButton(option2Btn, opts[2]);
         setButton(option3Btn, opts[3]);
 
-        setTextView(playGameRemainingTime, "" + 20);
-
         timeToAnswer = new CountDownTimer(DURATION, 1000) {
             @Override
             public void onTick(long arg0) {
                 remainingTimeOfThisQuestion = arg0 / 1000;
-                setTextView(playGameRemainingTime, "" + (arg0 / 1000));
             }
 
             @Override
             public void onFinish() {
-                setTextView(playGameRemainingTime, "0");
 
                 if (iAnsweredThisCorrect == true)
                     return;
@@ -235,6 +239,12 @@ public class PlayGameActivity extends MyBaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         timeToAnswer.start();
+
+                        rotateTickAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
+                                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                        rotateTickAnimation.setDuration(20000);
+                        rotateTickAnimation.setInterpolator(new LinearInterpolator());
+                        tick.startAnimation(rotateTickAnimation);
                     }
 
                     @Override
@@ -272,14 +282,12 @@ public class PlayGameActivity extends MyBaseActivity {
             myPlayer = MediaPlayer.create(this, CORRECT_ANSWER);
 
             iAnsweredThisCorrect = true;
-            if (iAnsweredThisTime >= 10) {
-                if (problemIndex == 6)
-                    myPoints += 5;
-                else
-                    myPoints += 3;
-            } else {
-                myPoints += 1;
-            }
+
+            if (problemIndex == 6)
+                myPoints += 5;
+            else
+                myPoints += 3;
+
             setTextView(playGameMyScore, "" + myPoints);
 
             setProgressBar(myProgress, myPoints);
@@ -292,8 +300,10 @@ public class PlayGameActivity extends MyBaseActivity {
             hintRemoveBtn.setClickable(false);
         } else {
             myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
-            //myPoints += -1;
-            //setTextView(R.id.play_game_my_score, "" + myPoints);
+            myPoints += -1;
+
+            setTextView(playGameMyScore, "" + myPoints);
+            setProgressBar(myProgress, myPoints);
 
             if (hintAgainClicked == true) {
                 iAnsweredThisTime = -1;
@@ -318,24 +328,16 @@ public class PlayGameActivity extends MyBaseActivity {
                 ObjectAnimator shakeButton = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
                 shakeButton.setDuration(1000);
                 shakeButton.setRepeatCount(1);
-                shakeButton.setInterpolator(new BounceInterpolator());
+                shakeButton.setInterpolator(new AccelerateInterpolator());
                 shakeButton.setRepeatMode(ObjectAnimator.REVERSE);
                 shakeButton.start();
 
                 ObjectAnimator shakeButton1 = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
                 shakeButton1.setDuration(1000);
                 shakeButton1.setRepeatCount(1);
-                shakeButton1.setInterpolator(new AccelerateDecelerateInterpolator());
+                shakeButton1.setInterpolator(new OvershootInterpolator());
                 shakeButton1.setRepeatMode(ObjectAnimator.REVERSE);
                 shakeButton1.start();
-
-//                RotateAnimation rotate = new RotateAnimation(-20, 20, Animation.RELATIVE_TO_SELF,
-//                        0.5f,  Animation.RELATIVE_TO_SELF, 0.5f);
-//                rotate.setRepeatMode(RotateAnimation.INFINITE);
-//                rotate.setRepeatMode(RotateAnimation.REVERSE);
-//                rotate.setInterpolator( new () );
-//                rotate.setDuration(2000);
-//                hintAgainView.startAnimation(rotate);
             }
         }
 
@@ -370,7 +372,6 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private TextView playGameOpName;
     private TextView playGameOpScore;
-    private TextView playGameRemainingTime;
     private TextView playGameMyName;
     private TextView playGameMyScore;
     private TextView playGameQuestionText;
@@ -382,6 +383,8 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private RelativeLayout hintAgainView, hintRemoveView;
     private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
+
+    private LinearLayout header;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -405,10 +408,11 @@ public class PlayGameActivity extends MyBaseActivity {
 
         playGameOpName = (TextView) findViewById(R.id.play_game_op_name);
         playGameOpScore = (TextView) findViewById(R.id.play_game_op_score);
-        playGameRemainingTime = (TextView) findViewById(R.id.play_game_remaining_time);
         playGameMyName = (TextView) findViewById(R.id.play_game_my_name);
         playGameMyScore = (TextView) findViewById(R.id.play_game_my_score);
         playGameQuestionText = (TextView) findViewById(R.id.play_game_question_text);
+
+        tick = (ImageView) findViewById(R.id.play_game_tick);
 
         setTextView(playGameMyName, myName);
         setTextView(playGameOpName, oppName);
@@ -440,7 +444,6 @@ public class PlayGameActivity extends MyBaseActivity {
                 option0Btn, option1Btn, option2Btn, option3Btn,
                 playGameOpName, playGameOpScore,
                 playGameMyName, playGameMyScore,
-                playGameRemainingTime,
                 playGameQuestionText,
                 playGameHintAgainCost, playGameHintRemoveCost,
                 playGameHintAgainText, playGameHintRemoveText);
@@ -450,6 +453,11 @@ public class PlayGameActivity extends MyBaseActivity {
 
         Log.d("-- AGAIN OnCreate", hintAgainView.getLeft() + " " + hintAgainView.getRight());
         Log.d("-- Remove OnCreaet", hintRemoveView.getLeft() + " " + hintRemoveView.getRight());
+
+        header = (LinearLayout) findViewById(R.id.play_game_header);
+
+        Log.d("--- playGame oppName", "" + oppName);
+        Log.d("--- playGame myName", "" + myName);
 
         startGameAnimation();
     }
@@ -513,18 +521,28 @@ public class PlayGameActivity extends MyBaseActivity {
         doAnimateProgressBar(myProgress, 100, 0, 500);
         doAnimateProgressBar(opProgress, -100, 0, 500);
 
+        ObjectAnimator animation = ObjectAnimator.ofFloat(header,
+                "translationY", -500, 0);
+        animation.setDuration(1000);
+        animation.setInterpolator(new OvershootInterpolator());
+        animation.start();
+
         startQuestionAnimation();
     }
 
     public void startQuestionAnimation() {
+        if(rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
+            rotateTickAnimation.cancel();
+
         if (timeToAnswer != null)
+        {
             timeToAnswer.cancel();
+        }
 
 //        option0Btn.setVisibility(View.INVISIBLE);
 //        option1Btn.setVisibility(View.INVISIBLE);
 //        option2Btn.setVisibility(View.INVISIBLE);
 //        option3Btn.setVisibility(View.INVISIBLE);
-        setTextView(playGameRemainingTime, "" + 20);
 
         setTextView(playGameQuestionText, round[problemIndex]);
         Log.d("problem Index", "" + problemIndex);
@@ -808,7 +826,11 @@ public class PlayGameActivity extends MyBaseActivity {
             Log.d("---- GQ GQ GQ", e.toString());
         }
 
-        timeToAnswer.cancel();
+        if(rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
+            rotateTickAnimation.cancel();
+
+        if(timeToAnswer != null)
+            timeToAnswer.cancel();
         finish();
     }
 }
