@@ -6,3 +6,4 @@ android.iml
 app/app.iml
 local.properties
 ViewPagerIndicator
+switchButton/build
