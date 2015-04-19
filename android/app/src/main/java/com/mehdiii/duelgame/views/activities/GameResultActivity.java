@@ -11,13 +11,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +57,79 @@ public class GameResultActivity extends MyBaseActivity {
     int WIN, LOSE;
     MediaPlayer myPlayer;
 
+    private TextView gameResultStatus;
+    private ImageView gameResultOpponentAvatar;
+    private TextView gameResultOpponentName;
+    private TextView gameResultOpponentPoints;
+    private ImageView gameResultPlayerAvatar;
+    private TextView gameResultPlayerName;
+    private TextView gameResultPlayerPoints;
+    private TextView gameResultT7;
+    private TextView gameResultT8;
+    private TextView gameResultT5;
+    private TextView gameResultT6;
+    private TextView gameResultT3;
+    private TextView gameResultT4;
+    private TextView gameResultT1;
+    private TextView gameResultT2;
+    private TextView gameResultTotalExperience;
+    private TextView gameResultPointFactor;
+    private TextView gameResultWinBonus;
+    private TextView gameResultPositivePoints;
+    private ImageView gameResultLevelStar;
+    private ProgressBar gameResultLevelProgress;
+    private TextView gameResultLevelText;
+    private TextView gameResultDiamondCnt;
+    private ImageView gameResultDiamondPicture;
+
+    private Button gameResultDuelOthers;
+    private Button gameResultAddFriend;
+    private Button gameResultHome;
+    private Button gameResultReport;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
+
+        gameResultStatus = (TextView) findViewById(R.id.game_result_status);
+        gameResultOpponentAvatar = (ImageView) findViewById(R.id.game_result_opponent_avatar);
+        gameResultOpponentName = (TextView) findViewById(R.id.game_result_opponent_name);
+        gameResultOpponentPoints = (TextView) findViewById(R.id.game_result_opponent_points);
+        gameResultPlayerAvatar = (ImageView) findViewById(R.id.game_result_player_avatar);
+        gameResultPlayerName = (TextView) findViewById(R.id.game_result_player_name);
+        gameResultPlayerPoints = (TextView) findViewById(R.id.game_result_player_points);
+        gameResultT7 = (TextView) findViewById(R.id.game_result_t7);
+        gameResultT8 = (TextView) findViewById(R.id.game_result_t8);
+        gameResultT5 = (TextView) findViewById(R.id.game_result_t5);
+        gameResultT6 = (TextView) findViewById(R.id.game_result_t6);
+        gameResultT3 = (TextView) findViewById(R.id.game_result_t3);
+        gameResultT4 = (TextView) findViewById(R.id.game_result_t4);
+        gameResultT1 = (TextView) findViewById(R.id.game_result_t1);
+        gameResultT2 = (TextView) findViewById(R.id.game_result_t2);
+        gameResultTotalExperience = (TextView) findViewById(R.id.game_result_total_experience);
+        gameResultPointFactor = (TextView) findViewById(R.id.game_result_point_factor);
+        gameResultWinBonus = (TextView) findViewById(R.id.game_result_win_bonus);
+        gameResultPositivePoints = (TextView) findViewById(R.id.game_result_positive_points);
+        gameResultLevelStar = (ImageView) findViewById(R.id.game_result_level_star);
+        gameResultLevelProgress = (ProgressBar) findViewById(R.id.game_result_level_progress);
+        gameResultLevelText = (TextView) findViewById(R.id.game_result_level_text);
+        gameResultDiamondCnt = (TextView) findViewById(R.id.game_result_diamond_cnt);
+        gameResultDiamondPicture = (ImageView) findViewById(R.id.game_result_diamond_picture);
+        gameResultHome = (Button) findViewById(R.id.game_result_home);
+        gameResultAddFriend = (Button) findViewById(R.id.game_result_add_friend);
+        gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
+        gameResultReport = (Button) findViewById(R.id.game_result_report);
+
+        FontHelper.setKoodakFor(getApplicationContext(),
+                gameResultStatus,
+                gameResultPlayerName, gameResultPlayerPoints,
+                gameResultOpponentName, gameResultOpponentPoints,
+                gameResultT1, gameResultT2, gameResultT3, gameResultT4,
+                gameResultT5, gameResultT6, gameResultT7, gameResultT8,
+                gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor, gameResultTotalExperience,
+                gameResultDiamondCnt, gameResultLevelText,
+                gameResultHome, gameResultAddFriend, gameResultDuelOthers, gameResultReport);
 
         WIN = R.raw.win;
         LOSE = R.raw.lose;
@@ -69,11 +140,10 @@ public class GameResultActivity extends MyBaseActivity {
         try {
             JSONObject parser = new JSONObject(resultInfo);
 
-            myElo = (int) parser.getDouble("new_elo");
+//            myElo = (int) parser.getDouble("new_elo");
             gameStatus = parser.getInt("result");       // just this class
-            savedTime = parser.getInt("saved_time");    // just this class
-
-            Log.d("-- score ye nafar ", myName + " " + parser.getInt("score"));
+//            savedTime = parser.getInt("saved_time");    // just this class
+//            Log.d("-- score ye nafar ", myName + " " + parser.getInt("score"));
 
             if (gameStatus == 0) {
                 myTime = myTime + savedTime;
@@ -96,15 +166,15 @@ public class GameResultActivity extends MyBaseActivity {
 
         setTextView(R.id.game_result_status, gameVertict);
 
-        ((ImageView) findViewById(R.id.game_result_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
-        ((ImageView) findViewById(R.id.game_result_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(this, oppAvatarIndex));
 
-        setTextView(R.id.game_result_opponent_points, "" + oppPoints);
-        setTextView(R.id.game_result_my_points, "" + myPoints);
-
-        setTextView(R.id.game_result_new_elo, "" + myElo);
-        setTextView(R.id.game_result_saved_time, "+" + savedTime);
-        setTextView(R.id.game_result_new_score, "+" + myPoints);
+//        ((ImageView) findViewById(R.id.game_result_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
+//        ((ImageView) findViewById(R.id.game_result_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(this, oppAvatarIndex));
+//
+//        setTextView(R.id.game_result_opponent_points, "" + oppPoints);
+//        setTextView(R.id.game_result_my_points, "" + myPoints);
+//
+//        setTextView(R.id.game_result_saved_time, "+" + savedTime);
+//        setTextView(R.id.game_result_new_score, "+" + myPoints);
 
         myScore += myPoints;
     }
@@ -135,9 +205,7 @@ public class GameResultActivity extends MyBaseActivity {
     }
 
     public void addToFriends(View v) {
-
         boolean everythingOK = true;
-
         JSONObject query = new JSONObject();
         try {
             query.put("code", "AF");

@@ -10,400 +10,454 @@
     tools:context=".StartActivity">
 
     <LinearLayout
-        android:id="@+id/play_game_header"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/game_header"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:paddingBottom="13dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-
-            <ImageView
-                android:id="@+id/play_game_op_avatar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="4"
-                android:src="@drawable/av1" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_toRightOf="@id/play_game_op_avatar"
-                android:layout_weight="3"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/play_game_op_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="3dp"
-                    android:singleLine="true"
-                    android:text="هایمان"
-                    android:textColor="@color/play_game_names"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/play_game_op_score"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="3dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/play_game_remaining_time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="20"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp"
-                android:src="@drawable/clock" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp"
-                android:src="@drawable/tick0" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:paddingBottom="13dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_toRightOf="@id/play_game_op_avatar"
-                android:layout_weight="3"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/play_game_my_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="3dp"
-                    android:singleLine="true"
-                    android:text="هایمان"
-                    android:textColor="@color/play_game_names"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/play_game_my_score"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="3dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/play_game_my_avatar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="4"
-                android:src="@drawable/av1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/play_game_problem_statement"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/play_game_header">
-
-        <TextView
-            android:id="@+id/play_game_question_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:text="صورت سوال"
-            android:textColor="@color/play_game_question_text"
-            android:textSize="25sp" />
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/play_game_options"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/play_game_hint_options"
-        android:layout_below="@+id/play_game_problem_statement">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/play_game_my_progress_parent"
-            android:layout_width="10dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/play_game_my_progress"
-                style="@style/Widget.ProgressBar.Vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:max="20"
-                android:progress="0" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/play_game_op_progress_parent"
-            android:layout_width="10dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/play_game_op_progress"
-                style="@style/Widget.ProgressBar.Vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:max="20"
-                android:progress="0" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/play_game_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/play_game_my_progress_parent"
-            android:layout_toRightOf="@id/play_game_op_progress_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/play_game_option_0"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/option_button"
-                android:contentDescription="0"
-                android:onClick="answered"
-                android:text="گزینه ی اول"
-                android:textColor="@color/play_game_option_btn_text"
-                android:textSize="25sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/play_game_option_1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/option_button"
-                android:contentDescription="1"
-                android:onClick="answered"
-                android:text="گزینه ی دوم"
-                android:textColor="@color/play_game_option_btn_text"
-                android:textSize="25sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/play_game_option_2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/option_button"
-                android:contentDescription="2"
-                android:onClick="answered"
-                android:text="گزینه ی سوم"
-                android:textColor="@color/play_game_option_btn_text"
-                android:textSize="25sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/play_game_option_3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/option_button"
-                android:contentDescription="3"
-                android:onClick="answered"
-                android:text="گزینه ی چهارم"
-                android:textColor="@color/play_game_option_btn_text"
-                android:textSize="25sp"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/play_game_hint_options"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/play_game_empty_text"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_centerHorizontal="true" />
+            android:layout_weight="4"
+            android:background="@drawable/game_header"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2" />
+
+                    <ImageView
+                        android:id="@+id/play_game_op_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="14"
+                        android:src="@drawable/av1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@id/play_game_op_avatar"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/play_game_op_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:singleLine="true"
+                        android:text="هایمان"
+                        android:textColor="@color/play_game_names"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/play_game_op_score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="14">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clock" />
+
+                    <ImageView
+                        android:id="@+id/play_game_tick"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/tick0" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@id/play_game_op_avatar"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/play_game_my_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:singleLine="true"
+                        android:text="هایمان"
+                        android:textColor="@color/play_game_names"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/play_game_my_score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2" />
+
+                    <ImageView
+                        android:id="@+id/play_game_my_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="14"
+                        android:src="@drawable/av1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/play_game_problem_statement"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/play_game_header"
+            android:layout_weight="7">
+
+            <TextView
+                android:id="@+id/play_game_question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="صورت سوال"
+                android:textColor="@color/play_game_question_text"
+                android:textSize="25sp" />
+        </ScrollView>
 
         <RelativeLayout
-            android:id="@+id/play_game_hint_again_view"
+            android:id="@+id/play_game_options"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignRight="@id/play_game_empty_text"
-            android:layout_marginLeft="8dp"
-            android:visibility="invisible">
+            android:layout_height="0dp"
+            android:layout_above="@+id/play_game_hint_options"
+            android:layout_below="@+id/play_game_problem_statement"
+            android:layout_weight="10">
 
-            <ImageView
-                android:id="@+id/play_game_hint_again"
+            <LinearLayout
+                android:id="@+id/play_game_my_progress_parent"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/play_game_my_progress"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:max="20"
+                    android:progress="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/play_game_op_progress_parent"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/play_game_op_progress"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:max="20"
+                    android:progress="0" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="hintAgainMethod"
-                android:scaleType="fitXY"
-                android:src="@drawable/hint_btn_left" />
+                android:layout_toLeftOf="@id/play_game_my_progress_parent"
+                android:layout_toRightOf="@id/play_game_op_progress_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/play_game_hint_again_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/play_game_hint_again"
-                android:layout_alignLeft="@id/play_game_hint_again"
-                android:layout_alignTop="@id/play_game_hint_again"
-                android:layout_marginLeft="5dp"
-                android:gravity="center"
-                android:text="18" />
+                <Button
+                    android:id="@+id/play_game_option_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/option_button"
+                    android:contentDescription="0"
+                    android:onClick="answered"
+                    android:text="گزینه ی اول"
+                    android:textColor="@color/play_game_option_btn_text"
+                    android:textSize="25sp"
+                    android:visibility="invisible" />
 
-            <ImageView
-                android:id="@+id/play_game_left_hint_diamond"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignBottom="@id/play_game_hint_again"
-                android:layout_alignTop="@id/play_game_hint_again"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/play_game_hint_again_cost"
-                android:src="@drawable/diamond" />
+                <Button
+                    android:id="@+id/play_game_option_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/option_button"
+                    android:contentDescription="1"
+                    android:onClick="answered"
+                    android:text="گزینه ی دوم"
+                    android:textColor="@color/play_game_option_btn_text"
+                    android:textSize="25sp"
+                    android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/play_game_hint_again_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/play_game_left_hint_diamond"
-                android:gravity="center"
-                android:text="شانص دوباره" />
+                <Button
+                    android:id="@+id/play_game_option_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/option_button"
+                    android:contentDescription="2"
+                    android:onClick="answered"
+                    android:text="گزینه ی سوم"
+                    android:textColor="@color/play_game_option_btn_text"
+                    android:textSize="25sp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/play_game_option_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/option_button"
+                    android:contentDescription="3"
+                    android:onClick="answered"
+                    android:text="گزینه ی چهارم"
+                    android:textColor="@color/play_game_option_btn_text"
+                    android:textSize="25sp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/play_game_hint_remove_view"
+            android:id="@+id/play_game_hint_options"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@id/play_game_empty_text"
-            android:layout_marginRight="8dp"
-            android:visibility="invisible">
-
-            <ImageView
-                android:id="@+id/play_game_hint_remove"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:onClick="hintRemoveMethod"
-                android:scaleType="fitXY"
-                android:src="@drawable/hint_btn_right" />
-
-            <TextView
-                android:id="@+id/play_game_hint_remove_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/play_game_hint_remove"
-                android:layout_alignRight="@id/play_game_hint_remove"
-                android:layout_alignTop="@id/play_game_hint_remove"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:text="8" />
-
-            <ImageView
-                android:id="@+id/play_game_right_hint_diamond"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignBottom="@id/play_game_hint_remove"
-                android:layout_alignTop="@id/play_game_hint_remove"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/play_game_hint_remove_cost"
-                android:src="@drawable/diamond" />
-
-            <TextView
-                android:id="@+id/play_game_hint_remove_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/play_game_right_hint_diamond"
-                android:gravity="center"
-                android:src="@drawable/hint_btn_right"
-                android:text="حذف یک گزینه" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/game_diamond_circle" />
+            android:layout_weight="2"
+            android:gravity="center_vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/play_game_empty_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true" />
 
+            <RelativeLayout
+                android:id="@+id/play_game_hint_again_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignRight="@id/play_game_empty_text"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/play_game_hint_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hintAgainMethod"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hint_btn_left" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_again_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/play_game_hint_again"
+                    android:layout_alignLeft="@id/play_game_hint_again"
+                    android:layout_alignTop="@id/play_game_hint_again"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="18" />
+
+                <ImageView
+                    android:id="@+id/play_game_left_hint_diamond"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@id/play_game_hint_again"
+                    android:layout_alignTop="@id/play_game_hint_again"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/play_game_hint_again_cost"
+                    android:src="@drawable/diamond" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_again_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/play_game_left_hint_diamond"
+                    android:gravity="center"
+                    android:text="انتخاب دوباره" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/play_game_hint_remove_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@id/play_game_empty_text"
+                android:layout_marginRight="6dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/play_game_hint_remove"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hintRemoveMethod"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hint_btn_right" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_remove_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/play_game_hint_remove"
+                    android:layout_alignRight="@id/play_game_hint_remove"
+                    android:layout_alignTop="@id/play_game_hint_remove"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="8" />
+
+                <ImageView
+                    android:id="@+id/play_game_right_hint_diamond"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@id/play_game_hint_remove"
+                    android:layout_alignTop="@id/play_game_hint_remove"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/play_game_hint_remove_cost"
+                    android:src="@drawable/diamond" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_remove_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/play_game_right_hint_diamond"
+                    android:gravity="center"
+                    android:src="@drawable/hint_btn_right"
+                    android:text="حذف یک گزینه" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/game_diamond_circle" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>
