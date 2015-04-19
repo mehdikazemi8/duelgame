@@ -1,8 +1,15 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -11,8 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.BuyCommand;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -23,8 +32,13 @@ import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFra
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 public class HomeActivity extends MyBaseActivity {
 
@@ -44,8 +58,44 @@ public class HomeActivity extends MyBaseActivity {
     FlipableFragment homeFragment;
     FlipableFragment friendsFagment;
 
-
     List<Fragment> childFragments;
+
+    IInAppBillingService mService;
+
+    ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+        }
+    };
+
+    String testPrice;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+            String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+            String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+
+            if (resultCode == RESULT_OK) {
+                try {
+                    JSONObject jo = new JSONObject(purchaseData);
+                    String sku = jo.getString("productId");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +103,9 @@ public class HomeActivity extends MyBaseActivity {
         setContentView(R.layout.activity_home);
         find();
         configure();
-
-//        readData();
-//
-//        setData();
+        bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
     }
+
 
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -86,6 +134,7 @@ public class HomeActivity extends MyBaseActivity {
         this.viewPager.setCurrentItem(4);
         viewPager.setOffscreenPageLimit(5);
     }
+
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
@@ -233,6 +282,8 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     public void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
+
 //        setData();
 
 //        Intent svc = new Intent(this, MusicPlayer.class);
@@ -256,6 +307,7 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     public void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
 
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
@@ -275,5 +327,45 @@ public class HomeActivity extends MyBaseActivity {
 
         Intent svc = new Intent(this, MusicPlayer.class);
         stopService(svc);
+
+        if (mServiceConn != null) {
+            unbindService(mServiceConn);
+        }
+    }
+
+    public void onEvent(BuyCommand buyCommand) {
+        try {
+            performPurchase(buyCommand);
+        } catch (RemoteException | JSONException | IntentSender.SendIntentException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void performPurchase(BuyCommand buyCommand) throws RemoteException, JSONException, IntentSender.SendIntentException {
+        ArrayList<String> skuList = new ArrayList<>();
+        skuList.add(buyCommand.getSku());
+        Bundle querySkus = new Bundle();
+        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
+
+//        Bundle skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", querySkus);
+//        int response = skuDetails.getInt("RESPONSE_CODE");
+//        if (response == 0) {
+//            ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+//
+//            for (String thisResponse : responseList) {
+//                JSONObject object = new JSONObject(thisResponse);
+//                String sku = object.getString("productId");
+//                String price = object.getString("price");
+//                if (sku.equals(buyCommand.getSku()))
+//                    testPrice = price;
+//            }
+//        }
+
+        Bundle buyIntentBundle = mService.getBuyIntent(
+                3, getPackageName(), buyCommand.getSku(), "inapp", "salam-inja-che-bahale");
+
+        PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+        startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
     }
 }

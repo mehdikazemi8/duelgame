@@ -5,8 +5,22 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
+    <Button
+        android:id="@+id/button_buy_hearts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Store Fragment" />
+        android:text="buy hearts" />
+
+    <Button
+        android:id="@+id/button_buy_diamons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="buy diamonds" />
+
+    <Button
+        android:id="@+id/button_buy_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="buy experience" />
+
 </LinearLayout>
