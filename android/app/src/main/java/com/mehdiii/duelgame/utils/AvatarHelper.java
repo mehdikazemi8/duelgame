@@ -30,7 +30,7 @@ public class AvatarHelper {
         if (avatars == null)
             load(context);
 
-        if (avatars.length > position)
+        if (avatars.length > position && position > 0)
             return avatars[position - 1];
         else
             return avatars[avatars.length - 1];

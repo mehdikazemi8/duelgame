@@ -1,9 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -18,9 +15,14 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.Friend;
+import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceived;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
 import java.util.List;
 
@@ -30,7 +32,9 @@ import java.util.List;
 public class FriendsFragment extends FlipableFragment implements View.OnClickListener {
     //    TabPageIndicator indicator;
     ListView listView;
-    private LinearLayout containerHeader;
+    FriendsListAdapter adapter;
+
+    LinearLayout containerHeader;
     private TextView textViewCode;
     private Button buttonAddFriend;
     List<User> friends;
@@ -57,9 +61,14 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
     @Override
     public void onResume() {
-
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("MESSAGE"));
         super.onResume();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+    }
+
+    @Override
+    public void onBringToFront() {
+        super.onBringToFront();
+        sendFetchRequest();
     }
 
     @Override
@@ -74,28 +83,67 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
     private void bindViewData() {
         User currentUser = AuthManager.getCurrentUser();
-        textViewCode.setText("کد شما" + currentUser.getId());
-        sendFetchRequest();
+        textViewCode.setText("کد شما " + currentUser.getId());
     }
+
+    private void bindListViewData(FriendList list) {
+        adapter = new FriendsListAdapter(getActivity(), R.layout.template_friends_list, list.getFriends());
+        adapter.setOnUserDecisionIsMade(onUserDecisionIsMadeListener);
+        this.listView.setAdapter(adapter);
+    }
+
+    FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
+        @Override
+        public void onDuel(Friend request) {
+            // TODO
+        }
+
+        @Override
+        public void onApprove(Friend request) {
+            DuelApp.getInstance().sendMessage(request.getRespondFriendRequest(true).serialize());
+            sendFetchRequest();
+        }
+
+        @Override
+        public void onReject(Friend request) {
+            DuelApp.getInstance().sendMessage(request.getRespondFriendRequest(false).serialize());
+            sendFetchRequest();
+        }
+    };
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_add_friend:
+                openAddFriendDialog();
                 break;
         }
     }
 
     private void sendFetchRequest() {
+        if (adapter != null) {
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+        }
+
         User user = AuthManager.getCurrentUser();
         DuelApp.getInstance().sendMessage(user.getFriendsRequest().serialize());
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceived() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            String json = intent.getExtras().getString("inputMessage");
-//            User.deserialize(json, User.class);
+        public void onReceive(String json, String type) {
+            if (type.equals("RFL")) {
+                FriendList list = FriendList.deserialize(json, FriendList.class);
+                if (null != list) {
+                    bindListViewData(list);
+                }
+            }
         }
-    };
+    });
+
+    private void openAddFriendDialog() {
+        AddFriendDialog dialog = new AddFriendDialog(getActivity());
+        dialog.show();
+    }
 }

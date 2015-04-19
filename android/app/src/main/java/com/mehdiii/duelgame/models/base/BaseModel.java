@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 /**
  * Created by omid on 4/8/2015.
  */
-public abstract class BaseModel {
+public class BaseModel {
 
     @SerializedName("code")
     String command;

@@ -12,7 +12,8 @@ public class User extends BaseModel {
         REGISTER,
         LOGIN,
         GET_INFO,
-        GET_FRIEND_LIST
+        GET_FRIEND_LIST,
+        ADD_FRIEND,
     }
 
     public static User newInstance(CommandType type) {
@@ -29,6 +30,9 @@ public class User extends BaseModel {
                 break;
             case GET_FRIEND_LIST:
                 user.setCommand("GFL");
+                break;
+            case ADD_FRIEND:
+                user.setCommand("AF");
                 break;
             default:
                 user.setCommand("UNKNOWN");
@@ -68,6 +72,11 @@ public class User extends BaseModel {
     private int diamond;
     @SerializedName("user_number")
     private String id;
+
+    public User getAddFriendRequest() {
+        setCommand("AF");
+        return this;
+    }
 
     public User getFriendsRequest() {
         setCommand("GFL");

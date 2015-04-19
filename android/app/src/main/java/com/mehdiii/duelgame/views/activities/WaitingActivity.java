@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -188,7 +189,7 @@ public class WaitingActivity extends MyBaseActivity {
         hasLeft = false;
 
         mListener = new TitleBarListener();
-        registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
         waitingMyAvatar.setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
         setTextView(waitingMyName, myName);
@@ -230,7 +231,7 @@ public class WaitingActivity extends MyBaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 
     @Override
