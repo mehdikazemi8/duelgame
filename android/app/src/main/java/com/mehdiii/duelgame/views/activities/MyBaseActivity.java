@@ -58,24 +58,6 @@ public class MyBaseActivity extends ActionBarActivity {
         return "errorOstan";
     }
 
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
     static void shuffleArray(String[] ar) {
         for (int i = ar.length - 1; i > 0; i--) {
             int index = rand.nextInt(i + 1);
