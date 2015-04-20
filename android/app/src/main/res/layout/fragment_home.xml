@@ -125,6 +125,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/imageView_heart_first"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="2dp"
@@ -132,6 +133,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_second"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -139,6 +141,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_third"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -146,6 +149,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_fourth"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -153,11 +157,12 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_fifth"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:src="@drawable/heart_blank" />
+                            android:src="@drawable/heart_full" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -299,16 +304,16 @@
             <ImageButton
                 android:id="@+id/button_add_friend"
                 android:layout_width="50dp"
-                android:scaleType="fitCenter"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:background="@android:color/transparent"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="45dp"
                 android:layout_marginRight="30dp"
-                android:src="@drawable/add_friend"
-                android:adjustViewBounds="true" />
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/add_friend" />
 
         </RelativeLayout>
     </LinearLayout>

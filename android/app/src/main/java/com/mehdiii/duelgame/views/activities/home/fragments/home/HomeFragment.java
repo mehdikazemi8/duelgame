@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.HeartTracker;
@@ -25,16 +24,23 @@ import de.greenrobot.event.EventBus;
  */
 public class HomeFragment extends FlipableFragment implements View.OnClickListener {
 
-    private TextView homeDiamondCnt;
-    private ImageView homeMyAvatar;
-    private TextView homeMyDegree;
-    private TextView homeLevelText;
-    private TextView homeTotalRankingText;
-    private TextView homeTotalRanking;
-    private TextView homeFriendsRankingText;
-    private TextView homeFriendsRanking;
+    TextView homeDiamondCnt;
+    ImageView homeMyAvatar;
+    TextView homeMyDegree;
+    TextView homeLevelText;
+    TextView homeTotalRankingText;
+    TextView homeTotalRanking;
+    TextView homeFriendsRankingText;
+    TextView homeFriendsRanking;
     ImageButton addFriendButton;
     Button refillButton;
+
+    ImageView firstHeartImageView;
+    ImageView secondHeartImageView;
+    ImageView thirdHeartImageView;
+    ImageView fourthHeartImageView;
+    ImageView fifthHeartImageView;
+    ImageView[] imageViews;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +56,13 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         homeFriendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
+
+        firstHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_first);
+        secondHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_second);
+        thirdHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_third);
+        fourthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fourth);
+        fifthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fifth);
+        imageViews = new ImageView[]{firstHeartImageView, secondHeartImageView, thirdHeartImageView, fourthHeartImageView, fifthHeartImageView};
 
         FontHelper.setKoodakFor(view.getContext(),
                 homeDiamondCnt, homeMyDegree, homeLevelText, homeTotalRankingText,
@@ -90,15 +103,24 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
     }
 
     public void onEvent(HeartChangeCommand command) {
-        String msg = "";
-        if (command.getMode() == HeartChangeCommand.ChangeMode.INCREASED) {
-            msg += "HEART INCREASED";
-        } else
-            msg += "HEART DECREASED";
+//        String msg = "";
+//        if (command.getMode() == HeartChangeCommand.ChangeMode.INCREASED) {
+//            msg += "HEART INCREASED";
+//        } else
+//            msg += "HEART DECREASED";
+//
+//        msg += ": " + String.valueOf(command.getState().getCurrent());
+//
+//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        arrangeHearts(command.getState().getCurrent());
+    }
 
-        msg += ": " + String.valueOf(command.getState().getCurrent());
-
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-
+    private void arrangeHearts(int count) {
+        for (int i = 0; i < 5; i++) {
+            if (i < count)
+                imageViews[i].setImageResource(R.drawable.heart_full);
+            else
+                imageViews[i].setImageResource(R.drawable.heart_blank);
+        }
     }
 }
