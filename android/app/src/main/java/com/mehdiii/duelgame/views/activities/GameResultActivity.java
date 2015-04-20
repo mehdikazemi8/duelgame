@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,12 +159,19 @@ public class GameResultActivity extends MyBaseActivity {
 
     ArrayList<ObjectAnimator> allAnimations;
 
+
     @Override
     protected void onStart() {
         super.onStart();
 
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
+
+        // ************* will change, maybe the player changes level
+        ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, 10, 75);
+        anim.setDuration(1000);
+        anim.setStartOffset(3600);
+        gameResultLevelProgress.startAnimation(anim);
     }
 
     @Override
