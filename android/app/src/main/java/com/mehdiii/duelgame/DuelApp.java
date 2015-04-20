@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -38,6 +39,7 @@ public class DuelApp extends Application {
         super.onCreate();
         instance = this;
         initGA();
+        HeartTracker.getInstance(getApplicationContext()).init();
         if (!isConnected) {
             Intent svc = new Intent(this, MusicPlayer.class);
             startService(svc);
