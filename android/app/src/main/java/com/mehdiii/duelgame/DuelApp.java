@@ -162,5 +162,4 @@ public class DuelApp extends Application {
         mGATracker.enableAutoActivityTracking(true);
         mGATracker.enableExceptionReporting(true);
     }
-
 }
