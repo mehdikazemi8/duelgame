@@ -3,10 +3,14 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by omid on 4/8/2015.
  */
 public class User extends BaseModel {
+    Map<CommandType, String> map = new HashMap<>();
 
     public enum CommandType {
         REGISTER,

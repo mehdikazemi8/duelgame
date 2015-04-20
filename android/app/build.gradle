@@ -8,12 +8,12 @@ android {
         applicationId "com.mehdiii.duelgame"
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 1
+        versionCode 2
         versionName "1.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -22,9 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile files('libs/autobahn-0.5.0.jar')
-    compile files('libs/picasso-2.5.2.jar')
-    compile files('libs/gson-2.3.1.jar')
     compile project(':ViewPagerIndicator')
     compile project(':switchButton')
 }

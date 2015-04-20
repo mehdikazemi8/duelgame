@@ -117,6 +117,14 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
+    public void cancelDanceHintAgain()
+    {
+        if(danceHintAgainX != null && danceHintAgainX.isRunning())
+            danceHintAgainX.cancel();
+        if(danceHintAgainY != null && danceHintAgainY.isRunning())
+            danceHintAgainY.cancel();
+    }
+
     public void setProgressBar(ProgressBar pb, int progress) {
         if(progress < 0) {
             pb.setProgressDrawable(getResources().getDrawable(R.drawable.vertical_progress_bar_red));
@@ -272,7 +280,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
-        Log.d("---- option entekhab shode ", "" + Integer.parseInt(v.getContentDescription().toString()));
+        Log.d("option entekhab shode", "" + Integer.parseInt(v.getContentDescription().toString()));
 
         choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
         doDisableButtons();
@@ -325,19 +333,19 @@ public class PlayGameActivity extends MyBaseActivity {
 //                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
 //                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
 
-                ObjectAnimator shakeButton = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
-                shakeButton.setDuration(1000);
-                shakeButton.setRepeatCount(1);
-                shakeButton.setInterpolator(new AccelerateInterpolator());
-                shakeButton.setRepeatMode(ObjectAnimator.REVERSE);
-                shakeButton.start();
+                danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
+                danceHintAgainX.setDuration(1000);
+                danceHintAgainX.setRepeatCount(1);
+                danceHintAgainX.setInterpolator(new AccelerateInterpolator());
+                danceHintAgainX.setRepeatMode(ObjectAnimator.REVERSE);
+                danceHintAgainX.start();
 
-                ObjectAnimator shakeButton1 = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
-                shakeButton1.setDuration(1000);
-                shakeButton1.setRepeatCount(1);
-                shakeButton1.setInterpolator(new OvershootInterpolator());
-                shakeButton1.setRepeatMode(ObjectAnimator.REVERSE);
-                shakeButton1.start();
+                danceHintAgainY = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
+                danceHintAgainY.setDuration(1000);
+                danceHintAgainY.setRepeatCount(1);
+                danceHintAgainY.setInterpolator(new OvershootInterpolator());
+                danceHintAgainY.setRepeatMode(ObjectAnimator.REVERSE);
+                danceHintAgainY.start();
             }
         }
 
@@ -385,6 +393,8 @@ public class PlayGameActivity extends MyBaseActivity {
     private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
 
     private LinearLayout header;
+
+    private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -545,7 +555,7 @@ public class PlayGameActivity extends MyBaseActivity {
 //        option3Btn.setVisibility(View.INVISIBLE);
 
         setTextView(playGameQuestionText, round[problemIndex]);
-        Log.d("------------ problem Index", "" + problemIndex);
+        Log.d("problem Index", "" + problemIndex);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(playGameQuestionText,
                 "alpha", 0f, 1f);
         fadeIn.setDuration(1000);
@@ -619,6 +629,8 @@ public class PlayGameActivity extends MyBaseActivity {
             fadeOut1.start();
             fadeOut2.start();
         }
+
+        cancelDanceHintAgain();
 
         if (hintAgainViewIsOpen == true) {
             doAnimateHintOption(hintAgainView, 1f, 0f, 1000, 0);
@@ -761,6 +773,8 @@ public class PlayGameActivity extends MyBaseActivity {
         }
 
         if (hintAgainViewIsOpen == true) {
+            cancelDanceHintAgain();
+
             doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
             hintAgainViewIsOpen = false;
         }

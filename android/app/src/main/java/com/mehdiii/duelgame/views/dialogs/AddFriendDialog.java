@@ -19,7 +19,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
-import com.mehdiii.duelgame.utils.OnMessageReceived;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
 /**
  * Created by omid on 4/13/2015.
@@ -87,7 +87,7 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
     }
 
 
-    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceived() {
+    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, String type) {
             return;

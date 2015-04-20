@@ -2,7 +2,17 @@ package com.mehdiii.duelgame;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
@@ -16,8 +26,10 @@ public class DuelApp extends Application {
     static protected WebSocketConnection wsc = new WebSocketConnection();
     static boolean isConnected = false;
     private String TAG = "DUEL_APP";
+    Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://188.166.118.149:9000";
+//    static protected String wsuri = "ws://188.166.118.149:9000";
+    static protected String wsuri = "ws://192.168.128.217:9000";
 
     @Override
     public void onCreate() {
@@ -29,45 +41,73 @@ public class DuelApp extends Application {
             startService(svc);
 
             doConnect();
-            isConnected = true;
         }
     }
 
-    protected boolean doConnect() {
+    protected void doConnect() {
         try {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
                 public void onOpen() {
+                    isConnected = true;
                     Log.d(TAG, "Status: Connected to " + wsuri);
                 }
 
                 @Override
                 public void onTextMessage(String payload) {
                     Log.d(TAG, "&&&&& Got echo: " + payload);
-                    enqueueMessage(payload);
+
+                    dispatchMessage(payload);
                 }
 
                 @Override
                 public void onClose(int code, String reason) {
+                    isConnected = false;
                     Log.d(TAG, "Connection lost.");
                 }
             });
         } catch (WebSocketException e) {
-            return false;
+            e.printStackTrace();
         }
-        return true;
     }
 
-    public void enqueueMessage(String json) {
+    /**
+     * sends off messages delivered to wsc from server to all of the app.
+     *
+     * @param json the message received from server
+     */
+    public void dispatchMessage(String json) {
+
         Intent i = new Intent();
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        i.setAction("MESSAGE");
-        i.putExtra("inputMessage", json);
-        sendBroadcast(i);
+        i.setAction(DuelBroadcastReceiver.ACTION_NAME);
+        i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
+
+        // detect ke in message delivery
+        // detect konam ke in message vase kie?
+        // call konam ino
+
+        // use local broadcast manager to avoid unnecessary calls to other apps
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+    }
+
+    public IntentFilter getIntentFilter() {
+        return new IntentFilter(DuelBroadcastReceiver.ACTION_NAME);
     }
 
     public void sendMessage(String json) {
         wsc.sendTextMessage(json);
+    }
+
+    /**
+     * used to send a message and receive delivery message so that you can check whether request is reached/processed successfully on server or not?
+     *
+     * @param model                     the model that is used to be sent off to the server
+     * @param onMessageReceivedListener this listens for delivery message of current request and calls onDelivered when delivery message is received.
+     */
+    public void sendMessageWithDelivery(BaseModel model, OnMessageReceivedListener onMessageReceivedListener) {
+        pendingMessages.put(model.hashCode(), model);
+        sendMessage(model.serialize());
     }
 
     public WebSocketConnection getSocket() {
@@ -77,4 +117,15 @@ public class DuelApp extends Application {
     public static synchronized DuelApp getInstance() {
         return instance;
     }
+
+    /**
+     * used as tell android display a global toast messages in screen.
+     *
+     * @param resourceId reference to the string resource in which toast is going to display
+     * @param length     length of the toast, i.e. typically TOAST.LENGTH_SHORT or TOAST.LENGTH_LONG
+     */
+    public void toast(int resourceId, int length) {
+        Toast.makeText(getApplicationContext(), getResources().getString(resourceId), length).show();
+    }
+
 }
