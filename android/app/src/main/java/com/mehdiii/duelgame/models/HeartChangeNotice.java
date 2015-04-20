@@ -3,11 +3,11 @@ package com.mehdiii.duelgame.models;
 /**
  * Created by omid on 4/20/2015.
  */
-public class HeartChangeCommand {
+public class HeartChangeNotice {
     HeartState state;
     ChangeMode mode;
 
-    public HeartChangeCommand(HeartState state, ChangeMode mode) {
+    public HeartChangeNotice(HeartState state, ChangeMode mode) {
         this.state = state;
         this.mode = mode;
     }

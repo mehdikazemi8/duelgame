@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
-import com.mehdiii.duelgame.models.HeartChangeCommand;
+import com.mehdiii.duelgame.models.HeartChangeNotice;
 import com.mehdiii.duelgame.models.HeartState;
 import com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived;
 
@@ -86,7 +86,7 @@ public class HeartTracker {
 
         state.decrease();
         saveCheckpoint();
-        notifyChange(HeartChangeCommand.ChangeMode.DECREASED);
+        notifyChange(HeartChangeNotice.ChangeMode.DECREASED);
 
         if (!refillRunning)
             startAlarm();
@@ -95,7 +95,7 @@ public class HeartTracker {
     public void increaseHeart() {
         state.increase();
         saveCheckpoint();
-        notifyChange(HeartChangeCommand.ChangeMode.INCREASED);
+        notifyChange(HeartChangeNotice.ChangeMode.INCREASED);
 
         if (state.getCurrent() >= COUNT_HEARTS_MAX)
             stop();
@@ -119,8 +119,8 @@ public class HeartTracker {
         return TIME_RECOVER_SINGLE_HEART_MILLS - (SystemClock.elapsedRealtime() - state.getLastDecrementTime());
     }
 
-    public void notifyChange(HeartChangeCommand.ChangeMode mode) {
+    public void notifyChange(HeartChangeNotice.ChangeMode mode) {
         if (EventBus.getDefault() != null)
-            EventBus.getDefault().post(new HeartChangeCommand(state, mode));
+            EventBus.getDefault().post(new HeartChangeNotice(state, mode));
     }
 }

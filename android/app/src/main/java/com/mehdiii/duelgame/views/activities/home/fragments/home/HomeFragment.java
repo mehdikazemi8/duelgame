@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.HeartTracker;
-import com.mehdiii.duelgame.models.HeartChangeCommand;
+import com.mehdiii.duelgame.models.HeartChangeNotice;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 
@@ -102,17 +102,8 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         HeartTracker.getInstance(getActivity()).useHeart();
     }
 
-    public void onEvent(HeartChangeCommand command) {
-//        String msg = "";
-//        if (command.getMode() == HeartChangeCommand.ChangeMode.INCREASED) {
-//            msg += "HEART INCREASED";
-//        } else
-//            msg += "HEART DECREASED";
-//
-//        msg += ": " + String.valueOf(command.getState().getCurrent());
-//
-//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-        arrangeHearts(command.getState().getCurrent());
+    public void onEvent(HeartChangeNotice notice) {
+        arrangeHearts(notice.getState().getCurrent());
     }
 
     private void arrangeHearts(int count) {
