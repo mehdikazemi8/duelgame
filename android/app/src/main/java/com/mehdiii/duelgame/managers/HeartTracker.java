@@ -49,6 +49,7 @@ public class HeartTracker {
 
     public void init() {
 
+        state = new HeartState();
         intent = new Intent(context, OnHeartRefillTimeArrived.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -80,11 +81,12 @@ public class HeartTracker {
     public void useHeart() {
 
         if (state.getCurrent() <= 0)
-            throw new IllegalStateException("Hearts count is currently zero. It simply can't go down any further.");
+            return;
+//            throw new IllegalStateException("Hearts count is currently zero. It simply can't go down any further.");
 
         state.decrease();
         saveCheckpoint();
-        notifyChange(HeartChangeCommand.ChangeMode.INCREASED);
+        notifyChange(HeartChangeCommand.ChangeMode.DECREASED);
 
         if (!refillRunning)
             startAlarm();
