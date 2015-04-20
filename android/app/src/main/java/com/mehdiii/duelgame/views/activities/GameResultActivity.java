@@ -166,6 +166,8 @@ public class GameResultActivity extends MyBaseActivity {
     protected void onStart() {
         super.onStart();
 
+        Log.d("------- ", "onStart Called");
+
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
 
@@ -194,6 +196,27 @@ public class GameResultActivity extends MyBaseActivity {
         });
 
         gameResultLevelProgress.startAnimation(anim);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("------- ", "onResume Called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d("------- ", "onStop Called");
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        Log.d("------- ", "onRestart Called");
     }
 
     @Override
