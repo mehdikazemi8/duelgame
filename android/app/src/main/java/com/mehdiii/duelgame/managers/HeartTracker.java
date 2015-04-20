@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
+import com.mehdiii.duelgame.models.HeartChangeCommand;
+import com.mehdiii.duelgame.models.HeartState;
 import com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived;
 
 import de.greenrobot.event.EventBus;
@@ -25,8 +27,7 @@ public class HeartTracker {
     private static final int COUNT_HEARTS_MAX = 5;
     private static final int TIME_RECOVER_SINGLE_HEART_MILLS = 10000;
 
-    private int current;
-    private long lastDecrementTime;
+    HeartState state;
     private boolean refillRunning = false;
 
     private Context context;
@@ -52,15 +53,14 @@ public class HeartTracker {
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-
-        current = GlobalPreferenceManager.readInteger(context, PREFERENCE_KEY_HEARTS, COUNT_HEARTS_MAX);
-        lastDecrementTime = GlobalPreferenceManager.readLong(context, PREFERENCE_KEY_LAST_DECREMENT, 5);
+        state.setCurrent(GlobalPreferenceManager.readInteger(context, PREFERENCE_KEY_HEARTS, COUNT_HEARTS_MAX));
+        state.setLastDecrementTime(GlobalPreferenceManager.readLong(context, PREFERENCE_KEY_LAST_DECREMENT, -1));
 
         startAlarm();
     }
 
     private void startAlarm() {
-        if (refillRunning || current == COUNT_HEARTS_MAX)
+        if (refillRunning || (state != null && state.getCurrent() == COUNT_HEARTS_MAX))
             return;
 
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -79,36 +79,46 @@ public class HeartTracker {
 
     public void useHeart() {
 
-        if (current <= 0)
+        if (state.getCurrent() <= 0)
             throw new IllegalStateException("Hearts count is currently zero. It simply can't go down any further.");
 
-        lastDecrementTime = SystemClock.elapsedRealtime();
-        current--;
-
-        persist();
+        state.decrease();
+        saveCheckpoint();
+        notifyChange(HeartChangeCommand.ChangeMode.INCREASED);
 
         if (!refillRunning)
             startAlarm();
     }
 
     public void increaseHeart() {
-        lastDecrementTime = SystemClock.elapsedRealtime();
-        current++;
-        persist();
-        if (current >= COUNT_HEARTS_MAX)
+        state.increase();
+        saveCheckpoint();
+        notifyChange(HeartChangeCommand.ChangeMode.INCREASED);
+
+        if (state.getCurrent() >= COUNT_HEARTS_MAX)
             stop();
     }
 
     private void persist() {
-        GlobalPreferenceManager.writeInt(context, PREFERENCE_KEY_HEARTS, current);
-        GlobalPreferenceManager.writeLong(context, PREFERENCE_KEY_LAST_DECREMENT, lastDecrementTime);
+        GlobalPreferenceManager.writeInt(context, PREFERENCE_KEY_HEARTS, state.getCurrent());
+        GlobalPreferenceManager.writeLong(context, PREFERENCE_KEY_LAST_DECREMENT, state.getLastDecrementTime());
+    }
+
+    private void saveCheckpoint() {
+        state.setLastDecrementTime(SystemClock.elapsedRealtime());
+        persist();
     }
 
     public int getCount() {
-        return current;
+        return state.getCurrent();
     }
 
     public long getMinutesToNextRefill() {
-        return TIME_RECOVER_SINGLE_HEART_MILLS - (SystemClock.elapsedRealtime() - lastDecrementTime);
+        return TIME_RECOVER_SINGLE_HEART_MILLS - (SystemClock.elapsedRealtime() - state.getLastDecrementTime());
+    }
+
+    public void notifyChange(HeartChangeCommand.ChangeMode mode) {
+        if (EventBus.getDefault() != null)
+            EventBus.getDefault().post(new HeartChangeCommand(state, mode));
     }
 }
