@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
 import org.json.JSONException;
@@ -167,10 +169,30 @@ public class GameResultActivity extends MyBaseActivity {
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
 
+
         // ************* will change, maybe the player changes level
         ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, 10, 75);
         anim.setDuration(1000);
         anim.setStartOffset(3600);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                AppRater ar = new AppRater();
+                ar.init(GameResultActivity.this, true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
         gameResultLevelProgress.startAnimation(anim);
     }
 
@@ -275,24 +297,20 @@ public class GameResultActivity extends MyBaseActivity {
 
         allAnimations.addAll(bothScaleAniamtion(gameResultStatus, 1000, 1000, 0f, 1f));
 
-        allAnimations.addAll(bothScaleAniamtion(gameResultT8, 100, 2000, 0f, 1.1f, 1f));
-        allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT2, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT1, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultPositivePoints, 300, 2100, 0f, 1.1f, 1f));
 
-        allAnimations.addAll(bothScaleAniamtion(gameResultT6, 100, 2100, 0f, 1.1f, 1f));
-        allAnimations.addAll(bothScaleAniamtion(gameResultT5, 100, 2100, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT4, 100, 2400, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT3, 100, 2400, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultWinBonus, 300, 2500, 0f, 1.1f, 1f));
 
-        allAnimations.addAll(bothScaleAniamtion(gameResultT4, 100, 2200, 0f, 1.1f, 1f));
-        allAnimations.addAll(bothScaleAniamtion(gameResultT3, 100, 2200, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT6, 100, 2800, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT5, 100, 2800, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultPointFactor, 300, 2900, 0f, 1.1f, 1f));
 
-        allAnimations.addAll(bothScaleAniamtion(gameResultT2, 100, 2300, 0f, 1.1f, 1f));
-        allAnimations.addAll(bothScaleAniamtion(gameResultT1, 100, 2300, 0f, 1.1f, 1f));
-
-        allAnimations.addAll(bothScaleAniamtion(gameResultPositivePoints, 300, 2400, 0f, 1.1f, 1f));
-
-        allAnimations.addAll(bothScaleAniamtion(gameResultWinBonus, 300, 2700, 0f, 1.1f, 1f));
-
-        allAnimations.addAll(bothScaleAniamtion(gameResultPointFactor, 300, 3000, 0f, 1.1f, 1f));
-
+        allAnimations.addAll(bothScaleAniamtion(gameResultT8, 100, 3200, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 3200, 0f, 1.1f, 1f));
         allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
     }
 
