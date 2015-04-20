@@ -56,7 +56,7 @@ public class WaitingActivity extends MyBaseActivity {
             @Override
             public void onAnimationStart(Animator animation) {
                 layout.setVisibility(View.VISIBLE);
-                Log.d("---- wating onAnimationStart", "");
+                Log.d("---- wating ", " onAnimationStart ");
             }
 
             @Override

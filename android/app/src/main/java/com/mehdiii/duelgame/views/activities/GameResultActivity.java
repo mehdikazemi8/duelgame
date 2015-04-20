@@ -1,5 +1,7 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,6 +27,8 @@ import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GameResultActivity extends MyBaseActivity {
 
@@ -48,6 +53,69 @@ public class GameResultActivity extends MyBaseActivity {
             }
         }
     }
+
+    private static <T> ObjectAnimator translateAnimation(final T imageView, String cmd, int duration, int startDelay, float... dx) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(imageView, cmd, dx);
+        animation.setDuration(duration);
+        animation.setStartDelay(startDelay);
+        animation.setInterpolator(new DecelerateInterpolator());
+
+        animation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                ((View) imageView).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        return animation;
+    }
+
+    public ArrayList<ObjectAnimator> bothScaleAniamtion(final TextView textView, int duration, int startDelay, float... path) {
+        ArrayList<ObjectAnimator> result = new ArrayList<ObjectAnimator>();
+        result.add(scaleAnimation(textView, "scaleX", duration, startDelay, path));
+        result.add(scaleAnimation(textView, "scaleY", duration, startDelay, path));
+        return result;
+    }
+
+    public ObjectAnimator scaleAnimation(final TextView textView, String cmd, int duration, int startDelay, float... path) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(textView, cmd, path);
+        animation.setDuration(duration);
+        animation.setStartDelay(startDelay);
+        animation.setInterpolator(new DecelerateInterpolator());
+
+        animation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                textView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+
+        return animation;
+    }
+
 
     TitleBarListener mListener;
 
@@ -87,6 +155,16 @@ public class GameResultActivity extends MyBaseActivity {
     private Button gameResultAddFriend;
     private Button gameResultHome;
     private Button gameResultReport;
+
+    ArrayList<ObjectAnimator> allAnimations;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        for (int i = 0; i < allAnimations.size(); i++)
+            allAnimations.get(i).start();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -176,8 +254,38 @@ public class GameResultActivity extends MyBaseActivity {
 //
 //        setTextView(R.id.game_result_saved_time, "+" + savedTime);
 //        setTextView(R.id.game_result_new_score, "+" + myPoints);
+//        myScore += myPoints;
 
-        myScore += myPoints;
+        allAnimations = new ArrayList<ObjectAnimator>();
+
+        allAnimations.add(translateAnimation(gameResultPlayerAvatar, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultPlayerName, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultPlayerPoints, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentAvatar, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentName, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentPoints, "translationX", 1000, 0, -500, 0));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultStatus, 1000, 1000, 0f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT8, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 2000, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT6, 100, 2100, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT5, 100, 2100, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT4, 100, 2200, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT3, 100, 2200, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT2, 100, 2300, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT1, 100, 2300, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultPositivePoints, 300, 2400, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultWinBonus, 300, 2700, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultPointFactor, 300, 3000, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
     }
 
     public void setTextView(int viewId, String s) {

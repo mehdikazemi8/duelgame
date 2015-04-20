@@ -397,6 +397,16 @@ public class PlayGameActivity extends MyBaseActivity {
     private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        /**
+        startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
+        finish();
+        //*/
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);

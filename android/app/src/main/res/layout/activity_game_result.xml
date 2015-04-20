@@ -11,8 +11,10 @@
     tools:context=".StartActivity">
 
     <LinearLayout
+        android:id="@+id/game_result_whole_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:orientation="vertical">
 
         <TextView
@@ -24,12 +26,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="تو بردی"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:clipChildren="false"
             android:orientation="horizontal">
 
             <TextView
@@ -38,9 +42,11 @@
                 android:layout_weight="2" />
 
             <RelativeLayout
+                android:id="@+id/game_result_alaki_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="4">
+                android:layout_weight="4"
+                android:clipChildren="false">
 
                 <TextView
                     android:id="@+id/game_result_divider_line_left"
@@ -53,7 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@id/game_result_divider_line_left"
-                    android:src="@drawable/av8" />
+                    android:src="@drawable/av8"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_opponent_name"
@@ -97,7 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@id/game_result_divider_line_right"
-                    android:src="@drawable/av7" />
+                    android:src="@drawable/av7"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_player_name"
@@ -152,7 +160,8 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="کل" />
+                    android:text="کل"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_t8"
@@ -161,7 +170,8 @@
                     android:layout_above="@id/game_result_t7"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="امتیاز" />
+                    android:text="امتیاز"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,7 +188,8 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="امتیاز" />
+                    android:text="امتیاز"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_t6"
@@ -187,7 +198,8 @@
                     android:layout_above="@id/game_result_t5"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="ضریب" />
+                    android:text="ضریب"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -204,7 +216,8 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="برد" />
+                    android:text="برد"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_t4"
@@ -213,7 +226,8 @@
                     android:layout_above="@id/game_result_t3"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="جایزه" />
+                    android:text="جایزه"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -230,7 +244,8 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="مثبت" />
+                    android:text="مثبت"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/game_result_t2"
@@ -239,7 +254,8 @@
                     android:layout_above="@id/game_result_t1"
                     android:gravity="center_horizontal"
                     android:minHeight="1dp"
-                    android:text="امتیاز" />
+                    android:text="امتیاز"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <TextView
@@ -273,7 +289,8 @@
                 android:minHeight="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="+20" />
+                android:text="+20"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/game_result_point_factor"
@@ -287,7 +304,8 @@
                 android:minHeight="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="+20" />
+                android:text="+20"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/game_result_win_bonus"
@@ -301,7 +319,8 @@
                 android:minHeight="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="+20" />
+                android:text="+20"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/game_result_positive_points"
@@ -316,7 +335,8 @@
                 android:minHeight="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="+20" />
+                android:text="+20"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="0dp"
@@ -397,10 +417,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/round_button"
-                android:padding="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/result_buttons"
+                android:minHeight="1dp"
+                android:padding="1dp"
                 android:text="گزارش خطا"
                 android:textColor="@android:color/white" />
 
@@ -424,7 +445,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/result_buttons"
                     android:text="دوئل"
                     android:textColor="@android:color/white" />
 
@@ -436,7 +457,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/result_buttons"
                     android:text="افزودن به دوستان"
                     android:textColor="@android:color/white" />
 
@@ -448,7 +469,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/result_buttons"
                     android:text="خانه"
                     android:textColor="@android:color/white" />
 
