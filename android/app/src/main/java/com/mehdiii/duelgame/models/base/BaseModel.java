@@ -13,12 +13,21 @@ public class BaseModel {
     @SerializedName("code")
     String command;
 
+    public void setCommand(CommandType type) {
+        setCommand(ActionEmitter.getInstance().getCommandCode(type));
+    }
+
     protected void setCommand(String command) {
         this.command = command;
     }
 
-    public String getCommand() {
-        return command;
+    public CommandType getCommand() {
+        return ActionEmitter.getInstance().getCommandType(command);
+    }
+
+    public String serialize(CommandType type) {
+        setCommand(type);
+        return serialize();
     }
 
     public String serialize() {

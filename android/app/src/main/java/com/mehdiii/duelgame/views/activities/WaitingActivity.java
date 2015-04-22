@@ -19,7 +19,10 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Question;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 
@@ -56,7 +59,6 @@ public class WaitingActivity extends MyBaseActivity {
             @Override
             public void onAnimationStart(Animator animation) {
                 layout.setVisibility(View.VISIBLE);
-                Log.d("---- wating onAnimationStart", "");
             }
 
             @Override
@@ -86,6 +88,7 @@ public class WaitingActivity extends MyBaseActivity {
                 String inputMessage = intent.getExtras().getString("inputMessage");
                 String messageCode;
                 JSONObject parser = null;
+                User opponentUser = new User();
 
                 try {
                     parser = new JSONObject(inputMessage);
@@ -93,36 +96,25 @@ public class WaitingActivity extends MyBaseActivity {
                     if (messageCode.compareTo("YOI") == 0) {
 
                         String allOpponentsStr = parser.getString("opponents");
-                        Log.d("---- allOpponentsStr", allOpponentsStr);
                         JSONArray allOpponents = new JSONArray(allOpponentsStr);
                         JSONObject firstOpponent = new JSONObject(allOpponents.get(0).toString());
-                        Log.d("------ firstOpponent", firstOpponent.toString());
 
-                        oppName = firstOpponent.getString("name");
-                        oppAvatarIndex = firstOpponent.getInt("avatar");
+                        opponentUser.setName(firstOpponent.getString("name"));
+                        opponentUser.setAvatar(firstOpponent.getInt("avatar"));
+                        opponentUser.setProvince(firstOpponent.getInt("province"));
+                        opponentUser.setId(firstOpponent.getString("user_number"));
 
-//                        int oppOstanInt = firstOpponent.getInt("ostan");
-                        int oppElo = (int) firstOpponent.getDouble("elo");
-                        oppUserNumber = firstOpponent.getString("user_number");
-
-                        ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(WaitingActivity.this, oppAvatarIndex));
-                        setTextView(waitingOpponentName, oppName);
-//                        setTextView(waitingOpponentOstan, getOstanStr(oppOstanInt));
+                        ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(WaitingActivity.this, opponentUser.getAvatar()));
+                        setTextView(waitingOpponentName, opponentUser.getName());
+                        setTextView(waitingOpponentOstan, ProvinceManager.get(WaitingActivity.this, opponentUser.getProvince()));
 
                         translateAnimation(opponentLayout, "translationY", 500, 0, 1500);
                     } else if (messageCode.compareTo("SP") == 0) {
-                        myTime -= 120;
+                        AuthManager.getCurrentUser().decreaseDiamond(120);
 
-//                        android.os.Handler waitingHandler = new android.os.Handler();
-//                        waitingHandler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Log.d("-- runnable ", "start play Game");
-//                                startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
-//                                finish();
-//                            }
-//                        }, 2000);
-                        startActivity(new Intent(getApplicationContext(), PlayGameActivity.class));
+                        Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
+                        i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
+                        startActivity(i);
                         finish();
                     } else if (messageCode.compareTo("RGD") == 0) {
 
@@ -191,9 +183,9 @@ public class WaitingActivity extends MyBaseActivity {
         mListener = new TitleBarListener();
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        waitingMyAvatar.setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
-        setTextView(waitingMyName, myName);
-        setTextView(waitingMyOstan, getOstanStr(myOstanInt));
+        waitingMyAvatar.setImageResource(AvatarHelper.getResourceId(this, AuthManager.getCurrentUser().getAvatar()));
+        setTextView(waitingMyName, AuthManager.getCurrentUser().getName());
+        setTextView(waitingMyOstan, ProvinceManager.get(this, AuthManager.getCurrentUser().getProvince()));
 
         translateAnimation(playerLayout, "translationY", -500, 0, 1500);
 
@@ -236,8 +228,6 @@ public class WaitingActivity extends MyBaseActivity {
 
     @Override
     public void onBackPressed() {
-        Log.d(" --- ", myName + " pressed onBack Waiting");
-
         hasLeft = true;
 
         JSONObject query = new JSONObject();

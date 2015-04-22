@@ -3,7 +3,9 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by omid on 4/8/2015.
@@ -15,7 +17,7 @@ public class User extends BaseModel {
 //        REGISTER,
 //        LOGIN,
 //        GET_INFO,
-//        GET_FRIEND_LIST,
+//        SEND_GET_FRIEND_LIST,
 //        ADD_FRIEND,
 //    }
 
@@ -31,7 +33,7 @@ public class User extends BaseModel {
 //            case GET_INFO:
 //                user.setCommand("LI");
 //                break;
-//            case GET_FRIEND_LIST:
+//            case SEND_GET_FRIEND_LIST:
 //                user.setCommand("GFL");
 //                break;
 //            case ADD_FRIEND:
@@ -50,7 +52,7 @@ public class User extends BaseModel {
 //        else if (type.equals("UL"))
 //            return CommandType.LOGIN;
 //        else if (type.equals("GFL"))
-//            return CommandType.GET_FRIEND_LIST;
+//            return CommandType.SEND_GET_FRIEND_LIST;
 //        else
 //            return CommandType.REGISTER;
 //    }
@@ -79,8 +81,8 @@ public class User extends BaseModel {
     private int heart;
     @SerializedName("user_number")
     private String id;
-    @SerializedName("purchase_items")
-    private List<PurchaseItem> purchaseItems;
+//    @SerializedName("purchase_items")
+//    private List<PurchaseItem> purchaseItems;
 
     public User getAddFriendRequest() {
         setCommand("AF");
@@ -148,6 +150,14 @@ public class User extends BaseModel {
         this.diamond = diamond;
     }
 
+    public void addDiamond(int diamond) {
+        setDiamond(getDiamond() + diamond);
+    }
+
+    public void decreaseDiamond(int diamond) {
+        setDiamond(getDiamond() - diamond);
+    }
+
     public String getId() {
         return id;
     }
@@ -180,11 +190,11 @@ public class User extends BaseModel {
         this.heart = heart;
     }
 
-    public List<PurchaseItem> getPurchaseItems() {
-        return purchaseItems;
-    }
-
-    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
-        this.purchaseItems = purchaseItems;
-    }
+//    public List<PurchaseItem> getPurchaseItems() {
+//        return purchaseItems;
+//    }
+//
+//    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+//        this.purchaseItems = purchaseItems;
+//    }
 }

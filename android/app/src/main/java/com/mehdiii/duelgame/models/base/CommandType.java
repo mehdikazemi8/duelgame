@@ -7,6 +7,7 @@ public enum CommandType {
     REGISTER,
     LOGIN,
     GET_INFO,
-    GET_FRIEND_LIST,
+    SEND_GET_FRIEND_LIST,
+    RECEIVE_GET_FRIEND_LIST,
     ADD_FRIEND,
 }

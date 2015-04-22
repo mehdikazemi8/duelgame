@@ -14,7 +14,6 @@ import android.widget.TableLayout;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.custom.AvatarViewer;
 import com.squareup.picasso.Picasso;
 
@@ -66,7 +65,8 @@ public class AvatarWaveFragment extends Fragment {
         @Override
         public void onClick(View view) {
             int selection = ((AvatarViewer) view).getPosition();
-            MyBaseActivity.myAvatarIndex = selection;
+            // TODO
+//            MyBaseActivity.myAvatarIndex = selection;
             onCompleteListener.onComplete(selection);
         }
     };
