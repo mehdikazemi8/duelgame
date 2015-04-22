@@ -14,9 +14,9 @@ public class User extends BaseModel {
 //    Map<CommandType, String> map = new HashMap<>();
 //
 //    public enum CommandType {
-//        REGISTER,
+//        SEND_REGISTER,
 //        LOGIN,
-//        GET_INFO,
+//        RECEIVE_LOGIN_INFO,
 //        SEND_GET_FRIEND_LIST,
 //        ADD_FRIEND,
 //    }
@@ -24,13 +24,13 @@ public class User extends BaseModel {
 //    public static User newInstance(CommandType type) {
 //        User user = new User();
 //        switch (type) {
-//            case REGISTER:
+//            case SEND_REGISTER:
 //                user.setCommand("RU");
 //                break;
 //            case LOGIN:
 //                user.setCommand("UL");
 //                break;
-//            case GET_INFO:
+//            case RECEIVE_LOGIN_INFO:
 //                user.setCommand("LI");
 //                break;
 //            case SEND_GET_FRIEND_LIST:
@@ -48,13 +48,13 @@ public class User extends BaseModel {
 //
 //    public static CommandType getCommandType(String type) {
 //        if (type.equals("LI"))
-//            return CommandType.GET_INFO;
+//            return CommandType.RECEIVE_LOGIN_INFO;
 //        else if (type.equals("UL"))
 //            return CommandType.LOGIN;
 //        else if (type.equals("GFL"))
 //            return CommandType.SEND_GET_FRIEND_LIST;
 //        else
-//            return CommandType.REGISTER;
+//            return CommandType.SEND_REGISTER;
 //    }
 //
 //    public CommandType getCommandType() {

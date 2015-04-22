@@ -31,7 +31,7 @@ public class StartActivity extends MyBaseActivity {
         @Override
         public void onReceive(String json, CommandType type) {
 
-            if (CommandType.GET_INFO == type) {
+            if (CommandType.RECEIVE_LOGIN_INFO == type) {
                 User user = BaseModel.deserialize(json, User.class);
                 if (user.getId() == null)
                     startActivity(new Intent(StartActivity.this, RegisterActivity.class));

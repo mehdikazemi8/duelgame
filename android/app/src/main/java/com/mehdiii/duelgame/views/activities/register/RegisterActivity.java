@@ -161,7 +161,7 @@ public class RegisterActivity extends MyBaseActivity {
 //        myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
-//            User registerUser = User.newInstance(CommandType.REGISTER);
+//            User registerUser = User.newInstance(CommandType.SEND_REGISTER);
             User registerUser = new User();
             registerUser.setDeviceId(userId);
             // TODO
@@ -170,7 +170,7 @@ public class RegisterActivity extends MyBaseActivity {
 //            registerUser.setEmail(myEmail);
 //            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
 
-            DuelApp.getInstance().sendMessage(registerUser.serialize(CommandType.REGISTER));
+            DuelApp.getInstance().sendMessage(registerUser.serialize(CommandType.SEND_REGISTER));
         }
     }
 
