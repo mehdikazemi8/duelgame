@@ -48,7 +48,7 @@ public class DuelApp extends Application {
         }
     }
 
-    protected void doConnect() {
+    public void doConnect() {
         try {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
