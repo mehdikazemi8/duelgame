@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,8 +80,8 @@ public class User extends BaseModel {
     private int heart;
     @SerializedName("user_number")
     private String id;
-    @SerializedName("purchase_items")
-    private List<PurchaseItem> purchaseItems;
+//    @SerializedName("purchase_items")
+//    private List<PurchaseItem> purchaseItems;
 
     public User getAddFriendRequest() {
         setCommand("AF");
@@ -150,6 +149,14 @@ public class User extends BaseModel {
         this.diamond = diamond;
     }
 
+    public void addDiamond(int diamond) {
+        setDiamond(getDiamond() + diamond);
+    }
+
+    public void decreaseDiamond(int diamond) {
+        setDiamond(getDiamond() - diamond);
+    }
+
     public String getId() {
         return id;
     }
@@ -182,11 +189,11 @@ public class User extends BaseModel {
         this.heart = heart;
     }
 
-    public List<PurchaseItem> getPurchaseItems() {
-        return purchaseItems;
-    }
-
-    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
-        this.purchaseItems = purchaseItems;
-    }
+//    public List<PurchaseItem> getPurchaseItems() {
+//        return purchaseItems;
+//    }
+//
+//    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+//        this.purchaseItems = purchaseItems;
+//    }
 }

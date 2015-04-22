@@ -46,7 +46,8 @@ public class ChooseAvatarActivity extends MyBaseActivity {
                 avat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myAvatarIndex = Integer.parseInt(v.getContentDescription().toString());
+                        // TODO
+//                        myAvatarIndex = Integer.parseInt(v.getContentDescription().toString());
                         finish();
                     }
                 });

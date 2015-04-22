@@ -3,7 +3,6 @@ package com.mehdiii.duelgame.views.activities;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -20,12 +19,17 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GameResultActivity extends MyBaseActivity {
+    public static final String ARGUMENT_OPPONENT = "argument_opponent";
+    public static final String ARGUMENT_RESULT_INFO = "argument_result_info";
 
     protected class TitleBarListener extends BroadcastReceiver {
 
@@ -43,17 +47,19 @@ public class GameResultActivity extends MyBaseActivity {
                     if (messageCode.compareTo("XXX") == 0) {
                     }
                 } catch (JSONException e) {
-                    Log.d("---------", "can not parse string Game Result Activity");
+                    e.printStackTrace();
                 }
             }
         }
     }
 
     TitleBarListener mListener;
+    User opponentUser;
 
+    String resultInfo;
     int gameStatus;
-    int savedTime;
-    String gameVertict;
+    int earnedDiamond;
+    String gameVerdict;
 
     int WIN, LOSE;
     MediaPlayer myPlayer;
@@ -93,6 +99,61 @@ public class GameResultActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
 
+        readArguments();
+
+        findControls();
+
+        configureControls();
+
+        WIN = R.raw.win;
+        LOSE = R.raw.lose;
+
+        mListener = new TitleBarListener();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
+
+        try {
+            JSONObject parser = new JSONObject(resultInfo);
+            gameStatus = parser.getInt("result");       // just this class
+
+            int bonous = 0, musicId;
+            if (gameStatus == 0) {
+                bonous = earnedDiamond;
+                gameVerdict = "مساوی شد";
+                musicId = LOSE;
+            } else if (gameStatus == 1) {
+                bonous = earnedDiamond + 120;
+                gameVerdict = "تو بردیییی";
+                musicId = WIN;
+            } else {
+                // nothing
+                gameVerdict = "تو باختی";
+                musicId = LOSE;
+            }
+            myPlayer = MediaPlayer.create(this, musicId);
+            AuthManager.getCurrentUser().addDiamond(bonous);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        myPlayer.start();
+        setTextView(R.id.game_result_status, gameVerdict);
+        AuthManager.getCurrentUser().setScore(AuthManager.getCurrentUser().getScore() + userPoints);
+    }
+
+    private void configureControls() {
+        FontHelper.setKoodakFor(getApplicationContext(),
+                gameResultStatus,
+                gameResultPlayerName, gameResultPlayerPoints,
+                gameResultOpponentName, gameResultOpponentPoints,
+                gameResultT1, gameResultT2, gameResultT3, gameResultT4,
+                gameResultT5, gameResultT6, gameResultT7, gameResultT8,
+                gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor, gameResultTotalExperience,
+                gameResultDiamondCnt, gameResultLevelText,
+                gameResultHome, gameResultAddFriend, gameResultDuelOthers, gameResultReport);
+    }
+
+    private void findControls() {
         gameResultStatus = (TextView) findViewById(R.id.game_result_status);
         gameResultOpponentAvatar = (ImageView) findViewById(R.id.game_result_opponent_avatar);
         gameResultOpponentName = (TextView) findViewById(R.id.game_result_opponent_name);
@@ -121,63 +182,19 @@ public class GameResultActivity extends MyBaseActivity {
         gameResultAddFriend = (Button) findViewById(R.id.game_result_add_friend);
         gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
         gameResultReport = (Button) findViewById(R.id.game_result_report);
+    }
 
-        FontHelper.setKoodakFor(getApplicationContext(),
-                gameResultStatus,
-                gameResultPlayerName, gameResultPlayerPoints,
-                gameResultOpponentName, gameResultOpponentPoints,
-                gameResultT1, gameResultT2, gameResultT3, gameResultT4,
-                gameResultT5, gameResultT6, gameResultT7, gameResultT8,
-                gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor, gameResultTotalExperience,
-                gameResultDiamondCnt, gameResultLevelText,
-                gameResultHome, gameResultAddFriend, gameResultDuelOthers, gameResultReport);
+    private void readArguments() {
+        Bundle params = getIntent().getExtras();
+        if (params == null)
+            return;
+        String json = params.getString(ARGUMENT_OPPONENT, "");
 
-        WIN = R.raw.win;
-        LOSE = R.raw.lose;
-
-        mListener = new TitleBarListener();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
-
-        try {
-            JSONObject parser = new JSONObject(resultInfo);
-
-//            myElo = (int) parser.getDouble("new_elo");
-            gameStatus = parser.getInt("result");       // just this class
-//            savedTime = parser.getInt("saved_time");    // just this class
-//            Log.d("-- score ye nafar ", myName + " " + parser.getInt("score"));
-
-            if (gameStatus == 0) {
-                myTime = myTime + savedTime;
-                gameVertict = "مساوی شد";
-                myPlayer = MediaPlayer.create(this, LOSE);
-            } else if (gameStatus == 1) {
-                myTime = myTime + savedTime + 120;
-                gameVertict = "تو بردیییی";
-                myPlayer = MediaPlayer.create(this, WIN);
-            } else {
-                // nothing
-                gameVertict = "تو باختی";
-                myPlayer = MediaPlayer.create(this, LOSE);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (!json.isEmpty()) {
+            opponentUser = BaseModel.deserialize(json, User.class);
+            resultInfo = params.getString(ARGUMENT_RESULT_INFO);
         }
 
-        myPlayer.start();
-
-        setTextView(R.id.game_result_status, gameVertict);
-
-
-//        ((ImageView) findViewById(R.id.game_result_my_avatar)).setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
-//        ((ImageView) findViewById(R.id.game_result_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(this, oppAvatarIndex));
-//
-//        setTextView(R.id.game_result_opponent_points, "" + oppPoints);
-//        setTextView(R.id.game_result_my_points, "" + myPoints);
-//
-//        setTextView(R.id.game_result_saved_time, "+" + savedTime);
-//        setTextView(R.id.game_result_new_score, "+" + myPoints);
-
-        myScore += myPoints;
     }
 
     public void setTextView(int viewId, String s) {
@@ -210,7 +227,7 @@ public class GameResultActivity extends MyBaseActivity {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "AF");
-            query.put("user_number", oppUserNumber);
+            query.put("user_number", opponentUser.getId());
 
             Log.d("-- send ADD FRIEND", query.toString());
 
