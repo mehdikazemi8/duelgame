@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,10 +73,16 @@ public class User extends BaseModel {
     private int avatar;
     @SerializedName("level")
     private int level;
-    @SerializedName("time")
+    @SerializedName("diamond")
     private int diamond;
+    @SerializedName("score")
+    private int score;
+    @SerializedName("heart")
+    private int heart;
     @SerializedName("user_number")
     private String id;
+    @SerializedName("purchase_items")
+    private List<PurchaseItem> purchaseItems;
 
     public User getAddFriendRequest() {
         setCommand("AF");
@@ -149,5 +156,37 @@ public class User extends BaseModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Map<CommandType, String> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<CommandType, String> map) {
+        this.map = map;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getHeart() {
+        return heart;
+    }
+
+    public void setHeart(int heart) {
+        this.heart = heart;
+    }
+
+    public List<PurchaseItem> getPurchaseItems() {
+        return purchaseItems;
+    }
+
+    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+        this.purchaseItems = purchaseItems;
     }
 }

@@ -1,6 +1,5 @@
 package com.mehdiii.duelgame.views.activities;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
@@ -35,7 +34,6 @@ public class MyBaseActivity extends ActionBarActivity {
     public static String myOstanStr;
     public static int myOstanInt;
     public static String myEmail;
-    public static int myElo;
     public static int myScore;
     public static int myTime;
     public static String myUserNumber;
