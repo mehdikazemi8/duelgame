@@ -2,7 +2,6 @@ package com.mehdiii.duelgame.views.activities;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +14,8 @@ public class TryToConnectActivity extends MyBaseActivity {
 
     public void checkConnection() {
         if (DuelApp.getInstance().getSocket().isConnected()) {
-            Log.d("****", "vasl shod");
-
             finish();
         } else {
-            Log.d("****", "vasl nashod");
-
             TextView status = (TextView) findViewById(R.id.try_to_connect_status);
             status.setText("تلاش برای وصل شدن به سرور ناموفق بود. می توانید دوباره امتحان کنید. این تمام چیزی هست که ما می دانیم.");
         }

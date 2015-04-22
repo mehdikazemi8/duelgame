@@ -1,15 +1,9 @@
 package com.mehdiii.duelgame.views.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,29 +25,6 @@ public class GameResultActivity extends MyBaseActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
     public static final String ARGUMENT_RESULT_INFO = "argument_result_info";
 
-    protected class TitleBarListener extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("MESSAGE")) {
-                String inputMessage = intent.getExtras().getString("inputMessage");
-                String messageCode;
-                JSONObject parser = null;
-
-                try {
-                    parser = new JSONObject(inputMessage);
-                    messageCode = parser.getString("code");
-
-                    if (messageCode.compareTo("XXX") == 0) {
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    TitleBarListener mListener;
     User opponentUser;
 
     String resultInfo;
@@ -107,10 +78,6 @@ public class GameResultActivity extends MyBaseActivity {
 
         WIN = R.raw.win;
         LOSE = R.raw.lose;
-
-        mListener = new TitleBarListener();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
-
         try {
             JSONObject parser = new JSONObject(resultInfo);
             gameStatus = parser.getInt("result");       // just this class
@@ -194,32 +161,10 @@ public class GameResultActivity extends MyBaseActivity {
             opponentUser = BaseModel.deserialize(json, User.class);
             resultInfo = params.getString(ARGUMENT_RESULT_INFO);
         }
-
     }
 
     public void setTextView(int viewId, String s) {
         ((TextView) findViewById(viewId)).setText(s);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_start, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.about) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void addToFriends(View v) {
@@ -229,12 +174,9 @@ public class GameResultActivity extends MyBaseActivity {
             query.put("code", "AF");
             query.put("user_number", opponentUser.getId());
 
-            Log.d("-- send ADD FRIEND", query.toString());
-
             DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
             everythingOK = false;
-            Log.d("---- GameResult JSON", e.toString());
         }
 
         if (everythingOK == true) {
@@ -251,11 +193,9 @@ public class GameResultActivity extends MyBaseActivity {
             query.put("code", "WP");
             query.put("category", category);
 
-            Log.d("-- send WP", query.toString());
-
             DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
-            Log.d("---- GameResult JSON", e.toString());
+            e.printStackTrace();
         }
 
         startActivity(new Intent(this, WaitingActivity.class));
@@ -265,6 +205,5 @@ public class GameResultActivity extends MyBaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 }
