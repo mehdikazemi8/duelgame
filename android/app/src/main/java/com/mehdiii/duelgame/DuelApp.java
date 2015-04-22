@@ -85,11 +85,6 @@ public class DuelApp extends Application {
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
-
-        // detect ke in message delivery
-        // detect konam ke in message vase kie?
-        // call konam ino
-
         // use local broadcast manager to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }

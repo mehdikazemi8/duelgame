@@ -3,9 +3,7 @@ package com.mehdiii.duelgame.views.activities;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -33,7 +31,10 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,45 +84,78 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private String[] round = new String[NUMBER_OF_QUESTIONS];
 
-    protected class TitleBarListener extends BroadcastReceiver {
+    //    BroadcastReceiver mListener = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("MESSAGE")) {
+//                String inputMessage = intent.getExtras().getString("inputMessage");
+//                String messageCode;
+//                JSONObject parser = null;
+//                try {
+//                    parser = new JSONObject(inputMessage);
+//                    messageCode = parser.getString("code");
+//
+//                    if (messageCode.compareTo("AQ") == 0) {
+//                        endQuestionAnimation(false);
+//                    } else if (messageCode.compareTo("OS") == 0) {
+//                        if (parser.getInt("ok") == 1) {
+//                            opponentAnsweredThisTime = parser.getInt("time");
+//                            if (problemIndex == 6)
+//                                opponentPoints += 5;
+//                            else
+//                                opponentPoints += 3;
+//                        } else {
+//                            if (parser.getInt("time") != -1) {  // wrong answer
+//                                opponentPoints += -1;
+//                            } else if (parser.getInt("time") == -1) {   // not answered
+//
+//                            }
+//                        }
+//                        setTextView(playGameOpScore, "" + opponentPoints);
+//                        setProgressBar(opProgress, opponentPoints);
+//
+//                    } else if (messageCode.compareTo("GE") == 0) {
+//                        resultInfo = inputMessage;
+//                        endQuestionAnimation(true);
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    };
+    BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("MESSAGE")) {
-                String inputMessage = intent.getExtras().getString("inputMessage");
-                String messageCode;
-                JSONObject parser = null;
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_ASK_NEXT_QUESTION) {
+                endQuestionAnimation(false);
+            } else if (type == CommandType.RECEIVE_OPPONENT_SCORE) {
                 try {
-                    parser = new JSONObject(inputMessage);
-                    messageCode = parser.getString("code");
-                    if (messageCode.compareTo("AQ") == 0) {
-                        endQuestionAnimation(false);
-                    } else if (messageCode.compareTo("OS") == 0) {
-                        if (parser.getInt("ok") == 1) {
-                            opponentAnsweredThisTime = parser.getInt("time");
-                            if (problemIndex == 6)
-                                opponentPoints += 5;
-                            else
-                                opponentPoints += 3;
-                        } else {
-                            if (parser.getInt("time") != -1) {  // wrong answer
-                                opponentPoints += -1;
-                            } else if (parser.getInt("time") == -1) {   // not answered
+                    JSONObject parser = new JSONObject(json);
 
-                            }
-                        }
-                        setTextView(playGameOpScore, "" + opponentPoints);
-                        setProgressBar(opProgress, opponentPoints);
-
-                    } else if (messageCode.compareTo("GE") == 0) {
-                        resultInfo = inputMessage;
-                        endQuestionAnimation(true);
+                    if (parser.getInt("ok") == 1) {
+                        opponentAnsweredThisTime = parser.getInt("time");
+                        if (problemIndex == 6)
+                            opponentPoints += 5;
+                        else
+                            opponentPoints += 3;
+                    } else {
+                        if (parser.getInt("time") != -1) // wrong answer
+                            opponentPoints += -1;
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
                 }
+
+                setTextView(playGameOpScore, "" + opponentPoints);
+                setProgressBar(opProgress, opponentPoints);
+
+            } else if (type == CommandType.RECEIVE_GAME_ENDED) {
+                resultInfo = json;
+                endQuestionAnimation(true);
             }
         }
-    }
+    });
 
     public void setProgressBar(ProgressBar pb, int progress) {
         if (progress < 0) {
@@ -365,8 +399,6 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
-    TitleBarListener mListener;
-
     public void setButton(Button tv, String s) {
         tv.setText(s);
     }
@@ -412,8 +444,7 @@ public class PlayGameActivity extends MyBaseActivity {
         WRONG_ANSWER = R.raw.wrong_answer;
         CORRECT_ANSWER = R.raw.correct_answer;
 
-        mListener = new TitleBarListener();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
 
         setTextView(playGameMyName, AuthManager.getCurrentUser().getName());
         setTextView(playGameOpName, opponentUser.getName());

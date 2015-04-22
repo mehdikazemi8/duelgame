@@ -21,6 +21,7 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -160,7 +161,8 @@ public class RegisterActivity extends MyBaseActivity {
 //        myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
-            User registerUser = User.newInstance(User.CommandType.REGISTER);
+//            User registerUser = User.newInstance(CommandType.SEND_REGISTER);
+            User registerUser = new User();
             registerUser.setDeviceId(userId);
             // TODO
 //            registerUser.setName(myName);
@@ -168,7 +170,7 @@ public class RegisterActivity extends MyBaseActivity {
 //            registerUser.setEmail(myEmail);
 //            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
 
-            DuelApp.getInstance().sendMessage(registerUser.serialize());
+            DuelApp.getInstance().sendMessage(registerUser.serialize(CommandType.SEND_REGISTER));
         }
     }
 
