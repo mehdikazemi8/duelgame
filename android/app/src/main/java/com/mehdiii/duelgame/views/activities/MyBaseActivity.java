@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities;
 
 import android.support.v7.app.ActionBarActivity;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.Question;
 
 import java.util.Random;
