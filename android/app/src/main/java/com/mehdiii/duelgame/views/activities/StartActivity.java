@@ -1,9 +1,7 @@
 package com.mehdiii.duelgame.views.activities;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
@@ -18,6 +16,9 @@ import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
 
@@ -26,29 +27,45 @@ import org.json.JSONObject;
 
 public class StartActivity extends MyBaseActivity {
 
-    protected class TitleBarListener extends BroadcastReceiver {
+    BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(String json, String type) {
 
-            if (intent.getAction().equals("MESSAGE")) {
-                User user = User.deserialize(intent.getExtras().getString("inputMessage"),
-                        User.class);
-                if (user.getCommandType() == User.CommandType.GET_INFO) {
-                    if (user.getId() == null)
-                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                    else {
-                        myName = user.getName();
-                        myOstanInt = user.getProvince();
-                        AuthManager.authenticate(user);
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    }
-                    finish();
+            if (User.CommandType.GET_INFO == User.getCommandType(type)) {
+                User user = BaseModel.deserialize(json, User.class);
+                if (user.getId() == null)
+                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                else {
+                    // TODO
+                    AuthManager.authenticate(user);
+                    startActivity(new Intent(StartActivity.this, HomeActivity.class));
                 }
+                finish();
             }
         }
-    }
+    });
 
-    TitleBarListener mListener;
+//    BroadcastReceiver mListener = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//
+//            if (intent.getAction().equals("MESSAGE")) {
+//                User user = User.deserialize(intent.getExtras().getString("inputMessage"),
+//                        User.class);
+//                if (user.getCommandType() == User.CommandType.GET_INFO) {
+//                    if (user.getId() == null)
+//                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+//                    else {
+//                        // TODO
+//                        AuthManager.authenticate(user);
+//                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+//                    }
+//                    finish();
+//                }
+//            }
+//        }
+//    };
+
     String userId;
 
     @Override
@@ -56,9 +73,7 @@ public class StartActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        mListener = new TitleBarListener();
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
 
         final String deviceId, simSerialNumber;
 
@@ -79,12 +94,9 @@ public class StartActivity extends MyBaseActivity {
                     try {
                         query.put("code", "UL");
                         query.put("user_id", userId);
-
-                        Log.d("--- Start Activity", query.toString());
-
                         DuelApp.getInstance().sendMessage(query.toString());
                     } catch (JSONException e) {
-                        Log.d("---- START ACTIVITY", e.toString());
+                        e.printStackTrace();
                     }
                 }
             }

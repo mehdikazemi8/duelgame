@@ -32,8 +32,8 @@ public class DuelApp extends Application {
     private String TAG = "DUEL_APP";
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-//    static protected String wsuri = "ws://188.166.118.149:9000";
-    static protected String wsuri = "ws://192.168.128.217:9000";
+    static protected String wsuri = "ws://188.166.118.149:9000";
+//    static protected String wsuri = "ws://192.168.128.217:9000";
 
     @Override
     public void onCreate() {
@@ -49,7 +49,7 @@ public class DuelApp extends Application {
         }
     }
 
-    protected void doConnect() {
+    public void doConnect() {
         try {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
