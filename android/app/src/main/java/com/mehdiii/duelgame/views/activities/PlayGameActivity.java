@@ -52,6 +52,7 @@ public class PlayGameActivity extends MyBaseActivity {
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
     RotateAnimation rotateTickAnimation = null;
+    String resultInfo;
 
     String correctAnswerStr;
     int correctOption;
@@ -116,7 +117,7 @@ public class PlayGameActivity extends MyBaseActivity {
                         endQuestionAnimation(true);
                     }
                 } catch (JSONException e) {
-                    Log.d("---------", "can not parse string");
+                    e.printStackTrace();
                 }
             }
         }
@@ -658,6 +659,7 @@ public class PlayGameActivity extends MyBaseActivity {
                 if (goToResult == true) {
 
                     Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
+                    i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
                     i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
                     startActivity(i);
                     finish();

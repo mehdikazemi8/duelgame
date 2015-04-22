@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 public class GameResultActivity extends MyBaseActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
+    public static final String ARGUMENT_RESULT_INFO = "argument_result_info";
 
     protected class TitleBarListener extends BroadcastReceiver {
 
@@ -53,9 +55,11 @@ public class GameResultActivity extends MyBaseActivity {
 
     TitleBarListener mListener;
     User opponentUser;
+
+    String resultInfo;
     int gameStatus;
-    int savedTime;
-    String gameVertict;
+    int earnedDiamond;
+    String gameVerdict;
 
     int WIN, LOSE;
     MediaPlayer myPlayer;
@@ -111,26 +115,30 @@ public class GameResultActivity extends MyBaseActivity {
             JSONObject parser = new JSONObject(resultInfo);
             gameStatus = parser.getInt("result");       // just this class
 
+            int bonous = 0, musicId;
             if (gameStatus == 0) {
-                myTime = myTime + savedTime;
-                gameVertict = "مساوی شد";
-                myPlayer = MediaPlayer.create(this, LOSE);
+                bonous = earnedDiamond;
+                gameVerdict = "مساوی شد";
+                musicId = LOSE;
             } else if (gameStatus == 1) {
-                myTime = myTime + savedTime + 120;
-                gameVertict = "تو بردیییی";
-                myPlayer = MediaPlayer.create(this, WIN);
+                bonous = earnedDiamond + 120;
+                gameVerdict = "تو بردیییی";
+                musicId = WIN;
             } else {
                 // nothing
-                gameVertict = "تو باختی";
-                myPlayer = MediaPlayer.create(this, LOSE);
+                gameVerdict = "تو باختی";
+                musicId = LOSE;
             }
+            myPlayer = MediaPlayer.create(this, musicId);
+            AuthManager.getCurrentUser().addDiamond(bonous);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         myPlayer.start();
-        setTextView(R.id.game_result_status, gameVertict);
-        myScore += userPoints;
+        setTextView(R.id.game_result_status, gameVerdict);
+        AuthManager.getCurrentUser().setScore(AuthManager.getCurrentUser().getScore() + userPoints);
     }
 
     private void configureControls() {
@@ -184,6 +192,7 @@ public class GameResultActivity extends MyBaseActivity {
 
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);
+            resultInfo = params.getString(ARGUMENT_RESULT_INFO);
         }
 
     }
@@ -218,7 +227,7 @@ public class GameResultActivity extends MyBaseActivity {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "AF");
-            query.put("user_number", );
+            query.put("user_number", opponentUser.getId());
 
             Log.d("-- send ADD FRIEND", query.toString());
 

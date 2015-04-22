@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -156,18 +155,18 @@ public class RegisterActivity extends MyBaseActivity {
     public void registerMe(View v) {
         // TODO
 //        myName = usernameEditText.getText().toString();
-        myEmail = emailEditText.getText().toString();
-        myOstanStr = provinceSpinner.getSelectedItem().toString();
-        myOstanInt = provinceSpinner.getSelectedItemPosition();
+//        myEmail = emailEditText.getText().toString();
+//        myOstanStr = provinceSpinner.getSelectedItem().toString();
+//        myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
             User registerUser = User.newInstance(User.CommandType.REGISTER);
             registerUser.setDeviceId(userId);
             // TODO
 //            registerUser.setName(myName);
-            registerUser.setProvince(myOstanInt);
-            registerUser.setEmail(myEmail);
-            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
+//            registerUser.setProvince(myOstanInt);
+//            registerUser.setEmail(myEmail);
+//            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
 
             DuelApp.getInstance().sendMessage(registerUser.serialize());
         }
