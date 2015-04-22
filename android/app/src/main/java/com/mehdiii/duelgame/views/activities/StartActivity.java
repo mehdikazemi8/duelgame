@@ -38,7 +38,7 @@ public class StartActivity extends MyBaseActivity {
                         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                     else {
                         // TODO
-                        myName = user.getName();
+//                        myName = user.getName();
                         myOstanInt = user.getProvince();
                         AuthManager.authenticate(user);
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));

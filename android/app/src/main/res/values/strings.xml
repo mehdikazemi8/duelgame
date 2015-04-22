@@ -22,7 +22,7 @@
     <color name="play_game_names">#6b6a6c</color>
     <color name="play_game_question_text">#ecf0f1</color>
 
-    <string-array name="ostan_array">
+    <string-array name="province_array">
         <item>انتخاب استان</item>
         <item>خارج از ایران</item>
         <item>آذربایجان شرقی</item>

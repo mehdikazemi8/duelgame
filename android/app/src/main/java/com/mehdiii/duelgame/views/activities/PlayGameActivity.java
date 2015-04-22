@@ -30,6 +30,9 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONException;
@@ -38,6 +41,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class PlayGameActivity extends MyBaseActivity {
+
+    public static final String ARGUMENT_OPPONENT = "argument_opponent";
 
     final int DURATION = 20000;
     final int durationNumberOfProblem = 1000;
@@ -93,18 +98,18 @@ public class PlayGameActivity extends MyBaseActivity {
                         if (parser.getInt("ok") == 1) {
                             opponentAnsweredThisTime = parser.getInt("time");
                             if (problemIndex == 6)
-                                oppPoints += 5;
+                                opponentPoints += 5;
                             else
-                                oppPoints += 3;
+                                opponentPoints += 3;
                         } else {
                             if (parser.getInt("time") != -1) {  // wrong answer
-                                oppPoints += -1;
+                                opponentPoints += -1;
                             } else if (parser.getInt("time") == -1) {   // not answered
 
                             }
                         }
-                        setTextView(playGameOpScore, "" + oppPoints);
-                        setProgressBar(opProgress, oppPoints);
+                        setTextView(playGameOpScore, "" + opponentPoints);
+                        setProgressBar(opProgress, opponentPoints);
 
                     } else if (messageCode.compareTo("GE") == 0) {
                         resultInfo = inputMessage;
@@ -118,12 +123,11 @@ public class PlayGameActivity extends MyBaseActivity {
     }
 
     public void setProgressBar(ProgressBar pb, int progress) {
-        if(progress < 0) {
+        if (progress < 0) {
             pb.setProgressDrawable(getResources().getDrawable(R.drawable.vertical_progress_bar_red));
             progress *= -1;
-        }
-        else
-            pb.setProgressDrawable( getResources().getDrawable(R.drawable.vertical_progress_bar) );
+        } else
+            pb.setProgressDrawable(getResources().getDrawable(R.drawable.vertical_progress_bar));
 
         pb.setProgress(progress);
     }
@@ -284,13 +288,13 @@ public class PlayGameActivity extends MyBaseActivity {
             iAnsweredThisCorrect = true;
 
             if (problemIndex == 6)
-                myPoints += 5;
+                userPoints += 5;
             else
-                myPoints += 3;
+                userPoints += 3;
 
-            setTextView(playGameMyScore, "" + myPoints);
+            setTextView(playGameMyScore, "" + userPoints);
 
-            setProgressBar(myProgress, myPoints);
+            setProgressBar(myProgress, userPoints);
 
             //((Button) v).setBackgroundColor(Color.GREEN);
             ((Button) v).setTextColor(getResources().getColor(R.color.correct_answer));
@@ -300,10 +304,10 @@ public class PlayGameActivity extends MyBaseActivity {
             hintRemoveBtn.setClickable(false);
         } else {
             myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
-            myPoints += -1;
+            userPoints += -1;
 
-            setTextView(playGameMyScore, "" + myPoints);
-            setProgressBar(myProgress, myPoints);
+            setTextView(playGameMyScore, "" + userPoints);
+            setProgressBar(myProgress, userPoints);
 
             if (hintAgainClicked == true) {
                 iAnsweredThisTime = -1;
@@ -391,6 +395,10 @@ public class PlayGameActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
+        findControls();
+
+        readArguments();
+
         hintAgainViewIsOpen = hintRemoveViewIsOpen = false;
 
         round[0] = "سوال اول";
@@ -406,19 +414,39 @@ public class PlayGameActivity extends MyBaseActivity {
         mListener = new TitleBarListener();
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
+        setTextView(playGameMyName, AuthManager.getCurrentUser().getName());
+        setTextView(playGameOpName, opponentUser.getName());
+
+        opponentPoints = userPoints = 0;
+        problemIndex = 0;
+
+        mobileDisplay = getWindowManager().getDefaultDisplay();
+        screenSize = new Point();
+        mobileDisplay.getSize(screenSize);
+        screenHeight = screenSize.y;
+
+        configureControls();
+
+        startGameAnimation();
+    }
+
+    private void configureControls() {
+        FontHelper.setKoodakFor(getApplicationContext(),
+                option0Btn, option1Btn, option2Btn, option3Btn,
+                playGameOpName, playGameOpScore,
+                playGameMyName, playGameMyScore,
+                playGameQuestionText,
+                playGameHintAgainCost, playGameHintRemoveCost,
+                playGameHintAgainText, playGameHintRemoveText);
+    }
+
+    private void findControls() {
+        tick = (ImageView) findViewById(R.id.play_game_tick);
         playGameOpName = (TextView) findViewById(R.id.play_game_op_name);
         playGameOpScore = (TextView) findViewById(R.id.play_game_op_score);
         playGameMyName = (TextView) findViewById(R.id.play_game_my_name);
         playGameMyScore = (TextView) findViewById(R.id.play_game_my_score);
         playGameQuestionText = (TextView) findViewById(R.id.play_game_question_text);
-
-        tick = (ImageView) findViewById(R.id.play_game_tick);
-
-        setTextView(playGameMyName, myName);
-        setTextView(playGameOpName, oppName);
-
-        oppPoints = myPoints = 0;
-        problemIndex = 0;
 
         option0Btn = (Button) findViewById(R.id.play_game_option_0);
         option1Btn = (Button) findViewById(R.id.play_game_option_1);
@@ -427,10 +455,6 @@ public class PlayGameActivity extends MyBaseActivity {
         hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
         hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
 
-        mobileDisplay = getWindowManager().getDefaultDisplay();
-        screenSize = new Point();
-        mobileDisplay.getSize(screenSize);
-        screenHeight = screenSize.y;
 
         myProgress = (ProgressBar) findViewById(R.id.play_game_my_progress);
         opProgress = (ProgressBar) findViewById(R.id.play_game_op_progress);
@@ -440,32 +464,24 @@ public class PlayGameActivity extends MyBaseActivity {
         playGameHintRemoveCost = (TextView) findViewById(R.id.play_game_hint_remove_cost);
         playGameHintRemoveText = (TextView) findViewById(R.id.play_game_hint_remove_text);
 
-        FontHelper.setKoodakFor(getApplicationContext(),
-                option0Btn, option1Btn, option2Btn, option3Btn,
-                playGameOpName, playGameOpScore,
-                playGameMyName, playGameMyScore,
-                playGameQuestionText,
-                playGameHintAgainCost, playGameHintRemoveCost,
-                playGameHintAgainText, playGameHintRemoveText);
-
         hintAgainView = (RelativeLayout) findViewById(R.id.play_game_hint_again_view);
         hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
-
-        Log.d("-- AGAIN OnCreate", hintAgainView.getLeft() + " " + hintAgainView.getRight());
-        Log.d("-- Remove OnCreaet", hintRemoveView.getLeft() + " " + hintRemoveView.getRight());
-
         header = (LinearLayout) findViewById(R.id.play_game_header);
-
-        Log.d("--- playGame oppName", "" + oppName);
-        Log.d("--- playGame myName", "" + myName);
-
-        startGameAnimation();
     }
 
-    final int AA = 4;
-    final int BB = 6;
-    final int CC = 8;
-    final int DD = 10;
+    User opponentUser;
+
+    private void readArguments() {
+        Bundle params = getIntent().getExtras();
+        if (params == null)
+            return;
+        String json = params.getString(ARGUMENT_OPPONENT, "");
+
+        if (!json.isEmpty()) {
+            opponentUser = BaseModel.deserialize(json, User.class);
+        }
+
+    }
 
     public void sendGQMinusOne() {
         JSONObject query = new JSONObject();
@@ -531,11 +547,10 @@ public class PlayGameActivity extends MyBaseActivity {
     }
 
     public void startQuestionAnimation() {
-        if(rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
+        if (rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
             rotateTickAnimation.cancel();
 
-        if (timeToAnswer != null)
-        {
+        if (timeToAnswer != null) {
             timeToAnswer.cancel();
         }
 
@@ -642,7 +657,9 @@ public class PlayGameActivity extends MyBaseActivity {
             public void onAnimationEnd(Animator animation) {
                 if (goToResult == true) {
 
-                    startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
+                    Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
+                    i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
+                    startActivity(i);
                     finish();
                 } else {
                     startQuestionAnimation();
@@ -815,21 +832,19 @@ public class PlayGameActivity extends MyBaseActivity {
 
     @Override
     public void onBackPressed() {
-        Log.d(" --- ", myName + " pressed onBack");
 
         JSONObject query = new JSONObject();
         try {
             query.put("code", "ULG");
-
             DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
-            Log.d("---- GQ GQ GQ", e.toString());
+            e.printStackTrace();
         }
 
-        if(rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
+        if (rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
             rotateTickAnimation.cancel();
 
-        if(timeToAnswer != null)
+        if (timeToAnswer != null)
             timeToAnswer.cancel();
         finish();
     }

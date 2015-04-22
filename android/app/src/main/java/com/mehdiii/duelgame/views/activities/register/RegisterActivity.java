@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -153,7 +154,8 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     public void registerMe(View v) {
-        myName = usernameEditText.getText().toString();
+        // TODO
+//        myName = usernameEditText.getText().toString();
         myEmail = emailEditText.getText().toString();
         myOstanStr = provinceSpinner.getSelectedItem().toString();
         myOstanInt = provinceSpinner.getSelectedItemPosition();
@@ -161,10 +163,11 @@ public class RegisterActivity extends MyBaseActivity {
         if (validateForm()) {
             User registerUser = User.newInstance(User.CommandType.REGISTER);
             registerUser.setDeviceId(userId);
-            registerUser.setName(myName);
+            // TODO
+//            registerUser.setName(myName);
             registerUser.setProvince(myOstanInt);
             registerUser.setEmail(myEmail);
-            registerUser.setAvatar(myAvatarIndex);
+            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
 
             DuelApp.getInstance().sendMessage(registerUser.serialize());
         }
@@ -176,7 +179,6 @@ public class RegisterActivity extends MyBaseActivity {
             @Override
             public void onComplete(Object data) {
                 setAvatar();
-
             }
         });
         dialog.show(getSupportFragmentManager(), "DIALOG_AVATAR_CHOOSER");
@@ -189,9 +191,7 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     private void setAvatar() {
-        if (myAvatarIndex != -1) {
-            selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
-        }
+        selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, 1));
     }
 
     @Override

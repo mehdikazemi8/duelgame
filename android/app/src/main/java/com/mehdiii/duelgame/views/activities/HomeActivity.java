@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.ImageHelper;
 
@@ -63,7 +64,7 @@ public class HomeActivity extends MyBaseActivity {
 
         ImageView pic = (ImageView) findViewById(R.id.home_my_avatar);
 
-        Bitmap logobit = BitmapFactory.decodeResource(getResources(), AvatarHelper.getResourceId(this, myAvatarIndex));
+        Bitmap logobit = BitmapFactory.decodeResource(getResources(), AvatarHelper.getResourceId(this, AuthManager.getCurrentUser().getAvatar()));
         logobit = ImageHelper.getResizedBitmap(logobit, 100, 100);
         logobit = ImageHelper.getRoundedCornerBitmap(this, logobit,
                 100, 100, 100, false, false, false, false);
