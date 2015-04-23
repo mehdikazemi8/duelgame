@@ -3,12 +3,10 @@ package com.mehdiii.duelgame.views.activities.home;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -28,8 +26,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragm
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +65,8 @@ public class HomeActivity extends MyBaseActivity {
         public void onServiceConnected(ComponentName name,
                                        IBinder service) {
             mService = IInAppBillingService.Stub.asInterface(service);
+
+            PurchaseManager.init(HomeActivity.this, mService, REQUEST_CODE_PURCHASE);
         }
     };
 
@@ -76,7 +74,7 @@ public class HomeActivity extends MyBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PURCHASE) {
-            PurchaseManager.getInstance(this).processPurchaseResult(resultCode, data);
+            PurchaseManager.getInstance().processPurchaseResult(resultCode, data);
         }
     }
 
@@ -271,12 +269,10 @@ public class HomeActivity extends MyBaseActivity {
         }
     }
 
+    BuyNotif buyNotif;
+
     public void onEvent(BuyNotif buyNotif) {
-        try {
-            PurchaseManager.getInstance(this).initiatePurchase(HomeActivity.this, mService, buyNotif, REQUEST_CODE_PURCHASE);
-        } catch (RemoteException | JSONException | IntentSender.SendIntentException ex) {
-            ex.printStackTrace();
-        }
+        PurchaseManager.getInstance().initiatePurchase(buyNotif);
     }
 
 

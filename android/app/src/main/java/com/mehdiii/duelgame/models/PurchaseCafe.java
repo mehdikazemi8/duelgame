@@ -68,6 +68,6 @@ public class PurchaseCafe {
     }
 
     public PurchaseDone toPurchaseDone() {
-        return new PurchaseDone(getDeveloperPayload());
+        return new PurchaseDone(getDeveloperPayload(), getOrderId());
     }
 }

@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.models.PurchaseCafe;
+import com.mehdiii.duelgame.models.PurchaseDone;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -30,7 +32,6 @@ public class PurchaseManager {
     private static PurchaseManager instance;
     private Activity activity;
     IInAppBillingService service;
-    BuyNotif buyCommand;
     int requestCode;
     List<PurchaseListener> listeners = new ArrayList<>();
 
@@ -43,10 +44,9 @@ public class PurchaseManager {
     }
 
 
-    public static void init(Activity activity, IInAppBillingService service, BuyNotif buyCommand, int requestCode) {
+    public static void init(Activity activity, IInAppBillingService service, int requestCode) {
         instance = new PurchaseManager();
         instance.activity = activity;
-        instance.buyCommand = buyCommand;
         instance.requestCode = requestCode;
         instance.service = service;
         LocalBroadcastManager.getInstance(activity).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
@@ -62,7 +62,8 @@ public class PurchaseManager {
             switch (type) {
                 case RECEIVE_STARAT_PURCHASE:
                     try {
-                        sendPurchaseIntentToBazaar();
+                        PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
+                        sendPurchaseIntentToBazaar(purchaseDone);
                     } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
                         e.printStackTrace();
                     }
@@ -70,19 +71,26 @@ public class PurchaseManager {
             }
         }
     });
+    boolean working = false;
+    BuyNotif buyNotif;
 
-    public synchronized void initiatePurchase() {
-        DuelApp.getInstance().sendMessage(
-                AuthManager.getCurrentUser().getPurchaseItems().get(0).toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+    public synchronized void initiatePurchase(BuyNotif buyNotif) {
+        if (!working) {
+            working = true;
+            this.buyNotif = buyNotif;
+            DuelApp.getInstance().sendMessage(
+                    AuthManager.getCurrentUser().getPurchaseItems().get(0).toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+        }
     }
 
-    private void sendPurchaseIntentToBazaar() throws RemoteException, JSONException, IntentSender.SendIntentException {
+    private void sendPurchaseIntentToBazaar(PurchaseDone purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
         Bundle buyIntentBundle = service.getBuyIntent(
-                3, activity.getPackageName(), buyCommand.getSku(), "inapp", "salam-inja-che-bahale");
+                3, activity.getPackageName(), buyNotif.getSku(), "inapp", purchaseDone.getPurchaseId());
         PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
         String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
         String responseCode = buyIntentBundle.getString("RESPONSE_CODE");
         activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0, 0, 0);
+        working = false;
     }
 
     public synchronized void processPurchaseResult(int resultCode, Intent data) {
@@ -115,15 +123,26 @@ public class PurchaseManager {
 
             for (int i = 0; i < purchaseDataList.size(); ++i) {
                 String purchaseData = purchaseDataList.get(i);
-                String signature = signatureList.get(i);
-                String sku = ownedSkus.get(i);
+                Gson gson = new Gson();
+                PurchaseCafe purchase = gson.fromJson(purchaseData, PurchaseCafe.class);
+//                String signature = signatureList.get(i);
+//                String sku = ownedSkus.get(i);
 
-                // do something with this purchase information
-                // e.g. display the updated list of products owned by user
+                response = service.consumePurchase(3, activity.getPackageName(), purchase.getPurchaseToken());
+                working = false;
+                notifyComplete(PurchaseEvent.SUCCESSFUL);
             }
-
             if (continuationToken != null)
-                consumePurchase();
+                notifyComplete(PurchaseEvent.FAILED);
+
+//            if (continuationToken != null)
+//                consumePurchase();
+        }
+    }
+
+    private void notifyComplete(PurchaseEvent event) {
+        for (PurchaseListener listener : listeners) {
+            listener.onCompleted(event);
         }
     }
 

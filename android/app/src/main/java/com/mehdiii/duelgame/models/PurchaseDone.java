@@ -7,12 +7,15 @@ import com.mehdiii.duelgame.models.base.BaseModel;
  * Created by omid on 4/23/2015.
  */
 public class PurchaseDone extends BaseModel {
-    public PurchaseDone(String purchaseId) {
+    public PurchaseDone(String purchaseId, String orderId) {
         this.purchaseId = purchaseId;
+        this.orderId = orderId;
     }
 
     @SerializedName("purchase_id")
     private String purchaseId;
+    @SerializedName("order_id")
+    private String orderId;
 
     public String getPurchaseId() {
         return purchaseId;
@@ -20,5 +23,13 @@ public class PurchaseDone extends BaseModel {
 
     public void setPurchaseId(String purchaseId) {
         this.purchaseId = purchaseId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }
