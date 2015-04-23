@@ -33,6 +33,9 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_STARAT_PURCHASE, "RPI");
         map.put(CommandType.SEND_PURCHASE_DONE, "PD");
         map.put(CommandType.RECEIVE_PURCHASE_DONE, "RPS");
+        map.put(CommandType.RECEIVE_OPPONENT_INFO, "YOI");
+        map.put(CommandType.RECEIVE_GAME_DATA, "RGD");
+        map.put(CommandType.RECEIVE_START_PLAYING, "SP");
     }
 
     public String getCommandCode(CommandType type) {
