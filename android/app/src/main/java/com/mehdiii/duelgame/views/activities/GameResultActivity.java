@@ -1,10 +1,14 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,9 +21,13 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.custom.AppRater;
+import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GameResultActivity extends MyBaseActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
@@ -65,6 +73,104 @@ public class GameResultActivity extends MyBaseActivity {
     private Button gameResultHome;
     private Button gameResultReport;
 
+    private static <T> ObjectAnimator translateAnimation(final T imageView, String cmd, int duration, int startDelay, float... dx) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(imageView, cmd, dx);
+        animation.setDuration(duration);
+        animation.setStartDelay(startDelay);
+        animation.setInterpolator(new DecelerateInterpolator());
+
+        animation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                ((View) imageView).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        return animation;
+    }
+
+    public ArrayList<ObjectAnimator> bothScaleAniamtion(final TextView textView, int duration, int startDelay, float... path) {
+        ArrayList<ObjectAnimator> result = new ArrayList<ObjectAnimator>();
+        result.add(scaleAnimation(textView, "scaleX", duration, startDelay, path));
+        result.add(scaleAnimation(textView, "scaleY", duration, startDelay, path));
+        return result;
+    }
+
+    public ObjectAnimator scaleAnimation(final TextView textView, String cmd, int duration, int startDelay, float... path) {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(textView, cmd, path);
+        animation.setDuration(duration);
+        animation.setStartDelay(startDelay);
+        animation.setInterpolator(new DecelerateInterpolator());
+
+        animation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                textView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+
+        return animation;
+    }
+
+    ArrayList<ObjectAnimator> allAnimations;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        for (int i = 0; i < allAnimations.size(); i++)
+            allAnimations.get(i).start();
+
+
+        // ************* will change, maybe the player changes level
+        ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, 10, 75);
+        anim.setDuration(1000);
+        anim.setStartOffset(3600);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                AppRater ar = new AppRater();
+                ar.init(GameResultActivity.this, true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        gameResultLevelProgress.startAnimation(anim);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,32 +186,61 @@ public class GameResultActivity extends MyBaseActivity {
         LOSE = R.raw.lose;
         try {
             JSONObject parser = new JSONObject(resultInfo);
-            gameStatus = parser.getInt("result");       // just this class
-
-            int bonous = 0, musicId;
-            if (gameStatus == 0) {
-                bonous = earnedDiamond;
-                gameVerdict = "مساوی شد";
-                musicId = LOSE;
-            } else if (gameStatus == 1) {
-                bonous = earnedDiamond + 120;
-                gameVerdict = "تو بردیییی";
-                musicId = WIN;
-            } else {
-                // nothing
-                gameVerdict = "تو باختی";
-                musicId = LOSE;
-            }
-            myPlayer = MediaPlayer.create(this, musicId);
-            AuthManager.getCurrentUser().addDiamond(bonous);
-
+            // TODO Chagne this to real data
+//            gameStatus = parser.getInt("result");       // just this class
+            gameStatus = 0;
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        int bonus = 0, musicId;
+        if (gameStatus == 0) {
+            bonus = earnedDiamond;
+            gameVerdict = "مساوی شد";
+            musicId = LOSE;
+        } else if (gameStatus == 1) {
+            bonus = earnedDiamond + 120;
+            gameVerdict = "تو بردیییی";
+            musicId = WIN;
+        } else {
+            // nothing
+            gameVerdict = "تو باختی";
+            musicId = LOSE;
+        }
+        myPlayer = MediaPlayer.create(this, musicId);
+        AuthManager.getCurrentUser().addDiamond(bonus);
+
+
         myPlayer.start();
         setTextView(R.id.game_result_status, gameVerdict);
         AuthManager.getCurrentUser().setScore(AuthManager.getCurrentUser().getScore() + userPoints);
+
+        allAnimations = new ArrayList<ObjectAnimator>();
+
+        allAnimations.add(translateAnimation(gameResultPlayerAvatar, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultPlayerName, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultPlayerPoints, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentAvatar, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentName, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(gameResultOpponentPoints, "translationX", 1000, 0, -500, 0));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultStatus, 1000, 1000, 0f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT2, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT1, 100, 2000, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultPositivePoints, 300, 2100, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT4, 100, 2400, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT3, 100, 2400, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultWinBonus, 300, 2500, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT6, 100, 2800, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT5, 100, 2800, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultPointFactor, 300, 2900, 0f, 1.1f, 1f));
+
+        allAnimations.addAll(bothScaleAniamtion(gameResultT8, 100, 3200, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 3200, 0f, 1.1f, 1f));
+        allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
     }
 
     private void configureControls() {
