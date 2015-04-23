@@ -130,7 +130,8 @@ public class PurchaseManager {
 
                 response = service.consumePurchase(3, activity.getPackageName(), purchase.getPurchaseToken());
                 working = false;
-                notifyComplete(PurchaseEvent.SUCCESSFUL);
+
+                notifyComplete(response == 0 ? PurchaseEvent.SUCCESSFUL : PurchaseEvent.FAILED);
             }
             if (continuationToken != null)
                 notifyComplete(PurchaseEvent.FAILED);

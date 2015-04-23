@@ -5,12 +5,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.BuyNotif;
-import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.custom.PurchaseItemView;
 
 import de.greenrobot.event.EventBus;
 
@@ -19,9 +21,7 @@ import de.greenrobot.event.EventBus;
  */
 public class StoreFragment extends FlipableFragment implements View.OnClickListener {
 
-    Button heartButton;
-    Button dimondButton;
-    Button expButton;
+    LinearLayout storeContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,13 +31,24 @@ public class StoreFragment extends FlipableFragment implements View.OnClickListe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        heartButton = (Button) view.findViewById(R.id.button_buy_hearts);
-        dimondButton = (Button) view.findViewById(R.id.button_buy_diamons);
-        expButton = (Button) view.findViewById(R.id.button_buy_exp);
+        storeContainer = (LinearLayout) view.findViewById(R.id.container_store);
 
         configure();
+
+        addOffers();
+    }
+
+    private void addOffers() {
+        for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
+            PurchaseItemView view = new PurchaseItemView(getActivity(), null);
+            view.setOnClickListener(this);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.setCaption(item.getTitle());
+            view.setType(item.getEntityType());
+            view.setPrice(item.getCost().toString());
+            view.setTag(item);
+            storeContainer.addView(view);
+        }
     }
 
     @Override
@@ -47,25 +58,22 @@ public class StoreFragment extends FlipableFragment implements View.OnClickListe
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getActivity(), heartButton, dimondButton, expButton);
 
-        heartButton.setOnClickListener(this);
-        dimondButton.setOnClickListener(this);
-        expButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_buy_diamons:
-            case R.id.button_buy_exp:
-            case R.id.button_buy_hearts:
-                startBuyIntent();
-                break;
+        if (view instanceof PurchaseItemView) {
+            PurchaseItem item = ((PurchaseItemView) view).getTag();
+            if (item.getCost().getType() == 1)
+                startBuyIntent(item.getSku());
+            else {
+                // do nothing yet.
+            }
         }
     }
 
-    private void startBuyIntent() {
-        EventBus.getDefault().post(new BuyNotif("test-heart"));
+    private void startBuyIntent(String sku) {
+        EventBus.getDefault().post(new BuyNotif(sku));
     }
 }

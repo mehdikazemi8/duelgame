@@ -18,6 +18,8 @@ public class PurchaseItem extends BaseModel {
     private String title;
     @SerializedName("cost")
     private Cost cost;
+    @SerializedName("sku")
+    private String sku;
 
     public PurchaseItem(int mode, int entityType, int id, String title, Cost cost) {
         this.mode = mode;
@@ -69,5 +71,13 @@ public class PurchaseItem extends BaseModel {
 
     public PurchaseRequest toPurchaseRequest() {
         return new PurchaseRequest(getId());
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }

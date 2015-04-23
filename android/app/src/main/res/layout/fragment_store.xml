@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_buy_hearts"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/container_store"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="buy hearts" />
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/button_buy_diamons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="buy diamonds" />
+        <!--<com.mehdiii.duelgame.views.custom.PurchaseItemView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:type="1" />-->
 
-    <Button
-        android:id="@+id/button_buy_exp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="buy experience" />
+        <!--<com.mehdiii.duelgame.views.custom.PurchaseItemView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/space.medium"-->
+        <!--app:type="2" />-->
 
-</LinearLayout>
+        <!--<com.mehdiii.duelgame.views.custom.PurchaseItemView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/space.medium"-->
+        <!--app:type="3" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_buy_hearts"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="buy hearts" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_buy_diamons"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="buy diamonds" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_buy_exp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="buy experience" />-->
+    </LinearLayout>
+</ScrollView>

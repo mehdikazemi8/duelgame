@@ -33,7 +33,10 @@ public class User extends BaseModel {
     @SerializedName("purchase_items")
     List<PurchaseItem> purchaseItems;
     @SerializedName("extreme_heart")
-    private boolean extreneHeart;
+    private boolean extremeHeart;
+    @SerializedName("score_factor")
+    private int scoreFactor;
+
 
     public User getAddFriendRequest() {
         setCommand("AF");
@@ -147,5 +150,21 @@ public class User extends BaseModel {
 
     public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
         this.purchaseItems = purchaseItems;
+    }
+
+    public boolean isExtremeHeart() {
+        return extremeHeart;
+    }
+
+    public void setExtremeHeart(boolean extremeHeart) {
+        this.extremeHeart = extremeHeart;
+    }
+
+    public int getScoreFactor() {
+        return scoreFactor;
+    }
+
+    public void setScoreFactor(int scoreFactor) {
+        this.scoreFactor = scoreFactor;
     }
 }
