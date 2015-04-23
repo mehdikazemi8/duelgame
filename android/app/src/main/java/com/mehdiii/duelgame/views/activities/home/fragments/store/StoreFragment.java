@@ -15,7 +15,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 public class StoreFragment extends FlipableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_store, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_store, container, false);
     }
 }
