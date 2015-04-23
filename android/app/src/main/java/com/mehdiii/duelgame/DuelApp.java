@@ -32,8 +32,8 @@ public class DuelApp extends Application {
     private String TAG = "DUEL_APP";
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://188.166.118.149:9000";
-//    static protected String wsuri = "ws://192.168.128.217:9000";
+    //    static protected String wsuri = "ws://188.166.118.149:9000";
+    static protected String wsuri = "ws://192.168.128.217:9000";
 
     @Override
     public void onCreate() {
@@ -86,11 +86,6 @@ public class DuelApp extends Application {
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
-
-        // detect ke in message delivery
-        // detect konam ke in message vase kie?
-        // call konam ino
-
         // use local broadcast manager to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }

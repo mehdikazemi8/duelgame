@@ -12,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.HeartChangeNotice;
+import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 
@@ -68,6 +71,8 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
                 homeDiamondCnt, homeMyDegree, homeLevelText, homeTotalRankingText,
                 homeTotalRanking, homeFriendsRankingText, homeFriendsRanking);
 
+        setDataForViews(view);
+
         addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
 
@@ -86,6 +91,31 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
                 refillHeart();
                 break;
         }
+    }
+
+    public void setDataForViews(View view) {
+        User user = AuthManager.getCurrentUser();
+
+        // TODO, DELETE this
+        user.setAvatar(5);
+        user.setHeart(3);
+        user.setDiamond(347);
+        user.setScore(519);
+        // END OF TODO
+
+        homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
+        homeDiamondCnt.setText(""+user.getDiamond());
+        arrangeHearts(user.getHeart());
+
+        /**
+        Log.d("------ avatar", ""+user.getAvatar());
+        Log.d("------ province", ""+user.getProvince());
+        Log.d("------ diamond", ""+user.getDiamond());
+        Log.d("------ id", ""+user.getId());
+        Log.d("------ name", ""+user.getName());
+        Log.d("------ heart", ""+user.getHeart());
+        Log.d("------ score", ""+user.getScore());
+         **/
     }
 
     private void addFriend() {

@@ -3,9 +3,7 @@ package com.mehdiii.duelgame.views.activities;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -33,7 +31,10 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,53 +84,78 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private String[] round = new String[NUMBER_OF_QUESTIONS];
 
-    protected class TitleBarListener extends BroadcastReceiver {
+    //    BroadcastReceiver mListener = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("MESSAGE")) {
+//                String inputMessage = intent.getExtras().getString("inputMessage");
+//                String messageCode;
+//                JSONObject parser = null;
+//                try {
+//                    parser = new JSONObject(inputMessage);
+//                    messageCode = parser.getString("code");
+//
+//                    if (messageCode.compareTo("AQ") == 0) {
+//                        endQuestionAnimation(false);
+//                    } else if (messageCode.compareTo("OS") == 0) {
+//                        if (parser.getInt("ok") == 1) {
+//                            opponentAnsweredThisTime = parser.getInt("time");
+//                            if (problemIndex == 6)
+//                                opponentPoints += 5;
+//                            else
+//                                opponentPoints += 3;
+//                        } else {
+//                            if (parser.getInt("time") != -1) {  // wrong answer
+//                                opponentPoints += -1;
+//                            } else if (parser.getInt("time") == -1) {   // not answered
+//
+//                            }
+//                        }
+//                        setTextView(playGameOpScore, "" + opponentPoints);
+//                        setProgressBar(opProgress, opponentPoints);
+//
+//                    } else if (messageCode.compareTo("GE") == 0) {
+//                        resultInfo = inputMessage;
+//                        endQuestionAnimation(true);
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    };
+    BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("MESSAGE")) {
-                String inputMessage = intent.getExtras().getString("inputMessage");
-                String messageCode;
-                JSONObject parser = null;
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_ASK_NEXT_QUESTION) {
+                endQuestionAnimation(false);
+            } else if (type == CommandType.RECEIVE_OPPONENT_SCORE) {
                 try {
-                    parser = new JSONObject(inputMessage);
-                    messageCode = parser.getString("code");
-                    if (messageCode.compareTo("AQ") == 0) {
-                        endQuestionAnimation(false);
-                    } else if (messageCode.compareTo("OS") == 0) {
-                        if (parser.getInt("ok") == 1) {
-                            opponentAnsweredThisTime = parser.getInt("time");
-                            if (problemIndex == 6)
-                                opponentPoints += 5;
-                            else
-                                opponentPoints += 3;
-                        } else {
-                            if (parser.getInt("time") != -1) {  // wrong answer
-                                opponentPoints += -1;
-                            } else if (parser.getInt("time") == -1) {   // not answered
+                    JSONObject parser = new JSONObject(json);
 
-                            }
-                        }
-                        setTextView(playGameOpScore, "" + opponentPoints);
-                        setProgressBar(opProgress, opponentPoints);
-
-                    } else if (messageCode.compareTo("GE") == 0) {
-                        resultInfo = inputMessage;
-                        endQuestionAnimation(true);
+                    if (parser.getInt("ok") == 1) {
+                        opponentAnsweredThisTime = parser.getInt("time");
+                        if (problemIndex == 6)
+                            opponentPoints += 5;
+                        else
+                            opponentPoints += 3;
+                    } else {
+                        if (parser.getInt("time") != -1) // wrong answer
+                            opponentPoints += -1;
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
                 }
+
+                setTextView(playGameOpScore, "" + opponentPoints);
+                setProgressBar(opProgress, opponentPoints);
+
+            } else if (type == CommandType.RECEIVE_GAME_ENDED) {
+                resultInfo = json;
+                endQuestionAnimation(true);
             }
         }
-    }
-
-    public void cancelDanceHintAgain()
-    {
-        if(danceHintAgainX != null && danceHintAgainX.isRunning())
-            danceHintAgainX.cancel();
-        if(danceHintAgainY != null && danceHintAgainY.isRunning())
-            danceHintAgainY.cancel();
-    }
+    });
 
     public void setProgressBar(ProgressBar pb, int progress) {
         if (progress < 0) {
@@ -338,19 +364,19 @@ public class PlayGameActivity extends MyBaseActivity {
 //                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
 //                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
 
-                danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
-                danceHintAgainX.setDuration(1000);
-                danceHintAgainX.setRepeatCount(1);
-                danceHintAgainX.setInterpolator(new AccelerateInterpolator());
-                danceHintAgainX.setRepeatMode(ObjectAnimator.REVERSE);
-                danceHintAgainX.start();
+                ObjectAnimator shakeButton = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
+                shakeButton.setDuration(1000);
+                shakeButton.setRepeatCount(1);
+                shakeButton.setInterpolator(new AccelerateInterpolator());
+                shakeButton.setRepeatMode(ObjectAnimator.REVERSE);
+                shakeButton.start();
 
-                danceHintAgainY = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
-                danceHintAgainY.setDuration(1000);
-                danceHintAgainY.setRepeatCount(1);
-                danceHintAgainY.setInterpolator(new OvershootInterpolator());
-                danceHintAgainY.setRepeatMode(ObjectAnimator.REVERSE);
-                danceHintAgainY.start();
+                ObjectAnimator shakeButton1 = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
+                shakeButton1.setDuration(1000);
+                shakeButton1.setRepeatCount(1);
+                shakeButton1.setInterpolator(new OvershootInterpolator());
+                shakeButton1.setRepeatMode(ObjectAnimator.REVERSE);
+                shakeButton1.start();
             }
         }
 
@@ -372,8 +398,6 @@ public class PlayGameActivity extends MyBaseActivity {
             sendGQMinusOne();
         }
     }
-
-    TitleBarListener mListener;
 
     public void setButton(Button tv, String s) {
         tv.setText(s);
@@ -399,18 +423,6 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private LinearLayout header;
 
-    private ObjectAnimator danceHintAgainX, danceHintAgainY;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /**
-        startActivity(new Intent(getApplicationContext(), GameResultActivity.class));
-        finish();
-        //*/
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -432,8 +444,7 @@ public class PlayGameActivity extends MyBaseActivity {
         WRONG_ANSWER = R.raw.wrong_answer;
         CORRECT_ANSWER = R.raw.correct_answer;
 
-        mListener = new TitleBarListener();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
 
         setTextView(playGameMyName, AuthManager.getCurrentUser().getName());
         setTextView(playGameOpName, opponentUser.getName());
@@ -656,8 +667,6 @@ public class PlayGameActivity extends MyBaseActivity {
             fadeOut2.start();
         }
 
-        cancelDanceHintAgain();
-
         if (hintAgainViewIsOpen == true) {
             doAnimateHintOption(hintAgainView, 1f, 0f, 1000, 0);
             hintAgainViewIsOpen = false;
@@ -802,8 +811,6 @@ public class PlayGameActivity extends MyBaseActivity {
         }
 
         if (hintAgainViewIsOpen == true) {
-            cancelDanceHintAgain();
-
             doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
             hintAgainViewIsOpen = false;
         }

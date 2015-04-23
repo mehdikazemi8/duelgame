@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -89,7 +90,7 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
 
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(String json, String type) {
+        public void onReceive(String json, CommandType type) {
             return;
         }
     });
