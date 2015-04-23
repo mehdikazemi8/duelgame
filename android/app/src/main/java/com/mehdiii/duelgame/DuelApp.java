@@ -33,6 +33,7 @@ public class DuelApp extends Application {
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     static protected String wsuri = "ws://188.166.118.149:9000";
+//    static protected String wsuri = "ws://192.168.128.129:9000";
 
     @Override
     public void onCreate() {
