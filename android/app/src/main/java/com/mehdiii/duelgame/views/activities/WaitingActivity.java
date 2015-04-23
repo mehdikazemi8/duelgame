@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONArray;
@@ -79,6 +80,8 @@ public class WaitingActivity extends MyBaseActivity {
 
         animation.start();
     }
+
+    DuelMusicPlayer musicPlayer;
 
     protected class TitleBarListener extends BroadcastReceiver {
 
@@ -193,11 +196,34 @@ public class WaitingActivity extends MyBaseActivity {
                 waitingMyLevel, waitingMyName, waitingMyOstan,
                 waitingOpponentLevel, waitingOpponentName, waitingOpponentOstan,
                 waitingAgainst);
+
+        musicPlayer = new DuelMusicPlayer(WaitingActivity.this, R.raw.waiting, true);
+        musicPlayer.execute();
     }
 
     public void setTextView(TextView tv, String str) {
         tv.setText(str);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        musicPlayer.pauseSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setData();
+
+        musicPlayer.playSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        startService(svc);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

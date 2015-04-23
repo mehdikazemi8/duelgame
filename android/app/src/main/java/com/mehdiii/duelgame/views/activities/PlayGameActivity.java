@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
@@ -32,6 +31,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
@@ -76,7 +76,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private ImageView tick;
 
-    MediaPlayer myPlayer;
+    DuelMusicPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
 
     ProgressBar myProgress, opProgress;
@@ -277,7 +277,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
-            myPlayer = MediaPlayer.create(this, CORRECT_ANSWER);
+            myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
 
             iAnsweredThisCorrect = true;
 
@@ -297,7 +297,7 @@ public class PlayGameActivity extends MyBaseActivity {
             hintAgainBtn.setClickable(false);
             hintRemoveBtn.setClickable(false);
         } else {
-            myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
+            myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
             userPoints += -1;
 
             setTextView(playGameMyScore, "" + userPoints);
@@ -339,7 +339,7 @@ public class PlayGameActivity extends MyBaseActivity {
             }
         }
 
-        myPlayer.start();
+        myPlayer.execute();
 
         JSONObject query = new JSONObject();
         try {
@@ -384,6 +384,8 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
+    DuelMusicPlayer musicPlayer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -421,6 +423,9 @@ public class PlayGameActivity extends MyBaseActivity {
         configureControls();
 
         startGameAnimation();
+
+        musicPlayer = new DuelMusicPlayer(PlayGameActivity.this, R.raw.game, true);
+        musicPlayer.execute();
     }
 
     private void configureControls() {
@@ -764,6 +769,26 @@ public class PlayGameActivity extends MyBaseActivity {
 
         hintAgainBtn.setClickable(false);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        musicPlayer.pauseSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setData();
+
+        musicPlayer.playSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        startService(svc);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

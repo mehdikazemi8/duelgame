@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -47,10 +47,16 @@ public class HomeActivity extends MyBaseActivity {
 
     List<Fragment> childFragments;
 
+    DuelMusicPlayer musicPlayer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
+        musicPlayer.execute();
+
         find();
         configure();
 
@@ -235,19 +241,21 @@ public class HomeActivity extends MyBaseActivity {
         super.onResume();
 //        setData();
 
+        musicPlayer.playSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }
 
     @Override
     public void onBackPressed() {
-        Intent svc = new Intent(this, MusicPlayer.class);
-        stopService(svc);
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
         finish();
     }
 
     public void wantToPlay(View v) {
         Log.d("&&&&", "aaaaaaaaaaaaaaaa");
+        musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
     }
 
@@ -257,6 +265,7 @@ public class HomeActivity extends MyBaseActivity {
     public void onPause() {
         super.onPause();
 
+        musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
     }
@@ -273,7 +282,7 @@ public class HomeActivity extends MyBaseActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        Intent svc = new Intent(this, MusicPlayer.class);
-        stopService(svc);
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
     }
 }

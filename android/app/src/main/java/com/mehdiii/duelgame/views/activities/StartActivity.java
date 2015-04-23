@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
-import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
@@ -84,9 +83,8 @@ public class StartActivity extends MyBaseActivity {
     public void onResume() {
         super.onResume();
 
-
-        Intent svc = new Intent(this, MusicPlayer.class);
-        startService(svc);
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        startService(svc);
     }
 
     @Override

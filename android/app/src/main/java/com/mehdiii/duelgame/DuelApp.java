@@ -42,8 +42,8 @@ public class DuelApp extends Application {
         initGA();
         HeartTracker.getInstance(getApplicationContext()).init();
         if (!isConnected) {
-            Intent svc = new Intent(this, MusicPlayer.class);
-            startService(svc);
+//            Intent svc = new Intent(this, MusicPlayer.class);
+//            startService(svc);
 
             doConnect();
         }
