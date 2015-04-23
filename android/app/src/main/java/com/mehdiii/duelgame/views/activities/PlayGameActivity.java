@@ -281,7 +281,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
             iAnsweredThisCorrect = true;
 
-            if (problemIndex == 6)
+            if (problemIndex == 5)
                 userPoints += 5;
             else
                 userPoints += 3;

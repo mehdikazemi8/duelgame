@@ -43,7 +43,6 @@ public class StartActivity extends MyBaseActivity {
         }
     });
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

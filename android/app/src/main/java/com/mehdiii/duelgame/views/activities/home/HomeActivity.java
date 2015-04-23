@@ -1,8 +1,12 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -11,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.PurchaseManager;
+import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
@@ -26,7 +33,10 @@ import com.mehdiii.duelgame.views.custom.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 public class HomeActivity extends MyBaseActivity {
+    private static final int REQUEST_CODE_PURCHASE = 1001;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
@@ -47,7 +57,32 @@ public class HomeActivity extends MyBaseActivity {
 
     List<Fragment> childFragments;
 
+    IInAppBillingService mService;
+
+    ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+
+            PurchaseManager.init(HomeActivity.this, mService, REQUEST_CODE_PURCHASE);
+        }
+    };
+
     DuelMusicPlayer musicPlayer;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PURCHASE) {
+            PurchaseManager.getInstance().processPurchaseResult(resultCode, data);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +95,9 @@ public class HomeActivity extends MyBaseActivity {
         find();
         configure();
 
-//        readData();
-//
-//        setData();
+        bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
     }
+
 
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -92,6 +126,7 @@ public class HomeActivity extends MyBaseActivity {
         this.viewPager.setCurrentItem(4);
         viewPager.setOffscreenPageLimit(5);
     }
+
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
@@ -124,8 +159,8 @@ public class HomeActivity extends MyBaseActivity {
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
+
 
         @Override
         public void onPageSelected(int position) {
@@ -239,9 +274,7 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-//        setData();
-
-        musicPlayer.playSound();
+        EventBus.getDefault().register(this);
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }
@@ -259,11 +292,12 @@ public class HomeActivity extends MyBaseActivity {
         startActivity(new Intent(this, CategoryActivity.class));
     }
 
-    // ******************************** HOME BUTTONE PRESSED
+// ******************************** HOME BUTTONE PRESSED
 
     @Override
     public void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
 
         musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
@@ -284,5 +318,19 @@ public class HomeActivity extends MyBaseActivity {
 
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
+
+        if (mServiceConn != null) {
+            unbindService(mServiceConn);
+        }
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
     }
+
+    BuyNotif buyNotif;
+
+    public void onEvent(BuyNotif buyNotif) {
+        PurchaseManager.getInstance().initiatePurchase(buyNotif);
+    }
+
+
 }

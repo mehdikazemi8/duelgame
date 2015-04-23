@@ -97,10 +97,10 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         User user = AuthManager.getCurrentUser();
 
         // TODO, DELETE this
-        user.setAvatar(5);
-        user.setHeart(3);
-        user.setDiamond(347);
-        user.setScore(519);
+//        user.setAvatar(5);
+//        user.setHeart(3);
+//        user.setDiamond(347);
+//        user.setScore(519);
         // END OF TODO
 
         homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
