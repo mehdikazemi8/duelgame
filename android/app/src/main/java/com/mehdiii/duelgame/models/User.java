@@ -3,63 +3,12 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by omid on 4/8/2015.
  */
 public class User extends BaseModel {
-//    Map<CommandType, String> map = new HashMap<>();
-//
-//    public enum CommandType {
-//        SEND_REGISTER,
-//        LOGIN,
-//        RECEIVE_LOGIN_INFO,
-//        SEND_GET_FRIEND_LIST,
-//        ADD_FRIEND,
-//    }
-
-//    public static User newInstance(CommandType type) {
-//        User user = new User();
-//        switch (type) {
-//            case SEND_REGISTER:
-//                user.setCommand("RU");
-//                break;
-//            case LOGIN:
-//                user.setCommand("UL");
-//                break;
-//            case RECEIVE_LOGIN_INFO:
-//                user.setCommand("LI");
-//                break;
-//            case SEND_GET_FRIEND_LIST:
-//                user.setCommand("GFL");
-//                break;
-//            case ADD_FRIEND:
-//                user.setCommand("AF");
-//                break;
-//            default:
-//                user.setCommand("UNKNOWN");
-//        }
-//
-//        return user;
-//    }
-//
-//    public static CommandType getCommandType(String type) {
-//        if (type.equals("LI"))
-//            return CommandType.RECEIVE_LOGIN_INFO;
-//        else if (type.equals("UL"))
-//            return CommandType.LOGIN;
-//        else if (type.equals("GFL"))
-//            return CommandType.SEND_GET_FRIEND_LIST;
-//        else
-//            return CommandType.SEND_REGISTER;
-//    }
-//
-//    public CommandType getCommandType() {
-//        return getCommandType(getCommand());
-//    }
 
     @SerializedName("email")
     private String email;
@@ -67,7 +16,7 @@ public class User extends BaseModel {
     private String deviceId;
     @SerializedName("name")
     private String name;
-    @SerializedName("ostan")
+    @SerializedName("province")
     private int province;
     @SerializedName("avatar")
     private int avatar;
@@ -81,8 +30,10 @@ public class User extends BaseModel {
     private int heart;
     @SerializedName("user_number")
     private String id;
-//    @SerializedName("purchase_items")
-//    private List<PurchaseItem> purchaseItems;
+    @SerializedName("purchase_items")
+    List<PurchaseItem> purchaseItems;
+    @SerializedName("extreme_heart")
+    private boolean extreneHeart;
 
     public User getAddFriendRequest() {
         setCommand("AF");
@@ -190,11 +141,11 @@ public class User extends BaseModel {
         this.heart = heart;
     }
 
-//    public List<PurchaseItem> getPurchaseItems() {
-//        return purchaseItems;
-//    }
-//
-//    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
-//        this.purchaseItems = purchaseItems;
-//    }
+    public List<PurchaseItem> getPurchaseItems() {
+        return purchaseItems;
+    }
+
+    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+        this.purchaseItems = purchaseItems;
+    }
 }

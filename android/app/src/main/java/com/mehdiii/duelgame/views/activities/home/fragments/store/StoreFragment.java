@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.BuyCommand;
+import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 
@@ -66,6 +66,6 @@ public class StoreFragment extends FlipableFragment implements View.OnClickListe
     }
 
     private void startBuyIntent() {
-        EventBus.getDefault().post(new BuyCommand("test-heart"));
+        EventBus.getDefault().post(new BuyNotif("test-heart"));
     }
 }

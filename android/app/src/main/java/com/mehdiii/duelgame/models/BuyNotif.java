@@ -3,10 +3,10 @@ package com.mehdiii.duelgame.models;
 /**
  * Created by omid on 4/19/2015.
  */
-public class BuyCommand {
+public class BuyNotif {
     String sku;
 
-    public BuyCommand(String sku) {
+    public BuyNotif(String sku) {
         this.sku = sku;
     }
 

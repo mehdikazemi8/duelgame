@@ -1,6 +1,5 @@
 package com.mehdiii.duelgame.views.activities.home;
 
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,15 +12,13 @@ import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.BuyCommand;
+import com.mehdiii.duelgame.managers.PurchaseManager;
+import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -33,7 +30,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +37,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 
 public class HomeActivity extends MyBaseActivity {
+    private static final int REQUEST_CODE_PURCHASE = 1001;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
@@ -75,25 +72,11 @@ public class HomeActivity extends MyBaseActivity {
         }
     };
 
-    String testPrice;
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001) {
-            int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
-            String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
-            String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
-
-            if (resultCode == RESULT_OK) {
-                try {
-                    JSONObject jo = new JSONObject(purchaseData);
-                    String sku = jo.getString("productId");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+        if (requestCode == REQUEST_CODE_PURCHASE) {
+            PurchaseManager.getInstance(this).processPurchaseResult(resultCode, data);
         }
     }
 
@@ -103,6 +86,7 @@ public class HomeActivity extends MyBaseActivity {
         setContentView(R.layout.activity_home);
         find();
         configure();
+
         bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
     }
 
@@ -236,56 +220,10 @@ public class HomeActivity extends MyBaseActivity {
         childFragments.add(homeFragment);
     }
 
-
-    public void setTextView(int id, String str) {
-        ((TextView) findViewById(id)).setText(str);
-    }
-
-    private void readData() {
-//        try {
-//            JSONObject parser = new JSONObject(loginInfo);
-//            myAvatarIndex = parser.getInt("avatar");
-//            userDiamond = parser.getInt("time");
-//            myOstanInt = parser.getInt("ostan");
-//            myScore = parser.getInt("score");
-//            myUserNumber = parser.getString("user_number");
-//            myElo = (int) parser.getDouble("elo");
-//            myName = parser.getString("name");
-//
-//        } catch (JSONException e) {
-//
-//        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_start, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.about) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-
-//        setData();
-
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }
@@ -333,21 +271,13 @@ public class HomeActivity extends MyBaseActivity {
         }
     }
 
-    public void onEvent(BuyCommand buyCommand) {
+    public void onEvent(BuyNotif buyNotif) {
         try {
-            performPurchase(buyCommand);
+            PurchaseManager.getInstance(this).initiatePurchase(HomeActivity.this, mService, buyNotif, REQUEST_CODE_PURCHASE);
         } catch (RemoteException | JSONException | IntentSender.SendIntentException ex) {
             ex.printStackTrace();
         }
-
     }
 
-    private void performPurchase(BuyCommand buyCommand) throws RemoteException, JSONException, IntentSender.SendIntentException {
-        Bundle buyIntentBundle = mService.getBuyIntent(
-                3, getPackageName(), buyCommand.getSku(), "inapp", "salam-inja-che-bahale");
-        PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-        String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
-        String responseCode = buyIntentBundle.getString("RESPONSE_CODE");
-        startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
-    }
+
 }
