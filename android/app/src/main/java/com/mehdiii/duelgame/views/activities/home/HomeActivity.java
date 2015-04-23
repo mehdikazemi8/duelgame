@@ -343,29 +343,11 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     private void performPurchase(BuyCommand buyCommand) throws RemoteException, JSONException, IntentSender.SendIntentException {
-        ArrayList<String> skuList = new ArrayList<>();
-        skuList.add(buyCommand.getSku());
-        Bundle querySkus = new Bundle();
-        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
-
-//        Bundle skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", querySkus);
-//        int response = skuDetails.getInt("RESPONSE_CODE");
-//        if (response == 0) {
-//            ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
-//
-//            for (String thisResponse : responseList) {
-//                JSONObject object = new JSONObject(thisResponse);
-//                String sku = object.getString("productId");
-//                String price = object.getString("price");
-//                if (sku.equals(buyCommand.getSku()))
-//                    testPrice = price;
-//            }
-//        }
-
         Bundle buyIntentBundle = mService.getBuyIntent(
                 3, getPackageName(), buyCommand.getSku(), "inapp", "salam-inja-che-bahale");
-
         PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+        String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
+        String responseCode = buyIntentBundle.getString("RESPONSE_CODE");
         startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
     }
 }

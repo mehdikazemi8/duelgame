@@ -53,7 +53,7 @@ public class StoreFragment extends FlipableFragment implements View.OnClickListe
         dimondButton.setOnClickListener(this);
         expButton.setOnClickListener(this);
     }
-gi
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
