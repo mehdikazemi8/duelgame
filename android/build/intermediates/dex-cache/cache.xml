@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-8b1560e0e84321dec823b4d68bd069a9dd403d65.jar" />
-    </item>
-    <item
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\libs\gson-2.3.1.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\gson-2.3.1-58926214adf7cb28ab6307594d4a7710b87f3d39.jar" />
+    </item>
+    <item
+        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-8b1560e0e84321dec823b4d68bd069a9dd403d65.jar" />
     </item>
     <item
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\libs\eventbus-2.4.0.jar"
@@ -40,7 +40,7 @@
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\android\switchButton\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="fc82222f17fba477a1ffb2590837eb258bbe5504">
+        sha1="b5b73dfff295360873fc012f810ed63ec4a65193">
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-0ed518e0bb5cd8dc8e83a2be9e98011d2e4aa411.jar" />
     </item>
     <item
@@ -54,8 +54,15 @@
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\android\ViewPagerIndicator\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="6f5f15760df63860b1283b65b29029c0f8a01a5c">
+        sha1="4060bf72b90f28492965805f5f05ae7b76cac712">
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-5941c4fdda7d51687514713c174e622c29c5d97a.jar" />
+    </item>
+    <item
+        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-5a1b24d399bdbceca0ccb8e1f3f1d8038c481e3f.jar" />
     </item>
     <item
         jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\libs\picasso-2.5.2.jar"
@@ -65,11 +72,11 @@
         <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-904c3d4d0ac7d89474db5595db8fb4a0f5e4913f.jar" />
     </item>
     <item
-        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-5a1b24d399bdbceca0ccb8e1f3f1d8038c481e3f.jar" />
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="C:\Users\omid\Desktop\Projects\duel\duel\android\app\build\intermediates\pre-dexed\debug\classes-a9845a57977bf5450429281bf3ac5a20eb68eb15.jar" />
     </item>
     <item
         jar="C:\android-sdk\adt-bundle-windows-x86_64-20130729\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"

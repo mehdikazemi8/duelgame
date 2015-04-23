@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_click_photo_to_choose_avatar">برای انتخاب صورتک روی عکس کلیک کنید.</string>
+    <string name="message_share">برای دانلود دوئل از لینک زیر استفاده کنید: %s</string>
 </resources>

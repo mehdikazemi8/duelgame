@@ -7,6 +7,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -22,6 +25,7 @@ import de.tavendo.autobahn.WebSocketHandler;
  * Created by omid on 4/12/2015.
  */
 public class DuelApp extends Application {
+    public static final String PROPERTY_ID = "UA-62041991-1";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     static boolean isConnected = false;
@@ -34,7 +38,8 @@ public class DuelApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
+        initGA();
+        HeartTracker.getInstance(getApplicationContext()).init();
         if (!isConnected) {
             Intent svc = new Intent(this, MusicPlayer.class);
             startService(svc);
@@ -43,7 +48,7 @@ public class DuelApp extends Application {
         }
     }
 
-    protected void doConnect() {
+    public void doConnect() {
         try {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
@@ -76,16 +81,10 @@ public class DuelApp extends Application {
      * @param json the message received from server
      */
     public void dispatchMessage(String json) {
-
         Intent i = new Intent();
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
-
-        // detect ke in message delivery
-        // detect konam ke in message vase kie?
-        // call konam ino
-
         // use local broadcast manager to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
@@ -127,4 +126,37 @@ public class DuelApp extends Application {
         Toast.makeText(getApplicationContext(), getResources().getString(resourceId), length).show();
     }
 
+    /**
+     * Enum used to identify the tracker that needs to be used for tracking.
+     * <p/>
+     * A single tracker is usually enough for most purposes. In case you do need multiple trackers,
+     * storing them all in Application object helps ensure that they are created only once per
+     * application instance.
+     */
+    public enum TrackerName {
+        APP_TRACKER, // Tracker used only in this app.
+        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
+    }
+
+    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+
+    public synchronized Tracker getTracker(TrackerName trackerId) {
+        if (!mTrackers.containsKey(trackerId)) {
+
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(PROPERTY_ID)
+                    : analytics.newTracker(R.xml.global_tracker);
+
+            mTrackers.put(trackerId, t);
+        }
+        return mTrackers.get(trackerId);
+    }
+
+    private void initGA() {
+        Tracker mGATracker = getTracker(TrackerName.GLOBAL_TRACKER);
+        mGATracker.setSessionTimeout(300);
+        mGATracker.enableAutoActivityTracking(true);
+        mGATracker.enableExceptionReporting(true);
+    }
 }

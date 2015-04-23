@@ -245,7 +245,7 @@ public class HomeActivity extends MyBaseActivity {
 //        try {
 //            JSONObject parser = new JSONObject(loginInfo);
 //            myAvatarIndex = parser.getInt("avatar");
-//            myTime = parser.getInt("time");
+//            userDiamond = parser.getInt("time");
 //            myOstanInt = parser.getInt("ostan");
 //            myScore = parser.getInt("score");
 //            myUserNumber = parser.getString("user_number");

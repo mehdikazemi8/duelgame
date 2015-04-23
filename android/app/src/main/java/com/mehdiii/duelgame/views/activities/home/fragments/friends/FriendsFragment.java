@@ -18,6 +18,7 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -132,8 +133,8 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(String json, String type) {
-            if (type.equals("RFL")) {
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_GET_FRIEND_LIST) {
                 FriendList list = FriendList.deserialize(json, FriendList.class);
                 if (null != list) {
                     bindListViewData(list);

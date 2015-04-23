@@ -21,6 +21,7 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -153,20 +154,23 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     public void registerMe(View v) {
-        myName = usernameEditText.getText().toString();
-        myEmail = emailEditText.getText().toString();
-        myOstanStr = provinceSpinner.getSelectedItem().toString();
-        myOstanInt = provinceSpinner.getSelectedItemPosition();
+        // TODO
+//        myName = usernameEditText.getText().toString();
+//        myEmail = emailEditText.getText().toString();
+//        myOstanStr = provinceSpinner.getSelectedItem().toString();
+//        myOstanInt = provinceSpinner.getSelectedItemPosition();
 
         if (validateForm()) {
-            User registerUser = User.newInstance(User.CommandType.REGISTER);
+//            User registerUser = User.newInstance(CommandType.SEND_REGISTER);
+            User registerUser = new User();
             registerUser.setDeviceId(userId);
-            registerUser.setName(myName);
-            registerUser.setProvince(myOstanInt);
-            registerUser.setEmail(myEmail);
-            registerUser.setAvatar(myAvatarIndex);
+            // TODO
+//            registerUser.setName(myName);
+//            registerUser.setProvince(myOstanInt);
+//            registerUser.setEmail(myEmail);
+//            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
 
-            DuelApp.getInstance().sendMessage(registerUser.serialize());
+            DuelApp.getInstance().sendMessage(registerUser.serialize(CommandType.SEND_REGISTER));
         }
     }
 
@@ -176,7 +180,6 @@ public class RegisterActivity extends MyBaseActivity {
             @Override
             public void onComplete(Object data) {
                 setAvatar();
-
             }
         });
         dialog.show(getSupportFragmentManager(), "DIALOG_AVATAR_CHOOSER");
@@ -189,9 +192,7 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     private void setAvatar() {
-        if (myAvatarIndex != -1) {
-            selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, myAvatarIndex));
-        }
+        selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, 1));
     }
 
     @Override

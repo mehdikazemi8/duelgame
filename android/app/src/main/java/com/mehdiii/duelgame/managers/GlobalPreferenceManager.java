@@ -1,0 +1,61 @@
+package com.mehdiii.duelgame.managers;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+/**
+ * Created by omid on 4/20/2015.
+ */
+public class GlobalPreferenceManager {
+    public static String PREFERENCE_NAME = "preference_duel_game";
+
+    private static SharedPreferences getPreference(Context context) {
+        return context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+    }
+
+    public static boolean writeString(Context context, String key, String data) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return false;
+        preferences.edit().putString(key, data).apply();
+        return true;
+    }
+
+    public static boolean writeLong(Context context, String key, long data) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return false;
+        preferences.edit().putLong(key, data).apply();
+        return true;
+    }
+
+    public static boolean writeInt(Context context, String key, int data) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return false;
+        preferences.edit().putInt(key, data).apply();
+        return true;
+    }
+
+
+    public static String readString(Context context, String key, String defaultValue) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return null;
+        return preferences.getString(key, defaultValue);
+    }
+
+    public static int readInteger(Context context, String key, int defaultValue) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return defaultValue;
+        return preferences.getInt(key, defaultValue);
+    }
+
+    public static long readLong(Context context, String key, long defaultValue) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return defaultValue;
+        return preferences.getLong(key, defaultValue);
+    }
+}

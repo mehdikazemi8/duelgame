@@ -39,11 +39,13 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="start|center_vertical"
                             android:src="@drawable/diamond" />
+
                         <TextView
                             android:id="@+id/home_diamond_cnt"
                             android:layout_width="wrap_content"
@@ -123,6 +125,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/imageView_heart_first"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="2dp"
@@ -130,6 +133,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_second"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -137,6 +141,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_third"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -144,6 +149,7 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_fourth"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
@@ -151,11 +157,12 @@
                             android:src="@drawable/heart_full" />
 
                         <ImageView
+                            android:id="@+id/imageView_heart_fifth"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:src="@drawable/heart_blank" />
+                            android:src="@drawable/heart_full" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -164,7 +171,7 @@
                         android:layout_gravity="center">
 
                         <Button
-                            android:id="@+id/home_heart_buy_button"
+                            android:id="@+id/button_refill"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -279,20 +286,36 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:gravity="center|bottom"
-            android:orientation="vertical">
+            android:layout_marginBottom="20dp">
 
             <ImageView
+                android:id="@+id/button_duel"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
                 android:background="@drawable/home_duel_btn"
                 android:clickable="true"
                 android:onClick="wantToPlay" />
-        </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/button_add_friend"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="45dp"
+                android:layout_marginRight="30dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/add_friend" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>
