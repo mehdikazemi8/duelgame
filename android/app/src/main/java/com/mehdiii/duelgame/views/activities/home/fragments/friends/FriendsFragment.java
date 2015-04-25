@@ -25,8 +25,6 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
-import java.util.List;
-
 /**
  * Created by omid on 4/5/2015.
  */
@@ -38,7 +36,6 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
     LinearLayout containerHeader;
     private TextView textViewCode;
     private Button buttonAddFriend;
-    List<User> friends;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
