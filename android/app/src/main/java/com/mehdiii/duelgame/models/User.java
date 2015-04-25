@@ -36,7 +36,16 @@ public class User extends BaseModel {
     private boolean extremeHeart;
     @SerializedName("score_factor")
     private int scoreFactor;
+    @SerializedName("gender")
+    private int gender;
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 
     public User getAddFriendRequest() {
         setCommand("AF");

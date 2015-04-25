@@ -140,6 +140,7 @@ public class RegisterActivity extends MyBaseActivity {
         user.setName(usernameEditText.getText().toString());
         user.setEmail(emailEditText.getText().toString());
         user.setProvince(provinceSpinner.getSelectedItemPosition());
+        user.setGender(genderSwitch.isChecked() ? 1 : 0);
 
         if (validateForm()) {
             user.setDeviceId(userId);
