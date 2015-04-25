@@ -44,7 +44,7 @@
                         android:layout_weight="2" />
 
                     <ImageView
-                        android:id="@+id/play_game_op_avatar"
+                        android:id="@+id/play_game_opponent_avatar"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
@@ -61,13 +61,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/play_game_op_avatar"
+                    android:layout_toRightOf="@id/play_game_opponent_avatar"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/play_game_op_name"
+                        android:id="@+id/play_game_opponent_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
@@ -78,7 +78,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/play_game_op_score"
+                        android:id="@+id/play_game_opponent_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
@@ -135,13 +135,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/play_game_op_avatar"
+                    android:layout_toRightOf="@id/play_game_opponent_avatar"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/play_game_my_name"
+                        android:id="@+id/play_game_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -152,7 +152,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/play_game_my_score"
+                        android:id="@+id/play_game_user_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -174,7 +174,7 @@
                         android:layout_weight="2" />
 
                     <ImageView
-                        android:id="@+id/play_game_my_avatar"
+                        android:id="@+id/play_game_user_avatar"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"

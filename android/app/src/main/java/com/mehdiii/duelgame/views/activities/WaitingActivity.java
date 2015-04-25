@@ -83,6 +83,7 @@ public class WaitingActivity extends MyBaseActivity {
     }
 
     DuelMusicPlayer musicPlayer;
+    User opponentUser = new User();
 
     protected class TitleBarListener extends BroadcastReceiver {
 
@@ -92,7 +93,6 @@ public class WaitingActivity extends MyBaseActivity {
                 String inputMessage = intent.getExtras().getString("inputMessage");
                 String messageCode;
                 JSONObject parser = null;
-                User opponentUser = new User();
 
                 try {
                     parser = new JSONObject(inputMessage);
@@ -105,27 +105,26 @@ public class WaitingActivity extends MyBaseActivity {
 
                         opponentUser.setName(firstOpponent.getString("name"));
                         opponentUser.setAvatar(firstOpponent.getInt("avatar"));
+                        opponentUser.setScore(firstOpponent.getInt("score"));
                         opponentUser.setProvince(firstOpponent.getInt("province"));
                         opponentUser.setId(firstOpponent.getString("user_number"));
 
                         ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(WaitingActivity.this, opponentUser.getAvatar()));
                         setTextView(opponentName, opponentUser.getName());
                         setTextView(opponentProvince, ProvinceManager.get(WaitingActivity.this, opponentUser.getProvince()));
+                        setTextView(opponentTitle, ScoreHelper.getTitle(opponentUser.getScore()));
 
                         translateAnimation(opponentLayout, "translationY", 500, 0, 1500);
                     } else if (messageCode.compareTo("SP") == 0) {
-                        //AuthManager.getCurrentUser().decreaseDiamond(120);
-
                         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
                         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
+
                         startActivity(i);
                         finish();
                     } else if (messageCode.compareTo("RGD") == 0) {
 
                         for (int problemIndex = 0; problemIndex < NUMBER_OF_QUESTIONS; problemIndex++) {
                             questionsToAsk[problemIndex] = new Question();
-
-                            Log.d("parser.getString()", parser.toString());
 
                             JSONObject thisQuestion = new JSONObject(parser.getString("problem" + problemIndex));
                             questionsToAsk[problemIndex].questionText = thisQuestion.getString("question_text");
@@ -190,10 +189,10 @@ public class WaitingActivity extends MyBaseActivity {
         User user = AuthManager.getCurrentUser();
 
         // TODO-2 DELETE THIS
-        user.setName("mehdiiiii");
-        user.setProvince(20);
-        user.setAvatar(15);
-        user.setScore(250);
+//        user.setName("mehdiiiii");
+//        user.setProvince(20);
+//        user.setAvatar(15);
+//        user.setScore(250);
         // END OF TODO-2
 
         userAvatar.setImageResource(AvatarHelper.getResourceId(this, user.getAvatar()));
