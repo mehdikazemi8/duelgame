@@ -113,7 +113,7 @@ public class WaitingActivity extends MyBaseActivity {
 
                         translateAnimation(opponentLayout, "translationY", 500, 0, 1500);
                     } else if (messageCode.compareTo("SP") == 0) {
-                        AuthManager.getCurrentUser().decreaseDiamond(120);
+                        //AuthManager.getCurrentUser().decreaseDiamond(120);
 
                         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
                         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());

@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,7 +96,10 @@ public class PlayGameActivity extends MyBaseActivity {
 
                     if (parser.getInt("ok") == 1) {
                         opponentAnsweredThisTime = parser.getInt("time");
-                        if (problemIndex == 5)
+
+                        Log.d("--- opponent", "" + problemIndex + " -- " + json);
+
+                        if (problemIndex == 6)
                             opponentPoints += 5;
                         else
                             opponentPoints += 3;
@@ -269,6 +273,8 @@ public class PlayGameActivity extends MyBaseActivity {
             return;
         }
 
+        Log.d("--- user", "" + problemIndex);
+
         numberOfOptionChose += 1;
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
@@ -282,7 +288,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
             iAnsweredThisCorrect = true;
 
-            if (problemIndex == 5)
+            if (problemIndex == 6)
                 userPoints += 5;
             else
                 userPoints += 3;
