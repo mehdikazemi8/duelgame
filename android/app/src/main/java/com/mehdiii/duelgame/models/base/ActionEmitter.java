@@ -22,7 +22,6 @@ public class ActionEmitter {
 
     private void init() {
         map.put(CommandType.RECEIVE_LOGIN_INFO, "LI");
-//        map.put(CommandType.LOGIN, "UL");
         map.put(CommandType.SEND_GET_FRIEND_LIST, "GFL");
         map.put(CommandType.SEND_REGISTER, "RU");
         map.put(CommandType.RECEIVE_GET_FRIEND_LIST, "RFL");
