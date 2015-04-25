@@ -26,6 +26,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,14 +40,14 @@ import java.util.concurrent.TimeUnit;
 public class WaitingActivity extends MyBaseActivity {
     boolean hasLeft;
 
-    private TextView waitingMyLevel;
-    private TextView waitingMyName;
-    private TextView waitingMyOstan;
-    private ImageView waitingMyAvatar;
-    private ImageView waitingOpponentAvatar;
-    private TextView waitingOpponentLevel;
-    private TextView waitingOpponentName;
-    private TextView waitingOpponentOstan;
+    private TextView userTitle;
+    private TextView userName;
+    private TextView userProvince;
+    private ImageView userAvatar;
+    private ImageView opponentAvatar;
+    private TextView opponentTitle;
+    private TextView opponentName;
+    private TextView opponentProvince;
     private TextView waitingAgainst;
 
     private LinearLayout playerLayout, opponentLayout;
@@ -108,8 +109,8 @@ public class WaitingActivity extends MyBaseActivity {
                         opponentUser.setId(firstOpponent.getString("user_number"));
 
                         ((ImageView) findViewById(R.id.waiting_opponent_avatar)).setImageResource(AvatarHelper.getResourceId(WaitingActivity.this, opponentUser.getAvatar()));
-                        setTextView(waitingOpponentName, opponentUser.getName());
-                        setTextView(waitingOpponentOstan, ProvinceManager.get(WaitingActivity.this, opponentUser.getProvince()));
+                        setTextView(opponentName, opponentUser.getName());
+                        setTextView(opponentProvince, ProvinceManager.get(WaitingActivity.this, opponentUser.getProvince()));
 
                         translateAnimation(opponentLayout, "translationY", 500, 0, 1500);
                     } else if (messageCode.compareTo("SP") == 0) {
@@ -168,14 +169,14 @@ public class WaitingActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
 
-        waitingMyLevel = (TextView) findViewById(R.id.waiting_my_level);
-        waitingMyName = (TextView) findViewById(R.id.waiting_my_name);
-        waitingMyOstan = (TextView) findViewById(R.id.waiting_my_ostan);
-        waitingMyAvatar = (ImageView) findViewById(R.id.waiting_my_avatar);
-        waitingOpponentAvatar = (ImageView) findViewById(R.id.waiting_opponent_avatar);
-        waitingOpponentLevel = (TextView) findViewById(R.id.waiting_opponent_level);
-        waitingOpponentName = (TextView) findViewById(R.id.waiting_opponent_name);
-        waitingOpponentOstan = (TextView) findViewById(R.id.waiting_opponent_ostan);
+        userTitle = (TextView) findViewById(R.id.waiting_user_title);
+        userName = (TextView) findViewById(R.id.waiting_user_name);
+        userProvince = (TextView) findViewById(R.id.waiting_user_province);
+        userAvatar = (ImageView) findViewById(R.id.waiting_user_avatar);
+        opponentAvatar = (ImageView) findViewById(R.id.waiting_opponent_avatar);
+        opponentTitle = (TextView) findViewById(R.id.waiting_opponent_title);
+        opponentName = (TextView) findViewById(R.id.waiting_opponent_name);
+        opponentProvince = (TextView) findViewById(R.id.waiting_opponent_province);
         waitingAgainst = (TextView) findViewById(R.id.waiting_against);
 
         playerLayout = (LinearLayout) findViewById(R.id.waiting_player_layout);
@@ -186,15 +187,25 @@ public class WaitingActivity extends MyBaseActivity {
         mListener = new TitleBarListener();
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
-        waitingMyAvatar.setImageResource(AvatarHelper.getResourceId(this, AuthManager.getCurrentUser().getAvatar()));
-        setTextView(waitingMyName, AuthManager.getCurrentUser().getName());
-        setTextView(waitingMyOstan, ProvinceManager.get(this, AuthManager.getCurrentUser().getProvince()));
+        User user = AuthManager.getCurrentUser();
+
+        // TODO-2 DELETE THIS
+        user.setName("mehdiiiii");
+        user.setProvince(20);
+        user.setAvatar(15);
+        user.setScore(250);
+        // END OF TODO-2
+
+        userAvatar.setImageResource(AvatarHelper.getResourceId(this, user.getAvatar()));
+        setTextView(userName, user.getName());
+        setTextView(userTitle, ScoreHelper.getTitle(user.getScore()));
+        setTextView(userProvince, ProvinceManager.get(this, user.getProvince()));
 
         translateAnimation(playerLayout, "translationY", -500, 0, 1500);
 
         FontHelper.setKoodakFor(getApplicationContext(),
-                waitingMyLevel, waitingMyName, waitingMyOstan,
-                waitingOpponentLevel, waitingOpponentName, waitingOpponentOstan,
+                userTitle, userName, userProvince,
+                opponentTitle, opponentName, opponentProvince,
                 waitingAgainst);
 
         musicPlayer = new DuelMusicPlayer(WaitingActivity.this, R.raw.waiting, true);
