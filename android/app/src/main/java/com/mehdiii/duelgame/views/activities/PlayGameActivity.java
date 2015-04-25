@@ -5,16 +5,17 @@ import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
@@ -32,6 +33,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
@@ -76,7 +78,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private ImageView tick;
 
-    MediaPlayer myPlayer;
+    DuelMusicPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
 
     ProgressBar myProgress, opProgress;
@@ -94,7 +96,10 @@ public class PlayGameActivity extends MyBaseActivity {
 
                     if (parser.getInt("ok") == 1) {
                         opponentAnsweredThisTime = parser.getInt("time");
-                        if (problemIndex == 5)
+
+                        Log.d("--- opponent", "" + problemIndex + " -- " + json);
+
+                        if (problemIndex == 6)
                             opponentPoints += 5;
                         else
                             opponentPoints += 3;
@@ -268,6 +273,8 @@ public class PlayGameActivity extends MyBaseActivity {
             return;
         }
 
+        Log.d("--- user", "" + problemIndex);
+
         numberOfOptionChose += 1;
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
@@ -277,7 +284,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
-            myPlayer = MediaPlayer.create(this, CORRECT_ANSWER);
+            myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
 
             iAnsweredThisCorrect = true;
 
@@ -297,12 +304,13 @@ public class PlayGameActivity extends MyBaseActivity {
             hintAgainBtn.setClickable(false);
             hintRemoveBtn.setClickable(false);
         } else {
-            myPlayer = MediaPlayer.create(this, WRONG_ANSWER);
+            myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
             userPoints += -1;
 
             setTextView(playGameMyScore, "" + userPoints);
             setProgressBar(myProgress, userPoints);
 
+            // what if he has chosen the wrong answer but he has a chance to choose another one
             if (hintAgainClicked == true) {
                 iAnsweredThisTime = -1;
                 hintAgainClicked = false;
@@ -315,14 +323,21 @@ public class PlayGameActivity extends MyBaseActivity {
                     option2Btn.setClickable(true);
                 if (choseOption[3] == false)
                     option3Btn.setClickable(true);
+
+            } else {
+                if (choseOption[0] == false)
+                    option0Btn.setTextColor(getResources().getColor(R.color.gray));
+                if (choseOption[1] == false)
+                    option1Btn.setTextColor(getResources().getColor(R.color.gray));
+                if (choseOption[2] == false)
+                    option2Btn.setTextColor(getResources().getColor(R.color.gray));
+                if (choseOption[3] == false)
+                    option3Btn.setTextColor(getResources().getColor(R.color.gray));
             }
-//            ((Button) v).setBackgroundColor(Color.RED);
+
             ((Button) v).setTextColor(getResources().getColor(R.color.wrong_answer));
 
             if (numberOfOptionChose == 1 && hintAgainViewIsOpen == true) {
-//                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
-//                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
-
                 danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
                 danceHintAgainX.setDuration(1000);
                 danceHintAgainX.setRepeatCount(1);
@@ -339,7 +354,7 @@ public class PlayGameActivity extends MyBaseActivity {
             }
         }
 
-        myPlayer.start();
+        myPlayer.execute();
 
         JSONObject query = new JSONObject();
         try {
@@ -352,7 +367,8 @@ public class PlayGameActivity extends MyBaseActivity {
             e.printStackTrace();
         }
 
-        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
+//        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
+        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
             iAnsweredThisCorrect = true;
             sendGQMinusOne();
         }
@@ -383,6 +399,8 @@ public class PlayGameActivity extends MyBaseActivity {
     private LinearLayout header;
 
     private ObjectAnimator danceHintAgainX, danceHintAgainY;
+
+    DuelMusicPlayer musicPlayer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -421,6 +439,9 @@ public class PlayGameActivity extends MyBaseActivity {
         configureControls();
 
         startGameAnimation();
+
+        musicPlayer = new DuelMusicPlayer(PlayGameActivity.this, R.raw.game, true);
+        musicPlayer.execute();
     }
 
     private void configureControls() {
@@ -494,7 +515,7 @@ public class PlayGameActivity extends MyBaseActivity {
                 "scaleX", from, to);
         animation.setDuration(duration);
         animation.setStartDelay(startDelay);
-        animation.setInterpolator(new LinearInterpolator());
+        animation.setInterpolator(new DecelerateInterpolator());
 
         animation.addListener(new Animator.AnimatorListener() {
             @Override
@@ -522,7 +543,7 @@ public class PlayGameActivity extends MyBaseActivity {
         ObjectAnimator animation = ObjectAnimator.ofFloat(pb,
                 "translationX", fromX, toX);
         animation.setDuration(duration);
-        animation.setInterpolator(new LinearInterpolator());
+        animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
     }
 
@@ -753,17 +774,53 @@ public class PlayGameActivity extends MyBaseActivity {
 
         iAnsweredThisTime = -1;
 
-        if (choseOption[0] == false)
+        if (choseOption[0] == false) {
             option0Btn.setClickable(true);
-        if (choseOption[1] == false)
+            option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        } else {
+            option0Btn.setVisibility(View.INVISIBLE);
+        }
+        if (choseOption[1] == false) {
             option1Btn.setClickable(true);
-        if (choseOption[2] == false)
+            option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        } else {
+            option1Btn.setVisibility(View.INVISIBLE);
+        }
+        if (choseOption[2] == false) {
             option2Btn.setClickable(true);
-        if (choseOption[3] == false)
+            option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        } else {
+            option2Btn.setVisibility(View.INVISIBLE);
+        }
+        if (choseOption[3] == false) {
             option3Btn.setClickable(true);
+            option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        } else {
+            option3Btn.setVisibility(View.INVISIBLE);
+        }
 
         hintAgainBtn.setClickable(false);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        musicPlayer.pauseSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setData();
+
+        musicPlayer.playSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        startService(svc);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

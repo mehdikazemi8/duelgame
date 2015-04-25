@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 
 /**
  * Created by omid on 4/13/2015.
@@ -23,6 +24,6 @@ public class DuelBroadcastReceiver extends BroadcastReceiver {
         String json = intent.getExtras().getString(BUNDLE_JSON_KEY);
         BaseModel baseModel = BaseModel.deserialize(json, BaseModel.class);
         if (onMessageReceived != null)
-            onMessageReceived.onReceive(json, baseModel.getCommand());
+            onMessageReceived.onReceive(json, baseModel != null ? baseModel.getCommand() : CommandType.UNKNOWN);
     }
 }

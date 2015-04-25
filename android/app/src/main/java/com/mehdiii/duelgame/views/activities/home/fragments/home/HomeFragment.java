@@ -3,12 +3,14 @@ package com.mehdiii.duelgame.views.activities.home.fragments.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
@@ -18,6 +20,7 @@ import com.mehdiii.duelgame.models.HeartChangeNotice;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 
 import de.greenrobot.event.EventBus;
@@ -36,6 +39,7 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
     TextView homeFriendsRankingText;
     TextView homeFriendsRanking;
     ImageButton addFriendButton;
+    ProgressBar levelProgress;
     Button refillButton;
 
     ImageView firstHeartImageView;
@@ -59,6 +63,7 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         homeFriendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
+        levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
 
         firstHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_first);
         secondHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_second);
@@ -77,6 +82,23 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         refillButton.setOnClickListener(this);
 
         EventBus.getDefault().register(this);
+
+        // TODO-1 DELETE THIS
+        User user = AuthManager.getCurrentUser();
+        Log.d("---- diamond", "" + user.getDiamond());
+        Log.d("---- heart", "" + user.getHeart());
+        Log.d("---- avatar", "" + user.getAvatar());
+        Log.d("---- score", "" + user.getScore());
+        Log.d("---- name", "" + user.getName());
+        // END OF TODO-1
+
+        homeDiamondCnt.setText("" + user.getDiamond());
+        arrangeHearts(user.getHeart());
+        homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
+
+        homeLevelText.setText(""+ScoreHelper.getLevel(user.getScore()));
+        levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
+        homeMyDegree.setText(""+ScoreHelper.getTitle(user.getScore()));
 
         return view;
     }
@@ -97,24 +119,24 @@ public class HomeFragment extends FlipableFragment implements View.OnClickListen
         User user = AuthManager.getCurrentUser();
 
         // TODO, DELETE this
-        user.setAvatar(5);
-        user.setHeart(3);
-        user.setDiamond(347);
-        user.setScore(519);
+//        user.setAvatar(5);
+//        user.setHeart(3);
+//        user.setDiamond(347);
+//        user.setScore(519);
         // END OF TODO
 
         homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
-        homeDiamondCnt.setText(""+user.getDiamond());
+        homeDiamondCnt.setText("" + user.getDiamond());
         arrangeHearts(user.getHeart());
 
         /**
-        Log.d("------ avatar", ""+user.getAvatar());
-        Log.d("------ province", ""+user.getProvince());
-        Log.d("------ diamond", ""+user.getDiamond());
-        Log.d("------ id", ""+user.getId());
-        Log.d("------ name", ""+user.getName());
-        Log.d("------ heart", ""+user.getHeart());
-        Log.d("------ score", ""+user.getScore());
+         Log.d("------ avatar", ""+user.getAvatar());
+         Log.d("------ province", ""+user.getProvince());
+         Log.d("------ diamond", ""+user.getDiamond());
+         Log.d("------ id", ""+user.getId());
+         Log.d("------ name", ""+user.getName());
+         Log.d("------ heart", ""+user.getHeart());
+         Log.d("------ score", ""+user.getScore());
          **/
     }
 

@@ -10,13 +10,16 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotif;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -51,6 +54,7 @@ public class HomeActivity extends MyBaseActivity {
     FlipableFragment homeFragment;
     FlipableFragment friendsFagment;
 
+
     List<Fragment> childFragments;
 
     IInAppBillingService mService;
@@ -70,6 +74,8 @@ public class HomeActivity extends MyBaseActivity {
         }
     };
 
+    DuelMusicPlayer musicPlayer;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -82,6 +88,10 @@ public class HomeActivity extends MyBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
+        musicPlayer.execute();
+
         find();
         configure();
 
@@ -148,7 +158,9 @@ public class HomeActivity extends MyBaseActivity {
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
 
         @Override
         public void onPageSelected(int position) {
@@ -216,6 +228,49 @@ public class HomeActivity extends MyBaseActivity {
         childFragments.add(homeFragment);
     }
 
+
+    public void setTextView(int id, String str) {
+        ((TextView) findViewById(id)).setText(str);
+    }
+
+    private void readData() {
+//        try {
+//            JSONObject parser = new JSONObject(loginInfo);
+//            myAvatarIndex = parser.getInt("avatar");
+//            userDiamond = parser.getInt("time");
+//            myOstanInt = parser.getInt("ostan");
+//            myScore = parser.getInt("score");
+//            myUserNumber = parser.getString("user_number");
+//            myElo = (int) parser.getDouble("elo");
+//            myName = parser.getString("name");
+//
+//        } catch (JSONException e) {
+//
+//        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_start, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.about) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -226,23 +281,25 @@ public class HomeActivity extends MyBaseActivity {
 
     @Override
     public void onBackPressed() {
-        Intent svc = new Intent(this, MusicPlayer.class);
-        stopService(svc);
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
         finish();
     }
 
     public void wantToPlay(View v) {
         Log.d("&&&&", "aaaaaaaaaaaaaaaa");
+        musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
     }
 
-    // ******************************** HOME BUTTONE PRESSED
+// ******************************** HOME BUTTONE PRESSED
 
     @Override
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
 
+        musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
     }
@@ -259,12 +316,14 @@ public class HomeActivity extends MyBaseActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        Intent svc = new Intent(this, MusicPlayer.class);
-        stopService(svc);
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
 
         if (mServiceConn != null) {
             unbindService(mServiceConn);
         }
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
     }
 
     BuyNotif buyNotif;

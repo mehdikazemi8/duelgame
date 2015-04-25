@@ -232,6 +232,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:clipChildren="false"
                 android:orientation="vertical">
 
                 <ProgressBar
@@ -239,7 +240,6 @@
                     style="@style/Widget.ProgressBar.Vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:max="20"
                     android:progress="0" />
             </LinearLayout>
@@ -250,6 +250,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:clipChildren="false"
                 android:orientation="vertical">
 
                 <ProgressBar

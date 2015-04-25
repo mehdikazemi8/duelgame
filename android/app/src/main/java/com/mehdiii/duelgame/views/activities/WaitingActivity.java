@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 
 import org.json.JSONArray;
@@ -80,6 +81,8 @@ public class WaitingActivity extends MyBaseActivity {
         animation.start();
     }
 
+    DuelMusicPlayer musicPlayer;
+
     protected class TitleBarListener extends BroadcastReceiver {
 
         @Override
@@ -110,7 +113,7 @@ public class WaitingActivity extends MyBaseActivity {
 
                         translateAnimation(opponentLayout, "translationY", 500, 0, 1500);
                     } else if (messageCode.compareTo("SP") == 0) {
-                        AuthManager.getCurrentUser().decreaseDiamond(120);
+                        //AuthManager.getCurrentUser().decreaseDiamond(120);
 
                         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
                         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
@@ -193,11 +196,34 @@ public class WaitingActivity extends MyBaseActivity {
                 waitingMyLevel, waitingMyName, waitingMyOstan,
                 waitingOpponentLevel, waitingOpponentName, waitingOpponentOstan,
                 waitingAgainst);
+
+        musicPlayer = new DuelMusicPlayer(WaitingActivity.this, R.raw.waiting, true);
+        musicPlayer.execute();
     }
 
     public void setTextView(TextView tv, String str) {
         tv.setText(str);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        musicPlayer.pauseSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        stopService(svc);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setData();
+
+        musicPlayer.playSound();
+//        Intent svc = new Intent(this, MusicPlayer.class);
+//        startService(svc);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
