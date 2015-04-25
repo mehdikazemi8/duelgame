@@ -65,8 +65,6 @@ public class AvatarWaveFragment extends Fragment {
         @Override
         public void onClick(View view) {
             int selection = ((AvatarViewer) view).getPosition();
-            // TODO
-//            MyBaseActivity.myAvatarIndex = selection;
             onCompleteListener.onComplete(selection);
         }
     };

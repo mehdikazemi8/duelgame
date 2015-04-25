@@ -28,7 +28,6 @@ import com.viewpagerindicator.CirclePageIndicator;
 public class AvatarSelectionDialog extends DialogFragment {
 
     TextView titleTextView;
-    TextView avatarTextView;
     ViewPager viewPager;
 
     AvatarSliderAdapter pagerAdapter;

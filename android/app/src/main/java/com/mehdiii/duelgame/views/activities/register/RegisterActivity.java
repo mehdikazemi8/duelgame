@@ -1,9 +1,7 @@
 package com.mehdiii.duelgame.views.activities.register;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
@@ -23,15 +21,14 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.TryToConnectActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class RegisterActivity extends MyBaseActivity {
 
@@ -45,44 +42,30 @@ public class RegisterActivity extends MyBaseActivity {
     ImageView selectedAvatarImageView;
     Spinner provinceSpinner;
     SwitchButton genderSwitch;
+    User user = new User();
 
-    BroadcastReceiver mListener = new BroadcastReceiver() {
+    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (intent.getAction().equals("MESSAGE")) {
-
-                String inputMessage = intent.getExtras().getString("inputMessage");
-                String messageCode;
-                JSONObject parser = null;
-
-                try {
-                    parser = new JSONObject(inputMessage);
-                    messageCode = parser.getString("code");
-                    if (messageCode.compareTo("LI") == 0) {
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        finish();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_LOGIN_INFO) {
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
             }
         }
-    };
+    });
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         /**
          * find child views and set fonts
          */
         find();
         configure();
 
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
 
         /**
          * generate device unique identifier
@@ -154,23 +137,13 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     public void registerMe(View v) {
-        // TODO
-//        myName = usernameEditText.getText().toString();
-//        myEmail = emailEditText.getText().toString();
-//        myOstanStr = provinceSpinner.getSelectedItem().toString();
-//        myOstanInt = provinceSpinner.getSelectedItemPosition();
+        user.setName(usernameEditText.getText().toString());
+        user.setEmail(emailEditText.getText().toString());
+        user.setProvince(provinceSpinner.getSelectedItemPosition());
 
         if (validateForm()) {
-//            User registerUser = User.newInstance(CommandType.SEND_REGISTER);
-            User registerUser = new User();
-            registerUser.setDeviceId(userId);
-            // TODO
-//            registerUser.setName(myName);
-//            registerUser.setProvince(myOstanInt);
-//            registerUser.setEmail(myEmail);
-//            registerUser.setAvatar(AuthManager.getCurrentUser().getAvatar());
-
-            DuelApp.getInstance().sendMessage(registerUser.serialize(CommandType.SEND_REGISTER));
+            user.setDeviceId(userId);
+            DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_REGISTER));
         }
     }
 
@@ -179,7 +152,7 @@ public class RegisterActivity extends MyBaseActivity {
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
-                setAvatar();
+                setAvatar((int) data);
             }
         });
         dialog.show(getSupportFragmentManager(), "DIALOG_AVATAR_CHOOSER");
@@ -188,16 +161,17 @@ public class RegisterActivity extends MyBaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        setAvatar();
+        setAvatar(user.getAvatar());
     }
 
-    private void setAvatar() {
-        selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, 1));
+    private void setAvatar(int position) {
+        user.setAvatar(position);
+        selectedAvatarImageView.setImageResource(AvatarHelper.getResourceId(this, position));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 }
