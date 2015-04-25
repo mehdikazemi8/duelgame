@@ -9,7 +9,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,46 +83,6 @@ public class PlayGameActivity extends MyBaseActivity {
 
     private String[] round = new String[NUMBER_OF_QUESTIONS];
 
-    //    BroadcastReceiver mListener = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            if (intent.getAction().equals("MESSAGE")) {
-//                String inputMessage = intent.getExtras().getString("inputMessage");
-//                String messageCode;
-//                JSONObject parser = null;
-//                try {
-//                    parser = new JSONObject(inputMessage);
-//                    messageCode = parser.getString("code");
-//
-//                    if (messageCode.compareTo("AQ") == 0) {
-//                        endQuestionAnimation(false);
-//                    } else if (messageCode.compareTo("OS") == 0) {
-//                        if (parser.getInt("ok") == 1) {
-//                            opponentAnsweredThisTime = parser.getInt("time");
-//                            if (problemIndex == 6)
-//                                opponentPoints += 5;
-//                            else
-//                                opponentPoints += 3;
-//                        } else {
-//                            if (parser.getInt("time") != -1) {  // wrong answer
-//                                opponentPoints += -1;
-//                            } else if (parser.getInt("time") == -1) {   // not answered
-//
-//                            }
-//                        }
-//                        setTextView(playGameOpScore, "" + opponentPoints);
-//                        setProgressBar(opProgress, opponentPoints);
-//
-//                    } else if (messageCode.compareTo("GE") == 0) {
-//                        resultInfo = inputMessage;
-//                        endQuestionAnimation(true);
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    };
     BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
@@ -135,7 +94,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
                     if (parser.getInt("ok") == 1) {
                         opponentAnsweredThisTime = parser.getInt("time");
-                        if (problemIndex == 6)
+                        if (problemIndex == 5)
                             opponentPoints += 5;
                         else
                             opponentPoints += 3;
@@ -156,6 +115,13 @@ public class PlayGameActivity extends MyBaseActivity {
             }
         }
     });
+
+    public void cancelDanceHintAgain() {
+        if (danceHintAgainX != null && danceHintAgainX.isRunning())
+            danceHintAgainX.cancel();
+        if (danceHintAgainY != null && danceHintAgainY.isRunning())
+            danceHintAgainY.cancel();
+    }
 
     public void setProgressBar(ProgressBar pb, int progress) {
         if (progress < 0) {
@@ -240,9 +206,6 @@ public class PlayGameActivity extends MyBaseActivity {
         hintAgainBtn.setClickable(true);
         hintRemoveBtn.setClickable(true);
 
-        Log.d("-- AGAIN AskQuestion", hintAgainView.getLeft() + " " + hintAgainView.getRight());
-        Log.d("-- Remove AskQuestion", hintRemoveView.getLeft() + " " + hintRemoveView.getRight());
-
         hintAgainView.setPivotX(hintAgainView.getRight());
         hintAgainView.setPivotY(0);
         hintRemoveView.setPivotX(0);
@@ -307,11 +270,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         numberOfOptionChose += 1;
 
-        Log.d("-- numberOfOptionChose", "" + numberOfOptionChose);
-
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
-
-        Log.d("option entekhab shode", "" + Integer.parseInt(v.getContentDescription().toString()));
 
         choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
         doDisableButtons();
@@ -364,19 +323,19 @@ public class PlayGameActivity extends MyBaseActivity {
 //                hintAgainView.setPivotX(hintAgainView.getX()+hintAgainView.getWidth()/2);
 //                hintAgainView.setPivotY(hintAgainView.getY()+hintAgainView.getHeight()/2);
 
-                ObjectAnimator shakeButton = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
-                shakeButton.setDuration(1000);
-                shakeButton.setRepeatCount(1);
-                shakeButton.setInterpolator(new AccelerateInterpolator());
-                shakeButton.setRepeatMode(ObjectAnimator.REVERSE);
-                shakeButton.start();
+                danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
+                danceHintAgainX.setDuration(1000);
+                danceHintAgainX.setRepeatCount(1);
+                danceHintAgainX.setInterpolator(new AccelerateInterpolator());
+                danceHintAgainX.setRepeatMode(ObjectAnimator.REVERSE);
+                danceHintAgainX.start();
 
-                ObjectAnimator shakeButton1 = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
-                shakeButton1.setDuration(1000);
-                shakeButton1.setRepeatCount(1);
-                shakeButton1.setInterpolator(new OvershootInterpolator());
-                shakeButton1.setRepeatMode(ObjectAnimator.REVERSE);
-                shakeButton1.start();
+                danceHintAgainY = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
+                danceHintAgainY.setDuration(1000);
+                danceHintAgainY.setRepeatCount(1);
+                danceHintAgainY.setInterpolator(new OvershootInterpolator());
+                danceHintAgainY.setRepeatMode(ObjectAnimator.REVERSE);
+                danceHintAgainY.start();
             }
         }
 
@@ -390,7 +349,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
             DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
-            Log.d("---- GQ GQ GQ", e.toString());
+            e.printStackTrace();
         }
 
         if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
@@ -422,6 +381,8 @@ public class PlayGameActivity extends MyBaseActivity {
     private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
 
     private LinearLayout header;
+
+    private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -524,7 +485,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
             DuelApp.getInstance().sendMessage(query.toString());
         } catch (JSONException e) {
-            Log.d("---- GQ GQ GQ", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -592,7 +553,6 @@ public class PlayGameActivity extends MyBaseActivity {
 //        option3Btn.setVisibility(View.INVISIBLE);
 
         setTextView(playGameQuestionText, round[problemIndex]);
-        Log.d("problem Index", "" + problemIndex);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(playGameQuestionText,
                 "alpha", 0f, 1f);
         fadeIn.setDuration(1000);
@@ -666,6 +626,8 @@ public class PlayGameActivity extends MyBaseActivity {
             fadeOut1.start();
             fadeOut2.start();
         }
+
+        cancelDanceHintAgain();
 
         if (hintAgainViewIsOpen == true) {
             doAnimateHintOption(hintAgainView, 1f, 0f, 1000, 0);
@@ -758,47 +720,19 @@ public class PlayGameActivity extends MyBaseActivity {
         if (correctOption != 3 && choseOption[3] == false)
             canRemove.add(3);
 
-        for (int e = 0; e < canRemove.size(); e++) {
-            Log.d("--- canRemove ", "" + canRemove.get(e));
-        }
-
-        Log.d("&&&& chose? ", "" +
-                choseOption[0] +
-                choseOption[1] +
-                choseOption[2] +
-                choseOption[3]);
-
-        Log.d("-- correct option", "" + correctOption);
-
         int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
 
         if (removeItem == 0) {
-//            option0Btn.setBackgroundColor(Color.BLUE);
-//            option0Btn.setClickable(false);
-
             option0Btn.setVisibility(View.INVISIBLE);
-
             choseOption[0] = true;
         } else if (removeItem == 1) {
-//            option1Btn.setBackgroundColor(Color.BLUE);
-//            option1Btn.setClickable(false);
-
             option1Btn.setVisibility(View.INVISIBLE);
-
             choseOption[1] = true;
         } else if (removeItem == 2) {
-//            option2Btn.setBackgroundColor(Color.BLUE);
-//            option2Btn.setClickable(false);
-
             option2Btn.setVisibility(View.INVISIBLE);
-
             choseOption[2] = true;
         } else {
-//            option3Btn.setBackgroundColor(Color.BLUE);
-//            option3Btn.setClickable(false);
-
             option3Btn.setVisibility(View.INVISIBLE);
-
             choseOption[3] = true;
         }
 
@@ -811,6 +745,8 @@ public class PlayGameActivity extends MyBaseActivity {
         }
 
         if (hintAgainViewIsOpen == true) {
+            cancelDanceHintAgain();
+
             doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
             hintAgainViewIsOpen = false;
         }

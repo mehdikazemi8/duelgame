@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.models.base;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
@@ -37,6 +38,11 @@ public class BaseModel {
 
     public static <T> T deserialize(String json, Type type) {
         Gson gson = new Gson();
-        return gson.fromJson(json, type);
+        try {
+            return gson.fromJson(json, type);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

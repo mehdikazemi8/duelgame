@@ -44,7 +44,6 @@ public class StartActivity extends MyBaseActivity {
         }
     });
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +76,13 @@ public class StartActivity extends MyBaseActivity {
                 }
             }
         }, 2000);
+        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
 
         Intent svc = new Intent(this, MusicPlayer.class);
         startService(svc);
@@ -92,7 +91,7 @@ public class StartActivity extends MyBaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(commandListener);
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(commandListener);
     }
 
     @Override

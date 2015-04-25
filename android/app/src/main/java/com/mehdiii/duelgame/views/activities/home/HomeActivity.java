@@ -1,18 +1,22 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.MusicPlayer;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.PurchaseManager;
+import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
@@ -26,7 +30,10 @@ import com.mehdiii.duelgame.views.custom.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 public class HomeActivity extends MyBaseActivity {
+    private static final int REQUEST_CODE_PURCHASE = 1001;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
@@ -44,8 +51,32 @@ public class HomeActivity extends MyBaseActivity {
     FlipableFragment homeFragment;
     FlipableFragment friendsFagment;
 
-
     List<Fragment> childFragments;
+
+    IInAppBillingService mService;
+
+    ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+
+            PurchaseManager.init(HomeActivity.this, mService, REQUEST_CODE_PURCHASE);
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PURCHASE) {
+            PurchaseManager.getInstance().processPurchaseResult(resultCode, data);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,10 +85,9 @@ public class HomeActivity extends MyBaseActivity {
         find();
         configure();
 
-//        readData();
-//
-//        setData();
+        bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
     }
+
 
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -86,6 +116,7 @@ public class HomeActivity extends MyBaseActivity {
         this.viewPager.setCurrentItem(4);
         viewPager.setOffscreenPageLimit(5);
     }
+
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
@@ -117,9 +148,7 @@ public class HomeActivity extends MyBaseActivity {
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
         @Override
         public void onPageSelected(int position) {
@@ -187,54 +216,10 @@ public class HomeActivity extends MyBaseActivity {
         childFragments.add(homeFragment);
     }
 
-
-    public void setTextView(int id, String str) {
-        ((TextView) findViewById(id)).setText(str);
-    }
-
-    private void readData() {
-//        try {
-//            JSONObject parser = new JSONObject(loginInfo);
-//            myAvatarIndex = parser.getInt("avatar");
-//            userDiamond = parser.getInt("time");
-//            myOstanInt = parser.getInt("ostan");
-//            myScore = parser.getInt("score");
-//            myUserNumber = parser.getString("user_number");
-//            myElo = (int) parser.getDouble("elo");
-//            myName = parser.getString("name");
-//
-//        } catch (JSONException e) {
-//
-//        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_start, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.about) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-//        setData();
-
+        EventBus.getDefault().register(this);
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }
@@ -256,6 +241,7 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     public void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
 
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
@@ -275,5 +261,17 @@ public class HomeActivity extends MyBaseActivity {
 
         Intent svc = new Intent(this, MusicPlayer.class);
         stopService(svc);
+
+        if (mServiceConn != null) {
+            unbindService(mServiceConn);
+        }
     }
+
+    BuyNotif buyNotif;
+
+    public void onEvent(BuyNotif buyNotif) {
+        PurchaseManager.getInstance().initiatePurchase(buyNotif);
+    }
+
+
 }

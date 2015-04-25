@@ -15,11 +15,13 @@ public class PurchaseItem extends BaseModel {
     @SerializedName("id")
     private int id;
     @SerializedName("title")
-    private int title;
+    private String title;
     @SerializedName("cost")
     private Cost cost;
+    @SerializedName("sku")
+    private String sku;
 
-    public PurchaseItem(int mode, int entityType, int id, int title, Cost cost) {
+    public PurchaseItem(int mode, int entityType, int id, String title, Cost cost) {
         this.mode = mode;
         this.entityType = entityType;
         this.id = id;
@@ -51,11 +53,11 @@ public class PurchaseItem extends BaseModel {
         this.id = id;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -65,5 +67,17 @@ public class PurchaseItem extends BaseModel {
 
     public void setCost(Cost cost) {
         this.cost = cost;
+    }
+
+    public PurchaseRequest toPurchaseRequest() {
+        return new PurchaseRequest(getId());
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }
