@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
@@ -98,13 +99,15 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
         @Override
         public void onApprove(Friend request) {
-            DuelApp.getInstance().sendMessage(request.getRespondFriendRequest(true).serialize());
+            request.setAccepted(true);
+            DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_FRIEND_REQUEST_RESPONSE));
             sendFetchRequest();
         }
 
         @Override
         public void onReject(Friend request) {
-            DuelApp.getInstance().sendMessage(request.getRespondFriendRequest(false).serialize());
+            request.setAccepted(false);
+            DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_FRIEND_REQUEST_RESPONSE));
             sendFetchRequest();
         }
     };
@@ -123,9 +126,8 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
             adapter.clear();
             adapter.notifyDataSetChanged();
         }
-
         User user = AuthManager.getCurrentUser();
-        DuelApp.getInstance().sendMessage(user.getFriendsRequest().serialize());
+        DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_GET_FRIEND_LIST));
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
@@ -142,6 +144,12 @@ public class FriendsFragment extends FlipableFragment implements View.OnClickLis
 
     private void openAddFriendDialog() {
         AddFriendDialog dialog = new AddFriendDialog(getActivity());
+        dialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                sendFetchRequest();
+            }
+        });
         dialog.show();
     }
 }

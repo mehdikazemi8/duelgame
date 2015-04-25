@@ -2,4 +2,6 @@
 <resources>
     <string name="message_click_photo_to_choose_avatar">برای انتخاب صورتک روی عکس کلیک کنید.</string>
     <string name="message_share">برای دانلود دوئل از لینک زیر استفاده کنید: %s</string>
+    <string name="error_add_friend_invalid">کد وارد شده صحیح نیست. لطفا دقت کنید.</string>
+    <string name="error_add_friend_duplicate">درخواست دوستی قبلا ارسال شده.</string>
 </resources>

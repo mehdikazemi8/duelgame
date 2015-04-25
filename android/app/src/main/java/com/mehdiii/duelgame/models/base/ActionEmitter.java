@@ -35,6 +35,10 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_OPPONENT_INFO, "YOI");
         map.put(CommandType.RECEIVE_GAME_DATA, "RGD");
         map.put(CommandType.RECEIVE_START_PLAYING, "SP");
+        map.put(CommandType.RECEIVE_FRIEND_LIST, "GFL");
+        map.put(CommandType.SEND_ADD_FRIEND, "AF");
+        map.put(CommandType.RECEIVE_ADD_FRIEND, "AFS");
+        map.put(CommandType.SEND_FRIEND_REQUEST_RESPONSE, "AFR");
     }
 
     public String getCommandCode(CommandType type) {

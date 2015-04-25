@@ -37,10 +37,4 @@ public class Friend extends User {
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
-
-    public Friend getRespondFriendRequest(boolean decision) {
-        setAccepted(decision);
-        setCommand("AFR");
-        return this;
-    }
 }

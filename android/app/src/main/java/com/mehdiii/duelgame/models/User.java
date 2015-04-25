@@ -47,15 +47,6 @@ public class User extends BaseModel {
         this.gender = gender;
     }
 
-    public User getAddFriendRequest() {
-        setCommand("AF");
-        return this;
-    }
-
-    public User getFriendsRequest() {
-        setCommand("GFL");
-        return this;
-    }
 
     public String getEmail() {
         return email;
