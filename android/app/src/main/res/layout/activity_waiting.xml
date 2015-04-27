@@ -16,20 +16,20 @@
         android:layout_height="match_parent"
         android:layout_above="@id/waiting_separator"
         android:background="@android:color/holo_orange_light"
+        android:clipChildren="false"
         android:gravity="center"
-        android:orientation="horizontal"
-
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:clipChildren="false"
             android:gravity="right"
             android:orientation="vertical">
 
@@ -49,6 +49,7 @@
                 android:layout_above="@id/waiting_user_title"
                 android:gravity="right"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="اسم" />
 
             <TextView
@@ -76,6 +77,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/waiting_separator"
         android:background="@android:color/holo_blue_light"
+        android:clipChildren="false"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="invisible">
@@ -91,7 +93,8 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:clipChildren="false"
             android:gravity="left"
             android:orientation="vertical">
 
@@ -111,6 +114,7 @@
                 android:layout_above="@id/waiting_opponent_title"
                 android:gravity="left"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="اسم" />
 
             <TextView
@@ -126,7 +130,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
