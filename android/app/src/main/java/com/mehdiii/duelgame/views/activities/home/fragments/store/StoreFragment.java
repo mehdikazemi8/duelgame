@@ -11,7 +11,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.BuyNotif;
 import com.mehdiii.duelgame.models.PurchaseItem;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.PurchaseItemView;
 
 import de.greenrobot.event.EventBus;
@@ -19,7 +19,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by omid on 4/5/2015.
  */
-public class StoreFragment extends FlipableFragment implements View.OnClickListener {
+public class StoreFragment extends FlippableFragment implements View.OnClickListener {
 
     LinearLayout storeContainer;
 

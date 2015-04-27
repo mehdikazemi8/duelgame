@@ -26,10 +26,10 @@ import de.tavendo.autobahn.WebSocketHandler;
  */
 public class DuelApp extends Application {
     public static final String PROPERTY_ID = "UA-62041991-1";
+    private String TAG = "DUEL_APP";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     static boolean isConnected = false;
-    private String TAG = "DUEL_APP";
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     static protected String wsuri = "ws://188.166.118.149:9000";

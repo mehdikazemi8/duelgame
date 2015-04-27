@@ -27,13 +27,13 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
 
 /**
  * Created by omid on 4/5/2015.
  */
-public class SettingsFragment extends FlipableFragment implements View.OnClickListener {
+public class SettingsFragment extends FlippableFragment implements View.OnClickListener {
     private EditText usernameEditText;
     private EditText emailEditText;
     private ImageView avatarImageView;

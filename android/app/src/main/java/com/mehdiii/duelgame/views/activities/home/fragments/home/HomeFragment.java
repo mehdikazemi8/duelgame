@@ -21,14 +21,14 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by omid on 4/5/2015.
  */
-public class HomeFragment extends FlipableFragment implements View.OnClickListener {
+public class HomeFragment extends FlippableFragment implements View.OnClickListener {
 
     TextView homeDiamondCnt;
     ImageView homeMyAvatar;
