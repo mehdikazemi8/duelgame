@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.dialogs;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.FriendRequest;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 
 /**
  * Created by omid on 4/13/2015.
@@ -30,10 +33,17 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         super(context);
     }
 
+    ProgressDialog progressDialog;
+
     private TextView textViewLabelCode;
     private EditText editTextCode;
     private Button buttonAdd;
 
+    OnCompleteListener onCompleteListener = null;
+
+    public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
+        this.onCompleteListener = onCompleteListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +88,39 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    private void sendAddFriendRequest() {
-        User user = new User();
-        user.setId(editTextCode.getText().toString());
 
-        DuelApp.getInstance().sendMessage(user.getAddFriendRequest().serialize());
-        DuelApp.getInstance().toast(R.string.toast_friend_request_sent, Toast.LENGTH_SHORT);
-        dismiss();
+    private void sendAddFriendRequest() {
+        FriendRequest request = new FriendRequest(editTextCode.getText().toString());
+        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_ADD_FRIEND));
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        progressDialog.setMessage("لطفا کمی صبر کنید.");
+        progressDialog.show();
     }
 
 
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            return;
+
+            if (type == CommandType.RECEIVE_ADD_FRIEND) {
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                FriendRequest request = BaseModel.deserialize(json, FriendRequest.class);
+                if (request.getStatus().equals("invalid")) {
+                    // friend code doesn't exists
+                    DuelApp.getInstance().toast(R.string.error_add_friend_invalid, Toast.LENGTH_SHORT);
+                } else if (request.getStatus().equals("duplicate")) {
+                    // use is already added.
+                    DuelApp.getInstance().toast(R.string.error_add_friend_duplicate, Toast.LENGTH_SHORT);
+                } else if (request.getStatus().equals("success")) {
+                    // successful
+                    dismiss();
+                    if (onCompleteListener != null)
+                        onCompleteListener.onComplete(true);
+                }
+            }
         }
     });
 }

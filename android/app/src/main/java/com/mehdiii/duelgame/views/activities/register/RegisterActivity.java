@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +19,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -67,17 +66,13 @@ public class RegisterActivity extends MyBaseActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
 
+
         /**
          * generate device unique identifier
          **/
-        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
-        final String deviceId, simSerialNumber;
-        deviceId = "" + teleManager.getDeviceId();
-        simSerialNumber = "" + teleManager.getSimSerialNumber();
-        userId = deviceId + simSerialNumber;
+        userId = DeviceManager.getDeviceId(RegisterActivity.this);
 
         if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
-            Log.d("^^^^^", "not connected");
             startActivity(new Intent(this, TryToConnectActivity.class));
         }
     }
