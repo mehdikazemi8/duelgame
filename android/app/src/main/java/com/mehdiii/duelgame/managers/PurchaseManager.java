@@ -12,9 +12,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.android.vending.billing.IInAppBillingService;
 import com.google.gson.Gson;
 import com.mehdiii.duelgame.DuelApp;
-import com.mehdiii.duelgame.models.BuyNotif;
+import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.PurchaseCafe;
 import com.mehdiii.duelgame.models.PurchaseDone;
+import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -60,7 +61,7 @@ public class PurchaseManager {
         @Override
         public void onReceive(String json, CommandType type) {
             switch (type) {
-                case RECEIVE_STARAT_PURCHASE:
+                case RECEIVE_START_PURCHASE:
                     try {
                         PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
                         sendPurchaseIntentToBazaar(purchaseDone);
@@ -72,14 +73,21 @@ public class PurchaseManager {
         }
     });
     boolean working = false;
-    BuyNotif buyNotif;
+    BuyNotification buyNotif;
 
-    public synchronized void initiatePurchase(BuyNotif buyNotif) {
+    public synchronized void initiatePurchase(BuyNotification buyNotification) {
         if (!working) {
             working = true;
-            this.buyNotif = buyNotif;
-            DuelApp.getInstance().sendMessage(
-                    AuthManager.getCurrentUser().getPurchaseItems().get(0).toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+            this.buyNotif = buyNotification;
+            List<PurchaseItem> items = AuthManager.getCurrentUser().getPurchaseItems();
+            for (PurchaseItem item : items) {
+                if (item.getId() == buyNotification.getId()) {
+                    String message = item.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE)
+                    DuelApp.getInstance().sendMessage(message);
+                }
+            }
+
+
         }
     }
 

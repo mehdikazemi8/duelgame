@@ -3,11 +3,13 @@ package com.mehdiii.duelgame.models;
 /**
  * Created by omid on 4/19/2015.
  */
-public class BuyNotif {
+public class BuyNotification {
     String sku;
+    int id;
 
-    public BuyNotif(String sku) {
+    public BuyNotification(String sku, int id) {
         this.sku = sku;
+        this.id = id;
     }
 
     public String getSku() {
@@ -16,6 +18,14 @@ public class BuyNotif {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

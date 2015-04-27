@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
-import com.mehdiii.duelgame.models.BuyNotif;
+import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.PurchaseItemView;
@@ -74,6 +74,6 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     }
 
     private void startBuyIntent(String sku) {
-        EventBus.getDefault().post(new BuyNotif(sku));
+        EventBus.getDefault().post(new BuyNotification(sku));
     }
 }

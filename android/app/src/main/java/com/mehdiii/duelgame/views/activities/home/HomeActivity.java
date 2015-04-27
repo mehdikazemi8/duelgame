@@ -15,7 +15,7 @@ import android.view.View;
 import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
-import com.mehdiii.duelgame.models.BuyNotif;
+import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.MyBaseActivity;
@@ -280,11 +280,7 @@ public class HomeActivity extends MyBaseActivity {
 //        stopService(svc);
     }
 
-    BuyNotif buyNotif;
-
-    public void onEvent(BuyNotif buyNotif) {
-        PurchaseManager.getInstance().initiatePurchase(buyNotif);
+    public void onEvent(BuyNotification buyNotification) {
+        PurchaseManager.getInstance().initiatePurchase(buyNotification);
     }
-
-
 }
