@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.PurchaseItemView;
@@ -62,18 +63,52 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onClick(View view) {
         if (view instanceof PurchaseItemView) {
             PurchaseItem item = ((PurchaseItemView) view).getTag();
-            if (item.getCost().getType() == 1)
-                startBuyIntent(item.getSku());
-            else {
-                // do nothing yet.
-            }
+            startBuyIntent(item.getId(), item.getCost().getType());
+//
+//            if (item.getCost().getType() == 1)
+//                startBuyIntent(item.getId(), item.getCost().getType());
+//            else {
+//                // do nothing yet.
+//            }
         }
     }
 
-    private void startBuyIntent(String sku) {
-        EventBus.getDefault().post(new BuyNotification(sku));
+    private void startBuyIntent(int id, int type) {
+        EventBus.getDefault().post(new BuyNotification(id, type));
+    }
+
+    public void onEvent(PurchaseDone purchase) {
+        String message = "";
+
+        switch (purchase.getPurchaseResult()) {
+            case COMPLETED:
+            case DUPLICATE:
+                message = "خرید با موفقیت انجام شد.";
+                break;
+            case FAILED:
+                message = "خرید انجام نشد.";
+                break;
+            case UNKNOWN:
+                message = "مشکل نامشخص!";
+                break;
+        }
+
+        // show result dialog
+        new PurchaseResultDialog(getActivity(), message).show();
     }
 }

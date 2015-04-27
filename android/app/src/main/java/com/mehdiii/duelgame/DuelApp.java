@@ -81,11 +81,11 @@ public class DuelApp extends Application {
      * @param json the message received from server
      */
     public void dispatchMessage(String json) {
-        Intent i = new Intent();
+        Intent i = new Intent(DuelBroadcastReceiver.ACTION_NAME);
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
-        // use local broadcast manager to avoid unnecessary calls to other apps
+
+        // use `local broadcast manager` instead of `global broadcast manager` to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
 

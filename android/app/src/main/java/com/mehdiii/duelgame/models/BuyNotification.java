@@ -4,20 +4,12 @@ package com.mehdiii.duelgame.models;
  * Created by omid on 4/19/2015.
  */
 public class BuyNotification {
-    String sku;
     int id;
+    int type;
 
-    public BuyNotification(String sku, int id) {
-        this.sku = sku;
+    public BuyNotification(int id, int type) {
         this.id = id;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
+        this.type = type;
     }
 
     public int getId() {
@@ -26,6 +18,14 @@ public class BuyNotification {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
 

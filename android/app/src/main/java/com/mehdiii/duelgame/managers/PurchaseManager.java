@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.PurchaseCafe;
+import com.mehdiii.duelgame.models.PurchaseCreated;
 import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -25,6 +26,8 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by omid on 4/23/2015.
@@ -63,48 +66,62 @@ public class PurchaseManager {
             switch (type) {
                 case RECEIVE_START_PURCHASE:
                     try {
-                        PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
+                        PurchaseCreated purchaseDone = BaseModel.deserialize(json, PurchaseCreated.class);
                         sendPurchaseIntentToBazaar(purchaseDone);
                     } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
                         e.printStackTrace();
                     }
                     break;
+                case RECEIVE_PURCHASE_DONE:
+                    PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
+                    purchaseDone.setPurchaseItem(selectedPurchaseItem);
+                    EventBus.getDefault().post(purchaseDone);
+                    break;
             }
         }
     });
+
     boolean working = false;
-    BuyNotification buyNotif;
+    PurchaseItem selectedPurchaseItem;
 
     public synchronized void initiatePurchase(BuyNotification buyNotification) {
         if (!working) {
             working = true;
-            this.buyNotif = buyNotification;
-            List<PurchaseItem> items = AuthManager.getCurrentUser().getPurchaseItems();
-            for (PurchaseItem item : items) {
-                if (item.getId() == buyNotification.getId()) {
-                    String message = item.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE)
-                    DuelApp.getInstance().sendMessage(message);
-                }
-            }
+            selectedPurchaseItem = findPurchaseById(buyNotification.getId());
 
-
+            if (selectedPurchaseItem != null)
+                DuelApp.getInstance().sendMessage(selectedPurchaseItem.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
         }
     }
 
-    private void sendPurchaseIntentToBazaar(PurchaseDone purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
+    public void useDiamond(BuyNotification purchaseNotif) {
+        this.selectedPurchaseItem = findPurchaseById(purchaseNotif.getId());
+        if (this.selectedPurchaseItem != null)
+            DuelApp.getInstance().sendMessage(this.selectedPurchaseItem.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+    }
+
+    private PurchaseItem findPurchaseById(int id) {
+        List<PurchaseItem> items = AuthManager.getCurrentUser().getPurchaseItems();
+        for (PurchaseItem item : items)
+            if (item.getId() == id)
+                return item;
+        return null;
+    }
+
+    private void sendPurchaseIntentToBazaar(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
         Bundle buyIntentBundle = service.getBuyIntent(
-                3, activity.getPackageName(), buyNotif.getSku(), "inapp", purchaseDone.getPurchaseId());
+                3, activity.getPackageName(), selectedPurchaseItem.getSku(), "inapp", purchaseDone.getPurchaseId());
         PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-        String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
-        String responseCode = buyIntentBundle.getString("RESPONSE_CODE");
+//        String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
+//        String responseCode = buyIntentBundle.getString("RESPONSE_CODE");
         activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0, 0, 0);
         working = false;
     }
 
     public synchronized void processPurchaseResult(int resultCode, Intent data) {
-        int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+//        int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
         String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
-        String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+//        String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
 
         if (resultCode == Activity.RESULT_OK) {
             Gson gson = new Gson();
@@ -124,9 +141,9 @@ public class PurchaseManager {
 
         int response = ownedItems.getInt("RESPONSE_CODE");
         if (response == 0) {
-            ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+//            ArrayList<String> ownedSkus = ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
             ArrayList<String> purchaseDataList = ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
-            ArrayList<String> signatureList = ownedItems.getStringArrayList("INAPP_DATA_SIGNATURE");
+//            ArrayList<String> signatureList = ownedItems.getStringArrayList("INAPP_DATA_SIGNATURE");
             String continuationToken = ownedItems.getString("INAPP_CONTINUATION_TOKEN");
 
             for (int i = 0; i < purchaseDataList.size(); ++i) {

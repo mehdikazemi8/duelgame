@@ -281,6 +281,13 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     public void onEvent(BuyNotification buyNotification) {
-        PurchaseManager.getInstance().initiatePurchase(buyNotification);
+        switch (buyNotification.getType()) {
+            case 1:
+                PurchaseManager.getInstance().initiatePurchase(buyNotification);
+                break;
+            case 2:
+                PurchaseManager.getInstance().useDiamond(buyNotification);
+                break;
+        }
     }
 }

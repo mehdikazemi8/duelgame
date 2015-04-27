@@ -55,7 +55,6 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
         getWindow().setLayout((int) (metrics.widthPixels * 0.9), ActionBar.LayoutParams.WRAP_CONTENT);
 
-
         find();
         configure();
 

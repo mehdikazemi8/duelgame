@@ -67,7 +67,7 @@ public class PurchaseCafe {
         this.purchaseTime = purchaseTime;
     }
 
-    public PurchaseDone toPurchaseDone() {
-        return new PurchaseDone(getDeveloperPayload(), getOrderId());
+    public PurchaseCreated toPurchaseDone() {
+        return new PurchaseCreated(getDeveloperPayload(), getOrderId());
     }
 }

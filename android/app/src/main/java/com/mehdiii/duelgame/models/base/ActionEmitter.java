@@ -29,7 +29,6 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_OPPONENT_SCORE, "OS");
         map.put(CommandType.RECEIVE_GAME_ENDED, "GE");
         map.put(CommandType.SEND_START_PURCHASE, "PS");
-        map.put(CommandType.SEND_PURCHASE_DIAMOND, "PD");
         map.put(CommandType.RECEIVE_START_PURCHASE, "RPI");
         map.put(CommandType.SEND_PURCHASE_DONE, "PD");
         map.put(CommandType.RECEIVE_PURCHASE_DONE, "RPS");
