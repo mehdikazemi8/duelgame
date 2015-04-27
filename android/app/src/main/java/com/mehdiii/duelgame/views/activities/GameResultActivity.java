@@ -5,9 +5,11 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,10 +22,13 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,12 +49,12 @@ public class GameResultActivity extends MyBaseActivity {
     MediaPlayer myPlayer;
 
     private TextView gameResultStatus;
-    private ImageView gameResultOpponentAvatar;
-    private TextView gameResultOpponentName;
-    private TextView gameResultOpponentPoints;
-    private ImageView gameResultPlayerAvatar;
-    private TextView gameResultPlayerName;
-    private TextView gameResultPlayerPoints;
+    private ImageView opponentAvatar;
+    private TextView opponentName;
+    private TextView opponentPointsTextView;
+    private ImageView userAvatar;
+    private TextView userName;
+    private TextView userPointsTextView;
     private TextView gameResultT7;
     private TextView gameResultT8;
     private TextView gameResultT5;
@@ -70,8 +75,10 @@ public class GameResultActivity extends MyBaseActivity {
 
     private Button gameResultDuelOthers;
     private Button gameResultAddFriend;
-    private Button gameResultHome;
     private Button gameResultReport;
+
+    int positivePoints, winBonus, pointFactor, totalXP;
+    User user = null;
 
     private static <T> ObjectAnimator translateAnimation(final T imageView, String cmd, int duration, int startDelay, float... dx) {
         ObjectAnimator animation = ObjectAnimator.ofFloat(imageView, cmd, dx);
@@ -140,35 +147,103 @@ public class GameResultActivity extends MyBaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    private void animateProgress() {
+        // TODO ************* will change, maybe the player changes level
+
+        int levelBefore = ScoreHelper.getLevel(user.getScore());
+        int progressBefore = ScoreHelper.getThisLevelPercentage(user.getScore());
+
+        final int levelAfter = ScoreHelper.getLevel(user.getScore() + totalXP);
+        final int progressAfter = ScoreHelper.getThisLevelPercentage(user.getScore() + totalXP);
+
+        Log.d("score", "" + (user.getScore()) + " - " + (user.getScore() + totalXP));
+        Log.d("level", "" + levelBefore + " - " + levelAfter);
+        Log.d("progress", "" + progressBefore + " - " + progressAfter);
+
+        if (levelBefore == levelAfter) {
+            ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, progressBefore, progressAfter);
+            anim.setDuration(1000);
+            anim.setStartOffset(3600);
+            anim.setInterpolator(new DecelerateInterpolator());
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    AppRater ar = new AppRater();
+                    ar.init(GameResultActivity.this, true);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            gameResultLevelProgress.startAnimation(anim);
+        } else {
+            AnimationSet all = new AnimationSet(false);
+
+            ProgressBarAnimation anim1 = new ProgressBarAnimation(gameResultLevelProgress, progressBefore, 100);
+            anim1.setDuration(750);
+            anim1.setStartOffset(3600);
+            anim1.setInterpolator(new DecelerateInterpolator());
+            anim1.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    gameResultLevelText.setText("" + levelAfter);
+
+                    ProgressBarAnimation anim2 = new ProgressBarAnimation(gameResultLevelProgress, 0, progressAfter);
+                    anim2.setDuration(750);
+                    anim2.setStartOffset(250);
+                    anim2.setInterpolator(new DecelerateInterpolator());
+                    anim2.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            gameResultLevelProgress.setProgress(0);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            AppRater ar = new AppRater();
+                            ar.init(GameResultActivity.this, true);
+
+                            gameResultLevelProgress.setProgress(0);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    });
+
+                    gameResultLevelProgress.startAnimation(anim2);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            all.addAnimation(anim1);
+
+            gameResultLevelProgress.startAnimation(all);
+        }
+        // TODO add score of the player
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
 
-
-        // ************* will change, maybe the player changes level
-        ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, 10, 75);
-        anim.setDuration(1000);
-        anim.setStartOffset(3600);
-
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                AppRater ar = new AppRater();
-                ar.init(GameResultActivity.this, true);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        gameResultLevelProgress.startAnimation(anim);
+        animateProgress();
     }
 
     @Override
@@ -176,53 +251,34 @@ public class GameResultActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
 
-        readArguments();
+        user = AuthManager.getCurrentUser();
 
-        findControls();
+        // TODO DELETE NEXT LINE
+        user.setScore(25);
 
-        configureControls();
+        Log.d("----user", "" + user.getScore());
+        Log.d("----manager", "" + AuthManager.getCurrentUser().getScore());
 
         WIN = R.raw.win;
         LOSE = R.raw.lose;
-        try {
-            JSONObject parser = new JSONObject(resultInfo);
-            // TODO Chagne this to real data
-//            gameStatus = parser.getInt("result");       // just this class
-            gameStatus = 0;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        int bonus = 0, musicId;
-        if (gameStatus == 0) {
-            bonus = earnedDiamond;
-            gameVerdict = "مساوی شد";
-            musicId = LOSE;
-        } else if (gameStatus == 1) {
-            bonus = earnedDiamond + 120;
-            gameVerdict = "تو بردیییی";
-            musicId = WIN;
-        } else {
-            // nothing
-            gameVerdict = "تو باختی";
-            musicId = LOSE;
-        }
-        myPlayer = MediaPlayer.create(this, musicId);
-        AuthManager.getCurrentUser().addDiamond(bonus);
+        findControls();
 
+        readArguments();
 
-        myPlayer.start();
-        setTextView(R.id.game_result_status, gameVerdict);
-        AuthManager.getCurrentUser().setScore(AuthManager.getCurrentUser().getScore() + userPoints);
+        configureControls();
+
+        // TODO uncomment this
+        //user.setScore(user.getScore() + userPoints);
 
         allAnimations = new ArrayList<ObjectAnimator>();
 
-        allAnimations.add(translateAnimation(gameResultPlayerAvatar, "translationX", 1000, 0, 500, 0));
-        allAnimations.add(translateAnimation(gameResultPlayerName, "translationX", 1000, 0, 500, 0));
-        allAnimations.add(translateAnimation(gameResultPlayerPoints, "translationX", 1000, 0, 500, 0));
-        allAnimations.add(translateAnimation(gameResultOpponentAvatar, "translationX", 1000, 0, -500, 0));
-        allAnimations.add(translateAnimation(gameResultOpponentName, "translationX", 1000, 0, -500, 0));
-        allAnimations.add(translateAnimation(gameResultOpponentPoints, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(userAvatar, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(userName, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(userPointsTextView, "translationX", 1000, 0, 500, 0));
+        allAnimations.add(translateAnimation(opponentAvatar, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(opponentName, "translationX", 1000, 0, -500, 0));
+        allAnimations.add(translateAnimation(opponentPointsTextView, "translationX", 1000, 0, -500, 0));
 
         allAnimations.addAll(bothScaleAniamtion(gameResultStatus, 1000, 1000, 0f, 1f));
 
@@ -243,26 +299,91 @@ public class GameResultActivity extends MyBaseActivity {
         allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
     }
 
+
     private void configureControls() {
         FontHelper.setKoodakFor(getApplicationContext(),
                 gameResultStatus,
-                gameResultPlayerName, gameResultPlayerPoints,
-                gameResultOpponentName, gameResultOpponentPoints,
+                userName, userPointsTextView,
+                opponentName, opponentPointsTextView,
                 gameResultT1, gameResultT2, gameResultT3, gameResultT4,
                 gameResultT5, gameResultT6, gameResultT7, gameResultT8,
                 gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor, gameResultTotalExperience,
                 gameResultDiamondCnt, gameResultLevelText,
-                gameResultHome, gameResultAddFriend, gameResultDuelOthers, gameResultReport);
+                gameResultAddFriend, gameResultDuelOthers, gameResultReport);
+
+
+        userAvatar.setImageResource(AvatarHelper.getResourceId(GameResultActivity.this, user.getAvatar()));
+        userName.setText(user.getName());
+        userPointsTextView.setText("" + userPoints);
+
+        opponentAvatar.setImageResource(AvatarHelper.getResourceId(GameResultActivity.this, opponentUser.getAvatar()));
+        opponentName.setText(opponentUser.getName());
+        opponentPointsTextView.setText("" + opponentPoints);
+
+        gameStatus = 0;
+        JSONObject resultParser = null;
+        if (!resultInfo.isEmpty()) {
+            try {
+                resultParser = new JSONObject((new JSONObject(resultInfo)).getString("user"));
+
+                positivePoints = resultParser.getInt("positive_points");
+                winBonus = resultParser.getInt("win_bonus");
+                pointFactor = user.getScoreFactor();
+                totalXP = (positivePoints + winBonus) * pointFactor;
+                gameStatus = resultParser.getInt("result");
+                userPoints = resultParser.getInt("points");
+
+                opponentPoints =
+                        new JSONObject(
+                                new JSONArray(
+                                        (new JSONObject(resultInfo)).getString("opponents")
+                                ).get(0).toString()
+                        ).getInt("points");
+
+                gameResultPositivePoints.setText("" + positivePoints);
+                gameResultWinBonus.setText("" + winBonus);
+                gameResultPointFactor.setText("" + pointFactor);
+                gameResultTotalExperience.setText("" + totalXP);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        int bonus = 0, musicId;
+        if (gameStatus == 0) {
+            bonus = earnedDiamond;
+            gameVerdict = "مساوی شد";
+            musicId = LOSE;
+        } else if (gameStatus == 1) {
+            bonus = earnedDiamond + 120;
+            gameVerdict = "بردی";
+            gameResultStatus.setTextColor(getResources().getColor(R.color.correct_answer));
+            musicId = WIN;
+        } else {
+            // nothing
+            gameVerdict = "باختی";
+            gameResultStatus.setTextColor(getResources().getColor(R.color.wrong_answer));
+            musicId = LOSE;
+        }
+
+        gameResultStatus.setText(gameVerdict);
+
+        myPlayer = MediaPlayer.create(GameResultActivity.this, musicId);
+        user.addDiamond(bonus);
+        myPlayer.start();
+
+        gameResultLevelText.setText("" + ScoreHelper.getLevel(user.getScore()));
+        gameResultLevelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
     }
 
     private void findControls() {
         gameResultStatus = (TextView) findViewById(R.id.game_result_status);
-        gameResultOpponentAvatar = (ImageView) findViewById(R.id.game_result_opponent_avatar);
-        gameResultOpponentName = (TextView) findViewById(R.id.game_result_opponent_name);
-        gameResultOpponentPoints = (TextView) findViewById(R.id.game_result_opponent_points);
-        gameResultPlayerAvatar = (ImageView) findViewById(R.id.game_result_player_avatar);
-        gameResultPlayerName = (TextView) findViewById(R.id.game_result_player_name);
-        gameResultPlayerPoints = (TextView) findViewById(R.id.game_result_player_points);
+        opponentAvatar = (ImageView) findViewById(R.id.game_result_opponent_avatar);
+        opponentName = (TextView) findViewById(R.id.game_result_opponent_name);
+        opponentPointsTextView = (TextView) findViewById(R.id.game_result_opponent_points);
+        userAvatar = (ImageView) findViewById(R.id.game_result_user_avatar);
+        userName = (TextView) findViewById(R.id.game_result_user_name);
+        userPointsTextView = (TextView) findViewById(R.id.game_result_player_points);
         gameResultT7 = (TextView) findViewById(R.id.game_result_t7);
         gameResultT8 = (TextView) findViewById(R.id.game_result_t8);
         gameResultT5 = (TextView) findViewById(R.id.game_result_t5);
@@ -280,7 +401,6 @@ public class GameResultActivity extends MyBaseActivity {
         gameResultLevelText = (TextView) findViewById(R.id.game_result_level_text);
         gameResultDiamondCnt = (TextView) findViewById(R.id.game_result_diamond_cnt);
         gameResultDiamondPicture = (ImageView) findViewById(R.id.game_result_diamond_picture);
-        gameResultHome = (Button) findViewById(R.id.game_result_home);
         gameResultAddFriend = (Button) findViewById(R.id.game_result_add_friend);
         gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
         gameResultReport = (Button) findViewById(R.id.game_result_report);
@@ -290,11 +410,12 @@ public class GameResultActivity extends MyBaseActivity {
         Bundle params = getIntent().getExtras();
         if (params == null)
             return;
+
         String json = params.getString(ARGUMENT_OPPONENT, "");
+        resultInfo = params.getString(ARGUMENT_RESULT_INFO, "");
 
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);
-            resultInfo = params.getString(ARGUMENT_RESULT_INFO);
         }
     }
 

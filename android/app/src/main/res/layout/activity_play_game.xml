@@ -18,67 +18,54 @@
             android:id="@+id/play_game_header"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
-            android:background="@drawable/game_header"
+            android:layout_weight="3"
+            android:background="#10000000"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
+                android:layout_weight="2"
+                android:gravity="center">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2" />
-
                     <ImageView
-                        android:id="@+id/play_game_op_avatar"
+                        android:id="@+id/play_game_opponent_avatar"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="14"
+                        android:padding="5dp"
                         android:src="@drawable/av1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="5" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/play_game_op_avatar"
-                    android:layout_weight="3"
+                    android:layout_toRightOf="@id/play_game_opponent_avatar"
+                    android:layout_weight="4"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/play_game_op_name"
+                        android:id="@+id/play_game_opponent_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:padding="3dp"
                         android:singleLine="true"
-                        android:text="هایمان"
-                        android:textColor="@color/play_game_names"
+                        android:text="mehdi.kazemi8"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/play_game_op_score"
+                        android:id="@+id/play_game_opponent_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
@@ -95,11 +82,6 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
-
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -108,20 +90,16 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="5dp"
                         android:src="@drawable/clock" />
 
                     <ImageView
                         android:id="@+id/play_game_tick"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="5dp"
                         android:src="@drawable/tick0" />
-
                 </FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
 
             </LinearLayout>
 
@@ -135,24 +113,24 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/play_game_op_avatar"
-                    android:layout_weight="3"
+                    android:layout_toRightOf="@id/play_game_opponent_avatar"
+                    android:layout_weight="4"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/play_game_my_name"
+                        android:id="@+id/play_game_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:padding="3dp"
                         android:singleLine="true"
-                        android:text="هایمان"
-                        android:textColor="@color/play_game_names"
+                        android:text="imogharian"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/play_game_my_score"
+                        android:id="@+id/play_game_user_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -165,36 +143,18 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2" />
-
                     <ImageView
-                        android:id="@+id/play_game_my_avatar"
+                        android:id="@+id/play_game_user_avatar"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="14"
+                        android:padding="5dp"
                         android:src="@drawable/av1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="5" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
-
             </LinearLayout>
-
 
         </LinearLayout>
 

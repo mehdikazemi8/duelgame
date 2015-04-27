@@ -32,6 +32,7 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -111,7 +112,7 @@ public class PlayGameActivity extends MyBaseActivity {
                     ex.printStackTrace();
                 }
 
-                setTextView(playGameOpScore, "" + opponentPoints);
+                setTextView(opponentPointsTextView, "" + opponentPoints);
                 setProgressBar(opProgress, opponentPoints);
 
             } else if (type == CommandType.RECEIVE_GAME_ENDED) {
@@ -149,7 +150,7 @@ public class PlayGameActivity extends MyBaseActivity {
         remainingTimeOfThisQuestion = 20;
 
         String questionText = questionsToAsk[problemIndex].questionText;
-        setTextView(playGameQuestionText, questionText);
+        setTextView(questionTextView, questionText);
 
         String[] opts = questionsToAsk[problemIndex].options;
         problemIndex++;
@@ -220,7 +221,7 @@ public class PlayGameActivity extends MyBaseActivity {
         doAnimateHintOption(hintRemoveView, 0f, 1f, 1000, 1000);
         doAnimateHintOption(hintAgainView, 0f, 1f, 1000, 1000);
 
-        setStartAnimation(0f, 1f, playGameQuestionText, option0Btn, option1Btn, option2Btn, option3Btn);
+        setStartAnimation(0f, 1f, questionTextView, option0Btn, option1Btn, option2Btn, option3Btn);
     }
 
     public void setStartAnimation(float from, float to, TextView... views) {
@@ -293,7 +294,7 @@ public class PlayGameActivity extends MyBaseActivity {
             else
                 userPoints += 3;
 
-            setTextView(playGameMyScore, "" + userPoints);
+            setTextView(userPointsTextView, "" + userPoints);
 
             setProgressBar(myProgress, userPoints);
 
@@ -307,7 +308,7 @@ public class PlayGameActivity extends MyBaseActivity {
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
             userPoints += -1;
 
-            setTextView(playGameMyScore, "" + userPoints);
+            setTextView(userPointsTextView, "" + userPoints);
             setProgressBar(myProgress, userPoints);
 
             // what if he has chosen the wrong answer but he has a chance to choose another one
@@ -382,11 +383,14 @@ public class PlayGameActivity extends MyBaseActivity {
         tv.setText(s);
     }
 
-    private TextView playGameOpName;
-    private TextView playGameOpScore;
-    private TextView playGameMyName;
-    private TextView playGameMyScore;
-    private TextView playGameQuestionText;
+    private TextView opponentNameTextView;
+    private TextView opponentPointsTextView;
+    private TextView userNameTextView;
+    private TextView userPointsTextView;
+    private TextView questionTextView;
+
+    private ImageView userAvatar;
+    private ImageView opponentAvatar;
 
     private TextView playGameHintAgainCost;
     private TextView playGameHintAgainText;
@@ -425,9 +429,6 @@ public class PlayGameActivity extends MyBaseActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, DuelApp.getInstance().getIntentFilter());
 
-        setTextView(playGameMyName, AuthManager.getCurrentUser().getName());
-        setTextView(playGameOpName, opponentUser.getName());
-
         opponentPoints = userPoints = 0;
         problemIndex = 0;
 
@@ -447,20 +448,29 @@ public class PlayGameActivity extends MyBaseActivity {
     private void configureControls() {
         FontHelper.setKoodakFor(getApplicationContext(),
                 option0Btn, option1Btn, option2Btn, option3Btn,
-                playGameOpName, playGameOpScore,
-                playGameMyName, playGameMyScore,
-                playGameQuestionText,
+                opponentNameTextView, opponentPointsTextView,
+                userNameTextView, userPointsTextView,
+                questionTextView,
                 playGameHintAgainCost, playGameHintRemoveCost,
                 playGameHintAgainText, playGameHintRemoveText);
+
+        userNameTextView.setText(AuthManager.getCurrentUser().getName());
+        userAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, AuthManager.getCurrentUser().getAvatar()));
+
+        opponentNameTextView.setText(opponentUser.getName());
+        opponentAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, opponentUser.getAvatar()));
     }
 
     private void findControls() {
         tick = (ImageView) findViewById(R.id.play_game_tick);
-        playGameOpName = (TextView) findViewById(R.id.play_game_op_name);
-        playGameOpScore = (TextView) findViewById(R.id.play_game_op_score);
-        playGameMyName = (TextView) findViewById(R.id.play_game_my_name);
-        playGameMyScore = (TextView) findViewById(R.id.play_game_my_score);
-        playGameQuestionText = (TextView) findViewById(R.id.play_game_question_text);
+        opponentNameTextView = (TextView) findViewById(R.id.play_game_opponent_name);
+        opponentPointsTextView = (TextView) findViewById(R.id.play_game_opponent_score);
+        userNameTextView = (TextView) findViewById(R.id.play_game_user_name);
+        userPointsTextView = (TextView) findViewById(R.id.play_game_user_score);
+        questionTextView = (TextView) findViewById(R.id.play_game_question_text);
+
+        userAvatar = (ImageView) findViewById(R.id.play_game_user_avatar);
+        opponentAvatar = (ImageView) findViewById(R.id.play_game_opponent_avatar);
 
         option0Btn = (Button) findViewById(R.id.play_game_option_0);
         option1Btn = (Button) findViewById(R.id.play_game_option_1);
@@ -481,6 +491,8 @@ public class PlayGameActivity extends MyBaseActivity {
         hintAgainView = (RelativeLayout) findViewById(R.id.play_game_hint_again_view);
         hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
         header = (LinearLayout) findViewById(R.id.play_game_header);
+
+
     }
 
     User opponentUser;
@@ -489,6 +501,7 @@ public class PlayGameActivity extends MyBaseActivity {
         Bundle params = getIntent().getExtras();
         if (params == null)
             return;
+
         String json = params.getString(ARGUMENT_OPPONENT, "");
 
         if (!json.isEmpty()) {
@@ -573,14 +586,14 @@ public class PlayGameActivity extends MyBaseActivity {
 //        option2Btn.setVisibility(View.INVISIBLE);
 //        option3Btn.setVisibility(View.INVISIBLE);
 
-        setTextView(playGameQuestionText, round[problemIndex]);
-        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(playGameQuestionText,
+        setTextView(questionTextView, round[problemIndex]);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(questionTextView,
                 "alpha", 0f, 1f);
         fadeIn.setDuration(1000);
         fadeIn.setInterpolator(new LinearInterpolator());
         fadeIn.start();
 
-        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(playGameQuestionText,
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(questionTextView,
                 "alpha", 1f, 0f);
         fadeOut.setDuration(1000);
         fadeOut.setStartDelay(1000);
@@ -659,7 +672,7 @@ public class PlayGameActivity extends MyBaseActivity {
             hintRemoveViewIsOpen = false;
         }
 
-        ObjectAnimator questionFadeOut = ObjectAnimator.ofFloat(playGameQuestionText, "alpha", 1f, 0f);
+        ObjectAnimator questionFadeOut = ObjectAnimator.ofFloat(questionTextView, "alpha", 1f, 0f);
         questionFadeOut.setDuration(1000);
         questionFadeOut.setStartDelay(1000);
         questionFadeOut.setInterpolator(new LinearInterpolator());

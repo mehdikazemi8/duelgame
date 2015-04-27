@@ -16,24 +16,25 @@
         android:layout_height="match_parent"
         android:layout_above="@id/waiting_separator"
         android:background="@android:color/holo_orange_light"
+        android:clipChildren="false"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="invisible">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:clipChildren="false"
             android:gravity="right"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/waiting_my_level"
+                android:id="@+id/waiting_user_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -42,26 +43,27 @@
                 android:text="دیپلم" />
 
             <TextView
-                android:id="@+id/waiting_my_name"
+                android:id="@+id/waiting_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/waiting_my_level"
+                android:layout_above="@id/waiting_user_title"
                 android:gravity="right"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="اسم" />
 
             <TextView
-                android:id="@+id/waiting_my_ostan"
+                android:id="@+id/waiting_user_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/waiting_my_level"
+                android:layout_below="@id/waiting_user_title"
                 android:gravity="right"
                 android:padding="5dp"
                 android:text="استان" />
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/waiting_my_avatar"
+            android:id="@+id/waiting_user_avatar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -75,6 +77,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/waiting_separator"
         android:background="@android:color/holo_blue_light"
+        android:clipChildren="false"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="invisible">
@@ -90,12 +93,13 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:clipChildren="false"
             android:gravity="left"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/waiting_opponent_level"
+                android:id="@+id/waiting_opponent_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -107,16 +111,17 @@
                 android:id="@+id/waiting_opponent_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/waiting_opponent_level"
+                android:layout_above="@id/waiting_opponent_title"
                 android:gravity="left"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="اسم" />
 
             <TextView
-                android:id="@+id/waiting_opponent_ostan"
+                android:id="@+id/waiting_opponent_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/waiting_opponent_level"
+                android:layout_below="@id/waiting_opponent_title"
                 android:gravity="left"
                 android:padding="5dp"
                 android:text="استان" />
@@ -125,7 +130,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
