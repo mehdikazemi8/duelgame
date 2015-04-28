@@ -55,7 +55,6 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     @Override
     public void onDetach() {
         super.onDetach();
-        EventBus.getDefault().unregister(this);
     }
 
     private void configure() {
@@ -66,6 +65,12 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
