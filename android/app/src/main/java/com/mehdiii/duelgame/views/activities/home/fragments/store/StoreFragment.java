@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -115,5 +116,11 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
 
         // show result dialog
         new PurchaseResultDialog(getActivity(), message).show();
+
+        // notify that diamond is changed to a new value
+        if (purchase.getPurchaseResult() == PurchaseDone.PurchaseResult.COMPLETED) {
+            AuthManager.getCurrentUser().setDiamond(purchase.getDiamond());
+            EventBus.getDefault().post(new OnDiamondChangeNotice(purchase.getDiamond()));
+        }
     }
 }

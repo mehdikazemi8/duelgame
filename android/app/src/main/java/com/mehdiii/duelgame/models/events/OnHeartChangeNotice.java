@@ -1,13 +1,15 @@
-package com.mehdiii.duelgame.models;
+package com.mehdiii.duelgame.models.events;
+
+import com.mehdiii.duelgame.models.HeartState;
 
 /**
  * Created by omid on 4/20/2015.
  */
-public class HeartChangeNotice {
+public class OnHeartChangeNotice {
     HeartState state;
     ChangeMode mode;
 
-    public HeartChangeNotice(HeartState state, ChangeMode mode) {
+    public OnHeartChangeNotice(HeartState state, ChangeMode mode) {
         this.state = state;
         this.mode = mode;
     }

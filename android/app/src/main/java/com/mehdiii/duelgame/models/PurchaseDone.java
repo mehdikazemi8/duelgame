@@ -20,6 +20,8 @@ public class PurchaseDone extends BaseModel {
     private String purchaseId;
     @SerializedName("status")
     private String status;
+    @SerializedName("diamond")
+    private int diamond;
 
     public String getPurchaseId() {
         return purchaseId;
@@ -39,6 +41,14 @@ public class PurchaseDone extends BaseModel {
 
     public PurchaseItem getPurchaseItem() {
         return purchaseItem;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public void setDiamond(int diamond) {
+        this.diamond = diamond;
     }
 
     public void setPurchaseItem(PurchaseItem purchaseItem) {

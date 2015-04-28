@@ -19,9 +19,11 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -29,6 +31,8 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by omid on 4/5/2015.
@@ -56,6 +60,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                 AuthManager.getCurrentUser().setEmail(updatedUser.getEmail());
                 AuthManager.getCurrentUser().setAvatar(updatedUser.getAvatar());
                 AuthManager.getCurrentUser().setProvince(updatedUser.getProvince());
+
+                EventBus.getDefault().post(new OnUserSettingsChanged());
             }
         }
     });
@@ -159,6 +165,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     }
 
     private boolean validateForm() {
+        // TODO the logic in this part can be troublesome, review it ASAP.
         if (usernameEditText.getText().length() == 0) {
             Toast toast = Toast.makeText(getActivity(), "لطفا اسم خود را وارد نمایید.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 0);

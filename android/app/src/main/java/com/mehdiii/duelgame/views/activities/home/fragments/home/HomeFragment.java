@@ -3,7 +3,6 @@ package com.mehdiii.duelgame.views.activities.home.fragments.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,10 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
-import com.mehdiii.duelgame.models.HeartChangeNotice;
+import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
+import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -30,14 +31,14 @@ import de.greenrobot.event.EventBus;
  */
 public class HomeFragment extends FlippableFragment implements View.OnClickListener {
 
-    TextView homeDiamondCnt;
-    ImageView homeMyAvatar;
-    TextView homeMyDegree;
-    TextView homeLevelText;
-    TextView homeTotalRankingText;
-    TextView homeTotalRanking;
-    TextView homeFriendsRankingText;
-    TextView homeFriendsRanking;
+    TextView diamondCount;
+    ImageView avatarImageView;
+    TextView titleTextView;
+    TextView levelText;
+    TextView totalRankingText;
+    TextView totalRanking;
+    TextView friendsRankingText;
+    TextView friendsRanking;
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
@@ -51,56 +52,59 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        homeDiamondCnt = (TextView) view.findViewById(R.id.home_diamond_cnt);
-        homeMyAvatar = (ImageView) view.findViewById(R.id.home_my_avatar);
-        homeMyDegree = (TextView) view.findViewById(R.id.home_my_degree);
-        homeLevelText = (TextView) view.findViewById(R.id.home_level_text);
-        homeTotalRankingText = (TextView) view.findViewById(R.id.home_total_ranking_text);
-        homeTotalRanking = (TextView) view.findViewById(R.id.home_total_ranking);
-        homeFriendsRankingText = (TextView) view.findViewById(R.id.home_friends_ranking_text);
-        homeFriendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        /**
+         * find controls and bind view data
+         */
+        find(view);
+        bindData();
+
+        /**
+         * configure click listeners and setup typeface
+         */
+        addFriendButton.setOnClickListener(this);
+        refillButton.setOnClickListener(this);
+        FontHelper.setKoodakFor(view.getContext(),
+                diamondCount, titleTextView, levelText, totalRankingText,
+                totalRanking, friendsRankingText, friendsRanking);
+    }
+
+    private void find(View view) {
+        diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
+        avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
+        titleTextView = (TextView) view.findViewById(R.id.textView_title);
+        levelText = (TextView) view.findViewById(R.id.home_level_text);
+        totalRankingText = (TextView) view.findViewById(R.id.home_total_ranking_text);
+        totalRanking = (TextView) view.findViewById(R.id.home_total_ranking);
+        friendsRankingText = (TextView) view.findViewById(R.id.home_friends_ranking_text);
+        friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
-
         firstHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_first);
         secondHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_second);
         thirdHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_third);
         fourthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fourth);
         fifthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fifth);
         imageViews = new ImageView[]{firstHeartImageView, secondHeartImageView, thirdHeartImageView, fourthHeartImageView, fifthHeartImageView};
+    }
 
-        FontHelper.setKoodakFor(view.getContext(),
-                homeDiamondCnt, homeMyDegree, homeLevelText, homeTotalRankingText,
-                homeTotalRanking, homeFriendsRankingText, homeFriendsRanking);
-
-        setDataForViews(view);
-
-        addFriendButton.setOnClickListener(this);
-        refillButton.setOnClickListener(this);
-
+    @Override
+    public void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
+    }
 
-        // TODO-1 DELETE THIS
-        User user = AuthManager.getCurrentUser();
-        Log.d("---- diamond", "" + user.getDiamond());
-        Log.d("---- heart", "" + user.getHeart());
-        Log.d("---- avatar", "" + user.getAvatar());
-        Log.d("---- score", "" + user.getScore());
-        Log.d("---- name", "" + user.getName());
-        // END OF TODO-1
-
-        homeDiamondCnt.setText("" + user.getDiamond());
-        arrangeHearts(user.getHeart());
-        homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
-
-        homeLevelText.setText(""+ScoreHelper.getLevel(user.getScore()));
-        levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
-        homeMyDegree.setText(""+ScoreHelper.getTitle(user.getScore()));
-
-        return view;
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -115,29 +119,15 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
     }
 
-    public void setDataForViews(View view) {
+    public void bindData() {
         User user = AuthManager.getCurrentUser();
+        avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
+        diamondCount.setText(user.getDiamond());
+        levelText.setText(ScoreHelper.getLevel(user.getScore()));
+        levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
+        titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
 
-        // TODO, DELETE this
-//        user.setAvatar(5);
-//        user.setHeart(3);
-//        user.setDiamond(347);
-//        user.setScore(519);
-        // END OF TODO
-
-        homeMyAvatar.setImageResource(AvatarHelper.getResourceId(view.getContext(), user.getAvatar()));
-        homeDiamondCnt.setText("" + user.getDiamond());
         arrangeHearts(user.getHeart());
-
-        /**
-         Log.d("------ avatar", ""+user.getAvatar());
-         Log.d("------ province", ""+user.getProvince());
-         Log.d("------ diamond", ""+user.getDiamond());
-         Log.d("------ id", ""+user.getId());
-         Log.d("------ name", ""+user.getName());
-         Log.d("------ heart", ""+user.getHeart());
-         Log.d("------ score", ""+user.getScore());
-         **/
     }
 
     private void addFriend() {
@@ -154,8 +144,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         HeartTracker.getInstance(getActivity()).useHeart();
     }
 
-    public void onEvent(HeartChangeNotice notice) {
+    public void onEvent(OnHeartChangeNotice notice) {
         arrangeHearts(notice.getState().getCurrent());
+    }
+
+    public void onEvent(OnDiamondChangeNotice notice) {
+        this.diamondCount.setText(notice.getNewValue());
+    }
+
+    public void onEvent(OnUserSettingsChanged settings) {
+        bindData();
     }
 
     private void arrangeHearts(int count) {
@@ -166,4 +164,5 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 imageViews[i].setImageResource(R.drawable.heart_blank);
         }
     }
+
 }
