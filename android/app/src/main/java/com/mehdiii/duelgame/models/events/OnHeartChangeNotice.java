@@ -32,6 +32,7 @@ public class OnHeartChangeNotice {
 
     public enum ChangeMode {
         INCREASED,
-        DECREASED
+        DECREASED,
+        REFRESH
     }
 }

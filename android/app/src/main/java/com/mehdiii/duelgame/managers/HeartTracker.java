@@ -27,13 +27,13 @@ public class HeartTracker {
     private static final int COUNT_HEARTS_MAX = 5;
     private static final int TIME_RECOVER_SINGLE_HEART_MILLS = 10000;
 
-    HeartState state;
+    private HeartState state;
     private boolean refillRunning = false;
 
     private Context context;
-    Intent intent;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager = null;
+    private Intent intent;
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager = null;
 
     private static HeartTracker instance;
 
@@ -92,6 +92,12 @@ public class HeartTracker {
             startAlarm();
     }
 
+    public void setLoginHearts(int khearts) {
+        getState().setCurrent(khearts);
+        persist();
+        notifyChange(OnHeartChangeNotice.ChangeMode.REFRESH);
+    }
+
     public void increaseHeart() {
         state.increase();
         saveCheckpoint();
@@ -122,5 +128,9 @@ public class HeartTracker {
     public void notifyChange(OnHeartChangeNotice.ChangeMode mode) {
         if (EventBus.getDefault() != null)
             EventBus.getDefault().post(new OnHeartChangeNotice(state, mode));
+    }
+
+    public HeartState getState() {
+        return state;
     }
 }

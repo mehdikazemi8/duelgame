@@ -122,8 +122,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void bindData() {
         User user = AuthManager.getCurrentUser();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
-        diamondCount.setText(user.getDiamond());
-        levelText.setText(ScoreHelper.getLevel(user.getScore()));
+        diamondCount.setText(String.valueOf(user.getDiamond()));
+        levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));
         levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
 
@@ -149,7 +149,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     public void onEvent(OnDiamondChangeNotice notice) {
-        this.diamondCount.setText(notice.getNewValue());
+        this.diamondCount.setText(String.valueOf(notice.getNewValue()));
     }
 
     public void onEvent(OnUserSettingsChanged settings) {
