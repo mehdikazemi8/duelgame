@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
@@ -26,6 +27,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragm
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,6 +241,13 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void wantToPlay(View v) {
+        if (HeartTracker.getInstance(this).getState().getCurrent() <= 0) {
+            HeartLowDialog dialog = new HeartLowDialog(this);
+            dialog.show();
+            return;
+        }
+
+
         musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
     }

@@ -24,7 +24,7 @@ public class HeartTracker {
     public static final String PREFERENCE_KEY_HEARTS = "heart_tracker";
     public static final String PREFERENCE_KEY_LAST_DECREMENT = "last_decrement_time";
 
-    private static final int COUNT_HEARTS_MAX = 5;
+    public static final int COUNT_HEARTS_MAX = 5;
     private static final int TIME_RECOVER_SINGLE_HEART_MILLS = 10000;
 
     private HeartState state;
