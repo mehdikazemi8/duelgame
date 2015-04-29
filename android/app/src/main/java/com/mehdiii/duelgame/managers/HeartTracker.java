@@ -78,6 +78,8 @@ public class HeartTracker {
     }
 
     public void useHeart() {
+        if ( state == null )
+            init();
 
         if (state.getCurrent() <= 0)
             return;
@@ -98,6 +100,9 @@ public class HeartTracker {
     }
 
     public void increaseHeart() {
+        if ( state == null )
+            init();
+
         state.increase();
         saveCheckpoint();
         notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED);

@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.store;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -41,16 +42,53 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     }
 
     private void addOffers() {
+        int previousType = -1;
+        boolean newLine = true;
+        LinearLayout linearLayout = null;
+        int parity = 0;
         for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
+            if (parity == 2) {
+                parity = 0;
+                newLine = true;
+            }
+
+            if (newLine) {
+                if (linearLayout != null)
+                    storeContainer.addView(linearLayout);
+            }
+
+            if (previousType != -1 && item.getEntityType() != previousType) {
+                addDelimiter();
+                newLine = true;
+            }
+
+            if (newLine) {
+                linearLayout = new PurchaseItemView(getActivity());
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                linearLayout.setGravity(View.FOCUS_RIGHT);
+                newLine = false;
+                parity = 0;
+            }
+
             PurchaseItemView view = new PurchaseItemView(getActivity(), null);
             view.setOnClickListener(this);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             view.setCaption(item.getTitle());
             view.setType(item.getEntityType());
             view.setPrice(item.getCost().toString());
             view.setTag(item);
-            storeContainer.addView(view);
+            linearLayout.addView(view, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+            previousType = item.getEntityType();
+            parity++;
         }
+    }
+
+    private void addDelimiter() {
+        View view = new View(getActivity());
+        view.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+        view.setPadding(0, 30, 0, 30);
+        view.setBackgroundColor(getResources().getColor(R.color.blue_dark));
+        storeContainer.addView(view);
     }
 
     @Override
