@@ -38,6 +38,16 @@ public class User extends BaseModel {
     private int scoreFactor;
     @SerializedName("gender")
     private int gender;
+    @SerializedName("update_version")
+    private UpdateVersion updateVersion;
+
+    public UpdateVersion getUpdateVersion() {
+        return updateVersion;
+    }
+
+    public void setUpdateVersion(UpdateVersion updateVersion) {
+        this.updateVersion = updateVersion;
+    }
 
     public int getGender() {
         return gender;

@@ -24,12 +24,12 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.TryToConnectActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
 
-public class RegisterActivity extends MyBaseActivity {
+public class RegisterActivity extends ParentActivity {
 
     String userId;
     TextView hintTextView;

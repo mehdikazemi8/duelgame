@@ -4,4 +4,6 @@
     <string name="message_share">برای دانلود دوئل از لینک زیر استفاده کنید: %s</string>
     <string name="error_add_friend_invalid">کد وارد شده صحیح نیست. لطفا دقت کنید.</string>
     <string name="error_add_friend_duplicate">درخواست دوستی قبلا ارسال شده.</string>
+    <string name="message_settings_save_successful">اطلاعات با موفقیت ذخیره شد.</string>
+    <string name="message_settings_save_failed">نشد! لطفا بعدا دوباره تلاش کنید.</string>
 </resources>

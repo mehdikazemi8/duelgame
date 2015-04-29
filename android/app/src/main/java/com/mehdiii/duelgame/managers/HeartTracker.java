@@ -38,11 +38,10 @@ public class HeartTracker {
     private static HeartTracker instance;
 
     public static HeartTracker getInstance(Context ctx) {
-        if (instance == null)
+        if (instance == null) {
             instance = new HeartTracker();
-
-        instance.context = ctx;
-        instance.init();
+            instance.context = ctx;
+        }
 
         return instance;
     }

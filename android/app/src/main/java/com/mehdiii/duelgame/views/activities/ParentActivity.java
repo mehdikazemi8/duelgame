@@ -1,12 +1,16 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.mehdiii.duelgame.models.Question;
 
 import java.util.Random;
 
-public class MyBaseActivity extends ActionBarActivity {
+import de.greenrobot.event.EventBus;
+
+public class ParentActivity extends ActionBarActivity {
 
     static Random rand = new Random();
     static String category;
@@ -25,9 +29,4 @@ public class MyBaseActivity extends ActionBarActivity {
             ar[i] = a;
         }
     }
-
-    public void onEvent() {
-
-    }
-
 }

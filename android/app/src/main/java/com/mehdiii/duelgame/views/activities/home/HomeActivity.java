@@ -18,7 +18,7 @@ import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
@@ -32,7 +32,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class HomeActivity extends MyBaseActivity {
+public class HomeActivity extends ParentActivity {
     private static final int REQUEST_CODE_PURCHASE = 1001;
 
     ViewPager viewPager;
@@ -229,8 +229,6 @@ public class HomeActivity extends MyBaseActivity {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        startService(svc);
     }
 
     @Override
@@ -241,7 +239,6 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     public void wantToPlay(View v) {
-        Log.d("&&&&", "aaaaaaaaaaaaaaaa");
         musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
     }

@@ -20,6 +20,7 @@ public class AuthManager {
 
     public static User authenticate(User user) {
         MemoryCache.set(CACHE_TAG, user);
+        HeartTracker.getInstance(DuelApp.getInstance().getApplicationContext()).init();
         HeartTracker.getInstance(DuelApp.getInstance()).setLoginHearts(user.getHeart());
         return user;
     }

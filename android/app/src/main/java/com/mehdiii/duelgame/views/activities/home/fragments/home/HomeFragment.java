@@ -42,13 +42,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
-
-    ImageView firstHeartImageView;
-    ImageView secondHeartImageView;
-    ImageView thirdHeartImageView;
-    ImageView fourthHeartImageView;
-    ImageView fifthHeartImageView;
-    ImageView[] imageViews;
+    TextView textViewHearts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +66,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         refillButton.setOnClickListener(this);
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
-                totalRanking, friendsRankingText, friendsRanking);
+                totalRanking, friendsRankingText, friendsRanking, textViewHearts);
     }
 
     private void find(View view) {
@@ -87,12 +81,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
-        firstHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_first);
-        secondHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_second);
-        thirdHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_third);
-        fourthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fourth);
-        fifthHeartImageView = (ImageView) view.findViewById(R.id.imageView_heart_fifth);
-        imageViews = new ImageView[]{firstHeartImageView, secondHeartImageView, thirdHeartImageView, fourthHeartImageView, fifthHeartImageView};
+        textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
     }
 
     @Override
@@ -157,12 +146,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void arrangeHearts(int count) {
-        for (int i = 0; i < 5; i++) {
-            if (i < count)
-                imageViews[i].setImageResource(R.drawable.heart_full);
-            else
-                imageViews[i].setImageResource(R.drawable.heart_blank);
-        }
+        this.textViewHearts.setText(String.valueOf(count));
     }
 
 }

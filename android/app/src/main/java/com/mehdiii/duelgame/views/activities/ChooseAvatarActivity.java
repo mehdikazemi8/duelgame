@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 
-public class ChooseAvatarActivity extends MyBaseActivity {
+public class ChooseAvatarActivity extends ParentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

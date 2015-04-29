@@ -109,6 +109,9 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
             case FAILED:
                 message = "خرید انجام نشد.";
                 break;
+            case NOT_ENOUGH:
+                message = "الماس به اندازه کافی نداری!";
+                break;
             case UNKNOWN:
                 message = "مشکل نامشخص!";
                 break;

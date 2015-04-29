@@ -11,6 +11,7 @@ public class PurchaseDone extends BaseModel {
         COMPLETED,
         FAILED,
         DUPLICATE,
+        NOT_ENOUGH,
         UNKNOWN
     }
 
@@ -62,6 +63,8 @@ public class PurchaseDone extends BaseModel {
             return PurchaseResult.DUPLICATE;
         else if (status.equals("failed"))
             return PurchaseResult.FAILED;
+        else if (status.equals("not_enough"))
+            return PurchaseResult.NOT_ENOUGH;
         else
             return PurchaseResult.UNKNOWN;
     }

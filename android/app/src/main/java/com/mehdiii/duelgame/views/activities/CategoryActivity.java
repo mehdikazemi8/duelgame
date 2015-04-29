@@ -8,7 +8,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
 
-public class CategoryActivity extends MyBaseActivity {
+public class CategoryActivity extends ParentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
