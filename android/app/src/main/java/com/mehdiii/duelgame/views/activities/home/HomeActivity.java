@@ -9,33 +9,31 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
-import com.mehdiii.duelgame.models.BuyNotif;
+import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class HomeActivity extends MyBaseActivity {
+public class HomeActivity extends ParentActivity {
     private static final int REQUEST_CODE_PURCHASE = 1001;
 
     ViewPager viewPager;
@@ -48,11 +46,11 @@ public class HomeActivity extends MyBaseActivity {
     ToggleButton friendsButton;
     ToggleButton previous;
 
-    FlipableFragment storeFragment;
-    FlipableFragment rankingFragment;
-    FlipableFragment settingsFragment;
-    FlipableFragment homeFragment;
-    FlipableFragment friendsFagment;
+    FlippableFragment storeFragment;
+    FlippableFragment rankingFragment;
+    FlippableFragment settingsFragment;
+    FlippableFragment homeFragment;
+    FlippableFragment friendsFragment;
 
 
     List<Fragment> childFragments;
@@ -191,7 +189,7 @@ public class HomeActivity extends MyBaseActivity {
                     break;
                 case 3:
                     selection = friendsButton;
-                    friendsFagment.onBringToFront();
+                    friendsFragment.onBringToFront();
                     break;
                 case 4:
                     selection = homeButton;
@@ -215,68 +213,23 @@ public class HomeActivity extends MyBaseActivity {
     private void createChildFragments() {
         childFragments = new ArrayList<>();
 
-        settingsFragment = (FlipableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
-        rankingFragment = (FlipableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
-        friendsFagment = (FlipableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
-        storeFragment = (FlipableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
-        homeFragment = (FlipableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
+        settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
+        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
+        friendsFragment = (FlippableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
+        storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
+        homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
         childFragments.add(settingsFragment);
         childFragments.add(storeFragment);
         childFragments.add(rankingFragment);
-        childFragments.add(friendsFagment);
+        childFragments.add(friendsFragment);
         childFragments.add(homeFragment);
-    }
-
-
-    public void setTextView(int id, String str) {
-        ((TextView) findViewById(id)).setText(str);
-    }
-
-    private void readData() {
-//        try {
-//            JSONObject parser = new JSONObject(loginInfo);
-//            myAvatarIndex = parser.getInt("avatar");
-//            userDiamond = parser.getInt("time");
-//            myOstanInt = parser.getInt("ostan");
-//            myScore = parser.getInt("score");
-//            myUserNumber = parser.getString("user_number");
-//            myElo = (int) parser.getDouble("elo");
-//            myName = parser.getString("name");
-//
-//        } catch (JSONException e) {
-//
-//        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_start, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.about) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        startService(svc);
     }
 
     @Override
@@ -287,7 +240,13 @@ public class HomeActivity extends MyBaseActivity {
     }
 
     public void wantToPlay(View v) {
-        Log.d("&&&&", "aaaaaaaaaaaaaaaa");
+        if (HeartTracker.getInstance(this).getState().getCurrent() <= 0) {
+            HeartLowDialog dialog = new HeartLowDialog(this);
+            dialog.show();
+            return;
+        }
+
+
         musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
     }
@@ -326,11 +285,14 @@ public class HomeActivity extends MyBaseActivity {
 //        stopService(svc);
     }
 
-    BuyNotif buyNotif;
-
-    public void onEvent(BuyNotif buyNotif) {
-        PurchaseManager.getInstance().initiatePurchase(buyNotif);
+    public void onEvent(BuyNotification buyNotification) {
+        switch (buyNotification.getType()) {
+            case 1:
+                PurchaseManager.getInstance().initiatePurchase(buyNotification);
+                break;
+            case 2:
+                PurchaseManager.getInstance().useDiamond(buyNotification);
+                break;
+        }
     }
-
-
 }

@@ -24,12 +24,12 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.MyBaseActivity;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.TryToConnectActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
 
-public class RegisterActivity extends MyBaseActivity {
+public class RegisterActivity extends ParentActivity {
 
     String userId;
     TextView hintTextView;
@@ -64,6 +64,10 @@ public class RegisterActivity extends MyBaseActivity {
         find();
         configure();
 
+
+        /**
+         * listen for data changes
+         */
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
 
 
@@ -74,6 +78,7 @@ public class RegisterActivity extends MyBaseActivity {
 
         if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
             startActivity(new Intent(this, TryToConnectActivity.class));
+            finish();
         }
     }
 
@@ -95,7 +100,10 @@ public class RegisterActivity extends MyBaseActivity {
          * set font to controls
          */
         FontHelper.setKoodakFor(this, usernameEditText, registerButton, emailEditText, girlTextView, boyTextView, hintTextView);
+        // set default gender value
         genderSwitch.setChecked(true);
+
+        // add click listeners for gender textViews
         this.girlTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +122,7 @@ public class RegisterActivity extends MyBaseActivity {
     }
 
     private boolean validateForm() {
+        // TODO the logic in this part can be troublesome, review it ASAP.
         if (usernameEditText.getText().length() == 0) {
             Toast toast = Toast.makeText(this, "لطفا اسم خود را وارد نمایید.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 0);

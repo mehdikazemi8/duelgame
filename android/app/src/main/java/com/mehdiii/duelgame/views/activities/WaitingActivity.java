@@ -37,7 +37,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-public class WaitingActivity extends MyBaseActivity {
+public class WaitingActivity extends ParentActivity {
     boolean hasLeft;
 
     private TextView userTitle;

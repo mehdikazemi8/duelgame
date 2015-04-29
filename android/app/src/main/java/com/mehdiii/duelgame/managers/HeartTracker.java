@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
-import com.mehdiii.duelgame.models.HeartChangeNotice;
+import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.HeartState;
 import com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived;
 
@@ -24,25 +24,24 @@ public class HeartTracker {
     public static final String PREFERENCE_KEY_HEARTS = "heart_tracker";
     public static final String PREFERENCE_KEY_LAST_DECREMENT = "last_decrement_time";
 
-    private static final int COUNT_HEARTS_MAX = 5;
+    public static final int COUNT_HEARTS_MAX = 5;
     private static final int TIME_RECOVER_SINGLE_HEART_MILLS = 10000;
 
-    HeartState state;
+    private HeartState state;
     private boolean refillRunning = false;
 
     private Context context;
-    Intent intent;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager = null;
+    private Intent intent;
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager = null;
 
     private static HeartTracker instance;
 
     public static HeartTracker getInstance(Context ctx) {
-        if (instance == null)
+        if (instance == null) {
             instance = new HeartTracker();
-
-        instance.context = ctx;
-        instance.init();
+            instance.context = ctx;
+        }
 
         return instance;
     }
@@ -79,6 +78,8 @@ public class HeartTracker {
     }
 
     public void useHeart() {
+        if ( state == null )
+            init();
 
         if (state.getCurrent() <= 0)
             return;
@@ -86,16 +87,25 @@ public class HeartTracker {
 
         state.decrease();
         saveCheckpoint();
-        notifyChange(HeartChangeNotice.ChangeMode.DECREASED);
+        notifyChange(OnHeartChangeNotice.ChangeMode.DECREASED);
 
         if (!refillRunning)
             startAlarm();
     }
 
+    public void setLoginHearts(int khearts) {
+        getState().setCurrent(khearts);
+        persist();
+        notifyChange(OnHeartChangeNotice.ChangeMode.REFRESH);
+    }
+
     public void increaseHeart() {
+        if ( state == null )
+            init();
+
         state.increase();
         saveCheckpoint();
-        notifyChange(HeartChangeNotice.ChangeMode.INCREASED);
+        notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED);
 
         if (state.getCurrent() >= COUNT_HEARTS_MAX)
             stop();
@@ -119,8 +129,12 @@ public class HeartTracker {
         return TIME_RECOVER_SINGLE_HEART_MILLS - (SystemClock.elapsedRealtime() - state.getLastDecrementTime());
     }
 
-    public void notifyChange(HeartChangeNotice.ChangeMode mode) {
+    public void notifyChange(OnHeartChangeNotice.ChangeMode mode) {
         if (EventBus.getDefault() != null)
-            EventBus.getDefault().post(new HeartChangeNotice(state, mode));
+            EventBus.getDefault().post(new OnHeartChangeNotice(state, mode));
+    }
+
+    public HeartState getState() {
+        return state;
     }
 }

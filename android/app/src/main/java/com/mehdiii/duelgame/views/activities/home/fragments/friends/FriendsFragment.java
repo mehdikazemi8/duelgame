@@ -23,13 +23,13 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 
 /**
  * Created by omid on 4/5/2015.
  */
-public class FriendsFragment extends FlipableFragment implements View.OnClickListener {
+public class FriendsFragment extends FlippableFragment implements View.OnClickListener {
     //    TabPageIndicator indicator;
     ListView listView;
     FriendsListAdapter adapter;

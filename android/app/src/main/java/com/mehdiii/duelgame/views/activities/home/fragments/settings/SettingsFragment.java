@@ -19,21 +19,26 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.DeliveryReport;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.home.fragments.FlipableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by omid on 4/5/2015.
  */
-public class SettingsFragment extends FlipableFragment implements View.OnClickListener {
+public class SettingsFragment extends FlippableFragment implements View.OnClickListener {
+
     private EditText usernameEditText;
     private EditText emailEditText;
     private ImageView avatarImageView;
@@ -50,12 +55,22 @@ public class SettingsFragment extends FlipableFragment implements View.OnClickLi
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_LOGIN_INFO) {
-                User updatedUser = BaseModel.deserialize(json, User.class);
-                AuthManager.getCurrentUser().setName(updatedUser.getName());
-                AuthManager.getCurrentUser().setEmail(updatedUser.getEmail());
-                AuthManager.getCurrentUser().setAvatar(updatedUser.getAvatar());
-                AuthManager.getCurrentUser().setProvince(updatedUser.getProvince());
+            if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
+                DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
+                int message = 0;
+                if (report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
+
+                    AuthManager.getCurrentUser().setName(newSettings.getName());
+                    AuthManager.getCurrentUser().setGender(newSettings.getGender());
+                    AuthManager.getCurrentUser().setEmail(newSettings.getEmail());
+                    AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
+                    AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
+
+                    EventBus.getDefault().post(new OnUserSettingsChanged());
+                    message = R.string.message_settings_save_successful;
+                } else message = R.string.message_settings_save_failed;
+
+                DuelApp.getInstance().toast(message, Toast.LENGTH_SHORT);
             }
         }
     });
@@ -81,6 +96,11 @@ public class SettingsFragment extends FlipableFragment implements View.OnClickLi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        find(view);
+        configure();
+    }
+
+    private void find(View view) {
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
         textViewHintAvatat = (TextView) view.findViewById(R.id.textView_hint_avatat);
         spinnerProvince = (Spinner) view.findViewById(R.id.spinner_province);
@@ -91,8 +111,6 @@ public class SettingsFragment extends FlipableFragment implements View.OnClickLi
         usernameEditText = (EditText) view.findViewById(R.id.editText_username);
         emailEditText = (EditText) view.findViewById(R.id.editText_email);
         saveButton = (Button) view.findViewById(R.id.button_save);
-
-        configure();
     }
 
     private void configure() {
@@ -154,11 +172,12 @@ public class SettingsFragment extends FlipableFragment implements View.OnClickLi
             newSettings.setName(this.usernameEditText.getText().toString().trim());
             newSettings.setEmail(this.emailEditText.getText().toString().trim());
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
-            DuelApp.getInstance().sendMessage(newSettings.serialize(CommandType.SEND_REGISTER));
+            DuelApp.getInstance().sendMessage(newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));
         }
     }
 
     private boolean validateForm() {
+        // TODO the logic in this part can be troublesome, review it ASAP.
         if (usernameEditText.getText().length() == 0) {
             Toast toast = Toast.makeText(getActivity(), "لطفا اسم خود را وارد نمایید.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 0);

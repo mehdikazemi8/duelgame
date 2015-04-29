@@ -4,18 +4,25 @@ import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 /**
- * Created by omid on 4/23/2015.
+ * Created by omid on 4/27/2015.
  */
 public class PurchaseDone extends BaseModel {
-    public PurchaseDone(String purchaseId, String orderId) {
-        this.purchaseId = purchaseId;
-        this.orderId = orderId;
+    public enum PurchaseResult {
+        COMPLETED,
+        FAILED,
+        DUPLICATE,
+        NOT_ENOUGH,
+        UNKNOWN
     }
+
+    PurchaseItem purchaseItem;
 
     @SerializedName("purchase_id")
     private String purchaseId;
-    @SerializedName("order_id")
-    private String orderId;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("diamond")
+    private int diamond;
 
     public String getPurchaseId() {
         return purchaseId;
@@ -25,11 +32,40 @@ public class PurchaseDone extends BaseModel {
         this.purchaseId = purchaseId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public PurchaseItem getPurchaseItem() {
+        return purchaseItem;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public void setDiamond(int diamond) {
+        this.diamond = diamond;
+    }
+
+    public void setPurchaseItem(PurchaseItem purchaseItem) {
+        this.purchaseItem = purchaseItem;
+    }
+
+    public PurchaseResult getPurchaseResult() {
+        if (status.equals("complete"))
+            return PurchaseResult.COMPLETED;
+        else if (status.equals("duplicate"))
+            return PurchaseResult.DUPLICATE;
+        else if (status.equals("failed"))
+            return PurchaseResult.FAILED;
+        else if (status.equals("not_enough"))
+            return PurchaseResult.NOT_ENOUGH;
+        else
+            return PurchaseResult.UNKNOWN;
     }
 }

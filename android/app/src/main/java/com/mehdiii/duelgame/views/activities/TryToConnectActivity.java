@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 
-public class TryToConnectActivity extends MyBaseActivity {
+public class TryToConnectActivity extends ParentActivity {
 
     public void checkConnection() {
         if (DuelApp.getInstance().getSocket().isConnected()) {

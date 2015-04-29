@@ -25,11 +25,13 @@ public class ActionEmitter {
         map.put(CommandType.SEND_GET_FRIEND_LIST, "GFL");
         map.put(CommandType.SEND_REGISTER, "RU");
         map.put(CommandType.RECEIVE_GET_FRIEND_LIST, "RFL");
+        map.put(CommandType.SEND_UPDATE_SETTINGS, "UU");
+        map.put(CommandType.RECEIVE_UPDATE_SETTINGS, "UUS");
         map.put(CommandType.RECEIVE_ASK_NEXT_QUESTION, "AQ");
         map.put(CommandType.RECEIVE_OPPONENT_SCORE, "OS");
         map.put(CommandType.RECEIVE_GAME_ENDED, "GE");
         map.put(CommandType.SEND_START_PURCHASE, "PS");
-        map.put(CommandType.RECEIVE_STARAT_PURCHASE, "RPI");
+        map.put(CommandType.RECEIVE_START_PURCHASE, "RPI");
         map.put(CommandType.SEND_PURCHASE_DONE, "PD");
         map.put(CommandType.RECEIVE_PURCHASE_DONE, "RPS");
         map.put(CommandType.RECEIVE_OPPONENT_INFO, "YOI");

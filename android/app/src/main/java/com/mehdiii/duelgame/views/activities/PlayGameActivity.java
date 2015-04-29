@@ -48,7 +48,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PlayGameActivity extends MyBaseActivity {
+public class PlayGameActivity extends ParentActivity {
 
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
 

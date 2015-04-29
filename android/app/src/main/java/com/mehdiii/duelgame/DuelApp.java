@@ -26,21 +26,20 @@ import de.tavendo.autobahn.WebSocketHandler;
  */
 public class DuelApp extends Application {
     public static final String PROPERTY_ID = "UA-62041991-1";
+    private String TAG = "DUEL_APP";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     static boolean isConnected = false;
-    private String TAG = "DUEL_APP";
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     static protected String wsuri = "ws://188.166.118.149:9000";
-//    static protected String wsuri = "ws://192.168.128.129:9000";
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         initGA();
-        HeartTracker.getInstance(getApplicationContext()).init();
+        //        HeartTracker.getInstance(getApplicationContext()).init();
         if (!isConnected) {
 //            Intent svc = new Intent(this, MusicPlayer.class);
 //            startService(svc);
@@ -82,11 +81,11 @@ public class DuelApp extends Application {
      * @param json the message received from server
      */
     public void dispatchMessage(String json) {
-        Intent i = new Intent();
+        Intent i = new Intent(DuelBroadcastReceiver.ACTION_NAME);
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        i.setAction(DuelBroadcastReceiver.ACTION_NAME);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
-        // use local broadcast manager to avoid unnecessary calls to other apps
+
+        // use `local broadcast manager` instead of `global broadcast manager` to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
 
