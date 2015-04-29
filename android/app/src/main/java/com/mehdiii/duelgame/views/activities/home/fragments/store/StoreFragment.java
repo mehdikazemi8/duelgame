@@ -87,7 +87,7 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
 
     private void addDelimiter() {
         View view = new View(getActivity());
-        view.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+        view.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
         view.setPadding(0, 30, 0, 30);
         view.setBackgroundColor(getResources().getColor(R.color.blue_dark));
         storeContainer.addView(view);
