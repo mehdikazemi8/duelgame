@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -83,9 +84,11 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
     private void initializeViews(final Friend friend, ViewHolder holder) {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), friend.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(friend.getName());
-//        holder.textViewProvince.setText(friend.getProvince());
+        holder.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
         holder.textViewLevel.setText("lvl" + friend.getLevel());
+        holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
         FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle);
+
         holder.buttonPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,10 +101,10 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
                 }
             }
         });
+
         holder.buttonNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (friend.getStatus().equals("request")) {
                     if (onUserDecisionIsMade != null)
                         onUserDecisionIsMade.onReject(friend);
