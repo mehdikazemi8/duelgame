@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.views.activities.home.fragments.store;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,12 +66,13 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
             if (newLine) {
                 linearLayout = new PurchaseItemView(getActivity());
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                linearLayout.setGravity(View.FOCUS_RIGHT);
+                linearLayout.setGravity(Gravity.CENTER);
                 newLine = false;
                 parity = 0;
             }
 
             PurchaseItemView view = new PurchaseItemView(getActivity(), null);
+            view.setGravity(Gravity.CENTER);
             view.setOnClickListener(this);
             view.setCaption(item.getTitle());
             view.setType(item.getEntityType());
