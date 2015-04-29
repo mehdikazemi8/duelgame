@@ -23,7 +23,7 @@ public class AppRater {
     private final static String APP_TITLE = "کنکوریا";
     private final static String APP_PNAME = "YOUR-PACKAGE-NAME";
 
-    private final static int GAME_UNTIL_PROMPT = 1;
+    private final static int GAME_UNTIL_PROMPT = 10;
 
     public static void init(Context mContext, boolean wonThisGame) {
         SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);

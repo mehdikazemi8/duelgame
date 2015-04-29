@@ -10,21 +10,26 @@ import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -52,6 +57,8 @@ public class PlayGameActivity extends MyBaseActivity {
     final int durationOptions = 1000;
     final int durationCorrectOption = 1000;
 
+    int collectedDiamond;
+
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
     RotateAnimation rotateTickAnimation = null;
@@ -69,6 +76,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
     boolean hintRemoveClicked;
     boolean hintAgainClicked;
+    int clickedHintRemove, clickedHintAgain;
 
     Button option0Btn, option1Btn, option2Btn, option3Btn;
     ImageView hintRemoveBtn, hintAgainBtn;
@@ -83,6 +91,9 @@ public class PlayGameActivity extends MyBaseActivity {
     int WRONG_ANSWER, CORRECT_ANSWER;
 
     ProgressBar myProgress, opProgress;
+
+    private final int HINT_AGAIN_COST = 15;
+    private final int HINT_REMOVE_COST = 10;
 
     private String[] round = new String[NUMBER_OF_QUESTIONS];
 
@@ -143,6 +154,7 @@ public class PlayGameActivity extends MyBaseActivity {
         numberOfOptionChose = 0;
         choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = false;
         hintRemoveClicked = hintAgainClicked = false;
+        clickedHintAgain = clickedHintRemove = 0;
 
         iAnsweredThisCorrect = false;
         iAnsweredThisTime = -1;
@@ -269,6 +281,43 @@ public class PlayGameActivity extends MyBaseActivity {
         }
     }
 
+    private void animateGainingDiamond(final int thisQuestionDiamond) {
+
+        AnimationSet all = new AnimationSet(false);
+
+        Animation scaleText = new ScaleAnimation(1f, 1.5f, 1f, 1.5f);
+        scaleText.setDuration(400);
+        scaleText.setInterpolator(new DecelerateInterpolator());
+        //all.addAnimation(scaleText);
+
+        //int dx = collectedDiamondGroup.getWidth();
+
+        Animation translateText = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 200);
+        translateText.setDuration(400);
+        translateText.setInterpolator(new DecelerateInterpolator());
+        translateText.setAnimationListener(new Animation.AnimationListener() {
+                                               @Override
+                                               public void onAnimationStart(Animation animation) {
+                                                   collectedDiamondTextViewTmp.setText("" + thisQuestionDiamond);
+                                                   collectedDiamondGroup.setVisibility(View.VISIBLE);
+                                               }
+
+                                               @Override
+                                               public void onAnimationEnd(Animation animation) {
+                                                   collectedDiamondGroup.setVisibility(View.INVISIBLE);
+                                                   collectedDiamondTextView.setText("" + collectedDiamond);
+                                               }
+
+                                               @Override
+                                               public void onAnimationRepeat(Animation animation) {
+                                               }
+                                           }
+        );
+        all.addAnimation(translateText);
+
+        collectedDiamondGroup.startAnimation(all);
+    }
+
     public void answered(View v) {
         if (iAnsweredThisTime != -1) {
             return;
@@ -286,6 +335,10 @@ public class PlayGameActivity extends MyBaseActivity {
         int ok = 0;
         if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
             myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
+
+            collectedDiamond += iAnsweredThisTime;
+
+            animateGainingDiamond(iAnsweredThisTime);
 
             iAnsweredThisCorrect = true;
 
@@ -327,13 +380,13 @@ public class PlayGameActivity extends MyBaseActivity {
 
             } else {
                 if (choseOption[0] == false)
-                    option0Btn.setTextColor(getResources().getColor(R.color.gray));
+                    option0Btn.setTextColor(getResources().getColor(R.color.gray_light));
                 if (choseOption[1] == false)
-                    option1Btn.setTextColor(getResources().getColor(R.color.gray));
+                    option1Btn.setTextColor(getResources().getColor(R.color.gray_light));
                 if (choseOption[2] == false)
-                    option2Btn.setTextColor(getResources().getColor(R.color.gray));
+                    option2Btn.setTextColor(getResources().getColor(R.color.gray_light));
                 if (choseOption[3] == false)
-                    option3Btn.setTextColor(getResources().getColor(R.color.gray));
+                    option3Btn.setTextColor(getResources().getColor(R.color.gray_light));
             }
 
             ((Button) v).setTextColor(getResources().getColor(R.color.wrong_answer));
@@ -360,6 +413,10 @@ public class PlayGameActivity extends MyBaseActivity {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "GQ");
+            if (ok == 1) {
+                if (clickedHintAgain == 1) query.put("hint_again", 1);
+                if (clickedHintRemove == 1) query.put("hint_remove", 1);
+            }
             query.put("time", remainingTimeOfThisQuestion);
             query.put("ok", ok);
 
@@ -396,6 +453,9 @@ public class PlayGameActivity extends MyBaseActivity {
     private TextView playGameHintAgainText;
     private TextView playGameHintRemoveCost;
     private TextView playGameHintRemoveText;
+    private TextView collectedDiamondTextView;
+    private TextView collectedDiamondTextViewTmp;
+    private RelativeLayout collectedDiamondGroup;
 
     private RelativeLayout hintAgainView, hintRemoveView;
     private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
@@ -422,7 +482,7 @@ public class PlayGameActivity extends MyBaseActivity {
         round[2] = "سوال سوم";
         round[3] = "سوال چهارم";
         round[4] = "سوال پنجم";
-        round[5] = "سوال ششم";
+        round[5] = "سوال آخر";
 
         WRONG_ANSWER = R.raw.wrong_answer;
         CORRECT_ANSWER = R.raw.correct_answer;
@@ -431,6 +491,7 @@ public class PlayGameActivity extends MyBaseActivity {
 
         opponentPoints = userPoints = 0;
         problemIndex = 0;
+        collectedDiamond = 0;
 
         mobileDisplay = getWindowManager().getDefaultDisplay();
         screenSize = new Point();
@@ -452,7 +513,8 @@ public class PlayGameActivity extends MyBaseActivity {
                 userNameTextView, userPointsTextView,
                 questionTextView,
                 playGameHintAgainCost, playGameHintRemoveCost,
-                playGameHintAgainText, playGameHintRemoveText);
+                playGameHintAgainText, playGameHintRemoveText,
+                collectedDiamondTextView, collectedDiamondTextViewTmp);
 
         userNameTextView.setText(AuthManager.getCurrentUser().getName());
         userAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, AuthManager.getCurrentUser().getAvatar()));
@@ -492,10 +554,13 @@ public class PlayGameActivity extends MyBaseActivity {
         hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
         header = (LinearLayout) findViewById(R.id.play_game_header);
 
-
+        collectedDiamondTextView = (TextView) findViewById(R.id.play_game_collected_diamond);
+        collectedDiamondTextViewTmp = (TextView) findViewById(R.id.play_game_collected_diamond_tmp);
+        collectedDiamondGroup = (RelativeLayout) findViewById(R.id.play_game_collected_diamond_group);
     }
 
     User opponentUser;
+    User user;
 
     private void readArguments() {
         Bundle params = getIntent().getExtras();
@@ -508,12 +573,15 @@ public class PlayGameActivity extends MyBaseActivity {
             opponentUser = BaseModel.deserialize(json, User.class);
         }
 
+        user = AuthManager.getCurrentUser();
     }
 
     public void sendGQMinusOne() {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "GQ");
+            if (clickedHintAgain == 1) query.put("hint_again", 1);
+            if (clickedHintRemove == 1) query.put("hint_remove", 1);
             query.put("time", -1);
             query.put("ok", 0);
 
@@ -688,6 +756,7 @@ public class PlayGameActivity extends MyBaseActivity {
                     Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
                     i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
                     i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
+                    i.putExtra("collectedDiamond", collectedDiamond);
                     startActivity(i);
                     finish();
                 } else {
@@ -733,6 +802,14 @@ public class PlayGameActivity extends MyBaseActivity {
             return;
         hintRemoveClicked = true;
 
+        if (user.getDiamond() < HINT_REMOVE_COST) {
+            showToast("متاسفانه الماس کافی ندارید.");
+            return;
+        } else {
+            user.decreaseDiamond(HINT_REMOVE_COST);
+            clickedHintRemove = 1;
+        }
+
         if (hintRemoveViewIsOpen == true) {
             doAnimateHintOption(hintRemoveView, 1f, 0f, 100, 0);
             hintRemoveViewIsOpen = false;
@@ -773,9 +850,28 @@ public class PlayGameActivity extends MyBaseActivity {
         hintRemoveBtn.setClickable(false);
     }
 
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(PlayGameActivity.this, message,
+                Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        FontHelper.setKoodakFor(PlayGameActivity.this, toastTV);
+        toast.show();
+    }
+
     public void hintAgainMethod(View v) {
         if (iAnsweredThisTime == -1) {
             hintAgainClicked = true;
+        }
+
+        if (user.getDiamond() < HINT_AGAIN_COST) {
+            showToast("متاسفانه الماس کافی ندارید.");
+            return;
+        } else {
+            user.decreaseDiamond(HINT_AGAIN_COST);
+            clickedHintAgain = 1;
         }
 
         if (hintAgainViewIsOpen == true) {

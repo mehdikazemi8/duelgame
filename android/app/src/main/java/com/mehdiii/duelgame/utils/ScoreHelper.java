@@ -54,7 +54,7 @@ public class ScoreHelper {
             else
                 return i + 1;
         }
-        return 25;
+        return LEVEL_SIZE+1;
     }
 
     public static int getThisLevelPercentage(int score) {

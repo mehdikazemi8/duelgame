@@ -5,9 +5,9 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
@@ -79,6 +79,7 @@ public class GameResultActivity extends MyBaseActivity {
 
     int positivePoints, winBonus, pointFactor, totalXP;
     User user = null;
+    int collectedDiamond;
 
     private static <T> ObjectAnimator translateAnimation(final T imageView, String cmd, int duration, int startDelay, float... dx) {
         ObjectAnimator animation = ObjectAnimator.ofFloat(imageView, cmd, dx);
@@ -150,17 +151,11 @@ public class GameResultActivity extends MyBaseActivity {
     }
 
     private void animateProgress() {
-        // TODO ************* will change, maybe the player changes level
-
         int levelBefore = ScoreHelper.getLevel(user.getScore());
         int progressBefore = ScoreHelper.getThisLevelPercentage(user.getScore());
 
         final int levelAfter = ScoreHelper.getLevel(user.getScore() + totalXP);
         final int progressAfter = ScoreHelper.getThisLevelPercentage(user.getScore() + totalXP);
-
-        Log.d("score", "" + (user.getScore()) + " - " + (user.getScore() + totalXP));
-        Log.d("level", "" + levelBefore + " - " + levelAfter);
-        Log.d("progress", "" + progressBefore + " - " + progressAfter);
 
         if (levelBefore == levelAfter) {
             ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, progressBefore, progressAfter);
@@ -174,8 +169,7 @@ public class GameResultActivity extends MyBaseActivity {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    AppRater ar = new AppRater();
-                    ar.init(GameResultActivity.this, true);
+                    prepareIncreaseInTextView();
                 }
 
                 @Override
@@ -211,10 +205,7 @@ public class GameResultActivity extends MyBaseActivity {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            AppRater ar = new AppRater();
-                            ar.init(GameResultActivity.this, true);
-
-                            gameResultLevelProgress.setProgress(0);
+                            prepareIncreaseInTextView();
                         }
 
                         @Override
@@ -233,17 +224,56 @@ public class GameResultActivity extends MyBaseActivity {
 
             gameResultLevelProgress.startAnimation(all);
         }
-        // TODO add score of the player
+    }
+
+    private void prepareIncreaseInTextView() {
+        if(gameStatus == -1)
+            return;
+
+        for (int i = 1; i <= collectedDiamond; i++)
+            if (collectedDiamond / i <= 20) {
+                animateIncreaseInTextView(i, 2000 / collectedDiamond * i,
+                        user.getDiamond() - collectedDiamond, user.getDiamond(), gameResultDiamondCnt);
+                break;
+            }
+    }
+
+    private void animateIncreaseInTextView(final int plusThis, final int duration, final int start, final int end, final TextView tv) {
+        if (start == end) {
+            AppRater ar = new AppRater();
+            ar.init(GameResultActivity.this, (gameStatus == 1));
+        }
+
+        Animation increase = new AlphaAnimation(0f, 1f);
+        increase.setDuration(0);
+        increase.setStartOffset(duration);
+        increase.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                tv.setText("" + start);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(start == end)
+                    return;
+
+                if (start + plusThis > end)
+                    animateIncreaseInTextView(plusThis, duration, end, end, tv);
+                else
+                    animateIncreaseInTextView(plusThis, duration, start + plusThis, end, tv);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        tv.startAnimation(increase);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        for (int i = 0; i < allAnimations.size(); i++)
-            allAnimations.get(i).start();
-
-        animateProgress();
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
@@ -252,12 +282,6 @@ public class GameResultActivity extends MyBaseActivity {
         setContentView(R.layout.activity_game_result);
 
         user = AuthManager.getCurrentUser();
-
-        // TODO DELETE NEXT LINE
-        user.setScore(25);
-
-        Log.d("----user", "" + user.getScore());
-        Log.d("----manager", "" + AuthManager.getCurrentUser().getScore());
 
         WIN = R.raw.win;
         LOSE = R.raw.lose;
@@ -268,8 +292,11 @@ public class GameResultActivity extends MyBaseActivity {
 
         configureControls();
 
-        // TODO uncomment this
-        //user.setScore(user.getScore() + userPoints);
+        user.setScore(user.getScore() + userPoints);
+
+        if (gameStatus >= 0)
+            user.addDiamond(collectedDiamond);
+
 
         allAnimations = new ArrayList<ObjectAnimator>();
 
@@ -297,8 +324,13 @@ public class GameResultActivity extends MyBaseActivity {
         allAnimations.addAll(bothScaleAniamtion(gameResultT8, 100, 3200, 0f, 1.1f, 1f));
         allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 3200, 0f, 1.1f, 1f));
         allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
-    }
 
+
+        // TODO onResum? onWindowChangedFocus? onCreate?
+        for (int i = 0; i < allAnimations.size(); i++)
+            allAnimations.get(i).start();
+        animateProgress();
+    }
 
     private void configureControls() {
         FontHelper.setKoodakFor(getApplicationContext(),
@@ -374,6 +406,7 @@ public class GameResultActivity extends MyBaseActivity {
 
         gameResultLevelText.setText("" + ScoreHelper.getLevel(user.getScore()));
         gameResultLevelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
+        gameResultDiamondCnt.setText("" + user.getDiamond());
     }
 
     private void findControls() {
@@ -413,6 +446,7 @@ public class GameResultActivity extends MyBaseActivity {
 
         String json = params.getString(ARGUMENT_OPPONENT, "");
         resultInfo = params.getString(ARGUMENT_RESULT_INFO, "");
+        collectedDiamond = params.getInt("collectedDiamond", 0);
 
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);

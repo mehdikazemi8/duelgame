@@ -450,6 +450,7 @@
                     android:background="@drawable/result_buttons"
                     android:minHeight="5dp"
                     android:minWidth="5dp"
+                    android:onClick="duelWithOthers"
                     android:padding="3dp"
                     android:text="دوئل"
                     android:textColor="@android:color/white" />
