@@ -2,18 +2,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cream_light"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="در حال بررسی وضعیت موبایل شما" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:onClick="clickedLogo">
 
+        <FrameLayout
+            android:id="@+id/start_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+
+            <ImageView
+                android:id="@+id/start_picture"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center"
+                android:clipChildren="false"
+                android:src="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/start_my_text"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:clipChildren="false"
+                android:text="0" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher" />
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -1,14 +1,18 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewCompat;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -46,6 +50,7 @@ public class StartActivity extends ParentActivity {
 //                    return;
 //                }
 
+                stopCircles = true;
                 if (user.getId() == null)
                     startActivity(new Intent(StartActivity.this, RegisterActivity.class));
                 else {
@@ -62,34 +67,101 @@ public class StartActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        centralImage = (ImageView) findViewById(R.id.start_picture);
+        layout = (FrameLayout) findViewById(R.id.start_layout);
+
+        // Reads splash colors from resources
+        if (splashColorsStr == null) {
+            splashColorsStr = getResources().getStringArray(R.array.splash_colors_array);
+            splashColors = new int[splashColorsStr.length];
+            for (int i = 0; i < splashColorsStr.length; i++)
+                splashColors[i] = Color.parseColor(splashColorsStr[i]);
+        }
+
         // TODO organize these lines a bit.
         final String deviceId, simSerialNumber;
-
         TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         deviceId = teleManager.getDeviceId();
         simSerialNumber = teleManager.getSimSerialNumber();
         userId = deviceId + simSerialNumber;
 
-        ViewCompat.postOnAnimationDelayed(new TextView(this), new Runnable() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
+    }
+
+    private FrameLayout layout;
+    private int[] splashColors;
+    private String[] splashColorsStr = null;
+    ImageView centralImage;
+    long startingTime, currentTime;
+    final long WAIT_BEFOR_LOGIN = 5000;
+
+    private boolean stopCircles = false;
+
+    public void addCircle(final boolean userClicked) {
+
+        ImageView tmp = new ImageView(StartActivity.this);
+        tmp.setImageDrawable(getResources().getDrawable(R.drawable.round_tv));
+        tmp.setScaleX(centralImage.getWidth() / 2);
+        tmp.setScaleY(centralImage.getHeight() / 2);
+
+        tmp.setColorFilter(splashColors[rand.nextInt(splashColors.length)]);
+
+        layout.addView(tmp);
+
+        ObjectAnimator scalex = ObjectAnimator.ofFloat(tmp, "scaleX", 0f, 2f);
+        scalex.setDuration(3000);
+        scalex.setInterpolator(new LinearInterpolator());
+        scalex.start();
+
+        ObjectAnimator scaley = ObjectAnimator.ofFloat(tmp, "scaleY", 0f, 2f);
+        scaley.setInterpolator(new LinearInterpolator());
+        scaley.setDuration(3000);
+        scaley.start();
+
+        ObjectAnimator fadeout = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
+        fadeout.setInterpolator(new LinearInterpolator());
+        fadeout.setDuration(3000);
+        fadeout.start();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
             public void run() {
-                if (DuelApp.getInstance().getSocket().isConnected()) {
-                    JSONObject query = new JSONObject();
-                    try {
-                        query.put("code", "UL");
-                        query.put("user_id", userId);
-                        DuelApp.getInstance().sendMessage(query.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                if(userClicked)
+                    return;
+
+                if(stopCircles == false) {
+                    addCircle(false);
                 }
             }
-        }, 2000);
-        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
+        }, 500);
+
+        if (System.currentTimeMillis()-startingTime > WAIT_BEFOR_LOGIN && DuelApp.getInstance().getSocket().isConnected()) {
+            JSONObject query = new JSONObject();
+            try {
+                query.put("code", "UL");
+                query.put("user_id", userId);
+                DuelApp.getInstance().sendMessage(query.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void clickedLogo(View v) {
+        currentTime = System.currentTimeMillis();
+        if (currentTime - startingTime < 500)
+            return;
+
+        addCircle(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        startingTime = System.currentTimeMillis();
+        addCircle(false);
 
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);

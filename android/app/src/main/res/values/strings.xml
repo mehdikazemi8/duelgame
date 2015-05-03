@@ -5,6 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="splash_circle">&#9679;</string>
 
     <color name="game_bg_color">#4F3545</color>
     <color name="waiting_separator_line">#F2E4D7</color>
@@ -57,6 +58,7 @@
         <item>همدان</item>
         <item>یزد</item>
     </string-array>
+
     <string-array name="avatars">
         <item>@drawable/av1</item>
         <item>@drawable/av2</item>
@@ -83,4 +85,18 @@
         <item>@drawable/av23</item>
         <item>@drawable/av24</item>
     </string-array>
+
+    <string-array name="splash_colors_array">
+        <item>#f1c40f</item>
+        <item>#F4B350</item>
+        <item>#f39c12</item>
+        <item>#EB9532</item>
+        <item>#F89406</item>
+        <item>#F39C12</item>
+        <item>#e67e22</item>
+        <item>#E87E04</item>
+        <item>#F9690E</item>
+        <item>#d35400</item>
+    </string-array>
+
 </resources>

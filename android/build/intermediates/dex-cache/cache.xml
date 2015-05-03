@@ -2,88 +2,88 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\android\switchButton\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\classes-9a84b09a739b79ecb68ec12e87152aaf0f8c2427.jar" />
+        sha1="52505c89568b6b07a1edb39fd498dacb8ddedc45">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\classes-931a5e9543e9d6633e80d4cba0d2f303ca51b1fd.jar" />
     </item>
     <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\android\switchButton\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="9cd46594e2740fe8eef409b1cc9c2a1a74eb2fd3">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\classes-fdfd6c4af66638e105713ac7c68e2b52e3ab65f5.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-dd7dd3b6cbf49d51b215178f9f381a99df0b523a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\android\ViewPagerIndicator\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="6c7a8bccbd8375cc26608970b0efaadd5e7ed4ae">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\classes-08ba2f1aac2e8d5e5551ced0a252ec4e040a7106.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\libs\gson-2.3.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\gson-2.3.1-f515f8c2b2c03fab0b03337f28dc8e0fc264fdf2.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\libs\jackson-core-asl-1.9.7.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2dd41e7570f5c73e63a6a1311671a60c817e1989">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\jackson-core-asl-1.9.7-7e76f6b38a9071165fe27721ef04c86ca38385e3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\libs\eventbus-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\eventbus-2.4.0-980824b8c830e58ba90608a4d3134c53b8ec7c9d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\libs\autobahn-0.5.0.jar"
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\autobahn-0.5.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="5f62bc6117f905fd37955f6e2ebd3aad68701b60">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-d4da99d5fac8b3433f08233420e314158aa45fba.jar" />
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-bb50a78df3a1c75e42c76ddb01b0343df6b9f92e.jar" />
     </item>
     <item
-        jar="C:\Program Files (x86)\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-ff2d7f5022b5a92fc988e7ecf40140c2621ade2e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\classes-1226d7ba05d33ef78582c268dd090ba3a3661274.jar" />
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\classes-9779ed271fe5299f1117962e07c0185cf92d15b9.jar" />
     </item>
     <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\gson-2.3.1-3492d28a47a5877452fc54bb02f21f4548001777.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\classes-bcd2a04ddb2bd1559ab5cbb3220caacaf85fde82.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\classes-b5fe5f3a7a8a3909bf28600d954d30d0b309936c.jar" />
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\classes-6d277a454e246ca7ec5f52f9e76da88279a29754.jar" />
     </item>
     <item
-        jar="C:\Users\Omid\Desktop\source-code\duel\android\app\libs\picasso-2.5.2.jar"
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\eventbus-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\eventbus-2.4.0-36eb64db1dd6c3c55ba9b78aa7e51cc7e87fb8ab.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\android\ViewPagerIndicator\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="168696563d01ac8af054da99dbb47f776cfa7e21">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\classes-7bb4676468adf342da5a9ec3c79ffebdc5a81ac6.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\jackson-core-asl-1.9.7.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2dd41e7570f5c73e63a6a1311671a60c817e1989">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\jackson-core-asl-1.9.7-1fe56d99519c9661d8319ea11c170c055b0e9159.jar" />
+    </item>
+    <item
+        jar="C:\Users\MeHdi\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b791448a0bba9afaad735c770ae73c3e349e7937.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-e5b36b3b63fa00f349a32e9bca8c4dace5739c0c.jar" />
+    </item>
+    <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\picasso-2.5.2.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\Omid\Desktop\source-code\duel\android\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-47ea03a386d90bdd54e08daaf97fedb6112d3534.jar" />
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-fb058b7da7aedca7ee0889cf8bd10eca70678b24.jar" />
     </item>
 
 </items>
