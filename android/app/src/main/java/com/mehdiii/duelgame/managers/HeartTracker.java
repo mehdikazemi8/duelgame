@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.HeartState;
@@ -20,6 +21,7 @@ import de.greenrobot.event.EventBus;
  * Created by omid on 4/20/2015.
  */
 public class HeartTracker {
+    private static final String TAG = "HEART_TRACKER";
 
     public static final String PREFERENCE_KEY_HEARTS = "heart_tracker";
     public static final String PREFERENCE_KEY_LAST_DECREMENT = "last_decrement_time";
@@ -57,6 +59,7 @@ public class HeartTracker {
         state.setLastDecrementTime(GlobalPreferenceManager.readLong(context, PREFERENCE_KEY_LAST_DECREMENT, -1));
 
         startAlarm();
+        Log.d(TAG, "heart tracker initiated.");
     }
 
     private void startAlarm() {
@@ -78,7 +81,7 @@ public class HeartTracker {
     }
 
     public void useHeart() {
-        if ( state == null )
+        if (state == null)
             init();
 
         if (state.getCurrent() <= 0)
@@ -100,7 +103,7 @@ public class HeartTracker {
     }
 
     public void increaseHeart() {
-        if ( state == null )
+        if (state == null)
             init();
 
         state.increase();

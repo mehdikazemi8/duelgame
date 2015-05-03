@@ -1,8 +1,12 @@
 package com.mehdiii.duelgame.managers;
 
+import android.app.AlarmManager;
+
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.MemoryCache;
+
+import java.util.Calendar;
 
 /**
  * Created by omid on 4/12/2015.
