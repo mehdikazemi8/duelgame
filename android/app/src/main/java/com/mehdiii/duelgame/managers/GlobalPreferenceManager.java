@@ -37,6 +37,14 @@ public class GlobalPreferenceManager {
         return true;
     }
 
+    public static boolean writeBoolean(Context context, String key, boolean data) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return false;
+        preferences.edit().putBoolean(key, data).apply();
+        return true;
+    }
+
 
     public static String readString(Context context, String key, String defaultValue) {
         SharedPreferences preferences = getPreference(context);
@@ -58,4 +66,13 @@ public class GlobalPreferenceManager {
             return defaultValue;
         return preferences.getLong(key, defaultValue);
     }
+
+    public static boolean readBoolean(Context context, String key, boolean defaultValue) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return defaultValue;
+        return preferences.getBoolean(key, defaultValue);
+    }
+
+
 }

@@ -20,8 +20,10 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -227,7 +229,7 @@ public class GameResultActivity extends ParentActivity {
     }
 
     private void prepareIncreaseInTextView() {
-        if(gameStatus == -1)
+        if (gameStatus == -1)
             return;
 
         for (int i = 1; i <= collectedDiamond; i++)
@@ -255,7 +257,7 @@ public class GameResultActivity extends ParentActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(start == end)
+                if (start == end)
                     return;
 
                 if (start + plusThis > end)
@@ -459,15 +461,19 @@ public class GameResultActivity extends ParentActivity {
 
     public void addToFriends(View v) {
         boolean everythingOK = true;
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "AF");
-            query.put("user_number", opponentUser.getId());
+//        JSONObject query = new JSONObject();
+//        try {
+////            query.put("code", "AF");
+////            query.put("user_number", opponentUser.getId());
+////
+////            DuelApp.getInstance().sendMessage(query.toString());
+//
+//        } catch (JSONException e) {
+//            everythingOK = false;
+//        }
 
-            DuelApp.getInstance().sendMessage(query.toString());
-        } catch (JSONException e) {
-            everythingOK = false;
-        }
+        FriendRequest request = new FriendRequest(opponentUser.getId());
+        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_ADD_FRIEND));
 
         if (everythingOK == true) {
             String msg = "به لیست دوستان شما اضافه شد.";

@@ -100,15 +100,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space.medium"
-            android:gravity="center">
+            >
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView_music_off"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toLeftOf="@id/switch_music"-->
-                <!--android:text="@string/caption_play_music_not"-->
-                <!--android:textSize="@dimen/fontsize.normal" />-->
+            <TextView
+                android:id="@+id/textView_music_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/switch_music"
+                android:text="@string/caption_play_music_not"
+                android:textSize="@dimen/fontsize.normal" />
 
             <com.kyleduo.switchbutton.SwitchButton
                 android:id="@+id/switch_music"
@@ -119,13 +119,13 @@
                 android:layout_marginRight="10dp"
                 android:enabled="true" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView_music_on"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toRightOf="@id/switch_music"-->
-                <!--android:text="@string/caption_play_music"-->
-                <!--android:textSize="@dimen/fontsize.normal" />-->
+            <TextView
+                android:id="@+id/textView_music_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/switch_music"
+                android:text="@string/caption_play_music"
+                android:textSize="@dimen/fontsize.normal" />
 
         </RelativeLayout>
 
