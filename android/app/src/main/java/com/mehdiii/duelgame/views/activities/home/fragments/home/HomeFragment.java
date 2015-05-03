@@ -39,6 +39,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView totalRanking;
     TextView friendsRankingText;
     TextView friendsRanking;
+    TextView provinceRankingText;
+    TextView provinceRanking;
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
@@ -73,7 +75,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         refillButton.setOnClickListener(this);
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
-                totalRanking, friendsRankingText, friendsRanking, textViewHearts);
+                totalRanking, friendsRankingText, friendsRanking, textViewHearts,
+                provinceRanking, provinceRankingText);
     }
 
     private void find(View view) {
@@ -85,6 +88,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         totalRanking = (TextView) view.findViewById(R.id.home_total_ranking);
         friendsRankingText = (TextView) view.findViewById(R.id.home_friends_ranking_text);
         friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
+        provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
+        provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
@@ -124,6 +129,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
 
         arrangeHearts(user.getHeart());
+
+        totalRanking.setText(""+user.getRank().getTotal());
+        provinceRanking.setText(""+user.getRank().getProvince());
+        friendsRanking.setText(""+user.getRank().getFriends());
     }
 
     private void addFriend() {
