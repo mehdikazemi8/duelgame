@@ -89,12 +89,23 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
 
 
     private void sendAddFriendRequest() {
-        FriendRequest request = new FriendRequest(editTextCode.getText().toString());
-        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_ADD_FRIEND));
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        progressDialog.setMessage("لطفا کمی صبر کنید.");
-        progressDialog.show();
+        if (validateForm()) {
+            FriendRequest request = new FriendRequest(editTextCode.getText().toString());
+            DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_ADD_FRIEND));
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            progressDialog.setMessage("لطفا کمی صبر کنید.");
+            progressDialog.show();
+        }
+    }
+
+    private boolean validateForm() {
+        if (editTextCode.getText().toString().isEmpty()) {
+            DuelApp.getInstance().toast(R.string.invalid_add_friend_code_empty, Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        return true;
     }
 
 
