@@ -19,6 +19,7 @@ import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
@@ -74,7 +75,9 @@ public class PurchaseManager {
                     break;
                 case RECEIVE_PURCHASE_DONE:
                     PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
+                    AuthManager.getCurrentUser().changeConfiguration(purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
                     purchaseDone.setPurchaseItem(selectedPurchaseItem);
+                    EventBus.getDefault().post(new OnUserSettingsChanged());
                     EventBus.getDefault().post(purchaseDone);
                     break;
             }
@@ -82,7 +85,7 @@ public class PurchaseManager {
     });
 
     boolean working = false;
-    PurchaseItem selectedPurchaseItem;
+    static PurchaseItem selectedPurchaseItem;
 
     public synchronized void initiatePurchase(BuyNotification buyNotification) {
         if (!working) {
@@ -95,9 +98,9 @@ public class PurchaseManager {
     }
 
     public void useDiamond(BuyNotification purchaseNotif) {
-        this.selectedPurchaseItem = findPurchaseById(purchaseNotif.getId());
-        if (this.selectedPurchaseItem != null)
-            DuelApp.getInstance().sendMessage(this.selectedPurchaseItem.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+        selectedPurchaseItem = findPurchaseById(purchaseNotif.getId());
+        if (selectedPurchaseItem != null)
+            DuelApp.getInstance().sendMessage(selectedPurchaseItem.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
     }
 
     private PurchaseItem findPurchaseById(int id) {
@@ -109,8 +112,8 @@ public class PurchaseManager {
     }
 
     private void sendPurchaseIntentToBazaar(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
-        Bundle buyIntentBundle = service.getBuyIntent(
-                3, activity.getPackageName(), selectedPurchaseItem.getSku(), "inapp", purchaseDone.getPurchaseId());
+        Bundle buyIntentBundle = service.getBuyIntent(3, activity.getPackageName(),
+                selectedPurchaseItem.getSku(), "inapp", purchaseDone.getPurchaseId());
         PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
 //        String signature = buyIntentBundle.getString("INAPP_DATA_SIGNATURE");
 //        String responseCode = buyIntentBundle.getString("RESPONSE_CODE");

@@ -22,7 +22,10 @@ import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.activities.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import de.greenrobot.event.EventBus;
 
@@ -43,6 +46,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView provinceRanking;
     TextView textViewCounter;
     ImageButton addFriendButton;
+    ImageView duelButton;
     ProgressBar levelProgress;
     Button refillButton;
     Button buyDiamondButton;
@@ -68,6 +72,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          */
         addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
+        duelButton.setOnClickListener(this);
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts,
@@ -91,6 +96,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
+        duelButton = (ImageView) view.findViewById(R.id.button_duel);
     }
 
     @Override
@@ -114,6 +120,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.button_refill:
                 refillHeart();
                 break;
+            case R.id.button_duel:
+                startGame();
+                break;
         }
     }
 
@@ -129,6 +138,17 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
 
         arrangeHearts(user.getHeart());
+    }
+
+    public void startGame() {
+        if (HeartTracker.getInstance().getHeartsCount() <= 0) {
+            HeartLowDialog dialog = new HeartLowDialog(getActivity());
+            dialog.show();
+            return;
+        }
+
+        ((HomeActivity) getActivity()).musicPlayer.pauseSound();
+        getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
 
     private void addFriend() {

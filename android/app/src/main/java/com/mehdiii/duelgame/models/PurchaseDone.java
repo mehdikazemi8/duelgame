@@ -23,6 +23,12 @@ public class PurchaseDone extends BaseModel {
     private String status;
     @SerializedName("diamond")
     private int diamond;
+    @SerializedName("heart")
+    private int heart;
+    @SerializedName("extreme_heart")
+    private boolean extremeHeart;
+    @SerializedName("score_factor")
+    private int scoreFactor;
 
     public String getPurchaseId() {
         return purchaseId;
@@ -54,6 +60,30 @@ public class PurchaseDone extends BaseModel {
 
     public void setPurchaseItem(PurchaseItem purchaseItem) {
         this.purchaseItem = purchaseItem;
+    }
+
+    public int getHeart() {
+        return heart;
+    }
+
+    public void setHeart(int heart) {
+        this.heart = heart;
+    }
+
+    public boolean isExtremeHeart() {
+        return extremeHeart;
+    }
+
+    public void setExtremeHeart(boolean extremeHeart) {
+        this.extremeHeart = extremeHeart;
+    }
+
+    public int getScoreFactor() {
+        return scoreFactor;
+    }
+
+    public void setScoreFactor(int scoreFactor) {
+        this.scoreFactor = scoreFactor;
     }
 
     public PurchaseResult getPurchaseResult() {

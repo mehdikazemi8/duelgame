@@ -187,4 +187,11 @@ public class User extends BaseModel {
     public void setScoreFactor(int scoreFactor) {
         this.scoreFactor = scoreFactor;
     }
+
+    public void changeConfiguration(int diamond, int heart, boolean extremeHeart, int scoreFactor) {
+        setDiamond(diamond);
+        setHeart(heart);
+        setExtremeHeart(extremeHeart);
+        setScoreFactor(scoreFactor);
+    }
 }
