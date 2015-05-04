@@ -195,7 +195,7 @@ public class StartActivity extends ParentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        LocalBroadcastManager.getInstance(this).unregisterReceiver(commandListener);
+//        LocalBroadcastManager.configure(this).unregisterReceiver(commandListener);
     }
 
     @Override

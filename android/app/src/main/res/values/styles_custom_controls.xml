@@ -24,5 +24,17 @@
         <item name="android:textColor">#7F7F7F</item>
     </style>
 
+    <style name="button_home_recharge">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/buy_button</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:textColor">#F1EECB</item>
+        <item name="android:textSize">@dimen/fontsize.small</item>
+    </style>
+
 
 </resources>

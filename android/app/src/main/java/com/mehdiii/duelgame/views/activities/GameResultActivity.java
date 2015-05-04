@@ -466,7 +466,7 @@ public class GameResultActivity extends ParentActivity {
 ////            query.put("code", "AF");
 ////            query.put("user_number", opponentUser.getId());
 ////
-////            DuelApp.getInstance().sendMessage(query.toString());
+////            DuelApp.configure().sendMessage(query.toString());
 //
 //        } catch (JSONException e) {
 //            everythingOK = false;

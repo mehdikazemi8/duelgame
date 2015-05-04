@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_background"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="@dimen/space.medium"
     tools:context=".StartActivity">
 
     <LinearLayout
@@ -17,20 +14,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
+
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -64,58 +62,51 @@
                         android:layout_gravity="center">
 
                         <Button
-                            android:id="@+id/home_diamond_buy_button"
+                            android:id="@+id/button_buy_diamond"
+                            style="@style/button_home_recharge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/buy_button"
-                            android:minHeight="10dp"
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
-                            android:text="خرید الماس"
-                            android:textColor="#F1EECB" />
+                            android:text="@string/button_buy_diamond" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="10:10"
+                        android:textSize="@dimen/fontsize.normal"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_height="130dp"
+                android:layout_weight="3"
+                android:gravity="center">
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/imageView_avatar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/pic_circle" />
-
-                    <ImageView
-                        android:id="@+id/imageView_avatar"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/av1" />
-                </FrameLayout>
+                    android:adjustViewBounds="true"
+                    android:contentDescription="avatar"
+                    android:src="@drawable/av1" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -139,45 +130,7 @@
                             android:layout_marginLeft="3dp"
                             android:gravity="center_vertical"
                             android:textSize="20sp" />
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_first"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="2dp"-->
-                        <!--android:layout_marginRight="2dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_second"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_third"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_fourth"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_fifth"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -187,17 +140,19 @@
 
                         <Button
                             android:id="@+id/button_refill"
+                            style="@style/button_home_recharge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/buy_button"
-                            android:minHeight="10dp"
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
-                            android:text="بازیابی قلب ها"
-                            android:textColor="#F1EECB" />
+                            android:text="@string/button_refill_heart" />
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/fontsize.small" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -210,19 +165,24 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="دیپلم"
-            android:textSize="30sp" />
+            android:textSize="@dimen/fontsize.normal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:gravity="center_vertical"
+                android:adjustViewBounds="true"
                 android:src="@drawable/star" />
+
+            <TextView
+                android:id="@+id/home_level_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
             <ProgressBar
                 android:id="@+id/home_level_progress"
@@ -230,6 +190,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:max="100"
                 android:progress="20"
                 android:progressDrawable="@drawable/my_progress_bar" />
@@ -238,8 +199,15 @@
                 android:id="@+id/home_level_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="1" />
+                android:textSize="@dimen/fontsize.normal" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/star"
+                android:visibility="invisible" />
+
 
         </LinearLayout>
 
@@ -265,16 +233,15 @@
                     android:layout_gravity="center"
                     android:text="ایران" />
 
-                <TextView
+                <com.mehdiii.duelgame.views.custom.SquareTextView
                     android:id="@+id/home_total_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/round_tv"
                     android:gravity="center"
-                    android:padding="20dp"
-                    android:text="127"
-                    android:textSize="30sp" />
+                    android:text="12790"
+                    android:textSize="@dimen/fontsize.normal" />
             </LinearLayout>
 
             <LinearLayout
@@ -291,16 +258,15 @@
                     android:layout_gravity="center"
                     android:text="استان" />
 
-                <TextView
+                <com.mehdiii.duelgame.views.custom.SquareTextView
                     android:id="@+id/home_province_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/round_tv"
                     android:gravity="center"
-                    android:padding="20dp"
-                    android:text="127"
-                    android:textSize="30sp" />
+                    android:text="1270"
+                    android:textSize="@dimen/fontsize.normal" />
             </LinearLayout>
 
             <LinearLayout
@@ -317,16 +283,15 @@
                     android:layout_gravity="center"
                     android:text="دوستان" />
 
-                <TextView
+                <com.mehdiii.duelgame.views.custom.SquareTextView
                     android:id="@+id/home_friends_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/round_tv"
                     android:gravity="center"
-                    android:padding="20dp"
                     android:text="127"
-                    android:textSize="30sp" />
+                    android:textSize="@dimen/fontsize.normal" />
             </LinearLayout>
 
         </LinearLayout>
@@ -357,7 +322,7 @@
                 android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
+
                 android:src="@drawable/add_friend" />
 
         </RelativeLayout>

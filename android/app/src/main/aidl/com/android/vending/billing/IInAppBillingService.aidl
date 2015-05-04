@@ -29,7 +29,7 @@ import android.os.Bundle;
  *    till the purchase is consumed.
  * 4. An API to consume a purchase of an inapp item. All purchases of one-time
  *    in-app items are consumable and thereafter can be purchased again.
- * 5. An API to get current purchases of the user immediately. This will not contain any
+ * 5. An API to get heartsCount purchases of the user immediately. This will not contain any
  *    consumed purchases.
  *
  * All calls will give a response code with the following possible values
@@ -106,7 +106,7 @@ interface IInAppBillingService {
         String developerPayload);
 
     /**
-     * Returns the current SKUs owned by the user of the type and package name specified along with
+     * Returns the heartsCount SKUs owned by the user of the type and package name specified along with
      * purchase information and a signature of the data to be validated.
      * This will return all SKUs that have been purchased in V3 and managed items purchased using
      * V1 and V2 that have not been consumed.
@@ -127,7 +127,7 @@ interface IInAppBillingService {
      *                                      of the purchase information
      *         "INAPP_CONTINUATION_TOKEN" - String containing a continuation token for the
      *                                      next set of in-app purchases. Only set if the
-     *                                      user has more owned skus than the current list.
+     *                                      user has more owned skus than the heartsCount list.
      */
     Bundle getPurchases(int apiVersion, String packageName, String type, String continuationToken);
 
