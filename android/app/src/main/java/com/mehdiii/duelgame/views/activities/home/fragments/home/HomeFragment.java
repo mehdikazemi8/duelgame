@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView friendsRanking;
     TextView provinceRankingText;
     TextView provinceRanking;
+    TextView textViewCounter;
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
@@ -66,7 +68,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          * find controls and bind view data
          */
         find(view);
-        bindData();
+        bindViewData();
 
         /**
          * configure click listeners and setup typeface
@@ -76,7 +78,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts,
-                provinceRanking, provinceRankingText);
+                provinceRanking, provinceRankingText, textViewCounter);
     }
 
     private void find(View view) {
@@ -94,6 +96,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         refillButton = (Button) view.findViewById(R.id.button_refill);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
+        textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
     }
 
     @Override
@@ -120,19 +123,18 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
     }
 
-    public void bindData() {
+    public void bindViewData() {
         User user = AuthManager.getCurrentUser();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));
         levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
+        totalRanking.setText(String.valueOf(user.getRank().getTotal()));
+        provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
+        friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
 
         arrangeHearts(user.getHeart());
-
-        totalRanking.setText(""+user.getRank().getTotal());
-        provinceRanking.setText(""+user.getRank().getProvince());
-        friendsRanking.setText(""+user.getRank().getFriends());
     }
 
     private void addFriend() {
@@ -146,11 +148,26 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        HeartTracker.getInstance(getActivity()).useHeart();
+        HeartTracker.getInstance().useHeart();
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
-        arrangeHearts(notice.getState().getCurrent());
+        if (notice.getMode() == OnHeartChangeNotice.ChangeMode.DECREASED ||
+                notice.getMode() == OnHeartChangeNotice.ChangeMode.INCREASED) {
+            arrangeHearts(notice.getValue());
+            if (notice.getValue() >= HeartTracker.COUNT_HEARTS_MAX)
+                textViewCounter.setVisibility(View.INVISIBLE);
+            else
+                textViewCounter.setVisibility(View.VISIBLE);
+        } else if (notice.getMode() == OnHeartChangeNotice.ChangeMode.TICK) {
+            int minutes, seconds;
+            minutes = notice.getValue() / 60;
+            if (minutes == 0)
+                seconds = notice.getValue();
+            else
+                seconds = notice.getValue() % (minutes * 60);
+            textViewCounter.setText(String.format("%d:%d", minutes, seconds));
+        }
     }
 
     public void onEvent(OnDiamondChangeNotice notice) {
@@ -158,7 +175,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     public void onEvent(OnUserSettingsChanged settings) {
-        bindData();
+        bindViewData();
     }
 
     private void arrangeHearts(int count) {

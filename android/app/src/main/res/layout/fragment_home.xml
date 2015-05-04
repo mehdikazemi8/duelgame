@@ -76,6 +76,12 @@
                             android:textColor="#F1EECB" />
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/fontsize.normal" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -117,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -139,45 +146,7 @@
                             android:layout_marginLeft="3dp"
                             android:gravity="center_vertical"
                             android:textSize="20sp" />
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_first"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="2dp"-->
-                        <!--android:layout_marginRight="2dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_second"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_third"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_fourth"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView_heart_fifth"-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_marginLeft="1dp"-->
-                        <!--android:layout_marginRight="1dp"-->
-                        <!--android:src="@drawable/heart_full" />-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -198,6 +167,13 @@
                             android:textColor="#F1EECB" />
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/fontsize.normal" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

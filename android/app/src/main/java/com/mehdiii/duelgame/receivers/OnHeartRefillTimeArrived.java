@@ -16,6 +16,6 @@ public class OnHeartRefillTimeArrived extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "heart tracker increased by one.");
-        HeartTracker.getInstance(context).increaseHeart();
+//        HeartTracker.configure(context).increaseHeart();
     }
 }

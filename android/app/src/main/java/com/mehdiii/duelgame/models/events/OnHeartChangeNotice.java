@@ -6,20 +6,12 @@ import com.mehdiii.duelgame.models.HeartState;
  * Created by omid on 4/20/2015.
  */
 public class OnHeartChangeNotice {
-    HeartState state;
-    ChangeMode mode;
+    private ChangeMode mode;
+    private int value;
 
-    public OnHeartChangeNotice(HeartState state, ChangeMode mode) {
-        this.state = state;
+    public OnHeartChangeNotice(ChangeMode mode, int value) {
         this.mode = mode;
-    }
-
-    public HeartState getState() {
-        return state;
-    }
-
-    public void setState(HeartState state) {
-        this.state = state;
+        this.value = value;
     }
 
     public ChangeMode getMode() {
@@ -30,9 +22,18 @@ public class OnHeartChangeNotice {
         this.mode = mode;
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public enum ChangeMode {
         INCREASED,
         DECREASED,
-        REFRESH
+        REFRESH,
+        TICK
     }
 }

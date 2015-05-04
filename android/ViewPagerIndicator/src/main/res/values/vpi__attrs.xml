@@ -39,7 +39,7 @@
     <declare-styleable name="CirclePageIndicator">
         <!-- Whether or not the indicators should be centered. -->
         <attr name="centered" />
-        <!-- Color of the filled circle that represents the current page. -->
+        <!-- Color of the filled circle that represents the heartsCount page. -->
         <attr name="fillColor" format="color" />
         <!-- Color of the filled circles that represents pages. -->
         <attr name="pageColor" format="color" />
@@ -62,7 +62,7 @@
         <attr name="centered" />
         <!-- Color of the unselected lines that represent the pages. -->
         <attr name="unselectedColor" />
-        <!-- Color of the selected line that represents the current page. -->
+        <!-- Color of the selected line that represents the heartsCount page. -->
         <attr name="selectedColor" />
         <!-- Width of each indicator line. -->
         <attr name="lineWidth" format="dimension" />
@@ -121,7 +121,7 @@
         <attr name="fadeDelay" format="integer" />
         <!-- Length of the indicator fade to transparent. -->
         <attr name="fadeLength" format="integer" />
-        <!-- Color of the selected line that represents the current page. -->
+        <!-- Color of the selected line that represents the heartsCount page. -->
         <attr name="selectedColor" />
         <!-- View background -->
         <attr name="android:background"/>

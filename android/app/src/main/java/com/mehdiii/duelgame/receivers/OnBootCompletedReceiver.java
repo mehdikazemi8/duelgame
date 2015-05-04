@@ -19,7 +19,7 @@ public class OnBootCompletedReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(ACTION_NAME)) {
             Log.d(TAG, "heart tracker received boot complete intent.");
-            HeartTracker.getInstance(context).init();
+//            HeartTracker.configure(context).init();
         }
     }
 }

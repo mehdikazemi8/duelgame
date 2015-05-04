@@ -1,12 +1,8 @@
 package com.mehdiii.duelgame.managers;
 
-import android.app.AlarmManager;
-
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.MemoryCache;
-
-import java.util.Calendar;
 
 /**
  * Created by omid on 4/12/2015.
@@ -24,8 +20,8 @@ public class AuthManager {
 
     public static User authenticate(User user) {
         MemoryCache.set(CACHE_TAG, user);
-        HeartTracker.getInstance(DuelApp.getInstance().getApplicationContext()).init();
-        HeartTracker.getInstance(DuelApp.getInstance()).setLoginHearts(user.getHeart());
+        // TODO send times remaining to the next heart refill
+        HeartTracker.configure(user.getHeart());
         return user;
     }
 }

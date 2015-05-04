@@ -5,14 +5,13 @@
 package com.mehdiii.duelgame.managers;
 
 import android.app.AlarmManager;
+import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
-import android.util.Log;
+import android.os.Handler;
 
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
-import com.mehdiii.duelgame.models.HeartState;
 import com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived;
 
 import de.greenrobot.event.EventBus;
@@ -21,123 +20,89 @@ import de.greenrobot.event.EventBus;
  * Created by omid on 4/20/2015.
  */
 public class HeartTracker {
-    private static final String TAG = "HEART_TRACKER";
-
-    public static final String PREFERENCE_KEY_HEARTS = "heart_tracker";
-    public static final String PREFERENCE_KEY_LAST_DECREMENT = "last_decrement_time";
-
+    private static final int TIME_RECOVER_SINGLE_HEART_SECONDS = 10;//60 * 10;
     public static final int COUNT_HEARTS_MAX = 5;
-    private static final int TIME_RECOVER_SINGLE_HEART_MILLS = 10000;
 
-    private HeartState state;
-    private boolean refillRunning = false;
-
-    private Context context;
-    private Intent intent;
-    private PendingIntent pendingIntent;
-    private AlarmManager alarmManager = null;
-
+    private int heartsCount;
+    int timeLeft;
+    boolean running = false;
     private static HeartTracker instance;
 
-    public static HeartTracker getInstance(Context ctx) {
+    public static HeartTracker configure(int heartsCount) {
         if (instance == null) {
             instance = new HeartTracker();
-            instance.context = ctx;
+            instance.heartsCount = heartsCount;
         }
+
+        // if hearts are less than max possible
+        if (instance.heartsCount < COUNT_HEARTS_MAX)
+            instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
 
         return instance;
     }
 
-    public void init() {
-
-        state = new HeartState();
-        intent = new Intent(context, OnHeartRefillTimeArrived.class);
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        state.setCurrent(GlobalPreferenceManager.readInteger(context, PREFERENCE_KEY_HEARTS, COUNT_HEARTS_MAX));
-        state.setLastDecrementTime(GlobalPreferenceManager.readLong(context, PREFERENCE_KEY_LAST_DECREMENT, -1));
-
-        startAlarm();
-        Log.d(TAG, "heart tracker initiated.");
+    public static HeartTracker getInstance() {
+        return instance;
     }
 
-    private void startAlarm() {
-        if (refillRunning || (state != null && state.getCurrent() == COUNT_HEARTS_MAX))
+    private void resetCountdown() {
+        resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
+    }
+
+    private void resetCountdown(int timeLeft) {
+        this.timeLeft = timeLeft;
+        running = true;
+        scheduleNextTick();
+    }
+
+    private void scheduleNextTick() {
+        if (!running)
             return;
 
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + TIME_RECOVER_SINGLE_HEART_MILLS,
-                TIME_RECOVER_SINGLE_HEART_MILLS,
-                pendingIntent);
-
-        refillRunning = true;
-    }
-
-    public void stop() {
-        refillRunning = false;
-        if (alarmManager != null)
-            alarmManager.cancel(pendingIntent);
-    }
-
-    public void useHeart() {
-        if (state == null)
-            init();
-
-        if (state.getCurrent() <= 0)
+        // check if it is time to recover one heart
+        if (timeLeft == 0) {
+            // increase hearts count
+            heartsCount++;
+            running = false;
+            notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED, heartsCount);
+            if (heartsCount < COUNT_HEARTS_MAX)
+                resetCountdown();
             return;
-//            throw new IllegalStateException("Hearts count is currently zero. It simply can't go down any further.");
+        } else
+            notifyChange(OnHeartChangeNotice.ChangeMode.TICK, timeLeft);
 
-        state.decrease();
-        saveCheckpoint();
-        notifyChange(OnHeartChangeNotice.ChangeMode.DECREASED);
-
-        if (!refillRunning)
-            startAlarm();
+        // schedule next tick
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                HeartTracker.this.timeLeft--;
+                scheduleNextTick();
+            }
+        }, 1000);
     }
 
-    public void setLoginHearts(int khearts) {
-        getState().setCurrent(khearts);
-        persist();
-        notifyChange(OnHeartChangeNotice.ChangeMode.REFRESH);
+    public boolean useHeart() {
+        if (heartsCount <= 0)
+            return false;
+
+        heartsCount--;
+        notifyChange(OnHeartChangeNotice.ChangeMode.DECREASED, heartsCount);
+
+        if (!running)
+            resetCountdown();
+
+        return true;
     }
 
-    public void increaseHeart() {
-        if (state == null)
-            init();
-
-        state.increase();
-        saveCheckpoint();
-        notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED);
-
-        if (state.getCurrent() >= COUNT_HEARTS_MAX)
-            stop();
-    }
-
-    private void persist() {
-        GlobalPreferenceManager.writeInt(context, PREFERENCE_KEY_HEARTS, state.getCurrent());
-        GlobalPreferenceManager.writeLong(context, PREFERENCE_KEY_LAST_DECREMENT, state.getLastDecrementTime());
-    }
-
-    private void saveCheckpoint() {
-        state.setLastDecrementTime(SystemClock.elapsedRealtime());
-        persist();
-    }
-
-    public int getCount() {
-        return state.getCurrent();
-    }
-
-    public long getMinutesToNextRefill() {
-        return TIME_RECOVER_SINGLE_HEART_MILLS - (SystemClock.elapsedRealtime() - state.getLastDecrementTime());
-    }
-
-    public void notifyChange(OnHeartChangeNotice.ChangeMode mode) {
+    /**
+     * sends a notify signal to ui to update hearts, if mode is INCREASED or DECREASED value is indicating the number of remaining hearts.
+     * if mode equals TICK then value is returning the number of seconds left to the next refill.
+     *
+     * @param mode  the type of notification
+     * @param value the number associated with the notification method description for more detail.
+     */
+    public void notifyChange(OnHeartChangeNotice.ChangeMode mode, int value) {
         if (EventBus.getDefault() != null)
-            EventBus.getDefault().post(new OnHeartChangeNotice(state, mode));
-    }
-
-    public HeartState getState() {
-        return state;
+            EventBus.getDefault().post(new OnHeartChangeNotice(mode, value));
     }
 }

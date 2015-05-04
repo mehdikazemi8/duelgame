@@ -205,13 +205,11 @@ public class HomeActivity extends ParentActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
         }
     };
 
-
     private void createChildFragments() {
-        childFragments = new ArrayList<>();
+        childFragments = new ArrayList<Fragment>();
 
         settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
         rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
@@ -240,12 +238,11 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void wantToPlay(View v) {
-        if (HeartTracker.getInstance(this).getState().getCurrent() <= 0) {
+        if (HeartTracker.getInstance().useHeart()) {
             HeartLowDialog dialog = new HeartLowDialog(this);
             dialog.show();
             return;
         }
-
 
         musicPlayer.pauseSound();
         startActivity(new Intent(this, CategoryActivity.class));
