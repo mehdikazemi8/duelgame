@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
+import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.User;
@@ -136,7 +137,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         totalRanking.setText(String.valueOf(user.getRank().getTotal()));
         provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
         friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
-
+        provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
         arrangeHearts(user.getHeart());
     }
 

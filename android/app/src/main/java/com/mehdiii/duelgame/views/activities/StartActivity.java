@@ -36,7 +36,7 @@ import java.util.Calendar;
 public class StartActivity extends ParentActivity {
     String userId;
     boolean isSent = false;
-    long lastLoginRequestTime;
+    long lastLoginRequestTime = -1;
     /**
      * UPDATE DIALOG
      */
@@ -141,17 +141,18 @@ public class StartActivity extends ParentActivity {
             }
         }, 500);
         long diffFromLastLoginRequest = System.currentTimeMillis() - lastLoginRequestTime;
-        if (diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
+        if (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
             DuelApp.getInstance().toast(R.string.message_connection_unstable, Toast.LENGTH_LONG);
         }
 
         long diff = System.currentTimeMillis() - startingTime;
-        if (diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN && DuelApp.getInstance().getSocket().isConnected())) {
+        if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
             JSONObject query = new JSONObject();
             try {
                 query.put("code", "UL");
                 query.put("user_id", userId);
-                DuelApp.getInstance().sendMessage(query.toString());
+                String json = query.toString();
+                DuelApp.getInstance().sendMessage(json);
                 lastLoginRequestTime = System.currentTimeMillis();
                 isSent = true;
             } catch (JSONException e) {
