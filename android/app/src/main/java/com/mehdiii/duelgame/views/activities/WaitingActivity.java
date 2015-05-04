@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.User;
@@ -118,9 +119,10 @@ public class WaitingActivity extends ParentActivity {
                     } else if (messageCode.compareTo("SP") == 0) {
                         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
                         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
-
-                        startActivity(i);
-                        finish();
+                        if (HeartTracker.getInstance().useHeart()) {
+                            startActivity(i);
+                            finish();
+                        }
                     } else if (messageCode.compareTo("RGD") == 0) {
 
                         for (int problemIndex = 0; problemIndex < NUMBER_OF_QUESTIONS; problemIndex++) {

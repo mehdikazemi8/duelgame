@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -34,6 +35,8 @@ import java.util.Calendar;
 
 public class StartActivity extends ParentActivity {
     String userId;
+    boolean isSent = false;
+    long lastLoginRequestTime = -1;
     /**
      * UPDATE DIALOG
      */
@@ -50,6 +53,7 @@ public class StartActivity extends ParentActivity {
 //                    return;
 //                }
 
+                isSent = false;
                 stopCircles = true;
                 if (user.getId() == null)
                     startActivity(new Intent(StartActivity.this, RegisterActivity.class));
@@ -93,7 +97,8 @@ public class StartActivity extends ParentActivity {
     private String[] splashColorsStr = null;
     ImageView centralImage;
     long startingTime, currentTime;
-    final long WAIT_BEFOR_LOGIN = 5000;
+    final long WAIT_BEFORE_LOGIN = 5000;
+    final long WAIT_BEFORE_RECONNECT = 10000;
 
     private boolean stopCircles = false;
 
@@ -127,21 +132,29 @@ public class StartActivity extends ParentActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(userClicked)
+                if (userClicked)
                     return;
 
-                if(stopCircles == false) {
+                if (stopCircles == false) {
                     addCircle(false);
                 }
             }
         }, 500);
+        long diffFromLastLoginRequest = System.currentTimeMillis() - lastLoginRequestTime;
+        if (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
+            DuelApp.getInstance().toast(R.string.message_connection_unstable, Toast.LENGTH_LONG);
+        }
 
-        if (System.currentTimeMillis()-startingTime > WAIT_BEFOR_LOGIN && DuelApp.getInstance().getSocket().isConnected()) {
+        long diff = System.currentTimeMillis() - startingTime;
+        if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
             JSONObject query = new JSONObject();
             try {
                 query.put("code", "UL");
                 query.put("user_id", userId);
-                DuelApp.getInstance().sendMessage(query.toString());
+                String json = query.toString();
+                DuelApp.getInstance().sendMessage(json);
+                lastLoginRequestTime = System.currentTimeMillis();
+                isSent = true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

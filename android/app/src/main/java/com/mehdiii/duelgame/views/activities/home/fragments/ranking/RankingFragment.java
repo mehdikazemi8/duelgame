@@ -41,8 +41,8 @@ public class RankingFragment extends FlippableFragment {
     int focusedColor;
     int notFocusedColor;
     TextView[] rankTitle = new TextView[3];
-    CommandType[] sendWhat = new CommandType[3];
-    CommandType[] receiveWhat = new CommandType[3];
+    CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
+    CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
 
     private void setBackColor() {
         for (int i = 0; i < 3; i++)
@@ -86,15 +86,6 @@ public class RankingFragment extends FlippableFragment {
         isFocused[0] = true;
         isFocused[1] = isFocused[1] = false;
 
-        sendWhat[0] = CommandType.SEND_GET_TOTAL_RANK;
-        receiveWhat[0] = CommandType.RECEIVE_GET_TOTAL_RANK;
-
-        sendWhat[1] = CommandType.SEND_GET_PROVINCE_RANK;
-        receiveWhat[1] = CommandType.RECEIVE_GET_PROVINCE_RANK;
-
-        sendWhat[2] = CommandType.SEND_GET_FRIENDS_RANK;
-        receiveWhat[2] = CommandType.RECEIVE_GET_FRIENDS_RANK;
-
         setBackColor();
     }
 
@@ -114,5 +105,6 @@ public class RankingFragment extends FlippableFragment {
     @Override
     public void onBringToFront() {
         super.onBringToFront();
+        ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[0], receiveWhat[0]);
     }
 }
