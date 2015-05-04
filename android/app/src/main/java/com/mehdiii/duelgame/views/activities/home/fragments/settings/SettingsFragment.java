@@ -69,7 +69,9 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                     AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
                     AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
 
+                    // notify user changed to update ui
                     EventBus.getDefault().post(new OnUserSettingsChanged());
+                    // set message for toast
                     message = R.string.message_settings_save_successful;
                 } else message = R.string.message_settings_save_failed;
 
