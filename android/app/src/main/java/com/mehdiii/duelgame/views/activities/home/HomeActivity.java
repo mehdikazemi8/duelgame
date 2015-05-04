@@ -17,6 +17,7 @@ import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -26,6 +27,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragm
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import java.util.ArrayList;
@@ -84,7 +86,7 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
@@ -232,11 +234,16 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onBackPressed() {
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
-        finish();
+        ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
+        dialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if ((Boolean) data)
+                    HomeActivity.super.onBackPressed();
+            }
+        });
+        dialog.show();
     }
-
 
 
 // ******************************** HOME BUTTONE PRESSED
