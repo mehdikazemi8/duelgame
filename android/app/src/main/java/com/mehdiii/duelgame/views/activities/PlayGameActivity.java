@@ -42,6 +42,8 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -967,7 +969,19 @@ public class PlayGameActivity extends ParentActivity {
 
     @Override
     public void onBackPressed() {
+        ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_quite_game));
+        dialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if ((Boolean) data) {
+                    goodbye();
+                }
+            }
+        });
+        dialog.show();
+    }
 
+    private void goodbye() {
         JSONObject query = new JSONObject();
         try {
             query.put("code", "ULG");
@@ -983,4 +997,10 @@ public class PlayGameActivity extends ParentActivity {
             timeToAnswer.cancel();
         finish();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//
+//
+//    }
 }

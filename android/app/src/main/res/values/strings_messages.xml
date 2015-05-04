@@ -10,5 +10,6 @@
     <string name="invalid_add_friend_code_empty">لطفا کد دوست خود را وارد نمایید.</string>
     <string name="message_connection_unstable">انگار سرعت اینترنتت کنده!</string>
     <string name="message_are_you_sure_to_exit">ایا مطمئن هستید؟</string>
+    <string name="message_are_you_sure_to_quite_game">آیا میخوای از بازی خارج بشی؟</string>
 
 </resources>
