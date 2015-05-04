@@ -41,6 +41,13 @@ public class ActionEmitter {
         map.put(CommandType.SEND_ADD_FRIEND, "AF");
         map.put(CommandType.RECEIVE_ADD_FRIEND, "AFS");
         map.put(CommandType.SEND_FRIEND_REQUEST_RESPONSE, "AFR");
+
+        map.put(CommandType.SEND_GET_FRIENDS_RANK, "GFR");
+        map.put(CommandType.SEND_GET_PROVINCE_RANK, "GPR");
+        map.put(CommandType.SEND_GET_TOTAL_RANK, "GTR");
+        map.put(CommandType.RECEIVE_GET_FRIENDS_RANK, "RFR");
+        map.put(CommandType.RECEIVE_GET_PROVINCE_RANK, "RPR");
+        map.put(CommandType.RECEIVE_GET_TOTAL_RANK, "RTR");
     }
 
     public String getCommandCode(CommandType type) {

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -67,7 +66,8 @@ public class DuelApp extends Application {
                 @Override
                 public void onClose(int code, String reason) {
                     isConnected = false;
-                    Log.d(TAG, "Connection lost.");
+
+                    Log.d(TAG, "Connection lost." + reason);
                 }
             });
         } catch (WebSocketException e) {
@@ -94,6 +94,7 @@ public class DuelApp extends Application {
     }
 
     public void sendMessage(String json) {
+        Log.d("sentit", json);
         wsc.sendTextMessage(json);
     }
 

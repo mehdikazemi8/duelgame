@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ranking Fragment" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ranking_friends"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow"
+            android:clickable="true"
+            android:contentDescription="2"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="دوستان" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <TextView
+            android:id="@+id/ranking_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow"
+            android:clickable="true"
+            android:contentDescription="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="استان" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <TextView
+            android:id="@+id/ranking_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow_light"
+            android:clickable="true"
+            android:contentDescription="0"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ایران" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/view_ranking_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
