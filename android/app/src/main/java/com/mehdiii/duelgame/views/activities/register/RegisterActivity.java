@@ -76,10 +76,10 @@ public class RegisterActivity extends ParentActivity {
          **/
         userId = DeviceManager.getDeviceId(RegisterActivity.this);
 
-        if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
-            startActivity(new Intent(this, TryToConnectActivity.class));
-            finish();
-        }
+//        if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
+//            startActivity(new Intent(this, TryToConnectActivity.class));
+//            finish();
+//        }
     }
 
     private void find() {
