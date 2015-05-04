@@ -46,13 +46,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
-
-    //    ImageView firstHeartImageView;
-//    ImageView secondHeartImageView;
-//    ImageView thirdHeartImageView;
-//    ImageView fourthHeartImageView;
-//    ImageView fifthHeartImageView;
-//    ImageView[] imageViews;
     TextView textViewHearts;
 
     @Override
