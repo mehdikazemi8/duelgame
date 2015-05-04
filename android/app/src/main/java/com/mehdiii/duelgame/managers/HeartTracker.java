@@ -81,6 +81,10 @@ public class HeartTracker {
         }, 1000);
     }
 
+    public int getHeartsCount() {
+        return heartsCount;
+    }
+
     public boolean useHeart() {
         if (heartsCount <= 0)
             return false;

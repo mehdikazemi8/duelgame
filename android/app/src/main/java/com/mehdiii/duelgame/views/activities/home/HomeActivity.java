@@ -72,7 +72,7 @@ public class HomeActivity extends ParentActivity {
         }
     };
 
-    DuelMusicPlayer musicPlayer;
+    public DuelMusicPlayer musicPlayer;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -237,16 +237,7 @@ public class HomeActivity extends ParentActivity {
         finish();
     }
 
-    public void wantToPlay(View v) {
-        if (HeartTracker.getInstance().useHeart()) {
-            HeartLowDialog dialog = new HeartLowDialog(this);
-            dialog.show();
-            return;
-        }
 
-        musicPlayer.pauseSound();
-        startActivity(new Intent(this, CategoryActivity.class));
-    }
 
 // ******************************** HOME BUTTONE PRESSED
 

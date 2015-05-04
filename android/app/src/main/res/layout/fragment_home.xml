@@ -308,8 +308,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
                 android:background="@drawable/home_duel_btn"
-                android:clickable="true"
-                android:onClick="wantToPlay" />
+                android:clickable="true" />
 
             <ImageButton
                 android:id="@+id/button_add_friend"
