@@ -332,6 +332,8 @@ public class GameResultActivity extends ParentActivity {
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
         animateProgress();
+
+        // TODO EventBus, tell Data is changed
     }
 
     private void configureControls() {
@@ -453,10 +455,6 @@ public class GameResultActivity extends ParentActivity {
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);
         }
-    }
-
-    public void setTextView(int viewId, String s) {
-        ((TextView) findViewById(viewId)).setText(s);
     }
 
     public void addToFriends(View v) {
