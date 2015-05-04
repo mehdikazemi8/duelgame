@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.DeliveryReport;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -38,6 +40,7 @@ import de.greenrobot.event.EventBus;
  * Created by omid on 4/5/2015.
  */
 public class SettingsFragment extends FlippableFragment implements View.OnClickListener {
+    public static final String PREFERENCE_VOICE = "preference_voice";
 
     private EditText usernameEditText;
     private EditText emailEditText;
@@ -66,7 +69,9 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                     AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
                     AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
 
+                    // notify user changed to update ui
                     EventBus.getDefault().post(new OnUserSettingsChanged());
+                    // set message for toast
                     message = R.string.message_settings_save_successful;
                 } else message = R.string.message_settings_save_failed;
 
@@ -117,6 +122,12 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         FontHelper.setKoodakFor(getActivity(), textViewHintAvatat, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton);
         avatarImageView.setOnClickListener(this);
         saveButton.setOnClickListener(this);
+        switchMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                GlobalPreferenceManager.writeBoolean(getActivity(), PREFERENCE_VOICE, b);
+            }
+        });
     }
 
     @Override
@@ -141,7 +152,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
-                setAvatar((int) data);
+                setAvatar((Integer) data);
             }
         });
         dialog.show(getFragmentManager(), "DIALOG_AVATAR_CHOOSER");

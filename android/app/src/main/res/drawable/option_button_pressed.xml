@@ -9,6 +9,6 @@
         android:startColor="@color/play_game_option_btn_back" />
     <stroke
         android:width="2dip"
-        android:color="@color/correct_answer" />
+        android:color="@color/yellow" />
     <corners android:radius="4dp" />
 </shape>
