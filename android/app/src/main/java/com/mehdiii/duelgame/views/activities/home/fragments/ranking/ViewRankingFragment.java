@@ -37,7 +37,7 @@ public class ViewRankingFragment extends Fragment {
         }
 
         User user = AuthManager.getCurrentUser();
-        Log.d("sendFetch", user.serialize(commandType).toString());
+        Log.d("sendFetch", user.serialize(commandType));
         DuelApp.getInstance().sendMessage(user.serialize(commandType));
     }
 
