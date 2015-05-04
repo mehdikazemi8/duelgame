@@ -2,7 +2,6 @@ package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +45,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     ImageButton addFriendButton;
     ProgressBar levelProgress;
     Button refillButton;
+    Button buyDiamondButton;
     TextView textViewHearts;
 
     @Override
@@ -71,7 +71,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts,
-                provinceRanking, provinceRankingText, textViewCounter);
+                provinceRanking, provinceRankingText, textViewCounter, buyDiamondButton, refillButton);
     }
 
     private void find(View view) {
@@ -87,6 +87,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
         addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
+        buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
@@ -157,6 +158,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             minutes = notice.getValue() / 60;
             if (minutes == 0)
                 seconds = notice.getValue();
+
             else
                 seconds = notice.getValue() % (minutes * 60);
             textViewCounter.setText(String.format("%d:%d", minutes, seconds));
