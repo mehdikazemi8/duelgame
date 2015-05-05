@@ -13,12 +13,10 @@ import android.view.View;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
@@ -28,7 +26,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFra
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
-import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import java.util.ArrayList;
 import java.util.List;

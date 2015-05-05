@@ -16,9 +16,9 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
-import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -198,4 +198,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         this.textViewHearts.setText(String.valueOf(count));
     }
 
+    @Override
+    public void onBringToFront() {
+        super.onBringToFront();
+    }
 }

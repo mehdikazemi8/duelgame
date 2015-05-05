@@ -854,7 +854,7 @@ public class PlayGameActivity extends ParentActivity {
 
     private void showToast(String message) {
         Toast toast = Toast.makeText(PlayGameActivity.this, message,
-                Toast.LENGTH_LONG);
+                Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
 
         LinearLayout toastLayout = (LinearLayout) toast.getView();
