@@ -918,8 +918,6 @@ public class PlayGameActivity extends ParentActivity {
         super.onPause();
 
         musicPlayer.pauseSound();
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
     }
 
     @Override
@@ -928,8 +926,6 @@ public class PlayGameActivity extends ParentActivity {
 //        setData();
 
         musicPlayer.playSound();
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        startService(svc);
     }
 
     @Override
