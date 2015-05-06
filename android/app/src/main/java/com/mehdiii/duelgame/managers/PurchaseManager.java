@@ -75,10 +75,13 @@ public class PurchaseManager {
                     break;
                 case RECEIVE_PURCHASE_DONE:
                     PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
-                    AuthManager.getCurrentUser().changeConfiguration(purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
-                    purchaseDone.setPurchaseItem(selectedPurchaseItem);
-                    EventBus.getDefault().post(new OnUserSettingsChanged());
-                    EventBus.getDefault().post(purchaseDone);
+                    if (purchaseDone != null) {
+                        AuthManager.getCurrentUser().changeConfiguration(purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
+                        purchaseDone.setPurchaseItem(selectedPurchaseItem);
+                        EventBus.getDefault().post(new OnUserSettingsChanged());
+                        EventBus.getDefault().post(purchaseDone);
+                    }
+
                     break;
             }
         }

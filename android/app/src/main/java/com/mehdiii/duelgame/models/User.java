@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
@@ -193,5 +194,7 @@ public class User extends BaseModel {
         setHeart(heart);
         setExtremeHeart(extremeHeart);
         setScoreFactor(scoreFactor);
+        
+        HeartTracker.configure(heart);
     }
 }

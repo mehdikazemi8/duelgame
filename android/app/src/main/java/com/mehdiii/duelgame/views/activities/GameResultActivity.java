@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -35,6 +36,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 public class GameResultActivity extends ParentActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
@@ -332,8 +335,7 @@ public class GameResultActivity extends ParentActivity {
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
         animateProgress();
-
-        // TODO EventBus, tell Data is changed
+        EventBus.getDefault().post(new OnUserSettingsChanged());
     }
 
     private void configureControls() {

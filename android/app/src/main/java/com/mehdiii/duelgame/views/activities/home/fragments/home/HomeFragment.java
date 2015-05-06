@@ -104,6 +104,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        bindViewData();
     }
 
     @Override
@@ -138,7 +139,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
         friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
-        arrangeHearts(user.getHeart());
+        this.textViewHearts.setText(String.valueOf((user.getHeart())));
     }
 
     public void startGame() {
@@ -163,23 +164,27 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
+        // TODO
         HeartTracker.getInstance().useHeart();
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
         if (notice.getMode() == OnHeartChangeNotice.ChangeMode.DECREASED ||
-                notice.getMode() == OnHeartChangeNotice.ChangeMode.INCREASED) {
-            arrangeHearts(notice.getValue());
+                notice.getMode() == OnHeartChangeNotice.ChangeMode.INCREASED ||
+                notice.getMode() == OnHeartChangeNotice.ChangeMode.REFRESH) {
+
+            this.textViewHearts.setText(String.valueOf((notice.getValue())));
+
             if (notice.getValue() >= HeartTracker.COUNT_HEARTS_MAX)
                 textViewCounter.setVisibility(View.INVISIBLE);
             else
                 textViewCounter.setVisibility(View.VISIBLE);
+
         } else if (notice.getMode() == OnHeartChangeNotice.ChangeMode.TICK) {
             int minutes, seconds;
             minutes = notice.getValue() / 60;
             if (minutes == 0)
                 seconds = notice.getValue();
-
             else
                 seconds = notice.getValue() % (minutes * 60);
             textViewCounter.setText(String.format("%d:%d", minutes, seconds));
@@ -194,9 +199,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         bindViewData();
     }
 
-    private void arrangeHearts(int count) {
-        this.textViewHearts.setText(String.valueOf(count));
-    }
+
 
     @Override
     public void onBringToFront() {
