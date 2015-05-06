@@ -41,6 +41,7 @@ import de.greenrobot.event.EventBus;
 
 public class GameResultActivity extends ParentActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
+    public static final String ARGUMENT_DIAMOND = "collected_diamond";
     public static final String ARGUMENT_RESULT_INFO = "argument_result_info";
 
     User opponentUser;
@@ -452,7 +453,7 @@ public class GameResultActivity extends ParentActivity {
 
         String json = params.getString(ARGUMENT_OPPONENT, "");
         resultInfo = params.getString(ARGUMENT_RESULT_INFO, "");
-        collectedDiamond = params.getInt("collectedDiamond", 0);
+        collectedDiamond = params.getInt(ARGUMENT_DIAMOND, 0);
 
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);
