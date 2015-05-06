@@ -49,6 +49,7 @@ public class GameResultActivity extends ParentActivity {
 
     int WIN, LOSE;
     MediaPlayer myPlayer;
+    ArrayList<ObjectAnimator> allAnimations;
 
     private TextView gameResultStatus;
     private ImageView opponentAvatar;
@@ -145,7 +146,6 @@ public class GameResultActivity extends ParentActivity {
         return animation;
     }
 
-    ArrayList<ObjectAnimator> allAnimations;
 
     @Override
     protected void onStart() {
