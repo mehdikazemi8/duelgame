@@ -124,8 +124,9 @@ public class HeartTracker {
     }
 
     /**
-     * sends a notify signal to ui to update hearts, if mode is INCREASED or DECREASED value is indicating the number of remaining hearts.
-     * if mode equals TICK then value is returning the number of seconds left to the next refill.
+     * sends a notify signal to ui to update hearts, if mode is INCREASED or DECREASED value is indicating
+     * the number of remaining hearts. if mode equals TICK then value is returning the number of seconds
+     * left to the next refill.
      *
      * @param mode  the type of notification
      * @param value the number associated with the notification method description for more detail.
