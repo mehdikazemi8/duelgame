@@ -25,6 +25,7 @@ import com.mehdiii.duelgame.models.DeliveryReport;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
 import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -126,6 +127,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 GlobalPreferenceManager.writeBoolean(getActivity(), PREFERENCE_VOICE, b);
+                EventBus.getDefault().post(new OnSoundStateChanged(b));
             }
         });
     }

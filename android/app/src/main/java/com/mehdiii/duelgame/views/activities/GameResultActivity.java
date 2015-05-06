@@ -395,7 +395,7 @@ public class GameResultActivity extends ParentActivity {
             gameVerdict = "مساوی شد";
             musicId = LOSE;
         } else if (gameStatus == 1) {
-            bonus = earnedDiamond + 120;
+            bonus = earnedDiamond;
             gameVerdict = "بردی";
             gameResultStatus.setTextColor(getResources().getColor(R.color.correct_answer));
             musicId = WIN;

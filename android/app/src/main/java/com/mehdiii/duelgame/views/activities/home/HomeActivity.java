@@ -15,6 +15,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -83,7 +84,7 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
@@ -223,10 +224,18 @@ public class HomeActivity extends ParentActivity {
         childFragments.add(homeFragment);
     }
 
+    public void onEvent(OnSoundStateChanged s) {
+        if (s.getState() == true)
+            musicPlayer.playSound();
+        else
+            musicPlayer.pauseSound();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        musicPlayer.playSound();
     }
 
     @Override
@@ -244,6 +253,7 @@ public class HomeActivity extends ParentActivity {
 
 
 // ******************************** HOME BUTTONE PRESSED
+
 
     @Override
     public void onPause() {
