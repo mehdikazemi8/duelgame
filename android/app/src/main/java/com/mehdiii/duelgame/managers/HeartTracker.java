@@ -37,7 +37,7 @@ public class HeartTracker {
         // if hearts are less than max possible
         if (instance.heartsCount < COUNT_HEARTS_MAX)
             instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
-        else if ( instance.heartsCount == COUNT_HEARTS_MAX) {
+        else if (instance.heartsCount == COUNT_HEARTS_MAX) {
             instance.stopCountdown();
         }
 
@@ -70,7 +70,7 @@ public class HeartTracker {
         // check if it is time to recover one heart
         if (timeLeft == 0) {
             // increase hearts count
-            heartsCount++;
+            increaseHeart();
             running = false;
             notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED, heartsCount);
             if (heartsCount < COUNT_HEARTS_MAX)
@@ -97,7 +97,7 @@ public class HeartTracker {
         if (heartsCount <= 0)
             return false;
 
-        heartsCount--;
+        decreaseHeart();
         notifyChange(OnHeartChangeNotice.ChangeMode.DECREASED, heartsCount);
 
         if (!running)
@@ -116,5 +116,17 @@ public class HeartTracker {
     public void notifyChange(OnHeartChangeNotice.ChangeMode mode, int value) {
         if (EventBus.getDefault() != null)
             EventBus.getDefault().post(new OnHeartChangeNotice(mode, value));
+    }
+
+    private void increaseHeart() {
+        heartsCount++;
+        if (AuthManager.getCurrentUser() != null)
+            AuthManager.getCurrentUser().setHeart(heartsCount);
+    }
+
+    private void decreaseHeart() {
+        heartsCount--;
+        if (AuthManager.getCurrentUser() != null)
+            AuthManager.getCurrentUser().setHeart(heartsCount);
     }
 }
