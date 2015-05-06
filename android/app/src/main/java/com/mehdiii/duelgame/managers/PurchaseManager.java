@@ -8,6 +8,7 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.google.gson.Gson;
@@ -50,11 +51,13 @@ public class PurchaseManager {
 
 
     public static void init(Activity activity, IInAppBillingService service, int requestCode) {
+        Log.d("PURCHASE_MANAGER", "initiation started");
         instance = new PurchaseManager();
         instance.activity = activity;
         instance.requestCode = requestCode;
         instance.service = service;
         LocalBroadcastManager.getInstance(activity).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
+        Log.d("PURCHASE_MANAGER", "initiation finished");
     }
 
     public static PurchaseManager getInstance() {
@@ -64,9 +67,9 @@ public class PurchaseManager {
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (type == null) {
-                return;
-            }
+            Log.d("PURCHASE_MANAGER", "received message");
+            Log.d("PURCHASE_MANAGER", type.name());
+            Log.d("PURCHASE_MANAGER", json);
 
             switch (type) {
                 case RECEIVE_START_PURCHASE:

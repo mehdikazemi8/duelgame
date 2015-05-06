@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
@@ -462,16 +463,6 @@ public class GameResultActivity extends ParentActivity {
 
     public void addToFriends(View v) {
         boolean everythingOK = true;
-//        JSONObject query = new JSONObject();
-//        try {
-////            query.put("code", "AF");
-////            query.put("user_number", opponentUser.getId());
-////
-////            DuelApp.configure().sendMessage(query.toString());
-//
-//        } catch (JSONException e) {
-//            everythingOK = false;
-//        }
 
         FriendRequest request = new FriendRequest(opponentUser.getId());
         DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_ADD_FRIEND));
@@ -485,15 +476,7 @@ public class GameResultActivity extends ParentActivity {
     }
 
     public void duelWithOthers(View v) {
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "WP");
-            query.put("category", category);
-
-            DuelApp.getInstance().sendMessage(query.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        DuelApp.getInstance().sendMessage(new WannaPlay(CommandType.SEND_WANNA_PLAY, category).serialize());
 
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();

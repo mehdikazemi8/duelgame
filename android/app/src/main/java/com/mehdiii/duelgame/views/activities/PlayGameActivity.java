@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.GetQuestion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -49,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayGameActivity extends ParentActivity {
 
@@ -163,29 +165,29 @@ public class PlayGameActivity extends ParentActivity {
         opponentAnsweredThisTime = -1;
         remainingTimeOfThisQuestion = 20;
 
-        String questionText = questionsToAsk[problemIndex].questionText;
+        String questionText = questionsToAsk.get(problemIndex).getQuestionText();
         setTextView(questionTextView, questionText);
 
-        String[] opts = questionsToAsk[problemIndex].options;
+        List<String> opts = questionsToAsk.get(problemIndex).getOptions();
         problemIndex++;
-        correctAnswerStr = opts[0];
+        correctAnswerStr = opts.get(0);
 
         shuffleArray(opts);
         shuffleArray(opts);
 
-        if (opts[0].equals(correctAnswerStr))
+        if (opts.get(0).equals(correctAnswerStr))
             correctOption = 0;
-        else if (opts[1].equals(correctAnswerStr))
+        else if (opts.get(1).equals(correctAnswerStr))
             correctOption = 1;
-        else if (opts[2].equals(correctAnswerStr))
+        else if (opts.get(2).equals(correctAnswerStr))
             correctOption = 2;
         else
             correctOption = 3;
 
-        setButton(option0Btn, opts[0]);
-        setButton(option1Btn, opts[1]);
-        setButton(option2Btn, opts[2]);
-        setButton(option3Btn, opts[3]);
+        setButton(option0Btn, opts.get(0));
+        setButton(option1Btn, opts.get(1));
+        setButton(option2Btn, opts.get(2));
+        setButton(option3Btn, opts.get(3));
 
         timeToAnswer = new CountDownTimer(DURATION, 1000) {
             @Override
@@ -412,20 +414,17 @@ public class PlayGameActivity extends ParentActivity {
 
         myPlayer.execute();
 
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "GQ");
-            if (ok == 1) {
-                if (clickedHintAgain == 1) query.put("hint_again", 1);
-                if (clickedHintRemove == 1) query.put("hint_remove", 1);
-            }
-            query.put("time", remainingTimeOfThisQuestion);
-            query.put("ok", ok);
-
-            DuelApp.getInstance().sendMessage(query.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        GetQuestion request = new GetQuestion();
+        request.setHintAgain(0);
+        request.setHintRemove(0);
+        if (ok == 1) {
+            request.setHintRemove(1);
+            request.setHintAgain(1);
         }
+        request.setTime(remainingTimeOfThisQuestion);
+        request.setOk(ok);
+
+        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
 
 //        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
         if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
@@ -579,18 +578,15 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     public void sendGQMinusOne() {
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "GQ");
-            if (clickedHintAgain == 1) query.put("hint_again", 1);
-            if (clickedHintRemove == 1) query.put("hint_remove", 1);
-            query.put("time", -1);
-            query.put("ok", 0);
+        GetQuestion request = new GetQuestion();
+        request.setHintAgain(0);
+        request.setHintRemove(0);
+        if (clickedHintAgain == 1) request.setHintAgain(1);
+        if (clickedHintRemove == 1) request.setHintRemove(1);
+        request.setTime(-1);
+        request.setOk(0);
 
-            DuelApp.getInstance().sendMessage(query.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
     }
 
     public void doAnimateHintOption(final RelativeLayout hintView, float from, float to, int duration, int startDelay) {
@@ -958,13 +954,7 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     private void goodbye() {
-        JSONObject query = new JSONObject();
-        try {
-            query.put("code", "ULG");
-            DuelApp.getInstance().sendMessage(query.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
 
         if (rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
             rotateTickAnimation.cancel();

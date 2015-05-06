@@ -19,6 +19,12 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
  * Created by omid on 4/5/2015.
  */
 public class RankingFragment extends FlippableFragment {
+    boolean[] isFocused = new boolean[3];
+    int focusedColor;
+    int notFocusedColor;
+    TextView[] rankTitle = new TextView[3];
+    CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
+    CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
 
     @Override
     public void onResume() {
@@ -36,13 +42,6 @@ public class RankingFragment extends FlippableFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_ranking, container, false);
     }
-
-    boolean[] isFocused = new boolean[3];
-    int focusedColor;
-    int notFocusedColor;
-    TextView[] rankTitle = new TextView[3];
-    CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
-    CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
 
     private void setBackColor() {
         for (int i = 0; i < 3; i++)

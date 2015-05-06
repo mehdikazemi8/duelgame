@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -147,17 +148,9 @@ public class StartActivity extends ParentActivity {
 
         long diff = System.currentTimeMillis() - startingTime;
         if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
-            JSONObject query = new JSONObject();
-            try {
-                query.put("code", "UL");
-                query.put("user_id", userId);
-                String json = query.toString();
-                DuelApp.getInstance().sendMessage(json);
-                lastLoginRequestTime = System.currentTimeMillis();
-                isSent = true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, userId).serialize());
+            lastLoginRequestTime = System.currentTimeMillis();
+            isSent = true;
         }
     }
 

@@ -24,6 +24,6 @@ public class DuelBroadcastReceiver extends BroadcastReceiver {
         String json = intent.getExtras().getString(BUNDLE_JSON_KEY);
         BaseModel baseModel = BaseModel.deserialize(json, BaseModel.class);
         if (onMessageReceived != null)
-            onMessageReceived.onReceive(json, baseModel != null ? baseModel.getCommand() : CommandType.UNKNOWN);
+            onMessageReceived.onReceive(json, baseModel != null && baseModel.getCommand() != null ? baseModel.getCommand() : CommandType.UNKNOWN);
     }
 }

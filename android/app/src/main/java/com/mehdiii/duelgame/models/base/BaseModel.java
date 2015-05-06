@@ -10,6 +10,12 @@ import java.lang.reflect.Type;
  * Created by omid on 4/8/2015.
  */
 public class BaseModel {
+    public BaseModel() {
+    }
+
+    public BaseModel(CommandType command) {
+        setCommand(command);
+    }
 
     @SerializedName("code")
     String command;
