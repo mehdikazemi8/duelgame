@@ -64,6 +64,10 @@ public class PurchaseManager {
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
+            if (type == null) {
+                return;
+            }
+
             switch (type) {
                 case RECEIVE_START_PURCHASE:
                     try {

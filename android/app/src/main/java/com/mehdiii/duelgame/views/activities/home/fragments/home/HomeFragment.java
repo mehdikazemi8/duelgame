@@ -66,14 +66,19 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          * find controls and bind view data
          */
         find(view);
-        bindViewData();
 
         /**
          * configure click listeners and setup typeface
          */
+        configure(view);
+    }
+
+    private void configure(View view) {
         addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
+
+        // set font-face
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts,
@@ -170,7 +175,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     public void onEvent(OnHeartChangeNotice notice) {
         // if hearts are refilling over time, counter text view should be visible, ot invisible
-        if (notice.getValue() >= HeartTracker.COUNT_HEARTS_MAX)
+        if (AuthManager.getCurrentUser().getHeart() >= HeartTracker.COUNT_HEARTS_MAX)
             textViewCounter.setVisibility(View.INVISIBLE);
         else
             textViewCounter.setVisibility(View.VISIBLE);
@@ -186,7 +191,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             this.textViewHearts.setText(String.valueOf((notice.getValue())));
 
         } else if (notice.getMode() == OnHeartChangeNotice.ChangeMode.TICK) {
-            // update countdown timer
+            // update countdown timer, (getValue equals seconds remaining to the next refill)
             int minutes, seconds;
             minutes = notice.getValue() / 60;
             seconds = minutes == 0 ? notice.getValue() : notice.getValue() % (minutes * 60);

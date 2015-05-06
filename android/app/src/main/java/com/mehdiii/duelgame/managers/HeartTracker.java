@@ -28,11 +28,15 @@ public class HeartTracker {
     boolean running = false;
     private static HeartTracker instance;
 
+    public static HeartTracker getInstance() {
+        return instance;
+    }
+
     public static HeartTracker configure(int heartsCount) {
-        if (instance == null) {
+        if (instance == null)
             instance = new HeartTracker();
-            instance.heartsCount = heartsCount;
-        }
+
+        instance.heartsCount = heartsCount;
 
         // if hearts are less than max possible
         if (instance.heartsCount < COUNT_HEARTS_MAX)
@@ -45,9 +49,10 @@ public class HeartTracker {
         return instance;
     }
 
-    public static HeartTracker getInstance() {
-        return instance;
-    }
+    /**
+     * this method is used to (re)start the timer. if no argument is passed, it is assumed that timer is going
+     * to have a refill after TIME_RECOVER_SINGLE_HEART_SECONDS, otherwise next heart refill will be scheduled to the provided argument
+     */
 
     private void resetCountdown() {
         resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
@@ -59,10 +64,16 @@ public class HeartTracker {
         scheduleNextTick();
     }
 
+    /**
+     * stop the countdown
+     */
     private void stopCountdown() {
         running = false;
     }
 
+    /**
+     * schedule next tick of heart refiller
+     */
     private void scheduleNextTick() {
         if (!running)
             return;
@@ -93,6 +104,11 @@ public class HeartTracker {
         return heartsCount;
     }
 
+    /**
+     * should be called when user starts a game and it is intended to use one of its hearts in return.
+     *
+     * @return true if it is valid to decrease hearts and false if it is not possible
+     */
     public boolean useHeart() {
         if (heartsCount <= 0)
             return false;
@@ -118,6 +134,9 @@ public class HeartTracker {
             EventBus.getDefault().post(new OnHeartChangeNotice(mode, value));
     }
 
+    /**
+     * (in/de)crease hearts and set the new value to the user profile if accessible.
+     */
     private void increaseHeart() {
         heartsCount++;
         if (AuthManager.getCurrentUser() != null)
