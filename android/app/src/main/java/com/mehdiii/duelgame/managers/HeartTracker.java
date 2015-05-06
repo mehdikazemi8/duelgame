@@ -1,7 +1,3 @@
-/**
- * To-Do list (future work)
- * 1. post update notif
- */
 package com.mehdiii.duelgame.managers;
 
 import android.app.AlarmManager;
@@ -32,6 +28,11 @@ public class HeartTracker {
         return instance;
     }
 
+    /**
+     * used to configure heart tracker engine.
+     * @param heartsCount number of current hearts
+     * @return the current working HeartTracker instance.
+     */
     public static HeartTracker configure(int heartsCount) {
         if (instance == null)
             instance = new HeartTracker();
