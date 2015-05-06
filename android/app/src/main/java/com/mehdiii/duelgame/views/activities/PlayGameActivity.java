@@ -305,7 +305,7 @@ public class PlayGameActivity extends ParentActivity {
                                                @Override
                                                public void onAnimationEnd(Animation animation) {
                                                    collectedDiamondGroup.setVisibility(View.INVISIBLE);
-                                                   collectedDiamondTextView.setText("" + collectedDiamond);
+                                                   collectedDiamondTextView.setText(String.valueOf(collectedDiamond));
                                                }
 
                                                @Override
@@ -756,7 +756,7 @@ public class PlayGameActivity extends ParentActivity {
                     Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
                     i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
                     i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
-                    i.putExtra("collectedDiamond", collectedDiamond);
+                    i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
                     startActivity(i);
                     finish();
                 } else {
@@ -810,6 +810,7 @@ public class PlayGameActivity extends ParentActivity {
             clickedHintRemove = 1;
         }
 
+
         if (hintRemoveViewIsOpen == true) {
             doAnimateHintOption(hintRemoveView, 1f, 0f, 100, 0);
             hintRemoveViewIsOpen = false;
@@ -848,17 +849,6 @@ public class PlayGameActivity extends ParentActivity {
         }
 
         hintRemoveBtn.setClickable(false);
-    }
-
-    private void showToast(String message) {
-        Toast toast = Toast.makeText(PlayGameActivity.this, message,
-                Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-
-        LinearLayout toastLayout = (LinearLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        FontHelper.setKoodakFor(PlayGameActivity.this, toastTV);
-        toast.show();
     }
 
     public void hintAgainMethod(View v) {
@@ -910,6 +900,18 @@ public class PlayGameActivity extends ParentActivity {
 
         hintAgainBtn.setClickable(false);
     }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(PlayGameActivity.this, message,
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        FontHelper.setKoodakFor(PlayGameActivity.this, toastTV);
+        toast.show();
+    }
+
 
     @Override
     public void onPause() {

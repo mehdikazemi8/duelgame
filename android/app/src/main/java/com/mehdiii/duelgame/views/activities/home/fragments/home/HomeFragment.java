@@ -66,14 +66,19 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          * find controls and bind view data
          */
         find(view);
-        bindViewData();
 
         /**
          * configure click listeners and setup typeface
          */
+        configure(view);
+    }
+
+    private void configure(View view) {
         addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
+
+        // set font-face
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts,
@@ -164,29 +169,33 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        // TODO
+        // TODO this is not doing what it actually has to do
         HeartTracker.getInstance().useHeart();
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
+        // if hearts are refilling over time, counter text view should be visible, ot invisible
+        if (AuthManager.getCurrentUser().getHeart() >= HeartTracker.COUNT_HEARTS_MAX)
+            textViewCounter.setVisibility(View.INVISIBLE);
+        else
+            textViewCounter.setVisibility(View.VISIBLE);
+
+
+        // if notice says that heart is increase or decreased or refreshed again from server change
+        // hearts count, otherwise, update countdown timer.
         if (notice.getMode() == OnHeartChangeNotice.ChangeMode.DECREASED ||
                 notice.getMode() == OnHeartChangeNotice.ChangeMode.INCREASED ||
                 notice.getMode() == OnHeartChangeNotice.ChangeMode.REFRESH) {
 
+            // update hearts count textView
             this.textViewHearts.setText(String.valueOf((notice.getValue())));
 
-            if (notice.getValue() >= HeartTracker.COUNT_HEARTS_MAX)
-                textViewCounter.setVisibility(View.INVISIBLE);
-            else
-                textViewCounter.setVisibility(View.VISIBLE);
-
         } else if (notice.getMode() == OnHeartChangeNotice.ChangeMode.TICK) {
+            // update countdown timer, (getValue equals seconds remaining to the next refill)
             int minutes, seconds;
             minutes = notice.getValue() / 60;
-            if (minutes == 0)
-                seconds = notice.getValue();
-            else
-                seconds = notice.getValue() % (minutes * 60);
+            seconds = minutes == 0 ? notice.getValue() : notice.getValue() % (minutes * 60);
+
             textViewCounter.setText(String.format("%d:%d", minutes, seconds));
         }
     }

@@ -1,7 +1,3 @@
-/**
- * To-Do list (future work)
- * 1. post update notif
- */
 package com.mehdiii.duelgame.managers;
 
 import android.app.AlarmManager;
@@ -28,16 +24,25 @@ public class HeartTracker {
     boolean running = false;
     private static HeartTracker instance;
 
+    public static HeartTracker getInstance() {
+        return instance;
+    }
+
+    /**
+     * used to configure heart tracker engine.
+     * @param heartsCount number of current hearts
+     * @return the current working HeartTracker instance.
+     */
     public static HeartTracker configure(int heartsCount) {
-        if (instance == null) {
+        if (instance == null)
             instance = new HeartTracker();
-            instance.heartsCount = heartsCount;
-        }
+
+        instance.heartsCount = heartsCount;
 
         // if hearts are less than max possible
         if (instance.heartsCount < COUNT_HEARTS_MAX)
             instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
-        else if ( instance.heartsCount == COUNT_HEARTS_MAX) {
+        else if (instance.heartsCount == COUNT_HEARTS_MAX) {
             instance.stopCountdown();
         }
 
@@ -45,9 +50,10 @@ public class HeartTracker {
         return instance;
     }
 
-    public static HeartTracker getInstance() {
-        return instance;
-    }
+    /**
+     * this method is used to (re)start the timer. if no argument is passed, it is assumed that timer is going
+     * to have a refill after TIME_RECOVER_SINGLE_HEART_SECONDS, otherwise next heart refill will be scheduled to the provided argument
+     */
 
     private void resetCountdown() {
         resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
@@ -59,10 +65,16 @@ public class HeartTracker {
         scheduleNextTick();
     }
 
+    /**
+     * stop the countdown
+     */
     private void stopCountdown() {
         running = false;
     }
 
+    /**
+     * schedule next tick of heart refiller
+     */
     private void scheduleNextTick() {
         if (!running)
             return;
@@ -70,7 +82,7 @@ public class HeartTracker {
         // check if it is time to recover one heart
         if (timeLeft == 0) {
             // increase hearts count
-            heartsCount++;
+            increaseHeart();
             running = false;
             notifyChange(OnHeartChangeNotice.ChangeMode.INCREASED, heartsCount);
             if (heartsCount < COUNT_HEARTS_MAX)
@@ -93,11 +105,16 @@ public class HeartTracker {
         return heartsCount;
     }
 
+    /**
+     * should be called when user starts a game and it is intended to use one of its hearts in return.
+     *
+     * @return true if it is valid to decrease hearts and false if it is not possible
+     */
     public boolean useHeart() {
         if (heartsCount <= 0)
             return false;
 
-        heartsCount--;
+        decreaseHeart();
         notifyChange(OnHeartChangeNotice.ChangeMode.DECREASED, heartsCount);
 
         if (!running)
@@ -107,8 +124,9 @@ public class HeartTracker {
     }
 
     /**
-     * sends a notify signal to ui to update hearts, if mode is INCREASED or DECREASED value is indicating the number of remaining hearts.
-     * if mode equals TICK then value is returning the number of seconds left to the next refill.
+     * sends a notify signal to ui to update hearts, if mode is INCREASED or DECREASED value is indicating
+     * the number of remaining hearts. if mode equals TICK then value is returning the number of seconds
+     * left to the next refill.
      *
      * @param mode  the type of notification
      * @param value the number associated with the notification method description for more detail.
@@ -116,5 +134,20 @@ public class HeartTracker {
     public void notifyChange(OnHeartChangeNotice.ChangeMode mode, int value) {
         if (EventBus.getDefault() != null)
             EventBus.getDefault().post(new OnHeartChangeNotice(mode, value));
+    }
+
+    /**
+     * (in/de)crease hearts and set the new value to the user profile if accessible.
+     */
+    private void increaseHeart() {
+        heartsCount++;
+        if (AuthManager.getCurrentUser() != null)
+            AuthManager.getCurrentUser().setHeart(heartsCount);
+    }
+
+    private void decreaseHeart() {
+        heartsCount--;
+        if (AuthManager.getCurrentUser() != null)
+            AuthManager.getCurrentUser().setHeart(heartsCount);
     }
 }
