@@ -16,7 +16,7 @@ import de.greenrobot.event.EventBus;
  * Created by omid on 4/20/2015.
  */
 public class HeartTracker {
-    private static final int TIME_RECOVER_SINGLE_HEART_SECONDS = 10;//60 * 10;
+    private static final int TIME_RECOVER_SINGLE_HEART_SECONDS = 600;//60 * 10;
     public static final int COUNT_HEARTS_MAX = 5;
 
     private int heartsCount;

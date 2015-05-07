@@ -83,6 +83,8 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
             previousType = item.getEntityType();
             parity++;
         }
+        if (linearLayout != null)
+            storeContainer.addView(linearLayout);
     }
 
     private void addDelimiter() {

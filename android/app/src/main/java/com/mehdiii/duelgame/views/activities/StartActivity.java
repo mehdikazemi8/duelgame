@@ -38,6 +38,7 @@ public class StartActivity extends ParentActivity {
     String userId;
     boolean isSent = false;
     long lastLoginRequestTime = -1;
+    private static final int RECREATE_CIRCLE_GAP = 1000;
     /**
      * UPDATE DIALOG
      */
@@ -140,7 +141,7 @@ public class StartActivity extends ParentActivity {
                     addCircle(false);
                 }
             }
-        }, 500);
+        }, RECREATE_CIRCLE_GAP);
         long diffFromLastLoginRequest = System.currentTimeMillis() - lastLoginRequestTime;
         if (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
             DuelApp.getInstance().toast(R.string.message_connection_unstable, Toast.LENGTH_LONG);
@@ -156,7 +157,7 @@ public class StartActivity extends ParentActivity {
 
     public void clickedLogo(View v) {
         currentTime = System.currentTimeMillis();
-        if (currentTime - startingTime < 500)
+        if (currentTime - startingTime < RECREATE_CIRCLE_GAP)
             return;
 
         addCircle(true);

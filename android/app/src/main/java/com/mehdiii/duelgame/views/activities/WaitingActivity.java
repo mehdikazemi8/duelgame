@@ -85,7 +85,7 @@ public class WaitingActivity extends ParentActivity {
         animation.start();
     }
 
-    DuelMusicPlayer musicPlayer;
+//    DuelMusicPlayer musicPlayer;
     User opponentUser = new User();
 
     BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
@@ -191,8 +191,8 @@ public class WaitingActivity extends ParentActivity {
                 opponentTitle, opponentName, opponentProvince,
                 waitingAgainst);
 
-        musicPlayer = new DuelMusicPlayer(WaitingActivity.this, R.raw.waiting, true);
-        musicPlayer.execute();
+//        musicPlayer = new DuelMusicPlayer(WaitingActivity.this, R.raw.waiting, true);
+//        musicPlayer.execute();
     }
 
     public void setTextView(TextView tv, String str) {
@@ -203,7 +203,7 @@ public class WaitingActivity extends ParentActivity {
     public void onPause() {
         super.onPause();
 
-        musicPlayer.pauseSound();
+//        musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
     }
@@ -213,7 +213,7 @@ public class WaitingActivity extends ParentActivity {
         super.onResume();
 //        setData();
 
-        musicPlayer.playSound();
+//        musicPlayer.playSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }

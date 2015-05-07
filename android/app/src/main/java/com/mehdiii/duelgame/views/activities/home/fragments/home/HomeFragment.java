@@ -16,6 +16,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
@@ -76,6 +77,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     private void configure(View view) {
         addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
+        buyDiamondButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
 
         // set font-face
@@ -124,6 +126,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.button_add_friend:
                 addFriend();
                 break;
+            case R.id.button_buy_diamond:
             case R.id.button_refill:
                 refillHeart();
                 break;
@@ -154,7 +157,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             return;
         }
 
-        ((HomeActivity) getActivity()).musicPlayer.pauseSound();
+//        ((HomeActivity) getActivity()).musicPlayer.pauseSound();
         getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
 
@@ -170,7 +173,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     private void refillHeart() {
         // TODO this is not doing what it actually has to do
-        HeartTracker.getInstance().useHeart();
+//        HeartTracker.getInstance().useHeart();
+        EventBus.getDefault().post(new ChangePage(2));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {

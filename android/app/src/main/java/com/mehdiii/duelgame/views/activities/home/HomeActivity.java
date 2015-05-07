@@ -15,6 +15,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
 import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -72,7 +73,7 @@ public class HomeActivity extends ParentActivity {
         }
     };
 
-    public DuelMusicPlayer musicPlayer;
+//    public DuelMusicPlayer musicPlayer;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -87,8 +88,8 @@ public class HomeActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
-        musicPlayer.execute();
+//        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
+//        musicPlayer.execute();
 
         find();
         configure();
@@ -225,17 +226,17 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void onEvent(OnSoundStateChanged s) {
-        if (s.getState() == true)
-            musicPlayer.playSound();
-        else
-            musicPlayer.pauseSound();
+//        if (s.getState() == true)
+//            musicPlayer.playSound();
+//        else
+//            musicPlayer.pauseSound();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        musicPlayer.playSound();
+//        musicPlayer.playSound();
     }
 
     @Override
@@ -260,7 +261,7 @@ public class HomeActivity extends ParentActivity {
         super.onPause();
         EventBus.getDefault().unregister(this);
 
-        musicPlayer.pauseSound();
+//        musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);
     }
@@ -296,5 +297,8 @@ public class HomeActivity extends ParentActivity {
                 PurchaseManager.getInstance().useDiamond(buyNotification);
                 break;
         }
+    }
+    public void onEvent(ChangePage change) {
+        viewPager.setCurrentItem(change.getPage());
     }
 }

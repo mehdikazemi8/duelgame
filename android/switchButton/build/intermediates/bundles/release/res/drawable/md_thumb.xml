@@ -9,4 +9,4 @@
     <item android:drawable="@drawable/md_switch_thumb_off_pressed" android:state_checked="false" android:state_focused="true"/>
     <item android:drawable="@drawable/md_switch_thumb_off_normal" android:state_checked="false"/>
 
-</selector><!-- From: file:/E:/projects/DuelGame/duel444/duel/android/switchButton/src/main/res/drawable/md_thumb.xml -->
+</selector><!-- From: file:/C:/Users/Omid/Desktop/source-code/duel/android/switchButton/src/main/res/drawable/md_thumb.xml -->

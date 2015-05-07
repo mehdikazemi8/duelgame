@@ -49,6 +49,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private TextView textViewHintAvatat;
     private Spinner spinnerProvince;
     private TextView textViewGirl;
+    private TextView textViewSoundOn;
+    private TextView textViewSoundOff;
     private SwitchButton switchGender;
     private SwitchButton switchMusic;
     private TextView textViewBoy;
@@ -117,10 +119,12 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         usernameEditText = (EditText) view.findViewById(R.id.editText_username);
         emailEditText = (EditText) view.findViewById(R.id.editText_email);
         saveButton = (Button) view.findViewById(R.id.button_save);
+        textViewSoundOn = (TextView) view.findViewById(R.id.textView_music_on);
+        textViewSoundOff = (TextView) view.findViewById(R.id.textView_music_off);
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getActivity(), textViewHintAvatat, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton);
+        FontHelper.setKoodakFor(getActivity(), textViewHintAvatat, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton, textViewSoundOff, textViewSoundOn);
         avatarImageView.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         switchMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -147,6 +151,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         spinnerProvince.setSelection(user.getProvince());
         switchGender.setChecked(user.getGender() == 1);
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
+        switchMusic.setChecked(GlobalPreferenceManager.readBoolean(getActivity(), PREFERENCE_VOICE, true));
     }
 
     private void chooseAvatar() {

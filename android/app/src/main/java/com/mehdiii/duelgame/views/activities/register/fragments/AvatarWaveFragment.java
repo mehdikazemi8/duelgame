@@ -89,7 +89,7 @@ public class AvatarWaveFragment extends Fragment {
                 viewer.setLayoutParams(new TableLayout.LayoutParams(0, avatarHeight, 1f));
                 viewer.setBackgroundColor(getActivity().getResources().getColor(android.R.color.transparent));
                 viewer.setOnClickListener(avatarClickListener);
-                int index = startIndex * (ROWS * COLUMNS) + i * 3 + j + 1;
+                int index = startIndex * (ROWS * COLUMNS) + i * COLUMNS + j + 1;
                 viewer.setPosition(index);
                 Picasso.with(getActivity()).load(AvatarHelper.getResourceId(getActivity(), index)).resize(screenW / 2, avatarHeight).centerInside().into(viewer);
 

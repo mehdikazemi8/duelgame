@@ -25,7 +25,7 @@ public class MusicPlayer extends Service {
     @Override
     public void onCreate() {
         Log.d("-- MusicPlayer", "onCreate");
-        musicPlayer = MediaPlayer.create(this, R.raw.music);
+//        musicPlayer = MediaPlayer.create(this, R.raw.music);
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
