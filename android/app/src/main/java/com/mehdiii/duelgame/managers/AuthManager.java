@@ -21,7 +21,7 @@ public class AuthManager {
     public static User authenticate(User user) {
         MemoryCache.set(CACHE_TAG, user);
         // TODO send times remaining to the next heart refill
-        HeartTracker.configure(user.getHeart());
+        HeartTracker.configure(user.getHeart(), user.isExtremeHeart());
         return user;
     }
 }

@@ -194,7 +194,7 @@ public class User extends BaseModel {
         setHeart(heart);
         setExtremeHeart(extremeHeart);
         setScoreFactor(scoreFactor);
-        
-        HeartTracker.configure(heart);
+
+        HeartTracker.configure(heart, isExtremeHeart());
     }
 }

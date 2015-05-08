@@ -27,6 +27,7 @@ public class HeartTracker {
      * used to configure heart tracker engine.
      *
      * @param heartsCount number of current hearts
+     * @param isExtremeHeart true if extreme heart is true for logged-in user
      * @return the current working HeartTracker instance.
      */
     public static HeartTracker configure(int heartsCount, boolean isExtremeHeart) {

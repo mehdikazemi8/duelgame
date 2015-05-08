@@ -53,6 +53,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Button refillButton;
     Button buyDiamondButton;
     TextView textViewHearts;
+    ImageView heartsImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,6 +106,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
         duelButton = (ImageView) view.findViewById(R.id.button_duel);
+        heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
     }
 
     @Override
@@ -147,6 +149,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
         friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
+        if ( user.isExtremeHeart()) {
+            heartsImageView.setImageResource(R.drawable.extreme_heart);
+            this.textViewHearts.setText("");
+        }
         this.textViewHearts.setText(String.valueOf((user.getHeart())));
     }
 
