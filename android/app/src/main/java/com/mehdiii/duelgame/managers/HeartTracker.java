@@ -1,14 +1,8 @@
 package com.mehdiii.duelgame.managers;
 
-import android.app.AlarmManager;
-import android.app.Fragment;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
-import com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived;
 
 import de.greenrobot.event.EventBus;
 
@@ -20,6 +14,7 @@ public class HeartTracker {
     public static final int COUNT_HEARTS_MAX = 5;
 
     private int heartsCount;
+    boolean isExtremeHeart;
     int timeLeft;
     boolean running = false;
     private static HeartTracker instance;
@@ -30,17 +25,19 @@ public class HeartTracker {
 
     /**
      * used to configure heart tracker engine.
+     *
      * @param heartsCount number of current hearts
      * @return the current working HeartTracker instance.
      */
-    public static HeartTracker configure(int heartsCount) {
+    public static HeartTracker configure(int heartsCount, boolean isExtremeHeart) {
         if (instance == null)
             instance = new HeartTracker();
 
         instance.heartsCount = heartsCount;
+        instance.isExtremeHeart = isExtremeHeart;
 
         // if hearts are less than max possible
-        if (instance.heartsCount < COUNT_HEARTS_MAX)
+        if (instance.heartsCount < COUNT_HEARTS_MAX && !isExtremeHeart)
             instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
         else if (instance.heartsCount == COUNT_HEARTS_MAX) {
             instance.stopCountdown();
@@ -111,6 +108,9 @@ public class HeartTracker {
      * @return true if it is valid to decrease hearts and false if it is not possible
      */
     public boolean useHeart() {
+        if (isExtremeHeart)
+            return true;
+
         if (heartsCount <= 0)
             return false;
 

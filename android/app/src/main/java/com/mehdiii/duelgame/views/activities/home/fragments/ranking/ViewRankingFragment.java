@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -23,6 +24,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 public class ViewRankingFragment extends Fragment {
 
     ListView listView;
+    ProgressBar progressBar;
     RankingListAdapter adapter;
 
     private void bindListViewData(RankList list) {
@@ -39,6 +41,7 @@ public class ViewRankingFragment extends Fragment {
         User user = AuthManager.getCurrentUser();
         Log.d("sendFetch", user.serialize(commandType));
         DuelApp.getInstance().sendMessage(user.serialize(commandType));
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
@@ -47,6 +50,8 @@ public class ViewRankingFragment extends Fragment {
             if (type == CommandType.RECEIVE_GET_FRIENDS_RANK ||
                     type == CommandType.RECEIVE_GET_PROVINCE_RANK ||
                     type == CommandType.RECEIVE_GET_TOTAL_RANK) {
+                progressBar.setVisibility(View.GONE);
+
                 RankList list = RankList.deserialize(json, RankList.class);
                 if (null != list) {
                     bindListViewData(list);
@@ -70,6 +75,7 @@ public class ViewRankingFragment extends Fragment {
 
     private void find(View view) {
         this.listView = (ListView) view.findViewById(R.id.ranking_list_view);
+        this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
     }
 
     @Override
