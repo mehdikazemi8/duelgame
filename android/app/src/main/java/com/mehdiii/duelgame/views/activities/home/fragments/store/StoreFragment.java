@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.store;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -26,6 +27,7 @@ import de.greenrobot.event.EventBus;
 public class StoreFragment extends FlippableFragment implements View.OnClickListener {
 
     LinearLayout storeContainer;
+    ProgressDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,13 +128,11 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     public void onClick(View view) {
         if (view instanceof PurchaseItemView) {
             PurchaseItem item = ((PurchaseItemView) view).getTag();
+            dialog = new ProgressDialog(getActivity());
+            dialog.setMessage("لطفا کمی صبر کنید");
+            dialog.setCancelable(false);
+            dialog.show();
             startBuyIntent(item.getId(), item.getCost().getType());
-//
-//            if (item.getCost().getType() == 1)
-//                startBuyIntent(item.getId(), item.getCost().getType());
-//            else {
-//                // do nothing yet.
-//            }
         }
     }
 
@@ -141,6 +141,9 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     }
 
     public void onEvent(PurchaseDone purchase) {
+        if (dialog != null)
+            dialog.dismiss();
+
         String message = "";
 
         switch (purchase.getPurchaseResult()) {
