@@ -299,7 +299,7 @@ public class GameResultActivity extends ParentActivity {
 
         configureControls();
 
-        user.setScore(user.getScore() + userPoints);
+        user.setScore(user.getScore() + positivePoints);
 
         if (gameStatus >= 0)
             user.addDiamond(collectedDiamond);

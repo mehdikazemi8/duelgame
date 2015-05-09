@@ -149,10 +149,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
         friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
-        if ( user.isExtremeHeart()) {
+        if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
-            this.textViewHearts.setText("");
-        }
+            this.textViewHearts.setVisibility(View.GONE);
+        } else
+            this.textViewHearts.setVisibility(View.VISIBLE);
         this.textViewHearts.setText(String.valueOf((user.getHeart())));
     }
 
@@ -217,7 +218,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onEvent(OnUserSettingsChanged settings) {
         bindViewData();
     }
-
 
 
     @Override

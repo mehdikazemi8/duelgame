@@ -40,7 +40,7 @@ public class HeartTracker {
         // if hearts are less than max possible
         if (instance.heartsCount < COUNT_HEARTS_MAX && !isExtremeHeart)
             instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
-        else if (instance.heartsCount == COUNT_HEARTS_MAX) {
+        else if (instance.heartsCount == COUNT_HEARTS_MAX || isExtremeHeart) {
             instance.stopCountdown();
         }
 

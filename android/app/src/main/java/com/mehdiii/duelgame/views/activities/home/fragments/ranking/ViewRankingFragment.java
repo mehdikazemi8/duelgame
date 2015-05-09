@@ -41,7 +41,8 @@ public class ViewRankingFragment extends Fragment {
         User user = AuthManager.getCurrentUser();
         Log.d("sendFetch", user.serialize(commandType));
         DuelApp.getInstance().sendMessage(user.serialize(commandType));
-        progressBar.setVisibility(View.VISIBLE);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
