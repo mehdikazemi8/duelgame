@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.settings;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -57,11 +58,15 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     Button saveButton;
 
     User newSettings = new User();
+    ProgressDialog progressDialog = null;
 
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                
                 DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
                 int message = 0;
                 if (report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
@@ -185,6 +190,10 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private void saveSettings() {
 
         if (validateForm()) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("لطفا کمی صبر کنید");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             User currentUser = AuthManager.getCurrentUser();
             newSettings.setId(currentUser.getId());
             newSettings.setName(this.usernameEditText.getText().toString().trim());
