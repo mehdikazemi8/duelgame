@@ -9,8 +9,9 @@
     <string name="button_add">افزودن</string>
     <string name="button_got_it">حله!</string>
     <string name="button_buy_heart">خرید قلب</string>
-    <string name="button_cancel">انصراف</string>
+    <string name="button_cancel">بیخیال</string>
     <string name="button_buy_diamond">خرید الماس</string>
     <string name="button_refill_heart">بازیابی قلب</string>
     <string name="button_confirm">تایید</string>
+    <string name="button_update">به روزرسانی</string>
 </resources>
