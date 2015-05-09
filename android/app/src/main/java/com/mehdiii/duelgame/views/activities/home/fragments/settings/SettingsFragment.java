@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.settings;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private EditText usernameEditText;
     private EditText emailEditText;
     private ImageView avatarImageView;
-    private TextView textViewHintAvatat;
+    private TextView textViewHintAvatar;
     private Spinner spinnerProvince;
     private TextView textViewGirl;
     private TextView textViewSoundOn;
@@ -57,11 +58,15 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     Button saveButton;
 
     User newSettings = new User();
+    ProgressDialog progressDialog = null;
 
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
                 DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
                 int message = 0;
                 if (report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
@@ -110,7 +115,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
 
     private void find(View view) {
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
-        textViewHintAvatat = (TextView) view.findViewById(R.id.textView_hint_avatat);
+        textViewHintAvatar = (TextView) view.findViewById(R.id.textView_hint_avatat);
         spinnerProvince = (Spinner) view.findViewById(R.id.spinner_province);
         textViewGirl = (TextView) view.findViewById(R.id.textView_girl);
         switchGender = (SwitchButton) view.findViewById(R.id.switch_gender);
@@ -124,7 +129,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getActivity(), textViewHintAvatat, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton, textViewSoundOff, textViewSoundOn);
+        FontHelper.setKoodakFor(getActivity(), textViewHintAvatar, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton, textViewSoundOff, textViewSoundOn);
         avatarImageView.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         switchMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -185,6 +190,10 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private void saveSettings() {
 
         if (validateForm()) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("لطفا کمی صبر کنید");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             User currentUser = AuthManager.getCurrentUser();
             newSettings.setId(currentUser.getId());
             newSettings.setName(this.usernameEditText.getText().toString().trim());

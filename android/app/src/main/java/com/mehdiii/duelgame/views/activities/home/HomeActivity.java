@@ -235,7 +235,6 @@ public class HomeActivity extends ParentActivity {
     @Override
     public void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
 //        musicPlayer.playSound();
     }
 
@@ -259,8 +258,6 @@ public class HomeActivity extends ParentActivity {
     @Override
     public void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
-
 //        musicPlayer.pauseSound();
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        stopService(svc);

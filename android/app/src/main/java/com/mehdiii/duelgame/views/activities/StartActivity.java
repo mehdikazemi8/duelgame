@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities;
 
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -27,6 +28,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
 import com.mehdiii.duelgame.views.dialogs.UpdateDialog;
@@ -50,24 +52,33 @@ public class StartActivity extends ParentActivity {
         public void onReceive(String json, CommandType type) {
 
             if (CommandType.RECEIVE_LOGIN_INFO == type) {
-                User user = BaseModel.deserialize(json, User.class);
-//                if (user.getUpdateVersion() != null) {
-//                    displayUpdateDialog(user.getUpdateVersion());
-//                    return;
-//                }
-
-                isSent = false;
-                stopCircles = true;
-                if (user.getId() == null)
-                    startActivity(new Intent(StartActivity.this, RegisterActivity.class));
-                else {
-                    AuthManager.authenticate(user);
-                    startActivity(new Intent(StartActivity.this, HomeActivity.class));
-                }
-                finish();
+                final User user = BaseModel.deserialize(json, User.class);
+                if (user != null && user.getUpdateVersion() != null) {
+                    displayUpdateDialog(user.getUpdateVersion(), new OnCompleteListener() {
+                        @Override
+                        public void onComplete(Object data) {
+                            loginOrRegisterUser(user);
+                        }
+                    });
+                } else
+                    loginOrRegisterUser(user);
             }
         }
     });
+
+    private void loginOrRegisterUser(User user) {
+        isSent = false;
+        stopCircles = true;
+        if (user.getId() == null)
+            // register user
+            startActivity(new Intent(StartActivity.this, RegisterActivity.class));
+        else {
+            // login user
+            AuthManager.authenticate(user);
+            startActivity(new Intent(StartActivity.this, HomeActivity.class));
+        }
+        finish();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -168,7 +179,7 @@ public class StartActivity extends ParentActivity {
 //        startService(svc);
     }
 
-    private void displayUpdateDialog(UpdateVersion version) {
+    private void displayUpdateDialog(UpdateVersion version, final OnCompleteListener onCompleteListener) {
         // if previous check is displayed in less than ten minutes, do not interrupt user again.
         long now = Calendar.getInstance().getTime().getTime();
         if (lastCheck != 0 && lastCheck > now - 360000) {
@@ -180,9 +191,15 @@ public class StartActivity extends ParentActivity {
                 int currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
                 if (currentVersion < version.getVersion()) {
 
-                    boolean force = version.getMinSupportedVersion() > currentVersion;
+                    final boolean force = version.getMinSupportedVersion() > currentVersion;
 
                     UpdateDialog dialog = new UpdateDialog(this, version, force);
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            onCompleteListener.onComplete(force);
+                        }
+                    });
                     dialog.setCancelable(!force);
                     dialog.show();
                 }
@@ -196,6 +213,7 @@ public class StartActivity extends ParentActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        stopCircles = true;
 //        LocalBroadcastManager.configure(this).unregisterReceiver(commandListener);
     }
 

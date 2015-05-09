@@ -25021,6 +25021,7 @@ com.mehdiii.duelgame.R$id: int button_positive
 com.mehdiii.duelgame.R$id: int button_ranking
 com.mehdiii.duelgame.R$id: int button_refill
 com.mehdiii.duelgame.R$id: int button_register
+com.mehdiii.duelgame.R$id: int button_retry
 com.mehdiii.duelgame.R$id: int button_save
 com.mehdiii.duelgame.R$id: int button_settings
 com.mehdiii.duelgame.R$id: int button_store
@@ -25201,6 +25202,7 @@ com.mehdiii.duelgame.R$id: int textView_heart
 com.mehdiii.duelgame.R$id: int textView_hint_avatat
 com.mehdiii.duelgame.R$id: int textView_label_code
 com.mehdiii.duelgame.R$id: int textView_level
+com.mehdiii.duelgame.R$id: int textView_message
 com.mehdiii.duelgame.R$id: int textView_music_off
 com.mehdiii.duelgame.R$id: int textView_music_on
 com.mehdiii.duelgame.R$id: int textView_price
@@ -25282,6 +25284,7 @@ com.mehdiii.duelgame.R$layout: int control_purchase_item
 com.mehdiii.duelgame.R$layout: int dialog_add_friend
 com.mehdiii.duelgame.R$layout: int dialog_avatar_selection
 com.mehdiii.duelgame.R$layout: int dialog_confirm
+com.mehdiii.duelgame.R$layout: int dialog_connection_lost
 com.mehdiii.duelgame.R$layout: int dialog_low_heart
 com.mehdiii.duelgame.R$layout: int dialog_purchase_result
 com.mehdiii.duelgame.R$layout: int dialog_update
@@ -25338,7 +25341,9 @@ com.mehdiii.duelgame.R$string: int button_got_it
 com.mehdiii.duelgame.R$string: int button_refill_heart
 com.mehdiii.duelgame.R$string: int button_register
 com.mehdiii.duelgame.R$string: int button_requests
+com.mehdiii.duelgame.R$string: int button_retry_connect
 com.mehdiii.duelgame.R$string: int button_save
+com.mehdiii.duelgame.R$string: int button_update
 com.mehdiii.duelgame.R$string: int caption_boy
 com.mehdiii.duelgame.R$string: int caption_email
 com.mehdiii.duelgame.R$string: int caption_friend_id
@@ -25385,6 +25390,7 @@ com.mehdiii.duelgame.R$string: int invalid_add_friend_code_empty
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_exit
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_quite_game
 com.mehdiii.duelgame.R$string: int message_click_photo_to_choose_avatar
+com.mehdiii.duelgame.R$string: int message_connection_lost
 com.mehdiii.duelgame.R$string: int message_connection_unstable
 com.mehdiii.duelgame.R$string: int message_heart_is_low
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
@@ -26357,6 +26363,8 @@ com.mehdiii.duelgame.models.base.GenericDeliveryMessage: java.lang.String getCod
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setCode(java.lang.String)
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: java.lang.Object getPayload()
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setPayload(java.lang.Object)
+com.mehdiii.duelgame.models.events.OnConnectionLost
+com.mehdiii.duelgame.models.events.OnConnectionLost: OnConnectionLost()
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: OnDiamondChangeNotice(int)
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: int getNewValue()
@@ -26596,6 +26604,10 @@ com.mehdiii.duelgame.views.activities.GameResultActivity: void duelWithOthers(an
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.ParentActivity
 com.mehdiii.duelgame.views.activities.ParentActivity: ParentActivity()
+com.mehdiii.duelgame.views.activities.ParentActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.ParentActivity: void onResume()
+com.mehdiii.duelgame.views.activities.ParentActivity: void onPause()
+com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.events.OnConnectionLost)
 com.mehdiii.duelgame.views.activities.PlayGameActivity
 com.mehdiii.duelgame.views.activities.PlayGameActivity: java.lang.String ARGUMENT_OPPONENT
 com.mehdiii.duelgame.views.activities.PlayGameActivity: PlayGameActivity()
@@ -26830,6 +26842,9 @@ com.mehdiii.duelgame.views.dialogs.ConfirmDialog: void setOnCompleteListener(com
 com.mehdiii.duelgame.views.dialogs.ConfirmDialog: ConfirmDialog(android.content.Context,java.lang.String)
 com.mehdiii.duelgame.views.dialogs.ConfirmDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.ConfirmDialog: void onClick(android.view.View)
+com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog
+com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog: ConnectionLostDialog(android.content.Context)
+com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: HeartLowDialog(android.content.Context)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: void onCreate(android.os.Bundle)
