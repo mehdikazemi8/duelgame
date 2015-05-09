@@ -24926,6 +24926,7 @@ com.mehdiii.duelgame.R$drawable: int common_signin_btn_text_pressed_light
 com.mehdiii.duelgame.R$drawable: int diamond
 com.mehdiii.duelgame.R$drawable: int din_o_zendegi
 com.mehdiii.duelgame.R$drawable: int edit_text_border
+com.mehdiii.duelgame.R$drawable: int extreme_heart
 com.mehdiii.duelgame.R$drawable: int game_background
 com.mehdiii.duelgame.R$drawable: int game_bg_pattern
 com.mehdiii.duelgame.R$drawable: int game_diamond_circle
@@ -25055,6 +25056,7 @@ com.mehdiii.duelgame.R$id: int game_result_diamond_picture
 com.mehdiii.duelgame.R$id: int game_result_divider_line_left
 com.mehdiii.duelgame.R$id: int game_result_divider_line_right
 com.mehdiii.duelgame.R$id: int game_result_duel_others
+com.mehdiii.duelgame.R$id: int game_result_home
 com.mehdiii.duelgame.R$id: int game_result_level_progress
 com.mehdiii.duelgame.R$id: int game_result_level_star
 com.mehdiii.duelgame.R$id: int game_result_level_text
@@ -25100,6 +25102,7 @@ com.mehdiii.duelgame.R$id: int ifRoom
 com.mehdiii.duelgame.R$id: int image
 com.mehdiii.duelgame.R$id: int imageView
 com.mehdiii.duelgame.R$id: int imageView_avatar
+com.mehdiii.duelgame.R$id: int imageView_hearts
 com.mehdiii.duelgame.R$id: int indicator_avatars
 com.mehdiii.duelgame.R$id: int listMode
 com.mehdiii.duelgame.R$id: int listView_friends
@@ -25644,6 +25647,7 @@ com.mehdiii.duelgame.R$style: int Widget_IconPageIndicator
 com.mehdiii.duelgame.R$style: int Widget_ProgressBar
 com.mehdiii.duelgame.R$style: int Widget_ProgressBar_Vertical
 com.mehdiii.duelgame.R$style: int Widget_TabPageIndicator
+com.mehdiii.duelgame.R$style: int button_game_result_footer
 com.mehdiii.duelgame.R$style: int button_home_recharge
 com.mehdiii.duelgame.R$style: int edit_text_bordered
 com.mehdiii.duelgame.R$style: int friends_nav_buttons
@@ -26058,7 +26062,7 @@ com.mehdiii.duelgame.managers.HeartTracker
 com.mehdiii.duelgame.managers.HeartTracker: int COUNT_HEARTS_MAX
 com.mehdiii.duelgame.managers.HeartTracker: HeartTracker()
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker getInstance()
-com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int)
+com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean)
 com.mehdiii.duelgame.managers.HeartTracker: int getHeartsCount()
 com.mehdiii.duelgame.managers.HeartTracker: boolean useHeart()
 com.mehdiii.duelgame.managers.HeartTracker: void notifyChange(com.mehdiii.duelgame.models.events.OnHeartChangeNotice$ChangeMode,int)
@@ -26587,6 +26591,7 @@ com.mehdiii.duelgame.views.activities.GameResultActivity: void onStart()
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.GameResultActivity: void addToFriends(android.view.View)
+com.mehdiii.duelgame.views.activities.GameResultActivity: void goToHome(android.view.View)
 com.mehdiii.duelgame.views.activities.GameResultActivity: void duelWithOthers(android.view.View)
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.ParentActivity

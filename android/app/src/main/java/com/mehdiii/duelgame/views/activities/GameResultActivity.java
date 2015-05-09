@@ -475,6 +475,7 @@ public class GameResultActivity extends ParentActivity {
             toast.show();
         }
     }
+
     public void goToHome(View view) {
 //        onBackPressed();
         startActivity(new Intent(this, HomeActivity.class));
