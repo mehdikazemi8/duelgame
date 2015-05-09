@@ -99,7 +99,7 @@ public class WaitingActivity extends ParentActivity {
                     receiveStartPlayingListener();
                     break;
                 case RECEIVE_GAME_DATA:
-q                    receiveGameDataListener(json);
+                    receiveGameDataListener(json);
                     break;
             }
         }

@@ -15,6 +15,7 @@ import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -85,7 +86,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), friend.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(friend.getName());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
-        holder.textViewLevel.setText("lvl" + friend.getLevel());
+        holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()));
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
         FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle);
 
