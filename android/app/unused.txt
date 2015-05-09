@@ -1169,7 +1169,7 @@ com.mehdiii.duelgame.views.activities.ParentActivity:
     static final int NUMBER_OF_AVATARS
 com.mehdiii.duelgame.views.activities.StartActivity:
     private static final int RECREATE_CIRCLE_GAP
-    179:199:private void displayUpdateDialog(com.mehdiii.duelgame.models.UpdateVersion)
+    173:193:private void displayUpdateDialog(com.mehdiii.duelgame.models.UpdateVersion)
 com.mehdiii.duelgame.views.activities.home.HomeActivity:
     private static final int REQUEST_CODE_PURCHASE
 com.mehdiii.duelgame.views.custom.AppRater:

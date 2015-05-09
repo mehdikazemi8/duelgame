@@ -44514,7 +44514,7 @@ com.mehdiii.duelgame.utils.BidirectionalMap -> com.mehdiii.duelgame.utils.Bidire
     54:54:java.lang.Object get(java.lang.Object) -> get
     58:58:java.lang.Object getKey(java.lang.Object) -> getKey
 com.mehdiii.duelgame.utils.DeviceManager -> com.mehdiii.duelgame.utils.DeviceManager:
-    12:16:java.lang.String getDeviceId(android.content.Context) -> getDeviceId
+    13:19:java.lang.String getDeviceId(android.content.Context) -> getDeviceId
 com.mehdiii.duelgame.utils.DuelBroadcastReceiver -> com.mehdiii.duelgame.utils.DuelBroadcastReceiver:
     java.lang.String BUNDLE_JSON_KEY -> BUNDLE_JSON_KEY
     java.lang.String ACTION_NAME -> ACTION_NAME
@@ -45000,35 +45000,34 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity$8 -> bve:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
     946:949:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.StartActivity -> com.mehdiii.duelgame.views.activities.StartActivity:
-    java.lang.String userId -> n
-    boolean isSent -> o
-    long lastLoginRequestTime -> p
-    long lastCheck -> w
-    android.content.BroadcastReceiver commandListener -> q
-    android.widget.FrameLayout layout -> x
-    int[] splashColors -> y
-    java.lang.String[] splashColorsStr -> z
-    android.widget.ImageView centralImage -> r
-    long startingTime -> s
-    long currentTime -> t
-    long WAIT_BEFORE_LOGIN -> u
-    long WAIT_BEFORE_RECONNECT -> v
-    boolean stopCircles -> A
-    73:95:void onCreate(android.os.Bundle) -> onCreate
-    109:156:void addCircle(boolean) -> addCircle
-    159:164:void clickedLogo(android.view.View) -> clickedLogo
-    168:175:void onResume() -> onResume
-    204:206:void onPause() -> onPause
-    210:211:void onDestroy() -> onDestroy
-    37:37:boolean access$002(com.mehdiii.duelgame.views.activities.StartActivity,boolean) -> a
-    37:37:boolean access$000(com.mehdiii.duelgame.views.activities.StartActivity) -> a
+    boolean isSent -> n
+    long lastLoginRequestTime -> o
+    long lastCheck -> v
+    android.content.BroadcastReceiver commandListener -> p
+    android.widget.FrameLayout layout -> w
+    int[] splashColors -> x
+    java.lang.String[] splashColorsStr -> y
+    android.widget.ImageView centralImage -> q
+    long startingTime -> r
+    long currentTime -> s
+    long WAIT_BEFORE_LOGIN -> t
+    long WAIT_BEFORE_RECONNECT -> u
+    boolean stopCircles -> z
+    74:89:void onCreate(android.os.Bundle) -> onCreate
+    103:150:void addCircle(boolean) -> addCircle
+    153:158:void clickedLogo(android.view.View) -> clickedLogo
+    162:169:void onResume() -> onResume
+    198:200:void onPause() -> onPause
+    204:205:void onDestroy() -> onDestroy
+    39:39:boolean access$002(com.mehdiii.duelgame.views.activities.StartActivity,boolean) -> a
+    39:39:boolean access$000(com.mehdiii.duelgame.views.activities.StartActivity) -> a
 com.mehdiii.duelgame.views.activities.StartActivity$1 -> bvf:
     com.mehdiii.duelgame.views.activities.StartActivity this$0 -> a
-    51:68:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    52:69:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.StartActivity$2 -> bvg:
     boolean val$userClicked -> a
     com.mehdiii.duelgame.views.activities.StartActivity this$0 -> b
-    137:143:void run() -> run
+    131:137:void run() -> run
 com.mehdiii.duelgame.views.activities.TryToConnectActivity -> com.mehdiii.duelgame.views.activities.TryToConnectActivity:
     16:22:void checkConnection() -> checkConnection
     25:35:void reconnect(android.view.View) -> reconnect
@@ -45396,29 +45395,30 @@ com.mehdiii.duelgame.views.activities.register.RegisterActivity -> com.mehdiii.d
     android.widget.Spinner provinceSpinner -> v
     com.kyleduo.switchbutton.SwitchButton genderSwitch -> w
     com.mehdiii.duelgame.models.User user -> x
-    android.content.BroadcastReceiver receiver -> y
-    59:83:void onCreate(android.os.Bundle) -> onCreate
-    86:96:void find() -> b
-    102:122:void configure() -> c
-    126:140:boolean validateForm() -> d
-    144:153:void registerMe(android.view.View) -> registerMe
-    156:164:void chooseAvatar(android.view.View) -> chooseAvatar
-    168:170:void onResume() -> onResume
-    173:175:void setAvatar(int) -> a
-    179:181:void onDestroy() -> onDestroy
-    32:32:void access$000(com.mehdiii.duelgame.views.activities.register.RegisterActivity,int) -> a
+    android.app.ProgressDialog dialog -> y
+    android.content.BroadcastReceiver receiver -> z
+    63:87:void onCreate(android.os.Bundle) -> onCreate
+    90:100:void find() -> b
+    106:126:void configure() -> c
+    130:144:boolean validateForm() -> d
+    148:162:void registerMe(android.view.View) -> registerMe
+    165:173:void chooseAvatar(android.view.View) -> chooseAvatar
+    177:179:void onResume() -> onResume
+    182:184:void setAvatar(int) -> a
+    188:190:void onDestroy() -> onDestroy
+    33:33:void access$000(com.mehdiii.duelgame.views.activities.register.RegisterActivity,int) -> a
 com.mehdiii.duelgame.views.activities.register.RegisterActivity$1 -> bwd:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
-    49:53:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    51:57:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.register.RegisterActivity$2 -> bwe:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
-    110:112:void onClick(android.view.View) -> onClick
+    114:116:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.register.RegisterActivity$3 -> bwf:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
-    118:120:void onClick(android.view.View) -> onClick
+    122:124:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.register.RegisterActivity$4 -> bwg:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
-    160:161:void onComplete(java.lang.Object) -> onComplete
+    169:170:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment -> com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment:
     int ROWS -> ROWS
     int COLUMNS -> COLUMNS

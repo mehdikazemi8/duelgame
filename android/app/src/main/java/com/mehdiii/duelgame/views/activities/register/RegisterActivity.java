@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.register;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,11 +43,14 @@ public class RegisterActivity extends ParentActivity {
     Spinner provinceSpinner;
     SwitchButton genderSwitch;
     User user = new User();
+    ProgressDialog dialog = null;
 
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_LOGIN_INFO) {
+                if (dialog != null)
+                    dialog.dismiss();
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 finish();
             }
@@ -147,6 +151,11 @@ public class RegisterActivity extends ParentActivity {
         user.setGender(genderSwitch.isChecked() ? 1 : 0);
 
         if (validateForm()) {
+            ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setMessage("لطفا کمی صبر کنید");
+            dialog.setCancelable(false);
+            dialog.show();
+
             user.setDeviceId(userId);
             DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_REGISTER));
         }

@@ -5,10 +5,10 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.mehdiii.duelkonkoor"
+        applicationId "ir.ugstudio.duelkonkoor"
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 2
+        versionCode 1
         versionName "1.0"
     }
     buildTypes {

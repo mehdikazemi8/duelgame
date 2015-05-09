@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
@@ -35,7 +37,6 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 public class StartActivity extends ParentActivity {
-    String userId;
     boolean isSent = false;
     long lastLoginRequestTime = -1;
     private static final int RECREATE_CIRCLE_GAP = 1000;
@@ -83,13 +84,6 @@ public class StartActivity extends ParentActivity {
             for (int i = 0; i < splashColorsStr.length; i++)
                 splashColors[i] = Color.parseColor(splashColorsStr[i]);
         }
-
-        // TODO organize these lines a bit.
-        final String deviceId, simSerialNumber;
-        TelephonyManager teleManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
-        deviceId = teleManager.getDeviceId();
-        simSerialNumber = teleManager.getSimSerialNumber();
-        userId = deviceId + simSerialNumber;
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
     }
@@ -149,7 +143,7 @@ public class StartActivity extends ParentActivity {
 
         long diff = System.currentTimeMillis() - startingTime;
         if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
-            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, userId).serialize());
+            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
             lastLoginRequestTime = System.currentTimeMillis();
             isSent = true;
         }
