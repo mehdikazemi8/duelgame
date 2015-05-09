@@ -31,7 +31,7 @@ public class DuelApp extends Application {
     static boolean isConnected = false;
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://188.166.118.149:9000";
+    static protected String wsuri = "ws://duelgame.ir:9000";
 
     @Override
     public void onCreate() {

@@ -45146,33 +45146,35 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment -> 
     android.widget.LinearLayout containerHeader -> c
     android.widget.TextView textViewCode -> e
     android.widget.Button buttonAddFriend -> f
+    android.widget.ProgressBar progressBar -> g
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMadeListener -> d
-    android.content.BroadcastReceiver broadcastReceiver -> g
-    43:43:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    48:52:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    55:59:void find(android.view.View) -> a
-    63:65:void onResume() -> onResume
-    69:71:void onBringToFront() -> onBringToFront
-    75:76:void onPause() -> onPause
-    79:81:void configure() -> l
-    84:86:void bindViewData() -> m
-    89:92:void bindListViewData(com.mehdiii.duelgame.models.FriendList) -> a
-    117:122:void onClick(android.view.View) -> onClick
-    125:131:void sendFetchRequest() -> n
-    146:154:void openAddFriendDialog() -> o
-    32:32:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
-    32:32:void access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
+    android.content.BroadcastReceiver broadcastReceiver -> h
+    45:45:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    50:54:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    57:62:void find(android.view.View) -> a
+    66:68:void onResume() -> onResume
+    72:74:void onBringToFront() -> onBringToFront
+    78:79:void onPause() -> onPause
+    82:84:void configure() -> l
+    87:89:void bindViewData() -> m
+    92:95:void bindListViewData(com.mehdiii.duelgame.models.FriendList) -> a
+    120:125:void onClick(android.view.View) -> onClick
+    128:136:void sendFetchRequest() -> n
+    153:161:void openAddFriendDialog() -> o
+    33:33:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
+    33:33:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
+    33:33:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvr:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    98:98:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
-    102:105:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
-    109:112:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
+    101:101:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
+    105:108:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
+    112:115:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvs:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    136:142:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    141:149:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvt:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    150:151:void onComplete(java.lang.Object) -> onComplete
+    157:158:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMade -> b
     java.util.List friends -> a

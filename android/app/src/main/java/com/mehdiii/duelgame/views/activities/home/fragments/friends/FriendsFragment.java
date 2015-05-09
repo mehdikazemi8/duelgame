@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -37,6 +38,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     LinearLayout containerHeader;
     private TextView textViewCode;
     private Button buttonAddFriend;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         containerHeader = (LinearLayout) view.findViewById(R.id.container_header);
         buttonAddFriend = (Button) view.findViewById(R.id.button_add_friend);
         textViewCode = (TextView) view.findViewById(R.id.textView_code);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
     }
 
     @Override
@@ -128,12 +131,16 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         }
         User user = AuthManager.getCurrentUser();
         DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_GET_FRIEND_LIST));
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_GET_FRIEND_LIST) {
+                if (progressBar != null)
+                    progressBar.setVisibility(View.GONE);
                 FriendList list = FriendList.deserialize(json, FriendList.class);
                 if (null != list) {
                     bindListViewData(list);
