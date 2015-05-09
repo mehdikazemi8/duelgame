@@ -179,9 +179,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        // TODO this is not doing what it actually has to do
-//        HeartTracker.getInstance().useHeart();
-        EventBus.getDefault().post(new ChangePage(2));
+        EventBus.getDefault().post(new ChangePage(1));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {

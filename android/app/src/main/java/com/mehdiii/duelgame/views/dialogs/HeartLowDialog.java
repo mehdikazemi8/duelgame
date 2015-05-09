@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.utils.FontHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by omid on 4/29/2015.
@@ -48,11 +51,11 @@ public class HeartLowDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button_cancel:
-                dismiss();
-                break;
             case R.id.button_buy_hearts:
+                EventBus.getDefault().post(new ChangePage(1));
                 break;
         }
+        
+        dismiss();
     }
 }
