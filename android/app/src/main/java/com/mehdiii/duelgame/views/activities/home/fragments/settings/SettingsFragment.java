@@ -47,7 +47,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private EditText usernameEditText;
     private EditText emailEditText;
     private ImageView avatarImageView;
-    private TextView textViewHintAvatat;
+    private TextView textViewHintAvatar;
     private Spinner spinnerProvince;
     private TextView textViewGirl;
     private TextView textViewSoundOn;
@@ -66,7 +66,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
                 if (progressDialog != null)
                     progressDialog.dismiss();
-                
+
                 DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
                 int message = 0;
                 if (report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
@@ -115,7 +115,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
 
     private void find(View view) {
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
-        textViewHintAvatat = (TextView) view.findViewById(R.id.textView_hint_avatat);
+        textViewHintAvatar = (TextView) view.findViewById(R.id.textView_hint_avatat);
         spinnerProvince = (Spinner) view.findViewById(R.id.spinner_province);
         textViewGirl = (TextView) view.findViewById(R.id.textView_girl);
         switchGender = (SwitchButton) view.findViewById(R.id.switch_gender);
@@ -129,7 +129,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getActivity(), textViewHintAvatat, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton, textViewSoundOff, textViewSoundOn);
+        FontHelper.setKoodakFor(getActivity(), textViewHintAvatar, textViewGirl, textViewBoy, usernameEditText, emailEditText, saveButton, textViewSoundOff, textViewSoundOn);
         avatarImageView.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         switchMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
