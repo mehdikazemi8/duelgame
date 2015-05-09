@@ -29,6 +29,7 @@ import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
@@ -473,6 +474,11 @@ public class GameResultActivity extends ParentActivity {
             toast.setGravity(Gravity.TOP, 0, 10);
             toast.show();
         }
+    }
+    public void goToHome(View view) {
+//        onBackPressed();
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     public void duelWithOthers(View v) {

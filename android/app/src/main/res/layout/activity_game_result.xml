@@ -444,35 +444,21 @@
 
                 <Button
                     android:id="@+id/game_result_duel_others"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="4"
-                    android:background="@drawable/result_buttons"
-                    android:minHeight="5dp"
-                    android:minWidth="5dp"
+                    style="@style/button_game_result_footer"
                     android:onClick="duelWithOthers"
-                    android:padding="3dp"
-                    android:text="دوئل"
-                    android:textColor="@android:color/white" />
+                    android:text="دوئل" />
 
                 <Button
                     android:id="@+id/game_result_add_friend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="4"
-                    android:background="@drawable/result_buttons"
-                    android:minHeight="5dp"
-                    android:minWidth="5dp"
+                    style="@style/button_game_result_footer"
                     android:onClick="addToFriends"
-                    android:padding="3dp"
-                    android:text="افزودن به دوستان"
-                    android:textColor="@android:color/white" />
+                    android:text="افزودن به دوستان" />
+
+                <Button
+                    android:id="@+id/game_result_home"
+                    style="@style/button_game_result_footer"
+                    android:onClick="goToHome"
+                    android:text="خانه" />
 
                 <TextView
                     android:layout_width="0dp"

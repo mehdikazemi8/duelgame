@@ -55,7 +55,7 @@ public class HeartLowDialog extends Dialog implements View.OnClickListener {
                 EventBus.getDefault().post(new ChangePage(1));
                 break;
         }
-        
+
         dismiss();
     }
 }
