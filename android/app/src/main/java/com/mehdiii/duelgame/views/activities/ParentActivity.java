@@ -5,6 +5,8 @@ import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.mehdiii.duelgame.models.Question;
+import com.mehdiii.duelgame.models.events.OnConnectionLost;
+import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +32,28 @@ public class ParentActivity extends ActionBarActivity {
             ar.set(index, ar.get(i));
             ar.set(i, a);
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(OnConnectionLost lost) {
+        ConnectionLostDialog dialog = new ConnectionLostDialog(this);
+        dialog.setCancelable(false);
+        dialog.show();
     }
 }

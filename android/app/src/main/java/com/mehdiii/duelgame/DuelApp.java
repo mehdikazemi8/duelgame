@@ -10,12 +10,14 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.events.OnConnectionLost;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
@@ -66,7 +68,7 @@ public class DuelApp extends Application {
                 @Override
                 public void onClose(int code, String reason) {
                     isConnected = false;
-
+                    EventBus.getDefault().post(new OnConnectionLost());
                     Log.d(TAG, "Connection lost." + reason);
                 }
             });

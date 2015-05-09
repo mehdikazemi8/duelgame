@@ -75,11 +75,11 @@ public class AppRater {
 
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://cafebazaar.ir/app/org.medrik.roosterwars/?l=fa")));
+                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://cafebazaar.ir/app/ir.ugstudio.duelkonkoor/?l=fa")));
                 dialog.dismiss();
             }
         });
-        b1.setBackgroundResource( R.drawable.game_result_app_rater_button );
+        b1.setBackgroundResource(R.drawable.game_result_app_rater_button);
         ll.addView(b1);
 
         Button b2 = new Button(mContext);
@@ -96,7 +96,7 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        b2.setBackgroundResource( R.drawable.game_result_app_rater_button );
+        b2.setBackgroundResource(R.drawable.game_result_app_rater_button);
         ll.addView(b2);
 
         Button b3 = new Button(mContext);
@@ -111,7 +111,7 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        b3.setBackgroundResource( R.drawable.game_result_app_rater_button );
+        b3.setBackgroundResource(R.drawable.game_result_app_rater_button);
         ll.addView(b3);
 
         dialog.setContentView(ll);

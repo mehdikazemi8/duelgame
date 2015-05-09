@@ -213,6 +213,7 @@ public class StartActivity extends ParentActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        stopCircles = true;
 //        LocalBroadcastManager.configure(this).unregisterReceiver(commandListener);
     }
 
