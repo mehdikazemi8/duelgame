@@ -43049,6 +43049,7 @@ com.mehdiii.duelgame.R$id -> com.mehdiii.duelgame.R$id:
     int container_header -> container_header
     int container_page_selector -> container_page_selector
     int container_store -> container_store
+    int container_wrapper -> container_wrapper
     int decor_content_parent -> decor_content_parent
     int default_activity_button -> default_activity_button
     int dialog -> dialog
@@ -43196,9 +43197,6 @@ com.mehdiii.duelgame.R$id -> com.mehdiii.duelgame.R$id:
     int spinner_province -> spinner_province
     int split_action_bar -> split_action_bar
     int start_his_avatar -> start_his_avatar
-    int start_layout -> start_layout
-    int start_my_text -> start_my_text
-    int start_picture -> start_picture
     int strict_sandbox -> strict_sandbox
     int submit_area -> submit_area
     int switch_gender -> switch_gender
@@ -44764,89 +44762,89 @@ com.mehdiii.duelgame.views.activities.GameResultActivity -> com.mehdiii.duelgame
     int LOSE -> t
     android.media.MediaPlayer myPlayer -> u
     java.util.ArrayList allAnimations -> v
-    android.widget.TextView gameResultStatus -> I
-    android.widget.ImageView opponentAvatar -> J
-    android.widget.TextView opponentName -> K
-    android.widget.TextView opponentPointsTextView -> L
-    android.widget.ImageView userAvatar -> M
-    android.widget.TextView userName -> N
-    android.widget.TextView userPointsTextView -> O
-    android.widget.TextView gameResultT7 -> P
-    android.widget.TextView gameResultT8 -> Q
-    android.widget.TextView gameResultT5 -> R
-    android.widget.TextView gameResultT6 -> S
-    android.widget.TextView gameResultT3 -> T
-    android.widget.TextView gameResultT4 -> U
-    android.widget.TextView gameResultT1 -> V
-    android.widget.TextView gameResultT2 -> W
-    android.widget.TextView gameResultTotalExperience -> X
-    android.widget.TextView gameResultPointFactor -> Y
-    android.widget.TextView gameResultWinBonus -> Z
-    android.widget.TextView gameResultPositivePoints -> aa
-    android.widget.ImageView gameResultLevelStar -> ab
-    android.widget.ProgressBar gameResultLevelProgress -> ac
-    android.widget.TextView gameResultLevelText -> ad
-    android.widget.TextView gameResultDiamondCnt -> ae
-    android.widget.ImageView gameResultDiamondPicture -> af
-    android.widget.Button gameResultDuelOthers -> ag
-    android.widget.Button gameResultAddFriend -> ah
-    android.widget.Button gameResultReport -> ai
+    android.widget.TextView gameResultStatus -> H
+    android.widget.ImageView opponentAvatar -> I
+    android.widget.TextView opponentName -> J
+    android.widget.TextView opponentPointsTextView -> K
+    android.widget.ImageView userAvatar -> L
+    android.widget.TextView userName -> M
+    android.widget.TextView userPointsTextView -> N
+    android.widget.TextView gameResultT7 -> O
+    android.widget.TextView gameResultT8 -> P
+    android.widget.TextView gameResultT5 -> Q
+    android.widget.TextView gameResultT6 -> R
+    android.widget.TextView gameResultT3 -> S
+    android.widget.TextView gameResultT4 -> T
+    android.widget.TextView gameResultT1 -> U
+    android.widget.TextView gameResultT2 -> V
+    android.widget.TextView gameResultTotalExperience -> W
+    android.widget.TextView gameResultPointFactor -> X
+    android.widget.TextView gameResultWinBonus -> Y
+    android.widget.TextView gameResultPositivePoints -> Z
+    android.widget.ImageView gameResultLevelStar -> aa
+    android.widget.ProgressBar gameResultLevelProgress -> ab
+    android.widget.TextView gameResultLevelText -> ac
+    android.widget.TextView gameResultDiamondCnt -> ad
+    android.widget.ImageView gameResultDiamondPicture -> ae
+    android.widget.Button gameResultDuelOthers -> af
+    android.widget.Button gameResultAddFriend -> ag
+    android.widget.Button gameResultReport -> ah
     int positivePoints -> w
     int winBonus -> x
     int pointFactor -> y
     int totalXP -> z
     com.mehdiii.duelgame.models.User user -> A
     int collectedDiamond -> B
-    94:117:android.animation.ObjectAnimator translateAnimation(java.lang.Object,java.lang.String,int,int,float[]) -> a
-    121:124:java.util.ArrayList bothScaleAniamtion(android.widget.TextView,int,int,float[]) -> bothScaleAniamtion
-    128:152:android.animation.ObjectAnimator scaleAnimation(android.widget.TextView,java.lang.String,int,int,float[]) -> scaleAnimation
-    158:159:void onStart() -> onStart
-    162:235:void animateProgress() -> b
-    238:247:void prepareIncreaseInTextView() -> c
-    250:280:void animateIncreaseInTextView(int,int,int,int,android.widget.TextView) -> a
-    284:285:void onBackPressed() -> onBackPressed
-    289:342:void onCreate(android.os.Bundle) -> onCreate
-    345:419:void configureControls() -> d
-    422:449:void findControls() -> e
-    452:463:void readArguments() -> f
-    466:477:void addToFriends(android.view.View) -> addToFriends
-    481:483:void goToHome(android.view.View) -> goToHome
-    486:490:void duelWithOthers(android.view.View) -> duelWithOthers
-    494:495:void onDestroy() -> onDestroy
-    44:44:void access$000(com.mehdiii.duelgame.views.activities.GameResultActivity) -> a
-    44:44:android.widget.TextView access$100(com.mehdiii.duelgame.views.activities.GameResultActivity) -> b
-    44:44:android.widget.ProgressBar access$200(com.mehdiii.duelgame.views.activities.GameResultActivity) -> c
-    44:44:void access$300(com.mehdiii.duelgame.views.activities.GameResultActivity,int,int,int,int,android.widget.TextView) -> a
+    95:118:android.animation.ObjectAnimator translateAnimation(java.lang.Object,java.lang.String,int,int,float[]) -> a
+    122:125:java.util.ArrayList bothScaleAniamtion(android.widget.TextView,int,int,float[]) -> bothScaleAniamtion
+    129:153:android.animation.ObjectAnimator scaleAnimation(android.widget.TextView,java.lang.String,int,int,float[]) -> scaleAnimation
+    159:160:void onStart() -> onStart
+    163:243:void animateProgress() -> b
+    246:255:void prepareIncreaseInTextView() -> c
+    258:288:void animateIncreaseInTextView(int,int,int,int,android.widget.TextView) -> a
+    292:293:void onBackPressed() -> onBackPressed
+    297:348:void onCreate(android.os.Bundle) -> onCreate
+    351:425:void configureControls() -> d
+    428:455:void findControls() -> e
+    458:469:void readArguments() -> f
+    472:483:void addToFriends(android.view.View) -> addToFriends
+    487:489:void goToHome(android.view.View) -> goToHome
+    492:496:void duelWithOthers(android.view.View) -> duelWithOthers
+    500:501:void onDestroy() -> onDestroy
+    45:45:void access$000(com.mehdiii.duelgame.views.activities.GameResultActivity) -> a
+    45:45:android.widget.TextView access$100(com.mehdiii.duelgame.views.activities.GameResultActivity) -> b
+    45:45:android.widget.ProgressBar access$200(com.mehdiii.duelgame.views.activities.GameResultActivity) -> c
+    45:45:void access$300(com.mehdiii.duelgame.views.activities.GameResultActivity,int,int,int,int,android.widget.TextView) -> a
 com.mehdiii.duelgame.views.activities.GameResultActivity$1 -> bur:
     java.lang.Object val$imageView -> a
-    102:103:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    107:107:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    111:111:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    115:115:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+    103:104:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    108:108:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    112:112:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    116:116:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.GameResultActivity$2 -> bus:
     android.widget.TextView val$textView -> a
     com.mehdiii.duelgame.views.activities.GameResultActivity this$0 -> b
-    136:137:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    141:141:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    145:145:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    149:149:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+    137:138:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    142:142:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    146:146:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    150:150:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.GameResultActivity$3 -> but:
     com.mehdiii.duelgame.views.activities.GameResultActivity this$0 -> a
-    176:176:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    180:181:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    185:185:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    184:184:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    188:189:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    193:193:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.GameResultActivity$4 -> buu:
     int val$levelAfter -> a
     int val$progressAfter -> b
     com.mehdiii.duelgame.views.activities.GameResultActivity this$0 -> c
-    198:198:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    202:225:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    229:229:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    206:206:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    210:233:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    237:237:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.GameResultActivity$4$1 -> buv:
     com.mehdiii.duelgame.views.activities.GameResultActivity$4 this$1 -> a
-    211:212:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    216:217:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    221:221:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    219:220:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    224:225:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    229:229:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.GameResultActivity$5 -> buw:
     android.widget.TextView val$tv -> a
     int val$start -> b
@@ -44854,16 +44852,16 @@ com.mehdiii.duelgame.views.activities.GameResultActivity$5 -> buw:
     int val$plusThis -> d
     int val$duration -> e
     com.mehdiii.duelgame.views.activities.GameResultActivity this$0 -> f
-    261:262:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    266:273:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    277:277:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    269:270:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    274:281:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    285:285:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.mehdiii.duelgame.views.activities.ParentActivity -> com.mehdiii.duelgame.views.activities.ParentActivity:
-    java.util.Random rand -> C
-    java.lang.String category -> D
-    int NUMBER_OF_QUESTIONS -> E
-    java.util.List questionsToAsk -> F
-    int userPoints -> G
-    int opponentPoints -> H
+    java.util.Random rand -> rand
+    java.lang.String category -> C
+    int NUMBER_OF_QUESTIONS -> D
+    java.util.List questionsToAsk -> E
+    int userPoints -> F
+    int opponentPoints -> G
     28:35:void shuffleArray(java.util.List) -> a
     39:40:void onCreate(android.os.Bundle) -> onCreate
     44:46:void onResume() -> onResume
@@ -44886,55 +44884,55 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity -> com.mehdiii.duelgame.v
     int numberOfOptionChose -> z
     int iAnsweredThisTime -> A
     boolean iAnsweredThisCorrect -> B
-    int opponentAnsweredThisTime -> I
-    int problemIndex -> J
-    boolean hintRemoveClicked -> K
-    boolean hintAgainClicked -> L
-    int clickedHintRemove -> M
-    int clickedHintAgain -> N
-    android.widget.Button option0Btn -> O
-    android.widget.Button option1Btn -> P
-    android.widget.Button option2Btn -> Q
-    android.widget.Button option3Btn -> R
-    android.widget.ImageView hintRemoveBtn -> S
-    android.widget.ImageView hintAgainBtn -> T
-    android.view.Display mobileDisplay -> ad
-    android.graphics.Point screenSize -> ae
-    int screenHeight -> af
-    android.widget.ImageView tick -> ag
-    com.mehdiii.duelgame.utils.DuelMusicPlayer myPlayer -> U
-    int WRONG_ANSWER -> V
-    int CORRECT_ANSWER -> W
-    android.widget.ProgressBar myProgress -> X
-    android.widget.ProgressBar opProgress -> Y
-    int HINT_AGAIN_COST -> ah
-    int HINT_REMOVE_COST -> ai
-    java.lang.String[] round -> aj
-    android.content.BroadcastReceiver mListener -> Z
-    android.widget.TextView opponentNameTextView -> ak
-    android.widget.TextView opponentPointsTextView -> al
-    android.widget.TextView userNameTextView -> am
-    android.widget.TextView userPointsTextView -> an
-    android.widget.TextView questionTextView -> ao
-    android.widget.ImageView userAvatar -> ap
-    android.widget.ImageView opponentAvatar -> aq
-    android.widget.TextView playGameHintAgainCost -> ar
-    android.widget.TextView playGameHintAgainText -> as
-    android.widget.TextView playGameHintRemoveCost -> at
-    android.widget.TextView playGameHintRemoveText -> au
-    android.widget.TextView collectedDiamondTextView -> av
-    android.widget.TextView collectedDiamondTextViewTmp -> aw
-    android.widget.RelativeLayout collectedDiamondGroup -> ax
-    android.widget.RelativeLayout hintAgainView -> ay
-    android.widget.RelativeLayout hintRemoveView -> az
-    boolean hintAgainViewIsOpen -> aA
-    boolean hintRemoveViewIsOpen -> aB
-    android.widget.LinearLayout header -> aC
-    android.animation.ObjectAnimator danceHintAgainX -> aD
-    android.animation.ObjectAnimator danceHintAgainY -> aE
-    com.mehdiii.duelgame.utils.DuelMusicPlayer musicPlayer -> aa
-    com.mehdiii.duelgame.models.User opponentUser -> ab
-    com.mehdiii.duelgame.models.User user -> ac
+    int opponentAnsweredThisTime -> H
+    int problemIndex -> I
+    boolean hintRemoveClicked -> J
+    boolean hintAgainClicked -> K
+    int clickedHintRemove -> L
+    int clickedHintAgain -> M
+    android.widget.Button option0Btn -> N
+    android.widget.Button option1Btn -> O
+    android.widget.Button option2Btn -> P
+    android.widget.Button option3Btn -> Q
+    android.widget.ImageView hintRemoveBtn -> R
+    android.widget.ImageView hintAgainBtn -> S
+    android.view.Display mobileDisplay -> ac
+    android.graphics.Point screenSize -> ad
+    int screenHeight -> ae
+    android.widget.ImageView tick -> af
+    com.mehdiii.duelgame.utils.DuelMusicPlayer myPlayer -> T
+    int WRONG_ANSWER -> U
+    int CORRECT_ANSWER -> V
+    android.widget.ProgressBar myProgress -> W
+    android.widget.ProgressBar opProgress -> X
+    int HINT_AGAIN_COST -> ag
+    int HINT_REMOVE_COST -> ah
+    java.lang.String[] round -> ai
+    android.content.BroadcastReceiver mListener -> Y
+    android.widget.TextView opponentNameTextView -> aj
+    android.widget.TextView opponentPointsTextView -> ak
+    android.widget.TextView userNameTextView -> al
+    android.widget.TextView userPointsTextView -> am
+    android.widget.TextView questionTextView -> an
+    android.widget.ImageView userAvatar -> ao
+    android.widget.ImageView opponentAvatar -> ap
+    android.widget.TextView playGameHintAgainCost -> aq
+    android.widget.TextView playGameHintAgainText -> ar
+    android.widget.TextView playGameHintRemoveCost -> as
+    android.widget.TextView playGameHintRemoveText -> at
+    android.widget.TextView collectedDiamondTextView -> au
+    android.widget.TextView collectedDiamondTextViewTmp -> av
+    android.widget.RelativeLayout collectedDiamondGroup -> aw
+    android.widget.RelativeLayout hintAgainView -> ax
+    android.widget.RelativeLayout hintRemoveView -> ay
+    boolean hintAgainViewIsOpen -> az
+    boolean hintRemoveViewIsOpen -> aA
+    android.widget.LinearLayout header -> aB
+    android.animation.ObjectAnimator danceHintAgainX -> aC
+    android.animation.ObjectAnimator danceHintAgainY -> aD
+    com.mehdiii.duelgame.utils.DuelMusicPlayer musicPlayer -> Z
+    com.mehdiii.duelgame.models.User opponentUser -> aa
+    com.mehdiii.duelgame.models.User user -> ab
     139:143:void cancelDanceHintAgain() -> cancelDanceHintAgain
     146:153:void setProgressBar(android.widget.ProgressBar,int) -> setProgressBar
     156:239:void askQuestion() -> askQuestion
@@ -45010,53 +45008,12 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity$7 -> bvd:
 com.mehdiii.duelgame.views.activities.PlayGameActivity$8 -> bve:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
     946:949:void onComplete(java.lang.Object) -> onComplete
-com.mehdiii.duelgame.views.activities.StartActivity -> com.mehdiii.duelgame.views.activities.StartActivity:
-    boolean isSent -> n
-    long lastLoginRequestTime -> o
-    long lastCheck -> v
-    android.content.BroadcastReceiver commandListener -> p
-    android.widget.FrameLayout layout -> w
-    int[] splashColors -> x
-    java.lang.String[] splashColorsStr -> y
-    android.widget.ImageView centralImage -> q
-    long startingTime -> r
-    long currentTime -> s
-    long WAIT_BEFORE_LOGIN -> t
-    long WAIT_BEFORE_RECONNECT -> u
-    boolean stopCircles -> z
-    70:81:void loginOrRegisterUser(com.mehdiii.duelgame.models.User) -> a
-    85:100:void onCreate(android.os.Bundle) -> onCreate
-    114:161:void addCircle(boolean) -> addCircle
-    164:169:void clickedLogo(android.view.View) -> clickedLogo
-    173:180:void onResume() -> onResume
-    184:210:void displayUpdateDialog(com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
-    215:218:void onPause() -> onPause
-    222:223:void onDestroy() -> onDestroy
-    41:41:void access$000(com.mehdiii.duelgame.views.activities.StartActivity,com.mehdiii.duelgame.models.User) -> a
-    41:41:void access$100(com.mehdiii.duelgame.views.activities.StartActivity,com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
-    41:41:boolean access$200(com.mehdiii.duelgame.views.activities.StartActivity) -> a
-com.mehdiii.duelgame.views.activities.StartActivity$1 -> bvf:
-    com.mehdiii.duelgame.views.activities.StartActivity this$0 -> a
-    54:66:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.StartActivity$1$1 -> bvg:
-    com.mehdiii.duelgame.models.User val$user -> a
-    com.mehdiii.duelgame.views.activities.StartActivity$1 this$1 -> b
-    60:61:void onComplete(java.lang.Object) -> onComplete
-com.mehdiii.duelgame.views.activities.StartActivity$2 -> bvh:
-    boolean val$userClicked -> a
-    com.mehdiii.duelgame.views.activities.StartActivity this$0 -> b
-    142:148:void run() -> run
-com.mehdiii.duelgame.views.activities.StartActivity$3 -> bvi:
-    com.mehdiii.duelgame.views.OnCompleteListener val$onCompleteListener -> a
-    boolean val$force -> b
-    com.mehdiii.duelgame.views.activities.StartActivity this$0 -> c
-    200:201:void onDismiss(android.content.DialogInterface) -> onDismiss
 com.mehdiii.duelgame.views.activities.TryToConnectActivity -> com.mehdiii.duelgame.views.activities.TryToConnectActivity:
     16:22:void checkConnection() -> checkConnection
     25:35:void reconnect(android.view.View) -> reconnect
     38:40:void exit(android.view.View) -> exit
     44:46:void onCreate(android.os.Bundle) -> onCreate
-com.mehdiii.duelgame.views.activities.TryToConnectActivity$1 -> bvj:
+com.mehdiii.duelgame.views.activities.TryToConnectActivity$1 -> bvf:
     com.mehdiii.duelgame.views.activities.TryToConnectActivity this$0 -> a
     31:32:void run() -> run
 com.mehdiii.duelgame.views.activities.WaitingActivity -> com.mehdiii.duelgame.views.activities.WaitingActivity:
@@ -45087,20 +45044,20 @@ com.mehdiii.duelgame.views.activities.WaitingActivity -> com.mehdiii.duelgame.vi
     43:43:void access$000(com.mehdiii.duelgame.views.activities.WaitingActivity,java.lang.String) -> a
     43:43:void access$100(com.mehdiii.duelgame.views.activities.WaitingActivity) -> a
     43:43:void access$200(com.mehdiii.duelgame.views.activities.WaitingActivity,java.lang.String) -> b
-com.mehdiii.duelgame.views.activities.WaitingActivity$1 -> bvk:
+com.mehdiii.duelgame.views.activities.WaitingActivity$1 -> bvg:
     android.widget.LinearLayout val$layout -> a
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> b
     66:67:void onAnimationStart(android.animation.Animator) -> onAnimationStart
     72:72:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
     77:77:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
     82:82:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.WaitingActivity$2 -> bvl:
+com.mehdiii.duelgame.views.activities.WaitingActivity$2 -> bvh:
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> a
     94:105:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.WaitingActivity$3 -> bvm:
+com.mehdiii.duelgame.views.activities.WaitingActivity$3 -> bvi:
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> a
     144:147:void run() -> run
-com.mehdiii.duelgame.views.activities.WaitingActivity$4 -> bvn:
+com.mehdiii.duelgame.views.activities.WaitingActivity$4 -> bvj:
     int[] $SwitchMap$com$mehdiii$duelgame$models$base$CommandType -> a
 com.mehdiii.duelgame.views.activities.home.HomeActivity -> com.mehdiii.duelgame.views.activities.home.HomeActivity:
     android.support.v4.view.ViewPager viewPager -> n
@@ -45118,9 +45075,9 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity -> com.mehdiii.duelgame.
     com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment friendsFragment -> z
     java.util.List childFragments -> A
     com.android.vending.billing.IInAppBillingService mService -> B
-    android.content.ServiceConnection mServiceConn -> I
-    android.view.View$OnClickListener pageSelectorClickListener -> J
-    android.support.v4.view.ViewPager$OnPageChangeListener pageChangeListener -> K
+    android.content.ServiceConnection mServiceConn -> H
+    android.view.View$OnClickListener pageSelectorClickListener -> I
+    android.support.v4.view.ViewPager$OnPageChangeListener pageChangeListener -> J
     80:84:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     88:98:void onCreate(android.os.Bundle) -> onCreate
     102:108:void find() -> b
@@ -45135,22 +45092,22 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity -> com.mehdiii.duelgame.
     289:297:void onEvent(com.mehdiii.duelgame.models.BuyNotification) -> onEvent
     299:300:void onEvent(com.mehdiii.duelgame.models.ChangePage) -> onEvent
     37:37:void access$001(com.mehdiii.duelgame.views.activities.home.HomeActivity) -> a
-com.mehdiii.duelgame.views.activities.home.HomeActivity$1 -> bvo:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$1 -> bvk:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     64:65:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
     70:73:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
-com.mehdiii.duelgame.views.activities.home.HomeActivity$2 -> bvp:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$2 -> bvl:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     133:155:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.home.HomeActivity$3 -> bvq:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$3 -> bvm:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     161:161:void onPageScrolled(int,float,int) -> onPageScrolled
     166:205:void onPageSelected(int) -> onPageSelected
     209:209:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-com.mehdiii.duelgame.views.activities.home.HomeActivity$3$1 -> bvr:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$3$1 -> bvn:
     com.mehdiii.duelgame.views.activities.home.HomeActivity$3 this$1 -> a
     173:175:void run() -> run
-com.mehdiii.duelgame.views.activities.home.HomeActivity$4 -> bvs:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$4 -> bvo:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     247:249:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter -> com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter:
@@ -45186,15 +45143,15 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment -> 
     33:33:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
     33:33:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
     33:33:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvt:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvp:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     101:101:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
     105:108:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
     112:115:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvu:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvq:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     141:149:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvv:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvr:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     157:158:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
@@ -45210,11 +45167,11 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter 
     145:146:void setOnUserDecisionIsMade(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade) -> setOnUserDecisionIsMade
     26:26:java.lang.Object getItem(int) -> getItem
     26:26:com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade access$700(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$1 -> bvw:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$1 -> bvs:
     com.mehdiii.duelgame.models.Friend val$friend -> a
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter this$0 -> b
     96:103:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$2 -> bvx:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$2 -> bvt:
     com.mehdiii.duelgame.models.Friend val$friend -> a
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter this$0 -> b
     109:113:void onClick(android.view.View) -> onClick
@@ -45297,7 +45254,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment -> 
     106:108:void onBringToFront() -> onBringToFront
     21:21:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> a
     21:21:android.support.v4.app.Fragment access$100(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> b
-com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment$1 -> bvy:
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment$1 -> bvu:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment this$0 -> a
     63:73:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter:
@@ -45339,7 +45296,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment
     84:87:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     90:94:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
     24:24:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bvz:
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bvv:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment this$0 -> a
     51:61:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -> com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment:
@@ -45373,13 +45330,13 @@ com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -
     192:204:void saveSettings() -> n
     208:222:boolean validateForm() -> o
     44:44:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment,int) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$1 -> bwa:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$1 -> bvw:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     66:88:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$2 -> bwb:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$2 -> bvx:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     138:140:void onCheckedChanged(android.widget.CompoundButton,boolean) -> onCheckedChanged
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$3 -> bwc:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$3 -> bvy:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     167:168:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog -> com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog:
@@ -45387,7 +45344,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog 
     android.widget.Button gotItButton -> b
     java.lang.String text -> c
     31:49:void onCreate(android.os.Bundle) -> onCreate
-com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog$1 -> bwd:
+com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog$1 -> bvz:
     com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog this$0 -> a
     46:47:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment -> com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment:
@@ -45405,7 +45362,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment -> com.
     129:137:void onClick(android.view.View) -> onClick
     140:141:void startBuyIntent(int,int) -> a
     144:173:void onEvent(com.mehdiii.duelgame.models.PurchaseDone) -> onEvent
-com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment$1 -> bwe:
+com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment$1 -> bwa:
     int[] $SwitchMap$com$mehdiii$duelgame$models$PurchaseDone$PurchaseResult -> a
 com.mehdiii.duelgame.views.activities.register.RegisterActivity -> com.mehdiii.duelgame.views.activities.register.RegisterActivity:
     java.lang.String userId -> n
@@ -45431,16 +45388,16 @@ com.mehdiii.duelgame.views.activities.register.RegisterActivity -> com.mehdiii.d
     182:184:void setAvatar(int) -> a
     188:190:void onDestroy() -> onDestroy
     33:33:void access$000(com.mehdiii.duelgame.views.activities.register.RegisterActivity,int) -> a
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$1 -> bwf:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$1 -> bwb:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     51:57:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$2 -> bwg:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$2 -> bwc:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     114:116:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$3 -> bwh:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$3 -> bwd:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     122:124:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$4 -> bwi:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$4 -> bwe:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     169:170:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment -> com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment:
@@ -45459,7 +45416,7 @@ com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment -> c
     51:57:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     60:62:void readArgs() -> l
     74:101:void loadImages() -> m
-com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment$1 -> bwj:
+com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment$1 -> bwf:
     com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment this$0 -> a
     67:69:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter -> com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter:
@@ -45468,9 +45425,55 @@ com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAd
     20:22:void setOnCompleteListener(com.mehdiii.duelgame.views.OnCompleteListener,int) -> setOnCompleteListener
     30:30:int getCount() -> getCount
     35:46:android.support.v4.app.Fragment getItem(int) -> getItem
-com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter$1 -> bwk:
+com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter$1 -> bwg:
     com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter this$0 -> a
     39:41:void onComplete(java.lang.Object) -> onComplete
+com.mehdiii.duelgame.views.activities.splash.SplashColors -> com.mehdiii.duelgame.views.activities.splash.SplashColors:
+    14:19:int[] getArray(android.content.Context) -> getArray
+com.mehdiii.duelgame.views.activities.splash.StartActivity -> com.mehdiii.duelgame.views.activities.splash.StartActivity:
+    boolean isSent -> n
+    long lastLoginRequestTime -> o
+    android.widget.RelativeLayout layout -> p
+    int[] splashColors -> q
+    boolean stopCircles -> r
+    long startingTime -> s
+    long currentTime -> t
+    android.widget.ImageView[] circlesImage -> u
+    int circleCounter -> v
+    long lastCheck -> z
+    android.content.BroadcastReceiver commandListener -> w
+    long[] offsets -> x
+    int counter -> y
+    83:94:void loginOrRegisterUser(com.mehdiii.duelgame.models.User) -> a
+    98:107:void onCreate(android.os.Bundle) -> onCreate
+    111:146:void addAnimations(android.widget.ImageView) -> a
+    152:198:void addCircles() -> addCircles
+    201:205:void clickedLogo(android.view.View) -> clickedLogo
+    209:212:void onResume() -> onResume
+    216:242:void displayUpdateDialog(com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
+    247:250:void onPause() -> onPause
+    254:255:void onDestroy() -> onDestroy
+    41:41:void access$000(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.User) -> a
+    41:41:void access$100(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
+    41:41:void access$200(com.mehdiii.duelgame.views.activities.splash.StartActivity,android.widget.ImageView) -> a
+com.mehdiii.duelgame.views.activities.splash.StartActivity$1 -> bwh:
+    com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> a
+    67:79:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+com.mehdiii.duelgame.views.activities.splash.StartActivity$1$1 -> bwi:
+    com.mehdiii.duelgame.models.User val$user -> a
+    com.mehdiii.duelgame.views.activities.splash.StartActivity$1 this$1 -> b
+    73:74:void onComplete(java.lang.Object) -> onComplete
+com.mehdiii.duelgame.views.activities.splash.StartActivity$2 -> bwj:
+    android.widget.ImageView val$image -> a
+    com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> b
+    132:132:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    136:137:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    142:142:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.splash.StartActivity$3 -> bwk:
+    com.mehdiii.duelgame.views.OnCompleteListener val$onCompleteListener -> a
+    boolean val$force -> b
+    com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> c
+    232:233:void onDismiss(android.content.DialogInterface) -> onDismiss
 com.mehdiii.duelgame.views.custom.AppRater -> com.mehdiii.duelgame.views.custom.AppRater:
     29:46:void init(android.content.Context,boolean) -> init
     49:129:void showRateDialog(android.content.Context,android.content.SharedPreferences$Editor) -> showRateDialog

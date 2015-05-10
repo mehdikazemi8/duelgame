@@ -25036,6 +25036,7 @@ com.mehdiii.duelgame.R$id: int container_avatars
 com.mehdiii.duelgame.R$id: int container_header
 com.mehdiii.duelgame.R$id: int container_page_selector
 com.mehdiii.duelgame.R$id: int container_store
+com.mehdiii.duelgame.R$id: int container_wrapper
 com.mehdiii.duelgame.R$id: int decor_content_parent
 com.mehdiii.duelgame.R$id: int default_activity_button
 com.mehdiii.duelgame.R$id: int dialog
@@ -25183,9 +25184,6 @@ com.mehdiii.duelgame.R$id: int showTitle
 com.mehdiii.duelgame.R$id: int spinner_province
 com.mehdiii.duelgame.R$id: int split_action_bar
 com.mehdiii.duelgame.R$id: int start_his_avatar
-com.mehdiii.duelgame.R$id: int start_layout
-com.mehdiii.duelgame.R$id: int start_my_text
-com.mehdiii.duelgame.R$id: int start_picture
 com.mehdiii.duelgame.R$id: int strict_sandbox
 com.mehdiii.duelgame.R$id: int submit_area
 com.mehdiii.duelgame.R$id: int switch_gender
@@ -26363,8 +26361,8 @@ com.mehdiii.duelgame.models.base.GenericDeliveryMessage: java.lang.String getCod
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setCode(java.lang.String)
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: java.lang.Object getPayload()
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setPayload(java.lang.Object)
-com.mehdiii.duelgame.models.events.OnConnectionLost
-com.mehdiii.duelgame.models.events.OnConnectionLost: OnConnectionLost()
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged: OnConnectionLost()
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: OnDiamondChangeNotice(int)
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: int getNewValue()
@@ -26603,11 +26601,12 @@ com.mehdiii.duelgame.views.activities.GameResultActivity: void goToHome(android.
 com.mehdiii.duelgame.views.activities.GameResultActivity: void duelWithOthers(android.view.View)
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.ParentActivity
+com.mehdiii.duelgame.views.activities.ParentActivity: java.util.Random rand
 com.mehdiii.duelgame.views.activities.ParentActivity: ParentActivity()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ParentActivity: void onResume()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onPause()
-com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.events.OnConnectionLost)
+com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged)
 com.mehdiii.duelgame.views.activities.PlayGameActivity
 com.mehdiii.duelgame.views.activities.PlayGameActivity: java.lang.String ARGUMENT_OPPONENT
 com.mehdiii.duelgame.views.activities.PlayGameActivity: PlayGameActivity()
@@ -26632,14 +26631,6 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity: void onResume()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void doDisableButtons()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onBackPressed()
-com.mehdiii.duelgame.views.activities.StartActivity
-com.mehdiii.duelgame.views.activities.StartActivity: StartActivity()
-com.mehdiii.duelgame.views.activities.StartActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.StartActivity: void addCircle(boolean)
-com.mehdiii.duelgame.views.activities.StartActivity: void clickedLogo(android.view.View)
-com.mehdiii.duelgame.views.activities.StartActivity: void onResume()
-com.mehdiii.duelgame.views.activities.StartActivity: void onPause()
-com.mehdiii.duelgame.views.activities.StartActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.TryToConnectActivity
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: TryToConnectActivity()
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void checkConnection()
@@ -26779,6 +26770,17 @@ com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAd
 com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter: AvatarSliderAdapter(android.support.v4.app.FragmentManager)
 com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter: int getCount()
 com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter: android.support.v4.app.Fragment getItem(int)
+com.mehdiii.duelgame.views.activities.splash.SplashColors
+com.mehdiii.duelgame.views.activities.splash.SplashColors: SplashColors()
+com.mehdiii.duelgame.views.activities.splash.SplashColors: int[] getArray(android.content.Context)
+com.mehdiii.duelgame.views.activities.splash.StartActivity
+com.mehdiii.duelgame.views.activities.splash.StartActivity: StartActivity()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void addCircles()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void clickedLogo(android.view.View)
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void onResume()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void onPause()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void onDestroy()
 com.mehdiii.duelgame.views.custom.AppRater
 com.mehdiii.duelgame.views.custom.AppRater: AppRater()
 com.mehdiii.duelgame.views.custom.AppRater: void init(android.content.Context,boolean)

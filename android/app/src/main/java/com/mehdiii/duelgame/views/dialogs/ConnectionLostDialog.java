@@ -1,13 +1,16 @@
 package com.mehdiii.duelgame.views.dialogs;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DialerFilter;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
 
@@ -32,5 +35,12 @@ public class ConnectionLostDialog extends Dialog {
         buttonRetry = (Button) findViewById(R.id.button_retry);
 
         FontHelper.setKoodakFor(getContext(), textViewMessage, buttonRetry);
+        buttonRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DuelApp.getInstance().connectToWs();
+                ConnectionLostDialog.this.dismiss();
+            }
+        });
     }
 }

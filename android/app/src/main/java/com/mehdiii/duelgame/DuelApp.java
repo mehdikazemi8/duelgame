@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
-import com.mehdiii.duelgame.models.events.OnConnectionLost;
+import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 
@@ -45,17 +45,19 @@ public class DuelApp extends Application {
 //            Intent svc = new Intent(this, MusicPlayer.class);
 //            startService(svc);
 
-            doConnect();
+            connectToWs();
         }
     }
 
-    public void doConnect() {
+    public void connectToWs() {
         try {
+            EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.CONNECTING));
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
                 public void onOpen() {
                     isConnected = true;
                     Log.d(TAG, "Status: Connected to " + wsuri);
+                    EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.CONNECTED));
                 }
 
                 @Override
@@ -68,7 +70,7 @@ public class DuelApp extends Application {
                 @Override
                 public void onClose(int code, String reason) {
                     isConnected = false;
-                    EventBus.getDefault().post(new OnConnectionLost());
+                    EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.DISCONNECTED));
                     Log.d(TAG, "Connection lost." + reason);
                 }
             });
@@ -103,7 +105,7 @@ public class DuelApp extends Application {
     /**
      * used to send a message and receive delivery message so that you can check whether request is reached/processed successfully on server or not?
      *
-     * @param model         g            the model that is used to be sent off to the server
+     * @param model                     g            the model that is used to be sent off to the server
      * @param onMessageReceivedListener this listens for delivery message of current request and calls onDelivered when delivery message is received.
      */
     public void sendMessageWithDelivery(BaseModel model, OnMessageReceivedListener onMessageReceivedListener) {

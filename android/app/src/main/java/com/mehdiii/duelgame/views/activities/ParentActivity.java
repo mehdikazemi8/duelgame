@@ -1,11 +1,22 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 
+import com.mehdiii.duelgame.DuelApp;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.Question;
-import com.mehdiii.duelgame.models.events.OnConnectionLost;
+import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
+import com.mehdiii.duelgame.utils.DeviceManager;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
@@ -16,7 +27,19 @@ import de.greenrobot.event.EventBus;
 
 public class ParentActivity extends ActionBarActivity {
 
-    static Random rand = new Random();
+    protected BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_LOGIN_INFO) {
+                User user = BaseModel.deserialize(json, User.class);
+                if (user != null) {
+                    AuthManager.authenticate(user);
+                }
+            }
+        }
+    });
+
+    protected static Random rand = new Random();
     static String category;
     static int NUMBER_OF_QUESTIONS = 6;
     static List<Question> questionsToAsk = new ArrayList<>();
@@ -43,17 +66,43 @@ public class ParentActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
-    public void onEvent(OnConnectionLost lost) {
-        ConnectionLostDialog dialog = new ConnectionLostDialog(this);
-        dialog.setCancelable(false);
-        dialog.show();
+    ProgressDialog dialog;
+
+    public void onEvent(OnConnectionStateChanged status) {
+        if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED ||
+                status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {
+            if (dialog != null)
+                dialog.dismiss();
+        }
+
+        if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED) {
+            ConnectionLostDialog dialog = new ConnectionLostDialog(this);
+            dialog.setCancelable(false);
+            dialog.show();
+        } else if (status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {
+            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
+        } else if (status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTING) {
+            if (showConnectingToServerDialog()) {
+                dialog = new ProgressDialog(this);
+                dialog.setMessage("?? ??? ???? ?? ????");
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        }
+    }
+
+    // sub classes can change this configuration by overriding this method
+    public boolean showConnectingToServerDialog() {
+        return true;
     }
 }
