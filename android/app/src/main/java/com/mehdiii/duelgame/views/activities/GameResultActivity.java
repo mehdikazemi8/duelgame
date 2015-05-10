@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -165,6 +166,13 @@ public class GameResultActivity extends ParentActivity {
         final int levelAfter = ScoreHelper.getLevel(user.getScore() + totalXP);
         final int progressAfter = ScoreHelper.getThisLevelPercentage(user.getScore() + totalXP);
 
+        Log.d("gameResult", "user.getScore() " + user.getScore());
+        Log.d("gameResult", "totalXP " + totalXP);
+        Log.d("gameResult", "levelBefore " + levelBefore);
+        Log.d("gameResult", "progressBefore " + progressBefore);
+        Log.d("gameResult", "levelAfter " + levelAfter);
+        Log.d("gameResult", "progressAfter " + progressAfter);
+
         if (levelBefore == levelAfter) {
             ProgressBarAnimation anim = new ProgressBarAnimation(gameResultLevelProgress, progressBefore, progressAfter);
             anim.setDuration(1000);
@@ -300,11 +308,8 @@ public class GameResultActivity extends ParentActivity {
 
         configureControls();
 
-        user.setScore(user.getScore() + positivePoints);
-
         if (gameStatus >= 0)
             user.addDiamond(collectedDiamond);
-
 
         allAnimations = new ArrayList<ObjectAnimator>();
 
@@ -338,6 +343,7 @@ public class GameResultActivity extends ParentActivity {
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
         animateProgress();
+        user.setScore(user.getScore() + totalXP);
         EventBus.getDefault().post(new OnUserSettingsChanged());
     }
 
