@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/textView_message"
@@ -14,5 +16,10 @@
         android:id="@+id/button_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_retry_connect" />
+        android:background="@drawable/bg_button_blue_dark"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/button_retry_connect"
+        android:textColor="@color/white" />
+
 </LinearLayout>

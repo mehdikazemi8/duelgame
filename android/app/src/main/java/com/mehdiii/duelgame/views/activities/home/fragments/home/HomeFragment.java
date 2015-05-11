@@ -158,13 +158,12 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     public void startGame() {
-        if (HeartTracker.getInstance().getHeartsCount() <= 0) {
+        if (HeartTracker.getInstance().canUseHeart()) {
             HeartLowDialog dialog = new HeartLowDialog(getActivity());
             dialog.show();
             return;
         }
 
-//        ((HomeActivity) getActivity()).musicPlayer.pauseSound();
         getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
 
@@ -216,7 +215,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onEvent(OnUserSettingsChanged settings) {
         bindViewData();
     }
-
 
     @Override
     public void onBringToFront() {

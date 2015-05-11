@@ -37,6 +37,7 @@ import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
+import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 import com.mehdiii.duelgame.views.dialogs.UpdateDialog;
 
 import java.util.Calendar;
@@ -96,7 +97,6 @@ public class StartActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-//        centralImage = (ImageView) findViewById(R.id.start_picture);
         layout = (RelativeLayout) findViewById(R.id.container_wrapper);
         splashColors = SplashColors.getArray(this);
 
@@ -194,7 +194,7 @@ public class StartActivity extends ParentActivity {
     }
 
     private void displayUpdateDialog(UpdateVersion version, final OnCompleteListener onCompleteListener) {
-        // if previous check is displayed in less than ten minutes, do not interrupt user again.
+        //    if previous check is displayed in less than ten minutes, do not interrupt user again.
         long now = Calendar.getInstance().getTime().getTime();
         if (lastCheck != 0 && lastCheck > now - 360000) {
             return;

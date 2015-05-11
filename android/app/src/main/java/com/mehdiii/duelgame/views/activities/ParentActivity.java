@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 
 import com.mehdiii.duelgame.DuelApp;
+import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.Question;
@@ -94,14 +95,14 @@ public class ParentActivity extends ActionBarActivity {
         } else if (status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTING) {
             if (showConnectingToServerDialog()) {
                 dialog = new ProgressDialog(this);
-                dialog.setMessage("?? ??? ???? ?? ????");
+                dialog.setMessage(getResources().getString(R.string.message_connecting_to_server));
                 dialog.setCancelable(false);
                 dialog.show();
             }
         }
     }
 
-    // sub classes can change this configuration by overriding this method
+    // sub classes can change this configuration by overriding this method. default value is `true`
     public boolean showConnectingToServerDialog() {
         return true;
     }

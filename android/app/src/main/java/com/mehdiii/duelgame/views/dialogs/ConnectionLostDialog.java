@@ -1,13 +1,13 @@
 package com.mehdiii.duelgame.views.dialogs;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DialerFilter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -29,7 +29,9 @@ public class ConnectionLostDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.dialog_connection_lost);
+        configureLayoutSize();
 
         textViewMessage = (TextView) findViewById(R.id.textView_message);
         buttonRetry = (Button) findViewById(R.id.button_retry);
@@ -42,5 +44,12 @@ public class ConnectionLostDialog extends Dialog {
                 ConnectionLostDialog.this.dismiss();
             }
         });
+    }
+
+    private void configureLayoutSize() {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int w = Math.min(1000, (int) (0.9 * displayMetrics.widthPixels));
+
+        getWindow().setLayout(w, -2/* means WRAP_CONTENT */);
     }
 }

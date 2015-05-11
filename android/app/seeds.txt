@@ -24284,7 +24284,7 @@ com.mehdiii.duelgame.DuelApp: de.tavendo.autobahn.WebSocketConnection wsc
 com.mehdiii.duelgame.DuelApp: java.lang.String wsuri
 com.mehdiii.duelgame.DuelApp: DuelApp()
 com.mehdiii.duelgame.DuelApp: void onCreate()
-com.mehdiii.duelgame.DuelApp: void doConnect()
+com.mehdiii.duelgame.DuelApp: void connectToWs()
 com.mehdiii.duelgame.DuelApp: void dispatchMessage(java.lang.String)
 com.mehdiii.duelgame.DuelApp: android.content.IntentFilter getIntentFilter()
 com.mehdiii.duelgame.DuelApp: void sendMessage(java.lang.String)
@@ -26067,7 +26067,7 @@ com.mehdiii.duelgame.managers.HeartTracker: int COUNT_HEARTS_MAX
 com.mehdiii.duelgame.managers.HeartTracker: HeartTracker()
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker getInstance()
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean)
-com.mehdiii.duelgame.managers.HeartTracker: int getHeartsCount()
+com.mehdiii.duelgame.managers.HeartTracker: boolean canUseHeart()
 com.mehdiii.duelgame.managers.HeartTracker: boolean useHeart()
 com.mehdiii.duelgame.managers.HeartTracker: void notifyChange(com.mehdiii.duelgame.models.events.OnHeartChangeNotice$ChangeMode,int)
 com.mehdiii.duelgame.managers.ProvinceManager
@@ -26362,7 +26362,15 @@ com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setCode(java.lang.
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: java.lang.Object getPayload()
 com.mehdiii.duelgame.models.base.GenericDeliveryMessage: void setPayload(java.lang.Object)
 com.mehdiii.duelgame.models.events.OnConnectionStateChanged
-com.mehdiii.duelgame.models.events.OnConnectionStateChanged: OnConnectionLost()
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged: OnConnectionStateChanged(com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState)
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState getState()
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged: void setState(com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState)
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState CONNECTING
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState CONNECTED
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState DISCONNECTED
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState[] values()
+com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState: com.mehdiii.duelgame.models.events.OnConnectionStateChanged$ConnectionState valueOf(java.lang.String)
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: OnDiamondChangeNotice(int)
 com.mehdiii.duelgame.models.events.OnDiamondChangeNotice: int getNewValue()
@@ -26601,12 +26609,14 @@ com.mehdiii.duelgame.views.activities.GameResultActivity: void goToHome(android.
 com.mehdiii.duelgame.views.activities.GameResultActivity: void duelWithOthers(android.view.View)
 com.mehdiii.duelgame.views.activities.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.ParentActivity
+com.mehdiii.duelgame.views.activities.ParentActivity: android.content.BroadcastReceiver receiver
 com.mehdiii.duelgame.views.activities.ParentActivity: java.util.Random rand
 com.mehdiii.duelgame.views.activities.ParentActivity: ParentActivity()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ParentActivity: void onResume()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onPause()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged)
+com.mehdiii.duelgame.views.activities.ParentActivity: boolean showConnectingToServerDialog()
 com.mehdiii.duelgame.views.activities.PlayGameActivity
 com.mehdiii.duelgame.views.activities.PlayGameActivity: java.lang.String ARGUMENT_OPPONENT
 com.mehdiii.duelgame.views.activities.PlayGameActivity: PlayGameActivity()
@@ -26781,6 +26791,7 @@ com.mehdiii.duelgame.views.activities.splash.StartActivity: void clickedLogo(and
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onResume()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onPause()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onDestroy()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: boolean showConnectingToServerDialog()
 com.mehdiii.duelgame.views.custom.AppRater
 com.mehdiii.duelgame.views.custom.AppRater: AppRater()
 com.mehdiii.duelgame.views.custom.AppRater: void init(android.content.Context,boolean)
