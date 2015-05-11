@@ -55,6 +55,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Button buyDiamondButton;
     TextView textViewHearts;
     ImageView heartsImageView;
+    LinearLayout containerHearts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
         duelButton = (ImageView) view.findViewById(R.id.button_duel);
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
+        containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
     }
 
     @Override
@@ -152,7 +154,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
-//            heartsImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            containerHearts.setPadding(0, 0, 0, 20);
             this.textViewHearts.setVisibility(View.GONE);
         } else
             this.textViewHearts.setVisibility(View.VISIBLE);
@@ -185,7 +187,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     public void onEvent(OnHeartChangeNotice notice) {
         // if hearts are refilling over time, counter text view should be visible, ot invisible
-        if (AuthManager.getCurrentUser().getHeart() >= HeartTracker.COUNT_HEARTS_MAX)
+        if (AuthManager.getCurrentUser().getHeart() >= HeartTracker.COUNT_HEARTS_MAX || AuthManager.getCurrentUser().isExtremeHeart())
             textViewCounter.setVisibility(View.INVISIBLE);
         else
             textViewCounter.setVisibility(View.VISIBLE);
