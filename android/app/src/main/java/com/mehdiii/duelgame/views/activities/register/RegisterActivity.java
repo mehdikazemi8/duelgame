@@ -140,7 +140,7 @@ public class RegisterActivity extends ParentActivity {
 
         }
 
-        if (provinceSpinner.getSelectedItem().toString().equals("استان")) {
+        if (provinceSpinner.getSelectedItem().toString().equals("انتخاب استان")) {
             Toast toast = Toast.makeText(this, "لطفا استان خود را انتخاب نمایید.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 0);
             toast.show();

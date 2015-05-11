@@ -146,6 +146,12 @@ public class PurchaseManager {
             } catch (RemoteException ex) {
                 ex.printStackTrace();
             }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+//            notifyComplete(PurchaseEvent.FAILED);
+            PurchaseDone purchaseDone = new PurchaseDone();
+            // TODO move it to purchaseDone class
+            purchaseDone.setStatus("failed");
+            EventBus.getDefault().post(purchaseDone);
         }
     }
 
@@ -169,20 +175,15 @@ public class PurchaseManager {
                 response = service.consumePurchase(3, activity.getPackageName(), purchase.getPurchaseToken());
                 working = false;
 
-                notifyComplete(response == 0 ? PurchaseEvent.SUCCESSFUL : PurchaseEvent.FAILED);
+//                notifyComplete(response == 0 ? PurchaseEvent.SUCCESSFUL : PurchaseEvent.FAILED);
             }
-            if (continuationToken != null)
-                notifyComplete(PurchaseEvent.FAILED);
+//            if (continuationToken != null)
+//                notifyComplete(PurchaseEvent.FAILED);
 
 //            if (continuationToken != null)
 //                consumePurchase();
         }
     }
 
-    private void notifyComplete(PurchaseEvent event) {
-        for (PurchaseListener listener : listeners) {
-            listener.onCompleted(event);
-        }
-    }
 
 }

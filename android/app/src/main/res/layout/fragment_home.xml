@@ -40,9 +40,10 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="20dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="start|center_vertical"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/diamond" />
 
                         <TextView
@@ -109,6 +110,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/container_hearts"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
@@ -118,9 +120,10 @@
 
                         <ImageView
                             android:id="@+id/imageView_hearts"
-                            android:layout_width="20dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="start|center_vertical"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/heart_full" />
 
                         <TextView
@@ -322,6 +325,7 @@
                 android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
 
                 android:src="@drawable/add_friend" />
 
