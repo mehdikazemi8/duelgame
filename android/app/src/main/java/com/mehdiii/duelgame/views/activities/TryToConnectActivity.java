@@ -2,8 +2,6 @@ package com.mehdiii.duelgame.views.activities;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,7 +22,7 @@ public class TryToConnectActivity extends ParentActivity {
     public void reconnect(View v) {
         TextView status = (TextView) findViewById(R.id.try_to_connect_status);
         status.setText("در حال اتصال به سرور بازی");
-        DuelApp.getInstance().doConnect();
+        DuelApp.getInstance().connectToWs();
 
         Runnable task = new Runnable() {
             public void run() {

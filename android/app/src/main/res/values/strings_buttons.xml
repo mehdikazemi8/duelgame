@@ -15,4 +15,6 @@
     <string name="button_confirm">تایید</string>
     <string name="button_update">به روزرسانی</string>
     <string name="button_retry_connect">تلاش دوباره</string>
+    <string name="button_enable_wifi">روشن کردن Wi-Fi</string>
+    <string name="button_enable_data">روشن کردن 3G</string>
 </resources>

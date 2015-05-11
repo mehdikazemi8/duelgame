@@ -1,21 +1,25 @@
-package com.mehdiii.duelgame.views.activities;
+package com.mehdiii.duelgame.views.activities.splash;
 
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
-import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -25,23 +29,31 @@ import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.register.RegisterActivity;
+import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 import com.mehdiii.duelgame.views.dialogs.UpdateDialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 
 public class StartActivity extends ParentActivity {
+    private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS = 5000;
+    private static final int CIRCLES_COUNT = 3;
+
     boolean isSent = false;
-    long lastLoginRequestTime = -1;
-    private static final int RECREATE_CIRCLE_GAP = 1000;
+    RelativeLayout layout;
+    int[] splashColors;
+    boolean stopCircles = false;
+    long startingTime, currentTime;
+    ImageView[] circlesImage;
+    long[] offsets;
+    int counter = 0;
     /**
      * UPDATE DIALOG
      */
@@ -85,102 +97,104 @@ public class StartActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        centralImage = (ImageView) findViewById(R.id.start_picture);
-        layout = (FrameLayout) findViewById(R.id.start_layout);
-
-        // Reads splash colors from resources
-        if (splashColorsStr == null) {
-            splashColorsStr = getResources().getStringArray(R.array.splash_colors_array);
-            splashColors = new int[splashColorsStr.length];
-            for (int i = 0; i < splashColorsStr.length; i++)
-                splashColors[i] = Color.parseColor(splashColorsStr[i]);
-        }
+        layout = (RelativeLayout) findViewById(R.id.container_wrapper);
+        splashColors = SplashColors.getArray(this);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
     }
 
-    private FrameLayout layout;
-    private int[] splashColors;
-    private String[] splashColorsStr = null;
-    ImageView centralImage;
-    long startingTime, currentTime;
-    final long WAIT_BEFORE_LOGIN = 5000;
-    final long WAIT_BEFORE_RECONNECT = 10000;
 
-    private boolean stopCircles = false;
+    private void addAnimations(final ImageView image) {
+        if (counter >= CIRCLES_COUNT)
+            counter = 0;
+        long offset = offsets[counter++];
 
-    public void addCircle(final boolean userClicked) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(
+                0, 70f,
+                0, 70f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0f);
 
-        ImageView tmp = new ImageView(StartActivity.this);
-        tmp.setImageDrawable(getResources().getDrawable(R.drawable.round_tv));
-        tmp.setScaleX(centralImage.getWidth() / 2);
-        tmp.setScaleY(centralImage.getHeight() / 2);
+        final AnimationSet set = new AnimationSet(true);
+        set.setInterpolator(new LinearInterpolator());
+        set.addAnimation(scaleAnimation);
+        set.addAnimation(alphaAnimation);
+        scaleAnimation.setStartOffset(offset);
+        alphaAnimation.setStartOffset(offset);
 
-        tmp.setColorFilter(splashColors[rand.nextInt(splashColors.length)]);
-
-        layout.addView(tmp);
-
-        ObjectAnimator scalex = ObjectAnimator.ofFloat(tmp, "scaleX", 0f, 2f);
-        scalex.setDuration(3000);
-        scalex.setInterpolator(new LinearInterpolator());
-        scalex.start();
-
-        ObjectAnimator scaley = ObjectAnimator.ofFloat(tmp, "scaleY", 0f, 2f);
-        scaley.setInterpolator(new LinearInterpolator());
-        scaley.setDuration(3000);
-        scaley.start();
-
-        ObjectAnimator fadeout = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
-        fadeout.setInterpolator(new LinearInterpolator());
-        fadeout.setDuration(3000);
-        fadeout.start();
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        set.setDuration(ANIMATION_DURATION_PER_CIRCLE_IN_MILLS);
+        set.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
-                if (userClicked)
-                    return;
-
-                if (stopCircles == false) {
-                    addCircle(false);
-                }
+            public void onAnimationStart(Animation animation) {
             }
-        }, RECREATE_CIRCLE_GAP);
-        long diffFromLastLoginRequest = System.currentTimeMillis() - lastLoginRequestTime;
-        if (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
-            DuelApp.getInstance().toast(R.string.message_connection_unstable, Toast.LENGTH_LONG);
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                addAnimations(image);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        image.setAnimation(set);
+    }
+
+
+    public void addCircles() {
+        circlesImage = new ImageView[CIRCLES_COUNT];
+        offsets = new long[CIRCLES_COUNT];
+
+        long gap = (ANIMATION_DURATION_PER_CIRCLE_IN_MILLS / CIRCLES_COUNT);
+        long delay = 0;
+        for (int i = 0; i < CIRCLES_COUNT; i++) {
+            ImageView imageView = new ImageView(StartActivity.this);
+            RelativeLayout.LayoutParams setting = new RelativeLayout.LayoutParams(50, 50);
+            setting.addRule(RelativeLayout.CENTER_IN_PARENT);
+            imageView.setLayoutParams(setting);
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.round_tv));
+            imageView.setColorFilter(splashColors[rand.nextInt(splashColors.length)]);
+            layout.addView(imageView);
+            circlesImage[i] = imageView;
+            offsets[i] = delay;
+            delay += gap;
         }
 
-        long diff = System.currentTimeMillis() - startingTime;
-        if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
-            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
-            lastLoginRequestTime = System.currentTimeMillis();
-            isSent = true;
+        for (int i = 0; i < CIRCLES_COUNT; i++) {
+            addAnimations(circlesImage[i]);
         }
+
+//        long diffFromLastLoginRequest = System.currentTimeMillis() - lastLoginRequestTime;
+//        if (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT) {
+//            DuelApp.getInstance().toast(R.string.message_connection_unstable, Toast.LENGTH_LONG);
+//        }
+//
+//        long diff = System.currentTimeMillis() - startingTime;
+//        if (DuelApp.getInstance().getSocket().isConnected() && (lastLoginRequestTime != -1 && diffFromLastLoginRequest > WAIT_BEFORE_RECONNECT || (!isSent && diff > WAIT_BEFORE_LOGIN))) {
+//            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
+//            lastLoginRequestTime = System.currentTimeMillis();
+//            isSent = true;
+//        }
     }
 
     public void clickedLogo(View v) {
         currentTime = System.currentTimeMillis();
-        if (currentTime - startingTime < RECREATE_CIRCLE_GAP)
-            return;
-
-        addCircle(true);
+//        if (currentTime - startingTime < RECREATE_CIRCLE_GAP)
+//            return;
+//        addCircle(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         startingTime = System.currentTimeMillis();
-        addCircle(false);
-
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        startService(svc);
+        addCircles();
     }
 
     private void displayUpdateDialog(UpdateVersion version, final OnCompleteListener onCompleteListener) {
-        // if previous check is displayed in less than ten minutes, do not interrupt user again.
+        //    if previous check is displayed in less than ten minutes, do not interrupt user again.
         long now = Calendar.getInstance().getTime().getTime();
         if (lastCheck != 0 && lastCheck > now - 360000) {
             return;
@@ -219,5 +233,10 @@ public class StartActivity extends ParentActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean showConnectingToServerDialog() {
+        return false;
     }
 }

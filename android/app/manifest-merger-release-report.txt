@@ -149,7 +149,7 @@ ADDED from AndroidManifest.xml:71:9
 		ADDED from AndroidManifest.xml:73:13
 	android:name
 		ADDED from AndroidManifest.xml:72:13
-activity#com.mehdiii.duelgame.views.activities.StartActivity
+activity#com.mehdiii.duelgame.views.activities.splash.StartActivity
 ADDED from AndroidManifest.xml:76:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:79:13

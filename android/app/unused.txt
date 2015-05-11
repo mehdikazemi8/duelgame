@@ -1141,8 +1141,6 @@ com.mehdiii.duelgame.managers.HeartTracker:
     private static final int TIME_RECOVER_SINGLE_HEART_SECONDS
 com.mehdiii.duelgame.managers.PurchaseManager:
     45:46:private void addListener(com.mehdiii.duelgame.managers.PurchaseListener)
-com.mehdiii.duelgame.models.events.OnConnectionLost:
-    long time
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived:
@@ -1169,10 +1167,11 @@ com.mehdiii.duelgame.utils.Security:
     private static final java.lang.String SIGNATURE_ALGORITHM
 com.mehdiii.duelgame.views.activities.ParentActivity:
     static final int NUMBER_OF_AVATARS
-com.mehdiii.duelgame.views.activities.StartActivity:
-    private static final int RECREATE_CIRCLE_GAP
 com.mehdiii.duelgame.views.activities.home.HomeActivity:
     private static final int REQUEST_CODE_PURCHASE
+com.mehdiii.duelgame.views.activities.splash.StartActivity:
+    private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS
+    private static final int CIRCLES_COUNT
 com.mehdiii.duelgame.views.custom.AppRater:
     private static final java.lang.String APP_TITLE
     private static final java.lang.String APP_PNAME

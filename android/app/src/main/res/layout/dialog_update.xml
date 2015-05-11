@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="بروزرسانی دایره" />
+        android:text="بروزرسانی دوئل" />
 
     <WebView
         android:id="@+id/webView_updates"

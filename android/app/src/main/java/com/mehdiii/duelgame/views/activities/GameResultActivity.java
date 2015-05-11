@@ -350,13 +350,12 @@ public class GameResultActivity extends ParentActivity {
 
     private void configureControls() {
         FontHelper.setKoodakFor(getApplicationContext(),
-                gameResultStatus,
-                userName, userPointsTextView,
-                opponentName, opponentPointsTextView,
-                gameResultT1, gameResultT2, gameResultT3, gameResultT4,
+                opponentName, opponentPointsTextView, gameResultStatus,
+                userName, userPointsTextView, gameResultT1,
+                gameResultT2, gameResultT3, gameResultT4,
                 gameResultT5, gameResultT6, gameResultT7, gameResultT8,
-                gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor, gameResultTotalExperience,
-                gameResultDiamondCnt, gameResultLevelText,
+                gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor,
+                gameResultDiamondCnt, gameResultLevelText, gameResultTotalExperience,
                 gameResultAddFriend, gameResultDuelOthers, gameResultReport);
 
 
