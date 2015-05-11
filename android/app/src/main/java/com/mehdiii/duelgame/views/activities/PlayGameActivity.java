@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -203,10 +204,7 @@ public class PlayGameActivity extends ParentActivity {
             }
         };
 
-        option0Btn.setClickable(true);
-        option1Btn.setClickable(true);
-        option2Btn.setClickable(true);
-        option3Btn.setClickable(true);
+        changeButtonsClickableState(true);
 
         option0Btn.setBackgroundResource(R.drawable.option_button);
         option1Btn.setBackgroundResource(R.drawable.option_button);
@@ -264,8 +262,24 @@ public class PlayGameActivity extends ParentActivity {
 
                         rotateTickAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
                                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                        rotateTickAnimation.setDuration(20000);
+                        rotateTickAnimation.setDuration(DURATION);
                         rotateTickAnimation.setInterpolator(new LinearInterpolator());
+                        rotateTickAnimation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                changeButtonsClickableState(false);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
                         tick.startAnimation(rotateTickAnimation);
                     }
 
@@ -332,7 +346,7 @@ public class PlayGameActivity extends ParentActivity {
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
         choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
-        doDisableButtons();
+        changeButtonsClickableState(false);
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
@@ -469,6 +483,8 @@ public class PlayGameActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         findControls();
 
@@ -930,11 +946,11 @@ public class PlayGameActivity extends ParentActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mListener);
     }
 
-    public void doDisableButtons() {
-        option0Btn.setClickable(false);
-        option1Btn.setClickable(false);
-        option2Btn.setClickable(false);
-        option3Btn.setClickable(false);
+    public void changeButtonsClickableState(boolean state) {
+        option0Btn.setClickable(state);
+        option1Btn.setClickable(state);
+        option2Btn.setClickable(state);
+        option3Btn.setClickable(state);
     }
 
     @Override
