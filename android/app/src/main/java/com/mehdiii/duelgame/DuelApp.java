@@ -3,6 +3,7 @@ package com.mehdiii.duelgame;
 import android.app.Application;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 
 import java.util.HashMap;
 import java.util.Map;
