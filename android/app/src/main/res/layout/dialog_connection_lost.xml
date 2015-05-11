@@ -12,14 +12,50 @@
         android:layout_height="wrap_content"
         android:text="@string/message_connection_lost" />
 
-    <Button
-        android:id="@+id/button_retry"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_button_blue_dark"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:text="@string/button_retry_connect"
-        android:textColor="@color/white" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_blue_dark"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/button_retry_connect"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_enable_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/bg_button_blue_dark"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/button_enable_wifi"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.small"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/button_enable_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/fontsize.small"
+            android:background="@drawable/bg_button_blue_dark"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/button_enable_data"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

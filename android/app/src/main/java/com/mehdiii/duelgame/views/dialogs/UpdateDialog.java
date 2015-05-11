@@ -1,7 +1,6 @@
 package com.mehdiii.duelgame.views.dialogs;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +36,6 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_update);
 
-
         WebView webView = (WebView) findViewById(R.id.webView_updates);
         TextView caption = (TextView) findViewById(R.id.textView_update_caption);
         positiveButton = (Button) findViewById(R.id.button_positive);
@@ -68,7 +66,7 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
                 break;
             case R.id.button_negative:
                 if (mForceUpdate) {
-                    exitDayere();
+                    exitApp();
                 } else {
                     this.dismiss();
                 }
@@ -76,7 +74,7 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
         }
     }
 
-    private void exitDayere() {
+    private void exitApp() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
