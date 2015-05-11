@@ -98,7 +98,7 @@ public class RankingFragment extends FlippableFragment {
         findControls(view);
         configureControls();
 
-        ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[0], receiveWhat[0]);
+//        ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[0], receiveWhat[0]);
     }
 
     @Override
