@@ -430,8 +430,8 @@ public class PlayGameActivity extends ParentActivity {
         request.setHintAgain(0);
         request.setHintRemove(0);
         if (ok == 1) {
-            request.setHintRemove(1);
-            request.setHintAgain(1);
+            if (clickedHintAgain == 1) request.setHintAgain(1);
+            if (clickedHintRemove == 1) request.setHintRemove(1);
         }
         request.setTime(remainingTimeOfThisQuestion);
         request.setOk(ok);
