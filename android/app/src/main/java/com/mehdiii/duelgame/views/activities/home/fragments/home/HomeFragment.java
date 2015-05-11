@@ -158,7 +158,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     public void startGame() {
-        if (HeartTracker.getInstance().canUseHeart()) {
+        if (!HeartTracker.getInstance().canUseHeart()) {
             HeartLowDialog dialog = new HeartLowDialog(getActivity());
             dialog.show();
             return;

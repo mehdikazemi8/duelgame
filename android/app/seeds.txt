@@ -25388,6 +25388,7 @@ com.mehdiii.duelgame.R$string: int invalid_add_friend_code_empty
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_exit
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_quite_game
 com.mehdiii.duelgame.R$string: int message_click_photo_to_choose_avatar
+com.mehdiii.duelgame.R$string: int message_connecting_to_server
 com.mehdiii.duelgame.R$string: int message_connection_lost
 com.mehdiii.duelgame.R$string: int message_connection_unstable
 com.mehdiii.duelgame.R$string: int message_heart_is_low
@@ -26639,7 +26640,7 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity: void hintAgainMethod(and
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onPause()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onResume()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onDestroy()
-com.mehdiii.duelgame.views.activities.PlayGameActivity: void doDisableButtons()
+com.mehdiii.duelgame.views.activities.PlayGameActivity: void changeButtonsClickableState(boolean)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.TryToConnectActivity
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: TryToConnectActivity()

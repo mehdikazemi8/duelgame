@@ -43397,6 +43397,7 @@ com.mehdiii.duelgame.R$string -> com.mehdiii.duelgame.R$string:
     int message_are_you_sure_to_exit -> message_are_you_sure_to_exit
     int message_are_you_sure_to_quite_game -> message_are_you_sure_to_quite_game
     int message_click_photo_to_choose_avatar -> message_click_photo_to_choose_avatar
+    int message_connecting_to_server -> message_connecting_to_server
     int message_connection_lost -> message_connection_lost
     int message_connection_unstable -> message_connection_unstable
     int message_heart_is_low -> message_heart_is_low
@@ -44874,15 +44875,15 @@ com.mehdiii.duelgame.views.activities.ParentActivity -> com.mehdiii.duelgame.vie
     int userPoints -> F
     int opponentPoints -> G
     android.app.ProgressDialog dialog -> H
-    51:58:void shuffleArray(java.util.List) -> a
-    62:63:void onCreate(android.os.Bundle) -> onCreate
-    67:70:void onResume() -> onResume
-    74:77:void onPause() -> onPause
-    82:102:void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged) -> onEvent
-    106:106:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
+    52:59:void shuffleArray(java.util.List) -> a
+    63:64:void onCreate(android.os.Bundle) -> onCreate
+    68:71:void onResume() -> onResume
+    75:78:void onPause() -> onPause
+    83:103:void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged) -> onEvent
+    107:107:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
 com.mehdiii.duelgame.views.activities.ParentActivity$1 -> bux:
     com.mehdiii.duelgame.views.activities.ParentActivity this$0 -> a
-    33:39:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    34:40:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.PlayGameActivity -> com.mehdiii.duelgame.views.activities.PlayGameActivity:
     java.lang.String ARGUMENT_OPPONENT -> ARGUMENT_OPPONENT
     int DURATION -> n
@@ -44949,87 +44950,92 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity -> com.mehdiii.duelgame.v
     com.mehdiii.duelgame.utils.DuelMusicPlayer musicPlayer -> aa
     com.mehdiii.duelgame.models.User opponentUser -> ab
     com.mehdiii.duelgame.models.User user -> ac
-    139:143:void cancelDanceHintAgain() -> cancelDanceHintAgain
-    146:153:void setProgressBar(android.widget.ProgressBar,int) -> setProgressBar
-    156:239:void askQuestion() -> askQuestion
-    243:284:void setStartAnimation(float,float,android.widget.TextView[]) -> setStartAnimation
-    288:321:void animateGainingDiamond(int) -> a
-    324:432:void answered(android.view.View) -> answered
-    435:436:void setButton(android.widget.Button,java.lang.String) -> setButton
-    439:440:void setTextView(android.widget.TextView,java.lang.String) -> setTextView
-    470:506:void onCreate(android.os.Bundle) -> onCreate
-    509:523:void configureControls() -> b
-    526:559:void findControls() -> c
-    565:576:void readArguments() -> d
-    579:588:void sendGQMinusOne() -> sendGQMinusOne
-    591:617:void doAnimateHintOption(android.widget.RelativeLayout,float,float,int,int) -> doAnimateHintOption
-    620:625:void doAnimateProgressBar(android.widget.ProgressBar,int,int,int) -> doAnimateProgressBar
-    628:638:void startGameAnimation() -> startGameAnimation
-    641:685:void startQuestionAnimation() -> startQuestionAnimation
-    689:794:void endQuestionAnimation(boolean) -> endQuestionAnimation
-    797:848:void hintRemoveMethod(android.view.View) -> hintRemoveMethod
-    851:898:void hintAgainMethod(android.view.View) -> hintAgainMethod
-    901:909:void showToast(java.lang.String) -> b
-    914:917:void onPause() -> onPause
-    921:925:void onResume() -> onResume
-    929:931:void onDestroy() -> onDestroy
-    934:938:void doDisableButtons() -> doDisableButtons
-    942:952:void onBackPressed() -> onBackPressed
-    955:963:void goodbye() -> e
-    53:53:android.widget.TextView access$000(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> a
-    53:53:android.widget.ImageView access$100(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> b
-    53:53:android.widget.TextView access$200(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> c
-    53:53:android.widget.RelativeLayout access$300(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> d
-    53:53:android.widget.TextView access$400(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> e
-    53:53:void access$500(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> f
+    140:144:void cancelDanceHintAgain() -> cancelDanceHintAgain
+    147:154:void setProgressBar(android.widget.ProgressBar,int) -> setProgressBar
+    157:237:void askQuestion() -> askQuestion
+    241:298:void setStartAnimation(float,float,android.widget.TextView[]) -> setStartAnimation
+    302:335:void animateGainingDiamond(int) -> a
+    338:446:void answered(android.view.View) -> answered
+    449:450:void setButton(android.widget.Button,java.lang.String) -> setButton
+    453:454:void setTextView(android.widget.TextView,java.lang.String) -> setTextView
+    484:522:void onCreate(android.os.Bundle) -> onCreate
+    525:539:void configureControls() -> b
+    542:575:void findControls() -> c
+    581:592:void readArguments() -> d
+    595:604:void sendGQMinusOne() -> sendGQMinusOne
+    607:633:void doAnimateHintOption(android.widget.RelativeLayout,float,float,int,int) -> doAnimateHintOption
+    636:641:void doAnimateProgressBar(android.widget.ProgressBar,int,int,int) -> doAnimateProgressBar
+    644:654:void startGameAnimation() -> startGameAnimation
+    657:701:void startQuestionAnimation() -> startQuestionAnimation
+    705:810:void endQuestionAnimation(boolean) -> endQuestionAnimation
+    813:864:void hintRemoveMethod(android.view.View) -> hintRemoveMethod
+    867:914:void hintAgainMethod(android.view.View) -> hintAgainMethod
+    917:925:void showToast(java.lang.String) -> b
+    930:933:void onPause() -> onPause
+    937:941:void onResume() -> onResume
+    945:947:void onDestroy() -> onDestroy
+    950:954:void changeButtonsClickableState(boolean) -> changeButtonsClickableState
+    958:968:void onBackPressed() -> onBackPressed
+    971:979:void goodbye() -> e
+    54:54:android.widget.TextView access$000(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> a
+    54:54:android.widget.ImageView access$100(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> b
+    54:54:android.widget.TextView access$200(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> c
+    54:54:android.widget.RelativeLayout access$300(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> d
+    54:54:android.widget.TextView access$400(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> e
+    54:54:void access$500(com.mehdiii.duelgame.views.activities.PlayGameActivity) -> f
 com.mehdiii.duelgame.views.activities.PlayGameActivity$1 -> buy:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
-    105:135:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    106:136:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.PlayGameActivity$2 -> buz:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
-    193:194:void onTick(long) -> onTick
-    199:203:void onFinish() -> onFinish
+    194:195:void onTick(long) -> onTick
+    200:204:void onFinish() -> onFinish
 com.mehdiii.duelgame.views.activities.PlayGameActivity$3 -> bva:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
-    259:259:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    263:270:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    274:274:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    278:278:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.PlayGameActivity$4 -> bvb:
+    257:257:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    261:284:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    288:288:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    292:292:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$3$1 -> bvb:
+    com.mehdiii.duelgame.views.activities.PlayGameActivity$3 this$1 -> a
+    271:271:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    275:276:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    281:281:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$4 -> bvc:
     int val$thisQuestionDiamond -> a
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> b
-    303:305:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    309:311:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    315:315:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.PlayGameActivity$5 -> bvc:
+    317:319:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    323:325:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    329:329:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$5 -> bvd:
     android.widget.RelativeLayout val$hintView -> a
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> b
-    600:601:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    605:605:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    609:609:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    613:613:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.PlayGameActivity$6 -> bvd:
+    616:617:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    621:621:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    625:625:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    629:629:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$6 -> bve:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
-    669:669:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    673:674:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    678:678:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    682:682:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.PlayGameActivity$7 -> bve:
+    685:685:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    689:690:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    694:694:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    698:698:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$7 -> bvf:
     boolean val$goToResult -> a
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> b
-    746:746:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-    750:761:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    765:765:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    769:769:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.PlayGameActivity$8 -> bvf:
+    762:762:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    766:777:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    781:781:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
+    785:785:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
+com.mehdiii.duelgame.views.activities.PlayGameActivity$8 -> bvg:
     com.mehdiii.duelgame.views.activities.PlayGameActivity this$0 -> a
-    946:949:void onComplete(java.lang.Object) -> onComplete
+    962:965:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.TryToConnectActivity -> com.mehdiii.duelgame.views.activities.TryToConnectActivity:
     14:20:void checkConnection() -> checkConnection
     23:33:void reconnect(android.view.View) -> reconnect
     36:38:void exit(android.view.View) -> exit
     42:44:void onCreate(android.os.Bundle) -> onCreate
-com.mehdiii.duelgame.views.activities.TryToConnectActivity$1 -> bvg:
+com.mehdiii.duelgame.views.activities.TryToConnectActivity$1 -> bvh:
     com.mehdiii.duelgame.views.activities.TryToConnectActivity this$0 -> a
     29:30:void run() -> run
 com.mehdiii.duelgame.views.activities.WaitingActivity -> com.mehdiii.duelgame.views.activities.WaitingActivity:
@@ -45060,20 +45066,20 @@ com.mehdiii.duelgame.views.activities.WaitingActivity -> com.mehdiii.duelgame.vi
     43:43:void access$000(com.mehdiii.duelgame.views.activities.WaitingActivity,java.lang.String) -> a
     43:43:void access$100(com.mehdiii.duelgame.views.activities.WaitingActivity) -> a
     43:43:void access$200(com.mehdiii.duelgame.views.activities.WaitingActivity,java.lang.String) -> b
-com.mehdiii.duelgame.views.activities.WaitingActivity$1 -> bvh:
+com.mehdiii.duelgame.views.activities.WaitingActivity$1 -> bvi:
     android.widget.LinearLayout val$layout -> a
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> b
     66:67:void onAnimationStart(android.animation.Animator) -> onAnimationStart
     72:72:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
     77:77:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
     82:82:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.WaitingActivity$2 -> bvi:
+com.mehdiii.duelgame.views.activities.WaitingActivity$2 -> bvj:
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> a
     94:105:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.WaitingActivity$3 -> bvj:
+com.mehdiii.duelgame.views.activities.WaitingActivity$3 -> bvk:
     com.mehdiii.duelgame.views.activities.WaitingActivity this$0 -> a
     144:147:void run() -> run
-com.mehdiii.duelgame.views.activities.WaitingActivity$4 -> bvk:
+com.mehdiii.duelgame.views.activities.WaitingActivity$4 -> bvl:
     int[] $SwitchMap$com$mehdiii$duelgame$models$base$CommandType -> a
 com.mehdiii.duelgame.views.activities.home.HomeActivity -> com.mehdiii.duelgame.views.activities.home.HomeActivity:
     android.support.v4.view.ViewPager viewPager -> n
@@ -45108,22 +45114,22 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity -> com.mehdiii.duelgame.
     289:297:void onEvent(com.mehdiii.duelgame.models.BuyNotification) -> onEvent
     299:300:void onEvent(com.mehdiii.duelgame.models.ChangePage) -> onEvent
     37:37:void access$001(com.mehdiii.duelgame.views.activities.home.HomeActivity) -> a
-com.mehdiii.duelgame.views.activities.home.HomeActivity$1 -> bvl:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$1 -> bvm:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     64:65:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
     70:73:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
-com.mehdiii.duelgame.views.activities.home.HomeActivity$2 -> bvm:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$2 -> bvn:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     133:155:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.home.HomeActivity$3 -> bvn:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$3 -> bvo:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     161:161:void onPageScrolled(int,float,int) -> onPageScrolled
     166:205:void onPageSelected(int) -> onPageSelected
     209:209:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-com.mehdiii.duelgame.views.activities.home.HomeActivity$3$1 -> bvo:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$3$1 -> bvp:
     com.mehdiii.duelgame.views.activities.home.HomeActivity$3 this$1 -> a
     173:175:void run() -> run
-com.mehdiii.duelgame.views.activities.home.HomeActivity$4 -> bvp:
+com.mehdiii.duelgame.views.activities.home.HomeActivity$4 -> bvq:
     com.mehdiii.duelgame.views.activities.home.HomeActivity this$0 -> a
     247:249:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter -> com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter:
@@ -45159,15 +45165,15 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment -> 
     33:33:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
     33:33:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
     33:33:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvq:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvr:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     101:101:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
     105:108:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
     112:115:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvr:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvs:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     141:149:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvs:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvt:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     157:158:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
@@ -45183,11 +45189,11 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter 
     145:146:void setOnUserDecisionIsMade(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade) -> setOnUserDecisionIsMade
     26:26:java.lang.Object getItem(int) -> getItem
     26:26:com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade access$700(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$1 -> bvt:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$1 -> bvu:
     com.mehdiii.duelgame.models.Friend val$friend -> a
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter this$0 -> b
     96:103:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$2 -> bvu:
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$2 -> bvv:
     com.mehdiii.duelgame.models.Friend val$friend -> a
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter this$0 -> b
     109:113:void onClick(android.view.View) -> onClick
@@ -45270,7 +45276,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment -> 
     106:108:void onBringToFront() -> onBringToFront
     21:21:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> a
     21:21:android.support.v4.app.Fragment access$100(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> b
-com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment$1 -> bvv:
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment$1 -> bvw:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment this$0 -> a
     63:73:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter:
@@ -45312,7 +45318,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment
     84:87:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     90:94:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
     24:24:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bvw:
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bvx:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment this$0 -> a
     51:61:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -> com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment:
@@ -45346,13 +45352,13 @@ com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -
     192:204:void saveSettings() -> n
     208:222:boolean validateForm() -> o
     44:44:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment,int) -> a
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$1 -> bvx:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$1 -> bvy:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     66:88:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$2 -> bvy:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$2 -> bvz:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     138:140:void onCheckedChanged(android.widget.CompoundButton,boolean) -> onCheckedChanged
-com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$3 -> bvz:
+com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment$3 -> bwa:
     com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment this$0 -> a
     167:168:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog -> com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog:
@@ -45360,7 +45366,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog 
     android.widget.Button gotItButton -> b
     java.lang.String text -> c
     31:49:void onCreate(android.os.Bundle) -> onCreate
-com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog$1 -> bwa:
+com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog$1 -> bwb:
     com.mehdiii.duelgame.views.activities.home.fragments.store.PurchaseResultDialog this$0 -> a
     46:47:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment -> com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment:
@@ -45378,7 +45384,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment -> com.
     129:137:void onClick(android.view.View) -> onClick
     140:141:void startBuyIntent(int,int) -> a
     144:173:void onEvent(com.mehdiii.duelgame.models.PurchaseDone) -> onEvent
-com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment$1 -> bwb:
+com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment$1 -> bwc:
     int[] $SwitchMap$com$mehdiii$duelgame$models$PurchaseDone$PurchaseResult -> a
 com.mehdiii.duelgame.views.activities.register.RegisterActivity -> com.mehdiii.duelgame.views.activities.register.RegisterActivity:
     java.lang.String userId -> n
@@ -45404,16 +45410,16 @@ com.mehdiii.duelgame.views.activities.register.RegisterActivity -> com.mehdiii.d
     182:184:void setAvatar(int) -> a
     188:190:void onDestroy() -> onDestroy
     33:33:void access$000(com.mehdiii.duelgame.views.activities.register.RegisterActivity,int) -> a
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$1 -> bwc:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$1 -> bwd:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     51:57:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$2 -> bwd:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$2 -> bwe:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     114:116:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$3 -> bwe:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$3 -> bwf:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     122:124:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.activities.register.RegisterActivity$4 -> bwf:
+com.mehdiii.duelgame.views.activities.register.RegisterActivity$4 -> bwg:
     com.mehdiii.duelgame.views.activities.register.RegisterActivity this$0 -> a
     169:170:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment -> com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment:
@@ -45432,7 +45438,7 @@ com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment -> c
     51:57:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     60:62:void readArgs() -> l
     74:101:void loadImages() -> m
-com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment$1 -> bwg:
+com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment$1 -> bwh:
     com.mehdiii.duelgame.views.activities.register.fragments.AvatarWaveFragment this$0 -> a
     67:69:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter -> com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter:
@@ -45441,7 +45447,7 @@ com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAd
     20:22:void setOnCompleteListener(com.mehdiii.duelgame.views.OnCompleteListener,int) -> setOnCompleteListener
     30:30:int getCount() -> getCount
     35:46:android.support.v4.app.Fragment getItem(int) -> getItem
-com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter$1 -> bwh:
+com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter$1 -> bwi:
     com.mehdiii.duelgame.views.activities.register.fragments.adapters.AvatarSliderAdapter this$0 -> a
     39:41:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.splash.SplashColors -> com.mehdiii.duelgame.views.activities.splash.SplashColors:
@@ -45458,33 +45464,33 @@ com.mehdiii.duelgame.views.activities.splash.StartActivity -> com.mehdiii.duelga
     int counter -> v
     long lastCheck -> x
     android.content.BroadcastReceiver commandListener -> w
-    81:92:void loginOrRegisterUser(com.mehdiii.duelgame.models.User) -> a
-    96:104:void onCreate(android.os.Bundle) -> onCreate
+    82:93:void loginOrRegisterUser(com.mehdiii.duelgame.models.User) -> a
+    97:104:void onCreate(android.os.Bundle) -> onCreate
     108:143:void addAnimations(android.widget.ImageView) -> a
     147:180:void addCircles() -> addCircles
     183:187:void clickedLogo(android.view.View) -> clickedLogo
     191:194:void onResume() -> onResume
     198:224:void displayUpdateDialog(com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
-    229:232:void onPause() -> onPause
-    236:237:void onDestroy() -> onDestroy
-    241:241:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
-    44:44:void access$000(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.User) -> a
-    44:44:void access$100(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
-    44:44:void access$200(com.mehdiii.duelgame.views.activities.splash.StartActivity,android.widget.ImageView) -> a
-com.mehdiii.duelgame.views.activities.splash.StartActivity$1 -> bwi:
+    228:231:void onPause() -> onPause
+    235:236:void onDestroy() -> onDestroy
+    240:240:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
+    45:45:void access$000(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.User) -> a
+    45:45:void access$100(com.mehdiii.duelgame.views.activities.splash.StartActivity,com.mehdiii.duelgame.models.UpdateVersion,com.mehdiii.duelgame.views.OnCompleteListener) -> a
+    45:45:void access$200(com.mehdiii.duelgame.views.activities.splash.StartActivity,android.widget.ImageView) -> a
+com.mehdiii.duelgame.views.activities.splash.StartActivity$1 -> bwj:
     com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> a
-    65:77:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
-com.mehdiii.duelgame.views.activities.splash.StartActivity$1$1 -> bwj:
+    66:78:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+com.mehdiii.duelgame.views.activities.splash.StartActivity$1$1 -> bwk:
     com.mehdiii.duelgame.models.User val$user -> a
     com.mehdiii.duelgame.views.activities.splash.StartActivity$1 this$1 -> b
-    71:72:void onComplete(java.lang.Object) -> onComplete
-com.mehdiii.duelgame.views.activities.splash.StartActivity$2 -> bwk:
+    72:73:void onComplete(java.lang.Object) -> onComplete
+com.mehdiii.duelgame.views.activities.splash.StartActivity$2 -> bwl:
     android.widget.ImageView val$image -> a
     com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> b
     129:129:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     133:134:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
     139:139:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.mehdiii.duelgame.views.activities.splash.StartActivity$3 -> bwl:
+com.mehdiii.duelgame.views.activities.splash.StartActivity$3 -> bwm:
     com.mehdiii.duelgame.views.OnCompleteListener val$onCompleteListener -> a
     boolean val$force -> b
     com.mehdiii.duelgame.views.activities.splash.StartActivity this$0 -> c
@@ -45492,15 +45498,15 @@ com.mehdiii.duelgame.views.activities.splash.StartActivity$3 -> bwl:
 com.mehdiii.duelgame.views.custom.AppRater -> com.mehdiii.duelgame.views.custom.AppRater:
     29:46:void init(android.content.Context,boolean) -> init
     49:129:void showRateDialog(android.content.Context,android.content.SharedPreferences$Editor) -> showRateDialog
-com.mehdiii.duelgame.views.custom.AppRater$1 -> bwm:
+com.mehdiii.duelgame.views.custom.AppRater$1 -> bwn:
     android.content.Context val$mContext -> a
     android.app.Dialog val$dialog -> b
     78:80:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.custom.AppRater$2 -> bwn:
+com.mehdiii.duelgame.views.custom.AppRater$2 -> bwo:
     android.content.Context val$mContext -> a
     android.app.Dialog val$dialog -> b
     91:97:void onClick(android.view.View) -> onClick
-com.mehdiii.duelgame.views.custom.AppRater$3 -> bwo:
+com.mehdiii.duelgame.views.custom.AppRater$3 -> bwp:
     android.content.SharedPreferences$Editor val$editor -> a
     android.app.Dialog val$dialog -> b
     107:112:void onClick(android.view.View) -> onClick
@@ -45561,7 +45567,7 @@ com.mehdiii.duelgame.views.dialogs.AddFriendDialog -> com.mehdiii.duelgame.views
     83:88:void onClick(android.view.View) -> onClick
     92:100:void sendAddFriendRequest() -> c
     103:108:boolean validateForm() -> d
-com.mehdiii.duelgame.views.dialogs.AddFriendDialog$1 -> bwp:
+com.mehdiii.duelgame.views.dialogs.AddFriendDialog$1 -> bwq:
     com.mehdiii.duelgame.views.dialogs.AddFriendDialog this$0 -> a
     116:134:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog -> com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog:
@@ -45580,7 +45586,7 @@ com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog -> com.mehdiii.duelgame
     81:84:void find(android.view.View) -> a
     87:102:void configure() -> l
     105:106:void setOnCompleteListener(com.mehdiii.duelgame.views.OnCompleteListener) -> setOnCompleteListener
-com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog$1 -> bwq:
+com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog$1 -> bwr:
     com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog this$0 -> a
     92:95:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.dialogs.ConfirmDialog -> com.mehdiii.duelgame.views.dialogs.ConfirmDialog:
@@ -45597,11 +45603,11 @@ com.mehdiii.duelgame.views.dialogs.ConfirmDialog -> com.mehdiii.duelgame.views.d
 com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog -> com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog:
     android.widget.TextView textViewMessage -> a
     android.widget.Button buttonRetry -> b
-    29:46:void onCreate(android.os.Bundle) -> onCreate
-    49:54:void configureLayoutSize() -> a
-com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog$1 -> bwr:
+    30:47:void onCreate(android.os.Bundle) -> onCreate
+    50:54:void configureLayoutSize() -> a
+com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog$1 -> bws:
     com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog this$0 -> a
-    42:44:void onClick(android.view.View) -> onClick
+    43:45:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog -> com.mehdiii.duelgame.views.dialogs.HeartLowDialog:
     android.widget.TextView captionTextView -> a
     android.widget.Button buyButton -> b
@@ -45618,7 +45624,7 @@ com.mehdiii.duelgame.views.dialogs.UpdateDialog -> com.mehdiii.duelgame.views.di
     37:60:void onCreate(android.os.Bundle) -> onCreate
     64:77:void onClick(android.view.View) -> onClick
     80:84:void exitDayere() -> a
-com.squareup.picasso.Action -> bws:
+com.squareup.picasso.Action -> bwt:
     com.squareup.picasso.Picasso picasso -> a
     com.squareup.picasso.Request request -> b
     java.lang.ref.WeakReference target -> c
@@ -45644,15 +45650,15 @@ com.squareup.picasso.Action -> bws:
     101:101:com.squareup.picasso.Picasso getPicasso() -> j
     105:105:com.squareup.picasso.Picasso$Priority getPriority() -> k
     109:109:java.lang.Object getTag() -> l
-com.squareup.picasso.Action$RequestWeakReference -> bwt:
+com.squareup.picasso.Action$RequestWeakReference -> bwu:
     com.squareup.picasso.Action action -> a
-com.squareup.picasso.AssetRequestHandler -> bwu:
+com.squareup.picasso.AssetRequestHandler -> bwv:
     int ASSET_PREFIX_LENGTH -> a
     android.content.res.AssetManager assetManager -> b
     39:41:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     45:46:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     50:50:java.lang.String getFilePath(com.squareup.picasso.Request) -> a
-com.squareup.picasso.BitmapHunter -> bwv:
+com.squareup.picasso.BitmapHunter -> bww:
     java.lang.Object DECODE_LOCK -> t
     java.lang.ThreadLocal NAME_BUILDER -> u
     java.util.concurrent.atomic.AtomicInteger SEQUENCE_GENERATOR -> v
@@ -45701,23 +45707,23 @@ com.squareup.picasso.BitmapHunter -> bwv:
     425:483:android.graphics.Bitmap applyCustomTransformations(java.util.List,android.graphics.Bitmap) -> a
     487:564:android.graphics.Bitmap transformResult(com.squareup.picasso.Request,android.graphics.Bitmap,int) -> a
     569:569:boolean shouldResize(boolean,int,int,int,int) -> a
-com.squareup.picasso.BitmapHunter$1 -> bww:
+com.squareup.picasso.BitmapHunter$1 -> bwx:
     54:54:java.lang.StringBuilder initialValue() -> a
     52:52:java.lang.Object initialValue() -> initialValue
-com.squareup.picasso.BitmapHunter$2 -> bwx:
+com.squareup.picasso.BitmapHunter$2 -> bwy:
     62:62:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     66:66:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
-com.squareup.picasso.BitmapHunter$3 -> bwy:
+com.squareup.picasso.BitmapHunter$3 -> bwz:
     com.squareup.picasso.Transformation val$transformation -> a
     java.lang.RuntimeException val$e -> b
     433:434:void run() -> run
-com.squareup.picasso.BitmapHunter$4 -> bwz:
+com.squareup.picasso.BitmapHunter$4 -> bxa:
     java.lang.StringBuilder val$builder -> a
     452:452:void run() -> run
-com.squareup.picasso.BitmapHunter$5 -> bxa:
+com.squareup.picasso.BitmapHunter$5 -> bxb:
     com.squareup.picasso.Transformation val$transformation -> a
     461:462:void run() -> run
-com.squareup.picasso.BitmapHunter$6 -> bxb:
+com.squareup.picasso.BitmapHunter$6 -> bxc:
     com.squareup.picasso.Transformation val$transformation -> a
     473:474:void run() -> run
 com.squareup.picasso.Cache -> com.squareup.picasso.Cache:
@@ -45728,7 +45734,7 @@ com.squareup.picasso.Cache -> com.squareup.picasso.Cache:
     int maxSize() -> maxSize
     void clear() -> clear
     void clearKeyUri(java.lang.String) -> clearKeyUri
-com.squareup.picasso.Cache$1 -> bxc:
+com.squareup.picasso.Cache$1 -> bxd:
     49:49:android.graphics.Bitmap get(java.lang.String) -> get
     54:54:void set(java.lang.String,android.graphics.Bitmap) -> set
     57:57:int size() -> size
@@ -45741,26 +45747,26 @@ com.squareup.picasso.Callback -> com.squareup.picasso.Callback:
 com.squareup.picasso.Callback$EmptyCallback -> com.squareup.picasso.Callback$EmptyCallback:
     26:26:void onSuccess() -> onSuccess
     29:29:void onError() -> onError
-com.squareup.picasso.ContactsPhotoRequestHandler -> bxd:
+com.squareup.picasso.ContactsPhotoRequestHandler -> bxe:
     android.content.UriMatcher matcher -> a
     android.content.Context context -> b
     64:67:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     71:72:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     76:95:java.io.InputStream getInputStream(com.squareup.picasso.Request) -> a
-com.squareup.picasso.ContactsPhotoRequestHandler$ContactPhotoStreamIcs -> bxe:
+com.squareup.picasso.ContactsPhotoRequestHandler$ContactPhotoStreamIcs -> bxf:
     102:102:java.io.InputStream get(android.content.ContentResolver,android.net.Uri) -> a
-com.squareup.picasso.ContentStreamRequestHandler -> bxf:
+com.squareup.picasso.ContentStreamRequestHandler -> bxg:
     android.content.Context context -> a
     35:35:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     39:39:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     43:44:java.io.InputStream getInputStream(com.squareup.picasso.Request) -> a
-com.squareup.picasso.DeferredRequestCreator -> bxg:
+com.squareup.picasso.DeferredRequestCreator -> bxh:
     com.squareup.picasso.RequestCreator creator -> a
     java.lang.ref.WeakReference target -> b
     com.squareup.picasso.Callback callback -> c
     41:60:boolean onPreDraw() -> onPreDraw
     64:74:void cancel() -> a
-com.squareup.picasso.Dispatcher -> bxh:
+com.squareup.picasso.Dispatcher -> bxi:
     com.squareup.picasso.Dispatcher$DispatcherThread dispatcherThread -> a
     android.content.Context context -> b
     java.util.concurrent.ExecutorService service -> c
@@ -45803,18 +45809,18 @@ com.squareup.picasso.Dispatcher -> bxh:
     439:444:void markForReplay(com.squareup.picasso.Action) -> e
     447:454:void batch(com.squareup.picasso.BitmapHunter) -> g
     457:468:void logBatch(java.util.List) -> a
-com.squareup.picasso.Dispatcher$1 -> bxi:
+com.squareup.picasso.Dispatcher$1 -> bxj:
     com.squareup.picasso.Dispatcher this$0 -> a
     132:133:void run() -> run
-com.squareup.picasso.Dispatcher$DispatcherHandler -> bxj:
+com.squareup.picasso.Dispatcher$DispatcherHandler -> bxk:
     com.squareup.picasso.Dispatcher dispatcher -> a
     479:535:void handleMessage(android.os.Message) -> handleMessage
-com.squareup.picasso.Dispatcher$DispatcherHandler$1 -> bxk:
+com.squareup.picasso.Dispatcher$DispatcherHandler$1 -> bxl:
     android.os.Message val$msg -> a
     com.squareup.picasso.Dispatcher$DispatcherHandler this$0 -> b
     531:531:void run() -> run
-com.squareup.picasso.Dispatcher$DispatcherThread -> bxl:
-com.squareup.picasso.Dispatcher$NetworkBroadcastReceiver -> bxm:
+com.squareup.picasso.Dispatcher$DispatcherThread -> bxm:
+com.squareup.picasso.Dispatcher$NetworkBroadcastReceiver -> bxn:
     com.squareup.picasso.Dispatcher dispatcher -> a
     554:560:void register() -> a
     563:564:void unregister() -> b
@@ -45833,21 +45839,21 @@ com.squareup.picasso.Downloader$Response -> com.squareup.picasso.Downloader$Resp
 com.squareup.picasso.Downloader$ResponseException -> com.squareup.picasso.Downloader$ResponseException:
     boolean localCacheOnly -> a
     int responseCode -> b
-com.squareup.picasso.FetchAction -> bxn:
+com.squareup.picasso.FetchAction -> bxo:
     java.lang.Object target -> m
     com.squareup.picasso.Callback callback -> n
     33:36:void complete(android.graphics.Bitmap,com.squareup.picasso.Picasso$LoadedFrom) -> a
     39:42:void error() -> a
     45:47:void cancel() -> b
     50:50:java.lang.Object getTarget() -> d
-com.squareup.picasso.FileRequestHandler -> bxo:
+com.squareup.picasso.FileRequestHandler -> bxp:
     38:38:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     42:42:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     46:56:int getFileExifRotation(android.net.Uri) -> a
-com.squareup.picasso.GetAction -> bxp:
+com.squareup.picasso.GetAction -> bxq:
     27:27:void complete(android.graphics.Bitmap,com.squareup.picasso.Picasso$LoadedFrom) -> a
     30:30:void error() -> a
-com.squareup.picasso.ImageViewAction -> bxq:
+com.squareup.picasso.ImageViewAction -> bxr:
     com.squareup.picasso.Callback callback -> m
     36:53:void complete(android.graphics.Bitmap,com.squareup.picasso.Picasso$LoadedFrom) -> a
     56:69:void error() -> a
@@ -45872,7 +45878,7 @@ com.squareup.picasso.LruCache -> com.squareup.picasso.LruCache:
     154:154:int missCount() -> missCount
     159:159:int putCount() -> putCount
     164:164:int evictionCount() -> evictionCount
-com.squareup.picasso.MarkableInputStream -> bxr:
+com.squareup.picasso.MarkableInputStream -> bxs:
     java.io.InputStream in -> a
     long offset -> b
     long reset -> c
@@ -45891,13 +45897,13 @@ com.squareup.picasso.MarkableInputStream -> bxr:
     152:152:int available() -> available
     156:157:void close() -> close
     160:160:boolean markSupported() -> markSupported
-com.squareup.picasso.MediaStoreRequestHandler -> bxs:
+com.squareup.picasso.MediaStoreRequestHandler -> bxt:
     java.lang.String[] CONTENT_ORIENTATION -> b
     49:51:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     55:92:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     96:101:com.squareup.picasso.MediaStoreRequestHandler$PicassoKind getPicassoKind(int,int) -> a
     105:117:int getExifOrientation(android.content.ContentResolver,android.net.Uri) -> a
-com.squareup.picasso.MediaStoreRequestHandler$PicassoKind -> bxt:
+com.squareup.picasso.MediaStoreRequestHandler$PicassoKind -> bxu:
     com.squareup.picasso.MediaStoreRequestHandler$PicassoKind MICRO -> a
     com.squareup.picasso.MediaStoreRequestHandler$PicassoKind MINI -> b
     com.squareup.picasso.MediaStoreRequestHandler$PicassoKind FULL -> c
@@ -45927,7 +45933,7 @@ com.squareup.picasso.NetworkPolicy -> com.squareup.picasso.NetworkPolicy:
     36:36:boolean shouldReadFromDiskCache(int) -> shouldReadFromDiskCache
     40:40:boolean shouldWriteToDiskCache(int) -> shouldWriteToDiskCache
     44:44:boolean isOfflineOnly(int) -> isOfflineOnly
-com.squareup.picasso.NetworkRequestHandler -> bxu:
+com.squareup.picasso.NetworkRequestHandler -> bxv:
     com.squareup.picasso.Downloader downloader -> a
     com.squareup.picasso.Stats stats -> b
     42:43:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
@@ -45935,7 +45941,7 @@ com.squareup.picasso.NetworkRequestHandler -> bxu:
     76:76:int getRetryCount() -> a
     80:80:boolean shouldRetry(boolean,android.net.NetworkInfo) -> a
     84:84:boolean supportsReplay() -> b
-com.squareup.picasso.NetworkRequestHandler$ContentLengthException -> bxv:
+com.squareup.picasso.NetworkRequestHandler$ContentLengthException -> bxw:
 com.squareup.picasso.OkHttpDownloader -> com.squareup.picasso.OkHttpDownloader:
     com.squareup.okhttp.OkHttpClient client -> a
     31:35:com.squareup.okhttp.OkHttpClient defaultOkHttpClient() -> a
@@ -45994,7 +46000,7 @@ com.squareup.picasso.Picasso -> com.squareup.picasso.Picasso:
     659:666:com.squareup.picasso.Picasso with(android.content.Context) -> with
     675:681:void setSingletonInstance(com.squareup.picasso.Picasso) -> setSingletonInstance
     60:60:void access$000(com.squareup.picasso.Picasso,java.lang.Object) -> a
-com.squareup.picasso.Picasso$1 -> bxw:
+com.squareup.picasso.Picasso$1 -> bxx:
     111:140:void handleMessage(android.os.Message) -> handleMessage
 com.squareup.picasso.Picasso$Builder -> com.squareup.picasso.Picasso$Builder:
     android.content.Context context -> a
@@ -46018,12 +46024,12 @@ com.squareup.picasso.Picasso$Builder -> com.squareup.picasso.Picasso$Builder:
     812:813:com.squareup.picasso.Picasso$Builder indicatorsEnabled(boolean) -> indicatorsEnabled
     823:824:com.squareup.picasso.Picasso$Builder loggingEnabled(boolean) -> loggingEnabled
     829:848:com.squareup.picasso.Picasso build() -> build
-com.squareup.picasso.Picasso$CleanupThread -> bxx:
+com.squareup.picasso.Picasso$CleanupThread -> bxy:
     java.lang.ref.ReferenceQueue referenceQueue -> a
     android.os.Handler handler -> b
     604:633:void run() -> run
     636:637:void shutdown() -> a
-com.squareup.picasso.Picasso$CleanupThread$1 -> bxy:
+com.squareup.picasso.Picasso$CleanupThread$1 -> bxz:
     java.lang.Exception val$e -> a
     com.squareup.picasso.Picasso$CleanupThread this$0 -> b
     627:627:void run() -> run
@@ -46047,9 +46053,9 @@ com.squareup.picasso.Picasso$Priority -> com.squareup.picasso.Picasso$Priority:
 com.squareup.picasso.Picasso$RequestTransformer -> com.squareup.picasso.Picasso$RequestTransformer:
     com.squareup.picasso.Picasso$RequestTransformer IDENTITY -> IDENTITY
     com.squareup.picasso.Request transformRequest(com.squareup.picasso.Request) -> transformRequest
-com.squareup.picasso.Picasso$RequestTransformer$1 -> bxz:
+com.squareup.picasso.Picasso$RequestTransformer$1 -> bya:
     92:92:com.squareup.picasso.Request transformRequest(com.squareup.picasso.Request) -> transformRequest
-com.squareup.picasso.PicassoDrawable -> bya:
+com.squareup.picasso.PicassoDrawable -> byb:
     android.graphics.Paint DEBUG_PAINT -> e
     boolean debugging -> f
     float density -> g
@@ -46066,15 +46072,15 @@ com.squareup.picasso.PicassoDrawable -> bya:
     139:143:void onBoundsChange(android.graphics.Rect) -> onBoundsChange
     146:153:void drawDebugIndicator(android.graphics.Canvas) -> a
     156:164:android.graphics.Path getTrianglePath(android.graphics.Point,int) -> a
-com.squareup.picasso.PicassoExecutorService -> byb:
+com.squareup.picasso.PicassoExecutorService -> byc:
     43:78:void adjustThreadCount(android.net.NetworkInfo) -> a
     81:83:void setThreadCount(int) -> a
     87:89:java.util.concurrent.Future submit(java.lang.Runnable) -> submit
-com.squareup.picasso.PicassoExecutorService$PicassoFutureTask -> byc:
+com.squareup.picasso.PicassoExecutorService$PicassoFutureTask -> byd:
     com.squareup.picasso.BitmapHunter hunter -> a
     103:108:int compareTo(com.squareup.picasso.PicassoExecutorService$PicassoFutureTask) -> a
     92:92:int compareTo(java.lang.Object) -> compareTo
-com.squareup.picasso.RemoteViewsAction -> byd:
+com.squareup.picasso.RemoteViewsAction -> bye:
     android.widget.RemoteViews remoteViews -> m
     int viewId -> n
     com.squareup.picasso.RemoteViewsAction$RemoteViewsTarget target -> o
@@ -46084,16 +46090,16 @@ com.squareup.picasso.RemoteViewsAction -> byd:
     59:61:void setImageResource(int) -> a
     void update() -> n
     27:27:java.lang.Object getTarget() -> d
-com.squareup.picasso.RemoteViewsAction$AppWidgetAction -> bye:
+com.squareup.picasso.RemoteViewsAction$AppWidgetAction -> byf:
     int[] appWidgetIds -> o
     98:100:void update() -> n
     87:87:java.lang.Object getTarget() -> d
-com.squareup.picasso.RemoteViewsAction$NotificationAction -> byf:
+com.squareup.picasso.RemoteViewsAction$NotificationAction -> byg:
     int notificationId -> o
     android.app.Notification notification -> p
     116:118:void update() -> n
     103:103:java.lang.Object getTarget() -> d
-com.squareup.picasso.RemoteViewsAction$RemoteViewsTarget -> byg:
+com.squareup.picasso.RemoteViewsAction$RemoteViewsTarget -> byh:
     android.widget.RemoteViews remoteViews -> a
     int viewId -> b
     75:78:boolean equals(java.lang.Object) -> equals
@@ -46127,7 +46133,7 @@ com.squareup.picasso.Request -> com.squareup.picasso.Request:
     179:179:boolean needsMatrixTransform() -> e
     183:183:boolean hasCustomTransformations() -> f
     187:187:com.squareup.picasso.Request$Builder buildUpon() -> buildUpon
-com.squareup.picasso.Request$1 -> byh:
+com.squareup.picasso.Request$1 -> byi:
 com.squareup.picasso.Request$Builder -> com.squareup.picasso.Request$Builder:
     android.net.Uri uri -> a
     int resourceId -> b
@@ -46234,12 +46240,12 @@ com.squareup.picasso.RequestHandler$Result -> com.squareup.picasso.RequestHandle
     82:82:java.io.InputStream getStream() -> getStream
     90:90:com.squareup.picasso.Picasso$LoadedFrom getLoadedFrom() -> getLoadedFrom
     98:98:int getExifOrientation() -> a
-com.squareup.picasso.ResourceRequestHandler -> byi:
+com.squareup.picasso.ResourceRequestHandler -> byj:
     android.content.Context context -> a
     35:39:boolean canHandleRequest(com.squareup.picasso.Request) -> canHandleRequest
     43:45:com.squareup.picasso.RequestHandler$Result load(com.squareup.picasso.Request,int) -> load
     49:54:android.graphics.Bitmap decodeResource(android.content.res.Resources,int,com.squareup.picasso.Request) -> a
-com.squareup.picasso.Stats -> byj:
+com.squareup.picasso.Stats -> byk:
     android.os.HandlerThread statsThread -> a
     com.squareup.picasso.Cache cache -> b
     android.os.Handler handler -> c
@@ -46268,10 +46274,10 @@ com.squareup.picasso.Stats -> byj:
     110:113:com.squareup.picasso.StatsSnapshot createSnapshot() -> f
     118:120:void processBitmap(android.graphics.Bitmap,int) -> a
     123:123:long getAverage(int,long) -> a
-com.squareup.picasso.Stats$StatsHandler -> byk:
+com.squareup.picasso.Stats$StatsHandler -> byl:
     com.squareup.picasso.Stats stats -> a
     136:159:void handleMessage(android.os.Message) -> handleMessage
-com.squareup.picasso.Stats$StatsHandler$1 -> byl:
+com.squareup.picasso.Stats$StatsHandler$1 -> bym:
     android.os.Message val$msg -> a
     com.squareup.picasso.Stats$StatsHandler this$0 -> b
     155:155:void run() -> run
@@ -46297,7 +46303,7 @@ com.squareup.picasso.Target -> com.squareup.picasso.Target:
     void onBitmapLoaded(android.graphics.Bitmap,com.squareup.picasso.Picasso$LoadedFrom) -> onBitmapLoaded
     void onBitmapFailed(android.graphics.drawable.Drawable) -> onBitmapFailed
     void onPrepareLoad(android.graphics.drawable.Drawable) -> onPrepareLoad
-com.squareup.picasso.TargetAction -> bym:
+com.squareup.picasso.TargetAction -> byn:
     30:41:void complete(android.graphics.Bitmap,com.squareup.picasso.Picasso$LoadedFrom) -> a
     44:52:void error() -> a
 com.squareup.picasso.Transformation -> com.squareup.picasso.Transformation:
@@ -46312,13 +46318,13 @@ com.squareup.picasso.UrlConnectionDownloader -> com.squareup.picasso.UrlConnecti
     61:103:com.squareup.picasso.Downloader$Response load(android.net.Uri,int) -> load
     107:110:void shutdown() -> shutdown
     114:124:void installCacheIfNeeded(android.content.Context) -> a
-com.squareup.picasso.UrlConnectionDownloader$1 -> byn:
+com.squareup.picasso.UrlConnectionDownloader$1 -> byo:
     43:43:java.lang.StringBuilder initialValue() -> a
     41:41:java.lang.Object initialValue() -> initialValue
-com.squareup.picasso.UrlConnectionDownloader$ResponseCacheIcs -> byo:
+com.squareup.picasso.UrlConnectionDownloader$ResponseCacheIcs -> byp:
     128:134:java.lang.Object install(android.content.Context) -> a
     139:142:void close(java.lang.Object) -> a
-com.squareup.picasso.Utils -> byp:
+com.squareup.picasso.Utils -> byq:
     java.lang.StringBuilder MAIN_THREAD_KEY_BUILDER -> a
     110:118:int getBitmapBytes(android.graphics.Bitmap) -> a
     122:125:java.lang.Object checkNotNull(java.lang.Object,java.lang.String) -> a
@@ -46345,17 +46351,17 @@ com.squareup.picasso.Utils -> byp:
     333:358:int getResourceId(android.content.res.Resources,com.squareup.picasso.Request) -> a
     362:372:android.content.res.Resources getResources(android.content.Context,com.squareup.picasso.Request) -> a
     382:388:void flushStackLocalLeaks(android.os.Looper) -> a
-com.squareup.picasso.Utils$1 -> byq:
+com.squareup.picasso.Utils$1 -> byr:
     384:385:void handleMessage(android.os.Message) -> handleMessage
-com.squareup.picasso.Utils$ActivityManagerHoneycomb -> byr:
+com.squareup.picasso.Utils$ActivityManagerHoneycomb -> bys:
     393:393:int getLargeMemoryClass(android.app.ActivityManager) -> a
-com.squareup.picasso.Utils$BitmapHoneycombMR1 -> bys:
+com.squareup.picasso.Utils$BitmapHoneycombMR1 -> byt:
     418:418:int getByteCount(android.graphics.Bitmap) -> a
-com.squareup.picasso.Utils$OkHttpLoaderCreator -> byt:
+com.squareup.picasso.Utils$OkHttpLoaderCreator -> byu:
     424:424:com.squareup.picasso.Downloader create(android.content.Context) -> a
-com.squareup.picasso.Utils$PicassoThread -> byu:
+com.squareup.picasso.Utils$PicassoThread -> byv:
     410:412:void run() -> run
-com.squareup.picasso.Utils$PicassoThreadFactory -> byv:
+com.squareup.picasso.Utils$PicassoThreadFactory -> byw:
     400:400:java.lang.Thread newThread(java.lang.Runnable) -> newThread
 com.viewpagerindicator.BuildConfig -> com.viewpagerindicator.BuildConfig:
     boolean DEBUG -> DEBUG
@@ -46413,12 +46419,12 @@ com.viewpagerindicator.CirclePageIndicator -> com.viewpagerindicator.CirclePageI
     490:504:int measureShort(int) -> b
     509:514:void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
     518:521:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
-com.viewpagerindicator.CirclePageIndicator$1 -> byw:
+com.viewpagerindicator.CirclePageIndicator$1 -> byx:
 com.viewpagerindicator.CirclePageIndicator$SavedState -> com.viewpagerindicator.CirclePageIndicator$SavedState:
     int currentPage -> a
     android.os.Parcelable$Creator CREATOR -> CREATOR
     538:540:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.viewpagerindicator.CirclePageIndicator$SavedState$1 -> byx:
+com.viewpagerindicator.CirclePageIndicator$SavedState$1 -> byy:
     546:546:com.viewpagerindicator.CirclePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
     551:551:com.viewpagerindicator.CirclePageIndicator$SavedState[] newArray(int) -> a
     543:543:java.lang.Object[] newArray(int) -> newArray
@@ -46441,14 +46447,14 @@ com.viewpagerindicator.IconPageIndicator -> com.viewpagerindicator.IconPageIndic
     151:166:void setCurrentItem(int) -> setCurrentItem
     170:171:void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
     36:36:java.lang.Runnable access$002(com.viewpagerindicator.IconPageIndicator,java.lang.Runnable) -> a
-com.viewpagerindicator.IconPageIndicator$1 -> byy:
+com.viewpagerindicator.IconPageIndicator$1 -> byz:
     android.view.View val$iconView -> a
     com.viewpagerindicator.IconPageIndicator this$0 -> b
     63:66:void run() -> run
 com.viewpagerindicator.IconPagerAdapter -> com.viewpagerindicator.IconPagerAdapter:
     int getIconResId(int) -> getIconResId
     int getCount() -> getCount
-com.viewpagerindicator.IcsLinearLayout -> byz:
+com.viewpagerindicator.IcsLinearLayout -> bza:
     int[] LL -> a
     android.graphics.drawable.Drawable mDivider -> b
     int mDividerWidth -> c
@@ -46503,12 +46509,12 @@ com.viewpagerindicator.LinePageIndicator -> com.viewpagerindicator.LinePageIndic
     384:398:int measureHeight(int) -> b
     403:407:void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
     411:414:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
-com.viewpagerindicator.LinePageIndicator$1 -> bza:
+com.viewpagerindicator.LinePageIndicator$1 -> bzb:
 com.viewpagerindicator.LinePageIndicator$SavedState -> com.viewpagerindicator.LinePageIndicator$SavedState:
     int currentPage -> a
     android.os.Parcelable$Creator CREATOR -> CREATOR
     431:433:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.viewpagerindicator.LinePageIndicator$SavedState$1 -> bzb:
+com.viewpagerindicator.LinePageIndicator$SavedState$1 -> bzc:
     439:439:com.viewpagerindicator.LinePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
     444:444:com.viewpagerindicator.LinePageIndicator$SavedState[] newArray(int) -> a
     436:436:java.lang.Object[] newArray(int) -> newArray
@@ -46694,16 +46700,16 @@ com.viewpagerindicator.TabPageIndicator -> com.viewpagerindicator.TabPageIndicat
     37:37:com.viewpagerindicator.TabPageIndicator$OnTabReselectedListener access$100(com.viewpagerindicator.TabPageIndicator) -> b
     37:37:java.lang.Runnable access$202(com.viewpagerindicator.TabPageIndicator,java.lang.Runnable) -> a
     37:37:int access$400(com.viewpagerindicator.TabPageIndicator) -> c
-com.viewpagerindicator.TabPageIndicator$1 -> bzc:
+com.viewpagerindicator.TabPageIndicator$1 -> bzd:
     com.viewpagerindicator.TabPageIndicator this$0 -> a
     57:64:void onClick(android.view.View) -> onClick
-com.viewpagerindicator.TabPageIndicator$2 -> bzd:
+com.viewpagerindicator.TabPageIndicator$2 -> bze:
     android.view.View val$tabView -> a
     com.viewpagerindicator.TabPageIndicator this$0 -> b
     127:130:void run() -> run
 com.viewpagerindicator.TabPageIndicator$OnTabReselectedListener -> com.viewpagerindicator.TabPageIndicator$OnTabReselectedListener:
     void onTabReselected(int) -> onTabReselected
-com.viewpagerindicator.TabPageIndicator$TabView -> bze:
+com.viewpagerindicator.TabPageIndicator$TabView -> bzf:
     int mIndex -> b
     com.viewpagerindicator.TabPageIndicator this$0 -> a
     270:277:void onMeasure(int,int) -> onMeasure
@@ -46784,7 +46790,7 @@ com.viewpagerindicator.TitlePageIndicator -> com.viewpagerindicator.TitlePageInd
     817:821:void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
     825:828:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
     864:868:java.lang.CharSequence getTitle(int) -> a
-com.viewpagerindicator.TitlePageIndicator$1 -> bzf:
+com.viewpagerindicator.TitlePageIndicator$1 -> bzg:
     int[] $SwitchMap$com$viewpagerindicator$TitlePageIndicator$IndicatorStyle -> a
 com.viewpagerindicator.TitlePageIndicator$IndicatorStyle -> com.viewpagerindicator.TitlePageIndicator$IndicatorStyle:
     com.viewpagerindicator.TitlePageIndicator$IndicatorStyle None -> None
@@ -46809,7 +46815,7 @@ com.viewpagerindicator.TitlePageIndicator$SavedState -> com.viewpagerindicator.T
     int currentPage -> a
     android.os.Parcelable$Creator CREATOR -> CREATOR
     845:847:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.viewpagerindicator.TitlePageIndicator$SavedState$1 -> bzg:
+com.viewpagerindicator.TitlePageIndicator$SavedState$1 -> bzh:
     853:853:com.viewpagerindicator.TitlePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
     858:858:com.viewpagerindicator.TitlePageIndicator$SavedState[] newArray(int) -> a
     850:850:java.lang.Object[] newArray(int) -> newArray
@@ -46854,27 +46860,27 @@ com.viewpagerindicator.UnderlinePageIndicator -> com.viewpagerindicator.Underlin
     38:38:android.graphics.Paint access$100(com.viewpagerindicator.UnderlinePageIndicator) -> b
     38:38:int access$200(com.viewpagerindicator.UnderlinePageIndicator) -> c
     38:38:java.lang.Runnable access$300(com.viewpagerindicator.UnderlinePageIndicator) -> d
-com.viewpagerindicator.UnderlinePageIndicator$1 -> bzh:
+com.viewpagerindicator.UnderlinePageIndicator$1 -> bzi:
     com.viewpagerindicator.UnderlinePageIndicator this$0 -> a
     62:70:void run() -> run
-com.viewpagerindicator.UnderlinePageIndicator$2 -> bzi:
+com.viewpagerindicator.UnderlinePageIndicator$2 -> bzj:
     com.viewpagerindicator.UnderlinePageIndicator this$0 -> a
     281:284:void run() -> run
 com.viewpagerindicator.UnderlinePageIndicator$SavedState -> com.viewpagerindicator.UnderlinePageIndicator$SavedState:
     int currentPage -> a
     android.os.Parcelable$Creator CREATOR -> CREATOR
     385:387:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.viewpagerindicator.UnderlinePageIndicator$SavedState$1 -> bzj:
+com.viewpagerindicator.UnderlinePageIndicator$SavedState$1 -> bzk:
     393:393:com.viewpagerindicator.UnderlinePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
     398:398:com.viewpagerindicator.UnderlinePageIndicator$SavedState[] newArray(int) -> a
     390:390:java.lang.Object[] newArray(int) -> newArray
     390:390:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-de.greenrobot.event.AsyncPoster -> bzk:
+de.greenrobot.event.AsyncPoster -> bzl:
     de.greenrobot.event.PendingPostQueue queue -> a
     de.greenrobot.event.EventBus eventBus -> b
     35:38:void enqueue(de.greenrobot.event.Subscription,java.lang.Object) -> a
     42:47:void run() -> run
-de.greenrobot.event.BackgroundPoster -> bzl:
+de.greenrobot.event.BackgroundPoster -> bzm:
     de.greenrobot.event.PendingPostQueue queue -> a
     de.greenrobot.event.EventBus eventBus -> b
     boolean executorRunning -> c
@@ -46929,13 +46935,13 @@ de.greenrobot.event.EventBus -> de.greenrobot.event.EventBus:
     498:504:void invokeSubscriber(de.greenrobot.event.Subscription,java.lang.Object) -> a
     507:530:void handleSubscriberException(de.greenrobot.event.Subscription,java.lang.Object,java.lang.Throwable) -> a
     543:543:java.util.concurrent.ExecutorService getExecutorService() -> a
-de.greenrobot.event.EventBus$1 -> bzm:
+de.greenrobot.event.EventBus$1 -> bzn:
     de.greenrobot.event.EventBus this$0 -> a
     56:56:de.greenrobot.event.EventBus$PostingThreadState initialValue() -> a
     53:53:java.lang.Object initialValue() -> initialValue
-de.greenrobot.event.EventBus$2 -> bzn:
+de.greenrobot.event.EventBus$2 -> bzo:
     int[] $SwitchMap$de$greenrobot$event$ThreadMode -> a
-de.greenrobot.event.EventBus$PostingThreadState -> bzo:
+de.greenrobot.event.EventBus$PostingThreadState -> bzp:
     java.util.List eventQueue -> a
     boolean isPosting -> b
     boolean isMainThread -> c
@@ -46964,7 +46970,7 @@ de.greenrobot.event.EventBusBuilder -> de.greenrobot.event.EventBusBuilder:
     133:133:de.greenrobot.event.EventBus build() -> build
 de.greenrobot.event.EventBusException -> de.greenrobot.event.EventBusException:
     long serialVersionUID -> serialVersionUID
-de.greenrobot.event.HandlerPoster -> bzp:
+de.greenrobot.event.HandlerPoster -> bzq:
     de.greenrobot.event.PendingPostQueue queue -> a
     int maxMillisInsideHandleMessage -> b
     de.greenrobot.event.EventBus eventBus -> c
@@ -46974,14 +46980,14 @@ de.greenrobot.event.HandlerPoster -> bzp:
 de.greenrobot.event.NoSubscriberEvent -> de.greenrobot.event.NoSubscriberEvent:
     de.greenrobot.event.EventBus eventBus -> eventBus
     java.lang.Object originalEvent -> originalEvent
-de.greenrobot.event.PendingPost -> bzq:
+de.greenrobot.event.PendingPost -> bzr:
     java.util.List pendingPostPool -> d
     java.lang.Object event -> a
     de.greenrobot.event.Subscription subscription -> b
     de.greenrobot.event.PendingPost next -> c
     34:44:de.greenrobot.event.PendingPost obtainPendingPost(de.greenrobot.event.Subscription,java.lang.Object) -> a
     48:57:void releasePendingPost(de.greenrobot.event.PendingPost) -> a
-de.greenrobot.event.PendingPostQueue -> bzr:
+de.greenrobot.event.PendingPostQueue -> bzs:
     de.greenrobot.event.PendingPost head -> a
     de.greenrobot.event.PendingPost tail -> b
     8:20:void enqueue(de.greenrobot.event.PendingPost) -> a
@@ -46992,7 +46998,7 @@ de.greenrobot.event.SubscriberExceptionEvent -> de.greenrobot.event.SubscriberEx
     java.lang.Throwable throwable -> throwable
     java.lang.Object causingEvent -> causingEvent
     java.lang.Object causingSubscriber -> causingSubscriber
-de.greenrobot.event.SubscriberMethod -> bzs:
+de.greenrobot.event.SubscriberMethod -> bzt:
     java.lang.reflect.Method method -> a
     de.greenrobot.event.ThreadMode threadMode -> b
     java.lang.Class eventType -> c
@@ -47000,12 +47006,12 @@ de.greenrobot.event.SubscriberMethod -> bzs:
     35:42:boolean equals(java.lang.Object) -> equals
     47:55:void checkMethodString() -> a
     59:59:int hashCode() -> hashCode
-de.greenrobot.event.SubscriberMethodFinder -> bzt:
+de.greenrobot.event.SubscriberMethodFinder -> bzu:
     java.util.Map methodCache -> a
     java.util.Map skipMethodVerificationForClasses -> b
     55:125:java.util.List findSubscriberMethods(java.lang.Class) -> a
     130:133:void clearCaches() -> a
-de.greenrobot.event.Subscription -> bzu:
+de.greenrobot.event.Subscription -> bzv:
     java.lang.Object subscriber -> a
     de.greenrobot.event.SubscriberMethod subscriberMethod -> b
     int priority -> c
@@ -47031,7 +47037,7 @@ de.greenrobot.event.util.AsyncExecutor -> de.greenrobot.event.util.AsyncExecutor
     32:32:java.lang.reflect.Constructor access$200(de.greenrobot.event.util.AsyncExecutor) -> a
     32:32:java.lang.Object access$300(de.greenrobot.event.util.AsyncExecutor) -> b
     32:32:de.greenrobot.event.EventBus access$400(de.greenrobot.event.util.AsyncExecutor) -> c
-de.greenrobot.event.util.AsyncExecutor$1 -> bzv:
+de.greenrobot.event.util.AsyncExecutor$1 -> bzw:
     de.greenrobot.event.util.AsyncExecutor$RunnableEx val$runnable -> a
     de.greenrobot.event.util.AsyncExecutor this$0 -> b
     115:129:void run() -> run
@@ -47190,7 +47196,7 @@ de.tavendo.autobahn.AutobahnConnection -> de.tavendo.autobahn.AutobahnConnection
     426:428:void publish(java.lang.String,java.lang.Object) -> publish
     109:109:de.tavendo.autobahn.Autobahn$SessionHandler access$0(de.tavendo.autobahn.AutobahnConnection) -> a
     32:32:java.lang.String access$1() -> a
-de.tavendo.autobahn.AutobahnConnection$1 -> bzw:
+de.tavendo.autobahn.AutobahnConnection$1 -> bzx:
     de.tavendo.autobahn.AutobahnConnection this$0 -> a
     193:198:void onOpen() -> onOpen
     202:207:void onClose(int,java.lang.String) -> onClose
@@ -47331,10 +47337,10 @@ de.tavendo.autobahn.WebSocketConnection -> de.tavendo.autobahn.WebSocketConnecti
     52:52:java.lang.String[] access$5(de.tavendo.autobahn.WebSocketConnection) -> f
     36:36:java.lang.String access$6() -> b
     156:156:void access$7(de.tavendo.autobahn.WebSocketConnection,int,java.lang.String) -> a
-de.tavendo.autobahn.WebSocketConnection$1 -> bzx:
+de.tavendo.autobahn.WebSocketConnection$1 -> bzy:
     de.tavendo.autobahn.WebSocketConnection this$0 -> a
     307:397:void handleMessage(android.os.Message) -> handleMessage
-de.tavendo.autobahn.WebSocketConnection$WebSocketConnector -> bzy:
+de.tavendo.autobahn.WebSocketConnection$WebSocketConnector -> bzz:
     de.tavendo.autobahn.WebSocketConnection this$0 -> a
     67:86:java.lang.String doInBackground(java.lang.Void[]) -> a
     93:127:void onPostExecute(java.lang.String) -> a
@@ -47432,7 +47438,7 @@ de.tavendo.autobahn.WebSocketReader -> de.tavendo.autobahn.WebSocketReader:
     509:532:boolean processHandshake() -> b
     541:555:boolean consumeData() -> c
     567:608:void run() -> run
-de.tavendo.autobahn.WebSocketReader$FrameHeader -> bzz:
+de.tavendo.autobahn.WebSocketReader$FrameHeader -> caa:
     int mOpcode -> a
     boolean mFin -> b
     int mReserved -> c
@@ -47834,7 +47840,7 @@ org.codehaus.jackson.JsonParser -> org.codehaus.jackson.JsonParser:
     1397:1401:java.util.Iterator readValuesAs(org.codehaus.jackson.type.TypeReference) -> readValuesAs
     1414:1418:org.codehaus.jackson.JsonNode readValueAsTree() -> readValueAsTree
     1433:1433:org.codehaus.jackson.JsonParseException _constructError(java.lang.String) -> _constructError
-org.codehaus.jackson.JsonParser$1 -> caa:
+org.codehaus.jackson.JsonParser$1 -> cab:
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> a
 org.codehaus.jackson.JsonParser$Feature -> org.codehaus.jackson.JsonParser$Feature:
     org.codehaus.jackson.JsonParser$Feature AUTO_CLOSE_SOURCE -> AUTO_CLOSE_SOURCE
@@ -47970,7 +47976,7 @@ org.codehaus.jackson.annotate.JsonAutoDetect -> org.codehaus.jackson.annotate.Js
     org.codehaus.jackson.annotate.JsonAutoDetect$Visibility setterVisibility() -> setterVisibility
     org.codehaus.jackson.annotate.JsonAutoDetect$Visibility creatorVisibility() -> creatorVisibility
     org.codehaus.jackson.annotate.JsonAutoDetect$Visibility fieldVisibility() -> fieldVisibility
-org.codehaus.jackson.annotate.JsonAutoDetect$1 -> cab:
+org.codehaus.jackson.annotate.JsonAutoDetect$1 -> cac:
     int[] $SwitchMap$org$codehaus$jackson$annotate$JsonAutoDetect$Visibility -> a
 org.codehaus.jackson.annotate.JsonAutoDetect$Visibility -> org.codehaus.jackson.annotate.JsonAutoDetect$Visibility:
     org.codehaus.jackson.annotate.JsonAutoDetect$Visibility ANY -> ANY
@@ -48128,7 +48134,7 @@ org.codehaus.jackson.impl.ByteSourceBootstrapper -> org.codehaus.jackson.impl.By
     463:473:boolean checkUTF16(int) -> c
     485:485:void reportWeirdUCS4(java.lang.String) -> a
     500:515:boolean ensureLoaded(int) -> ensureLoaded
-org.codehaus.jackson.impl.ByteSourceBootstrapper$1 -> cac:
+org.codehaus.jackson.impl.ByteSourceBootstrapper$1 -> cad:
     int[] $SwitchMap$org$codehaus$jackson$JsonEncoding -> a
 org.codehaus.jackson.impl.DefaultPrettyPrinter -> org.codehaus.jackson.impl.DefaultPrettyPrinter:
 org.codehaus.jackson.impl.Indenter -> org.codehaus.jackson.impl.Indenter:
@@ -48174,7 +48180,7 @@ org.codehaus.jackson.impl.JsonGeneratorBase -> org.codehaus.jackson.impl.JsonGen
     561:561:void _throwInternal() -> _throwInternal
     568:568:void _reportUnsupportedOperation() -> _reportUnsupportedOperation
     19:19:org.codehaus.jackson.JsonStreamContext getOutputContext() -> getOutputContext
-org.codehaus.jackson.impl.JsonGeneratorBase$1 -> cad:
+org.codehaus.jackson.impl.JsonGeneratorBase$1 -> cae:
     int[] $SwitchMap$org$codehaus$jackson$JsonParser$NumberType -> a
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> b
 org.codehaus.jackson.impl.JsonNumericParserBase -> org.codehaus.jackson.impl.JsonNumericParserBase:
@@ -48339,7 +48345,7 @@ org.codehaus.jackson.impl.JsonParserMinimalBase -> org.codehaus.jackson.impl.Jso
     527:527:void _wrapError(java.lang.String,java.lang.Throwable) -> _wrapError
     532:532:void _throwInternal() -> _throwInternal
     537:537:org.codehaus.jackson.JsonParseException _constructError(java.lang.String,java.lang.Throwable) -> _constructError
-org.codehaus.jackson.impl.JsonParserMinimalBase$1 -> cae:
+org.codehaus.jackson.impl.JsonParserMinimalBase$1 -> caf:
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> a
 org.codehaus.jackson.impl.JsonReadContext -> org.codehaus.jackson.impl.JsonReadContext:
     org.codehaus.jackson.impl.JsonReadContext _parent -> _parent
@@ -48432,7 +48438,7 @@ org.codehaus.jackson.impl.ReaderBasedParser -> org.codehaus.jackson.impl.ReaderB
     1635:1664:void _matchToken(java.lang.String,int) -> _matchToken
     1680:1783:byte[] _decodeBase64(org.codehaus.jackson.Base64Variant) -> _decodeBase64
     1795:1814:void _reportInvalidToken(java.lang.String,java.lang.String) -> _reportInvalidToken
-org.codehaus.jackson.impl.ReaderBasedParser$1 -> caf:
+org.codehaus.jackson.impl.ReaderBasedParser$1 -> cag:
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> a
 org.codehaus.jackson.impl.ReaderBasedParserBase -> org.codehaus.jackson.impl.ReaderBasedParserBase:
     java.io.Reader _reader -> _reader
@@ -48631,7 +48637,7 @@ org.codehaus.jackson.impl.Utf8StreamParser -> org.codehaus.jackson.impl.Utf8Stre
     2833:2835:void _reportInvalidOther(int,int) -> _reportInvalidOther
     2839:2846:int[] growArrayBy(int[],int) -> growArrayBy
     2862:2964:byte[] _decodeBase64(org.codehaus.jackson.Base64Variant) -> _decodeBase64
-org.codehaus.jackson.impl.Utf8StreamParser$1 -> cag:
+org.codehaus.jackson.impl.Utf8StreamParser$1 -> cah:
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> a
 org.codehaus.jackson.impl.WriterBasedGenerator -> org.codehaus.jackson.impl.WriterBasedGenerator:
     int SHORT_WRITE -> SHORT_WRITE
@@ -48711,7 +48717,7 @@ org.codehaus.jackson.impl.WriterBasedGenerator -> org.codehaus.jackson.impl.Writ
     1739:1787:void _appendCharacterEscape(char,int) -> b
     1791:1803:char[] _allocateEntityBuffer() -> b
     1808:1814:void _flushBuffer() -> _flushBuffer
-org.codehaus.jackson.io.BaseReader -> cah:
+org.codehaus.jackson.io.BaseReader -> cai:
     int LAST_VALID_UNICODE_CHAR -> LAST_VALID_UNICODE_CHAR
     char NULL_CHAR -> NULL_CHAR
     char NULL_BYTE -> NULL_BYTE
@@ -48936,7 +48942,7 @@ org.codehaus.jackson.sym.BytesToNameCanonicalizer -> org.codehaus.jackson.sym.By
     865:869:void expandCollision() -> h
     880:883:org.codehaus.jackson.sym.Name constructName(int,java.lang.String,int,int) -> a
     888:904:org.codehaus.jackson.sym.Name constructName(int,java.lang.String,int[],int) -> a
-org.codehaus.jackson.sym.BytesToNameCanonicalizer$Bucket -> cai:
+org.codehaus.jackson.sym.BytesToNameCanonicalizer$Bucket -> caj:
     org.codehaus.jackson.sym.Name _name -> a
     org.codehaus.jackson.sym.BytesToNameCanonicalizer$Bucket _next -> b
     926:930:int length() -> a
@@ -48968,7 +48974,7 @@ org.codehaus.jackson.sym.CharsToNameCanonicalizer -> org.codehaus.jackson.sym.Ch
     403:408:int calcHash(java.lang.String) -> calcHash
     422:430:void copyArrays() -> b
     441:507:void rehash() -> c
-org.codehaus.jackson.sym.CharsToNameCanonicalizer$Bucket -> caj:
+org.codehaus.jackson.sym.CharsToNameCanonicalizer$Bucket -> cak:
     java.lang.String _symbol -> a
     org.codehaus.jackson.sym.CharsToNameCanonicalizer$Bucket mNext -> b
     528:528:java.lang.String getSymbol() -> a
@@ -49386,7 +49392,7 @@ org.codehaus.jackson.util.TokenBuffer -> org.codehaus.jackson.util.TokenBuffer:
     736:743:void _append(org.codehaus.jackson.JsonToken,java.lang.Object) -> _append
     746:746:void _reportUnsupportedOperation() -> _reportUnsupportedOperation
     23:23:org.codehaus.jackson.JsonStreamContext getOutputContext() -> getOutputContext
-org.codehaus.jackson.util.TokenBuffer$1 -> cak:
+org.codehaus.jackson.util.TokenBuffer$1 -> cal:
     int[] $SwitchMap$org$codehaus$jackson$JsonToken -> a
     int[] $SwitchMap$org$codehaus$jackson$JsonParser$NumberType -> b
 org.codehaus.jackson.util.TokenBuffer$Parser -> org.codehaus.jackson.util.TokenBuffer$Parser:
