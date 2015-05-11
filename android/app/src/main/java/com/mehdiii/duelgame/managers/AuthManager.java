@@ -20,7 +20,7 @@ public class AuthManager {
 
     public static User authenticate(User user) {
         MemoryCache.set(CACHE_TAG, user);
-        HeartTracker.configure(user.getHeart(), user.isExtremeHeart());
+        HeartTracker.configure(user.getHeart(), user.isExtremeHeart(), user.getTimeToNextHeart());
         return user;
     }
 }

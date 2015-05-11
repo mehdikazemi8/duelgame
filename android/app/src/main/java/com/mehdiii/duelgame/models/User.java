@@ -46,7 +46,6 @@ public class User extends BaseModel {
     @SerializedName("time_to_next_heart")
     private int timeToNextHeart;
 
-
     public int getTimeToNextHeart() {
         return timeToNextHeart;
     }

@@ -30,7 +30,7 @@ public class HeartTracker {
      * @param isExtremeHeart true if extreme heart is true for logged-in user
      * @return the current working HeartTracker instance.
      */
-    public static HeartTracker configure(int heartsCount, boolean isExtremeHeart) {
+    public static HeartTracker configure(int heartsCount, boolean isExtremeHeart, int timeLeftToNextRefill) {
         if (instance == null)
             instance = new HeartTracker();
 
@@ -39,13 +39,17 @@ public class HeartTracker {
 
         // if hearts are less than max possible
         if (instance.heartsCount < COUNT_HEARTS_MAX && !isExtremeHeart)
-            instance.resetCountdown(TIME_RECOVER_SINGLE_HEART_SECONDS);
+            instance.resetCountdown(timeLeftToNextRefill == -1 ? TIME_RECOVER_SINGLE_HEART_SECONDS : timeLeftToNextRefill);
         else if (instance.heartsCount == COUNT_HEARTS_MAX || isExtremeHeart) {
             instance.stopCountdown();
         }
 
         instance.notifyChange(OnHeartChangeNotice.ChangeMode.REFRESH, heartsCount);
         return instance;
+    }
+
+    public static HeartTracker configure(int heartsCount, boolean isExtremeHeart) {
+        return configure(heartsCount, isExtremeHeart, -1);
     }
 
     /**
