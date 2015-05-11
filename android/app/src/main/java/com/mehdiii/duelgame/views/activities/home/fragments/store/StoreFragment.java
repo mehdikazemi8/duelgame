@@ -110,6 +110,9 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 
     @Override

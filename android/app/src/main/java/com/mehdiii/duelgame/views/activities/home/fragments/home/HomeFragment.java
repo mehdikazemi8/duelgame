@@ -192,7 +192,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         else
             textViewCounter.setVisibility(View.VISIBLE);
 
-
         // if notice says that heart is increase or decreased or refreshed again from server change
         // hearts count, otherwise, update countdown timer.
         if (notice.getMode() == OnHeartChangeNotice.ChangeMode.DECREASED ||

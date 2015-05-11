@@ -18,7 +18,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
  * Created by omid on 4/28/2015.
  */
 public class UpdateDialog extends AlertDialog implements View.OnClickListener {
-    private final static String URL = "http://cafebazaar.ir/app/ir.ncorp.noorbala/?l=fa";
+    private final static String URL = "http://cafebazaar.ir/app/%s/?l=fa";
     private UpdateVersion mUpdate;
     private boolean mForceUpdate;
     Button positiveButton;
@@ -61,7 +61,7 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_positive:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(URL, getContext().getPackageName())));
                 getContext().startActivity(browserIntent);
                 break;
             case R.id.button_negative:

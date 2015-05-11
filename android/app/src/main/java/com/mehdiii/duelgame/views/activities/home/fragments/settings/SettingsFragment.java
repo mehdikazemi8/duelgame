@@ -213,7 +213,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
 
         }
 
-        if (spinnerProvince.getSelectedItem().toString().equals("استان")) {
+        if (spinnerProvince.getSelectedItem().toString().equals("انتخاب استان")) {
             Toast toast = Toast.makeText(getActivity(), "لطفا استان خود را انتخاب نمایید.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 0);
             toast.show();
