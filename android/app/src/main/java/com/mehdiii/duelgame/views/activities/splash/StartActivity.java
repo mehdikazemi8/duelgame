@@ -101,7 +101,7 @@ public class StartActivity extends ParentActivity {
         layout = (RelativeLayout) findViewById(R.id.container_wrapper);
         splashColors = SplashColors.getArray(this);
 
-        createShortCut();
+//        createShortCut();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
     }
@@ -209,8 +209,7 @@ public class StartActivity extends ParentActivity {
                 if (currentVersion < version.getVersion()) {
 
                     final boolean force = version.getMinSupportedVersion() > currentVersion;
-
-                    UpdateDialog dialog = new UpdateDialog(this, version, force);
+                    final UpdateDialog dialog = new UpdateDialog(this, version, force);
                     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {

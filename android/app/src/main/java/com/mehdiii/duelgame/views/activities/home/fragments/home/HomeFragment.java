@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -151,6 +152,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
+//            heartsImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             this.textViewHearts.setVisibility(View.GONE);
         } else
             this.textViewHearts.setVisibility(View.VISIBLE);
