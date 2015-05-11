@@ -7,6 +7,7 @@ import android.view.View;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 public
 class CategoryActivity extends ParentActivity {

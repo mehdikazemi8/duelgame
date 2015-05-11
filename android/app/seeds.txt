@@ -26761,14 +26761,14 @@ com.mehdiii.duelgame.views.activities.TryToConnectActivity: void checkConnection
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void reconnect(android.view.View)
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void exit(android.view.View)
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.WaitingActivity
-com.mehdiii.duelgame.views.activities.WaitingActivity: WaitingActivity()
-com.mehdiii.duelgame.views.activities.WaitingActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.WaitingActivity: void setTextView(android.widget.TextView,java.lang.String)
-com.mehdiii.duelgame.views.activities.WaitingActivity: void onPause()
-com.mehdiii.duelgame.views.activities.WaitingActivity: void onResume()
-com.mehdiii.duelgame.views.activities.WaitingActivity: void onDestroy()
-com.mehdiii.duelgame.views.activities.WaitingActivity: void onBackPressed()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: WaitingActivity()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void setTextView(android.widget.TextView,java.lang.String)
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onPause()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onResume()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onDestroy()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.home.HomeActivity
 com.mehdiii.duelgame.views.activities.home.HomeActivity: HomeActivity()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onActivityResult(int,int,android.content.Intent)

@@ -31,6 +31,7 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
 
@@ -86,6 +87,7 @@ public class GameResultActivity extends ParentActivity {
     private Button gameResultDuelOthers;
     private Button gameResultAddFriend;
     private Button gameResultReport;
+    private Button gameResultHome;
 
     int positivePoints, winBonus, pointFactor, totalXP;
     User user = null;
@@ -355,7 +357,7 @@ public class GameResultActivity extends ParentActivity {
                 gameResultT5, gameResultT6, gameResultT7, gameResultT8,
                 gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor,
                 gameResultDiamondCnt, gameResultLevelText, gameResultTotalExperience,
-                gameResultAddFriend, gameResultDuelOthers, gameResultReport);
+                gameResultAddFriend, gameResultDuelOthers, gameResultReport, gameResultHome);
 
 
         userAvatar.setImageResource(AvatarHelper.getResourceId(GameResultActivity.this, user.getAvatar()));
@@ -449,6 +451,7 @@ public class GameResultActivity extends ParentActivity {
         gameResultDiamondCnt = (TextView) findViewById(R.id.game_result_diamond_cnt);
         gameResultDiamondPicture = (ImageView) findViewById(R.id.game_result_diamond_picture);
         gameResultAddFriend = (Button) findViewById(R.id.game_result_add_friend);
+        gameResultHome = (Button) findViewById(R.id.game_result_home);
         gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
         gameResultReport = (Button) findViewById(R.id.game_result_report);
     }
