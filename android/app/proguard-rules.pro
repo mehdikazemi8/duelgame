@@ -128,6 +128,5 @@
 
 # BEGIN: buganalytics
 -keep class com.buganalytics.** { *; }
--libraryjars libs/buganalytics-1.1.1.jar
 ## END: buganalytics
 

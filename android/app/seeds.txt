@@ -5731,6 +5731,109 @@ com.android.vending.billing.IInAppBillingService$Stub: IInAppBillingService$Stub
 com.android.vending.billing.IInAppBillingService$Stub: com.android.vending.billing.IInAppBillingService asInterface(android.os.IBinder)
 com.android.vending.billing.IInAppBillingService$Stub: android.os.IBinder asBinder()
 com.android.vending.billing.IInAppBillingService$Stub: boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
+com.buganalytics.trace.BugAnalytics
+com.buganalytics.trace.BugAnalytics: java.lang.String TAG
+com.buganalytics.trace.BugAnalytics: java.lang.String[] bugAnalyticsStackTrace
+com.buganalytics.trace.BugAnalytics: boolean INSTANT
+com.buganalytics.trace.BugAnalytics: void <clinit>()
+com.buganalytics.trace.BugAnalytics: BugAnalytics()
+com.buganalytics.trace.BugAnalytics: void setup(android.content.Context,java.lang.String)
+com.buganalytics.trace.BugAnalytics: void addBreadCrumb(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void sendException(java.lang.Exception)
+com.buganalytics.trace.BugAnalytics: void sendExceptionWithMessage(java.lang.String,java.lang.String,java.lang.Exception)
+com.buganalytics.trace.BugAnalytics: void sendEvent(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void setTag(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void setBugCatcherCallback(android.content.Context)
+com.buganalytics.trace.BugAnalytics: void startSession(android.content.Context)
+com.buganalytics.trace.BugAnalytics: void closeSession(android.content.Context)
+com.buganalytics.trace.BugAnalytics: void readLogs()
+com.buganalytics.trace.BugAnalytics: void readLogs(int)
+com.buganalytics.trace.BugAnalytics: void readLogs(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void readLogs(int,java.lang.String)
+com.buganalytics.trace.BugAnalytics: void sendPersonal(java.lang.String,int,android.content.Context)
+com.buganalytics.trace.BugAnalytics: boolean register(android.content.Context)
+com.buganalytics.trace.BugAnalytics: java.lang.String[] searchExisting()
+com.buganalytics.trace.BugAnalytics: void prepare()
+com.buganalytics.trace.BugAnalytics: void send(java.lang.String,java.lang.String)
+com.buganalytics.trace.BugAnalytics: void successfull(android.content.Context)
+com.buganalytics.trace.BugAnalytics: void notifyPush(android.content.Context,java.lang.String,java.lang.String,java.lang.String)
+com.buganalytics.trace.BugAnalytics: void personal()
+com.buganalytics.trace.BugAnalytics: java.lang.String readLog()
+com.buganalytics.trace.BugAnalytics: java.lang.String getIDS(android.content.Context)
+com.buganalytics.trace.BugAnalytics: java.lang.String MD5(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void checkNetwork(android.content.Context)
+com.buganalytics.trace.BugAnalytics: void setPersonal(java.lang.String,java.lang.String,android.content.Context)
+com.buganalytics.trace.BugAnalytics: java.lang.String getPersonal(java.lang.String,android.content.Context)
+com.buganalytics.trace.BugAnalytics: void access$0(java.lang.String,java.lang.String)
+com.buganalytics.trace.BugAnalytics: java.lang.String access$1()
+com.buganalytics.trace.BugAnalytics: void access$2()
+com.buganalytics.trace.BugAnalytics: java.lang.String access$3(java.lang.String)
+com.buganalytics.trace.BugAnalytics: void access$4(android.content.Context,java.lang.String,java.lang.String,java.lang.String)
+com.buganalytics.trace.BugAnalytics$1
+com.buganalytics.trace.BugAnalytics$1: java.lang.Exception val$exception
+com.buganalytics.trace.BugAnalytics$1: BugAnalytics$1(java.lang.Exception)
+com.buganalytics.trace.BugAnalytics$1: void run()
+com.buganalytics.trace.BugAnalytics$2
+com.buganalytics.trace.BugAnalytics$2: java.lang.Exception val$exception
+com.buganalytics.trace.BugAnalytics$2: BugAnalytics$2(java.lang.Exception)
+com.buganalytics.trace.BugAnalytics$2: void run()
+com.buganalytics.trace.BugAnalytics$3
+com.buganalytics.trace.BugAnalytics$3: java.lang.String val$event
+com.buganalytics.trace.BugAnalytics$3: BugAnalytics$3(java.lang.String)
+com.buganalytics.trace.BugAnalytics$3: void run()
+com.buganalytics.trace.BugAnalytics$4
+com.buganalytics.trace.BugAnalytics$4: BugAnalytics$4()
+com.buganalytics.trace.BugAnalytics$4: void run()
+com.buganalytics.trace.BugAnalytics$5
+com.buganalytics.trace.BugAnalytics$5: BugAnalytics$5()
+com.buganalytics.trace.BugAnalytics$5: boolean accept(java.io.File,java.lang.String)
+com.buganalytics.trace.BugAnalytics$6
+com.buganalytics.trace.BugAnalytics$6: android.content.Context val$context
+com.buganalytics.trace.BugAnalytics$6: BugAnalytics$6(android.content.Context)
+com.buganalytics.trace.BugAnalytics$6: void run()
+com.buganalytics.trace.BugAnalytics$7
+com.buganalytics.trace.BugAnalytics$7: BugAnalytics$7()
+com.buganalytics.trace.BugAnalytics$7: void run()
+com.buganalytics.trace.BugAnalyticsCallback
+com.buganalytics.trace.BugAnalyticsCallback: void lastBreath()
+com.buganalytics.trace.BugAnalyticsHandler
+com.buganalytics.trace.BugAnalyticsHandler: java.lang.Thread$UncaughtExceptionHandler defaultExceptionHandler
+com.buganalytics.trace.BugAnalyticsHandler: java.lang.String TAG
+com.buganalytics.trace.BugAnalyticsHandler: BugAnalyticsHandler(java.lang.Thread$UncaughtExceptionHandler)
+com.buganalytics.trace.BugAnalyticsHandler: void uncaughtException(java.lang.Thread,java.lang.Throwable)
+com.buganalytics.trace.BugAnalyticsHandler$1
+com.buganalytics.trace.BugAnalyticsHandler$1: com.buganalytics.trace.BugAnalyticsHandler this$0
+com.buganalytics.trace.BugAnalyticsHandler$1: java.io.Writer val$result
+com.buganalytics.trace.BugAnalyticsHandler$1: BugAnalyticsHandler$1(com.buganalytics.trace.BugAnalyticsHandler,java.io.Writer)
+com.buganalytics.trace.BugAnalyticsHandler$1: void run()
+com.buganalytics.trace.Config
+com.buganalytics.trace.Config: java.lang.String FILES_PATH
+com.buganalytics.trace.Config: java.lang.String API_KEY
+com.buganalytics.trace.Config: java.lang.String APP_VERSION
+com.buganalytics.trace.Config: java.lang.String APP_PACKAGE
+com.buganalytics.trace.Config: java.lang.String PHONE_MODEL
+com.buganalytics.trace.Config: java.lang.String ANDROID_VERSION
+com.buganalytics.trace.Config: java.lang.String KERNEL_VERSION
+com.buganalytics.trace.Config: java.lang.String MANUFACTURER
+com.buganalytics.trace.Config: java.lang.String USER_ID
+com.buganalytics.trace.Config: java.lang.String TAG
+com.buganalytics.trace.Config: java.lang.String BREAD_CRUMB
+com.buganalytics.trace.Config: java.lang.String EXCEPTION_MESSAGE
+com.buganalytics.trace.Config: java.lang.String EXCEPTION_KEY
+com.buganalytics.trace.Config: java.lang.String LOG_FILTER
+com.buganalytics.trace.Config: java.lang.String GENDER
+com.buganalytics.trace.Config: java.lang.String AGE
+com.buganalytics.trace.Config: java.lang.String URLA
+com.buganalytics.trace.Config: java.lang.String URL
+com.buganalytics.trace.Config: android.content.Context lastContext
+com.buganalytics.trace.Config: boolean sendlog
+com.buganalytics.trace.Config: boolean callback
+com.buganalytics.trace.Config: boolean isConnected
+com.buganalytics.trace.Config: boolean SESSION
+com.buganalytics.trace.Config: int LOG_LINES
+com.buganalytics.trace.Config: void <clinit>()
+com.buganalytics.trace.Config: Config()
+com.buganalytics.trace.Config: java.lang.String getDateTime()
 com.google.ads.AdRequest
 com.google.ads.AdRequest: java.lang.String VERSION
 com.google.ads.AdRequest: java.lang.String LOGTAG
@@ -25013,6 +25116,8 @@ com.mehdiii.duelgame.R$id: int button_buy_hearts
 com.mehdiii.duelgame.R$id: int button_cancel
 com.mehdiii.duelgame.R$id: int button_confirm
 com.mehdiii.duelgame.R$id: int button_duel
+com.mehdiii.duelgame.R$id: int button_enable_data
+com.mehdiii.duelgame.R$id: int button_enable_wifi
 com.mehdiii.duelgame.R$id: int button_friends
 com.mehdiii.duelgame.R$id: int button_got_it
 com.mehdiii.duelgame.R$id: int button_home
@@ -25334,6 +25439,8 @@ com.mehdiii.duelgame.R$string: int button_buy_heart
 com.mehdiii.duelgame.R$string: int button_cancel
 com.mehdiii.duelgame.R$string: int button_choose_avatar
 com.mehdiii.duelgame.R$string: int button_confirm
+com.mehdiii.duelgame.R$string: int button_enable_data
+com.mehdiii.duelgame.R$string: int button_enable_wifi
 com.mehdiii.duelgame.R$string: int button_friends
 com.mehdiii.duelgame.R$string: int button_got_it
 com.mehdiii.duelgame.R$string: int button_refill_heart
@@ -25392,6 +25499,7 @@ com.mehdiii.duelgame.R$string: int message_connecting_to_server
 com.mehdiii.duelgame.R$string: int message_connection_lost
 com.mehdiii.duelgame.R$string: int message_connection_unstable
 com.mehdiii.duelgame.R$string: int message_heart_is_low
+com.mehdiii.duelgame.R$string: int message_internet_is_not_available
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
 com.mehdiii.duelgame.R$string: int message_settings_save_successful
 com.mehdiii.duelgame.R$string: int message_share
@@ -26261,6 +26369,8 @@ com.mehdiii.duelgame.models.UpdateVersion: java.lang.String getChangeset()
 com.mehdiii.duelgame.models.UpdateVersion: void setChangeset(java.lang.String)
 com.mehdiii.duelgame.models.User
 com.mehdiii.duelgame.models.User: User()
+com.mehdiii.duelgame.models.User: int getTimeToNextHeart()
+com.mehdiii.duelgame.models.User: void setTimeToNextHeart(int)
 com.mehdiii.duelgame.models.User: void setRank(com.mehdiii.duelgame.models.Rank)
 com.mehdiii.duelgame.models.User: com.mehdiii.duelgame.models.Rank getRank()
 com.mehdiii.duelgame.models.User: com.mehdiii.duelgame.models.UpdateVersion getUpdateVersion()
@@ -26552,6 +26662,9 @@ com.mehdiii.duelgame.utils.MemoryCache: java.util.Map map
 com.mehdiii.duelgame.utils.MemoryCache: MemoryCache()
 com.mehdiii.duelgame.utils.MemoryCache: void set(java.lang.String,java.lang.Object)
 com.mehdiii.duelgame.utils.MemoryCache: java.lang.Object get(java.lang.String)
+com.mehdiii.duelgame.utils.NetworkUtils
+com.mehdiii.duelgame.utils.NetworkUtils: NetworkUtils()
+com.mehdiii.duelgame.utils.NetworkUtils: boolean isNetworkAvailable(android.content.Context)
 com.mehdiii.duelgame.utils.OnMessageReceivedListener
 com.mehdiii.duelgame.utils.OnMessageReceivedListener: void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType)
 com.mehdiii.duelgame.utils.Purchase
