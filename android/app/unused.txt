@@ -1172,6 +1172,9 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity:
 com.mehdiii.duelgame.views.activities.splash.StartActivity:
     private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS
     private static final int CIRCLES_COUNT
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity:
+    51:78:private void translateAnimation(android.widget.LinearLayout,java.lang.String,int,int,int)
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity$1
 com.mehdiii.duelgame.views.custom.AppRater:
     private static final java.lang.String APP_TITLE
     private static final java.lang.String APP_PNAME
