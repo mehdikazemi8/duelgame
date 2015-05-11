@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
@@ -26,11 +28,12 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.TryToConnectActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
 
 public class RegisterActivity extends ParentActivity {
+
+    private final String SHORTCUT_CREATED_TAG = "shortcut_created";
 
     String userId;
     TextView hintTextView;
@@ -68,6 +71,7 @@ public class RegisterActivity extends ParentActivity {
         find();
         configure();
 
+        createShortCut();
 
         /**
          * listen for data changes
@@ -159,6 +163,22 @@ public class RegisterActivity extends ParentActivity {
             user.setDeviceId(userId);
             DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_REGISTER));
         }
+    }
+
+    public void createShortCut() {
+        boolean hasShortcutBeenCreatedBefore = GlobalPreferenceManager.readBoolean(this, SHORTCUT_CREATED_TAG, false);
+        if(hasShortcutBeenCreatedBefore)
+            return;
+
+        Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+        shortcutintent.putExtra("duplicate", false);
+        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getResources().getString(R.string.app_name));
+        Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.ic_launcher);
+        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getApplicationContext(), RegisterActivity.class));
+        sendBroadcast(shortcutintent);
+
+        GlobalPreferenceManager.writeBoolean(this, SHORTCUT_CREATED_TAG, true);
     }
 
     public void chooseAvatar(View v) {

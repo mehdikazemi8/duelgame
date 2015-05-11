@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -69,16 +68,6 @@ public class StartActivity extends ParentActivity {
         }
     });
 
-    public void createShortCut() {
-        Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-        shortcutintent.putExtra("duplicate", false);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getResources().getString(R.string.app_name));
-        Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.ic_launcher);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getApplicationContext(), StartActivity.class));
-        sendBroadcast(shortcutintent);
-    }
-
     private void loginOrRegisterUser(User user) {
         isSent = false;
         stopCircles = true;
@@ -100,8 +89,6 @@ public class StartActivity extends ParentActivity {
 
         layout = (RelativeLayout) findViewById(R.id.container_wrapper);
         splashColors = SplashColors.getArray(this);
-
-        createShortCut();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
     }
