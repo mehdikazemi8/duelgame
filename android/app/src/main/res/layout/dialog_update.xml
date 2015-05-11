@@ -10,6 +10,7 @@
         android:id="@+id/textView_update_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:gravity="right"
         android:text="بروزرسانی دوئل" />
 
