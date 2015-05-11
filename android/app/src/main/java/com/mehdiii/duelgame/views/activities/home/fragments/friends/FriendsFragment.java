@@ -125,6 +125,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     }
 
     private void sendFetchRequest() {
+        int i = 10 / 0;
         if (adapter != null) {
             adapter.clear();
             adapter.notifyDataSetChanged();
