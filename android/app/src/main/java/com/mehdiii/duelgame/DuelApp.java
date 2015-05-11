@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.buganalytics.trace.BugAnalytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -39,6 +40,7 @@ public class DuelApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        BugAnalytics.setup(this, "65740737c44447f9");
         initGA();
         //        HeartTracker.configure(getApplicationContext()).init();
         if (!isConnected) {

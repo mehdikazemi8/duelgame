@@ -125,3 +125,9 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 
 ##---------------End: proguard configuration for Gson  ----------
+
+# BEGIN: buganalytics
+-keep class com.buganalytics.** { *; }
+-libraryjars libs/buganalytics-1.0.0.jar
+## END: buganalytics
+
