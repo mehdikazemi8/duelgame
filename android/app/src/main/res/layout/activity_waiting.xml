@@ -10,129 +10,23 @@
         android:layout_height="0dp"
         android:layout_centerVertical="true" />
 
-    <LinearLayout
-        android:id="@+id/waiting_player_layout"
+    <FrameLayout
+        android:id="@+id/user_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_above="@id/waiting_separator"
-        android:background="@android:color/holo_orange_light"
-        android:clipChildren="false"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:clipChildren="false"
-            android:gravity="right"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/waiting_user_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="right"
-                android:padding="5dp"
-                android:text="دیپلم" />
-
-            <TextView
-                android:id="@+id/waiting_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/waiting_user_title"
-                android:gravity="right"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="اسم" />
-
-            <TextView
-                android:id="@+id/waiting_user_province"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/waiting_user_title"
-                android:gravity="right"
-                android:padding="5dp"
-                android:text="استان" />
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/waiting_user_avatar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="5dp"
-            android:src="@drawable/av1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/waiting_opponent_layout"
+    <FrameLayout
+        android:id="@+id/opponent_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/waiting_separator"
-        android:background="@android:color/holo_blue_light"
-        android:clipChildren="false"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="invisible">
+        android:layout_height="match_parent" />
 
-        <ImageView
-            android:id="@+id/waiting_opponent_avatar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="5dp"
-            android:src="@drawable/av5" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:clipChildren="false"
-            android:gravity="left"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/waiting_opponent_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="left"
-                android:padding="5dp"
-                android:text="دیپلم" />
-
-            <TextView
-                android:id="@+id/waiting_opponent_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/waiting_opponent_title"
-                android:gravity="left"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="اسم" />
-
-            <TextView
-                android:id="@+id/waiting_opponent_province"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/waiting_opponent_title"
-                android:gravity="left"
-                android:padding="5dp"
-                android:text="استان" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/finding_opponent_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_below="@id/waiting_separator"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/waiting_against"

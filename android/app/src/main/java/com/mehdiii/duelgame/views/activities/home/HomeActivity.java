@@ -17,7 +17,6 @@ import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
-import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -31,8 +30,6 @@ import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 public class HomeActivity extends ParentActivity {
     private static final int REQUEST_CODE_PURCHASE = 1001;

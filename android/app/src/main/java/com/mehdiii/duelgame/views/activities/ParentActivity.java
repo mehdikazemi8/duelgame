@@ -1,7 +1,6 @@
 package com.mehdiii.duelgame.views.activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.mehdiii.duelgame.models.Question;
@@ -19,7 +18,7 @@ public class ParentActivity extends ActionBarActivity {
     static Random rand = new Random();
     static String category;
     static int NUMBER_OF_QUESTIONS = 6;
-    static List<Question> questionsToAsk = new ArrayList<>();
+    protected static List<Question> questionsToAsk = new ArrayList<>();
     static int userPoints;
     static int opponentPoints;
     static final int NUMBER_OF_AVATARS = 6;

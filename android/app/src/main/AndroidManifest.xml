@@ -49,7 +49,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activities.WaitingActivity"
+            android:name=".views.activities.waiting.WaitingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
