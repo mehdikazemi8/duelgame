@@ -33,7 +33,6 @@ public class DuelApp extends Application {
     private String TAG = "DUEL_APP";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
-    static boolean isConnected = false;
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     static protected String wsuri = "ws://duelgame.ir:9000";
@@ -44,13 +43,8 @@ public class DuelApp extends Application {
         instance = this;
         BugAnalytics.setup(this, "65740737c44447f9");
         initGA();
-        //        HeartTracker.configure(getApplicationContext()).init();
-        if (!isConnected) {
-//            Intent svc = new Intent(this, MusicPlayer.class);
-//            startService(svc);
-
+        if (!wsc.isConnected())
             connectToWs();
-        }
     }
 
     public void connectToWs() {
@@ -59,7 +53,6 @@ public class DuelApp extends Application {
             wsc.connect(wsuri, new WebSocketHandler() {
                 @Override
                 public void onOpen() {
-                    isConnected = true;
                     Log.d(TAG, "Status: Connected to " + wsuri);
                     EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.CONNECTED));
                 }
@@ -73,7 +66,6 @@ public class DuelApp extends Application {
 
                 @Override
                 public void onClose(int code, String reason) {
-                    isConnected = false;
                     EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.DISCONNECTED));
                     Log.d(TAG, "Connection lost." + reason);
                 }
@@ -82,6 +74,7 @@ public class DuelApp extends Application {
             e.printStackTrace();
         }
     }
+
     public void disconnect() {
         if (wsc.isConnected()) {
             wsc.disconnect();

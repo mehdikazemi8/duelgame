@@ -183,8 +183,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        DuelApp.getInstance().disconnect();
-//        EventBus.getDefault().post(new ChangePage(1));
+        EventBus.getDefault().post(new ChangePage(1));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
