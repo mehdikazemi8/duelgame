@@ -67,7 +67,7 @@ MERGED from android:switchButton:unspecified:11:5
 		ADDED from AndroidManifest.xml:19:9
 	android:name
 		ADDED from AndroidManifest.xml:15:9
-receiver#com.mehdiii.duelgame.receivers.HeartFullyRecovered
+receiver#com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived
 ADDED from AndroidManifest.xml:23:9
 	android:enabled
 		ADDED from AndroidManifest.xml:25:13
