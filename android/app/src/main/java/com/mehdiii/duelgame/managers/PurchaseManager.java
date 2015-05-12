@@ -83,7 +83,7 @@ public class PurchaseManager {
                 case RECEIVE_PURCHASE_DONE:
                     PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
                     if (purchaseDone != null) {
-                        AuthManager.getCurrentUser().changeConfiguration(purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
+                        AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
                         purchaseDone.setPurchaseItem(selectedPurchaseItem);
                         EventBus.getDefault().post(new OnUserSettingsChanged());
                         EventBus.getDefault().post(purchaseDone);

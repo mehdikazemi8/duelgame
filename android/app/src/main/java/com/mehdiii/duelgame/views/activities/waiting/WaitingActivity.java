@@ -128,7 +128,7 @@ public class WaitingActivity extends ParentActivity {
     private void receiveStartPlayingListener() {
         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
-        if (HeartTracker.getInstance().useHeart()) {
+        if (HeartTracker.getInstance().useHeart(WaitingActivity.this)) {
             startActivity(i);
             finish();
         }

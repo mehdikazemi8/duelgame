@@ -1143,7 +1143,7 @@ com.mehdiii.duelgame.managers.PurchaseManager:
     45:46:private void addListener(com.mehdiii.duelgame.managers.PurchaseListener)
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
     private static final java.lang.String TAG
-com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived:
+com.mehdiii.duelgame.receivers.HeartFullyRecovered:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.utils.Base64:
     private static final byte EQUALS_SIGN

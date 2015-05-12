@@ -34,7 +34,7 @@ public class ParentActivity extends ActionBarActivity {
             if (type == CommandType.RECEIVE_LOGIN_INFO) {
                 User user = BaseModel.deserialize(json, User.class);
                 if (user != null) {
-                    AuthManager.authenticate(user);
+                    AuthManager.authenticate(ParentActivity.this, user);
                 }
             }
         }

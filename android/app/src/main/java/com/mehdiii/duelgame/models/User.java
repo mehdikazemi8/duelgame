@@ -1,6 +1,10 @@
 package com.mehdiii.duelgame.models;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+import com.mehdiii.duelgame.DuelApp;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
@@ -199,12 +203,13 @@ public class User extends BaseModel {
         this.scoreFactor = scoreFactor;
     }
 
-    public void changeConfiguration(int diamond, int heart, boolean extremeHeart, int scoreFactor) {
+    public void changeConfiguration(Context context, int diamond, int heart, boolean extremeHeart, int scoreFactor) {
         setDiamond(diamond);
         setHeart(heart);
         setExtremeHeart(extremeHeart);
         setScoreFactor(scoreFactor);
 
-        HeartTracker.configure(heart, isExtremeHeart());
+        HeartTracker.configure(context, heart, isExtremeHeart());
     }
+
 }

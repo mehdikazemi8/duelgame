@@ -26529,9 +26529,9 @@ com.mehdiii.duelgame.receivers.OnBootCompletedReceiver
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: java.lang.String ACTION_NAME
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: OnBootCompletedReceiver()
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: void onReceive(android.content.Context,android.content.Intent)
-com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived
-com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived: OnHeartRefillTimeArrived()
-com.mehdiii.duelgame.receivers.OnHeartRefillTimeArrived: void onReceive(android.content.Context,android.content.Intent)
+com.mehdiii.duelgame.receivers.HeartFullyRecovered
+com.mehdiii.duelgame.receivers.HeartFullyRecovered: OnHeartRefillTimeArrived()
+com.mehdiii.duelgame.receivers.HeartFullyRecovered: void onReceive(android.content.Context,android.content.Intent)
 com.mehdiii.duelgame.utils.AvatarHelper
 com.mehdiii.duelgame.utils.AvatarHelper: AvatarHelper()
 com.mehdiii.duelgame.utils.AvatarHelper: android.graphics.Bitmap getBitmap(android.content.Context,int)
