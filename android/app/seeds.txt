@@ -24388,6 +24388,7 @@ com.mehdiii.duelgame.DuelApp: java.lang.String wsuri
 com.mehdiii.duelgame.DuelApp: DuelApp()
 com.mehdiii.duelgame.DuelApp: void onCreate()
 com.mehdiii.duelgame.DuelApp: void connectToWs()
+com.mehdiii.duelgame.DuelApp: void disconnect()
 com.mehdiii.duelgame.DuelApp: void dispatchMessage(java.lang.String)
 com.mehdiii.duelgame.DuelApp: android.content.IntentFilter getIntentFilter()
 com.mehdiii.duelgame.DuelApp: void sendMessage(java.lang.String)
@@ -25276,6 +25277,7 @@ com.mehdiii.duelgame.R$id: int ranking_province
 com.mehdiii.duelgame.R$id: int ranking_total
 com.mehdiii.duelgame.R$id: int ranking_user_avatar
 com.mehdiii.duelgame.R$id: int ranking_user_name
+com.mehdiii.duelgame.R$id: int ranking_user_position
 com.mehdiii.duelgame.R$id: int ranking_user_province
 com.mehdiii.duelgame.R$id: int ranking_user_score
 com.mehdiii.duelgame.R$id: int ranking_user_title
@@ -25508,6 +25510,7 @@ com.mehdiii.duelgame.R$string: int message_connecting_to_server
 com.mehdiii.duelgame.R$string: int message_connection_lost
 com.mehdiii.duelgame.R$string: int message_connection_unstable
 com.mehdiii.duelgame.R$string: int message_heart_is_low
+com.mehdiii.duelgame.R$string: int message_hearts_fully_refilled
 com.mehdiii.duelgame.R$string: int message_internet_is_not_available
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
 com.mehdiii.duelgame.R$string: int message_settings_save_successful
@@ -25774,6 +25777,7 @@ com.mehdiii.duelgame.R$style: int button_home_recharge
 com.mehdiii.duelgame.R$style: int edit_text_bordered
 com.mehdiii.duelgame.R$style: int friends_nav_buttons
 com.mehdiii.duelgame.R$style: int home_nav_buttons
+com.mehdiii.duelgame.R$style: int play_game_option_buttons
 com.mehdiii.duelgame.R$style: int ranking_nav_buttons
 com.mehdiii.duelgame.R$style: int spinner_default_style
 com.mehdiii.duelgame.R$style: R$style()
@@ -26168,7 +26172,7 @@ com.mehdiii.duelgame.managers.AuthManager: java.lang.String CACHE_TAG
 com.mehdiii.duelgame.managers.AuthManager: AuthManager()
 com.mehdiii.duelgame.managers.AuthManager: com.mehdiii.duelgame.models.User getCurrentUser()
 com.mehdiii.duelgame.managers.AuthManager: boolean isLoggedin()
-com.mehdiii.duelgame.managers.AuthManager: com.mehdiii.duelgame.models.User authenticate(com.mehdiii.duelgame.models.User)
+com.mehdiii.duelgame.managers.AuthManager: com.mehdiii.duelgame.models.User authenticate(android.content.Context,com.mehdiii.duelgame.models.User)
 com.mehdiii.duelgame.managers.GlobalPreferenceManager
 com.mehdiii.duelgame.managers.GlobalPreferenceManager: java.lang.String PREFERENCE_NAME
 com.mehdiii.duelgame.managers.GlobalPreferenceManager: GlobalPreferenceManager()
@@ -26184,11 +26188,13 @@ com.mehdiii.duelgame.managers.HeartTracker
 com.mehdiii.duelgame.managers.HeartTracker: int COUNT_HEARTS_MAX
 com.mehdiii.duelgame.managers.HeartTracker: HeartTracker()
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker getInstance()
-com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean,int)
-com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean)
+com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(android.content.Context,int,boolean,int)
+com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(android.content.Context,int,boolean)
+com.mehdiii.duelgame.managers.HeartTracker: boolean useHeart(android.content.Context)
 com.mehdiii.duelgame.managers.HeartTracker: boolean canUseHeart()
-com.mehdiii.duelgame.managers.HeartTracker: boolean useHeart()
 com.mehdiii.duelgame.managers.HeartTracker: void notifyChange(com.mehdiii.duelgame.models.events.OnHeartChangeNotice$ChangeMode,int)
+com.mehdiii.duelgame.managers.HeartTracker: long computeRefillTime(int,long)
+com.mehdiii.duelgame.managers.HeartTracker: void scheduleRefillTime(android.content.Context,long)
 com.mehdiii.duelgame.managers.ProvinceManager
 com.mehdiii.duelgame.managers.ProvinceManager: ProvinceManager()
 com.mehdiii.duelgame.managers.ProvinceManager: java.lang.String get(android.content.Context,int)
@@ -26415,7 +26421,11 @@ com.mehdiii.duelgame.models.User: boolean isExtremeHeart()
 com.mehdiii.duelgame.models.User: void setExtremeHeart(boolean)
 com.mehdiii.duelgame.models.User: int getScoreFactor()
 com.mehdiii.duelgame.models.User: void setScoreFactor(int)
-com.mehdiii.duelgame.models.User: void changeConfiguration(int,int,boolean,int)
+com.mehdiii.duelgame.models.User: void changeConfiguration(android.content.Context,int,int,boolean,int)
+com.mehdiii.duelgame.models.UserForRanklist
+com.mehdiii.duelgame.models.UserForRanklist: UserForRanklist(int)
+com.mehdiii.duelgame.models.UserForRanklist: int getPlaceInRank()
+com.mehdiii.duelgame.models.UserForRanklist: void setPlaceInRank(int)
 com.mehdiii.duelgame.models.WannaPlay
 com.mehdiii.duelgame.models.WannaPlay: WannaPlay(java.lang.String)
 com.mehdiii.duelgame.models.WannaPlay: WannaPlay(com.mehdiii.duelgame.models.base.CommandType,java.lang.String)
@@ -26525,13 +26535,13 @@ com.mehdiii.duelgame.models.responses.RankList: java.util.List getTop()
 com.mehdiii.duelgame.models.responses.RankList: void setTop(java.util.List)
 com.mehdiii.duelgame.models.responses.RankList: java.util.List getNear()
 com.mehdiii.duelgame.models.responses.RankList: void setNear(java.util.List)
+com.mehdiii.duelgame.receivers.HeartFullyRecovered
+com.mehdiii.duelgame.receivers.HeartFullyRecovered: HeartFullyRecovered()
+com.mehdiii.duelgame.receivers.HeartFullyRecovered: void onReceive(android.content.Context,android.content.Intent)
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: java.lang.String ACTION_NAME
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: OnBootCompletedReceiver()
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: void onReceive(android.content.Context,android.content.Intent)
-com.mehdiii.duelgame.receivers.HeartFullyRecovered
-com.mehdiii.duelgame.receivers.HeartFullyRecovered: OnHeartRefillTimeArrived()
-com.mehdiii.duelgame.receivers.HeartFullyRecovered: void onReceive(android.content.Context,android.content.Intent)
 com.mehdiii.duelgame.utils.AvatarHelper
 com.mehdiii.duelgame.utils.AvatarHelper: AvatarHelper()
 com.mehdiii.duelgame.utils.AvatarHelper: android.graphics.Bitmap getBitmap(android.content.Context,int)
@@ -26750,7 +26760,7 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity: void setProgressBar(andr
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void askQuestion()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void setStartAnimation(float,float,android.widget.TextView[])
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void answered(android.view.View)
-com.mehdiii.duelgame.views.activities.PlayGameActivity: void setButton(android.widget.Button,java.lang.String)
+com.mehdiii.duelgame.views.activities.PlayGameActivity: void setButton(com.mehdiii.duelgame.views.custom.FontFitButton,java.lang.String)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void setTextView(android.widget.TextView,java.lang.String)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void sendGQMinusOne()
@@ -26843,7 +26853,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: RankingListAdapter(android.content.Context,int,java.util.List)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: int getCount()
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: void clear()
-com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: com.mehdiii.duelgame.models.User getItem(int)
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: com.mehdiii.duelgame.models.UserForRanklist getItem(int)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter: java.lang.Object getItem(int)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter$ViewHolder
@@ -26937,6 +26947,12 @@ com.mehdiii.duelgame.views.custom.AvatarViewer: AvatarViewer(android.content.Con
 com.mehdiii.duelgame.views.custom.AvatarViewer: void setSelectedAvatar(int)
 com.mehdiii.duelgame.views.custom.AvatarViewer: void setPosition(int)
 com.mehdiii.duelgame.views.custom.AvatarViewer: int getPosition()
+com.mehdiii.duelgame.views.custom.FontFitButton
+com.mehdiii.duelgame.views.custom.FontFitButton: FontFitButton(android.content.Context)
+com.mehdiii.duelgame.views.custom.FontFitButton: FontFitButton(android.content.Context,android.util.AttributeSet)
+com.mehdiii.duelgame.views.custom.FontFitButton: void onMeasure(int,int)
+com.mehdiii.duelgame.views.custom.FontFitButton: void onTextChanged(java.lang.CharSequence,int,int,int)
+com.mehdiii.duelgame.views.custom.FontFitButton: void onSizeChanged(int,int,int,int)
 com.mehdiii.duelgame.views.custom.NonSwipableViewPager
 com.mehdiii.duelgame.views.custom.NonSwipableViewPager: NonSwipableViewPager(android.content.Context)
 com.mehdiii.duelgame.views.custom.NonSwipableViewPager: NonSwipableViewPager(android.content.Context,android.util.AttributeSet)

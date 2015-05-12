@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.google.gson.Gson;
@@ -109,12 +110,14 @@ public class PurchaseManager {
 
     public void useDiamond(BuyNotification purchaseNotif) {
         selectedPurchaseItem = findPurchaseById(purchaseNotif.getId());
-        if (selectedPurchaseItem != null)
+        if (selectedPurchaseItem != null) {
             DuelApp.getInstance().sendMessage(selectedPurchaseItem.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+        }
     }
 
     private PurchaseItem findPurchaseById(int id) {
         List<PurchaseItem> items = AuthManager.getCurrentUser().getPurchaseItems();
+
         for (PurchaseItem item : items)
             if (item.getId() == id)
                 return item;

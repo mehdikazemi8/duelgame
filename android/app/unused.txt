@@ -1139,11 +1139,14 @@ com.kyleduo.switchbutton.Configuration$Limit:
     32:32:Configuration$Limit()
 com.mehdiii.duelgame.managers.HeartTracker:
     private static final int TIME_RECOVER_SINGLE_HEART_SECONDS
+    private static final int DEFAULT_RESET_TIME_FLAG
+    private static final java.lang.String PREFERENCE_USER_HEART
+    private static final java.lang.String PREFERENCE_EXTREME_HEART
 com.mehdiii.duelgame.managers.PurchaseManager:
-    45:46:private void addListener(com.mehdiii.duelgame.managers.PurchaseListener)
-com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
-    private static final java.lang.String TAG
+    46:47:private void addListener(com.mehdiii.duelgame.managers.PurchaseListener)
 com.mehdiii.duelgame.receivers.HeartFullyRecovered:
+    private static final java.lang.String TAG
+com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.utils.Base64:
     private static final byte EQUALS_SIGN
