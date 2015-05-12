@@ -24420,6 +24420,12 @@ com.mehdiii.duelgame.R$anim: int abc_slide_in_top
 com.mehdiii.duelgame.R$anim: int abc_slide_out_bottom
 com.mehdiii.duelgame.R$anim: int abc_slide_out_top
 com.mehdiii.duelgame.R$anim: R$anim()
+com.mehdiii.duelgame.R$animator
+com.mehdiii.duelgame.R$animator: int slide_down_from_top
+com.mehdiii.duelgame.R$animator: int slide_down_to_bottom
+com.mehdiii.duelgame.R$animator: int slide_up_from_bottom
+com.mehdiii.duelgame.R$animator: int slide_up_to_top
+com.mehdiii.duelgame.R$animator: R$animator()
 com.mehdiii.duelgame.R$array
 com.mehdiii.duelgame.R$array: int avatars
 com.mehdiii.duelgame.R$array: int province_array
@@ -25139,6 +25145,7 @@ com.mehdiii.duelgame.R$id: int classic
 com.mehdiii.duelgame.R$id: int collapseActionView
 com.mehdiii.duelgame.R$id: int container_avatars
 com.mehdiii.duelgame.R$id: int container_header
+com.mehdiii.duelgame.R$id: int container_hearts
 com.mehdiii.duelgame.R$id: int container_page_selector
 com.mehdiii.duelgame.R$id: int container_store
 com.mehdiii.duelgame.R$id: int container_wrapper
@@ -25156,6 +25163,8 @@ com.mehdiii.duelgame.R$id: int edit_query
 com.mehdiii.duelgame.R$id: int end
 com.mehdiii.duelgame.R$id: int expand_activities_button
 com.mehdiii.duelgame.R$id: int expanded_menu
+com.mehdiii.duelgame.R$id: int finding_opponent_fragment_holder
+com.mehdiii.duelgame.R$id: int finding_opponent_notice
 com.mehdiii.duelgame.R$id: int game_result_add_friend
 com.mehdiii.duelgame.R$id: int game_result_alaki_layout
 com.mehdiii.duelgame.R$id: int game_result_diamond_cnt
@@ -25220,6 +25229,7 @@ com.mehdiii.duelgame.R$id: int monochrome
 com.mehdiii.duelgame.R$id: int never
 com.mehdiii.duelgame.R$id: int none
 com.mehdiii.duelgame.R$id: int normal
+com.mehdiii.duelgame.R$id: int opponent_fragment_holder
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond_group
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond_group_divider
@@ -25321,21 +25331,17 @@ com.mehdiii.duelgame.R$id: int try_to_connect_status
 com.mehdiii.duelgame.R$id: int underline
 com.mehdiii.duelgame.R$id: int up
 com.mehdiii.duelgame.R$id: int useLogo
+com.mehdiii.duelgame.R$id: int user_fragment_holder
 com.mehdiii.duelgame.R$id: int view_ranking_fragment_holder
 com.mehdiii.duelgame.R$id: int viewpager_avatars
 com.mehdiii.duelgame.R$id: int viewpager_main
 com.mehdiii.duelgame.R$id: int waiting_against
-com.mehdiii.duelgame.R$id: int waiting_opponent_avatar
-com.mehdiii.duelgame.R$id: int waiting_opponent_layout
-com.mehdiii.duelgame.R$id: int waiting_opponent_name
-com.mehdiii.duelgame.R$id: int waiting_opponent_province
-com.mehdiii.duelgame.R$id: int waiting_opponent_title
-com.mehdiii.duelgame.R$id: int waiting_player_layout
+com.mehdiii.duelgame.R$id: int waiting_avatar
+com.mehdiii.duelgame.R$id: int waiting_layout
+com.mehdiii.duelgame.R$id: int waiting_name
+com.mehdiii.duelgame.R$id: int waiting_province
 com.mehdiii.duelgame.R$id: int waiting_separator
-com.mehdiii.duelgame.R$id: int waiting_user_avatar
-com.mehdiii.duelgame.R$id: int waiting_user_name
-com.mehdiii.duelgame.R$id: int waiting_user_province
-com.mehdiii.duelgame.R$id: int waiting_user_title
+com.mehdiii.duelgame.R$id: int waiting_title
 com.mehdiii.duelgame.R$id: int webView_updates
 com.mehdiii.duelgame.R$id: int withText
 com.mehdiii.duelgame.R$id: int wrap_content
@@ -25400,6 +25406,9 @@ com.mehdiii.duelgame.R$layout: int fragment_ranking
 com.mehdiii.duelgame.R$layout: int fragment_settings
 com.mehdiii.duelgame.R$layout: int fragment_store
 com.mehdiii.duelgame.R$layout: int fragment_view_ranking
+com.mehdiii.duelgame.R$layout: int fragment_waiting_finding_opponent
+com.mehdiii.duelgame.R$layout: int fragment_waiting_opponent
+com.mehdiii.duelgame.R$layout: int fragment_waiting_user
 com.mehdiii.duelgame.R$layout: int support_simple_spinner_dropdown_item
 com.mehdiii.duelgame.R$layout: int template_friends_list
 com.mehdiii.duelgame.R$layout: int template_ranklist
@@ -26175,6 +26184,7 @@ com.mehdiii.duelgame.managers.HeartTracker
 com.mehdiii.duelgame.managers.HeartTracker: int COUNT_HEARTS_MAX
 com.mehdiii.duelgame.managers.HeartTracker: HeartTracker()
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker getInstance()
+com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean,int)
 com.mehdiii.duelgame.managers.HeartTracker: com.mehdiii.duelgame.managers.HeartTracker configure(int,boolean)
 com.mehdiii.duelgame.managers.HeartTracker: boolean canUseHeart()
 com.mehdiii.duelgame.managers.HeartTracker: boolean useHeart()
@@ -26725,6 +26735,7 @@ com.mehdiii.duelgame.views.activities.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.ParentActivity
 com.mehdiii.duelgame.views.activities.ParentActivity: android.content.BroadcastReceiver receiver
 com.mehdiii.duelgame.views.activities.ParentActivity: java.util.Random rand
+com.mehdiii.duelgame.views.activities.ParentActivity: java.util.List questionsToAsk
 com.mehdiii.duelgame.views.activities.ParentActivity: ParentActivity()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ParentActivity: void onResume()
@@ -26761,14 +26772,6 @@ com.mehdiii.duelgame.views.activities.TryToConnectActivity: void checkConnection
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void reconnect(android.view.View)
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void exit(android.view.View)
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: WaitingActivity()
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void setTextView(android.widget.TextView,java.lang.String)
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onPause()
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onResume()
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onDestroy()
-com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.home.HomeActivity
 com.mehdiii.duelgame.views.activities.home.HomeActivity: HomeActivity()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onActivityResult(int,int,android.content.Intent)
@@ -26878,6 +26881,7 @@ com.mehdiii.duelgame.views.activities.register.RegisterActivity
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: RegisterActivity()
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: void registerMe(android.view.View)
+com.mehdiii.duelgame.views.activities.register.RegisterActivity: void createShortCut()
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: void chooseAvatar(android.view.View)
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: void onResume()
 com.mehdiii.duelgame.views.activities.register.RegisterActivity: void onDestroy()
@@ -26899,6 +26903,7 @@ com.mehdiii.duelgame.views.activities.splash.SplashColors: SplashColors()
 com.mehdiii.duelgame.views.activities.splash.SplashColors: int[] getArray(android.content.Context)
 com.mehdiii.duelgame.views.activities.splash.StartActivity
 com.mehdiii.duelgame.views.activities.splash.StartActivity: StartActivity()
+com.mehdiii.duelgame.views.activities.splash.StartActivity: void createShortCut()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void addCircles()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void clickedLogo(android.view.View)
@@ -26906,6 +26911,22 @@ com.mehdiii.duelgame.views.activities.splash.StartActivity: void onResume()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onPause()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.splash.StartActivity: boolean showConnectingToServerDialog()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: WaitingActivity()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void setTextView(android.widget.TextView,java.lang.String)
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onPause()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onResume()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onDestroy()
+com.mehdiii.duelgame.views.activities.waiting.WaitingActivity: void onBackPressed()
+com.mehdiii.duelgame.views.activities.waiting.fragments.FindingOpponentFragment
+com.mehdiii.duelgame.views.activities.waiting.fragments.FindingOpponentFragment: FindingOpponentFragment()
+com.mehdiii.duelgame.views.activities.waiting.fragments.FindingOpponentFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+com.mehdiii.duelgame.views.activities.waiting.fragments.FindingOpponentFragment: void onViewCreated(android.view.View,android.os.Bundle)
+com.mehdiii.duelgame.views.activities.waiting.fragments.UserFragment
+com.mehdiii.duelgame.views.activities.waiting.fragments.UserFragment: UserFragment()
+com.mehdiii.duelgame.views.activities.waiting.fragments.UserFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+com.mehdiii.duelgame.views.activities.waiting.fragments.UserFragment: void onViewCreated(android.view.View,android.os.Bundle)
 com.mehdiii.duelgame.views.custom.AppRater
 com.mehdiii.duelgame.views.custom.AppRater: AppRater()
 com.mehdiii.duelgame.views.custom.AppRater: void init(android.content.Context,boolean)
@@ -26936,6 +26957,12 @@ com.mehdiii.duelgame.views.custom.PurchaseItemView: void setPrice(java.lang.Stri
 com.mehdiii.duelgame.views.custom.PurchaseItemView: com.mehdiii.duelgame.models.PurchaseItem getTag()
 com.mehdiii.duelgame.views.custom.PurchaseItemView: void setTag(com.mehdiii.duelgame.models.PurchaseItem)
 com.mehdiii.duelgame.views.custom.PurchaseItemView: java.lang.Object getTag()
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout: SlidingRelativeLayout(android.content.Context)
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout: SlidingRelativeLayout(android.content.Context,android.util.AttributeSet)
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout: SlidingRelativeLayout(android.content.Context,android.util.AttributeSet,int)
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout: void setYFraction(float)
+com.mehdiii.duelgame.views.custom.SlidingRelativeLayout: float getYFraction()
 com.mehdiii.duelgame.views.custom.SquareTextView
 com.mehdiii.duelgame.views.custom.SquareTextView: int MAX_WIDTH
 com.mehdiii.duelgame.views.custom.SquareTextView: SquareTextView(android.content.Context)
