@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.ProvinceManager;
-import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -21,12 +21,12 @@ import java.util.List;
 /**
  * Created by omid on 4/11/2015.
  */
-public class RankingListAdapter extends ArrayAdapter<User> {
+public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
 
-    List<User> users;
+    List<UserForRanklist> users;
     private LayoutInflater layoutInflater;
 
-    public RankingListAdapter(Context context, int resource, List<User> users) {
+    public RankingListAdapter(Context context, int resource, List<UserForRanklist> users) {
         super(context, resource);
         this.users = users;
         this.layoutInflater = LayoutInflater.from(context);
@@ -47,7 +47,7 @@ public class RankingListAdapter extends ArrayAdapter<User> {
     }
 
     @Override
-    public User getItem(int position) {
+    public UserForRanklist getItem(int position) {
         return users.get(position);
     }
 
@@ -63,6 +63,7 @@ public class RankingListAdapter extends ArrayAdapter<User> {
             viewHolder.textViewProvince = (TextView) convertView.findViewById(R.id.ranking_user_province);
             viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.ranking_user_title);
             viewHolder.textViewScore = (TextView) convertView.findViewById(R.id.ranking_user_score);
+            viewHolder.textViewUserPosition = (TextView) convertView.findViewById(R.id.ranking_user_position);
 
             convertView.setTag(viewHolder);
         }
@@ -70,14 +71,15 @@ public class RankingListAdapter extends ArrayAdapter<User> {
         return convertView;
     }
 
-    private void initializeViews(final User user, ViewHolder holder) {
+    private void initializeViews(final UserForRanklist user, ViewHolder holder) {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), user.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(ScoreHelper.getTitle(user.getScore()));
         holder.textViewScore.setText(""+user.getScore());
+        holder.textViewUserPosition.setText(""+user.getPlaceInRank());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), user.getProvince()));
         holder.textViewName.setText(user.getName());
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), user.getAvatar()));
-        FontHelper.setKoodakFor(getContext(), holder.textViewName, holder.textViewProvince, holder.textViewTitle, holder.textViewScore);
+        FontHelper.setKoodakFor(getContext(), holder.textViewName, holder.textViewProvince, holder.textViewTitle, holder.textViewScore, holder.textViewUserPosition);
     }
 
     protected class ViewHolder {
@@ -86,6 +88,6 @@ public class RankingListAdapter extends ArrayAdapter<User> {
         private TextView textViewProvince;
         private TextView textViewTitle;
         private TextView textViewScore;
+        private TextView textViewUserPosition;
     }
-
 }
