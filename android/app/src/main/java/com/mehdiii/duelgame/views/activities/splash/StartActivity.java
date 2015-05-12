@@ -102,6 +102,10 @@ public class StartActivity extends ParentActivity {
         splashColors = SplashColors.getArray(this);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
+
+        if (AuthManager.isLoggedin()) {
+            loginOrRegisterUser(AuthManager.getCurrentUser());
+        }
     }
 
 

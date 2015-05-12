@@ -19,6 +19,8 @@ import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.PurchaseItemView;
 
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -49,7 +51,16 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
         boolean newLine = true;
         LinearLayout linearLayout = null;
         int parity = 0;
-        for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
+        List<PurchaseItem> purchaseItems = AuthManager.getCurrentUser().getPurchaseItems();
+        int counter = 1;
+//        PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()
+        while (counter < purchaseItems.size()) {
+            PurchaseItem item = purchaseItems.get(counter);
+            if (counter % 2 == 0)
+                counter += 3;
+            else
+                counter -= 1;
+
             if (parity == 2) {
                 parity = 0;
                 newLine = true;

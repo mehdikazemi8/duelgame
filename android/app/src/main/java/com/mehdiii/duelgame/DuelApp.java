@@ -82,6 +82,11 @@ public class DuelApp extends Application {
             e.printStackTrace();
         }
     }
+    public void disconnect() {
+        if (wsc.isConnected()) {
+            wsc.disconnect();
+        }
+    }
 
     /**
      * sends off messages delivered to wsc from server to all of the app.

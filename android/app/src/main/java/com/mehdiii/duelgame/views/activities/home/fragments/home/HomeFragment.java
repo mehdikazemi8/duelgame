@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
@@ -182,7 +183,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        EventBus.getDefault().post(new ChangePage(1));
+        DuelApp.getInstance().disconnect();
+//        EventBus.getDefault().post(new ChangePage(1));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
