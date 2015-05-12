@@ -22,7 +22,6 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -43,6 +42,7 @@ import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.custom.FontFitButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import org.json.JSONException;
@@ -81,7 +81,7 @@ public class PlayGameActivity extends ParentActivity {
     boolean hintAgainClicked;
     int clickedHintRemove, clickedHintAgain;
 
-    Button option0Btn, option1Btn, option2Btn, option3Btn;
+    FontFitButton option0Btn, option1Btn, option2Btn, option3Btn;
     ImageView hintRemoveBtn, hintAgainBtn;
 
     private Display mobileDisplay;
@@ -165,6 +165,7 @@ public class PlayGameActivity extends ParentActivity {
         remainingTimeOfThisQuestion = 20;
 
         String questionText = questionsToAsk.get(problemIndex).getQuestionText();
+
         setTextView(questionTextView, questionText);
 
         List<String> opts = questionsToAsk.get(problemIndex).getOptions();
@@ -349,7 +350,7 @@ public class PlayGameActivity extends ParentActivity {
         changeButtonsClickableState(false);
 
         int ok = 0;
-        if (correctAnswerStr.compareTo(((Button) v).getText().toString()) == 0) {
+        if (correctAnswerStr.compareTo(((FontFitButton) v).getText().toString()) == 0) {
             myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
 
             collectedDiamond += iAnsweredThisTime;
@@ -368,7 +369,7 @@ public class PlayGameActivity extends ParentActivity {
             setProgressBar(myProgress, userPoints);
 
             //((Button) v).setBackgroundColor(Color.GREEN);
-            ((Button) v).setTextColor(getResources().getColor(R.color.correct_answer));
+            ((FontFitButton) v).setTextColor(getResources().getColor(R.color.correct_answer));
             ok = 1;
 
             hintAgainBtn.setClickable(false);
@@ -405,7 +406,7 @@ public class PlayGameActivity extends ParentActivity {
                     option3Btn.setTextColor(getResources().getColor(R.color.gray_light));
             }
 
-            ((Button) v).setTextColor(getResources().getColor(R.color.wrong_answer));
+            ((FontFitButton) v).setTextColor(getResources().getColor(R.color.wrong_answer));
 
             if (numberOfOptionChose == 1 && hintAgainViewIsOpen == true) {
                 danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
@@ -445,7 +446,7 @@ public class PlayGameActivity extends ParentActivity {
         }
     }
 
-    public void setButton(Button tv, String s) {
+    public void setButton(FontFitButton tv, String s) {
         tv.setText(s);
     }
 
@@ -549,10 +550,10 @@ public class PlayGameActivity extends ParentActivity {
         userAvatar = (ImageView) findViewById(R.id.play_game_user_avatar);
         opponentAvatar = (ImageView) findViewById(R.id.play_game_opponent_avatar);
 
-        option0Btn = (Button) findViewById(R.id.play_game_option_0);
-        option1Btn = (Button) findViewById(R.id.play_game_option_1);
-        option2Btn = (Button) findViewById(R.id.play_game_option_2);
-        option3Btn = (Button) findViewById(R.id.play_game_option_3);
+        option0Btn = (FontFitButton) findViewById(R.id.play_game_option_0);
+        option1Btn = (FontFitButton) findViewById(R.id.play_game_option_1);
+        option2Btn = (FontFitButton) findViewById(R.id.play_game_option_2);
+        option3Btn = (FontFitButton) findViewById(R.id.play_game_option_3);
         hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
         hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
 

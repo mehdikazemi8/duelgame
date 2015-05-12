@@ -273,68 +273,28 @@
                 android:layout_toRightOf="@id/play_game_op_progress_parent"
                 android:orientation="vertical">
 
-                <Button
+                <com.mehdiii.duelgame.views.custom.FontFitButton
                     android:id="@+id/play_game_option_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    style="@style/play_game_option_buttons"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/option_button"
-                    android:contentDescription="0"
-                    android:onClick="answered"
-                    android:text="گزینه ی اول"
-                    android:textColor="@color/play_game_option_btn_text"
-                    android:textSize="25sp"
-                    android:visibility="invisible" />
+                    android:contentDescription="0" />
 
-                <Button
+                <com.mehdiii.duelgame.views.custom.FontFitButton
                     android:id="@+id/play_game_option_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    style="@style/play_game_option_buttons"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/option_button"
-                    android:contentDescription="1"
-                    android:onClick="answered"
-                    android:text="گزینه ی دوم"
-                    android:textColor="@color/play_game_option_btn_text"
-                    android:textSize="25sp"
-                    android:visibility="invisible" />
+                    android:contentDescription="1" />
 
-                <Button
+                <com.mehdiii.duelgame.views.custom.FontFitButton
                     android:id="@+id/play_game_option_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    style="@style/play_game_option_buttons"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/option_button"
-                    android:contentDescription="2"
-                    android:onClick="answered"
-                    android:text="گزینه ی سوم"
-                    android:textColor="@color/play_game_option_btn_text"
-                    android:textSize="25sp"
-                    android:visibility="invisible" />
+                    android:contentDescription="2" />
 
-                <Button
+                <com.mehdiii.duelgame.views.custom.FontFitButton
                     android:id="@+id/play_game_option_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/option_button"
-                    android:contentDescription="3"
-                    android:onClick="answered"
-                    android:text="گزینه ی چهارم"
-                    android:textColor="@color/play_game_option_btn_text"
-                    android:textSize="25sp"
-                    android:visibility="invisible" />
+                    style="@style/play_game_option_buttons"
+                    android:contentDescription="3" />
             </LinearLayout>
 
         </RelativeLayout>
