@@ -2,6 +2,8 @@ package com.mehdiii.duelgame.utils;
 
 /**
  * Created by omid on 4/22/2015.
+ * <p/>
+ * * Java Program to implement Bi Directional Map
  */
 /**
  ** Java Program to implement Bi Directional Map
@@ -56,5 +58,9 @@ public class BidirectionalMap<T, K> {
 
     public T getKey(K value) {
         return valKey.get(value);
+    }
+
+    public boolean contains(K value) {
+        return keyVal.containsKey(value);
     }
 }

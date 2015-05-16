@@ -117,14 +117,18 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         if (friend.getStatus().equals("pending")) {
             holder.buttonPositive.setVisibility(View.GONE);
             holder.buttonNegative.setVisibility(View.GONE);
+            holder.textViewStatus.setVisibility(View.VISIBLE);
             holder.textViewStatus.setText("منتظر پاسخ");
         } else if (friend.getStatus().equals("friend")) {
             holder.textViewStatus.setVisibility(View.GONE);
             holder.buttonNegative.setVisibility(View.GONE);
+            holder.buttonPositive.setVisibility(View.VISIBLE);
             holder.buttonPositive.setText("دوئل");
             holder.buttonPositive.setTypeface(FontHelper.getKoodak(getContext()));
         } else if (friend.getStatus().equals("request")) {
             holder.textViewStatus.setVisibility(View.GONE);
+            holder.buttonPositive.setVisibility(View.VISIBLE);
+            holder.buttonNegative.setVisibility(View.VISIBLE);
             holder.buttonPositive.setText("F");
             holder.buttonNegative.setText("G");
             Typeface icons = FontHelper.getIcons(getContext());
