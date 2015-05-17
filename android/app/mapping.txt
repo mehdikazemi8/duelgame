@@ -44502,7 +44502,7 @@ com.mehdiii.duelgame.models.base.ActionEmitter -> com.mehdiii.duelgame.models.ba
     12:14:com.mehdiii.duelgame.models.base.ActionEmitter getInstance() -> getInstance
     24:56:void init() -> a
     59:59:java.lang.String getCommandCode(com.mehdiii.duelgame.models.base.CommandType) -> getCommandCode
-    63:66:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
+    63:63:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
 com.mehdiii.duelgame.models.base.BaseModel -> com.mehdiii.duelgame.models.base.BaseModel:
     java.lang.String command -> b
     24:25:void setCommand(com.mehdiii.duelgame.models.base.CommandType) -> setCommand

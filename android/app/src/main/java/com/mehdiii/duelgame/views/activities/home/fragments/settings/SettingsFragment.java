@@ -69,7 +69,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
 
                 DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
                 int message = 0;
-                if (report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
+                if (report != null && report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
 
                     AuthManager.getCurrentUser().setName(newSettings.getName());
                     AuthManager.getCurrentUser().setGender(newSettings.getGender());
@@ -199,6 +199,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             newSettings.setName(this.usernameEditText.getText().toString().trim());
             newSettings.setEmail(this.emailEditText.getText().toString().trim());
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
+            newSettings.setGender(this.switchGender.isChecked() ? 1 : 0);
             DuelApp.getInstance().sendMessage(newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));
         }
     }

@@ -105,10 +105,12 @@ public class DuelApp extends Application {
     }
 
     /**
-     * used to send a message and receive delivery message so that you can check whether request is reached/processed successfully on server or not?
+     * used to send a message and receive delivery message so that you can check whether request is
+     * reached/processed successfully on server or not?
      *
-     * @param model                     g            the model that is used to be sent off to the server
-     * @param onMessageReceivedListener this listens for delivery message of current request and calls onDelivered when delivery message is received.
+     * @param model                     the model that is used to be sent off to the server
+     * @param onMessageReceivedListener this listens for delivery message of current request and calls onDelivered
+     *                                  when delivery message is received.
      */
     public void sendMessageWithDelivery(BaseModel model, OnMessageReceivedListener onMessageReceivedListener) {
         pendingMessages.put(model.hashCode(), model);

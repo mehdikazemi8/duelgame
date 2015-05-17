@@ -60,9 +60,10 @@ public class ActionEmitter {
     }
 
     public CommandType getCommandType(String code) {
-        if (!map.contains(code))
+        CommandType ret = map.getKey(code);
+
+        if (ret == null)
             return CommandType.UNKNOWN;
-        else
-            return map.getKey(code);
+        else return ret;
     }
 }
