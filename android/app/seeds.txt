@@ -26572,6 +26572,7 @@ com.mehdiii.duelgame.utils.BidirectionalMap: int size()
 com.mehdiii.duelgame.utils.BidirectionalMap: void put(java.lang.Object,java.lang.Object)
 com.mehdiii.duelgame.utils.BidirectionalMap: java.lang.Object get(java.lang.Object)
 com.mehdiii.duelgame.utils.BidirectionalMap: java.lang.Object getKey(java.lang.Object)
+com.mehdiii.duelgame.utils.BidirectionalMap: boolean contains(java.lang.Object)
 com.mehdiii.duelgame.utils.DeviceManager
 com.mehdiii.duelgame.utils.DeviceManager: DeviceManager()
 com.mehdiii.duelgame.utils.DeviceManager: java.lang.String getDeviceId(android.content.Context)

@@ -20,7 +20,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
  * Created by MeHdi on 4/20/2015.
  */
 public class AppRater {
-    private final static String APP_TITLE = "کنکوریا";
+    private final static String APP_TITLE = "دوئل کنکور";
     private final static String APP_PNAME = "YOUR-PACKAGE-NAME";
 
     private final static int GAME_UNTIL_PROMPT = 10;

@@ -44502,7 +44502,7 @@ com.mehdiii.duelgame.models.base.ActionEmitter -> com.mehdiii.duelgame.models.ba
     12:14:com.mehdiii.duelgame.models.base.ActionEmitter getInstance() -> getInstance
     24:56:void init() -> a
     59:59:java.lang.String getCommandCode(com.mehdiii.duelgame.models.base.CommandType) -> getCommandCode
-    63:63:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
+    63:66:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
 com.mehdiii.duelgame.models.base.BaseModel -> com.mehdiii.duelgame.models.base.BaseModel:
     java.lang.String command -> b
     24:25:void setCommand(com.mehdiii.duelgame.models.base.CommandType) -> setCommand
@@ -44640,11 +44640,12 @@ com.mehdiii.duelgame.utils.Base64DecoderException -> com.mehdiii.duelgame.utils.
 com.mehdiii.duelgame.utils.BidirectionalMap -> com.mehdiii.duelgame.utils.BidirectionalMap:
     java.util.HashMap keyVal -> a
     java.util.HashMap valKey -> b
-    31:33:void clear() -> clear
-    39:39:int size() -> size
-    46:48:void put(java.lang.Object,java.lang.Object) -> put
-    54:54:java.lang.Object get(java.lang.Object) -> get
-    58:58:java.lang.Object getKey(java.lang.Object) -> getKey
+    33:35:void clear() -> clear
+    41:41:int size() -> size
+    48:50:void put(java.lang.Object,java.lang.Object) -> put
+    56:56:java.lang.Object get(java.lang.Object) -> get
+    60:60:java.lang.Object getKey(java.lang.Object) -> getKey
+    64:64:boolean contains(java.lang.Object) -> contains
 com.mehdiii.duelgame.utils.DeviceManager -> com.mehdiii.duelgame.utils.DeviceManager:
     13:19:java.lang.String getDeviceId(android.content.Context) -> getDeviceId
 com.mehdiii.duelgame.utils.DuelBroadcastReceiver -> com.mehdiii.duelgame.utils.DuelBroadcastReceiver:
@@ -45260,9 +45261,9 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter 
     56:58:void clear() -> clear
     62:62:com.mehdiii.duelgame.models.Friend getItem(int) -> getItem
     68:82:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    86:138:void initializeViews(com.mehdiii.duelgame.models.Friend,com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> a
-    141:141:com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade getOnUserDecisionIsMade() -> getOnUserDecisionIsMade
-    145:146:void setOnUserDecisionIsMade(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade) -> setOnUserDecisionIsMade
+    86:142:void initializeViews(com.mehdiii.duelgame.models.Friend,com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> a
+    145:145:com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade getOnUserDecisionIsMade() -> getOnUserDecisionIsMade
+    149:150:void setOnUserDecisionIsMade(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade) -> setOnUserDecisionIsMade
     26:26:java.lang.Object getItem(int) -> getItem
     26:26:com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade access$700(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter) -> a
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$1 -> bvq:
@@ -45286,20 +45287,20 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$
     android.widget.Button buttonPositive -> g
     android.widget.Button buttonNegative -> h
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter this$0 -> a
-    148:148:android.widget.TextView access$002(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> a
-    148:148:android.widget.TextView access$102(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> b
-    148:148:android.widget.TextView access$202(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> c
-    148:148:android.widget.ImageView access$302(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.ImageView) -> a
-    148:148:android.widget.Button access$402(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.Button) -> a
-    148:148:android.widget.Button access$502(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.Button) -> b
-    148:148:android.widget.TextView access$602(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> d
-    148:148:android.widget.ImageView access$300(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> a
-    148:148:android.widget.TextView access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> b
-    148:148:android.widget.TextView access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> c
-    148:148:android.widget.TextView access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> d
-    148:148:android.widget.Button access$400(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> e
-    148:148:android.widget.Button access$500(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> f
-    148:148:android.widget.TextView access$600(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> g
+    152:152:android.widget.TextView access$002(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> a
+    152:152:android.widget.TextView access$102(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> b
+    152:152:android.widget.TextView access$202(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> c
+    152:152:android.widget.ImageView access$302(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.ImageView) -> a
+    152:152:android.widget.Button access$402(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.Button) -> a
+    152:152:android.widget.Button access$502(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.Button) -> b
+    152:152:android.widget.TextView access$602(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder,android.widget.TextView) -> d
+    152:152:android.widget.ImageView access$300(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> a
+    152:152:android.widget.TextView access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> b
+    152:152:android.widget.TextView access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> c
+    152:152:android.widget.TextView access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> d
+    152:152:android.widget.Button access$400(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> e
+    152:152:android.widget.Button access$500(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> f
+    152:152:android.widget.TextView access$600(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$ViewHolder) -> g
 com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment -> com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment:
     android.widget.TextView diamondCount -> a
     android.widget.ImageView avatarImageView -> b
