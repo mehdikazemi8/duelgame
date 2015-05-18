@@ -311,15 +311,18 @@
                 android:background="@drawable/home_duel_btn"
                 android:clickable="true" />
 
-            <TextView
+            <Button
                 android:id="@+id/textView_send_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/fontsize.normal"
+                android:minHeight="0dp"
+                android:padding="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="5dp"
-                android:text="@string/caption_send_report" />
+                android:background="@drawable/bg_button_azure"
+                android:text="@string/caption_send_report"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.normal" />
 
         </RelativeLayout>
     </LinearLayout>
