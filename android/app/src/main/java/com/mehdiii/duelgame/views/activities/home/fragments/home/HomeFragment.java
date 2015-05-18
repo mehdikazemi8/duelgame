@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
@@ -27,7 +26,6 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
-import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
@@ -223,5 +221,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onBringToFront() {
         super.onBringToFront();
+        
+
     }
 }
