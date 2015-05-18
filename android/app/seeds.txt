@@ -26206,14 +26206,15 @@ com.mehdiii.duelgame.managers.PurchaseEvent: com.mehdiii.duelgame.managers.Purch
 com.mehdiii.duelgame.managers.PurchaseListener
 com.mehdiii.duelgame.managers.PurchaseListener: void onCompleted(com.mehdiii.duelgame.managers.PurchaseEvent)
 com.mehdiii.duelgame.managers.PurchaseManager
+com.mehdiii.duelgame.managers.PurchaseManager: java.lang.String BASE_64_PUBLIC_KEY
+com.mehdiii.duelgame.managers.PurchaseManager: java.lang.String TAG
 com.mehdiii.duelgame.managers.PurchaseManager: PurchaseManager()
-com.mehdiii.duelgame.managers.PurchaseManager: void removeListener(com.mehdiii.duelgame.managers.PurchaseListener)
-com.mehdiii.duelgame.managers.PurchaseManager: void init(android.app.Activity,com.android.vending.billing.IInAppBillingService,int)
+com.mehdiii.duelgame.managers.PurchaseManager: void init(android.app.Activity,int)
 com.mehdiii.duelgame.managers.PurchaseManager: com.mehdiii.duelgame.managers.PurchaseManager getInstance()
 com.mehdiii.duelgame.managers.PurchaseManager: void initiatePurchase(com.mehdiii.duelgame.models.BuyNotification)
 com.mehdiii.duelgame.managers.PurchaseManager: void useDiamond(com.mehdiii.duelgame.models.BuyNotification)
-com.mehdiii.duelgame.managers.PurchaseManager: void processPurchaseResult(int,android.content.Intent)
 com.mehdiii.duelgame.managers.PurchaseManager: void consumePurchase()
+com.mehdiii.duelgame.managers.PurchaseManager: boolean handleActivityResult(int,android.content.Intent)
 com.mehdiii.duelgame.models.BuyNotification
 com.mehdiii.duelgame.models.BuyNotification: BuyNotification(int,int)
 com.mehdiii.duelgame.models.BuyNotification: int getId()
@@ -26787,12 +26788,7 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity
 com.mehdiii.duelgame.views.activities.home.HomeActivity: HomeActivity()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onActivityResult(int,int,android.content.Intent)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onCreate(android.os.Bundle)
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.events.OnSoundStateChanged)
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onResume()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onBackPressed()
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onPause()
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onStop()
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.BuyNotification)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.ChangePage)
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter
@@ -26882,7 +26878,6 @@ com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: StoreFragment()
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: void onViewCreated(android.view.View,android.os.Bundle)
-com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: void onDetach()
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: void onResume()
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: void onPause()
 com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment: void onDestroyView()
