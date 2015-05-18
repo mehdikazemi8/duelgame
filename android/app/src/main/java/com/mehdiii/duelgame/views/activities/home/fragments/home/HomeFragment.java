@@ -49,7 +49,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView provinceRankingText;
     TextView provinceRanking;
     TextView textViewCounter;
-    ImageButton addFriendButton;
+//    ImageButton addFriendButton;
     ImageView duelButton;
     ProgressBar levelProgress;
     Button refillButton;
@@ -79,7 +79,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void configure(View view) {
-        addFriendButton.setOnClickListener(this);
+//        addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
@@ -102,7 +102,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
         provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
         provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
-        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
+//        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
@@ -130,7 +130,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_add_friend:
-                addFriend();
                 break;
             case R.id.button_buy_diamond:
             case R.id.button_refill:
@@ -170,16 +169,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
 
         getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
-    }
-
-    private void addFriend() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                String.format(getResources().getString(R.string.message_share),
-                        "http://cafebazaar.ir/app/" + getActivity().getPackageName()));
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
     }
 
     private void refillHeart() {

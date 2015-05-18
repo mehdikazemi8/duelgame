@@ -12,13 +12,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_add_friend"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_button_indian_red"
-            android:text="@string/button_add_friend"
-            android:textColor="@color/white" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_add_friend"
+                android:layout_width="0dp"
+                android:layout_marginRight="@dimen/space.short"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_indian_red"
+                android:text="@string/button_add_friend"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/button_tell_friends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_blue_dark"
+                android:text="@string/button_tell_friends"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView_code"
@@ -38,11 +58,11 @@
         android:layout_below="@id/container_header" />
 
     <ProgressBar
-        android:layout_centerInParent="true"
-        android:visibility="gone"
         android:id="@+id/progressbar"
         style="?android:progressBarStyleLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
 </RelativeLayout>
