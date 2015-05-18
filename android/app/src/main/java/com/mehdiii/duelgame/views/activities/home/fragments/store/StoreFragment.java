@@ -41,8 +41,6 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         storeContainer = (LinearLayout) view.findViewById(R.id.container_store);
 
-        configure();
-
         addOffers();
     }
 
@@ -108,14 +106,6 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
         storeContainer.addView(view);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    private void configure() {
-
-    }
 
     @Override
     public void onResume() {
@@ -146,12 +136,8 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
             dialog.setMessage("لطفا کمی صبر کنید");
             dialog.setCancelable(false);
             dialog.show();
-            startBuyIntent(item.getId(), item.getCost().getType());
+            EventBus.getDefault().post(new BuyNotification(item.getId(), item.getCost().getType()));
         }
-    }
-
-    private void startBuyIntent(int id, int type) {
-        EventBus.getDefault().post(new BuyNotification(id, type));
     }
 
     public void onEvent(PurchaseDone purchase) {

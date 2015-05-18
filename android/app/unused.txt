@@ -1143,7 +1143,7 @@ com.mehdiii.duelgame.managers.HeartTracker:
     private static final java.lang.String PREFERENCE_USER_HEART
     private static final java.lang.String PREFERENCE_EXTREME_HEART
 com.mehdiii.duelgame.managers.PurchaseManager:
-    46:47:private void addListener(com.mehdiii.duelgame.managers.PurchaseListener)
+    static final int RC_REQUEST
 com.mehdiii.duelgame.receivers.HeartFullyRecovered:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:

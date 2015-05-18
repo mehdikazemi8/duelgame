@@ -84,11 +84,6 @@ public class RegisterActivity extends ParentActivity {
          * generate device unique identifier
          **/
         userId = DeviceManager.getDeviceId(RegisterActivity.this);
-
-//        if (DuelApp.getInstance().getSocket() == null || !DuelApp.getInstance().getSocket().isConnected()) {
-//            startActivity(new Intent(this, TryToConnectActivity.class));
-//            finish();
-//        }
     }
 
     private void find() {
