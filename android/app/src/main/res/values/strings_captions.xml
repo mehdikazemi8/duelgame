@@ -7,4 +7,5 @@
     <string name="caption_play_music">پخش موسیقی</string>
     <string name="caption_play_music_not">توقف موسیقی</string>
     <string name="caption_friend_id">کد دوست شما</string>
+    <string name="caption_send_report">گزارش خطا</string>
 </resources>
