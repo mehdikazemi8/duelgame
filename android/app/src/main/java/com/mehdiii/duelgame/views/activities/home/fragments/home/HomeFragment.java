@@ -185,7 +185,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     private void sendReport() {
         Intent send = new Intent(Intent.ACTION_SENDTO);
         String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
-                "?subject=" + Uri.encode("[????? ???]") +
+                "?subject=" + Uri.encode(getResources().getString(R.string.caption_send_report_title)) +
                 "&body=" + Uri.encode("");
         Uri uri = Uri.parse(uriText);
 
