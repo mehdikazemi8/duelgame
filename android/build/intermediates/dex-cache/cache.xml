@@ -16,6 +16,13 @@
         <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-bb50a78df3a1c75e42c76ddb01b0343df6b9f92e.jar" />
     </item>
     <item
+        jar="E:\projects\DuelGame\duel444\duel\android\app\libs\splunk-mint-4.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c02645acbcdb5b1d242ab788f9ef537459321bff">
+        <dex dex="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\pre-dexed\debug\splunk-mint-4.2-0b1040b209739e83971a8db433da3c3d7bce951f.jar" />
+    </item>
+    <item
         jar="E:\projects\DuelGame\duel444\duel\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
         jumboMode="false"
         revision="21.1.2"

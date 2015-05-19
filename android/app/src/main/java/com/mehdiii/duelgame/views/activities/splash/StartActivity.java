@@ -87,7 +87,6 @@ public class StartActivity extends ParentActivity {
             startActivity(new Intent(StartActivity.this, RegisterActivity.class));
         else {
             // login user
-//            AuthManager.authenticate(this, user);
             startActivity(new Intent(StartActivity.this, HomeActivity.class));
         }
         finish();

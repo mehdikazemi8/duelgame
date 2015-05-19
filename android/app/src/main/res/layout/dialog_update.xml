@@ -25,18 +25,18 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_negative"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_cancel" />
-
-        <Button
             android:id="@+id/button_positive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_update" />
+
+        <Button
+            android:id="@+id/button_negative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_cancel" />
 
     </LinearLayout>
 </LinearLayout>

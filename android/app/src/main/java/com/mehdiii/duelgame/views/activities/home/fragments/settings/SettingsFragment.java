@@ -145,6 +145,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     public void onBringToFront() {
         super.onBringToFront();
         newSettings = new User();
+        newSettings.setAvatar(AuthManager.getCurrentUser().getAvatar());
+
         if (getView() != null)
             initializeData();
     }
@@ -200,6 +202,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             newSettings.setEmail(this.emailEditText.getText().toString().trim());
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
             newSettings.setGender(this.switchGender.isChecked() ? 1 : 0);
+//            ;
             DuelApp.getInstance().sendMessage(newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));
         }
     }

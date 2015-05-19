@@ -119,20 +119,26 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             holder.buttonNegative.setVisibility(View.GONE);
             holder.textViewStatus.setVisibility(View.VISIBLE);
             holder.textViewStatus.setText("منتظر پاسخ");
+
+            holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.black));
+            holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
         } else if (friend.getStatus().equals("friend")) {
             holder.textViewStatus.setVisibility(View.GONE);
             holder.buttonNegative.setVisibility(View.GONE);
             holder.buttonPositive.setVisibility(View.VISIBLE);
             holder.buttonPositive.setText("دوئل");
             holder.buttonPositive.setTypeface(FontHelper.getKoodak(getContext()));
+
+            holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.black));
+            holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
         } else if (friend.getStatus().equals("request")) {
             holder.textViewStatus.setVisibility(View.GONE);
             holder.buttonPositive.setVisibility(View.VISIBLE);
             holder.buttonNegative.setVisibility(View.VISIBLE);
             holder.buttonPositive.setText("F");
             holder.buttonNegative.setText("G");
-            Typeface icons = FontHelper.getIcons(getContext());
 
+            Typeface icons = FontHelper.getIcons(getContext());
             holder.buttonNegative.setTypeface(icons);
             holder.buttonPositive.setTypeface(icons);
 

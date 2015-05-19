@@ -130,3 +130,6 @@
 -keep class com.buganalytics.** { *; }
 ## END: buganalytics
 
+# BEGIN: mint
+-keep class com.splunk.** { *; }
+# END: mint

@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -26,6 +27,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 
 /**
  * Created by omid on 4/5/2015.
@@ -38,6 +40,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     LinearLayout containerHeader;
     private TextView textViewCode;
     private Button buttonAddFriend;
+    private Button buttonTellFriend;
     private ProgressBar progressBar;
 
     @Override
@@ -48,6 +51,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         find(view);
         configure();
         bindViewData();
@@ -57,6 +61,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         this.listView = (ListView) view.findViewById(R.id.listView_friends);
         containerHeader = (LinearLayout) view.findViewById(R.id.container_header);
         buttonAddFriend = (Button) view.findViewById(R.id.button_add_friend);
+        buttonTellFriend = (Button) view.findViewById(R.id.button_tell_friends);
         textViewCode = (TextView) view.findViewById(R.id.textView_code);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
     }
@@ -80,7 +85,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 
     private void configure() {
         buttonAddFriend.setOnClickListener(this);
-        FontHelper.setKoodakFor(getActivity(), textViewCode, buttonAddFriend);
+        buttonTellFriend.setOnClickListener(this);
+        FontHelper.setKoodakFor(getActivity(), textViewCode, buttonAddFriend, buttonTellFriend);
     }
 
     private void bindViewData() {
@@ -94,10 +100,21 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         this.listView.setAdapter(adapter);
     }
 
+    private void tellFriends() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                String.format(getResources().getString(R.string.message_share),
+                        "http://cafebazaar.ir/app/" + getActivity().getPackageName()));
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
         public void onDuel(Friend request) {
-            // TODO
+            AlertDialog dialog = new AlertDialog(getActivity(), "به زودی این قابلیت اضافه خواهد شد.");
+            dialog.show();
         }
 
         @Override
@@ -120,6 +137,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         switch (view.getId()) {
             case R.id.button_add_friend:
                 openAddFriendDialog();
+                break;
+            case R.id.button_tell_friends:
+                tellFriends();
                 break;
         }
     }

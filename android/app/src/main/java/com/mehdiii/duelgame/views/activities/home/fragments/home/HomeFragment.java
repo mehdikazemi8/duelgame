@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -47,7 +48,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView provinceRankingText;
     TextView provinceRanking;
     TextView textViewCounter;
-    ImageButton addFriendButton;
+    TextView textViewSendReport;
+    //    ImageButton addFriendButton;
     ImageView duelButton;
     ProgressBar levelProgress;
     Button refillButton;
@@ -77,15 +79,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void configure(View view) {
-        addFriendButton.setOnClickListener(this);
+//        addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
+        textViewSendReport.setOnClickListener(this);
 
         // set font-face
         FontHelper.setKoodakFor(view.getContext(),
                 diamondCount, titleTextView, levelText, totalRankingText,
-                totalRanking, friendsRankingText, friendsRanking, textViewHearts,
+                totalRanking, friendsRankingText, friendsRanking, textViewHearts, textViewSendReport,
                 provinceRanking, provinceRankingText, textViewCounter, buyDiamondButton, refillButton);
     }
 
@@ -100,7 +103,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
         provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
         provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
-        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
+        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
+//        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
         levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
@@ -128,7 +132,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_add_friend:
-                addFriend();
                 break;
             case R.id.button_buy_diamond:
             case R.id.button_refill:
@@ -136,6 +139,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 break;
             case R.id.button_duel:
                 startGame();
+                break;
+            case R.id.textView_send_report:
+                sendReport();
                 break;
         }
     }
@@ -170,18 +176,19 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
 
-    private void addFriend() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                String.format(getResources().getString(R.string.message_share),
-                        "http://cafebazaar.ir/app/" + getActivity().getPackageName()));
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
-    }
-
     private void refillHeart() {
         EventBus.getDefault().post(new ChangePage(1));
+    }
+
+    private void sendReport() {
+        Intent send = new Intent(Intent.ACTION_SENDTO);
+        String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
+                "?subject=" + Uri.encode("[????? ???]") +
+                "&body=" + Uri.encode("");
+        Uri uri = Uri.parse(uriText);
+
+        send.setData(uri);
+        startActivity(Intent.createChooser(send, "Send mail..."));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {

@@ -16,6 +16,7 @@ import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.splash.StartActivity;
+import com.splunk.mint.Mint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +42,8 @@ public class DuelApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        BugAnalytics.setup(this, "65740737c44447f9");
+        Mint.initAndStartSession(this, "fe0c054c");
+//        BugAnalytics.setup(this, "65740737c44447f9");
         initGA();
         if (!wsc.isConnected())
             connectToWs();

@@ -1,12 +1,8 @@
 package com.mehdiii.duelgame.views.activities.home;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -35,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends ParentActivity {
-    private static final int REQUEST_CODE_PURCHASE = 1001;
+    private static final int REQUEST_CODE_PURCHASE = 10001;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
@@ -53,34 +49,15 @@ public class HomeActivity extends ParentActivity {
     FlippableFragment homeFragment;
     FlippableFragment friendsFragment;
 
-
     List<Fragment> childFragments;
 
-    IInAppBillingService mService;
-
-    ServiceConnection mServiceConn = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mService = null;
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name,
-                                       IBinder service) {
-            mService = IInAppBillingService.Stub.asInterface(service);
-
-            PurchaseManager.init(HomeActivity.this, mService, REQUEST_CODE_PURCHASE);
-        }
-    };
 
 //    public DuelMusicPlayer musicPlayer;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PURCHASE) {
-            PurchaseManager.getInstance().processPurchaseResult(resultCode, data);
-        }
+        if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -88,20 +65,10 @@ public class HomeActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Log.d("level", ""+ScoreHelper.getLevel(49));
-        Log.d("level", ""+ScoreHelper.getLevel(50));
-        Log.d("level", ""+ScoreHelper.getLevel(51));
-        Log.d("level", ""+ScoreHelper.getLevel(124));
-        Log.d("level", ""+ScoreHelper.getLevel(125));
-        Log.d("level", ""+ScoreHelper.getLevel(126));
-
-//        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
-//        musicPlayer.execute();
-
         find();
         configure();
 
-        bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
+        PurchaseManager.init(HomeActivity.this, REQUEST_CODE_PURCHASE);
     }
 
     ScoresDialog scoresDialog;
@@ -171,8 +138,7 @@ public class HomeActivity extends ParentActivity {
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        }
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
 
         @Override
@@ -224,7 +190,7 @@ public class HomeActivity extends ParentActivity {
     };
 
     private void createChildFragments() {
-        childFragments = new ArrayList<Fragment>();
+        childFragments = new ArrayList<>();
 
         settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
         rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
@@ -239,19 +205,6 @@ public class HomeActivity extends ParentActivity {
         childFragments.add(homeFragment);
     }
 
-    public void onEvent(OnSoundStateChanged s) {
-//        if (s.getState() == true)
-//            musicPlayer.playSound();
-//        else
-//            musicPlayer.pauseSound();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        musicPlayer.playSound();
-    }
-
     @Override
     public void onBackPressed() {
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
@@ -263,40 +216,6 @@ public class HomeActivity extends ParentActivity {
             }
         });
         dialog.show();
-    }
-
-
-// ******************************** HOME BUTTONE PRESSED
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-//        musicPlayer.pauseSound();
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
-
-        if (mServiceConn != null) {
-            unbindService(mServiceConn);
-        }
-//        Intent svc = new Intent(this, MusicPlayer.class);
-//        stopService(svc);
     }
 
     public void onEvent(BuyNotification buyNotification) {
