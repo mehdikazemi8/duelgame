@@ -35,7 +35,7 @@ public class FontFitButton extends Button {
         if (textWidth <= 0)
             return;
         int targetWidth = textWidth - this.getPaddingLeft() - this.getPaddingRight();
-        float hi = 80;
+        float hi = 28;
         float lo = 2;
         final float threshold = 0.5f; // How close we have to be
 
@@ -50,7 +50,7 @@ public class FontFitButton extends Button {
                 lo = size; // too small
         }
         // Use lo so that we undershoot rather than overshoot
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, lo);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_SP, lo);
     }
 
     @Override

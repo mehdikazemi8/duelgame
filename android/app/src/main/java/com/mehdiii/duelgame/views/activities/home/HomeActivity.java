@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -21,6 +25,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFra
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +52,8 @@ public class HomeActivity extends ParentActivity {
     List<Fragment> childFragments;
 
 
+//    public DuelMusicPlayer musicPlayer;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
@@ -64,6 +71,11 @@ public class HomeActivity extends ParentActivity {
         PurchaseManager.init(HomeActivity.this, REQUEST_CODE_PURCHASE);
     }
 
+    ScoresDialog scoresDialog;
+    public void viewLevels(View view)
+    {
+        scoresDialog.show();
+    }
 
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -75,6 +87,8 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void configure() {
+        scoresDialog = new ScoresDialog(HomeActivity.this);
+
         createChildFragments();
 
         if (previous == null)

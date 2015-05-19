@@ -75,6 +75,12 @@ public class RankingFragment extends FlippableFragment {
         }
     }
 
+    private void setFocusInitialState()
+    {
+        isFocused[0] = true;
+        isFocused[1] = isFocused[2] = false;
+    }
+
     protected void configureControls() {
         focusedColor = getResources().getColor(R.color.yellow);
         notFocusedColor = getResources().getColor(R.color.yellow_light);
@@ -82,9 +88,7 @@ public class RankingFragment extends FlippableFragment {
         FontHelper.setKoodakFor(getActivity(), rankTitle[0], rankTitle[1], rankTitle[2]);
         rankTitle[1].setText(ProvinceManager.get(getActivity(), AuthManager.getCurrentUser().getProvince()));
 
-        isFocused[0] = true;
-        isFocused[1] = isFocused[1] = false;
-
+        setFocusInitialState();
         setBackColor();
     }
 
@@ -97,13 +101,12 @@ public class RankingFragment extends FlippableFragment {
 
         findControls(view);
         configureControls();
-
-//        ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[0], receiveWhat[0]);
     }
 
     @Override
     public void onBringToFront() {
         super.onBringToFront();
+        configureControls();
         ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[0], receiveWhat[0]);
     }
 }
