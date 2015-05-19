@@ -7,11 +7,13 @@
     <color name="azure_dark2">#759690</color>
     <color name="blue_dark">#485868</color>
     <color name="yellow">#F3C766</color>
+    <color name="golden_yellow">#E3D746</color>
     <color name="yellow_light">#d0bc77</color>
     <color name="gray">#717171</color>
     <color name="gray_light">#BBBBBB</color>
     <color name="orange">#EBFFFF</color>
     <color name="pink">#DC559B</color>
     <color name="green">#ff12be67</color>
+    <color name="purple">#AF35A5</color>
     <color name="red">#ffdc3d08</color>
 </resources>

@@ -9,16 +9,16 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -29,6 +29,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFra
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,13 @@ public class HomeActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Log.d("level", ""+ScoreHelper.getLevel(49));
+        Log.d("level", ""+ScoreHelper.getLevel(50));
+        Log.d("level", ""+ScoreHelper.getLevel(51));
+        Log.d("level", ""+ScoreHelper.getLevel(124));
+        Log.d("level", ""+ScoreHelper.getLevel(125));
+        Log.d("level", ""+ScoreHelper.getLevel(126));
+
 //        musicPlayer = new DuelMusicPlayer(HomeActivity.this, R.raw.music, true);
 //        musicPlayer.execute();
 
@@ -96,6 +104,11 @@ public class HomeActivity extends ParentActivity {
         bindService(new Intent("ir.cafebazaar.pardakht.InAppBillingService.BIND"), mServiceConn, Context.BIND_AUTO_CREATE);
     }
 
+    ScoresDialog scoresDialog;
+    public void viewLevels(View view)
+    {
+        scoresDialog.show();
+    }
 
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -107,6 +120,8 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void configure() {
+        scoresDialog = new ScoresDialog(HomeActivity.this);
+
         createChildFragments();
 
         if (previous == null)

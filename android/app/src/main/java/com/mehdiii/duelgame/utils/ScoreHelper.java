@@ -1,5 +1,9 @@
 package com.mehdiii.duelgame.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by MeHdi on 4/25/2015.
  */
@@ -8,14 +12,14 @@ public class ScoreHelper {
     static final int LEVEL_SIZE = 24;
 
     static Integer[] xpLevel = new Integer[]{
-            30, 60, 90,             // diplom
-            120, 150, 300,          // foghe diplom
-            375, 525, 600,          // lisans
-            750, 900, 1000,         // foghe lisans
-            1100, 1500, 1500,       // doctora
-            1500, 1500, 1500,       // ostadyar
-            1500, 2000, 2000,       // daneshyar
-            3500, 3500, 4000        // ostad
+            50, 100, 150,             // diplom
+            150, 250, 400,          // foghe diplom
+            500, 800, 1200,          // lisans
+            1500, 2000, 2500,         // foghe lisans
+            3500, 4500, 5500,       // doctora
+            7000, 8000, 9000,       // ostadyar
+            10000, 11000, 12000,       // daneshyar
+            15000, 20000, 40000        // ostad
             // full professor
     };
 
@@ -29,7 +33,7 @@ public class ScoreHelper {
             "استادیار",
             "دانشیار",
             "استاد",
-            "پروفسور تمام",
+            "پروفسور"
     };
 
     private static void load() {
@@ -54,7 +58,7 @@ public class ScoreHelper {
             else
                 return i + 1;
         }
-        return LEVEL_SIZE+1;
+        return LEVEL_SIZE + 1;
     }
 
     public static int getThisLevelPercentage(int score) {
@@ -68,7 +72,7 @@ public class ScoreHelper {
             if (score - xpLevel[i] > 0)
                 score -= xpLevel[i];
             else
-                return score*100/xpLevel[i];
+                return score * 100 / xpLevel[i];
         }
 
         // TODO last level it is always 50
@@ -89,5 +93,19 @@ public class ScoreHelper {
                 return strTitle[i];
         }
         return strTitle[8];
+    }
+
+    public static List<String> getTitles() {
+        return new ArrayList<String>(Arrays.asList(strTitle));
+    }
+
+    public static List<Integer> getLevelScores() {
+        return new ArrayList<Integer>(Arrays.asList(xpLevel));
+    }
+
+    public static List<Integer> getTitleScores() {
+        if (xpTitle == null)
+            load();
+        return new ArrayList<Integer>(Arrays.asList(xpTitle));
     }
 }

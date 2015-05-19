@@ -94,6 +94,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:contentDescription="avatar"
+                    android:onClick="viewLevels"
                     android:src="@drawable/av1" />
             </LinearLayout>
 
@@ -168,6 +169,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
+            android:onClick="viewLevels"
             android:text="دیپلم"
             android:textSize="@dimen/fontsize.normal" />
 
@@ -180,6 +182,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
+                android:onClick="viewLevels"
                 android:src="@drawable/star" />
 
             <TextView
@@ -196,6 +199,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:max="100"
+                android:onClick="viewLevels"
                 android:progress="20"
                 android:progressDrawable="@drawable/my_progress_bar" />
 
@@ -209,6 +213,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
+                android:onClick="viewLevels"
                 android:src="@drawable/star"
                 android:visibility="invisible" />
 
