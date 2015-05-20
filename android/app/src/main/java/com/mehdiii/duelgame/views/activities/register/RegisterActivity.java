@@ -179,10 +179,10 @@ public class RegisterActivity extends ParentActivity {
 
     public void chooseAvatar(View v) {
         AvatarSelectionDialog dialog = new AvatarSelectionDialog();
-        dialog.setOnCompleteListener(new OnCompleteListener() {
+        dialog.setOnCompleteListener( new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
-                setAvatar((int) data);
+                setAvatar((Integer) data);
             }
         });
         dialog.show(getSupportFragmentManager(), "DIALOG_AVATAR_CHOOSER");

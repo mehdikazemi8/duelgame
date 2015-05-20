@@ -14,6 +14,9 @@ import java.util.List;
  * Created by omid on 4/8/2015.
  */
 public class User extends BaseModel {
+    public User() {
+        this.setAvatar(1);
+    }
 
     @SerializedName("email")
     private String email;
