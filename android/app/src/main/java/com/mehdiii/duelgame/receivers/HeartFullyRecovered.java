@@ -39,10 +39,5 @@ public class HeartFullyRecovered extends BroadcastReceiver {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, mBuilder.build());
-//                    .addAction(R.drawable.icon, "Call", pIntent)
-//                    .addAction(R.drawable.icon, "More", pIntent)
-//                    .addAction(R.drawable.icon, "And more", pIntent).build();
-//        }
-
     }
 }

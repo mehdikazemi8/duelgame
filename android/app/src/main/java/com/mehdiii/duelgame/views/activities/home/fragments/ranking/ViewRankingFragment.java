@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.ranking;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,9 +27,25 @@ public class ViewRankingFragment extends Fragment {
     ListView listView;
     ProgressBar progressBar;
     RankingListAdapter adapter;
+    Activity activity = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.activity = null;
+    }
 
     private void bindListViewData(RankList list) {
-        adapter = new RankingListAdapter(getActivity(), R.layout.template_ranklist, list.getTop());
+        if (this.activity == null)
+            return;
+
+        adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, list.getTop());
         this.listView.setAdapter(adapter);
     }
 
@@ -64,7 +81,8 @@ public class ViewRankingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
     @Override

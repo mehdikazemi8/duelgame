@@ -74,5 +74,11 @@ public class GlobalPreferenceManager {
         return preferences.getBoolean(key, defaultValue);
     }
 
-
+    public static boolean remove(Context context, String key) {
+        SharedPreferences preferences = getPreference(context);
+        if (preferences == null)
+            return false;
+        preferences.edit().remove(key).apply();
+        return true;
+    }
 }

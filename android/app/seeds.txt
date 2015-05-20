@@ -25057,6 +25057,7 @@ com.mehdiii.duelgame.R$drawable: int ic_plusone_medium_off_client
 com.mehdiii.duelgame.R$drawable: int ic_plusone_small_off_client
 com.mehdiii.duelgame.R$drawable: int ic_plusone_standard_off_client
 com.mehdiii.duelgame.R$drawable: int ic_plusone_tall_off_client
+com.mehdiii.duelgame.R$drawable: int logo
 com.mehdiii.duelgame.R$drawable: int md_back_off
 com.mehdiii.duelgame.R$drawable: int md_back_on
 com.mehdiii.duelgame.R$drawable: int md_switch_thumb_disable
@@ -25543,6 +25544,7 @@ com.mehdiii.duelgame.R$string: int message_connection_unstable
 com.mehdiii.duelgame.R$string: int message_heart_is_low
 com.mehdiii.duelgame.R$string: int message_hearts_fully_refilled
 com.mehdiii.duelgame.R$string: int message_internet_is_not_available
+com.mehdiii.duelgame.R$string: int message_revisit_duel_konkoor
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
 com.mehdiii.duelgame.R$string: int message_settings_save_successful
 com.mehdiii.duelgame.R$string: int message_share
@@ -26215,6 +26217,7 @@ com.mehdiii.duelgame.managers.GlobalPreferenceManager: java.lang.String readStri
 com.mehdiii.duelgame.managers.GlobalPreferenceManager: int readInteger(android.content.Context,java.lang.String,int)
 com.mehdiii.duelgame.managers.GlobalPreferenceManager: long readLong(android.content.Context,java.lang.String,long)
 com.mehdiii.duelgame.managers.GlobalPreferenceManager: boolean readBoolean(android.content.Context,java.lang.String,boolean)
+com.mehdiii.duelgame.managers.GlobalPreferenceManager: boolean remove(android.content.Context,java.lang.String)
 com.mehdiii.duelgame.managers.HeartTracker
 com.mehdiii.duelgame.managers.HeartTracker: int COUNT_HEARTS_MAX
 com.mehdiii.duelgame.managers.HeartTracker: HeartTracker()
@@ -26574,6 +26577,11 @@ com.mehdiii.duelgame.receivers.OnBootCompletedReceiver
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: java.lang.String ACTION_NAME
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: OnBootCompletedReceiver()
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver: void onReceive(android.content.Context,android.content.Intent)
+com.mehdiii.duelgame.receivers.PokeDuelReceiver
+com.mehdiii.duelgame.receivers.PokeDuelReceiver: java.lang.String PREFERENCE_PREVIOUS_CHECK_IN
+com.mehdiii.duelgame.receivers.PokeDuelReceiver: java.lang.String PREFERENCE_POKE_SEED
+com.mehdiii.duelgame.receivers.PokeDuelReceiver: PokeDuelReceiver()
+com.mehdiii.duelgame.receivers.PokeDuelReceiver: void onReceive(android.content.Context,android.content.Intent)
 com.mehdiii.duelgame.utils.AvatarHelper
 com.mehdiii.duelgame.utils.AvatarHelper: AvatarHelper()
 com.mehdiii.duelgame.utils.AvatarHelper: android.graphics.Bitmap getBitmap(android.content.Context,int)

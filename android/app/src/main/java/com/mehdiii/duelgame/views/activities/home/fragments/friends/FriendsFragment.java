@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private Button buttonTellFriend;
     private ProgressBar progressBar;
 
+    Activity activity = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_friends, container, false);
@@ -66,10 +69,12 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
     @Override
@@ -86,16 +91,33 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private void configure() {
         buttonAddFriend.setOnClickListener(this);
         buttonTellFriend.setOnClickListener(this);
-        FontHelper.setKoodakFor(getActivity(), textViewCode, buttonAddFriend, buttonTellFriend);
+        if (this.activity != null)
+            FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend);
     }
 
     private void bindViewData() {
         User currentUser = AuthManager.getCurrentUser();
-        textViewCode.setText("کد شما " + currentUser.getId());
+        if (currentUser != null)
+            textViewCode.setText("کد شما " + currentUser.getId());
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.activity = null;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
     }
 
     private void bindListViewData(FriendList list) {
-        adapter = new FriendsListAdapter(getActivity(), R.layout.template_friends_list, list.getFriends());
+        if (activity == null)
+            return;
+        adapter = new FriendsListAdapter(this.activity, R.layout.template_friends_list, list.getFriends());
         adapter.setOnUserDecisionIsMade(onUserDecisionIsMadeListener);
         this.listView.setAdapter(adapter);
     }
@@ -105,7 +127,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
                 String.format(getResources().getString(R.string.message_share),
-                        "http://cafebazaar.ir/app/" + getActivity().getPackageName()));
+                        "http://cafebazaar.ir/app/" + this.activity.getPackageName()));
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
@@ -113,7 +135,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
         public void onDuel(Friend request) {
-            AlertDialog dialog = new AlertDialog(getActivity(), "به زودی این قابلیت اضافه خواهد شد.");
+            AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
             dialog.show();
         }
 
@@ -170,7 +192,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     });
 
     private void openAddFriendDialog() {
-        AddFriendDialog dialog = new AddFriendDialog(getActivity());
+        AddFriendDialog dialog = new AddFriendDialog(this.activity);
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
