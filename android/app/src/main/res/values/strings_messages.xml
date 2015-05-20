@@ -15,4 +15,5 @@
     <string name="message_internet_is_not_available">انگار به اینترنت متصل نیستید. لطفا بعد از اینکه وصل شدید دکمه زیر را بزنید.</string>
     <string name="message_connecting_to_server">"در حال اتصال به سرور.."</string>
     <string name="message_hearts_fully_refilled">قبلهایتان دوباره پر شدند!</string>
+    <string name="message_revisit_duel_konkoor">بزن بریم واسه یه دوئل!</string>
 </resources>

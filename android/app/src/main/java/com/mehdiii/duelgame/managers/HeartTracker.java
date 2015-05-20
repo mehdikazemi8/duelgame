@@ -193,9 +193,11 @@ public class HeartTracker {
     }
 
     public static void scheduleRefillTime(Context context, long time) {
-        Intent intent = new Intent(context, HeartFullyRecovered.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + time, pendingIntent);
+        if (time > 0) {
+            Intent intent = new Intent(context, HeartFullyRecovered.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + time, pendingIntent);
+        }
     }
 }

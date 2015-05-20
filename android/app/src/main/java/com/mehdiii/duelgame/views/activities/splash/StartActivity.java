@@ -19,10 +19,12 @@ import android.widget.RelativeLayout;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.receivers.PokeDuelReceiver;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -54,7 +56,7 @@ public class StartActivity extends ParentActivity {
         @Override
         public void onReceive(String json, CommandType type) {
 
-            if (CommandType.RECEIVE_LOGIN_INFO == type) {
+            if (CommandType.RECEIVE_LOGIN_INFO == type && !isFinishing()) {
                 final User user = BaseModel.deserialize(json, User.class);
                 if (user != null && user.getUpdateVersion() != null) {
                     displayUpdateDialog(user.getUpdateVersion(), new OnCompleteListener() {
@@ -80,6 +82,10 @@ public class StartActivity extends ParentActivity {
     }
 
     private void loginOrRegisterUser(User user) {
+
+        GlobalPreferenceManager.remove(this, PokeDuelReceiver.PREFERENCE_PREVIOUS_CHECK_IN);
+        GlobalPreferenceManager.remove(this, PokeDuelReceiver.PREFERENCE_POKE_SEED);
+
         isSent = false;
         stopCircles = true;
         if (user.getId() == null)
@@ -201,6 +207,7 @@ public class StartActivity extends ParentActivity {
         //    if previous check is displayed in less than ten minutes, do not interrupt user again.
         long now = Calendar.getInstance().getTime().getTime();
         if (lastCheck != 0 && lastCheck > now - 360000) {
+            onCompleteListener.onComplete(false);
             return;
         } else lastCheck = now;
 
@@ -219,9 +226,10 @@ public class StartActivity extends ParentActivity {
                     });
                     dialog.setCancelable(!force);
                     dialog.show();
-                }
+                } else onCompleteListener.onComplete(false);
             } catch (PackageManager.NameNotFoundException ex) {
                 ex.printStackTrace();
+                onCompleteListener.onComplete(false);
             }
         }
     }
