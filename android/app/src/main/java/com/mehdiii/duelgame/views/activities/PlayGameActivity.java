@@ -201,6 +201,8 @@ public class PlayGameActivity extends ParentActivity {
                 if (iAnsweredThisCorrect == true)
                     return;
 
+                hintAgainBtn.setClickable(false);
+                hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
             }
         };
@@ -273,6 +275,8 @@ public class PlayGameActivity extends ParentActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
+                                hintAgainBtn.setClickable(false);
+                                hintRemoveBtn.setClickable(false);
                                 changeButtonsClickableState(false);
                             }
 
@@ -343,6 +347,8 @@ public class PlayGameActivity extends ParentActivity {
         Log.d("--- user", "" + problemIndex);
 
         numberOfOptionChose += 1;
+        if(numberOfOptionChose == 2)
+            hintRemoveBtn.setClickable(false);
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
