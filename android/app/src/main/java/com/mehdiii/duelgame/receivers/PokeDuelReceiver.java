@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.receivers;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -18,7 +19,7 @@ import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 public class PokeDuelReceiver extends BroadcastReceiver {
     public static final String PREFERENCE_PREVIOUS_CHECK_IN = "preference_previous_check_in";
     public static final String PREFERENCE_POKE_SEED = "preference_poke_seed";
-//    static int ONE_DAY_IN_MILLS = 50000;
+    //    static int ONE_DAY_IN_MILLS = 50000;
     static int ONE_DAY_IN_MILLS = 86400000;
 
     @Override
@@ -27,6 +28,7 @@ public class PokeDuelReceiver extends BroadcastReceiver {
         if (!isConnected)
             return;
 
+
         long currentTime = System.currentTimeMillis();
         long previousTime = GlobalPreferenceManager.readLong(context, PREFERENCE_PREVIOUS_CHECK_IN, -1);
         int seed = GlobalPreferenceManager.readInteger(context, PREFERENCE_POKE_SEED, 2);
@@ -34,8 +36,7 @@ public class PokeDuelReceiver extends BroadcastReceiver {
         if (previousTime == -1) {
             // save current time
             GlobalPreferenceManager.writeLong(context, PREFERENCE_PREVIOUS_CHECK_IN, currentTime);
-
-            displayPokeNotification(context);
+//            displayPokeNotification(context);
             return;
         }
 
@@ -58,10 +59,12 @@ public class PokeDuelReceiver extends BroadcastReceiver {
                         .setSmallIcon(R.drawable.logo)
                         .setContentTitle(context.getResources().getString(R.string.app_name))
                         .setContentText(context.getResources().getString(R.string.message_revisit_duel_konkoor))
-                        .setContentIntent(pendingIntent);
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true);
 
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder.getNotification().flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify(0, mBuilder.build());
     }

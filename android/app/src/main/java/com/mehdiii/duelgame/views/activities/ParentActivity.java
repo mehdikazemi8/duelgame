@@ -50,14 +50,17 @@ public class ParentActivity extends ActionBarActivity {
 
     static void shuffleArray(List<String> ar) {
         for (int i = ar.size() - 1; i > 0; i--) {
-            int index = rand.nextInt(i + 1);
-            // Simple swap
+            int index = rand.nextInt(i) + 1;
             String a = ar.get(index);
             ar.set(index, ar.get(i));
             ar.set(i, a);
         }
-    }
 
+        int index = rand.nextInt(ar.size());
+        String a = ar.get(0);
+        ar.set(0, ar.get(index));
+        ar.set(index, a);
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

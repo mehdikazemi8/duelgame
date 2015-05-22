@@ -44502,43 +44502,43 @@ com.mehdiii.duelgame.models.User -> com.mehdiii.duelgame.models.User:
     com.mehdiii.duelgame.models.UpdateVersion updateVersion -> p
     com.mehdiii.duelgame.models.Rank rank -> q
     int timeToNextHeart -> r
-    54:54:int getTimeToNextHeart() -> getTimeToNextHeart
-    58:59:void setTimeToNextHeart(int) -> setTimeToNextHeart
-    62:63:void setRank(com.mehdiii.duelgame.models.Rank) -> setRank
-    66:66:com.mehdiii.duelgame.models.Rank getRank() -> getRank
-    70:70:com.mehdiii.duelgame.models.UpdateVersion getUpdateVersion() -> getUpdateVersion
-    74:75:void setUpdateVersion(com.mehdiii.duelgame.models.UpdateVersion) -> setUpdateVersion
-    78:78:int getGender() -> getGender
-    82:83:void setGender(int) -> setGender
-    87:87:java.lang.String getEmail() -> getEmail
-    91:92:void setEmail(java.lang.String) -> setEmail
-    95:95:java.lang.String getDeviceId() -> getDeviceId
-    99:100:void setDeviceId(java.lang.String) -> setDeviceId
-    103:103:int getProvince() -> getProvince
-    107:108:void setProvince(int) -> setProvince
-    111:111:int getAvatar() -> getAvatar
-    115:116:void setAvatar(int) -> setAvatar
-    119:119:java.lang.String getName() -> getName
-    123:124:void setName(java.lang.String) -> setName
-    127:127:int getLevel() -> getLevel
-    131:132:void setLevel(int) -> setLevel
-    135:135:int getDiamond() -> getDiamond
-    139:140:void setDiamond(int) -> setDiamond
-    143:144:void addDiamond(int) -> addDiamond
-    147:148:void decreaseDiamond(int) -> decreaseDiamond
-    151:151:java.lang.String getId() -> getId
-    155:156:void setId(java.lang.String) -> setId
-    167:167:int getScore() -> getScore
-    171:172:void setScore(int) -> setScore
-    175:175:int getHeart() -> getHeart
-    179:180:void setHeart(int) -> setHeart
-    183:183:java.util.List getPurchaseItems() -> getPurchaseItems
-    187:188:void setPurchaseItems(java.util.List) -> setPurchaseItems
-    191:191:boolean isExtremeHeart() -> isExtremeHeart
-    195:196:void setExtremeHeart(boolean) -> setExtremeHeart
-    199:199:int getScoreFactor() -> getScoreFactor
-    203:204:void setScoreFactor(int) -> setScoreFactor
-    207:213:void changeConfiguration(android.content.Context,int,int,boolean,int) -> changeConfiguration
+    57:57:int getTimeToNextHeart() -> getTimeToNextHeart
+    61:62:void setTimeToNextHeart(int) -> setTimeToNextHeart
+    65:66:void setRank(com.mehdiii.duelgame.models.Rank) -> setRank
+    69:69:com.mehdiii.duelgame.models.Rank getRank() -> getRank
+    73:73:com.mehdiii.duelgame.models.UpdateVersion getUpdateVersion() -> getUpdateVersion
+    77:78:void setUpdateVersion(com.mehdiii.duelgame.models.UpdateVersion) -> setUpdateVersion
+    81:81:int getGender() -> getGender
+    85:86:void setGender(int) -> setGender
+    90:90:java.lang.String getEmail() -> getEmail
+    94:95:void setEmail(java.lang.String) -> setEmail
+    98:98:java.lang.String getDeviceId() -> getDeviceId
+    102:103:void setDeviceId(java.lang.String) -> setDeviceId
+    106:106:int getProvince() -> getProvince
+    110:111:void setProvince(int) -> setProvince
+    114:114:int getAvatar() -> getAvatar
+    118:119:void setAvatar(int) -> setAvatar
+    122:122:java.lang.String getName() -> getName
+    126:127:void setName(java.lang.String) -> setName
+    130:130:int getLevel() -> getLevel
+    134:135:void setLevel(int) -> setLevel
+    138:138:int getDiamond() -> getDiamond
+    142:143:void setDiamond(int) -> setDiamond
+    146:147:void addDiamond(int) -> addDiamond
+    150:151:void decreaseDiamond(int) -> decreaseDiamond
+    154:154:java.lang.String getId() -> getId
+    158:159:void setId(java.lang.String) -> setId
+    170:170:int getScore() -> getScore
+    174:175:void setScore(int) -> setScore
+    178:178:int getHeart() -> getHeart
+    182:183:void setHeart(int) -> setHeart
+    186:186:java.util.List getPurchaseItems() -> getPurchaseItems
+    190:191:void setPurchaseItems(java.util.List) -> setPurchaseItems
+    194:194:boolean isExtremeHeart() -> isExtremeHeart
+    198:199:void setExtremeHeart(boolean) -> setExtremeHeart
+    202:202:int getScoreFactor() -> getScoreFactor
+    206:207:void setScoreFactor(int) -> setScoreFactor
+    210:216:void changeConfiguration(android.content.Context,int,int,boolean,int) -> changeConfiguration
 com.mehdiii.duelgame.models.UserForRanklist -> com.mehdiii.duelgame.models.UserForRanklist:
     int placeInRank -> c
     14:14:int getPlaceInRank() -> getPlaceInRank
@@ -44663,8 +44663,8 @@ com.mehdiii.duelgame.receivers.PokeDuelReceiver -> com.mehdiii.duelgame.receiver
     java.lang.String PREFERENCE_PREVIOUS_CHECK_IN -> PREFERENCE_PREVIOUS_CHECK_IN
     java.lang.String PREFERENCE_POKE_SEED -> PREFERENCE_POKE_SEED
     int ONE_DAY_IN_MILLS -> a
-    26:50:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-    53:67:void displayPokeNotification(android.content.Context) -> a
+    27:51:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    54:70:void displayPokeNotification(android.content.Context) -> a
 com.mehdiii.duelgame.utils.AvatarHelper -> com.mehdiii.duelgame.utils.AvatarHelper:
     int[] avatars -> a
     17:17:android.graphics.Bitmap getBitmap(android.content.Context,int) -> getBitmap
@@ -45055,12 +45055,12 @@ com.mehdiii.duelgame.views.activities.ParentActivity -> com.mehdiii.duelgame.vie
     int userPoints -> E
     int opponentPoints -> F
     android.app.ProgressDialog dialog -> G
-    52:59:void shuffleArray(java.util.List) -> a
-    63:64:void onCreate(android.os.Bundle) -> onCreate
-    68:71:void onResume() -> onResume
-    75:78:void onPause() -> onPause
-    83:103:void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged) -> onEvent
-    107:107:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
+    52:63:void shuffleArray(java.util.List) -> a
+    66:67:void onCreate(android.os.Bundle) -> onCreate
+    71:74:void onResume() -> onResume
+    78:81:void onPause() -> onPause
+    86:106:void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged) -> onEvent
+    110:110:boolean showConnectingToServerDialog() -> showConnectingToServerDialog
 com.mehdiii.duelgame.views.activities.ParentActivity$1 -> bvb:
     com.mehdiii.duelgame.views.activities.ParentActivity this$0 -> a
     34:40:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
@@ -45273,39 +45273,42 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment -> 
     android.widget.ListView listView -> a
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter adapter -> b
     android.widget.LinearLayout containerHeader -> c
-    android.widget.TextView textViewCode -> e
-    android.widget.Button buttonAddFriend -> f
-    android.widget.Button buttonTellFriend -> g
-    android.widget.ProgressBar progressBar -> h
-    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMadeListener -> d
-    android.content.BroadcastReceiver broadcastReceiver -> i
-    48:48:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    53:58:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    61:67:void find(android.view.View) -> a
-    71:73:void onResume() -> onResume
-    77:79:void onBringToFront() -> onBringToFront
-    83:84:void onPause() -> onPause
-    87:90:void configure() -> l
-    93:96:void bindViewData() -> m
-    99:102:void bindListViewData(com.mehdiii.duelgame.models.FriendList) -> a
-    105:112:void tellFriends() -> n
-    138:146:void onClick(android.view.View) -> onClick
-    149:157:void sendFetchRequest() -> o
-    174:182:void openAddFriendDialog() -> p
-    35:35:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
-    35:35:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
-    35:35:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
+    android.widget.TextView textViewCode -> f
+    android.widget.Button buttonAddFriend -> g
+    android.widget.Button buttonTellFriend -> h
+    android.widget.ProgressBar progressBar -> i
+    android.app.Activity activity -> d
+    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMadeListener -> e
+    android.content.BroadcastReceiver broadcastReceiver -> aj
+    51:51:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    56:61:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    64:70:void find(android.view.View) -> a
+    75:78:void onResume() -> onResume
+    82:84:void onBringToFront() -> onBringToFront
+    88:89:void onPause() -> onPause
+    92:96:void configure() -> l
+    99:102:void bindViewData() -> m
+    107:109:void onDetach() -> onDetach
+    113:115:void onAttach(android.app.Activity) -> onAttach
+    118:123:void bindListViewData(com.mehdiii.duelgame.models.FriendList) -> a
+    126:133:void tellFriends() -> n
+    159:167:void onClick(android.view.View) -> onClick
+    170:178:void sendFetchRequest() -> o
+    195:203:void openAddFriendDialog() -> p
+    36:36:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
+    36:36:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
+    36:36:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvq:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    117:119:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
-    123:126:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
-    130:133:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
+    138:140:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
+    144:147:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
+    151:154:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvr:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    162:170:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    183:191:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvs:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
-    178:179:void onComplete(java.lang.Object) -> onComplete
+    199:200:void onComplete(java.lang.Object) -> onComplete
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMade -> b
     java.util.List friends -> a
@@ -45444,18 +45447,21 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment
     android.widget.ListView listView -> a
     android.widget.ProgressBar progressBar -> b
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter adapter -> c
-    android.content.BroadcastReceiver broadcastReceiver -> d
-    31:33:void bindListViewData(com.mehdiii.duelgame.models.responses.RankList) -> a
-    36:46:void sendFetchRequest(com.mehdiii.duelgame.models.base.CommandType) -> a
-    66:68:void onResume() -> onResume
-    74:74:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    78:80:void find(android.view.View) -> a
-    84:87:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    90:94:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
-    24:24:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
+    android.app.Activity activity -> d
+    android.content.BroadcastReceiver broadcastReceiver -> e
+    34:36:void onAttach(android.app.Activity) -> onAttach
+    40:42:void onDetach() -> onDetach
+    45:50:void bindListViewData(com.mehdiii.duelgame.models.responses.RankList) -> a
+    53:63:void sendFetchRequest(com.mehdiii.duelgame.models.base.CommandType) -> a
+    83:86:void onResume() -> onResume
+    92:92:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    96:98:void find(android.view.View) -> a
+    102:105:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    108:112:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
+    25:25:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bvw:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment this$0 -> a
-    51:61:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    68:78:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -> com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment:
     java.lang.String PREFERENCE_VOICE -> PREFERENCE_VOICE
     android.widget.EditText usernameEditText -> e

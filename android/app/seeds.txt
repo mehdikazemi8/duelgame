@@ -26851,6 +26851,8 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: vo
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onResume()
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onBringToFront()
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onPause()
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onDetach()
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onAttach(android.app.Activity)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment: void onClick(android.view.View)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter: FriendsListAdapter(android.content.Context,int,java.util.List)
@@ -26900,6 +26902,8 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter$
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter$ViewHolder: RankingListAdapter$ViewHolder(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: ViewRankingFragment()
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: void onAttach(android.app.Activity)
+com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: void onDetach()
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: void onResume()
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment: void onViewCreated(android.view.View,android.os.Bundle)

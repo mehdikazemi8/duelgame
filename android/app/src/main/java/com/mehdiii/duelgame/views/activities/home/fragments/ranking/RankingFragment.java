@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.ranking;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,20 @@ public class RankingFragment extends FlippableFragment {
     TextView[] rankTitle = new TextView[3];
     CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
     CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
+
+    Activity activity = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.activity = null;
+    }
 
     @Override
     public void onResume() {
@@ -75,8 +90,7 @@ public class RankingFragment extends FlippableFragment {
         }
     }
 
-    private void setFocusInitialState()
-    {
+    private void setFocusInitialState() {
         isFocused[0] = true;
         isFocused[1] = isFocused[2] = false;
     }
@@ -85,8 +99,8 @@ public class RankingFragment extends FlippableFragment {
         focusedColor = getResources().getColor(R.color.yellow);
         notFocusedColor = getResources().getColor(R.color.yellow_light);
 
-        FontHelper.setKoodakFor(getActivity(), rankTitle[0], rankTitle[1], rankTitle[2]);
-        rankTitle[1].setText(ProvinceManager.get(getActivity(), AuthManager.getCurrentUser().getProvince()));
+        FontHelper.setKoodakFor(this.activity, rankTitle[0], rankTitle[1], rankTitle[2]);
+        rankTitle[1].setText(ProvinceManager.get(this.activity, AuthManager.getCurrentUser().getProvince()));
 
         setFocusInitialState();
         setBackColor();
@@ -96,7 +110,7 @@ public class RankingFragment extends FlippableFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewRankingFragment = Fragment.instantiate(getActivity(), ViewRankingFragment.class.getName(), null);
+        viewRankingFragment = Fragment.instantiate(this.activity, ViewRankingFragment.class.getName(), null);
         getFragmentManager().beginTransaction().add(R.id.view_ranking_fragment_holder, viewRankingFragment).commit();
 
         findControls(view);
