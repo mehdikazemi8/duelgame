@@ -15,6 +15,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.DuelOpponentRequest;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -31,6 +32,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
@@ -239,6 +241,15 @@ public class HomeActivity extends ParentActivity {
                 break;
         }
     }
+
+    public void onEvent(ChallengeRequestDecision challengeRequestDecision)
+    {
+        Intent i = new Intent(HomeActivity.this, WaitingActivity.class);
+        i.putExtra("user_number", challengeRequestDecision.getUserNumber());
+        i.putExtra("category", challengeRequestDecision.getCategory());
+        startActivity(i);
+    }
+
 
     public void onEvent(ChangePage change) {
         viewPager.setCurrentItem(change.getPage());

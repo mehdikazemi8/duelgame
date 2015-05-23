@@ -55,6 +55,8 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_OPPONENT_DATA, "YOI");
         map.put(CommandType.SEND_WANNA_CHALLENGE, "WC");
         map.put(CommandType.RECEIVE_CHALLENGE_REQUEST, "CR");
+        map.put(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST, "ACR");
+        map.put(CommandType.RECEIVE_CHALLENGE_REQUEST_DECISION, "CRD");
     }
 
     public String getCommandCode(CommandType type) {

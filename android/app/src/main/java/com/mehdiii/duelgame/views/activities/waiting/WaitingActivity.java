@@ -17,18 +17,23 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
+import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.OpponentCollection;
 import com.mehdiii.duelgame.models.ProblemCollection;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaChallenge;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.PlayGameActivity;
 import com.mehdiii.duelgame.views.activities.waiting.fragments.FindingOpponentFragment;
 import com.mehdiii.duelgame.views.activities.waiting.fragments.UserFragment;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -93,9 +98,45 @@ public class WaitingActivity extends ParentActivity {
                 case RECEIVE_GAME_DATA:
                     receiveGameDataListener(json);
                     break;
+                case RECEIVE_CHALLENGE_REQUEST_DECISION:
+                    receiveChallengeRequestDecisionListener(json);
+                    break;
             }
         }
     });
+
+    private void receiveChallengeRequestDecisionListener(String json)
+    {
+        ChallengeRequestDecision decision = BaseModel.deserialize(json, ChallengeRequestDecision.class);
+        String message = "";
+
+        switch (decision.getDecision())
+        {
+            case 0:
+                message = getResources().getString(R.string.messege_duel_request_denied);
+                break;
+            case 1:
+                break;
+            case 2:
+                message = getResources().getString(R.string.message_duel_request_playing);
+                break;
+            case 3:
+                message = getResources().getString(R.string.message_duel_request_offline);
+                break;
+        }
+
+        AlertDialog dialog = new AlertDialog(WaitingActivity.this, message);
+        dialog.setCancelable(false);
+
+        dialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                finish();
+            }
+        });
+
+        dialog.show();
+    }
 
     private void receiveOpponentDataListener(String json) {
         OpponentCollection collection = BaseModel.deserialize(json, OpponentCollection.class);
@@ -156,6 +197,14 @@ public class WaitingActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
+
+        String userNumber = getIntent().getExtras().getString("user_number", null);
+        int category = getIntent().getExtras().getInt("category", -1);
+        if(userNumber != null)
+        {
+            WannaChallenge challenge = new WannaChallenge(userNumber, category, null);
+            DuelApp.getInstance().sendMessage(challenge.serialize());
+        }
 
         waitingAgainst = (TextView) findViewById(R.id.waiting_against);
 

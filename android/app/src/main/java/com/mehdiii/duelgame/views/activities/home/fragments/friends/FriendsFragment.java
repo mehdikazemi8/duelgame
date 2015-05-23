@@ -29,6 +29,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
@@ -138,14 +139,22 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
         public void onDuel(final Friend request) {
-            DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
+            final DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
             dialog.setOnResult(new DuelFriendDialog.OnResult() {
                 @Override
                 public void getChallenge(WannaChallenge challenge) {
                     challenge.setUserNumber(request.getId());
                     DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+
+                    Intent i = new Intent(getActivity(), WaitingActivity.class);
+                    i.putExtra("user_number", request.getId());
+                    i.putExtra("category", challenge.getCategory());
+                    startActivity(i);
+                    dialog.dismiss();
                 }
             });
+
+
             dialog.show();
         }
 

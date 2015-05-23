@@ -9,13 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.ProvinceManager;
+import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.DuelOpponentRequest;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Omid on 5/23/2015.
@@ -76,12 +81,23 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
 
     @Override
     public void onClick(View view) {
+
+        ChallengeRequestDecision requestDecision = new ChallengeRequestDecision(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST);
+        requestDecision.setUserNumber(this.data.getId());
+
         switch (view.getId()) {
             case R.id.button_cancel:
+                requestDecision.setDecision(0);
                 break;
             case R.id.button_okay:
+                requestDecision.setDecision(1);
+                requestDecision.setCategory(data.getCategory());
+                EventBus.getDefault().post(requestDecision);
                 break;
         }
+
+        dismiss();
+        DuelApp.getInstance().sendMessage(requestDecision.serialize());
     }
 
 }

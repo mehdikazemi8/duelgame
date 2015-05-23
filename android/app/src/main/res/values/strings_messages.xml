@@ -17,5 +17,7 @@
     <string name="message_hearts_fully_refilled">قبلهایتان دوباره پر شدند!</string>
     <string name="message_revisit_duel_konkoor">بزن بریم واسه یه دوئل!</string>
     <string name="message_duel_with_friends_default">میای باهم دوئل کنیم؟</string>
-    <string name="message_">میای باهم دوئل کنیم؟</string>
+    <string name="messege_duel_request_denied">ایشون الان نمی خواد باهات بازی کنه!</string>
+    <string name="message_duel_request_offline">ایشون الان توی بازی نیستن!</string>
+    <string name="message_duel_request_playing">ایشون در حال بازی کردن با فرد دیگری هستند!</string>
 </resources>
