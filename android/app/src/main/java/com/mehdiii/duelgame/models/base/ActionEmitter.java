@@ -53,6 +53,8 @@ public class ActionEmitter {
         map.put(CommandType.SEND_USER_LOGIN_REQUEST, "UL");
         map.put(CommandType.SEND_READY_TO_PLAY, "RTP");
         map.put(CommandType.RECEIVE_OPPONENT_DATA, "YOI");
+        map.put(CommandType.SEND_WANNA_CHALLENGE, "WC");
+        map.put(CommandType.RECEIVE_CHALLENGE_REQUEST, "CR");
     }
 
     public String getCommandCode(CommandType type) {

@@ -34,7 +34,7 @@ public class DuelApp extends Application {
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://duelgame.ir:9000";
+    static protected String wsuri = "ws://duelgame.ir:9001";
 
     @Override
     public void onCreate() {

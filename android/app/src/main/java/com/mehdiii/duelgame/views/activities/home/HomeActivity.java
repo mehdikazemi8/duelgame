@@ -1,19 +1,27 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.DuelOpponentRequest;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -24,6 +32,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragm
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
@@ -72,8 +81,8 @@ public class HomeActivity extends ParentActivity {
     }
 
     ScoresDialog scoresDialog;
-    public void viewLevels(View view)
-    {
+
+    public void viewLevels(View view) {
         scoresDialog.show();
     }
 
@@ -138,7 +147,8 @@ public class HomeActivity extends ParentActivity {
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
 
         @Override
@@ -233,4 +243,29 @@ public class HomeActivity extends ParentActivity {
     public void onEvent(ChangePage change) {
         viewPager.setCurrentItem(change.getPage());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
+                DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
+                AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(HomeActivity.this, request);
+                dialog.setCancelable(false);
+                dialog.show();
+
+            }
+        }
+    });
 }

@@ -99,6 +99,21 @@
         <item>#d35400</item>
     </string-array>
 
+    <string-array name="categories_values">
+        <item>انتخاب درس</item>
+        <item>ادبیات</item>
+        <item>عربی</item>
+        <item>دین و زندگی</item>
+        <item>زبان</item>
+    </string-array>
+    <string-array name="categories_keys">
+        <item>-1</item>
+        <item>10001</item>
+        <item>10002</item>
+        <item>10003</item>
+        <item>10004</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

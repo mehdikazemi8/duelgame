@@ -21,6 +21,8 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaChallenge;
+import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -29,6 +31,7 @@ import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 
 /**
  * Created by omid on 4/5/2015.
@@ -134,8 +137,15 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
-        public void onDuel(Friend request) {
-            AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+        public void onDuel(final Friend request) {
+            DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
+            dialog.setOnResult(new DuelFriendDialog.OnResult() {
+                @Override
+                public void getChallenge(WannaChallenge challenge) {
+                    challenge.setUserNumber(request.getId());
+                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+                }
+            });
             dialog.show();
         }
 
