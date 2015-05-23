@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
@@ -21,6 +22,8 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     Button confirmButton;
     Button cancelButton;
     String captionText;
+    ImageView diamondImageView;
+    boolean showDiamond;
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
         this.onCompleteListener = onCompleteListener;
@@ -29,6 +32,12 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     public ConfirmDialog(Context context, String captionText) {
         super(context);
         this.captionText = captionText;
+    }
+
+    public ConfirmDialog(Context context, String captionText, boolean showDiamond) {
+        super(context);
+        this.captionText = captionText;
+        this.showDiamond = showDiamond;
     }
 
     @Override
@@ -42,12 +51,15 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
 
         if (captionText != null)
             this.captionTextView.setText(captionText);
+        if (showDiamond)
+            diamondImageView.setVisibility(View.VISIBLE);
     }
 
     private void find() {
         captionTextView = (TextView) findViewById(R.id.textView_caption);
         cancelButton = (Button) findViewById(R.id.button_cancel);
         confirmButton = (Button) findViewById(R.id.button_confirm);
+        diamondImageView = (ImageView) findViewById(R.id.confirm_dialog_diamond);
     }
 
     private void configure() {
