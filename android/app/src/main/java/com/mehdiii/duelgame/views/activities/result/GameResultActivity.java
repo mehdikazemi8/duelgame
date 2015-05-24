@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame.views.activities;
+package com.mehdiii.duelgame.views.activities.result;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -30,6 +30,7 @@ import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.AppRater;

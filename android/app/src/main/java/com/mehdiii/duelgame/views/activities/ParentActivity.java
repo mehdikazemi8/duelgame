@@ -41,11 +41,11 @@ public class ParentActivity extends ActionBarActivity {
     });
 
     protected static Random rand = new Random();
-    static String category;
+    protected static String category;
     static int NUMBER_OF_QUESTIONS = 6;
     protected static List<Question> questionsToAsk = new ArrayList<>();
-    static int userPoints;
-    static int opponentPoints;
+    protected static int userPoints;
+    protected static int opponentPoints;
     static final int NUMBER_OF_AVATARS = 6;
 
     static void shuffleArray(List<String> ar) {

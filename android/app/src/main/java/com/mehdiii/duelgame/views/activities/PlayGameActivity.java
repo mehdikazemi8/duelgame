@@ -42,6 +42,7 @@ import com.mehdiii.duelgame.utils.DuelMusicPlayer;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.result.GameResultActivity;
 import com.mehdiii.duelgame.views.custom.FontFitButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
@@ -201,7 +202,9 @@ public class PlayGameActivity extends ParentActivity {
                 if (iAnsweredThisCorrect == true)
                     return;
 
-                chooseAgainDialog.dismiss();
+                if(chooseAgainDialog != null && chooseAgainDialog.isShowing())
+                    chooseAgainDialog.dismiss();
+                
                 hintAgainBtn.setClickable(false);
                 hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
