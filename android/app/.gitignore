@@ -1,6 +1,5 @@
 /build
 /.idea/**
-/build.gradle
 
 # built application files
 *.apk
