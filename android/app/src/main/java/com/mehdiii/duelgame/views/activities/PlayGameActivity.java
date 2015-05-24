@@ -201,6 +201,9 @@ public class PlayGameActivity extends ParentActivity {
                 if (iAnsweredThisCorrect == true)
                     return;
 
+                chooseAgainDialog.dismiss();
+                hintAgainBtn.setClickable(false);
+                hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
             }
         };
@@ -273,6 +276,8 @@ public class PlayGameActivity extends ParentActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
+                                hintAgainBtn.setClickable(false);
+                                hintRemoveBtn.setClickable(false);
                                 changeButtonsClickableState(false);
                             }
 
@@ -295,6 +300,21 @@ public class PlayGameActivity extends ParentActivity {
             }
             fadeIn.start();
             idx++;
+        }
+    }
+
+    private void showDialogIfNecessary() {
+        if (numberOfOptionChose == 1) {
+            chooseAgainDialog = new ConfirmDialog(PlayGameActivity.this, "انتخاب مجدد 15 الماس", true);
+
+            chooseAgainDialog.setOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(Object data) {
+                    if ((Boolean) data)
+                        hintAgainMethod(new View(PlayGameActivity.this));
+                }
+            });
+            chooseAgainDialog.show();
         }
     }
 
@@ -335,6 +355,7 @@ public class PlayGameActivity extends ParentActivity {
         collectedDiamondGroup.startAnimation(all);
     }
 
+
     public void answered(View v) {
         if (iAnsweredThisTime != -1) {
             return;
@@ -343,6 +364,8 @@ public class PlayGameActivity extends ParentActivity {
         Log.d("--- user", "" + problemIndex);
 
         numberOfOptionChose += 1;
+        if (numberOfOptionChose == 2)
+            hintRemoveBtn.setClickable(false);
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
 
@@ -375,6 +398,8 @@ public class PlayGameActivity extends ParentActivity {
             hintAgainBtn.setClickable(false);
             hintRemoveBtn.setClickable(false);
         } else {
+            showDialogIfNecessary();
+
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
             userPoints += -1;
 
@@ -479,6 +504,8 @@ public class PlayGameActivity extends ParentActivity {
     private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
     DuelMusicPlayer musicPlayer;
+
+    ConfirmDialog chooseAgainDialog = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

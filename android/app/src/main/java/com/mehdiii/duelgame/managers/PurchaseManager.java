@@ -25,6 +25,7 @@ import com.mehdiii.duelgame.utils.Purchase;
 
 import org.json.JSONException;
 
+import java.lang.NullPointerException;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -273,9 +274,18 @@ public class PurchaseManager {
     }
 
     private void sendPurchaseIntentToBazaar(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
-        if (currentPurchase != null)
-            helper.launchPurchaseFlow(activity, currentPurchase.getSku(), RC_REQUEST,
-                    mPurchaseFinishedListener, purchaseDone.getPurchaseId());
+        if (currentPurchase != null) {
+            if (helper != null)
+                helper.flagEndAsync();
+
+            try {
+                helper.launchPurchaseFlow(activity, currentPurchase.getSku(), RC_REQUEST,
+                        mPurchaseFinishedListener, purchaseDone.getPurchaseId());
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
+            }
+
+        }
     }
 
 

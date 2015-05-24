@@ -5,11 +5,24 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textView_caption"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right|top" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/confirm_dialog_diamond"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/diamond"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView_caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|top" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

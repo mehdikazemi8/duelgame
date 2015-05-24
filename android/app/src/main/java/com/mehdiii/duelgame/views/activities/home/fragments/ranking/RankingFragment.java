@@ -96,8 +96,10 @@ public class RankingFragment extends FlippableFragment {
     }
 
     protected void configureControls() {
-        focusedColor = getResources().getColor(R.color.yellow);
-        notFocusedColor = getResources().getColor(R.color.yellow_light);
+        if (this.activity == null)
+            return;
+        focusedColor = this.activity.getResources().getColor(R.color.yellow);
+        notFocusedColor = this.activity.getResources().getColor(R.color.yellow_light);
 
         FontHelper.setKoodakFor(this.activity, rankTitle[0], rankTitle[1], rankTitle[2]);
         rankTitle[1].setText(ProvinceManager.get(this.activity, AuthManager.getCurrentUser().getProvince()));
