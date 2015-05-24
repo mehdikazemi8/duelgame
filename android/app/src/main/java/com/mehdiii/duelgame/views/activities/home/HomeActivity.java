@@ -275,7 +275,6 @@ public class HomeActivity extends ParentActivity {
                 AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(HomeActivity.this, request);
                 dialog.setCancelable(false);
                 dialog.show();
-
             }
         }
     });

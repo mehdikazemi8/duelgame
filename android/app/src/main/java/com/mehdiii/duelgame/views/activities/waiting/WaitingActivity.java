@@ -105,13 +105,11 @@ public class WaitingActivity extends ParentActivity {
         }
     });
 
-    private void receiveChallengeRequestDecisionListener(String json)
-    {
+    private void receiveChallengeRequestDecisionListener(String json) {
         ChallengeRequestDecision decision = BaseModel.deserialize(json, ChallengeRequestDecision.class);
         String message = "";
 
-        switch (decision.getDecision())
-        {
+        switch (decision.getDecision()) {
             case 0:
                 message = getResources().getString(R.string.messege_duel_request_denied);
                 break;
@@ -200,16 +198,14 @@ public class WaitingActivity extends ParentActivity {
 
         String userNumber = getIntent().getExtras().getString("user_number", null);
         int category = getIntent().getExtras().getInt("category", -1);
-        if(userNumber != null)
-        {
+        if (userNumber != null) {
             WannaChallenge challenge = new WannaChallenge(userNumber, category, null);
-            DuelApp.getInstance().sendMessage(challenge.serialize());
+            DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_PLAY));
         }
 
         waitingAgainst = (TextView) findViewById(R.id.waiting_against);
 
         hasLeft = false;
-        if ( )
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
