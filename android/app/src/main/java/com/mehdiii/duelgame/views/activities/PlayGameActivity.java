@@ -96,6 +96,8 @@ public class PlayGameActivity extends ParentActivity {
 
     ProgressBar myProgress, opProgress;
 
+    ArrayList<Integer> correctOptionsArrayList = new ArrayList<Integer>();
+
     private final int HINT_AGAIN_COST = 15;
     private final int HINT_REMOVE_COST = 10;
 
@@ -185,6 +187,8 @@ public class PlayGameActivity extends ParentActivity {
         else
             correctOption = 3;
 
+        correctOptionsArrayList.add(correctOption);
+
         setButton(option0Btn, opts.get(0));
         setButton(option1Btn, opts.get(1));
         setButton(option2Btn, opts.get(2));
@@ -202,9 +206,12 @@ public class PlayGameActivity extends ParentActivity {
                 if (iAnsweredThisCorrect == true)
                     return;
 
+                /*
+                If the dialog is created at all and it is showing then we dismiss it
+                */
                 if(chooseAgainDialog != null && chooseAgainDialog.isShowing())
                     chooseAgainDialog.dismiss();
-                
+
                 hintAgainBtn.setClickable(false);
                 hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
@@ -800,6 +807,9 @@ public class PlayGameActivity extends ParentActivity {
                     i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
                     i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
                     i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
+
+                    i.putIntegerArrayListExtra(GameResultActivity.ARGUMENT_CORRECT_OPTIONS, correctOptionsArrayList);
+
                     startActivity(i);
                     finish();
                 } else {

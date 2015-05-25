@@ -35,6 +35,7 @@ import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
+import com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +49,7 @@ public class GameResultActivity extends ParentActivity {
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
     public static final String ARGUMENT_DIAMOND = "collected_diamond";
     public static final String ARGUMENT_RESULT_INFO = "argument_result_info";
+    public static final String ARGUMENT_CORRECT_OPTIONS = "argument_correct_options";
 
     User opponentUser;
 
@@ -59,6 +61,7 @@ public class GameResultActivity extends ParentActivity {
     int WIN, LOSE;
     MediaPlayer myPlayer;
     ArrayList<ObjectAnimator> allAnimations;
+    ArrayList<Integer> correctOptionsArray = new ArrayList<Integer>();
 
     private TextView gameResultStatus;
     private ImageView opponentAvatar;
@@ -465,6 +468,7 @@ public class GameResultActivity extends ParentActivity {
         String json = params.getString(ARGUMENT_OPPONENT, "");
         resultInfo = params.getString(ARGUMENT_RESULT_INFO, "");
         collectedDiamond = params.getInt(ARGUMENT_DIAMOND, 0);
+        correctOptionsArray = params.getIntegerArrayList(ARGUMENT_CORRECT_OPTIONS);
 
         if (!json.isEmpty()) {
             opponentUser = BaseModel.deserialize(json, User.class);
@@ -501,5 +505,10 @@ public class GameResultActivity extends ParentActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void reviewQuestions(View view) {
+        ReviewQuestionsDialog dialog = new ReviewQuestionsDialog();
+        dialog.show(getFragmentManager(), "DIALOG_REVIEW_QUESTIONS");
     }
 }
