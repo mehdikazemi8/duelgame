@@ -109,6 +109,9 @@ public class WaitingActivity extends ParentActivity {
         ChallengeRequestDecision decision = BaseModel.deserialize(json, ChallengeRequestDecision.class);
         String message = "";
 
+        if (decision == null)
+            return;
+
         switch (decision.getDecision()) {
             case 0:
                 message = getResources().getString(R.string.messege_duel_request_denied);
@@ -122,18 +125,19 @@ public class WaitingActivity extends ParentActivity {
                 message = getResources().getString(R.string.message_duel_request_offline);
                 break;
         }
+        if (decision.getDecision() != 1) {
+            AlertDialog dialog = new AlertDialog(WaitingActivity.this, message);
+            dialog.setCancelable(false);
 
-        AlertDialog dialog = new AlertDialog(WaitingActivity.this, message);
-        dialog.setCancelable(false);
+            dialog.setOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(Object data) {
+                    finish();
+                }
+            });
 
-        dialog.setOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(Object data) {
-                finish();
-            }
-        });
-
-        dialog.show();
+            dialog.show();
+        }
     }
 
     private void receiveOpponentDataListener(String json) {
@@ -196,11 +200,13 @@ public class WaitingActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
 
-        String userNumber = getIntent().getExtras().getString("user_number", null);
-        int category = getIntent().getExtras().getInt("category", -1);
-        if (userNumber != null) {
-            WannaChallenge challenge = new WannaChallenge(userNumber, category, null);
-            DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_PLAY));
+        if (getIntent().getExtras() != null) {
+            String userNumber = getIntent().getExtras().getString("user_number", null);
+            int category = getIntent().getExtras().getInt("category", -1);
+            if (userNumber != null) {
+                WannaChallenge challenge = new WannaChallenge(userNumber, category, null);
+                DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_PLAY));
+            }
         }
 
         waitingAgainst = (TextView) findViewById(R.id.waiting_against);
