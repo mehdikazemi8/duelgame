@@ -85,7 +85,7 @@ public class ReviewQuestionsDialog extends android.support.v4.app.DialogFragment
         pagerAdapter = new QuestionSliderAdapter(getChildFragmentManager(), ParentActivity.NUMBER_OF_QUESTIONS, getArguments().getIntegerArrayList(GameResultActivity.ARGUMENT_CORRECT_OPTIONS));
         viewPager.setAdapter(pagerAdapter);
 
-        viewPager.setOffscreenPageLimit(6);
+        viewPager.setOffscreenPageLimit(ParentActivity.NUMBER_OF_QUESTIONS);
         indicator.setViewPager(viewPager);
     }
 }

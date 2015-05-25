@@ -38,16 +38,9 @@ public class QuestionSliderAdapter extends FragmentStatePagerAdapter {
 
         ShowQuestionFragment fragment = new ShowQuestionFragment();
         Bundle bundle = new Bundle();
-
-        ArrayList<String> tmp = new ArrayList<String>();
-        tmp.add("aaa");
-        tmp.add("bbb");
-        tmp.add("ccc");
-        tmp.add("ddd");
-
         bundle.putStringArrayList(ShowQuestionFragment.ARGUMENT_OPTIONS, ParentActivity.questionsToAsk.get(position).getOptions());
         bundle.putString(ShowQuestionFragment.ARGUMENT_STATEMENT, ParentActivity.questionsToAsk.get(position).getQuestionText());
-        bundle.putInt(ShowQuestionFragment.ARGUMENT_CORRECT_OPTION, position%4);
+        bundle.putInt(ShowQuestionFragment.ARGUMENT_CORRECT_OPTION, correctOptions.get(position));
         fragment.setArguments(bundle);
 
         return fragment;
