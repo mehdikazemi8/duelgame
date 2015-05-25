@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/game_background"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/review_problem_statement"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <TextView
+                android:id="@+id/review_question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="صورت سوال"
+                android:textColor="@color/play_game_question_text"
+                android:textSize="25sp" />
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/review_options"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/review_answer"
+            android:layout_below="@+id/review_problem_statement"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/review_option_0"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="0"
+                    android:visibility="visible" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/review_option_1"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="1"
+                    android:visibility="visible" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/review_option_2"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="2"
+                    android:visibility="visible" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/review_option_3"
+                    style="@style/play_game_option_buttons"
+                    android:contentDescription="3"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/review_answer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"
+            android:clipChildren="false"
+            android:gravity="center_vertical"></RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -509,6 +509,11 @@ public class GameResultActivity extends ParentActivity {
 
     public void reviewQuestions(View view) {
         ReviewQuestionsDialog dialog = new ReviewQuestionsDialog();
-        dialog.show(getFragmentManager(), "DIALOG_REVIEW_QUESTIONS");
+
+        Bundle bundle = new Bundle();
+        bundle.putIntegerArrayList(ARGUMENT_CORRECT_OPTIONS, correctOptionsArray);
+        dialog.setArguments(bundle);
+
+        dialog.show(getSupportFragmentManager(), "DIALOG_REVIEW_QUESTIONS");
     }
 }
