@@ -153,9 +153,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));
         levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
-        totalRanking.setText(String.valueOf(user.getRank().getTotal()));
-        provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
-        friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
+        if (user.getRank() != null) {
+            totalRanking.setText(String.valueOf(user.getRank().getTotal()));
+            provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
+            friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
+        }
         provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
@@ -228,7 +230,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onBringToFront() {
         super.onBringToFront();
-        
+
 
     }
 }
