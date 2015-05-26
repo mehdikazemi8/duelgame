@@ -160,7 +160,6 @@ public class WaitingActivity extends ParentActivity {
         waitingAgainst = (TextView) findViewById(R.id.waiting_against);
 
         hasLeft = false;
-        if ( )
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mListener, new IntentFilter("MESSAGE"));
 
