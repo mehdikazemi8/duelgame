@@ -20,10 +20,13 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
  * Created by omid on 4/5/2015.
  */
 public class RankingFragment extends FlippableFragment {
-    boolean[] isFocused = new boolean[3];
+
+    private final int NUMBER_OF_TABS = 4;
+
+    boolean[] isFocused = new boolean[NUMBER_OF_TABS];
     int focusedColor;
     int notFocusedColor;
-    TextView[] rankTitle = new TextView[3];
+    TextView[] rankTitle = new TextView[NUMBER_OF_TABS];
     CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
     CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
 
@@ -59,7 +62,7 @@ public class RankingFragment extends FlippableFragment {
     }
 
     private void setBackColor() {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < NUMBER_OF_TABS; i++)
             if (isFocused[i])
                 rankTitle[i].setBackgroundColor(focusedColor);
             else
@@ -71,7 +74,7 @@ public class RankingFragment extends FlippableFragment {
         rankTitle[1] = (TextView) view.findViewById(R.id.ranking_province);
         rankTitle[2] = (TextView) view.findViewById(R.id.ranking_friends);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < NUMBER_OF_TABS; i++) {
             rankTitle[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -79,7 +82,7 @@ public class RankingFragment extends FlippableFragment {
                     if (isFocused[titleIndex])
                         return;
 
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 0; j < NUMBER_OF_TABS; j++)
                         isFocused[j] = false;
                     isFocused[titleIndex] = true;
                     setBackColor();
@@ -92,7 +95,7 @@ public class RankingFragment extends FlippableFragment {
 
     private void setFocusInitialState() {
         isFocused[0] = true;
-        isFocused[1] = isFocused[2] = false;
+        isFocused[1] = isFocused[2] = isFocused[3] = false;
     }
 
     protected void configureControls() {
@@ -101,7 +104,7 @@ public class RankingFragment extends FlippableFragment {
         focusedColor = this.activity.getResources().getColor(R.color.yellow);
         notFocusedColor = this.activity.getResources().getColor(R.color.yellow_light);
 
-        FontHelper.setKoodakFor(this.activity, rankTitle[0], rankTitle[1], rankTitle[2]);
+        FontHelper.setKoodakFor(this.activity, rankTitle[0], rankTitle[1], rankTitle[2], rankTitle[3]);
         rankTitle[1].setText(ProvinceManager.get(this.activity, AuthManager.getCurrentUser().getProvince()));
 
         setFocusInitialState();
