@@ -70,7 +70,7 @@ public class PlayGameActivity extends ParentActivity {
 
     String correctAnswerStr;
     int correctOption;
-    boolean[] choseOption = new boolean[4];
+    int[] choseOption = new int[4];
     int numberOfOptionChose;
 
     int iAnsweredThisTime;
@@ -158,7 +158,7 @@ public class PlayGameActivity extends ParentActivity {
 
     public void askQuestion() {
         numberOfOptionChose = 0;
-        choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = false;
+        choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = 0;
         hintRemoveClicked = hintAgainClicked = false;
         clickedHintAgain = clickedHintRemove = 0;
 
@@ -209,7 +209,7 @@ public class PlayGameActivity extends ParentActivity {
                 /*
                 If the dialog is created at all and it is showing then we dismiss it
                 */
-                if(chooseAgainDialog != null && chooseAgainDialog.isShowing())
+                if (chooseAgainDialog != null && chooseAgainDialog.isShowing())
                     chooseAgainDialog.dismiss();
 
                 hintAgainBtn.setClickable(false);
@@ -313,7 +313,23 @@ public class PlayGameActivity extends ParentActivity {
         }
     }
 
-    private void showDialogIfNecessary() {
+    private void showDialogIfNecessary(View v) {
+        Log.d("trace", "PlayGameActivity showDialogIfNecessary");
+
+        /*
+         if two options are pressed at the same time and the first option is correct
+         then the second option is incorrect and we must not show dialog
+          */
+        if(iAnsweredThisCorrect)
+            return;
+
+        /*
+        if two wrong options are pressed at the same time the the first one will show dialog
+        don't show two dialogs
+         */
+        if (chooseAgainDialog != null && chooseAgainDialog.isShowing())
+            return;
+
         if (numberOfOptionChose == 1) {
             chooseAgainDialog = new ConfirmDialog(PlayGameActivity.this, "انتخاب مجدد 15 الماس", true);
 
@@ -367,23 +383,49 @@ public class PlayGameActivity extends ParentActivity {
 
 
     public void answered(View v) {
-        if (iAnsweredThisTime != -1) {
+
+//        if (iAnsweredThisTime != -1) {
+//            return;
+//        }
+
+        /*
+        after he chooses one wrong option, he can click hint AGAIN option
+        then he can put his fingers on two options (one wrong and one correct and both of them will
+        be choosed.
+        by this condition I won't let him do this
+         */
+        if(numberOfOptionChose == 2)
+            return;
+
+        Log.d("trace", "PlayGameActivity " + numberOfOptionChose + " " + clickedHintAgain);
+
+        if (numberOfOptionChose == 1 && clickedHintAgain == 0) {
+            showDialogIfNecessary(v);
             return;
         }
 
-        Log.d("--- user", "" + problemIndex);
+        int clickedButtonIndex = Integer.parseInt(v.getContentDescription().toString());
 
         numberOfOptionChose += 1;
-        if (numberOfOptionChose == 2)
+        if (numberOfOptionChose == 2) {
+            // there is no other possibility to choose options, he has chosen 2 options already
+            changeButtonsClickableState(false);
             hintRemoveBtn.setClickable(false);
+        }
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
+        choseOption[clickedButtonIndex] = 1;
 
-        choseOption[Integer.parseInt(v.getContentDescription().toString())] = true;
-        changeButtonsClickableState(false);
+//        Lets not disable all buttons, instead just disable the button which has been clicked last
+        ((FontFitButton) v).setClickable(false);
+//        changeButtonsClickableState(false);
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((FontFitButton) v).getText().toString()) == 0) {
+
+            // answered correct, lets disable all buttons
+            changeButtonsClickableState(false);
+
             myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
 
             collectedDiamond += iAnsweredThisTime;
@@ -408,7 +450,7 @@ public class PlayGameActivity extends ParentActivity {
             hintAgainBtn.setClickable(false);
             hintRemoveBtn.setClickable(false);
         } else {
-            showDialogIfNecessary();
+
 
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
             userPoints += -1;
@@ -421,23 +463,23 @@ public class PlayGameActivity extends ParentActivity {
                 iAnsweredThisTime = -1;
                 hintAgainClicked = false;
 
-                if (choseOption[0] == false)
+                if (choseOption[0] == 0)
                     option0Btn.setClickable(true);
-                if (choseOption[1] == false)
+                if (choseOption[1] == 0)
                     option1Btn.setClickable(true);
-                if (choseOption[2] == false)
+                if (choseOption[2] == 0)
                     option2Btn.setClickable(true);
-                if (choseOption[3] == false)
+                if (choseOption[3] == 0)
                     option3Btn.setClickable(true);
 
             } else {
-                if (choseOption[0] == false)
+                if (choseOption[0] == 0)
                     option0Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[1] == false)
+                if (choseOption[1] == 0)
                     option1Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[2] == false)
+                if (choseOption[2] == 0)
                     option2Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[3] == false)
+                if (choseOption[3] == 0)
                     option3Btn.setTextColor(getResources().getColor(R.color.gray_light));
             }
 
@@ -475,6 +517,8 @@ public class PlayGameActivity extends ParentActivity {
         DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
 
 //        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
+
+        // if he has chosen two options and has answered this option wrong, so this is the end of this question
         if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
             iAnsweredThisCorrect = true;
             sendGQMinusOne();
@@ -876,29 +920,29 @@ public class PlayGameActivity extends ParentActivity {
 
         ArrayList<Integer> canRemove = new ArrayList<Integer>();
 
-        if (correctOption != 0 && choseOption[0] == false)
+        if (correctOption != 0 && choseOption[0] == 0)
             canRemove.add(0);
-        if (correctOption != 1 && choseOption[1] == false)
+        if (correctOption != 1 && choseOption[1] == 0)
             canRemove.add(1);
-        if (correctOption != 2 && choseOption[2] == false)
+        if (correctOption != 2 && choseOption[2] == 0)
             canRemove.add(2);
-        if (correctOption != 3 && choseOption[3] == false)
+        if (correctOption != 3 && choseOption[3] == 0)
             canRemove.add(3);
 
         int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
 
         if (removeItem == 0) {
             option0Btn.setVisibility(View.INVISIBLE);
-            choseOption[0] = true;
+            choseOption[0] = 1;
         } else if (removeItem == 1) {
             option1Btn.setVisibility(View.INVISIBLE);
-            choseOption[1] = true;
+            choseOption[1] = 1;
         } else if (removeItem == 2) {
             option2Btn.setVisibility(View.INVISIBLE);
-            choseOption[2] = true;
+            choseOption[2] = 1;
         } else {
             option3Btn.setVisibility(View.INVISIBLE);
-            choseOption[3] = true;
+            choseOption[3] = 1;
         }
 
         hintRemoveBtn.setClickable(false);
@@ -926,25 +970,25 @@ public class PlayGameActivity extends ParentActivity {
 
         iAnsweredThisTime = -1;
 
-        if (choseOption[0] == false) {
+        if (choseOption[0] == 0) {
             option0Btn.setClickable(true);
             option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         } else {
             option0Btn.setVisibility(View.INVISIBLE);
         }
-        if (choseOption[1] == false) {
+        if (choseOption[1] == 0) {
             option1Btn.setClickable(true);
             option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         } else {
             option1Btn.setVisibility(View.INVISIBLE);
         }
-        if (choseOption[2] == false) {
+        if (choseOption[2] == 0) {
             option2Btn.setClickable(true);
             option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         } else {
             option2Btn.setVisibility(View.INVISIBLE);
         }
-        if (choseOption[3] == false) {
+        if (choseOption[3] == 0) {
             option3Btn.setClickable(true);
             option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         } else {
