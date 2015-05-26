@@ -17,6 +17,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -57,7 +58,7 @@ public class ViewRankingFragment extends Fragment {
 
         User user = AuthManager.getCurrentUser();
         Log.d("sendFetch", user.serialize(commandType));
-        DuelApp.getInstance().sendMessage(user.serialize(commandType));
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(commandType)/*user.serialize(commandType)*/);
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }

@@ -27,8 +27,8 @@ public class RankingFragment extends FlippableFragment {
     int focusedColor;
     int notFocusedColor;
     TextView[] rankTitle = new TextView[NUMBER_OF_TABS];
-    CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
-    CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
+    CommandType[] sendWhat = new CommandType[]{CommandType.SEND_GET_TOTAL_RANK_TODAY, CommandType.SEND_GET_TOTAL_RANK, CommandType.SEND_GET_PROVINCE_RANK, CommandType.SEND_GET_FRIENDS_RANK};
+    CommandType[] receiveWhat = new CommandType[]{CommandType.RECEIVE_GET_TOTAL_RANK_TODAY, CommandType.RECEIVE_GET_TOTAL_RANK, CommandType.RECEIVE_GET_PROVINCE_RANK, CommandType.RECEIVE_GET_FRIENDS_RANK};
 
     Activity activity = null;
 
@@ -70,9 +70,10 @@ public class RankingFragment extends FlippableFragment {
     }
 
     protected void findControls(View view) {
-        rankTitle[0] = (TextView) view.findViewById(R.id.ranking_total);
-        rankTitle[1] = (TextView) view.findViewById(R.id.ranking_province);
-        rankTitle[2] = (TextView) view.findViewById(R.id.ranking_friends);
+        rankTitle[0] = (TextView) view.findViewById(R.id.ranking_total_today);
+        rankTitle[1] = (TextView) view.findViewById(R.id.ranking_total);
+        rankTitle[2] = (TextView) view.findViewById(R.id.ranking_province);
+        rankTitle[3] = (TextView) view.findViewById(R.id.ranking_friends);
 
         for (int i = 0; i < NUMBER_OF_TABS; i++) {
             rankTitle[i].setOnClickListener(new View.OnClickListener() {
@@ -105,7 +106,7 @@ public class RankingFragment extends FlippableFragment {
         notFocusedColor = this.activity.getResources().getColor(R.color.yellow_light);
 
         FontHelper.setKoodakFor(this.activity, rankTitle[0], rankTitle[1], rankTitle[2], rankTitle[3]);
-        rankTitle[1].setText(ProvinceManager.get(this.activity, AuthManager.getCurrentUser().getProvince()));
+        rankTitle[2].setText(ProvinceManager.get(this.activity, AuthManager.getCurrentUser().getProvince()));
 
         setFocusInitialState();
         setBackColor();

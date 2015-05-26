@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:background="@color/yellow"
             android:clickable="true"
-            android:contentDescription="2"
+            android:contentDescription="3"
             android:gravity="center"
             android:padding="10dp"
             android:text="دوستان" />
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:background="@color/yellow"
             android:clickable="true"
-            android:contentDescription="1"
+            android:contentDescription="2"
             android:gravity="center"
             android:padding="10dp"
             android:text="استان" />
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:background="@color/yellow_light"
             android:clickable="true"
-            android:contentDescription="0"
+            android:contentDescription="1"
             android:gravity="center"
             android:padding="10dp"
             android:text="ایران" />
@@ -62,7 +62,7 @@
             android:background="@color/blue_dark" />
 
         <TextView
-            android:id="@+id/ranking_today"
+            android:id="@+id/ranking_total_today"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
