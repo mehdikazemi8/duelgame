@@ -313,14 +313,14 @@ public class PlayGameActivity extends ParentActivity {
         }
     }
 
-    private void showDialogIfNecessary(View v) {
+    private void showDialogIfNecessary(final View v) {
         Log.d("trace", "PlayGameActivity showDialogIfNecessary");
 
         /*
          if two options are pressed at the same time and the first option is correct
          then the second option is incorrect and we must not show dialog
           */
-        if(iAnsweredThisCorrect)
+        if (iAnsweredThisCorrect)
             return;
 
         /*
@@ -331,17 +331,42 @@ public class PlayGameActivity extends ParentActivity {
             return;
 
         if (numberOfOptionChose == 1) {
-            chooseAgainDialog = new ConfirmDialog(PlayGameActivity.this, "انتخاب مجدد 15 الماس", true);
+            chooseAgainDialog = new ConfirmDialog(PlayGameActivity.this, "انتخاب دوباره 15 الماس", true);
 
             chooseAgainDialog.setOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(Object data) {
-                    if ((Boolean) data)
-                        hintAgainMethod(new View(PlayGameActivity.this));
+                    if ((Boolean) data) {
+                        hintAgainMethodFromDialog(v);
+                    }
                 }
             });
             chooseAgainDialog.show();
         }
+    }
+
+    private void hintAgainMethodFromDialog(final View v) {
+        if (iAnsweredThisTime == -1) {
+            hintAgainClicked = true;
+        }
+
+        if (user.getDiamond() < HINT_AGAIN_COST) {
+            showToast("متاسفانه الماس کافی ندارید.");
+            return;
+        } else {
+            user.decreaseDiamond(HINT_AGAIN_COST);
+            clickedHintAgain = 1;
+            answered(v);
+        }
+
+        if (hintAgainViewIsOpen == true) {
+            cancelDanceHintAgain();
+
+            doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
+            hintAgainViewIsOpen = false;
+        }
+
+        hintAgainBtn.setClickable(false);
     }
 
     private void animateGainingDiamond(final int thisQuestionDiamond) {
@@ -394,7 +419,7 @@ public class PlayGameActivity extends ParentActivity {
         be choosed.
         by this condition I won't let him do this
          */
-        if(numberOfOptionChose == 2)
+        if (numberOfOptionChose == 2)
             return;
 
         Log.d("trace", "PlayGameActivity " + numberOfOptionChose + " " + clickedHintAgain);
@@ -907,7 +932,6 @@ public class PlayGameActivity extends ParentActivity {
             clickedHintRemove = 1;
         }
 
-
         if (hintRemoveViewIsOpen == true) {
             doAnimateHintOption(hintRemoveView, 1f, 0f, 100, 0);
             hintRemoveViewIsOpen = false;
@@ -973,25 +997,25 @@ public class PlayGameActivity extends ParentActivity {
         if (choseOption[0] == 0) {
             option0Btn.setClickable(true);
             option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else {
+        } else if (correctOption != 0) {
             option0Btn.setVisibility(View.INVISIBLE);
         }
         if (choseOption[1] == 0) {
             option1Btn.setClickable(true);
             option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else {
+        } else if (correctOption != 1) {
             option1Btn.setVisibility(View.INVISIBLE);
         }
         if (choseOption[2] == 0) {
             option2Btn.setClickable(true);
             option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else {
+        } else if (correctOption != 2) {
             option2Btn.setVisibility(View.INVISIBLE);
         }
         if (choseOption[3] == 0) {
             option3Btn.setClickable(true);
             option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else {
+        } else if (correctOption != 3) {
             option3Btn.setVisibility(View.INVISIBLE);
         }
 
