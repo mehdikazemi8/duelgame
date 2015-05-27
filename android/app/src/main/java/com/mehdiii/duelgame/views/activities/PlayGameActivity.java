@@ -29,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -357,6 +359,13 @@ public class PlayGameActivity extends ParentActivity {
             user.decreaseDiamond(HINT_AGAIN_COST);
             clickedHintAgain = 1;
             answered(v);
+            Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+            // Build and send an Event.
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("button_click")
+                    .setAction("report_button")
+                    .setLabel("hint_again")
+                    .build());
         }
 
         if (hintAgainViewIsOpen == true) {
@@ -930,6 +939,13 @@ public class PlayGameActivity extends ParentActivity {
         } else {
             user.decreaseDiamond(HINT_REMOVE_COST);
             clickedHintRemove = 1;
+            Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+            // Build and send an Event.
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("button_click")
+                    .setAction("report_button")
+                    .setLabel("hint_remove")
+                    .build());
         }
 
         if (hintRemoveViewIsOpen == true) {
@@ -983,7 +999,15 @@ public class PlayGameActivity extends ParentActivity {
         } else {
             user.decreaseDiamond(HINT_AGAIN_COST);
             clickedHintAgain = 1;
+            Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+            // Build and send an Event.
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("button_click")
+                    .setAction("report_button")
+                    .setLabel("hint_again")
+                    .build());
         }
+
 
         if (hintAgainViewIsOpen == true) {
             cancelDanceHintAgain();

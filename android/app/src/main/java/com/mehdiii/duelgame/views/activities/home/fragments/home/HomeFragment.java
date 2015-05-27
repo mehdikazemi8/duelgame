@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
@@ -183,6 +186,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void sendReport() {
+
+
+
         Intent send = new Intent(Intent.ACTION_SENDTO);
         String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
                 "?subject=" + Uri.encode(getResources().getString(R.string.caption_send_report_title)) +

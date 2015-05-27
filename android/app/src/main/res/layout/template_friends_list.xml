@@ -20,6 +20,19 @@
             android:gravity="center" />
 
         <Button
+            android:id="@+id/button_duel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_blue_dark"
+            android:gravity="center"
+            android:text="@string/button_duel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/button_positive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,10 +56,18 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginRight="5dp"
+    <TextView
+        android:id="@+id/textView_online"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:textSize="@dimen/fontsize.normal" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
         android:layout_weight="2"
         android:gravity="right|center"
         android:orientation="vertical">

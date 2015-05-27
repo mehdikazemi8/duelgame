@@ -1,11 +1,13 @@
-xpackage com.mehdiii.duelgame.views.activities.home;
+package com.mehdiii.duelgame.views.activities.home;
 
 import android.content.Context;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +20,15 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
+import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.models.SendGcmCode;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.DuelOpponentRequest;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -30,7 +37,9 @@ import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
@@ -319,6 +328,14 @@ public class HomeActivity extends ParentActivity {
         }
     }
 
+    public void onEvent(ChallengeRequestDecision challengeRequestDecision) {
+        Intent i = new Intent(HomeActivity.this, WaitingActivity.class);
+        i.putExtra("user_number", challengeRequestDecision.getUserNumber());
+        i.putExtra("category", challengeRequestDecision.getCategory());
+        startActivity(i);
+    }
+
+
     public void onEvent(ChangePage change) {
         viewPager.setCurrentItem(change.getPage());
     }
@@ -326,4 +343,28 @@ public class HomeActivity extends ParentActivity {
     public void onEvent(OnUserSettingsChanged settings) {
         scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
+                DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
+                AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(HomeActivity.this, request);
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        }
+    });
 }

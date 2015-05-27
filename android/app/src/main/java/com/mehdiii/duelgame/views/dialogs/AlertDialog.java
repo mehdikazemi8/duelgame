@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 
 /**
  * Created by Omid on 5/18/2015.
@@ -46,11 +47,23 @@ public class AlertDialog extends Dialog {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(onCompleteListener != null)
+                    onCompleteListener.onComplete(view);
                 dismiss();
             }
         });
 
         textView.setText(this.message);
 
+    }
+
+    OnCompleteListener onCompleteListener = null;
+
+    public OnCompleteListener getOnCompleteListener() {
+        return onCompleteListener;
+    }
+
+    public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
+        this.onCompleteListener = onCompleteListener;
     }
 }

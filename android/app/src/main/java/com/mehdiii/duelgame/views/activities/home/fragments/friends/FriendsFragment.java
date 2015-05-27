@@ -15,20 +15,26 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaChallenge;
+import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 
 /**
  * Created by omid on 4/5/2015.
@@ -123,6 +129,14 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     }
 
     private void tellFriends() {
+        Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+        // Build and send an Event.
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("button_click")
+                .setAction("report_button")
+                .setLabel("tell_friend")
+                .build());
+
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -134,8 +148,23 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
-        public void onDuel(Friend request) {
-            AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+        public void onDuel(final Friend request) {
+            final DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
+            dialog.setOnResult(new DuelFriendDialog.OnResult() {
+                @Override
+                public void getChallenge(WannaChallenge challenge) {
+                    challenge.setUserNumber(request.getId());
+                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+
+                    Intent i = new Intent(getActivity(), WaitingActivity.class);
+                    i.putExtra("user_number", request.getId());
+                    i.putExtra("category", challenge.getCategory());
+                    startActivity(i);
+                    dialog.dismiss();
+                }
+            });
+
+
             dialog.show();
         }
 
