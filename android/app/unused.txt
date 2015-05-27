@@ -1137,6 +1137,8 @@ com.kyleduo.switchbutton.Configuration$Default:
     21:21:Configuration$Default()
 com.kyleduo.switchbutton.Configuration$Limit:
     32:32:Configuration$Limit()
+com.mehdiii.duelgame.DuelApp:
+    private static final java.lang.String PROPERTY_APP_VERSION
 com.mehdiii.duelgame.managers.HeartTracker:
     private static final int TIME_RECOVER_SINGLE_HEART_SECONDS
     private static final int DEFAULT_RESET_TIME_FLAG
@@ -1148,6 +1150,8 @@ com.mehdiii.duelgame.receivers.HeartFullyRecovered:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
     private static final java.lang.String TAG
+com.mehdiii.duelgame.services.GcmIntentService:
+    private static final java.lang.String NEW_APP_INTRODUCTION
 com.mehdiii.duelgame.utils.Base64:
     private static final byte EQUALS_SIGN
     private static final byte NEW_LINE
@@ -1172,11 +1176,12 @@ com.mehdiii.duelgame.views.activities.ParentActivity:
     static final int NUMBER_OF_AVATARS
 com.mehdiii.duelgame.views.activities.home.HomeActivity:
     private static final int REQUEST_CODE_PURCHASE
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST
 com.mehdiii.duelgame.views.activities.splash.StartActivity:
     private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS
     private static final int CIRCLES_COUNT
 com.mehdiii.duelgame.views.activities.waiting.WaitingActivity:
-    51:78:private void translateAnimation(android.widget.LinearLayout,java.lang.String,int,int,int)
+    56:83:private void translateAnimation(android.widget.LinearLayout,java.lang.String,int,int,int)
 com.mehdiii.duelgame.views.activities.waiting.WaitingActivity$1
 com.mehdiii.duelgame.views.custom.AppRater:
     private static final java.lang.String APP_TITLE
