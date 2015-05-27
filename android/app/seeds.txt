@@ -24385,8 +24385,8 @@ com.mehdiii.duelgame.DuelApp
 com.mehdiii.duelgame.DuelApp: java.lang.String PROPERTY_ID
 com.mehdiii.duelgame.DuelApp: java.lang.String TAG
 com.mehdiii.duelgame.DuelApp: de.tavendo.autobahn.WebSocketConnection wsc
-com.mehdiii.duelgame.DuelApp: java.lang.String PROPERTY_REG_ID
 com.mehdiii.duelgame.DuelApp: java.lang.String wsuri
+com.mehdiii.duelgame.DuelApp: java.lang.String PROPERTY_REG_ID
 com.mehdiii.duelgame.DuelApp: DuelApp()
 com.mehdiii.duelgame.DuelApp: void onCreate()
 com.mehdiii.duelgame.DuelApp: void connectToWs()
@@ -25301,8 +25301,10 @@ com.mehdiii.duelgame.R$id: int progressbar
 com.mehdiii.duelgame.R$id: int radio
 com.mehdiii.duelgame.R$id: int ranking_friends
 com.mehdiii.duelgame.R$id: int ranking_list_view
+com.mehdiii.duelgame.R$id: int ranking_menu
 com.mehdiii.duelgame.R$id: int ranking_province
 com.mehdiii.duelgame.R$id: int ranking_total
+com.mehdiii.duelgame.R$id: int ranking_total_today
 com.mehdiii.duelgame.R$id: int ranking_user_avatar
 com.mehdiii.duelgame.R$id: int ranking_user_name
 com.mehdiii.duelgame.R$id: int ranking_user_position
@@ -26551,9 +26553,11 @@ com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.C
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_PROVINCE_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIENDS_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK_TODAY
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_PROVINCE_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_FRIENDS_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK_TODAY
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_REGISTER
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_LOGIN_INFO
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIEND_LIST

@@ -42383,37 +42383,37 @@ com.mehdiii.duelgame.DuelApp -> com.mehdiii.duelgame.DuelApp:
     com.mehdiii.duelgame.DuelApp instance -> c
     de.tavendo.autobahn.WebSocketConnection wsc -> wsc
     java.util.Map pendingMessages -> a
-    java.lang.String PROPERTY_REG_ID -> PROPERTY_REG_ID
     java.lang.String wsuri -> wsuri
+    java.lang.String PROPERTY_REG_ID -> PROPERTY_REG_ID
     java.util.HashMap mTrackers -> b
-    49:56:void onCreate() -> onCreate
-    60:84:void connectToWs() -> connectToWs
-    87:90:void disconnect() -> disconnect
-    98:104:void dispatchMessage(java.lang.String) -> dispatchMessage
-    107:107:android.content.IntentFilter getIntentFilter() -> getIntentFilter
-    111:113:void sendMessage(java.lang.String) -> sendMessage
-    124:126:void sendMessageWithDelivery(com.mehdiii.duelgame.models.base.BaseModel,com.mehdiii.duelgame.utils.OnMessageReceivedListener) -> sendMessageWithDelivery
-    129:129:de.tavendo.autobahn.WebSocketConnection getSocket() -> getSocket
-    133:133:com.mehdiii.duelgame.DuelApp getInstance() -> getInstance
-    143:144:void toast(int,int) -> toast
-    162:170:com.google.android.gms.analytics.Tracker getTracker(com.mehdiii.duelgame.DuelApp$TrackerName) -> getTracker
-    174:178:void initGA() -> a
-    190:205:java.lang.String getRegistrationId(android.content.Context) -> getRegistrationId
-    213:218:int getAppVersion(android.content.Context) -> getAppVersion
-    232:241:void storeRegistrationId(android.content.Context,java.lang.String) -> storeRegistrationId
-    249:249:android.content.SharedPreferences getGCMPreferences(android.content.Context) -> getGCMPreferences
+    48:55:void onCreate() -> onCreate
+    59:83:void connectToWs() -> connectToWs
+    86:89:void disconnect() -> disconnect
+    97:103:void dispatchMessage(java.lang.String) -> dispatchMessage
+    106:106:android.content.IntentFilter getIntentFilter() -> getIntentFilter
+    110:112:void sendMessage(java.lang.String) -> sendMessage
+    123:125:void sendMessageWithDelivery(com.mehdiii.duelgame.models.base.BaseModel,com.mehdiii.duelgame.utils.OnMessageReceivedListener) -> sendMessageWithDelivery
+    128:128:de.tavendo.autobahn.WebSocketConnection getSocket() -> getSocket
+    132:132:com.mehdiii.duelgame.DuelApp getInstance() -> getInstance
+    142:143:void toast(int,int) -> toast
+    161:169:com.google.android.gms.analytics.Tracker getTracker(com.mehdiii.duelgame.DuelApp$TrackerName) -> getTracker
+    173:177:void initGA() -> a
+    189:204:java.lang.String getRegistrationId(android.content.Context) -> getRegistrationId
+    212:217:int getAppVersion(android.content.Context) -> getAppVersion
+    231:240:void storeRegistrationId(android.content.Context,java.lang.String) -> storeRegistrationId
+    248:248:android.content.SharedPreferences getGCMPreferences(android.content.Context) -> getGCMPreferences
 com.mehdiii.duelgame.DuelApp$1 -> buf:
     com.mehdiii.duelgame.DuelApp this$0 -> a
-    64:66:void onOpen() -> onOpen
-    70:73:void onTextMessage(java.lang.String) -> onTextMessage
-    77:79:void onClose(int,java.lang.String) -> onClose
+    63:65:void onOpen() -> onOpen
+    69:72:void onTextMessage(java.lang.String) -> onTextMessage
+    76:78:void onClose(int,java.lang.String) -> onClose
 com.mehdiii.duelgame.DuelApp$TrackerName -> com.mehdiii.duelgame.DuelApp$TrackerName:
     com.mehdiii.duelgame.DuelApp$TrackerName APP_TRACKER -> APP_TRACKER
     com.mehdiii.duelgame.DuelApp$TrackerName GLOBAL_TRACKER -> GLOBAL_TRACKER
     com.mehdiii.duelgame.DuelApp$TrackerName ECOMMERCE_TRACKER -> ECOMMERCE_TRACKER
     com.mehdiii.duelgame.DuelApp$TrackerName[] $VALUES -> a
-    153:153:com.mehdiii.duelgame.DuelApp$TrackerName[] values() -> values
-    153:153:com.mehdiii.duelgame.DuelApp$TrackerName valueOf(java.lang.String) -> valueOf
+    152:152:com.mehdiii.duelgame.DuelApp$TrackerName[] values() -> values
+    152:152:com.mehdiii.duelgame.DuelApp$TrackerName valueOf(java.lang.String) -> valueOf
 com.mehdiii.duelgame.Manifest -> com.mehdiii.duelgame.Manifest:
 com.mehdiii.duelgame.Manifest$permission -> com.mehdiii.duelgame.Manifest$permission:
     java.lang.String C2D_MESSAGE -> C2D_MESSAGE
@@ -43295,8 +43295,10 @@ com.mehdiii.duelgame.R$id -> com.mehdiii.duelgame.R$id:
     int radio -> radio
     int ranking_friends -> ranking_friends
     int ranking_list_view -> ranking_list_view
+    int ranking_menu -> ranking_menu
     int ranking_province -> ranking_province
     int ranking_total -> ranking_total
+    int ranking_total_today -> ranking_total_today
     int ranking_user_avatar -> ranking_user_avatar
     int ranking_user_name -> ranking_user_name
     int ranking_user_position -> ranking_user_position
@@ -44617,9 +44619,9 @@ com.mehdiii.duelgame.models.base.ActionEmitter -> com.mehdiii.duelgame.models.ba
     com.mehdiii.duelgame.models.base.ActionEmitter instance -> a
     com.mehdiii.duelgame.utils.BidirectionalMap map -> b
     12:14:com.mehdiii.duelgame.models.base.ActionEmitter getInstance() -> getInstance
-    24:61:void init() -> a
-    64:64:java.lang.String getCommandCode(com.mehdiii.duelgame.models.base.CommandType) -> getCommandCode
-    68:72:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
+    24:63:void init() -> a
+    66:66:java.lang.String getCommandCode(com.mehdiii.duelgame.models.base.CommandType) -> getCommandCode
+    70:74:com.mehdiii.duelgame.models.base.CommandType getCommandType(java.lang.String) -> getCommandType
 com.mehdiii.duelgame.models.base.BaseModel -> com.mehdiii.duelgame.models.base.BaseModel:
     java.lang.String command -> b
     24:25:void setCommand(com.mehdiii.duelgame.models.base.CommandType) -> setCommand
@@ -44633,9 +44635,11 @@ com.mehdiii.duelgame.models.base.CommandType -> com.mehdiii.duelgame.models.base
     com.mehdiii.duelgame.models.base.CommandType SEND_GET_PROVINCE_RANK -> SEND_GET_PROVINCE_RANK
     com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIENDS_RANK -> SEND_GET_FRIENDS_RANK
     com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK -> SEND_GET_TOTAL_RANK
+    com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK_TODAY -> SEND_GET_TOTAL_RANK_TODAY
     com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_PROVINCE_RANK -> RECEIVE_GET_PROVINCE_RANK
     com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_FRIENDS_RANK -> RECEIVE_GET_FRIENDS_RANK
     com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK -> RECEIVE_GET_TOTAL_RANK
+    com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK_TODAY -> RECEIVE_GET_TOTAL_RANK_TODAY
     com.mehdiii.duelgame.models.base.CommandType SEND_REGISTER -> SEND_REGISTER
     com.mehdiii.duelgame.models.base.CommandType RECEIVE_LOGIN_INFO -> RECEIVE_LOGIN_INFO
     com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIEND_LIST -> SEND_GET_FRIEND_LIST
@@ -45520,6 +45524,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment -> com.me
     233:234:void onEvent(com.mehdiii.duelgame.models.events.OnUserSettingsChanged) -> onEvent
     238:241:void onBringToFront() -> onBringToFront
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment -> com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment:
+    int NUMBER_OF_TABS -> h
     boolean[] isFocused -> a
     int focusedColor -> b
     int notFocusedColor -> c
@@ -45527,23 +45532,23 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment -> 
     com.mehdiii.duelgame.models.base.CommandType[] sendWhat -> e
     com.mehdiii.duelgame.models.base.CommandType[] receiveWhat -> f
     android.app.Activity activity -> g
-    android.support.v4.app.Fragment viewRankingFragment -> h
-    34:36:void onAttach(android.app.Activity) -> onAttach
-    40:42:void onDetach() -> onDetach
-    46:47:void onResume() -> onResume
-    51:52:void onPause() -> onPause
-    58:58:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    62:67:void setBackColor() -> l
-    70:91:void findControls(android.view.View) -> findControls
-    94:96:void setFocusInitialState() -> m
-    99:109:void configureControls() -> configureControls
-    113:120:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    124:127:void onBringToFront() -> onBringToFront
+    android.support.v4.app.Fragment viewRankingFragment -> i
+    37:39:void onAttach(android.app.Activity) -> onAttach
+    43:45:void onDetach() -> onDetach
+    49:50:void onResume() -> onResume
+    54:55:void onPause() -> onPause
+    61:61:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    65:70:void setBackColor() -> l
+    73:95:void findControls(android.view.View) -> findControls
+    98:100:void setFocusInitialState() -> m
+    103:113:void configureControls() -> configureControls
+    117:124:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    128:131:void onBringToFront() -> onBringToFront
     22:22:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> a
     22:22:android.support.v4.app.Fragment access$100(com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment) -> b
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment$1 -> bwa:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment this$0 -> a
-    78:88:void onClick(android.view.View) -> onClick
+    82:92:void onClick(android.view.View) -> onClick
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter:
     java.util.List users -> a
     android.view.LayoutInflater layoutInflater -> b
@@ -45579,19 +45584,21 @@ com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter adapter -> c
     android.app.Activity activity -> d
     android.content.BroadcastReceiver broadcastReceiver -> e
-    34:36:void onAttach(android.app.Activity) -> onAttach
-    40:42:void onDetach() -> onDetach
-    45:50:void bindListViewData(com.mehdiii.duelgame.models.responses.RankList) -> a
-    53:63:void sendFetchRequest(com.mehdiii.duelgame.models.base.CommandType) -> a
-    83:86:void onResume() -> onResume
-    92:92:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    96:98:void find(android.view.View) -> a
-    102:105:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    108:112:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
-    25:25:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
+    com.mehdiii.duelgame.models.base.CommandType receiveCommandType -> f
+    35:37:void onAttach(android.app.Activity) -> onAttach
+    41:43:void onDetach() -> onDetach
+    46:51:void bindListViewData(com.mehdiii.duelgame.models.responses.RankList) -> a
+    54:64:void sendFetchRequest(com.mehdiii.duelgame.models.base.CommandType) -> a
+    82:85:void onResume() -> onResume
+    91:91:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    95:97:void find(android.view.View) -> a
+    101:104:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    108:114:void onReload(com.mehdiii.duelgame.models.base.CommandType,com.mehdiii.duelgame.models.base.CommandType) -> onReload
+    26:26:com.mehdiii.duelgame.models.base.CommandType access$000(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment) -> a
+    26:26:void access$100(com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment,com.mehdiii.duelgame.models.responses.RankList) -> a
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment$1 -> bwb:
     com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment this$0 -> a
-    68:78:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+    69:77:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
 com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment -> com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment:
     java.lang.String PREFERENCE_VOICE -> PREFERENCE_VOICE
     android.widget.EditText usernameEditText -> e
