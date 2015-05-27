@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -127,6 +129,14 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     }
 
     private void tellFriends() {
+        Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+        // Build and send an Event.
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("button_click")
+                .setAction("report_button")
+                .setLabel("tell_friend")
+                .build());
+
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,

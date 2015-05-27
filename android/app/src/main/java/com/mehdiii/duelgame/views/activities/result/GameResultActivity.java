@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -508,6 +510,14 @@ public class GameResultActivity extends ParentActivity {
     }
 
     public void reviewQuestions(View view) {
+        Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+        // Build and send an Event.
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("button_click")
+                .setAction("report_button")
+                .setLabel("review_questions")
+                .build());
+
         ReviewQuestionsDialog dialog = new ReviewQuestionsDialog();
 
         Bundle bundle = new Bundle();

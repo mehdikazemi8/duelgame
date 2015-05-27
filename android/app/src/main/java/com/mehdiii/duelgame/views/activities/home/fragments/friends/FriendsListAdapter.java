@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             viewHolder.buttonPositive = (Button) convertView.findViewById(R.id.button_positive);
             viewHolder.buttonNegative = (Button) convertView.findViewById(R.id.button_negative);
             viewHolder.textViewStatus = (TextView) convertView.findViewById(R.id.textView_status);
+            viewHolder.duelButton = (Button) convertView.findViewById(R.id.button_duel);
+            viewHolder.textViewOnline = (TextView) convertView.findViewById(R.id.textView_online);
 
             convertView.setTag(viewHolder);
         }
@@ -88,7 +91,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
         holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()));
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
-        FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle);
+        FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle, holder.duelButton, holder.textViewOnline);
 
         holder.buttonPositive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +102,14 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
                 } else if (friend.getStatus().equals("request")) {
                     if (onUserDecisionIsMade != null)
                         onUserDecisionIsMade.onApprove(friend);
+                }
+            }
+        });
+        holder.duelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onUserDecisionIsMade != null) {
+                    onUserDecisionIsMade.onDuel(friend);
                 }
             }
         });
@@ -113,28 +124,38 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             }
         });
 
+        holder.buttonPositive.setVisibility(View.GONE);
+        holder.buttonNegative.setVisibility(View.GONE);
+        holder.textViewStatus.setVisibility(View.GONE);
+        holder.duelButton.setVisibility(View.GONE);
+
+        if (friend.isOnline()) {
+            holder.textViewOnline.setText(getContext().getResources().getString(R.string.caption_online));
+            holder.textViewOnline.setTextColor(getContext().getResources().getColor(R.color.black));
+        } else {
+            holder.textViewOnline.setText(getContext().getResources().getString(R.string.caption_offline));
+            holder.textViewOnline.setTextColor(getContext().getResources().getColor(R.color.gray_light));
+        }
 
         if (friend.getStatus().equals("pending")) {
-            holder.buttonPositive.setVisibility(View.GONE);
-            holder.buttonNegative.setVisibility(View.GONE);
             holder.textViewStatus.setVisibility(View.VISIBLE);
             holder.textViewStatus.setText("منتظر پاسخ");
 
             holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.black));
             holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
         } else if (friend.getStatus().equals("friend")) {
-            holder.textViewStatus.setVisibility(View.GONE);
-            holder.buttonNegative.setVisibility(View.GONE);
-            holder.buttonPositive.setVisibility(View.VISIBLE);
-            holder.buttonPositive.setText("دوئل");
+
+            holder.duelButton.setVisibility(View.VISIBLE);
             holder.buttonPositive.setTypeface(FontHelper.getKoodak(getContext()));
 
             holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.black));
             holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
+
         } else if (friend.getStatus().equals("request")) {
-            holder.textViewStatus.setVisibility(View.GONE);
+
             holder.buttonPositive.setVisibility(View.VISIBLE);
             holder.buttonNegative.setVisibility(View.VISIBLE);
+
             holder.buttonPositive.setText("F");
             holder.buttonNegative.setText("G");
 
@@ -163,6 +184,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         private TextView textViewStatus;
         private Button buttonPositive;
         private Button buttonNegative;
+        private Button duelButton;
+        private TextView textViewOnline;
     }
 
 }
