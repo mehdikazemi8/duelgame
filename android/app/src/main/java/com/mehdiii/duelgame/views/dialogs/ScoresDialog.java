@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -25,9 +26,9 @@ import java.util.List;
 public class ScoresDialog extends Dialog {
 
     TextView level1, level2, level3;
-    TextView ta1, ta2, ta3, ta4;
-    TextView from1, from2, from3, from4;
-    TextView to1, to2, to3, to4;
+    TextView ta1, ta2, ta3;
+    TextView from1, from2, from3;
+    TextView to1, to2, to3;
     TextView title;
 
     public ScoresDialog(Context context) {
@@ -42,17 +43,14 @@ public class ScoresDialog extends Dialog {
         ta1 = (TextView) layout.findViewById(R.id.ta1);
         ta2 = (TextView) layout.findViewById(R.id.ta2);
         ta3 = (TextView) layout.findViewById(R.id.ta3);
-        ta4 = (TextView) layout.findViewById(R.id.ta4);
 
         from1 = (TextView) layout.findViewById(R.id.from1);
         from2 = (TextView) layout.findViewById(R.id.from2);
         from3 = (TextView) layout.findViewById(R.id.from3);
-        from4 = (TextView) layout.findViewById(R.id.from4);
 
         to1 = (TextView) layout.findViewById(R.id.to1);
         to2 = (TextView) layout.findViewById(R.id.to2);
         to3 = (TextView) layout.findViewById(R.id.to3);
-        to4 = (TextView) layout.findViewById(R.id.to4);
 
         title = (TextView) layout.findViewById(R.id.title);
     }
@@ -61,21 +59,31 @@ public class ScoresDialog extends Dialog {
     int titleSum;
     int levelIndex;
     int titleIndex;
-    int userScore;
+    private int userScore;
     List<String> titles;
     List<Integer> scoreTitle;
     List<Integer> scoreLevel;
 
-    private void setBackGroundColor(TextView tv, int start, int end)
-    {
-        if(start <= userScore && userScore <= end)
+    public int getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(int userScore) {
+        this.userScore = userScore;
+    }
+
+    private void setBackGroundColor(TextView tv, int start, int end) {
+        Log.d("trace", "ScoresDialog setBackGroundColor " + start + " " + end + " " + userScore);
+        if (start <= userScore && userScore <= end)
             tv.setBackgroundColor(getContext().getResources().getColor(R.color.golden_yellow));
     }
 
     private void configureControls(boolean lastTitle) {
-        FontHelper.setKoodakFor(getOwnerActivity(), ta1, ta2, ta3, ta4,
-                from1, from2, from3, from4,
-                to1, to2, to3, to4,
+        Log.d("trace", "ScoresDialog configureControls");
+
+        FontHelper.setKoodakFor(getOwnerActivity(), ta1, ta2, ta3,
+                from1, from2, from3,
+                to1, to2, to3,
                 level1, level2, level3,
                 title);
 
@@ -88,10 +96,9 @@ public class ScoresDialog extends Dialog {
 
             if (levelSum == 0) {
                 from1.setText(String.valueOf(levelSum));
-                if(userScore == 0)
+                if (userScore == 0)
                     level1.setBackgroundColor(getContext().getResources().getColor(R.color.golden_yellow));
-            }
-            else
+            } else
                 from1.setText(String.valueOf(levelSum + 1));
             to1.setText(String.valueOf(levelSum + scoreLevel.get(levelIndex)));
             setBackGroundColor(level1, levelSum, levelSum + scoreLevel.get(levelIndex));
@@ -100,21 +107,16 @@ public class ScoresDialog extends Dialog {
 
             from2.setText(String.valueOf(levelSum + 1));
             to2.setText(String.valueOf(levelSum + scoreLevel.get(levelIndex)));
-            setBackGroundColor(level1, levelSum, levelSum + scoreLevel.get(levelIndex));
+            setBackGroundColor(level2, levelSum, levelSum + scoreLevel.get(levelIndex));
             levelSum += scoreLevel.get(levelIndex);
             levelIndex++;
 
             from3.setText(String.valueOf(levelSum + 1));
             to3.setText(String.valueOf(levelSum + scoreLevel.get(levelIndex)));
-            setBackGroundColor(level1, levelSum, levelSum+scoreLevel.get(levelIndex));
+            setBackGroundColor(level3, levelSum, levelSum + scoreLevel.get(levelIndex));
             levelSum += scoreLevel.get(levelIndex);
             levelIndex++;
 
-            if (titleSum == 0)
-                from4.setText(String.valueOf(titleSum));
-            else
-                from4.setText(String.valueOf(titleSum + 1));
-            to4.setText(String.valueOf(titleSum + scoreTitle.get(titleIndex)));
             titleSum += scoreTitle.get(titleIndex);
             titleIndex++;
 
@@ -135,8 +137,6 @@ public class ScoresDialog extends Dialog {
             from3.setText("");
             to3.setText("");
 
-            from4.setText(String.valueOf(titleSum + 1));
-            to4.setText("...");
             titleIndex++;
         }
     }
@@ -144,6 +144,8 @@ public class ScoresDialog extends Dialog {
     TextView userScoreText, userScoreInt, levelText, titleText;
 
     private void findHeaderControls() {
+        Log.d("trace", "ScoresDialog findHeaderControls");
+
         userScoreText = (TextView) findViewById(R.id.scores_user_score_text);
         userScoreInt = (TextView) findViewById(R.id.scores_user_score_int);
         levelText = (TextView) findViewById(R.id.scores_level_text);
@@ -182,6 +184,7 @@ public class ScoresDialog extends Dialog {
     private class CreateLevelViews extends AsyncTask<Void, Void, List<LinearLayout>> {
         LinearLayout body;
         ProgressBar progressBar;
+
         public CreateLevelViews(LinearLayout body, ProgressBar progressBar) {
             this.body = body;
             this.progressBar = progressBar;
@@ -213,7 +216,7 @@ public class ScoresDialog extends Dialog {
             super.onPostExecute(linearLayouts);
 
             this.progressBar.setVisibility(View.GONE);
-            for ( LinearLayout layout : linearLayouts) {
+            for (LinearLayout layout : linearLayouts) {
                 this.body.addView(layout);
             }
         }

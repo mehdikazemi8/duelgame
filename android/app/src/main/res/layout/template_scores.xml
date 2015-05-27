@@ -12,16 +12,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/from4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="1"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_weight="2">
 
             <View
                 android:layout_width="1dp"
@@ -44,7 +35,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
@@ -115,16 +106,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/ta4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="تا"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_weight="2">
 
             <View
                 android:layout_width="1dp"
@@ -148,7 +130,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
@@ -219,16 +201,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="2">
 
-            <TextView
-                android:id="@+id/to4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="2343"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <View
                 android:layout_width="1dp"
@@ -251,7 +225,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
