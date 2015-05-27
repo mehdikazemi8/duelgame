@@ -36,7 +36,6 @@ public class AvatarSelectionDialog extends DialogFragment {
     int screenW;
     int screenH;
 
-
     OnCompleteListener onCompleteListener = null;
 
     @Nullable

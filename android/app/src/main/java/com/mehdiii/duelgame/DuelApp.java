@@ -3,7 +3,6 @@ package com.mehdiii.duelgame;
 import android.app.Application;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;

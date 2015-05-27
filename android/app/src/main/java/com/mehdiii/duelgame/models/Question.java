@@ -2,7 +2,7 @@ package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by MeHdi on 3/2/2015.
@@ -11,7 +11,7 @@ public class Question {
     @SerializedName("question_text")
     private String questionText;
     @SerializedName("options")
-    private List<String> options;
+    private ArrayList<String> options;
 
     public String getQuestionText() {
         return questionText;
@@ -21,11 +21,11 @@ public class Question {
         this.questionText = questionText;
     }
 
-    public List<String> getOptions() {
+    public ArrayList<String> getOptions() {
         return options;
     }
 
-    public void setOptions(List<String> options) {
+    public void setOptions(ArrayList<String> options) {
         this.options = options;
     }
 }
