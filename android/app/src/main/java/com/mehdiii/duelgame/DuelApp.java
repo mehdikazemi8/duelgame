@@ -67,7 +67,7 @@ public class DuelApp extends Application {
 
                 @Override
                 public void onTextMessage(String payload) {
-                    Log.d(TAG, "&&&&& Got echo: " + payload);
+                    Log.d(TAG, "Got echo: " + payload);
 
                     dispatchMessage(payload);
                 }
