@@ -139,7 +139,7 @@ ADDED from AndroidManifest.xml:63:9
 		ADDED from AndroidManifest.xml:65:13
 	android:name
 		ADDED from AndroidManifest.xml:64:13
-activity#com.mehdiii.duelgame.views.activities.GameResultActivity
+activity#com.mehdiii.duelgame.views.activities.result.GameResultActivity
 ADDED from AndroidManifest.xml:68:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:71:13
