@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
-import com.android.vending.billing.IInAppBillingService;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
-import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
-import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -72,8 +70,8 @@ public class HomeActivity extends ParentActivity {
     }
 
     ScoresDialog scoresDialog;
-    public void viewLevels(View view)
-    {
+
+    public void viewLevels(View view) {
         scoresDialog.show();
     }
 
@@ -138,7 +136,8 @@ public class HomeActivity extends ParentActivity {
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
 
         @Override
@@ -232,5 +231,9 @@ public class HomeActivity extends ParentActivity {
 
     public void onEvent(ChangePage change) {
         viewPager.setCurrentItem(change.getPage());
+    }
+
+    public void onEvent(OnUserSettingsChanged settings) {
+        scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
     }
 }
