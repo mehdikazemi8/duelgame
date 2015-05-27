@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame.views.activities.home;
+xpackage com.mehdiii.duelgame.views.activities.home;
 
 import android.content.Context;
 import android.content.Intent;
