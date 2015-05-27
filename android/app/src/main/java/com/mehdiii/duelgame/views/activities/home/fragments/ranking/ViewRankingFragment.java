@@ -66,9 +66,7 @@ public class ViewRankingFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_GET_FRIENDS_RANK ||
-                    type == CommandType.RECEIVE_GET_PROVINCE_RANK ||
-                    type == CommandType.RECEIVE_GET_TOTAL_RANK) {
+            if (type == receiveCommandType) {
                 progressBar.setVisibility(View.GONE);
 
                 RankList list = RankList.deserialize(json, RankList.class);
@@ -105,9 +103,12 @@ public class ViewRankingFragment extends Fragment {
         find(view);
     }
 
+    private CommandType receiveCommandType;
     public void onReload(CommandType sendType, CommandType receiveType) {
         Log.d("command", sendType.toString());
         Log.d("command", receiveType.toString());
+
+        this.receiveCommandType = receiveType;
 
         sendFetchRequest(sendType);
     }
