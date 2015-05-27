@@ -53,6 +53,7 @@ public class ActionEmitter {
         map.put(CommandType.SEND_USER_LOGIN_REQUEST, "UL");
         map.put(CommandType.SEND_READY_TO_PLAY, "RTP");
         map.put(CommandType.RECEIVE_OPPONENT_DATA, "YOI");
+        map.put(CommandType.SEND_GCM_CODE, "SGI");
     }
 
     public String getCommandCode(CommandType type) {
