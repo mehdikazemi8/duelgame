@@ -423,12 +423,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/result_button_report"
+                android:background="@drawable/result_button_review"
                 android:minHeight="1dp"
+                android:onClick="reviewQuestions"
                 android:padding="3dp"
-                android:text="گزارش خطا"
-                android:textColor="@android:color/white"
-                android:visibility="invisible" />
+                android:text="مرور سوالات"
+                android:textColor="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"

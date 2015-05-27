@@ -30,7 +30,6 @@ public class AvatarWaveFragment extends Fragment {
         this.onCompleteListener = onCompleteListener;
     }
 
-
     public static String ARGS_START_INDEX = "ARGS_START_INDEX";
 
     LinearLayout container;
