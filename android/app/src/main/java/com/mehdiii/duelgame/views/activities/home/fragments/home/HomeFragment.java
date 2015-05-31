@@ -31,6 +31,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import de.greenrobot.event.EventBus;
@@ -79,6 +80,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          * configure click listeners and setup typeface
          */
         configure(view);
+
+        AppRater ar = new AppRater();
+        ar.init(getActivity(), true);
+
     }
 
     private void configure(View view) {

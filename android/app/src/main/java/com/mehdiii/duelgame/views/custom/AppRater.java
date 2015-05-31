@@ -43,6 +43,7 @@ public class AppRater {
         }
 
         editor.apply();
+        showRateDialog(mContext, editor);
     }
 
     public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
