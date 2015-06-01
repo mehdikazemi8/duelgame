@@ -153,6 +153,21 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             dialog.setOnResult(new DuelFriendDialog.OnResult() {
                 @Override
                 public void getChallenge(WannaChallenge challenge) {
+<<<<<<< Updated upstream
+=======
+                    Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+                    // Build and send an Event.
+                    tracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("button_click")
+                            .setAction("duel_button")
+                            .setLabel("send_duel_request")
+                            .build());
+
+//                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+//                    dialog.show();
+
+
+>>>>>>> Stashed changes
                     challenge.setUserNumber(request.getId());
                     DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
 
@@ -163,7 +178,6 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     dialog.dismiss();
                 }
             });
-
 
             dialog.show();
         }

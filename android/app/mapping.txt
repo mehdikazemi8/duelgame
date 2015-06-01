@@ -45302,6 +45302,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment -> 
     android.app.Activity activity -> d
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMadeListener -> e
     android.content.BroadcastReceiver broadcastReceiver -> aj
+<<<<<<< Updated upstream
     51:51:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     56:61:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     64:70:void find(android.view.View) -> a
@@ -45331,6 +45332,42 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvt:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
     199:200:void onComplete(java.lang.Object) -> onComplete
+=======
+    57:57:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    62:67:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    70:76:void find(android.view.View) -> a
+    81:84:void onResume() -> onResume
+    88:90:void onBringToFront() -> onBringToFront
+    94:95:void onPause() -> onPause
+    98:102:void configure() -> l
+    105:108:void bindViewData() -> m
+    113:115:void onDetach() -> onDetach
+    119:121:void onAttach(android.app.Activity) -> onAttach
+    124:129:void bindListViewData(com.mehdiii.duelgame.models.FriendList) -> a
+    132:147:void tellFriends() -> n
+    199:207:void onClick(android.view.View) -> onClick
+    210:218:void sendFetchRequest() -> o
+    235:243:void openAddFriendDialog() -> p
+    42:42:void access$000(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> a
+    42:42:android.widget.ProgressBar access$100(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment) -> b
+    42:42:void access$200(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment,com.mehdiii.duelgame.models.FriendList) -> a
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 -> bvt:
+    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
+    152:180:void onDuel(com.mehdiii.duelgame.models.Friend) -> onDuel
+    184:187:void onApprove(com.mehdiii.duelgame.models.Friend) -> onApprove
+    191:194:void onReject(com.mehdiii.duelgame.models.Friend) -> onReject
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1$1 -> bvu:
+    com.mehdiii.duelgame.models.Friend val$request -> a
+    com.mehdiii.duelgame.views.dialogs.DuelFriendDialog val$dialog -> b
+    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$1 this$1 -> c
+    156:176:void getChallenge(com.mehdiii.duelgame.models.WannaChallenge) -> getChallenge
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$2 -> bvv:
+    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
+    223:231:void onReceive(java.lang.String,com.mehdiii.duelgame.models.base.CommandType) -> onReceive
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment$3 -> bvw:
+    com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment this$0 -> a
+    239:240:void onComplete(java.lang.Object) -> onComplete
+>>>>>>> Stashed changes
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter -> com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
     com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade onUserDecisionIsMade -> b
     java.util.List friends -> a
