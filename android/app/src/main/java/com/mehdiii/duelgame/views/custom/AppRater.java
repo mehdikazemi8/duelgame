@@ -48,6 +48,7 @@ public class AppRater {
 
     public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
         final Dialog dialog = new Dialog(mContext);
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialog.setTitle("امتیاز دادن به " + APP_TITLE);
