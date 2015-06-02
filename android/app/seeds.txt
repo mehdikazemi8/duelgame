@@ -24383,8 +24383,10 @@ com.mehdiii.duelgame.BuildConfig: java.lang.String VERSION_NAME
 com.mehdiii.duelgame.BuildConfig: BuildConfig()
 com.mehdiii.duelgame.DuelApp
 com.mehdiii.duelgame.DuelApp: java.lang.String PROPERTY_ID
+com.mehdiii.duelgame.DuelApp: java.lang.String TAG
 com.mehdiii.duelgame.DuelApp: de.tavendo.autobahn.WebSocketConnection wsc
 com.mehdiii.duelgame.DuelApp: java.lang.String wsuri
+com.mehdiii.duelgame.DuelApp: java.lang.String PROPERTY_REG_ID
 com.mehdiii.duelgame.DuelApp: DuelApp()
 com.mehdiii.duelgame.DuelApp: void onCreate()
 com.mehdiii.duelgame.DuelApp: void connectToWs()
@@ -24397,12 +24399,21 @@ com.mehdiii.duelgame.DuelApp: de.tavendo.autobahn.WebSocketConnection getSocket(
 com.mehdiii.duelgame.DuelApp: com.mehdiii.duelgame.DuelApp getInstance()
 com.mehdiii.duelgame.DuelApp: void toast(int,int)
 com.mehdiii.duelgame.DuelApp: com.google.android.gms.analytics.Tracker getTracker(com.mehdiii.duelgame.DuelApp$TrackerName)
+com.mehdiii.duelgame.DuelApp: java.lang.String getRegistrationId(android.content.Context)
+com.mehdiii.duelgame.DuelApp: int getAppVersion(android.content.Context)
+com.mehdiii.duelgame.DuelApp: void storeRegistrationId(android.content.Context,java.lang.String)
+com.mehdiii.duelgame.DuelApp: android.content.SharedPreferences getGCMPreferences(android.content.Context)
 com.mehdiii.duelgame.DuelApp$TrackerName
 com.mehdiii.duelgame.DuelApp$TrackerName: com.mehdiii.duelgame.DuelApp$TrackerName APP_TRACKER
 com.mehdiii.duelgame.DuelApp$TrackerName: com.mehdiii.duelgame.DuelApp$TrackerName GLOBAL_TRACKER
 com.mehdiii.duelgame.DuelApp$TrackerName: com.mehdiii.duelgame.DuelApp$TrackerName ECOMMERCE_TRACKER
 com.mehdiii.duelgame.DuelApp$TrackerName: com.mehdiii.duelgame.DuelApp$TrackerName[] values()
 com.mehdiii.duelgame.DuelApp$TrackerName: com.mehdiii.duelgame.DuelApp$TrackerName valueOf(java.lang.String)
+com.mehdiii.duelgame.Manifest
+com.mehdiii.duelgame.Manifest: Manifest()
+com.mehdiii.duelgame.Manifest$permission
+com.mehdiii.duelgame.Manifest$permission: java.lang.String C2D_MESSAGE
+com.mehdiii.duelgame.Manifest$permission: Manifest$permission()
 com.mehdiii.duelgame.MusicPlayer
 com.mehdiii.duelgame.MusicPlayer: MusicPlayer()
 com.mehdiii.duelgame.MusicPlayer: android.os.IBinder onBind(android.content.Intent)
@@ -24429,6 +24440,8 @@ com.mehdiii.duelgame.R$animator: int slide_up_to_top
 com.mehdiii.duelgame.R$animator: R$animator()
 com.mehdiii.duelgame.R$array
 com.mehdiii.duelgame.R$array: int avatars
+com.mehdiii.duelgame.R$array: int categories_keys
+com.mehdiii.duelgame.R$array: int categories_values
 com.mehdiii.duelgame.R$array: int province_array
 com.mehdiii.duelgame.R$array: int splash_colors_array
 com.mehdiii.duelgame.R$array: R$array()
@@ -25133,6 +25146,7 @@ com.mehdiii.duelgame.R$id: int button_friends
 com.mehdiii.duelgame.R$id: int button_got_it
 com.mehdiii.duelgame.R$id: int button_home
 com.mehdiii.duelgame.R$id: int button_negative
+com.mehdiii.duelgame.R$id: int button_okay
 com.mehdiii.duelgame.R$id: int button_positive
 com.mehdiii.duelgame.R$id: int button_ranking
 com.mehdiii.duelgame.R$id: int button_refill
@@ -25165,6 +25179,7 @@ com.mehdiii.duelgame.R$id: int donate_with_google
 com.mehdiii.duelgame.R$id: int dropdown
 com.mehdiii.duelgame.R$id: int editText_code
 com.mehdiii.duelgame.R$id: int editText_email
+com.mehdiii.duelgame.R$id: int editText_message
 com.mehdiii.duelgame.R$id: int editText_username
 com.mehdiii.duelgame.R$id: int edit_query
 com.mehdiii.duelgame.R$id: int end
@@ -25175,7 +25190,6 @@ com.mehdiii.duelgame.R$id: int finding_opponent_notice
 com.mehdiii.duelgame.R$id: int from1
 com.mehdiii.duelgame.R$id: int from2
 com.mehdiii.duelgame.R$id: int from3
-com.mehdiii.duelgame.R$id: int from4
 com.mehdiii.duelgame.R$id: int game_result_add_friend
 com.mehdiii.duelgame.R$id: int game_result_alaki_layout
 com.mehdiii.duelgame.R$id: int game_result_diamond_cnt
@@ -25287,8 +25301,10 @@ com.mehdiii.duelgame.R$id: int progressbar
 com.mehdiii.duelgame.R$id: int radio
 com.mehdiii.duelgame.R$id: int ranking_friends
 com.mehdiii.duelgame.R$id: int ranking_list_view
+com.mehdiii.duelgame.R$id: int ranking_menu
 com.mehdiii.duelgame.R$id: int ranking_province
 com.mehdiii.duelgame.R$id: int ranking_total
+com.mehdiii.duelgame.R$id: int ranking_total_today
 com.mehdiii.duelgame.R$id: int ranking_user_avatar
 com.mehdiii.duelgame.R$id: int ranking_user_name
 com.mehdiii.duelgame.R$id: int ranking_user_position
@@ -25325,6 +25341,7 @@ com.mehdiii.duelgame.R$id: int shortcut
 com.mehdiii.duelgame.R$id: int showCustom
 com.mehdiii.duelgame.R$id: int showHome
 com.mehdiii.duelgame.R$id: int showTitle
+com.mehdiii.duelgame.R$id: int spinner_category
 com.mehdiii.duelgame.R$id: int spinner_province
 com.mehdiii.duelgame.R$id: int split_action_bar
 com.mehdiii.duelgame.R$id: int start_his_avatar
@@ -25335,12 +25352,12 @@ com.mehdiii.duelgame.R$id: int switch_music
 com.mehdiii.duelgame.R$id: int ta1
 com.mehdiii.duelgame.R$id: int ta2
 com.mehdiii.duelgame.R$id: int ta3
-com.mehdiii.duelgame.R$id: int ta4
 com.mehdiii.duelgame.R$id: int tabMode
 com.mehdiii.duelgame.R$id: int terrain
 com.mehdiii.duelgame.R$id: int textView
 com.mehdiii.duelgame.R$id: int textView_boy
 com.mehdiii.duelgame.R$id: int textView_caption
+com.mehdiii.duelgame.R$id: int textView_category
 com.mehdiii.duelgame.R$id: int textView_code
 com.mehdiii.duelgame.R$id: int textView_counter
 com.mehdiii.duelgame.R$id: int textView_girl
@@ -25351,6 +25368,8 @@ com.mehdiii.duelgame.R$id: int textView_level
 com.mehdiii.duelgame.R$id: int textView_message
 com.mehdiii.duelgame.R$id: int textView_music_off
 com.mehdiii.duelgame.R$id: int textView_music_on
+com.mehdiii.duelgame.R$id: int textView_name
+com.mehdiii.duelgame.R$id: int textView_online
 com.mehdiii.duelgame.R$id: int textView_price
 com.mehdiii.duelgame.R$id: int textView_province
 com.mehdiii.duelgame.R$id: int textView_send_report
@@ -25362,7 +25381,6 @@ com.mehdiii.duelgame.R$id: int title
 com.mehdiii.duelgame.R$id: int to1
 com.mehdiii.duelgame.R$id: int to2
 com.mehdiii.duelgame.R$id: int to3
-com.mehdiii.duelgame.R$id: int to4
 com.mehdiii.duelgame.R$id: int top
 com.mehdiii.duelgame.R$id: int triangle
 com.mehdiii.duelgame.R$id: int try_to_connect_status
@@ -25431,9 +25449,11 @@ com.mehdiii.duelgame.R$layout: int activity_waiting
 com.mehdiii.duelgame.R$layout: int control_purchase_item
 com.mehdiii.duelgame.R$layout: int dialog_add_friend
 com.mehdiii.duelgame.R$layout: int dialog_alert
+com.mehdiii.duelgame.R$layout: int dialog_answer_of_challenge_request
 com.mehdiii.duelgame.R$layout: int dialog_avatar_selection
 com.mehdiii.duelgame.R$layout: int dialog_confirm
 com.mehdiii.duelgame.R$layout: int dialog_connection_lost
+com.mehdiii.duelgame.R$layout: int dialog_duel_friend
 com.mehdiii.duelgame.R$layout: int dialog_low_heart
 com.mehdiii.duelgame.R$layout: int dialog_purchase_result
 com.mehdiii.duelgame.R$layout: int dialog_review_questions
@@ -25492,6 +25512,8 @@ com.mehdiii.duelgame.R$string: int button_buy_heart
 com.mehdiii.duelgame.R$string: int button_cancel
 com.mehdiii.duelgame.R$string: int button_choose_avatar
 com.mehdiii.duelgame.R$string: int button_confirm
+com.mehdiii.duelgame.R$string: int button_duel
+com.mehdiii.duelgame.R$string: int button_duel_with_friends
 com.mehdiii.duelgame.R$string: int button_enable_data
 com.mehdiii.duelgame.R$string: int button_enable_wifi
 com.mehdiii.duelgame.R$string: int button_friends
@@ -25507,6 +25529,8 @@ com.mehdiii.duelgame.R$string: int caption_boy
 com.mehdiii.duelgame.R$string: int caption_email
 com.mehdiii.duelgame.R$string: int caption_friend_id
 com.mehdiii.duelgame.R$string: int caption_girl
+com.mehdiii.duelgame.R$string: int caption_offline
+com.mehdiii.duelgame.R$string: int caption_online
 com.mehdiii.duelgame.R$string: int caption_play_music
 com.mehdiii.duelgame.R$string: int caption_play_music_not
 com.mehdiii.duelgame.R$string: int caption_send_report
@@ -25554,6 +25578,9 @@ com.mehdiii.duelgame.R$string: int message_click_photo_to_choose_avatar
 com.mehdiii.duelgame.R$string: int message_connecting_to_server
 com.mehdiii.duelgame.R$string: int message_connection_lost
 com.mehdiii.duelgame.R$string: int message_connection_unstable
+com.mehdiii.duelgame.R$string: int message_duel_request_offline
+com.mehdiii.duelgame.R$string: int message_duel_request_playing
+com.mehdiii.duelgame.R$string: int message_duel_with_friends_default
 com.mehdiii.duelgame.R$string: int message_heart_is_low
 com.mehdiii.duelgame.R$string: int message_hearts_fully_refilled
 com.mehdiii.duelgame.R$string: int message_internet_is_not_available
@@ -25561,6 +25588,7 @@ com.mehdiii.duelgame.R$string: int message_revisit_duel_konkoor
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
 com.mehdiii.duelgame.R$string: int message_settings_save_successful
 com.mehdiii.duelgame.R$string: int message_share
+com.mehdiii.duelgame.R$string: int messege_duel_request_denied
 com.mehdiii.duelgame.R$string: int splash_circle
 com.mehdiii.duelgame.R$string: int store_picture_message
 com.mehdiii.duelgame.R$string: int store_picture_title
@@ -26277,6 +26305,15 @@ com.mehdiii.duelgame.models.Category$CategoryType
 com.mehdiii.duelgame.models.Category$CategoryType: com.mehdiii.duelgame.models.Category$CategoryType WANNA_PLAY
 com.mehdiii.duelgame.models.Category$CategoryType: com.mehdiii.duelgame.models.Category$CategoryType[] values()
 com.mehdiii.duelgame.models.Category$CategoryType: com.mehdiii.duelgame.models.Category$CategoryType valueOf(java.lang.String)
+com.mehdiii.duelgame.models.ChallengeRequestDecision
+com.mehdiii.duelgame.models.ChallengeRequestDecision: int getCategory()
+com.mehdiii.duelgame.models.ChallengeRequestDecision: void setCategory(int)
+com.mehdiii.duelgame.models.ChallengeRequestDecision: ChallengeRequestDecision(com.mehdiii.duelgame.models.base.CommandType)
+com.mehdiii.duelgame.models.ChallengeRequestDecision: ChallengeRequestDecision(com.mehdiii.duelgame.models.base.CommandType,int,java.lang.String)
+com.mehdiii.duelgame.models.ChallengeRequestDecision: int getDecision()
+com.mehdiii.duelgame.models.ChallengeRequestDecision: void setDecision(int)
+com.mehdiii.duelgame.models.ChallengeRequestDecision: java.lang.String getUserNumber()
+com.mehdiii.duelgame.models.ChallengeRequestDecision: void setUserNumber(java.lang.String)
 com.mehdiii.duelgame.models.ChangePage
 com.mehdiii.duelgame.models.ChangePage: ChangePage(int)
 com.mehdiii.duelgame.models.ChangePage: int getPage()
@@ -26299,6 +26336,12 @@ com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType: com.mehdiii.duelg
 com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType: com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType UNKNOWN
 com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType: com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType[] values()
 com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType: com.mehdiii.duelgame.models.DeliveryReport$DeliveryReportType valueOf(java.lang.String)
+com.mehdiii.duelgame.models.DuelOpponentRequest
+com.mehdiii.duelgame.models.DuelOpponentRequest: DuelOpponentRequest()
+com.mehdiii.duelgame.models.DuelOpponentRequest: int getCategory()
+com.mehdiii.duelgame.models.DuelOpponentRequest: void setCategory(int)
+com.mehdiii.duelgame.models.DuelOpponentRequest: java.lang.String getMessage()
+com.mehdiii.duelgame.models.DuelOpponentRequest: void setMessage(java.lang.String)
 com.mehdiii.duelgame.models.Friend
 com.mehdiii.duelgame.models.Friend: Friend()
 com.mehdiii.duelgame.models.Friend: java.lang.String getStatus()
@@ -26423,6 +26466,10 @@ com.mehdiii.duelgame.models.Rank: int getProvince()
 com.mehdiii.duelgame.models.Rank: void setProvince(int)
 com.mehdiii.duelgame.models.Rank: int getFriends()
 com.mehdiii.duelgame.models.Rank: void setFriends(int)
+com.mehdiii.duelgame.models.SendGcmCode
+com.mehdiii.duelgame.models.SendGcmCode: SendGcmCode(java.lang.String)
+com.mehdiii.duelgame.models.SendGcmCode: java.lang.String getGcmId()
+com.mehdiii.duelgame.models.SendGcmCode: void setGcmId(java.lang.String)
 com.mehdiii.duelgame.models.UpdateVersion
 com.mehdiii.duelgame.models.UpdateVersion: UpdateVersion()
 com.mehdiii.duelgame.models.UpdateVersion: int getVersion()
@@ -26474,6 +26521,14 @@ com.mehdiii.duelgame.models.UserForRanklist
 com.mehdiii.duelgame.models.UserForRanklist: UserForRanklist(int)
 com.mehdiii.duelgame.models.UserForRanklist: int getPlaceInRank()
 com.mehdiii.duelgame.models.UserForRanklist: void setPlaceInRank(int)
+com.mehdiii.duelgame.models.WannaChallenge
+com.mehdiii.duelgame.models.WannaChallenge: WannaChallenge(java.lang.String,int,java.lang.String)
+com.mehdiii.duelgame.models.WannaChallenge: java.lang.String getUserNumber()
+com.mehdiii.duelgame.models.WannaChallenge: void setUserNumber(java.lang.String)
+com.mehdiii.duelgame.models.WannaChallenge: int getCategory()
+com.mehdiii.duelgame.models.WannaChallenge: void setCategory(int)
+com.mehdiii.duelgame.models.WannaChallenge: java.lang.String getMessage()
+com.mehdiii.duelgame.models.WannaChallenge: void setMessage(java.lang.String)
 com.mehdiii.duelgame.models.WannaPlay
 com.mehdiii.duelgame.models.WannaPlay: WannaPlay(java.lang.String)
 com.mehdiii.duelgame.models.WannaPlay: WannaPlay(com.mehdiii.duelgame.models.base.CommandType,java.lang.String)
@@ -26498,9 +26553,11 @@ com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.C
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_PROVINCE_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIENDS_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_TOTAL_RANK_TODAY
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_PROVINCE_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_FRIENDS_RANK
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_GET_TOTAL_RANK_TODAY
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_REGISTER
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_LOGIN_INFO
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GET_FRIEND_LIST
@@ -26527,7 +26584,12 @@ com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.C
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_WANNA_PLAY
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_USER_LOGIN_REQUEST
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_READY_TO_PLAY
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_WANNA_CHALLENGE
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_CHALLENGE_REQUEST
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_ANSWER_OF_CHALLENGE_REQUEST
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_CHALLENGE_REQUEST_DECISION
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_OPPONENT_DATA
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType SEND_GCM_CODE
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType[] values()
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType valueOf(java.lang.String)
 com.mehdiii.duelgame.models.base.DeliveryMessage
@@ -26583,6 +26645,9 @@ com.mehdiii.duelgame.models.responses.RankList: java.util.List getTop()
 com.mehdiii.duelgame.models.responses.RankList: void setTop(java.util.List)
 com.mehdiii.duelgame.models.responses.RankList: java.util.List getNear()
 com.mehdiii.duelgame.models.responses.RankList: void setNear(java.util.List)
+com.mehdiii.duelgame.receivers.GcmBroadcastReceiver
+com.mehdiii.duelgame.receivers.GcmBroadcastReceiver: GcmBroadcastReceiver()
+com.mehdiii.duelgame.receivers.GcmBroadcastReceiver: void onReceive(android.content.Context,android.content.Intent)
 com.mehdiii.duelgame.receivers.HeartFullyRecovered
 com.mehdiii.duelgame.receivers.HeartFullyRecovered: HeartFullyRecovered()
 com.mehdiii.duelgame.receivers.HeartFullyRecovered: void onReceive(android.content.Context,android.content.Intent)
@@ -26595,6 +26660,10 @@ com.mehdiii.duelgame.receivers.PokeDuelReceiver: java.lang.String PREFERENCE_PRE
 com.mehdiii.duelgame.receivers.PokeDuelReceiver: java.lang.String PREFERENCE_POKE_SEED
 com.mehdiii.duelgame.receivers.PokeDuelReceiver: PokeDuelReceiver()
 com.mehdiii.duelgame.receivers.PokeDuelReceiver: void onReceive(android.content.Context,android.content.Intent)
+com.mehdiii.duelgame.services.GcmIntentService
+com.mehdiii.duelgame.services.GcmIntentService: java.lang.String TAG
+com.mehdiii.duelgame.services.GcmIntentService: GcmIntentService()
+com.mehdiii.duelgame.services.GcmIntentService: void onHandleIntent(android.content.Intent)
 com.mehdiii.duelgame.utils.AvatarHelper
 com.mehdiii.duelgame.utils.AvatarHelper: AvatarHelper()
 com.mehdiii.duelgame.utils.AvatarHelper: android.graphics.Bitmap getBitmap(android.content.Context,int)
@@ -26626,6 +26695,9 @@ com.mehdiii.duelgame.utils.BidirectionalMap: void put(java.lang.Object,java.lang
 com.mehdiii.duelgame.utils.BidirectionalMap: java.lang.Object get(java.lang.Object)
 com.mehdiii.duelgame.utils.BidirectionalMap: java.lang.Object getKey(java.lang.Object)
 com.mehdiii.duelgame.utils.BidirectionalMap: boolean contains(java.lang.Object)
+com.mehdiii.duelgame.utils.CategoryManager
+com.mehdiii.duelgame.utils.CategoryManager: CategoryManager()
+com.mehdiii.duelgame.utils.CategoryManager: java.lang.String getCategory(android.content.Context,int)
 com.mehdiii.duelgame.utils.DeviceManager
 com.mehdiii.duelgame.utils.DeviceManager: DeviceManager()
 com.mehdiii.duelgame.utils.DeviceManager: java.lang.String getDeviceId(android.content.Context)
@@ -26845,13 +26917,21 @@ com.mehdiii.duelgame.views.activities.TryToConnectActivity: void reconnect(andro
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void exit(android.view.View)
 com.mehdiii.duelgame.views.activities.TryToConnectActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.home.HomeActivity
+com.mehdiii.duelgame.views.activities.home.HomeActivity: java.lang.String TAG
 com.mehdiii.duelgame.views.activities.home.HomeActivity: HomeActivity()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onActivityResult(int,int,android.content.Intent)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void registerInBackground()
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void registerInBackground(com.mehdiii.duelgame.views.OnCompleteListener)
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void sendRegistrationIdToBackend()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void viewLevels(android.view.View)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.BuyNotification)
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.ChallengeRequestDecision)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.ChangePage)
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.events.OnUserSettingsChanged)
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void onResume()
+com.mehdiii.duelgame.views.activities.home.HomeActivity: void onPause()
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter: java.util.List categories
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter: ViewPagerAdapter(android.support.v4.app.FragmentManager,java.util.List,java.util.List)
@@ -27092,6 +27172,12 @@ com.mehdiii.duelgame.views.dialogs.AddFriendDialog: void onClick(android.view.Vi
 com.mehdiii.duelgame.views.dialogs.AlertDialog
 com.mehdiii.duelgame.views.dialogs.AlertDialog: AlertDialog(android.content.Context,java.lang.String)
 com.mehdiii.duelgame.views.dialogs.AlertDialog: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.dialogs.AlertDialog: com.mehdiii.duelgame.views.OnCompleteListener getOnCompleteListener()
+com.mehdiii.duelgame.views.dialogs.AlertDialog: void setOnCompleteListener(com.mehdiii.duelgame.views.OnCompleteListener)
+com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog
+com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: AnswerOfChallengeRequestDialog(android.content.Context,com.mehdiii.duelgame.models.DuelOpponentRequest)
+com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: void onClick(android.view.View)
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog: AvatarSelectionDialog()
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
@@ -27109,6 +27195,13 @@ com.mehdiii.duelgame.views.dialogs.ConfirmDialog: void onClick(android.view.View
 com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog
 com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog: ConnectionLostDialog(android.content.Context)
 com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog: com.mehdiii.duelgame.views.dialogs.DuelFriendDialog$OnResult getOnResult()
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog: void setOnResult(com.mehdiii.duelgame.views.dialogs.DuelFriendDialog$OnResult)
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog: DuelFriendDialog(android.content.Context)
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog$OnResult
+com.mehdiii.duelgame.views.dialogs.DuelFriendDialog$OnResult: void getChallenge(com.mehdiii.duelgame.models.WannaChallenge)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: HeartLowDialog(android.content.Context)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: void onCreate(android.os.Bundle)
@@ -27122,6 +27215,8 @@ com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog: void onViewCreated(and
 com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.ScoresDialog
 com.mehdiii.duelgame.views.dialogs.ScoresDialog: ScoresDialog(android.content.Context)
+com.mehdiii.duelgame.views.dialogs.ScoresDialog: int getUserScore()
+com.mehdiii.duelgame.views.dialogs.ScoresDialog: void setUserScore(int)
 com.mehdiii.duelgame.views.dialogs.ScoresDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.UpdateDialog
 com.mehdiii.duelgame.views.dialogs.UpdateDialog: UpdateDialog(android.content.Context,com.mehdiii.duelgame.models.UpdateVersion,boolean)

@@ -19,6 +19,7 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 
 import de.greenrobot.event.EventBus;
 
@@ -36,6 +37,8 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
     Button okayButton;
     Button cancelButton;
     DuelOpponentRequest data;
+    OnCompleteListener onPostDecisionMade = null;
+
 
     public AnswerOfChallengeRequestDialog(Context context, DuelOpponentRequest data) {
         super(context);
@@ -90,6 +93,7 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
                 requestDecision.setDecision(0);
                 break;
             case R.id.button_okay:
+                okayButton.setEnabled(false);
                 requestDecision.setDecision(1);
                 requestDecision.setCategory(data.getCategory());
                 EventBus.getDefault().post(requestDecision);
@@ -97,7 +101,13 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
         }
 
         dismiss();
+
         DuelApp.getInstance().sendMessage(requestDecision.serialize());
+        if (onPostDecisionMade != null)
+            onPostDecisionMade.onComplete(requestDecision.getDecision() != 0);
     }
 
+    public void setOnPostDecisionMade(OnCompleteListener onPostDecisionMade) {
+        this.onPostDecisionMade = onPostDecisionMade;
+    }
 }

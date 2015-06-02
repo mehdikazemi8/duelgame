@@ -44,6 +44,8 @@ public class ActionEmitter {
         map.put(CommandType.SEND_GET_FRIENDS_RANK, "GFR");
         map.put(CommandType.SEND_GET_PROVINCE_RANK, "GPR");
         map.put(CommandType.SEND_GET_TOTAL_RANK, "GTR");
+        map.put(CommandType.SEND_GET_TOTAL_RANK_TODAY, "GTRT");
+        map.put(CommandType.RECEIVE_GET_TOTAL_RANK_TODAY, "RTRT");
         map.put(CommandType.RECEIVE_GET_FRIENDS_RANK, "RFR");
         map.put(CommandType.RECEIVE_GET_PROVINCE_RANK, "RPR");
         map.put(CommandType.RECEIVE_GET_TOTAL_RANK, "RTR");
@@ -57,6 +59,7 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_CHALLENGE_REQUEST, "CR");
         map.put(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST, "ACR");
         map.put(CommandType.RECEIVE_CHALLENGE_REQUEST_DECISION, "CRD");
+        map.put(CommandType.SEND_GCM_CODE, "SGI");
     }
 
     public String getCommandCode(CommandType type) {

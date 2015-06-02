@@ -153,8 +153,6 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             dialog.setOnResult(new DuelFriendDialog.OnResult() {
                 @Override
                 public void getChallenge(WannaChallenge challenge) {
-<<<<<<< Updated upstream
-=======
                     Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
                     // Build and send an Event.
                     tracker.send(new HitBuilders.EventBuilder()
@@ -163,21 +161,21 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                             .setLabel("send_duel_request")
                             .build());
 
-//                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
-//                    dialog.show();
+                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+                    dialog.show();
 
 
->>>>>>> Stashed changes
-                    challenge.setUserNumber(request.getId());
-                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
-
-                    Intent i = new Intent(getActivity(), WaitingActivity.class);
-                    i.putExtra("user_number", request.getId());
-                    i.putExtra("category", challenge.getCategory());
-                    startActivity(i);
-                    dialog.dismiss();
+//                    challenge.setUserNumber(request.getId());
+//                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+////
+////                    Intent i = new Intent(getActivity(), WaitingActivity.class);
+////                    i.putExtra("user_number", request.getId());
+////                    i.putExtra("category", challenge.getCategory());
+////                    startActivity(i);
+////                    dialog.dismiss();
                 }
             });
+
 
             dialog.show();
         }

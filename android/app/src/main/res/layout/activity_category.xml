@@ -37,9 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:clickable="false"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="letsPlay"
                 android:contentDescription="10002"
-                android:focusable="false"
                 android:padding="20dp"
                 android:src="@drawable/arabi" />
 
@@ -49,9 +50,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:clickable="false"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="letsPlay"
                 android:contentDescription="10003"
-                android:focusable="false"
                 android:padding="20dp"
                 android:src="@drawable/din_o_zendegi" />
 

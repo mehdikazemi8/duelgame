@@ -1,9 +1,0 @@
-/android/build
-/android/.idea
-/android/gradle
-/android/.gradle
-/android/android.iml
-/android/app/app.iml
-android/local.properties
-/android/ViewPagerIndicator
-/android/switchButton/build

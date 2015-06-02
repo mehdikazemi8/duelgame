@@ -1,8 +1,14 @@
 package com.mehdiii.duelgame;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,12 +34,14 @@ import de.tavendo.autobahn.WebSocketHandler;
  */
 public class DuelApp extends Application {
     public static final String PROPERTY_ID = "UA-62041991-1";
-    private String TAG = "DUEL_APP";
+    public static final String TAG = "DUEL_APP";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     static protected String wsuri = "ws://duelgame.ir:9001";
+    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
 
     @Override
     public void onCreate() {
@@ -58,7 +66,7 @@ public class DuelApp extends Application {
 
                 @Override
                 public void onTextMessage(String payload) {
-                    Log.d(TAG, "&&&&& Got echo: " + payload);
+                    Log.d(TAG, "Got echo: " + payload);
 
                     dispatchMessage(payload);
                 }
@@ -167,4 +175,78 @@ public class DuelApp extends Application {
         mGATracker.enableAutoActivityTracking(true);
         mGATracker.enableExceptionReporting(true);
     }
+
+
+    /**
+     * Gets the current registration ID for application on GCM service.
+     * <p/>
+     * If result is empty, the app needs to register.
+     *
+     * @return registration ID, or empty string if there is no existing
+     * registration ID.
+     */
+    public static String getRegistrationId(Context context) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+        if (registrationId == null || registrationId.isEmpty()) {
+            Log.i(TAG, "Registration not found.");
+            return "";
+        }
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing registration ID is not guaranteed to work with
+        // the new app version.
+        int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i(TAG, "App version changed.");
+            return "";
+        }
+        return registrationId;
+    }
+
+    /**
+     * @return Application's version code from the {@code PackageManager}.
+     */
+    public static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+
+    /**
+     * Stores the registration ID and app versionCode in the application's
+     * {@code SharedPreferences}.
+     *
+     * @param context application's context.
+     * @param regId   registration ID
+     */
+    public static void storeRegistrationId(Context context, String regId) {
+
+        final SharedPreferences prefs = DuelApp.getGCMPreferences(context);
+        int appVersion = DuelApp.getAppVersion(context);
+        Log.i(TAG, "Saving regId on app version " + appVersion);
+
+        // persist preference
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.apply();
+    }
+
+    /**
+     * @return Application's {@code SharedPreferences}.
+     */
+    public static SharedPreferences getGCMPreferences(Context context) {
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the registration ID in your app is up to you.
+        return context.getSharedPreferences(DuelApp.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+    }
+
 }

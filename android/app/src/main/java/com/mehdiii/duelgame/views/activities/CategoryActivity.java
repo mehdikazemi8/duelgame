@@ -7,6 +7,7 @@ import android.view.View;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 public
@@ -27,5 +28,20 @@ class CategoryActivity extends ParentActivity {
 
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();
+    }
+
+    @Override
+    public boolean canHandleChallengeRequest() {
+        return true;
+    }
+
+    @Override
+    public OnCompleteListener getPostChallengeDecisionMadeListener() {
+        return new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                finish();
+            }
+        };
     }
 }

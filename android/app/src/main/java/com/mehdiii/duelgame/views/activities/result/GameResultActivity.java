@@ -32,6 +32,7 @@ import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
@@ -525,5 +526,20 @@ public class GameResultActivity extends ParentActivity {
         dialog.setArguments(bundle);
 
         dialog.show(getSupportFragmentManager(), "DIALOG_REVIEW_QUESTIONS");
+    }
+
+    @Override
+    public boolean canHandleChallengeRequest() {
+        return true;
+    }
+
+    @Override
+    public OnCompleteListener getPostChallengeDecisionMadeListener() {
+        return new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                finish();
+            }
+        };
     }
 }

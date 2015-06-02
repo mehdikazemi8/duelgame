@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBarActivity;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.ChallengeRequestDecision;
+import com.mehdiii.duelgame.models.DuelOpponentRequest;
 import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.User;
@@ -18,6 +21,9 @@ import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
+import com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
@@ -37,6 +43,13 @@ public class ParentActivity extends ActionBarActivity {
                     AuthManager.authenticate(ParentActivity.this, user);
                 }
             }
+            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST && canHandleChallengeRequest()) {
+                DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
+                AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(ParentActivity.this, request);
+                dialog.setCancelable(false);
+                dialog.setOnPostDecisionMade(getPostChallengeDecisionMadeListener());
+                dialog.show();
+            }
         }
     });
 
@@ -47,6 +60,10 @@ public class ParentActivity extends ActionBarActivity {
     protected static int userPoints;
     protected static int opponentPoints;
     static final int NUMBER_OF_AVATARS = 6;
+
+    public boolean canHandleChallengeRequest() {
+        return false;
+    }
 
     static void shuffleArray(List<String> ar) {
         for (int i = ar.size() - 1; i > 0; i--) {
@@ -61,6 +78,7 @@ public class ParentActivity extends ActionBarActivity {
         ar.set(0, ar.get(index));
         ar.set(index, a);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +123,19 @@ public class ParentActivity extends ActionBarActivity {
         }
     }
 
+    public void onEvent(ChallengeRequestDecision challengeRequestDecision) {
+        Intent i = new Intent(ParentActivity.this, WaitingActivity.class);
+        i.putExtra("user_number", challengeRequestDecision.getUserNumber());
+        i.putExtra("category", challengeRequestDecision.getCategory());
+        startActivity(i);
+    }
+
     // sub classes can change this configuration by overriding this method. default value is `true`
     public boolean showConnectingToServerDialog() {
         return true;
+    }
+
+    public OnCompleteListener getPostChallengeDecisionMadeListener() {
+        return null;
     }
 }
