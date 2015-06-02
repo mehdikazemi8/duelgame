@@ -28,3 +28,4 @@ proguard/
 app/mapping.txt
 app/seeds.txt
 app/out.map
+app/class_files.txt
