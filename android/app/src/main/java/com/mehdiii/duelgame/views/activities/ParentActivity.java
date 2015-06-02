@@ -46,10 +46,17 @@ public class ParentActivity extends ActionBarActivity {
             }
             if (type == CommandType.RECEIVE_CHALLENGE_REQUEST && canHandleChallengeRequest()) {
                 DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
-                AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(ParentActivity.this, request);
-                dialog.setCancelable(false);
-                dialog.setOnPostDecisionMade(getPostChallengeDecisionMadeListener());
-                dialog.show();
+                try {
+                    category = String.valueOf(request.getCategory());
+                    AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(ParentActivity.this, request);
+                    dialog.setCancelable(false);
+                    dialog.setOnPostDecisionMade(getPostChallengeDecisionMadeListener());
+                    dialog.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     });
@@ -129,6 +136,7 @@ public class ParentActivity extends ActionBarActivity {
         Intent i = new Intent(ParentActivity.this, WaitingActivity.class);
         i.putExtra("user_number", challengeRequestDecision.getUserNumber());
         i.putExtra("category", challengeRequestDecision.getCategory());
+        i.putExtra("master", false);
         startActivity(i);
     }
 

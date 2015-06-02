@@ -67,10 +67,18 @@ public class ProfileDialog extends Dialog {
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onRemoveListener != null)
-                    onRemoveListener.onComplete(true);
-
-                dismiss();
+                ConfirmDialog alertDialog = new ConfirmDialog(getContext(), getContext().getResources().getString(R.string.message_are_you_sure_to_remove_friend));
+                alertDialog.setOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        if ((Boolean) data) {
+                            if (onRemoveListener != null)
+                                onRemoveListener.onComplete(true);
+                            dismiss();
+                        }
+                    }
+                });
+                alertDialog.show();
             }
         });
     }

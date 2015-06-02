@@ -515,6 +515,8 @@ public class GameResultActivity extends ParentActivity {
         Intent i = new Intent(this, WaitingActivity.class);
         i.putExtra("user_number", opponentUser.getId());
         i.putExtra("category", categoryId);
+        i.putExtra("master", true);
+
         startActivity(i);
         finish();
     }

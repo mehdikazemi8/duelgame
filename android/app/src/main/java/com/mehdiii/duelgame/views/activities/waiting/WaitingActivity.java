@@ -114,13 +114,14 @@ public class WaitingActivity extends ParentActivity {
 
     private void receiveOpponentLeft() {
         if (isChallengeMode) {
+            hasLeft = true;
+            DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
+
             AlertDialog dialog = new AlertDialog(this, getResources().getString(R.string.message_opponent_left));
             dialog.setCancelable(false);
             dialog.setOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(Object data) {
-                    hasLeft = true;
-                    DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
                     finish();
                 }
             });
@@ -250,13 +251,18 @@ public class WaitingActivity extends ParentActivity {
 
 
         if (getIntent().getExtras() != null) {
-            String userNumber = getIntent().getExtras().getString("user_number", null);
-            int category = getIntent().getExtras().getInt("category", -1);
-            String message = getIntent().getExtras().getString("message", getResources().getString(R.string.message_duel_with_friends_default));
+            Bundle extras = getIntent().getExtras();
+            String userNumber = extras.getString("user_number", null);
+            int category = extras.getInt("category", -1);
+            String message = extras.getString("message", getResources().getString(R.string.message_duel_with_friends_default));
+            boolean isMaster = extras.getBoolean("master");
 
             if (userNumber != null) {
                 WannaChallenge challenge = new WannaChallenge(userNumber, category, message);
-                DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+                if (isMaster)
+                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+                else
+                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_PLAY));
             }
         }
 

@@ -25589,6 +25589,7 @@ com.mehdiii.duelgame.R$string: int hello_world
 com.mehdiii.duelgame.R$string: int invalid_add_friend_code_empty
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_exit
 com.mehdiii.duelgame.R$string: int message_are_you_sure_to_quite_game
+com.mehdiii.duelgame.R$string: int message_are_you_sure_to_remove_friend
 com.mehdiii.duelgame.R$string: int message_click_photo_to_choose_avatar
 com.mehdiii.duelgame.R$string: int message_connecting_to_server
 com.mehdiii.duelgame.R$string: int message_connection_lost

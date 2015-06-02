@@ -19,14 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space.short"
-        android:gravity="right"
+        android:gravity="center"
         android:textColor="@color/yellow"
-        android:textSize="@dimen/fontsize.normal" />
+        android:textSize="@dimen/fontsize.large" />
 
     <TextView
         android:id="@+id/textView_province"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="@dimen/space.short"
         android:textColor="@color/white"
         android:textSize="@dimen/fontsize.normal" />
@@ -34,6 +35,7 @@
     <TextView
         android:id="@+id/textView_score"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space.short"
         android:textColor="@color/yellow"
@@ -41,7 +43,7 @@
 
     <Button
         android:layout_marginTop="@dimen/space.medium"
-        android:textColor="@color/white"
+        android:textColor="@color/blue_dark"
         android:id="@+id/button_remove_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -22,4 +22,5 @@
     <string name="message_duel_request_playing">ایشون در حال بازی کردن با فرد دیگری هستند!</string>
     <string name="message_rate_app">اگه با دوئل حال کردی...</string>
     <string name="message_opponent_left">حریفتون بازیو ترک کرد..</string>
+    <string name="message_are_you_sure_to_remove_friend">ایا مطمئنی هستی که دوسست رو پاک کنی؟</string>
 </resources>

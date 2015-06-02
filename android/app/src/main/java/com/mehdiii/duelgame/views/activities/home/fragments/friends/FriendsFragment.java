@@ -186,17 +186,19 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 //                    challenge.setUserNumber(request.getId());
 //                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
 //
+                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
+
                     Intent i = new Intent(getActivity(), WaitingActivity.class);
                     i.putExtra("user_number", request.getId());
                     i.putExtra("category", challenge.getCategory());
                     i.putExtra("message", challenge.getMessage());
+                    i.putExtra("master", true);
 
                     if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
                         Log.d("FRIEND_FRAGMENT", "activity is null");
                         return;
                     }
 
-                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
 
                     startActivity(i);
                     dialog.dismiss();
