@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
@@ -31,6 +32,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         void onApprove(Friend request);
 
         void onReject(Friend request);
+
+        void onSelect(Friend friend);
     }
 
     private OnUserDecisionIsMade onUserDecisionIsMade;
@@ -77,7 +80,10 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             viewHolder.buttonNegative = (Button) convertView.findViewById(R.id.button_negative);
             viewHolder.textViewStatus = (TextView) convertView.findViewById(R.id.textView_status);
             viewHolder.duelButton = (Button) convertView.findViewById(R.id.button_duel);
-            viewHolder.textViewOnline = (TextView) convertView.findViewById(R.id.textView_online);
+            viewHolder.onlineImageView = (ImageView) convertView.findViewById(R.id.imageView_online);
+            viewHolder.container = (LinearLayout) convertView.findViewById(R.id.container_wrapper);
+
+//            viewHolder.textViewOnline = (TextView) convertView.findViewById(R.id.textView_online);
 
             convertView.setTag(viewHolder);
         }
@@ -89,9 +95,17 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), friend.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(friend.getName());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
-        holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()));
+        holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()) + " از ");
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
-        FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle, holder.duelButton, holder.textViewOnline);
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onUserDecisionIsMade != null)
+                    onUserDecisionIsMade.onSelect(friend);
+            }
+        });
+        FontHelper.setKoodakFor(getContext(), holder.textViewLevel, holder.textViewProvince, holder.textViewTitle, holder.duelButton/*, holder.textViewOnline*/);
 
         holder.buttonPositive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,11 +144,9 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.duelButton.setVisibility(View.GONE);
 
         if (friend.isOnline()) {
-            holder.textViewOnline.setText(getContext().getResources().getString(R.string.caption_online));
-            holder.textViewOnline.setTextColor(getContext().getResources().getColor(R.color.black));
+            holder.onlineImageView.setImageResource(R.drawable.circle_online);
         } else {
-            holder.textViewOnline.setText(getContext().getResources().getString(R.string.caption_offline));
-            holder.textViewOnline.setTextColor(getContext().getResources().getColor(R.color.gray_light));
+            holder.onlineImageView.setImageResource(R.drawable.circle_offline);
         }
 
         if (friend.getStatus().equals("pending")) {
@@ -177,6 +189,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
     }
 
     protected class ViewHolder {
+        LinearLayout container;
         private ImageView imageViewAvatar;
         private TextView textViewTitle;
         private TextView textViewLevel;
@@ -185,7 +198,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         private Button buttonPositive;
         private Button buttonNegative;
         private Button duelButton;
-        private TextView textViewOnline;
+        private ImageView onlineImageView;
+//        private TextView textViewOnline;
     }
 
 }

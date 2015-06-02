@@ -23,6 +23,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
+import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.WannaChallenge;
 import com.mehdiii.duelgame.models.WannaPlay;
@@ -37,6 +38,7 @@ import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
+import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -212,6 +214,19 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             request.setAccepted(false);
             DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_FRIEND_REQUEST_RESPONSE));
             sendFetchRequest();
+        }
+
+        @Override
+        public void onSelect(final Friend friend) {
+            ProfileDialog dialog = new ProfileDialog(getActivity(), friend);
+            dialog.setOnRemoveListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(Object data) {
+                    DuelApp.getInstance().sendMessage(new RemoveFriend(friend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
+                    sendFetchRequest();
+                }
+            });
+            dialog.show();
         }
     };
 

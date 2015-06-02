@@ -600,8 +600,6 @@ public class PlayGameActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         findControls();
 
         readArguments();

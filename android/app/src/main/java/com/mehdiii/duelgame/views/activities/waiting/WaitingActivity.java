@@ -105,6 +105,8 @@ public class WaitingActivity extends ParentActivity {
         }
     });
 
+    boolean isChallengeMode = false;
+
     private void receiveChallengeRequestDecisionListener(String json) {
         ChallengeRequestDecision decision = BaseModel.deserialize(json, ChallengeRequestDecision.class);
         String message = "";
@@ -137,7 +139,7 @@ public class WaitingActivity extends ParentActivity {
             });
 
             dialog.show();
-        }
+        } else isChallengeMode = true;
     }
 
     private void receiveOpponentDataListener(String json) {
@@ -171,7 +173,8 @@ public class WaitingActivity extends ParentActivity {
     private void receiveStartPlayingListener() {
         Intent i = new Intent(getApplicationContext(), PlayGameActivity.class);
         i.putExtra(PlayGameActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
-        if (HeartTracker.getInstance().useHeart(WaitingActivity.this)) {
+
+        if (isChallengeMode || HeartTracker.getInstance().useHeart(WaitingActivity.this)) {
             startActivity(i);
             finish();
         }
