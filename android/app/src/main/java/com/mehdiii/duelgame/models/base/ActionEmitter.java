@@ -60,6 +60,7 @@ public class ActionEmitter {
         map.put(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST, "ACR");
         map.put(CommandType.RECEIVE_CHALLENGE_REQUEST_DECISION, "CRD");
         map.put(CommandType.SEND_GCM_CODE, "SGI");
+        map.put(CommandType.SEND_REMOVE_FRIEND, "RMF");
     }
 
     public String getCommandCode(CommandType type) {
