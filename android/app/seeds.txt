@@ -25526,6 +25526,7 @@ com.mehdiii.duelgame.R$string: int button_save
 com.mehdiii.duelgame.R$string: int button_tell_friends
 com.mehdiii.duelgame.R$string: int button_update
 com.mehdiii.duelgame.R$string: int caption_boy
+com.mehdiii.duelgame.R$string: int caption_duel_again
 com.mehdiii.duelgame.R$string: int caption_email
 com.mehdiii.duelgame.R$string: int caption_friend_id
 com.mehdiii.duelgame.R$string: int caption_girl
@@ -26855,6 +26856,8 @@ com.mehdiii.duelgame.views.activities.CategoryActivity
 com.mehdiii.duelgame.views.activities.CategoryActivity: CategoryActivity()
 com.mehdiii.duelgame.views.activities.CategoryActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.CategoryActivity: void letsPlay(android.view.View)
+com.mehdiii.duelgame.views.activities.CategoryActivity: boolean canHandleChallengeRequest()
+com.mehdiii.duelgame.views.activities.CategoryActivity: com.mehdiii.duelgame.views.OnCompleteListener getPostChallengeDecisionMadeListener()
 com.mehdiii.duelgame.views.activities.ChooseAvatarActivity
 com.mehdiii.duelgame.views.activities.ChooseAvatarActivity: ChooseAvatarActivity()
 com.mehdiii.duelgame.views.activities.ChooseAvatarActivity: void onCreate(android.os.Bundle)
@@ -26881,11 +26884,14 @@ com.mehdiii.duelgame.views.activities.ParentActivity: java.util.List questionsTo
 com.mehdiii.duelgame.views.activities.ParentActivity: int userPoints
 com.mehdiii.duelgame.views.activities.ParentActivity: int opponentPoints
 com.mehdiii.duelgame.views.activities.ParentActivity: ParentActivity()
+com.mehdiii.duelgame.views.activities.ParentActivity: boolean canHandleChallengeRequest()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ParentActivity: void onResume()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onPause()
 com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.events.OnConnectionStateChanged)
+com.mehdiii.duelgame.views.activities.ParentActivity: void onEvent(com.mehdiii.duelgame.models.ChallengeRequestDecision)
 com.mehdiii.duelgame.views.activities.ParentActivity: boolean showConnectingToServerDialog()
+com.mehdiii.duelgame.views.activities.ParentActivity: com.mehdiii.duelgame.views.OnCompleteListener getPostChallengeDecisionMadeListener()
 com.mehdiii.duelgame.views.activities.PlayGameActivity
 com.mehdiii.duelgame.views.activities.PlayGameActivity: java.lang.String ARGUMENT_OPPONENT
 com.mehdiii.duelgame.views.activities.PlayGameActivity: PlayGameActivity()
@@ -26927,11 +26933,11 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity: void sendRegistrationId
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void viewLevels(android.view.View)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.BuyNotification)
-com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.ChallengeRequestDecision)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.ChangePage)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onEvent(com.mehdiii.duelgame.models.events.OnUserSettingsChanged)
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onResume()
 com.mehdiii.duelgame.views.activities.home.HomeActivity: void onPause()
+com.mehdiii.duelgame.views.activities.home.HomeActivity: boolean canHandleChallengeRequest()
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter: java.util.List categories
 com.mehdiii.duelgame.views.activities.home.ViewPagerAdapter: ViewPagerAdapter(android.support.v4.app.FragmentManager,java.util.List,java.util.List)
@@ -27065,8 +27071,9 @@ com.mehdiii.duelgame.views.activities.result.GameResultActivity: void onCreate(a
 com.mehdiii.duelgame.views.activities.result.GameResultActivity: void addToFriends(android.view.View)
 com.mehdiii.duelgame.views.activities.result.GameResultActivity: void goToHome(android.view.View)
 com.mehdiii.duelgame.views.activities.result.GameResultActivity: void duelWithOthers(android.view.View)
-com.mehdiii.duelgame.views.activities.result.GameResultActivity: void onDestroy()
 com.mehdiii.duelgame.views.activities.result.GameResultActivity: void reviewQuestions(android.view.View)
+com.mehdiii.duelgame.views.activities.result.GameResultActivity: boolean canHandleChallengeRequest()
+com.mehdiii.duelgame.views.activities.result.GameResultActivity: com.mehdiii.duelgame.views.OnCompleteListener getPostChallengeDecisionMadeListener()
 com.mehdiii.duelgame.views.activities.result.fragments.ShowQuestionFragment
 com.mehdiii.duelgame.views.activities.result.fragments.ShowQuestionFragment: java.lang.String ARGUMENT_STATEMENT
 com.mehdiii.duelgame.views.activities.result.fragments.ShowQuestionFragment: java.lang.String ARGUMENT_OPTIONS
@@ -27178,6 +27185,7 @@ com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog
 com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: AnswerOfChallengeRequestDialog(android.content.Context,com.mehdiii.duelgame.models.DuelOpponentRequest)
 com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: void onClick(android.view.View)
+com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog: void setOnPostDecisionMade(com.mehdiii.duelgame.views.OnCompleteListener)
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog: AvatarSelectionDialog()
 com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
