@@ -203,9 +203,11 @@ public class WaitingActivity extends ParentActivity {
         if (getIntent().getExtras() != null) {
             String userNumber = getIntent().getExtras().getString("user_number", null);
             int category = getIntent().getExtras().getInt("category", -1);
+            String message = getIntent().getExtras().getString("message", getResources().getString(R.string.message_duel_with_friends_default));
+
             if (userNumber != null) {
-                WannaChallenge challenge = new WannaChallenge(userNumber, category, null);
-                DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_PLAY));
+                WannaChallenge challenge = new WannaChallenge(userNumber, category, message);
+                DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
             }
         }
 

@@ -25,6 +25,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaChallenge;
 import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -348,7 +349,7 @@ public class GameResultActivity extends ParentActivity {
         allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
 
 
-        // TODO onResum? onWindowChangedFocus? onCreate?
+        // TODO onResume? onWindowChangedFocus? onCreate?
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
         animateProgress();
@@ -493,21 +494,29 @@ public class GameResultActivity extends ParentActivity {
     }
 
     public void goToHome(View view) {
-//        onBackPressed();
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 
     public void duelWithOthers(View v) {
-        DuelApp.getInstance().sendMessage(new WannaPlay(CommandType.SEND_WANNA_PLAY, category).serialize());
+        int categoryId;
 
-        startActivity(new Intent(this, WaitingActivity.class));
-        this.finish();
-    }
+        try {
+            categoryId = Integer.parseInt(category);
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+            return;
+        }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+//        WannaChallenge challenge = new WannaChallenge(opponentUser.getId(), categoryId, getResources().getString(R.string.message_duel_with_friends_default));
+//
+//        DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+
+        Intent i = new Intent(this, WaitingActivity.class);
+        i.putExtra("user_number", opponentUser.getId());
+        i.putExtra("category", categoryId);
+        startActivity(i);
+        finish();
     }
 
     public void reviewQuestions(View view) {

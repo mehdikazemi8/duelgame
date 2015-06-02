@@ -54,7 +54,7 @@ public class ParentActivity extends ActionBarActivity {
     });
 
     protected static Random rand = new Random();
-    protected static String category;
+    public static String category;
     public static int NUMBER_OF_QUESTIONS = 6;
     public static List<Question> questionsToAsk = new ArrayList<>();
     protected static int userPoints;

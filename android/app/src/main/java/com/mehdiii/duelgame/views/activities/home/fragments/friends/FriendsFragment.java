@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
@@ -161,18 +163,27 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                             .setLabel("send_duel_request")
                             .build());
 
-                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
-                    dialog.show();
+//                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+//                    dialog.show();
 
 
 //                    challenge.setUserNumber(request.getId());
 //                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
-////
-////                    Intent i = new Intent(getActivity(), WaitingActivity.class);
-////                    i.putExtra("user_number", request.getId());
-////                    i.putExtra("category", challenge.getCategory());
-////                    startActivity(i);
-////                    dialog.dismiss();
+//
+                    Intent i = new Intent(getActivity(), WaitingActivity.class);
+                    i.putExtra("user_number", request.getId());
+                    i.putExtra("category", challenge.getCategory());
+                    i.putExtra("message", challenge.getMessage());
+
+                    if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
+                        Log.d("FRIEND_FRAGMENT", "activity is null");
+                        return;
+                    }
+
+                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
+
+                    startActivity(i);
+                    dialog.dismiss();
                 }
             });
 

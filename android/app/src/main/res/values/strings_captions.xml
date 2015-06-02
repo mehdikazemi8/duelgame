@@ -9,6 +9,7 @@
     <string name="caption_friend_id">کد دوست شما</string>
     <string name="caption_send_report">گزارش خطا</string>
     <string name="caption_send_report_title">[گزارش خطا]</string>
-    <string name="caption_online">انلاین</string>
-    <string name="caption_offline">افلاین</string>
+    <string name="caption_online">آنلاین</string>
+    <string name="caption_offline">آفلاین</string>
+    <string name="caption_duel_again">دوئل مجدد</string>
 </resources>
