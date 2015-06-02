@@ -21,4 +21,5 @@
     <string name="message_duel_request_offline">ایشون الان توی بازی نیستن!</string>
     <string name="message_duel_request_playing">ایشون در حال بازی کردن با فرد دیگری هستند!</string>
     <string name="message_rate_app">اگه با دوئل حال کردی...</string>
+    <string name="message_opponent_left">حریفتون بازیو ترک کرد..</string>
 </resources>

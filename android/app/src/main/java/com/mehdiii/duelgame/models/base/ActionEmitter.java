@@ -61,6 +61,7 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_CHALLENGE_REQUEST_DECISION, "CRD");
         map.put(CommandType.SEND_GCM_CODE, "SGI");
         map.put(CommandType.SEND_REMOVE_FRIEND, "RMF");
+        map.put(CommandType.RECEIVE_OPPONENT_HAS_LEFT, "OHL");
     }
 
     public String getCommandCode(CommandType type) {

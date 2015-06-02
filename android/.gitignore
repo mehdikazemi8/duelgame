@@ -29,3 +29,5 @@ app/mapping.txt
 app/seeds.txt
 app/out.map
 app/class_files.txt
+app/unused.txt
+app/manifest-merger-release-report.txt

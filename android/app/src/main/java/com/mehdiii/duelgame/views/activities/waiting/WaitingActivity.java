@@ -103,11 +103,30 @@ public class WaitingActivity extends ParentActivity {
                 case RECEIVE_CHALLENGE_REQUEST_DECISION:
                     receiveChallengeRequestDecisionListener(json);
                     break;
+                case RECEIVE_OPPONENT_HAS_LEFT:
+                    receiveOpponentLeft();
+                    break;
             }
         }
     });
 
     boolean isChallengeMode = false;
+
+    private void receiveOpponentLeft() {
+        if (isChallengeMode) {
+            AlertDialog dialog = new AlertDialog(this, getResources().getString(R.string.message_opponent_left));
+            dialog.setCancelable(false);
+            dialog.setOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(Object data) {
+                    hasLeft = true;
+                    DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
+                    finish();
+                }
+            });
+            dialog.show();
+        }
+    }
 
     private void receiveChallengeRequestDecisionListener(String json) {
         ChallengeRequestDecision decision = BaseModel.deserialize(json, ChallengeRequestDecision.class);
