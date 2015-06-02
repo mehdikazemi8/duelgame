@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:gravity="right"
-                android:textColor="@color/green" />
+                android:textColor="@color/green_dark" />
 
         </LinearLayout>
 
