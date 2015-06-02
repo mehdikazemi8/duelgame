@@ -133,7 +133,12 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         Collections.sort(list.getFriends(), new Comparator<Friend>() {
             @Override
             public int compare(Friend friend, Friend t1) {
-                return friend.isOnline() && !t1.isOnline() ? -1 : friend.getScore() < t1.getScore() ? 1 : -1;
+                if (friend.getStatus().equals("request") && !t1.getStatus().equals("request")) {
+                    return -1;
+                }
+
+                return friend.isOnline() && !t1.isOnline() ? -1 : 1;
+//                return friend.isOnline() && !t1.isOnline() ? -1 : friend.getScore() < t1.getScore() ? 1 : -1;
             }
         });
         adapter = new FriendsListAdapter(this.activity, R.layout.template_friends_list, list.getFriends());
