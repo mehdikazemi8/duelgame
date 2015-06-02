@@ -7,9 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -142,7 +144,11 @@ public class WaitingActivity extends ParentActivity {
         } else isChallengeMode = true;
     }
 
+    boolean matched = false;
+
     private void receiveOpponentDataListener(String json) {
+        leaveButton.setVisibility(View.GONE);
+        matched = true;
         OpponentCollection collection = BaseModel.deserialize(json, OpponentCollection.class);
 
         if (collection == null || collection.getOpponents() == null)
@@ -180,12 +186,14 @@ public class WaitingActivity extends ParentActivity {
         }
     }
 
+    Button leaveButton;
+
     private void receiveGameDataListener(String json) {
         ProblemCollection collection = BaseModel.deserialize(json, ProblemCollection.class);
         if (collection == null)
             return;
-
         questionsToAsk = collection.getQuestions();
+
 
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
         scheduledExecutorService.schedule(new Runnable() {
@@ -202,6 +210,25 @@ public class WaitingActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
+        leaveButton = (Button) findViewById(R.id.button_leave);
+        leaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hasLeft = true;
+                DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
+                finish();
+            }
+        });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!matched)
+                    leaveButton.setVisibility(View.VISIBLE);
+            }
+        }, 15000);
+
 
         if (getIntent().getExtras() != null) {
             String userNumber = getIntent().getExtras().getString("user_number", null);

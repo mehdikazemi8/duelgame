@@ -13,20 +13,20 @@
     <FrameLayout
         android:id="@+id/user_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_above="@id/waiting_separator"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/waiting_separator" />
 
     <FrameLayout
         android:id="@+id/opponent_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_below="@id/waiting_separator"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/waiting_separator" />
 
     <FrameLayout
         android:id="@+id/finding_opponent_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_below="@id/waiting_separator"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/waiting_separator" />
 
     <TextView
         android:id="@+id/waiting_against"
@@ -38,5 +38,17 @@
         android:text="در مقابل"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:padding="5dp"
+        android:visibility="gone"
+        android:id="@+id/button_leave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:background="@drawable/bg_button_blue_dark"
+        android:text="@string/button_leave"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fontsize.normal" />
 
 </RelativeLayout>
