@@ -45524,20 +45524,20 @@ com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment -> com.me
     android.widget.ImageView heartsImageView -> ar
     android.widget.LinearLayout containerHearts -> as
     67:67:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    72:87:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-    91:101:void configure(android.view.View) -> a
-    104:124:void find(android.view.View) -> b
-    128:131:void onResume() -> onResume
-    135:137:void onPause() -> onPause
-    141:155:void onClick(android.view.View) -> onClick
-    158:177:void bindViewData() -> bindViewData
-    180:187:void startGame() -> startGame
-    190:191:void refillHeart() -> l
-    197:205:void sendReport() -> m
-    209:231:void onEvent(com.mehdiii.duelgame.models.events.OnHeartChangeNotice) -> onEvent
-    234:235:void onEvent(com.mehdiii.duelgame.models.events.OnDiamondChangeNotice) -> onEvent
-    238:239:void onEvent(com.mehdiii.duelgame.models.events.OnUserSettingsChanged) -> onEvent
-    243:246:void onBringToFront() -> onBringToFront
+    72:86:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
+    90:100:void configure(android.view.View) -> a
+    103:123:void find(android.view.View) -> b
+    127:130:void onResume() -> onResume
+    134:136:void onPause() -> onPause
+    140:154:void onClick(android.view.View) -> onClick
+    157:176:void bindViewData() -> bindViewData
+    179:186:void startGame() -> startGame
+    189:190:void refillHeart() -> l
+    196:204:void sendReport() -> m
+    208:230:void onEvent(com.mehdiii.duelgame.models.events.OnHeartChangeNotice) -> onEvent
+    233:234:void onEvent(com.mehdiii.duelgame.models.events.OnDiamondChangeNotice) -> onEvent
+    237:238:void onEvent(com.mehdiii.duelgame.models.events.OnUserSettingsChanged) -> onEvent
+    242:245:void onBringToFront() -> onBringToFront
 com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment -> com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment:
     int NUMBER_OF_TABS -> h
     boolean[] isFocused -> a

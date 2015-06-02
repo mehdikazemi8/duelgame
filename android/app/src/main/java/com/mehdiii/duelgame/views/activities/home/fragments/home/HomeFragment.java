@@ -81,9 +81,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          */
         configure(view);
 
-        AppRater ar = new AppRater();
-        ar.init(getActivity(), true);
-
+//        AppRater ar = new AppRater();
+//        ar.init(getActivity(), true);
     }
 
     private void configure(View view) {
