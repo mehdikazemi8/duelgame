@@ -38,6 +38,9 @@ import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * Created by omid on 4/5/2015.
  */
@@ -125,6 +128,12 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private void bindListViewData(FriendList list) {
         if (activity == null)
             return;
+        Collections.sort(list.getFriends(), new Comparator<Friend>() {
+            @Override
+            public int compare(Friend friend, Friend t1) {
+                return friend.isOnline() && !t1.isOnline() ? -1 : friend.getScore() < t1.getScore() ? 1 : -1;
+            }
+        });
         adapter = new FriendsListAdapter(this.activity, R.layout.template_friends_list, list.getFriends());
         adapter.setOnUserDecisionIsMade(onUserDecisionIsMadeListener);
         this.listView.setAdapter(adapter);
