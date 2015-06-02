@@ -16,6 +16,7 @@
             android:id="@+id/textView_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
             android:gravity="center" />
 
@@ -56,13 +57,13 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView_online"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:gravity="center"
-        android:textSize="@dimen/fontsize.normal" />
+    <!--<TextView-->
+    <!--android:id="@+id/textView_online"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1.5"-->
+    <!--android:gravity="center"-->
+    <!--android:textSize="@dimen/fontsize.normal" />-->
 
     <LinearLayout
         android:layout_width="0dp"
@@ -76,19 +77,33 @@
             android:id="@+id/textView_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right" />
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textSize="@dimen/fontsize.normal" />
 
-        <TextView
-            android:id="@+id/textView_level"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right" />
+            android:gravity="right|bottom"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView_province"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right" />
+            <TextView
+                android:id="@+id/textView_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" />
+
+
+            <TextView
+                android:id="@+id/textView_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:gravity="right"
+                android:textColor="@color/green" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -99,5 +114,13 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/imageView_online"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_weight="0.5"
+        android:src="@drawable/circle_online" />
 
 </LinearLayout>
