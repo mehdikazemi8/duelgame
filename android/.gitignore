@@ -25,3 +25,6 @@ proguard/
 # Log Files
 *.log
 .idea
+app/mapping.txt
+app/seeds.txt
+app/out.map

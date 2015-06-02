@@ -25146,9 +25146,11 @@ com.mehdiii.duelgame.R$id: int button_friends
 com.mehdiii.duelgame.R$id: int button_got_it
 com.mehdiii.duelgame.R$id: int button_home
 com.mehdiii.duelgame.R$id: int button_negative
+com.mehdiii.duelgame.R$id: int button_not_now
 com.mehdiii.duelgame.R$id: int button_okay
 com.mehdiii.duelgame.R$id: int button_positive
 com.mehdiii.duelgame.R$id: int button_ranking
+com.mehdiii.duelgame.R$id: int button_rate
 com.mehdiii.duelgame.R$id: int button_refill
 com.mehdiii.duelgame.R$id: int button_register
 com.mehdiii.duelgame.R$id: int button_retry
@@ -25456,6 +25458,7 @@ com.mehdiii.duelgame.R$layout: int dialog_connection_lost
 com.mehdiii.duelgame.R$layout: int dialog_duel_friend
 com.mehdiii.duelgame.R$layout: int dialog_low_heart
 com.mehdiii.duelgame.R$layout: int dialog_purchase_result
+com.mehdiii.duelgame.R$layout: int dialog_rate_app
 com.mehdiii.duelgame.R$layout: int dialog_review_questions
 com.mehdiii.duelgame.R$layout: int dialog_scores
 com.mehdiii.duelgame.R$layout: int dialog_update
@@ -25518,6 +25521,8 @@ com.mehdiii.duelgame.R$string: int button_enable_data
 com.mehdiii.duelgame.R$string: int button_enable_wifi
 com.mehdiii.duelgame.R$string: int button_friends
 com.mehdiii.duelgame.R$string: int button_got_it
+com.mehdiii.duelgame.R$string: int button_not_now
+com.mehdiii.duelgame.R$string: int button_rate
 com.mehdiii.duelgame.R$string: int button_refill_heart
 com.mehdiii.duelgame.R$string: int button_register
 com.mehdiii.duelgame.R$string: int button_requests
@@ -25585,6 +25590,7 @@ com.mehdiii.duelgame.R$string: int message_duel_with_friends_default
 com.mehdiii.duelgame.R$string: int message_heart_is_low
 com.mehdiii.duelgame.R$string: int message_hearts_fully_refilled
 com.mehdiii.duelgame.R$string: int message_internet_is_not_available
+com.mehdiii.duelgame.R$string: int message_rate_app
 com.mehdiii.duelgame.R$string: int message_revisit_duel_konkoor
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
 com.mehdiii.duelgame.R$string: int message_settings_save_successful
@@ -27214,6 +27220,10 @@ com.mehdiii.duelgame.views.dialogs.HeartLowDialog
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: HeartLowDialog(android.content.Context)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.dialogs.HeartLowDialog: void onClick(android.view.View)
+com.mehdiii.duelgame.views.dialogs.RateDialog
+com.mehdiii.duelgame.views.dialogs.RateDialog: RateDialog(android.content.Context)
+com.mehdiii.duelgame.views.dialogs.RateDialog: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.dialogs.RateDialog: void onClick(android.view.View)
 com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog
 com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog: ReviewQuestionsDialog()
 com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
