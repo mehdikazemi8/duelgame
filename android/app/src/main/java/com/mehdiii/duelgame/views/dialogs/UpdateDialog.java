@@ -53,7 +53,7 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
         negativeButton.setOnClickListener(this);
 
         if (mUpdate != null) {
-            webView.loadDataWithBaseURL(null, mUpdate.getChangeset(), "messageTextView/html", "utf-8", null);
+            webView.loadDataWithBaseURL(null, mUpdate.getChangeset(), "text/html", "utf-8", null);
         }
     }
 
