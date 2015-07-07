@@ -1,4 +1,4 @@
-package com.mehdiii.duelgame.views.activities.home.fragments.ranking;
+package com.mehdiii.duelgame.views.activities.ranking.fragments;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -22,7 +22,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
-import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter;
 
 public class ViewRankingFragment extends Fragment {
 
@@ -105,8 +105,13 @@ public class ViewRankingFragment extends Fragment {
     }
 
     private CommandType receiveCommandType;
-    public void onReload(String period) {
-        sendFetchRequest(period);
+    public void onReload(CommandType sendType, CommandType receiveType) {
+        Log.d("command", sendType.toString());
+        Log.d("command", receiveType.toString());
+
+        this.receiveCommandType = receiveType;
+
+        sendFetchRequest(sendType);
     }
 }
 

@@ -19,8 +19,12 @@ class CategoryActivity extends ParentActivity {
         setContentView(R.layout.activity_category);
     }
 
-    public void letsPlay(View v) {
+    public void showRanking(View v){
+        String category = v.getContentDescription().toString();
 
+    }
+
+    public void letsPlay(View v) {
         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
         category = v.getContentDescription().toString();
         cat.setCategory(v.getContentDescription().toString());
