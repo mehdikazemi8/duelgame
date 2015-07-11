@@ -105,8 +105,13 @@ public class ViewRankingFragment extends Fragment {
     }
 
     private CommandType receiveCommandType;
-    public void onReload(String period) {
-        sendFetchRequest(period);
+    public void onReload(CommandType sendType, CommandType receiveType) {
+        Log.d("command", sendType.toString());
+        Log.d("command", receiveType.toString());
+
+        this.receiveCommandType = receiveType;
+
+        sendFetchRequest(sendType);
     }
 }
 

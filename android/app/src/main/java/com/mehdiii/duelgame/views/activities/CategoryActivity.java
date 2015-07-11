@@ -8,6 +8,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ranking.RankingActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 public
@@ -20,8 +21,8 @@ class CategoryActivity extends ParentActivity {
     }
 
     public void showRanking(View v){
-        String category = v.getContentDescription().toString();
-
+        ParentActivity.category = v.getContentDescription().toString();
+        startActivity(new Intent(this, RankingActivity.class));
     }
 
     public void letsPlay(View v) {

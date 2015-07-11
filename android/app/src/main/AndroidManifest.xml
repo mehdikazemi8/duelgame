@@ -80,6 +80,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".views.activities.ranking.RankingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".views.activities.result.GameResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />

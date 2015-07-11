@@ -4,9 +4,31 @@
     android:layout_height="match_parent"
     tools:context="com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment">
 
+    <LinearLayout
+        android:id="@+id/user_score"
+        android:layout_width="match_parent"
+        android:layout_below="@id/ranking_menu"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/user_score_value"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:text="امتیاز شما:"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/ranking_list_view"
         android:layout_width="match_parent"
+        android:layout_below="@id/user_score"
         android:layout_height="match_parent" />
 
     <ProgressBar

@@ -40,31 +40,12 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="هفته" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/your_score"
-        android:layout_width="match_parent"
-        android:layout_below="@id/ranking_menu"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="0dp"
-            android:padding="5dp"
-            android:text="امتیاز شما:"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/view_course_ranking_fragment_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/your_score" />
+        android:layout_below="@id/ranking_menu" />
 
 </RelativeLayout>

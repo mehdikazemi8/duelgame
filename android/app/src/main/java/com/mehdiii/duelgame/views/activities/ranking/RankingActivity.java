@@ -3,17 +3,21 @@ package com.mehdiii.duelgame.views.activities.ranking;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.ProvinceManager;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment;
 
 /**
  * Created by mehdiii on 7/7/15.
  */
-public class RankingActivity extends Activity {
+public class RankingActivity extends ParentActivity {
 
     private final int NUMBER_OF_TABS = 2;
 
@@ -28,6 +32,12 @@ public class RankingActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+
+        findControls();
+        configureControls();
+
+        viewRankingFragment = Fragment.instantiate(this, ViewRankingFragment.class.getName(), null);
+        getSupportFragmentManager().beginTransaction().add(R.id.view_course_ranking_fragment_holder, viewRankingFragment).commit();
     }
 
     private void setBackColor() {
@@ -38,9 +48,9 @@ public class RankingActivity extends Activity {
                 rankTitle[i].setBackgroundColor(notFocusedColor);
     }
 
-    protected void findControls(View view) {
-        rankTitle[0] = (TextView) view.findViewById(R.id.ranking_week);
-        rankTitle[1] = (TextView) view.findViewById(R.id.ranking_overall);
+    protected void findControls() {
+        rankTitle[0] = (TextView) findViewById(R.id.ranking_week);
+        rankTitle[1] = (TextView) findViewById(R.id.ranking_overall);
 
         for (int i = 0; i < NUMBER_OF_TABS; i++) {
             rankTitle[i].setOnClickListener(new View.OnClickListener() {
@@ -55,11 +65,24 @@ public class RankingActivity extends Activity {
                     isFocused[titleIndex] = true;
                     setBackColor();
 
-
                     ((ViewRankingFragment) viewRankingFragment).onReload(sendWhat[titleIndex]);
                 }
             });
         }
     }
 
+    private void setFocusInitialState() {
+        isFocused[0] = true;
+        isFocused[1] = false;
+    }
+
+    protected void configureControls() {
+        focusedColor = getResources().getColor(R.color.yellow);
+        notFocusedColor = getResources().getColor(R.color.yellow_light);
+
+        FontHelper.setKoodakFor(this, rankTitle[0], rankTitle[1]);
+
+        setFocusInitialState();
+        setBackColor();
+    }
 }
