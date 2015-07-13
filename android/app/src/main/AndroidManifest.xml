@@ -65,7 +65,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activities.CategoryActivity"
+            android:name=".views.activities.category.CategoryActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
 

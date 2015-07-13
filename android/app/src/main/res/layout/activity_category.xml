@@ -1,147 +1,174 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/category_background"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".StartActivity">
+    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:onClick="showRanking"
-                android:contentDescription="10001"
-                android:text="رده بندی"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Duel2"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:contentDescription="10001"
-                android:onClick="letsPlay"
-                android:text="Duel1"
-                android:layout_height="match_parent" />
-            <ImageView
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:id="@+id/adabiat"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/adabiat" />
-        </LinearLayout>
+                android:background="@android:color/holo_blue_bright"
+                android:clickable="true"
+                android:contentDescription="0"
+                android:onClick="clicked">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:onClick="showRanking"
-                android:contentDescription="10002"
-                android:text="رده بندی"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Duel2"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:contentDescription="10002"
-                android:onClick="letsPlay"
-                android:text="Duel1"
-                android:layout_height="match_parent" />
-            <ImageView
+                <TextView
+                    android:id="@+id/adabiat_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="level 5" />
+                <TextView
+                    android:id="@+id/adabiat_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="ادبیات" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_holder_adabiat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+            <LinearLayout
                 android:id="@+id/arabi"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:src="@drawable/arabi" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-            <Button
-                android:layout_width="0dp"
-                android:text="رده بندی"
-                android:layout_weight="1"
-                android:onClick="showRanking"
-                android:contentDescription="10003"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Duel2"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:contentDescription="10003"
-                android:onClick="letsPlay"
-                android:text="Duel1"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:id="@+id/din_o_zendegi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:src="@drawable/din_o_zendegi" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-            <Button
-                android:layout_width="0dp"
-                android:text="رده بندی"
-                android:layout_weight="1"
-                android:onClick="showRanking"
-                android:contentDescription="10004"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Duel2"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_width="0dp"
-                android:contentDescription="10004"
-                android:onClick="letsPlay"
-                android:layout_weight="1"
-                android:text="Duel1"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:id="@+id/zaban_englisi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:src="@drawable/zaban_englisi" />
-        </LinearLayout>
-    </LinearLayout>
+                android:background="@android:color/holo_blue_bright"
+                android:clickable="true"
+                android:contentDescription="1"
+                android:onClick="clicked">
 
+                <TextView
+                    android:id="@+id/arabi_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="level 5" />
+                <TextView
+                    android:id="@+id/arabi_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="عربی" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_holder_arabi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/din_o_zendegi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_bright"
+                android:clickable="true"
+                android:contentDescription="2"
+                android:onClick="clicked">
+
+                <TextView
+                    android:id="@+id/din_o_zendegi_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="level 5" />
+                <TextView
+                    android:id="@+id/din_o_zendegi_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="دین و زندگی" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_holder_din_o_zendegi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/zaban_englisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_bright"
+                android:clickable="true"
+                android:contentDescription="3"
+                android:onClick="clicked">
+
+                <TextView
+                    android:id="@+id/zaban_englisi_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="level 5" />
+                <TextView
+                    android:id="@+id/zaban_englisi_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="انگلیسی" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_holder_zaban_englisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/shimi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_bright"
+                android:clickable="true"
+                android:contentDescription="4"
+                android:onClick="clicked">
+
+                <TextView
+                    android:id="@+id/shimi_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="level 5" />
+                <TextView
+                    android:id="@+id/shimi_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="شیمی" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_holder_shimi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

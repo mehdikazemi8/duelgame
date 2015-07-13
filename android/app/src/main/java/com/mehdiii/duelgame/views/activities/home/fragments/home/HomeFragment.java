@@ -29,7 +29,7 @@ import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
-import com.mehdiii.duelgame.views.activities.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;

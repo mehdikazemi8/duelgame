@@ -1,0 +1,24 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <Button
+        android:id="@+id/ranking"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="رتبه بندی"
+        android:onClick="showRank"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:onClick="wannaPlay"
+        android:text="dueL"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
