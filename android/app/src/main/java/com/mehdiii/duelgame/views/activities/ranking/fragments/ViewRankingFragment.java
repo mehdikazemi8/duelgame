@@ -66,7 +66,7 @@ public class ViewRankingFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-//            if (type == receiveCommandType)
+            if (type == CommandType.RECEIVE_COURSE_RANKING)
             {
                 progressBar.setVisibility(View.GONE);
 
