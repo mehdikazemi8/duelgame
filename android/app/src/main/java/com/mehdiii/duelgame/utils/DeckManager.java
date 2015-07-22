@@ -22,31 +22,7 @@ public class DeckManager {
         capacities = new int[]{5, 4, 3, 2, 1};
     }
 
-//    public Card getNextCard() {
-//        if (!hasCapacity())
-//            renewCapacities();
-//
-//        Wheel tmp = new Wheel(0, MAX_GROUP_COUNT - 1, wheel.peek());
-//
-//        int counter = 0;
-//        while (capacities[tmp.peek()] != 0 && groups.get(tmp.peek()).size() <= 1 && counter < MAX_GROUP_COUNT * 3) {
-//            tmp.move();
-//
-//            // counter is used to avoid checking for more than once (possible case of STACKOVERFLOW if groups are totally empty)
-//            counter++;
-//        }
-//        LinkedList<Card> l = groups.get(tmp.peek());
-//        l.peekFirst();
-//
-//        currentCard = groups.get(tmp.peek()).peek();
-//
-//        if (onChangeListener != null)
-//            onChangeListener.onNextCardHit(currentCard);
-//
-//        return currentCard;
-//    }
-
-    public DeckManager(List<Card> cards) {
+    public DeckManager(List<Card> cards, int[] capacities) {
         groups = new HashMap<>();
 
         /// create groups and their capacities
@@ -63,7 +39,10 @@ public class DeckManager {
             groups.get(level).add(cards.get(i));
         }
 
-        renewCapacities();
+        if (capacities == null)
+            renewCapacities();
+        else
+            this.capacities = capacities;
     }
 
     public boolean hasCapacity() {

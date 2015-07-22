@@ -113,4 +113,10 @@ public class FlashCard extends BaseModel {
     public void setToAsk(int[] toAsk) {
         this.toAsk = toAsk;
     }
+
+    public void organize() {
+        int counter = 0;
+        for (Card card : getCards())
+            card.setWeight(seen[counter++]);
+    }
 }

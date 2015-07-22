@@ -54,7 +54,8 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 
         readArguments();
 
-        deckManager = new DeckManager(deck.getCards());
+        deck.organize();
+        deckManager = new DeckManager(deck.getCards(), deck.getToAsk());
         firstCard.bind(deckManager.hit());
     }
 
