@@ -172,135 +172,155 @@
             android:text="دیپلم"
             android:textSize="@dimen/fontsize.normal" />
 
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:onClick="viewLevels"-->
+        <!--android:src="@drawable/star" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/home_level_text2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:visibility="invisible" />-->
+
+        <!--<ProgressBar-->
+        <!--android:id="@+id/home_level_progress"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:max="100"-->
+        <!--android:onClick="viewLevels"-->
+        <!--android:progress="20"-->
+        <!--android:progressDrawable="@drawable/my_progress_bar" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/home_level_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="@dimen/fontsize.normal" />-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:onClick="viewLevels"-->
+        <!--android:src="@drawable/star"-->
+        <!--android:visibility="invisible" />-->
+
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="visible">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/home_total_ranking_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="ایران" />-->
+
+        <!--<com.mehdiii.duelgame.views.custom.SquareTextView-->
+        <!--android:id="@+id/home_total_ranking"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/round_tv"-->
+        <!--android:gravity="center"-->
+        <!--android:text="12790"-->
+        <!--android:textSize="@dimen/fontsize.normal" />-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/home_province_ranking_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="استان" />-->
+
+        <!--<com.mehdiii.duelgame.views.custom.SquareTextView-->
+        <!--android:id="@+id/home_province_ranking"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/round_tv"-->
+        <!--android:gravity="center"-->
+        <!--android:text="1270"-->
+        <!--android:textSize="@dimen/fontsize.normal" />-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/home_friends_ranking_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="دوستان" />-->
+
+        <!--<com.mehdiii.duelgame.views.custom.SquareTextView-->
+        <!--android:id="@+id/home_friends_ranking"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/round_tv"-->
+        <!--android:gravity="center"-->
+        <!--android:text="127"-->
+        <!--android:textSize="@dimen/fontsize.normal" />-->
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:adjustViewBounds="true"
-                android:onClick="viewLevels"
-                android:src="@drawable/star" />
-
-            <TextView
-                android:id="@+id/home_level_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible" />
-
-            <ProgressBar
-                android:id="@+id/home_level_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:max="100"
-                android:onClick="viewLevels"
-                android:progress="20"
-                android:progressDrawable="@drawable/my_progress_bar" />
-
-            <TextView
-                android:id="@+id/home_level_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/fontsize.normal" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:adjustViewBounds="true"
-                android:onClick="viewLevels"
-                android:src="@drawable/star"
-                android:visibility="invisible" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/button_duel2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
+                android:text="دوئل" />
 
-                <TextView
-                    android:id="@+id/home_total_ranking_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="ایران" />
-
-                <com.mehdiii.duelgame.views.custom.SquareTextView
-                    android:id="@+id/home_total_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/round_tv"
-                    android:gravity="center"
-                    android:text="12790"
-                    android:textSize="@dimen/fontsize.normal" />
-            </LinearLayout>
-
-            <LinearLayout
+            <Button
+                android:id="@+id/button_flash_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/home_province_ranking_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="استان" />
-
-                <com.mehdiii.duelgame.views.custom.SquareTextView
-                    android:id="@+id/home_province_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/round_tv"
-                    android:gravity="center"
-                    android:text="1270"
-                    android:textSize="@dimen/fontsize.normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/home_friends_ranking_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="دوستان" />
-
-                <com.mehdiii.duelgame.views.custom.SquareTextView
-                    android:id="@+id/home_friends_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/round_tv"
-                    android:gravity="center"
-                    android:text="127"
-                    android:textSize="@dimen/fontsize.normal" />
-            </LinearLayout>
+                android:text="فلش کارت" />
 
         </LinearLayout>
 
@@ -308,26 +328,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
                 android:id="@+id/button_duel"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/home_duel_btn"
-                android:clickable="true" />
+                android:clickable="true"
+                android:visibility="gone" />
 
-            <Button
-                android:id="@+id/textView_send_report"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="0dp"
-                android:padding="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/bg_button_azure"
-                android:text="@string/caption_send_report"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fontsize.normal" />
+            <!--<Button-->
+            <!--android:id="@+id/textView_send_report"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:minHeight="0dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="@drawable/bg_button_azure"-->
+            <!--android:text="@string/caption_send_report"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="@dimen/fontsize.normal" />-->
 
         </RelativeLayout>
     </LinearLayout>

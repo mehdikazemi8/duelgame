@@ -8,19 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
-import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
@@ -30,8 +24,8 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
-import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import de.greenrobot.event.EventBus;
@@ -44,20 +38,21 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView diamondCount;
     ImageView avatarImageView;
     TextView titleTextView;
-    TextView levelText;
-    TextView totalRankingText;
-    TextView totalRanking;
-    TextView friendsRankingText;
-    TextView friendsRanking;
-    TextView provinceRankingText;
-    TextView provinceRanking;
+    //    TextView levelText;
+    //    TextView totalRankingText;
+//    TextView totalRanking;
+//    TextView friendsRankingText;
+//    TextView friendsRanking;
+//    TextView provinceRankingText;
+//    TextView provinceRanking;
     TextView textViewCounter;
-    TextView textViewSendReport;
+    //    TextView textViewSendReport;
     //    ImageButton addFriendButton;
     ImageView duelButton;
-    ProgressBar levelProgress;
+    //    ProgressBar levelProgress;
     Button refillButton;
     Button buyDiamondButton;
+    Button flashCardButton;
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
@@ -90,36 +85,39 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
-        textViewSendReport.setOnClickListener(this);
+        flashCardButton.setOnClickListener(this);
+//        textViewSendReport.setOnClickListener(this);
 
         // set font-face
         FontHelper.setKoodakFor(view.getContext(),
-                diamondCount, titleTextView, levelText, totalRankingText,
+                diamondCount, titleTextView/*, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking, textViewHearts, textViewSendReport,
-                provinceRanking, provinceRankingText, textViewCounter, buyDiamondButton, refillButton);
+                provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton);
+
     }
 
     private void find(View view) {
         diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
-        levelText = (TextView) view.findViewById(R.id.home_level_text);
-        totalRankingText = (TextView) view.findViewById(R.id.home_total_ranking_text);
-        totalRanking = (TextView) view.findViewById(R.id.home_total_ranking);
-        friendsRankingText = (TextView) view.findViewById(R.id.home_friends_ranking_text);
-        friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
-        provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
-        provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
-        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
+//        levelText = (TextView) view.findViewById(R.id.home_level_text);
+//        totalRankingText = (TextView) view.findViewById(R.id.home_total_ranking_text);
+//        totalRanking = (TextView) view.findViewById(R.id.home_total_ranking);
+//        friendsRankingText = (TextView) view.findViewById(R.id.home_friends_ranking_text);
+//        friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
+//        provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
+//        provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
+//        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
 //        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
-        levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
+//        levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
         duelButton = (ImageView) view.findViewById(R.id.button_duel);
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
+        flashCardButton = (Button) view.findViewById(R.id.button_flash_card);
     }
 
     @Override
@@ -147,9 +145,13 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.button_duel:
                 startGame();
                 break;
-            case R.id.textView_send_report:
-                sendReport();
+            case R.id.button_flash_card:
+                Intent intent = new Intent(getActivity(), FlashCardActivity.class);
+                startActivity(intent);
                 break;
+//            case R.id.textView_send_report:
+//                sendReport();
+//                break;
         }
     }
 
@@ -157,15 +159,17 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         User user = AuthManager.getCurrentUser();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
-        levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));
-        levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
+//        levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));
+//        levelProgress.setProgress(ScoreHelper.getThisLevelPercentage(user.getScore()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
-        if (user.getRank() != null) {
-            totalRanking.setText(String.valueOf(user.getRank().getTotal()));
-            provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
-            friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
-        }
-        provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
+
+//        if (user.getRank() != null) {
+//            totalRanking.setText(String.valueOf(user.getRank().getTotal()));
+//            provinceRanking.setText(String.valueOf(user.getRank().getProvince()));
+//            friendsRanking.setText(String.valueOf(user.getRank().getFriends()));
+//        }
+//        provinceRankingText.setText(ProvinceManager.get(getActivity(), user.getProvince()));
+
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
             containerHearts.setPadding(0, 0, 0, 20);
@@ -190,7 +194,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void sendReport() {
-
 
 
         Intent send = new Intent(Intent.ACTION_SENDTO);
@@ -240,7 +243,5 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onBringToFront() {
         super.onBringToFront();
-
-
     }
 }
