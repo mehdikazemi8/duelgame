@@ -72,17 +72,15 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.button_go:
                 if (DeckPersister.hasDeck(getActivity(), card.getId()))
-                    startDeck();
+                    startPracticing();
                 else
                     startDownloadingDeck();
                 break;
         }
     }
 
-    private void startDeck() {
-        // read complete deckManager including cards, seen, to_ask and etc.
-//        card = DeckPersister.getDeck(getActivity(), card.getId());
-
+    private void startPracticing() {
+        // open practice fragment
         Bundle bundle = new Bundle();
         bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
         Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);

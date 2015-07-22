@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.animations.FlipAnimation;
 import com.mehdiii.duelgame.models.Card;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 /**
  * Created by Omid on 7/22/2015.
@@ -42,6 +43,8 @@ public class CardView extends RelativeLayout {
 
         front.setOnClickListener(onClickListener);
         back.setOnClickListener(onClickListener);
+
+        FontHelper.setKoodakFor(context, frontTextView, backTextView);
     }
 
     boolean isBound = false;
