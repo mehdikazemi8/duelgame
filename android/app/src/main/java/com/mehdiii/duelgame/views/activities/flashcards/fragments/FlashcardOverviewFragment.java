@@ -74,7 +74,7 @@ public class FlashcardOverviewFragment extends Fragment implements View.OnClickL
                 if (DeckManager.hasDeck(getActivity(), card.getId()))
                     startDeck();
                 else
-                    startDeckDownload();
+                    startDownloadingDeck();
                 break;
         }
     }
@@ -87,10 +87,15 @@ public class FlashcardOverviewFragment extends Fragment implements View.OnClickL
         // TODO
     }
 
-    private void startDeckDownload() {
+    private void startDownloadingDeck() {
         DuelApp.getInstance().sendMessage(card.serialize(CommandType.SEND_GET_FLASH_CARD_REQUEST));
     }
 
+    /**
+     * on flash card received
+     *
+     * @param c receive notice
+     */
     public void onEvent(OnFlashCardReceived c) {
         bindData();
         card = DeckManager.getDeck(getActivity(), card.getId());
