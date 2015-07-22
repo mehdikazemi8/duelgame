@@ -40,13 +40,15 @@ public class FlashCardGridAdapter extends ArrayAdapter<FlashCard> {
 
         if (placeHolder != null) {
             placeHolder.textView.setText(getItem(position).getTitle());
+            placeHolder.data = getItem(position);
         }
 
         return view;
     }
 
-    private class ViewHolder {
+    public class ViewHolder {
         TextView textView;
+        FlashCard data;
     }
 
     @Override
