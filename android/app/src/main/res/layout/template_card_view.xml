@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="false"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/card_face"
+        android:layout_width="300dp"
+        android:layout_height="407dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/front"
+        android:focusableInTouchMode="false"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView_front"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="FRONT"
+            android:textColor="#0B617D"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card_back"
+        android:layout_width="300dp"
+        android:layout_height="407dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/back"
+        android:focusableInTouchMode="false"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="BACK"
+            android:textColor="#157E9E"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="HELLO"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+</RelativeLayout>

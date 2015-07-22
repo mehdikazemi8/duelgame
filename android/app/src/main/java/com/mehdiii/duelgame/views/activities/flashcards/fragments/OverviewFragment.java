@@ -13,14 +13,14 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
-import com.mehdiii.duelgame.utils.DeckManager;
+import com.mehdiii.duelgame.utils.DeckPersister;
 
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by Omid on 7/22/2015.
  */
-public class FlashcardOverviewFragment extends Fragment implements View.OnClickListener {
+public class OverviewFragment extends Fragment implements View.OnClickListener {
     public final static String BUNDLE_PARAM_FLASH_CARD = "bundle_param_flashcard";
 
     FlashCard card = null;
@@ -64,14 +64,14 @@ public class FlashcardOverviewFragment extends Fragment implements View.OnClickL
         this.priceTextView.setText(String.valueOf(card.getPrice()));
         this.titleTextView.setText(card.getTitle());
 
-        goButton.setText(DeckManager.hasDeck(getActivity(), card.getId()) ? "GO" : "DOWNLOAD");
+        goButton.setText(DeckPersister.hasDeck(getActivity(), card.getId()) ? "GO" : "DOWNLOAD");
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_go:
-                if (DeckManager.hasDeck(getActivity(), card.getId()))
+                if (DeckPersister.hasDeck(getActivity(), card.getId()))
                     startDeck();
                 else
                     startDownloadingDeck();
@@ -80,11 +80,17 @@ public class FlashcardOverviewFragment extends Fragment implements View.OnClickL
     }
 
     private void startDeck() {
-        // read complete deck including cards, seen, to_ask and etc.
-        card = DeckManager.getDeck(getActivity(), card.getId());
+        // read complete deckManager including cards, seen, to_ask and etc.
+//        card = DeckPersister.getDeck(getActivity(), card.getId());
 
-        // start flash card
-        // TODO
+        Bundle bundle = new Bundle();
+        bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
+        Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
+                .add(R.id.frame_wrapper, fragment)
+                .commit();
     }
 
     private void startDownloadingDeck() {
@@ -98,7 +104,7 @@ public class FlashcardOverviewFragment extends Fragment implements View.OnClickL
      */
     public void onEvent(OnFlashCardReceived c) {
         bindData();
-        card = DeckManager.getDeck(getActivity(), card.getId());
+        card = DeckPersister.getDeck(getActivity(), card.getId());
         bindData();
     }
 

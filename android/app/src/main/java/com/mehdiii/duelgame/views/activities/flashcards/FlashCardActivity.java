@@ -15,12 +15,12 @@ import com.mehdiii.duelgame.models.FlashCardList;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
-import com.mehdiii.duelgame.utils.DeckManager;
+import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.MemoryCache;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.flashcards.fragments.FlashcardOverviewFragment;
+import com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment;
 
 import de.greenrobot.event.EventBus;
 
@@ -40,7 +40,7 @@ public class FlashCardActivity extends ParentActivity {
                 bindListData(list);
             } else if (type == CommandType.RECEIVE_GET_FLASH_CARD_REQUEST) {
                 FlashCard card = FlashCard.deserialize(json, FlashCard.class);
-                DeckManager.saveDeck(FlashCardActivity.this, card);
+                DeckPersister.saveDeck(FlashCardActivity.this, card);
                 EventBus.getDefault().post(new OnFlashCardReceived());
             }
         }
@@ -97,9 +97,9 @@ public class FlashCardActivity extends ParentActivity {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             FlashCard card = ((FlashCardGridAdapter.ViewHolder) view.getTag()).data;
             Bundle bundle = new Bundle();
-            bundle.putString(FlashcardOverviewFragment.BUNDLE_PARAM_FLASH_CARD, card.serialize());
+            bundle.putString(OverviewFragment.BUNDLE_PARAM_FLASH_CARD, card.serialize());
 
-            Fragment fragment = Fragment.instantiate(FlashCardActivity.this, FlashcardOverviewFragment.class.getName(), bundle);
+            Fragment fragment = Fragment.instantiate(FlashCardActivity.this, OverviewFragment.class.getName(), bundle);
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
