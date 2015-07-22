@@ -94,6 +94,10 @@ public class DeckManager {
         this.onChangeListener = onChangeListener;
     }
 
+    public int[] getCapacities() {
+        return capacities;
+    }
+
     public interface OnChangeListener {
         void onNextCardHit(Card card);
     }

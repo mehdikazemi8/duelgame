@@ -66,6 +66,7 @@ public class ActionEmitter {
         map.put(CommandType.RECEIVE_FLASH_CARD_LIST, "RFCL");
         map.put(CommandType.SEND_GET_FLASH_CARD_REQUEST, "GDOFC");
         map.put(CommandType.RECEIVE_GET_FLASH_CARD_REQUEST, "RDOFC");
+        map.put(CommandType.SEND_FLASH_CARD_PROGRESS, "UUFCS");
     }
 
     public String getCommandCode(CommandType type) {
