@@ -3,6 +3,8 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
+import java.util.List;
+
 /**
  * Created by Omid on 7/22/2015.
  */
@@ -20,7 +22,17 @@ public class FlashCard extends BaseModel {
     @SerializedName("progress")
     private int progress;
     @SerializedName("_id")
-    private String identifier;
+    private String id;
+
+    /**
+     * details
+     */
+    @SerializedName("cards")
+    List<Card> cards;
+    @SerializedName("seen")
+    int[] seen;
+    @SerializedName("to_ask")
+    int[] toAsk;
 
     public String getTitle() {
         return title;
@@ -70,11 +82,35 @@ public class FlashCard extends BaseModel {
         this.progress = progress;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getId() {
+        return id;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public int[] getSeen() {
+        return seen;
+    }
+
+    public void setSeen(int[] seen) {
+        this.seen = seen;
+    }
+
+    public int[] getToAsk() {
+        return toAsk;
+    }
+
+    public void setToAsk(int[] toAsk) {
+        this.toAsk = toAsk;
     }
 }

@@ -81,4 +81,10 @@ public class GlobalPreferenceManager {
         preferences.edit().remove(key).apply();
         return true;
     }
+
+    public static boolean hasKey(Context context, String key) {
+        SharedPreferences preferences = getPreference(context);
+        return preferences != null && preferences.contains(key);
+    }
+
 }

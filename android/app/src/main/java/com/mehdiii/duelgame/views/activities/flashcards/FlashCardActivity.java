@@ -14,11 +14,15 @@ import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.FlashCardList;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
+import com.mehdiii.duelgame.utils.DeckManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.MemoryCache;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.fragments.FlashcardOverviewFragment;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Omid on 7/22/2015.
@@ -34,6 +38,10 @@ public class FlashCardActivity extends ParentActivity {
                 FlashCardList list = FlashCardList.deserialize(json, FlashCardList.class);
                 MemoryCache.set(FLASH_CARD_LIST_CACHE, list);
                 bindListData(list);
+            } else if (type == CommandType.RECEIVE_GET_FLASH_CARD_REQUEST) {
+                FlashCard card = FlashCard.deserialize(json, FlashCard.class);
+                DeckManager.saveDeck(FlashCardActivity.this, card);
+                EventBus.getDefault().post(new OnFlashCardReceived());
             }
         }
     });
@@ -73,6 +81,15 @@ public class FlashCardActivity extends ParentActivity {
     private void bindListData(FlashCardList list) {
         FlashCardGridAdapter adapter = new FlashCardGridAdapter(this, 0, list);
         this.gridVeiw.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else
+            super.onBackPressed();
     }
 
     AdapterView.OnItemClickListener gridViewClickListener = new AdapterView.OnItemClickListener() {
