@@ -6,6 +6,9 @@
     android:orientation="vertical">
 
     <GridView
+        android:numColumns="3"
+        android:id="@+id/gridView_main"
+        android:rotationY="180"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

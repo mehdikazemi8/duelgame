@@ -24,7 +24,7 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.CategoryActivity;
-import com.mehdiii.duelgame.views.activities.FlashCardActivity;
+import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
