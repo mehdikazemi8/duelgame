@@ -115,6 +115,8 @@ public class FlashCard extends BaseModel {
     }
 
     public void organize() {
+        if (seen == null)
+            return;
         int counter = 0;
         for (Card card : getCards())
             card.setWeight(seen[counter++]);

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="FRONT"
-            android:textColor="#0B617D"
+            android:textColor="#73715A"
             android:textSize="25sp" />
     </RelativeLayout>
 
@@ -54,6 +54,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="HELLO"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </RelativeLayout>
