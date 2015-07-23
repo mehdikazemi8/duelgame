@@ -88,6 +88,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 .beginTransaction()
                 .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
                 .add(R.id.frame_wrapper, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 

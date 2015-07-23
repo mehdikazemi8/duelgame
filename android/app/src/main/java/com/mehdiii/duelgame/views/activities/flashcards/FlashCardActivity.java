@@ -107,6 +107,7 @@ public class FlashCardActivity extends ParentActivity {
                     .beginTransaction()
                     .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
                     .add(R.id.frame_wrapper, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
     };
