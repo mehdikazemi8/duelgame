@@ -25,7 +25,7 @@ public class DeckSyncer {
         this.manager = manager;
     }
 
-    public void add(Pair<Integer, Integer> pair) {
+    public void set(Pair<Integer, Integer> pair) {
         map.put(pair.getKey(), pair.getValue());
 
         counter++;
@@ -44,6 +44,7 @@ public class DeckSyncer {
             model.getSeen().add(new Pair<>(cur.getKey(), cur.getValue()));
         }
         model.setToAsk(manager.getCapacities());
+        model.setId(manager.getId());
 
         // send to server
         DuelApp.getInstance().sendMessage(model.serialize(CommandType.SEND_FLASH_CARD_PROGRESS));

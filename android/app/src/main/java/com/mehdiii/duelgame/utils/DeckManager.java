@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.utils;
 
 import com.mehdiii.duelgame.models.Card;
+import com.mehdiii.duelgame.models.Pair;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,13 +18,16 @@ public class DeckManager {
     Map<Integer, Queue<Card>> groups;
     Card currentCard;
     Wheel wheel = new Wheel(0, MAX_GROUP_COUNT - 1);
+    DeckSyncer syncer = null;
+    String id;
 
     public void renewCapacities() {
         capacities = new int[]{5, 4, 3, 2, 1};
     }
 
-    public DeckManager(List<Card> cards, int[] capacities) {
+    public DeckManager(List<Card> cards, int[] capacities, String id) {
         groups = new HashMap<>();
+        this.id = id;
 
         /// create groups and their capacities
         for (int i = 0; i < MAX_GROUP_COUNT + 1; i++) {
@@ -38,6 +42,8 @@ public class DeckManager {
 
             groups.get(level).add(cards.get(i));
         }
+
+        syncer = new DeckSyncer(this);
 
         if (capacities == null)
             renewCapacities();
@@ -82,6 +88,7 @@ public class DeckManager {
             currentCard.resetWeight();
 
         groups.get(currentCard.getWeight()).add(currentCard);
+        syncer.set(new Pair<>(currentCard.getIndex(), currentCard.getWeight()));
     }
 
     public Card getCurrentCard() {
@@ -96,6 +103,10 @@ public class DeckManager {
 
     public int[] getCapacities() {
         return capacities;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public interface OnChangeListener {

@@ -40,8 +40,11 @@ public class FlashCardActivity extends ParentActivity {
                 bindListData(list);
             } else if (type == CommandType.RECEIVE_GET_FLASH_CARD_REQUEST) {
                 FlashCard card = FlashCard.deserialize(json, FlashCard.class);
-                DeckPersister.saveDeck(FlashCardActivity.this, card);
-                EventBus.getDefault().post(new OnFlashCardReceived());
+                if (card != null) {
+                    card.saveIndexes();
+                    DeckPersister.saveDeck(FlashCardActivity.this, card);
+                    EventBus.getDefault().post(new OnFlashCardReceived());
+                }
             }
         }
     });

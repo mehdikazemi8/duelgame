@@ -114,6 +114,13 @@ public class FlashCard extends BaseModel {
         this.toAsk = toAsk;
     }
 
+    public void saveIndexes() {
+        int i = 0;
+        if (getCards() != null)
+            for (Card card : getCards())
+                card.setIndex(i++);
+    }
+
     public void organize() {
         if (seen == null)
             return;

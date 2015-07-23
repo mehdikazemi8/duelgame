@@ -6,7 +6,9 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 /**
  * Created by Omid on 7/22/2015.
  */
-public class Card extends BaseModel implements Comparable<Card> {
+public class Card extends BaseModel /*implements Comparable<Card> */{
+    @SerializedName("index")
+    private int index;
     @SerializedName("weight")
     private int weight;
     @SerializedName("front")
@@ -46,12 +48,20 @@ public class Card extends BaseModel implements Comparable<Card> {
         setWeight(0);
     }
 
-    @Override
-    public int compareTo(Card card) {
-        return Integer.compare(getWeight(), card.getWeight());
-//        if (getWeight() != card.getWeight())
-//            return Integer.compare(getWeight(), card.getWeight());
-//        return front.compareTo(card.getFront());
+    public int getIndex() {
+        return index;
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    //
+//    @Override
+//    public int compareTo(Card card) {
+//        return Integer.compare(getWeight(), card.getWeight());
+////        if (getWeight() != card.getWeight())
+////            return Integer.compare(getWeight(), card.getWeight());
+////        return front.compareTo(card.getFront());
+//    }
 
 }
