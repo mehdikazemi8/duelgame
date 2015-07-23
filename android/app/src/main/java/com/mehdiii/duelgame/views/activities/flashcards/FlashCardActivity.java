@@ -29,7 +29,7 @@ import de.greenrobot.event.EventBus;
  */
 public class FlashCardActivity extends ParentActivity {
     private static final String FLASH_CARD_LIST_CACHE = "flash_card_list_cache";
-    private GridView gridVeiw;
+    private GridView gridView;
 
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
@@ -54,9 +54,9 @@ public class FlashCardActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
 
-        gridVeiw = (GridView) findViewById(R.id.gridView_main);
+        gridView = (GridView) findViewById(R.id.gridView_main);
 
-        gridVeiw.setOnItemClickListener(gridViewClickListener);
+        gridView.setOnItemClickListener(gridViewClickListener);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class FlashCardActivity extends ParentActivity {
 
     private void bindListData(FlashCardList list) {
         FlashCardGridAdapter adapter = new FlashCardGridAdapter(this, 0, list);
-        this.gridVeiw.setAdapter(adapter);
+        this.gridView.setAdapter(adapter);
     }
 
     AdapterView.OnItemClickListener gridViewClickListener = new AdapterView.OnItemClickListener() {
