@@ -86,15 +86,6 @@ public class FlashCardActivity extends ParentActivity {
         this.gridVeiw.setAdapter(adapter);
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStack();
-        else
-            super.onBackPressed();
-    }
-
     AdapterView.OnItemClickListener gridViewClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
