@@ -53,6 +53,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Button refillButton;
     Button buyDiamondButton;
     Button flashCardButton;
+    Button duel2Button;
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
@@ -86,6 +87,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         buyDiamondButton.setOnClickListener(this);
         duelButton.setOnClickListener(this);
         flashCardButton.setOnClickListener(this);
+        duel2Button.setOnClickListener(this);
 //        textViewSendReport.setOnClickListener(this);
 
         // set font-face
@@ -118,6 +120,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         flashCardButton = (Button) view.findViewById(R.id.button_flash_card);
+        duel2Button = (Button) view.findViewById(R.id.button_duel2);
     }
 
     @Override
@@ -143,6 +146,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 refillHeart();
                 break;
             case R.id.button_duel:
+            case R.id.button_duel2:
                 startGame();
                 break;
             case R.id.button_flash_card:

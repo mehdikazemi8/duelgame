@@ -71,6 +71,7 @@ public class DeckManager {
         }
 
         currentCard = groups.get(wheel.peek()).peek();
+
         capacities[wheel.peek()]--;
 
         if (onChangeListener != null)
