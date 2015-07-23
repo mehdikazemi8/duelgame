@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 /**
  * Created by mehdiii on 7/12/15.
@@ -25,11 +27,19 @@ public class RankPlayFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_rank_play, container, false);
     }
 
+    Button playBtn;
+    Button rankingBtn;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        ((TextView)view.findViewById(R.id.play)).setContentDescription(String.valueOf(category));
-        ((TextView)view.findViewById(R.id.ranking)).setContentDescription(String.valueOf(category));
+        playBtn = (Button) view.findViewById(R.id.play);
+        rankingBtn = (Button) view.findViewById(R.id.ranking);
+
+        playBtn.setContentDescription(String.valueOf(category));
+        rankingBtn.setContentDescription(String.valueOf(category));
+
+        FontHelper.setKoodakFor(getActivity(), playBtn, rankingBtn);
     }
 }

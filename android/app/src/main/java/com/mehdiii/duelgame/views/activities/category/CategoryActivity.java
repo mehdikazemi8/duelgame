@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.fragments.RankPlayFragment;
@@ -21,6 +24,7 @@ class CategoryActivity extends ParentActivity {
     final int NUMBER_OF_COURSES = 5;
     private Fragment[] rankPlayFragment = new Fragment[NUMBER_OF_COURSES];
     private int[] fragmentHolderId = new int[NUMBER_OF_COURSES];
+    private TextView[] course = new TextView[NUMBER_OF_COURSES];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,26 +32,12 @@ class CategoryActivity extends ParentActivity {
         setContentView(R.layout.activity_category);
 
         find();
+        configure();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-    }
-
-    public void showRanking(View v){
-        ParentActivity.category = v.getContentDescription().toString();
-        startActivity(new Intent(this, RankingActivity.class));
-    }
-
-    public void letsPlay(View v) {
-        Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
-        category = v.getContentDescription().toString();
-        cat.setCategory(v.getContentDescription().toString());
-        DuelApp.getInstance().sendMessage(cat.serialize());
-
-        startActivity(new Intent(this, WaitingActivity.class));
-        this.finish();
     }
 
     @Override
@@ -78,6 +68,16 @@ class CategoryActivity extends ParentActivity {
         fragmentHolderId[2] = R.id.fragment_holder_din_o_zendegi;
         fragmentHolderId[3] = R.id.fragment_holder_zaban_englisi;
         fragmentHolderId[4] = R.id.fragment_holder_shimi;
+
+        course[0] = (TextView) findViewById(R.id.adabiat_title);
+        course[1] = (TextView) findViewById(R.id.arabi_title);
+        course[2] = (TextView) findViewById(R.id.din_o_zendegi_title);
+        course[3] = (TextView) findViewById(R.id.zaban_englisi_title);
+        course[4] = (TextView) findViewById(R.id.shimi_title);
+    }
+
+    private void configure(){
+        FontHelper.setKoodakFor(this, course[0], course[1], course[2], course[3], course[4]);
     }
 
     public void clicked(View view) {
