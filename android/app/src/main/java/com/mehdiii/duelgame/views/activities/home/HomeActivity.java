@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.gson.Gson;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -35,7 +36,12 @@ import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +84,30 @@ public class HomeActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        JSONObject json = new JSONObject();
+        try{
+            json.put("code", "UUFCS");
+
+            int[] to_ask = new int[]{1, 2, 3, 4, 5};
+
+            Gson gson = new Gson();
+
+            json.put("to_ask", gson.toJson(to_ask, Array.class));
+
+            JSONArray seen = new JSONArray();
+            seen.put( new JSONObject().put("key", 0).put("value", 2) );
+            seen.put( new JSONObject().put("key", 2).put("value", 3) );
+
+            json.put("seen", seen);
+
+            json.put("_id", "558e76c19d82be4b88d6315f");
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        DuelApp.getInstance().sendMessage(json.toString());
 
 
         context = getApplicationContext();
