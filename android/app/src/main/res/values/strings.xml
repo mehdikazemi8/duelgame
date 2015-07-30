@@ -7,21 +7,7 @@
 
     <string name="splash_circle">&#9679;</string>
 
-    <color name="game_bg_color">#4F3545</color>
-    <color name="waiting_separator_line">#F2E4D7</color>
-    <color name="action_bar_background_color">#F3676F</color>
 
-    <color name="correct_answer">#ff04b947</color>
-    <color name="wrong_answer">#f64747</color>
-
-    <color name="play_game_option_btn_text">#3f3a3d</color>
-    <color name="play_game_option_btn_back">#eeeeee</color>
-    <color name="play_game_bar_background">#eff4f9</color>
-    <color name="play_game_bar_foreground">#48c156</color>
-    <color name="play_game_winner_score">#38943c</color>
-    <color name="play_game_loser_score">#d84460</color>
-    <color name="play_game_names">#6b6a6c</color>
-    <color name="play_game_question_text">#ecf0f1</color>
 
     <string-array name="province_array">
         <item>انتخاب استان</item>

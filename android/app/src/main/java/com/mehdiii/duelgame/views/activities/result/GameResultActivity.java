@@ -25,11 +25,9 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
-import com.mehdiii.duelgame.models.WannaChallenge;
-import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
-import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -354,7 +352,7 @@ public class GameResultActivity extends ParentActivity {
             allAnimations.get(i).start();
         animateProgress();
         user.setScore(user.getScore() + totalXP);
-        EventBus.getDefault().post(new OnUserSettingsChanged());
+        EventBus.getDefault().post(new OnPurchaseResult());
     }
 
     private void configureControls() {

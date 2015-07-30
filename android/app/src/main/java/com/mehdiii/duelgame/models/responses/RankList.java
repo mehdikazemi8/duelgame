@@ -13,6 +13,27 @@ public class RankList extends BaseModel {
     @SerializedName("near")
     private List<UserForRanklist> near;
 
+    @SerializedName("score")
+    private int score;
+
+    public RankList(List<UserForRanklist> top) {
+        this.top = top;
+    }
+
+    public RankList(int score, List<UserForRanklist> near, List<UserForRanklist> top) {
+        this.score = score;
+        this.near = near;
+        this.top = top;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public List<UserForRanklist> getTop() {
         if (top.size() != 0) {
             top.get(0).setPlaceInRank(1);

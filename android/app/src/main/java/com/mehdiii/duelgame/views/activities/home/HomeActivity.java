@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -20,15 +20,14 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
-import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
 import com.mehdiii.duelgame.models.SendGcmCode;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
-import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
@@ -46,14 +45,14 @@ public class HomeActivity extends ParentActivity {
     ViewPagerAdapter adapter;
 
     ToggleButton storeButton;
-    ToggleButton rankingButton;
+    //    ToggleButton rankingButton;
     ToggleButton settingsButton;
     ToggleButton homeButton;
     ToggleButton friendsButton;
     ToggleButton previous;
 
     FlippableFragment storeFragment;
-    FlippableFragment rankingFragment;
+    //    FlippableFragment rankingFragment;
     FlippableFragment settingsFragment;
     FlippableFragment homeFragment;
     FlippableFragment friendsFragment;
@@ -78,7 +77,6 @@ public class HomeActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         context = getApplicationContext();
 
@@ -171,7 +169,7 @@ public class HomeActivity extends ParentActivity {
     private void find() {
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         this.storeButton = (ToggleButton) findViewById(R.id.button_store);
-        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
+//        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
         this.settingsButton = (ToggleButton) findViewById(R.id.button_settings);
         this.homeButton = (ToggleButton) findViewById(R.id.button_home);
         this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
@@ -188,14 +186,14 @@ public class HomeActivity extends ParentActivity {
         this.storeButton.setOnClickListener(pageSelectorClickListener);
         this.friendsButton.setOnClickListener(pageSelectorClickListener);
         this.homeButton.setOnClickListener(pageSelectorClickListener);
-        this.rankingButton.setOnClickListener(pageSelectorClickListener);
+//        this.rankingButton.setOnClickListener(pageSelectorClickListener);
         this.settingsButton.setOnClickListener(pageSelectorClickListener);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
         viewPager.setAdapter(adapter);
         this.viewPager.setOnPageChangeListener(pageChangeListener);
-        this.viewPager.setCurrentItem(4);
-        viewPager.setOffscreenPageLimit(5);
+        this.viewPager.setCurrentItem(3);
+        viewPager.setOffscreenPageLimit(3);
     }
 
 
@@ -209,14 +207,14 @@ public class HomeActivity extends ParentActivity {
 
             switch (view.getId()) {
                 case R.id.button_home:
-                    viewPager.setCurrentItem(4, true);
-                    break;
-                case R.id.button_friends:
                     viewPager.setCurrentItem(3, true);
                     break;
-                case R.id.button_ranking:
+                case R.id.button_friends:
                     viewPager.setCurrentItem(2, true);
                     break;
+//                case R.id.button_ranking:
+//                    viewPager.setCurrentItem(2, true);
+//                    break;
                 case R.id.button_store:
                     viewPager.setCurrentItem(1, true);
                     break;
@@ -256,15 +254,15 @@ public class HomeActivity extends ParentActivity {
                     selection = storeButton;
                     storeFragment.onBringToFront();
                     break;
+//                case 2:
+////                    selection = rankingButton;
+////                    rankingFragment.onBringToFront();
+//                    break;
                 case 2:
-                    selection = rankingButton;
-                    rankingFragment.onBringToFront();
-                    break;
-                case 3:
                     selection = friendsButton;
                     friendsFragment.onBringToFront();
                     break;
-                case 4:
+                case 3:
                     selection = homeButton;
                     homeFragment.onBringToFront();
                     break;
@@ -285,14 +283,14 @@ public class HomeActivity extends ParentActivity {
         childFragments = new ArrayList<>();
 
         settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
-        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
+//        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
         friendsFragment = (FlippableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
         storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
         childFragments.add(settingsFragment);
         childFragments.add(storeFragment);
-        childFragments.add(rankingFragment);
+//        childFragments.add(rankingFragment);
         childFragments.add(friendsFragment);
         childFragments.add(homeFragment);
     }
@@ -327,8 +325,15 @@ public class HomeActivity extends ParentActivity {
         viewPager.setCurrentItem(change.getPage());
     }
 
-    public void onEvent(OnUserSettingsChanged settings) {
-        scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
+    public void onEvent(OnPurchaseResult alert) {
+        if (alert.getStatus().equals("invalid"))
+            DuelApp.getInstance().toast(R.string.message_invalid_purchase, Toast.LENGTH_LONG);
+        else
+            scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
+    }
+
+    public void clickSample(View view) {
+
     }
 
     @Override

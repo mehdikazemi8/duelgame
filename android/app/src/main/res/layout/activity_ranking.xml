@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ranking_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ranking_overall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow_light"
+            android:clickable="true"
+            android:contentDescription="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="کل" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <TextView
+            android:id="@+id/ranking_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow_light"
+            android:clickable="true"
+            android:contentDescription="0"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="هفته" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/view_course_ranking_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ranking_menu" />
+
+</RelativeLayout>

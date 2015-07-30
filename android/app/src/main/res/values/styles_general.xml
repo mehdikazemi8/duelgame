@@ -37,7 +37,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:paddingTop">15dp</item>
         <item name="android:background">@drawable/bg_home_nav</item>
-        <item name="android:textColor">@color/yellow_light</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/fontsize.large</item>
     </style>
 
@@ -77,6 +77,43 @@
         <item name="android:textColor">@color/play_game_option_btn_text</item>
         <item name="android:textSize">25sp</item>
         <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="category_option">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:onClick">clicked</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="category_option_course_title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="category_option_course_level">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="category_option_fragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
     </style>
 
 

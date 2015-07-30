@@ -19,11 +19,11 @@ import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
-import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
-import com.mehdiii.duelgame.views.activities.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
@@ -52,8 +52,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     //    ProgressBar levelProgress;
     Button refillButton;
     Button buyDiamondButton;
-    Button flashCardButton;
-    Button duel2Button;
+    TextView flashCardButton;
+    TextView duel2Button;
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
@@ -91,9 +91,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        textViewSendReport.setOnClickListener(this);
 
         // set font-face
-        FontHelper.setKoodakFor(view.getContext(),
+        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts,
                 diamondCount, titleTextView/*, levelText, totalRankingText,
-                totalRanking, friendsRankingText, friendsRanking, textViewHearts, textViewSendReport,
+                totalRanking, friendsRankingText, friendsRanking, textViewSendReport,
                 provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton);
 
     }
@@ -119,8 +119,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         duelButton = (ImageView) view.findViewById(R.id.button_duel);
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
-        flashCardButton = (Button) view.findViewById(R.id.button_flash_card);
-        duel2Button = (Button) view.findViewById(R.id.button_duel2);
+        flashCardButton = (TextView) view.findViewById(R.id.button_flash_card);
+        duel2Button = (TextView) view.findViewById(R.id.button_duel2);
     }
 
     @Override
@@ -240,7 +240,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         this.diamondCount.setText(String.valueOf(notice.getNewValue()));
     }
 
-    public void onEvent(OnUserSettingsChanged settings) {
+    public void onEvent(OnPurchaseResult settings) {
         bindViewData();
     }
 

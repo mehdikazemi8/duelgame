@@ -62,6 +62,8 @@ public class ActionEmitter {
         map.put(CommandType.SEND_GCM_CODE, "SGI");
         map.put(CommandType.SEND_REMOVE_FRIEND, "RMF");
         map.put(CommandType.RECEIVE_OPPONENT_HAS_LEFT, "OHL");
+        map.put(CommandType.GET_COURSE_RANKING, "GCR");
+        map.put(CommandType.RECEIVE_COURSE_RANKING, "RCR");
         map.put(CommandType.SEND_GET_FLASH_CARD_LIST, "GFCL");
         map.put(CommandType.RECEIVE_FLASH_CARD_LIST, "RFCL");
         map.put(CommandType.SEND_GET_FLASH_CARD_REQUEST, "GDOFC");

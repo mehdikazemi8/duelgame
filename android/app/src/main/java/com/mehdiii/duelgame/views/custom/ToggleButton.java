@@ -46,6 +46,7 @@ public class ToggleButton extends Button {
         Drawable drawable = getResources().getDrawable(R.drawable.selected_page_indicator);
         this.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable);
         setSelected(true);
+        setTextColor(getResources().getColor(R.color.purple_sexy));
         selected = true;
     }
 
@@ -53,6 +54,7 @@ public class ToggleButton extends Button {
         Drawable drawable = getResources().getDrawable(R.drawable.selected_page_indicator_empty);
         this.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable);
         setSelected(false);
+        setTextColor(getResources().getColor(R.color.white));
         selected = false;
     }
 }

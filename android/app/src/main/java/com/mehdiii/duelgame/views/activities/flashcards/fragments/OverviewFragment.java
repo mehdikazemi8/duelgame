@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -82,16 +83,20 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startPracticing() {
-        // open practice fragment
-        Bundle bundle = new Bundle();
-        bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
-        Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
-                .add(R.id.frame_wrapper, fragment)
-                .addToBackStack(null)
-                .commit();
+        if (card.getProgress() < card.getPercentFree()) {
+
+            // open practice fragment
+            Bundle bundle = new Bundle();
+            bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
+            Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
+                    .add(R.id.frame_wrapper, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else
+            DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
     }
 
     private void startDownloadingDeck() {

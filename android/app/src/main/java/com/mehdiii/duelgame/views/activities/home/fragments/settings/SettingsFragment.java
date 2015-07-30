@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnSoundStateChanged;
-import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -78,7 +77,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                     AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
 
                     // notify user changed to update ui
-                    EventBus.getDefault().post(new OnUserSettingsChanged());
+                    EventBus.getDefault().post(new OnPurchaseResult());
                     // set message for toast
                     message = R.string.message_settings_save_successful;
                 } else message = R.string.message_settings_save_failed;

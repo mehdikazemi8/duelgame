@@ -15,7 +15,7 @@ import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
-import com.mehdiii.duelgame.models.events.OnUserSettingsChanged;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.IabHelper;
 import com.mehdiii.duelgame.utils.IabResult;
@@ -189,16 +189,23 @@ public class PurchaseManager {
                 case RECEIVE_PURCHASE_DONE:
                     PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
                     if (purchaseDone != null) {
-                        AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
-                        purchaseDone.setPurchaseItem(currentPurchase);
 
-                        try {
-                            consumePurchase();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
+                        if (purchaseDone.getStatus().equals("invalid")) {
+                            EventBus.getDefault().post(new OnPurchaseResult(purchaseDone.getStatus()));
+                            EventBus.getDefault().post(purchaseDone);
+
+                            return;
+                        } else {
+                            AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
+                            purchaseDone.setPurchaseItem(currentPurchase);
+
+                            try {
+                                consumePurchase();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-                        EventBus.getDefault().post(new OnUserSettingsChanged());
+                        EventBus.getDefault().post(new OnPurchaseResult());
                         EventBus.getDefault().post(purchaseDone);
                     }
 
@@ -245,7 +252,7 @@ public class PurchaseManager {
             }
 
 //            PurchaseCafe purchase = gson.fromJson(purchaseData, PurchaseCafe.class);
-            DuelApp.getInstance().sendMessage(new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getDeveloperPayload()).serialize(CommandType.SEND_PURCHASE_DONE));
+            DuelApp.getInstance().sendMessage(new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId()).serialize(CommandType.SEND_PURCHASE_DONE));
 
             Log.d(TAG, "Purchase successful.");
 //            purchase.getDeveloperPayload()
