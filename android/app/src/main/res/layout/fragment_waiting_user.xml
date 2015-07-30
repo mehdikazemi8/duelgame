@@ -8,7 +8,7 @@
         android:id="@+id/waiting_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
+        android:background="#6600cc"
         android:clipChildren="false"
         android:gravity="center"
         android:orientation="horizontal">
@@ -33,7 +33,8 @@
                 android:layout_centerVertical="true"
                 android:gravity="right"
                 android:padding="5dp"
-                android:text="دیپلم" />
+                android:text="دیپلم"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/waiting_name"
@@ -43,7 +44,8 @@
                 android:gravity="right"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:text="اسم" />
+                android:text="اسم"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/waiting_province"
@@ -52,7 +54,8 @@
                 android:layout_below="@id/waiting_title"
                 android:gravity="right"
                 android:padding="5dp"
-                android:text="استان" />
+                android:text="استان"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
         <ImageView

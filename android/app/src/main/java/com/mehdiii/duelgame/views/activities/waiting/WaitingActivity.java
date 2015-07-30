@@ -19,7 +19,6 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
-import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.OpponentCollection;
 import com.mehdiii.duelgame.models.ProblemCollection;
@@ -327,7 +326,6 @@ public class WaitingActivity extends ParentActivity {
 //        Intent svc = new Intent(this, MusicPlayer.class);
 //        startService(svc);
     }
-
 
     @Override
     public void onDestroy() {

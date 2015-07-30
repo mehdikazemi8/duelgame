@@ -33,22 +33,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@android:color/holo_red_light"
+        android:background="#c00"
         android:padding="10dp"
         android:text="در مقابل"
         android:textColor="@android:color/white" />
 
     <Button
-        android:padding="5dp"
-        android:visibility="gone"
         android:id="@+id/button_leave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
         android:background="@drawable/bg_button_blue_dark"
+        android:padding="5dp"
         android:text="@string/button_leave"
         android:textColor="@color/white"
-        android:textSize="@dimen/fontsize.normal" />
+        android:textSize="@dimen/fontsize.normal"
+        android:visibility="gone" />
 
 </RelativeLayout>

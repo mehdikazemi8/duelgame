@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -18,8 +17,7 @@ import com.mehdiii.duelgame.views.activities.category.fragments.RankPlayFragment
 import com.mehdiii.duelgame.views.activities.ranking.RankingActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
-public
-class CategoryActivity extends ParentActivity {
+public class CategoryActivity extends ParentActivity {
 
     final int NUMBER_OF_COURSES = 5;
     private Fragment[] rankPlayFragment = new Fragment[NUMBER_OF_COURSES];
@@ -36,7 +34,7 @@ class CategoryActivity extends ParentActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
     }
 
@@ -55,8 +53,8 @@ class CategoryActivity extends ParentActivity {
         };
     }
 
-    private void find(){
-        for (int i = 0; i < NUMBER_OF_COURSES; i ++) {
+    private void find() {
+        for (int i = 0; i < NUMBER_OF_COURSES; i++) {
             rankPlayFragment[i] = Fragment.instantiate(this, RankPlayFragment.class.getName(), null);
             Bundle bundle = new Bundle();
             bundle.putInt("category", i);
@@ -76,7 +74,7 @@ class CategoryActivity extends ParentActivity {
         course[4] = (TextView) findViewById(R.id.shimi_title);
     }
 
-    private void configure(){
+    private void configure() {
         FontHelper.setKoodakFor(this, course[0], course[1], course[2], course[3], course[4]);
     }
 
@@ -87,16 +85,13 @@ class CategoryActivity extends ParentActivity {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             getFragmentManager().beginTransaction().add(fragmentHolderId[courseId], rankPlayFragment[courseId])
                     .addToBackStack(String.valueOf(courseId)).commit();
-        }
-        else {
-            if( getFragmentManager().getBackStackEntryAt(0).getName().toString().equals(String.valueOf(courseId)) ){
+        } else {
+            if (getFragmentManager().getBackStackEntryAt(0).getName().toString().equals(String.valueOf(courseId))) {
 //                    getFragmentManager().beginTransaction().remove(rankPlayFragmentMath).commit();
                 getFragmentManager().popBackStack();
-            }
-            else {
+            } else {
 //                    getFragmentManager().beginTransaction().remove(rankPlayFragmentArabic).commit();
                 getFragmentManager().popBackStack();
-
 
 
                 getFragmentManager().beginTransaction().add(fragmentHolderId[courseId], rankPlayFragment[courseId])
@@ -105,11 +100,11 @@ class CategoryActivity extends ParentActivity {
         }
     }
 
-    public void wannaRace(View view){
+    public void wannaRace(View view) {
         Log.d("aaaaa", "wannaRace " + view.getContentDescription().toString());
     }
 
-    public void wannaPlay(View view){
+    public void wannaPlay(View view) {
         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
         ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
         cat.setCategory(ParentActivity.category);
@@ -118,7 +113,7 @@ class CategoryActivity extends ParentActivity {
         this.finish();
     }
 
-    public void showRank(View view){
+    public void showRank(View view) {
         ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
         startActivity(new Intent(this, RankingActivity.class));
     }
