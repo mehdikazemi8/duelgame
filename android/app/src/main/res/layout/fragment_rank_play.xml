@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,7 +15,8 @@
         android:onClick="showRank"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:text="رتبه بندی" />
+        android:text="رتبه بندی"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/play"
@@ -31,6 +31,7 @@
         android:onClick="wannaPlay"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:text="dueL" />
+        android:text="دوئل"
+        android:textColor="@color/white" />
 
 </LinearLayout>

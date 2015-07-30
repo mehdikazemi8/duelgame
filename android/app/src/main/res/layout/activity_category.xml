@@ -58,7 +58,7 @@
 
             <FrameLayout
                 android:id="@+id/fragment_holder_arabi"
-                style="@style/category_option_fragment"></FrameLayout>
+                style="@style/category_option_fragment" />
 
             <LinearLayout
                 android:id="@+id/din_o_zendegi"
@@ -79,7 +79,7 @@
 
             <FrameLayout
                 android:id="@+id/fragment_holder_din_o_zendegi"
-                style="@style/category_option_fragment"></FrameLayout>
+                style="@style/category_option_fragment" />
 
             <LinearLayout
                 android:id="@+id/zaban_englisi"
@@ -100,7 +100,7 @@
 
             <FrameLayout
                 android:id="@+id/fragment_holder_zaban_englisi"
-                style="@style/category_option_fragment"></FrameLayout>
+                style="@style/category_option_fragment" />
 
             <LinearLayout
                 android:id="@+id/shimi"
@@ -121,7 +121,7 @@
 
             <FrameLayout
                 android:id="@+id/fragment_holder_shimi"
-                style="@style/category_option_fragment"></FrameLayout>
+                style="@style/category_option_fragment" />
 
         </LinearLayout>
     </ScrollView>
