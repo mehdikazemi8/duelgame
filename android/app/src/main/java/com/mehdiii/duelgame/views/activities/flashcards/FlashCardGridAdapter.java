@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.FlashCardList;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class FlashCardGridAdapter extends ArrayAdapter<FlashCard> {
             view = inflater.inflate(R.layout.flash_card_gridview_item, null);
             ViewHolder holder = new ViewHolder();
             holder.textView = (TextView) view.findViewById(R.id.textView_title);
+            FontHelper.setKoodakFor(getContext(), holder.textView);
             view.setTag(holder);
         } else view = convertView;
 

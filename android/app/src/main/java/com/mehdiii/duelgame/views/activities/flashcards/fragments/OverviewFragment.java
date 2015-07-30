@@ -14,6 +14,7 @@ import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
 import com.mehdiii.duelgame.utils.DeckPersister;
+import com.mehdiii.duelgame.utils.FontHelper;
 
 import de.greenrobot.event.EventBus;
 
@@ -32,7 +33,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_flashcard_detail, container, false);
+        return inflater.inflate(R.layout.fragment_flashcard_overview, container, false);
     }
 
     @Override
@@ -48,6 +49,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         // configure controls
         goButton.setOnClickListener(this);
+        FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView, goButton);
 
         bindData();
     }
@@ -61,10 +63,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
     private void bindData() {
         this.ownedTextView.setText(card.getOwned() == 1 ? "OWNED" : "NOT OWNED");
-        this.priceTextView.setText(String.valueOf(card.getPrice()));
+        this.priceTextView.setText(String.valueOf((int) card.getPrice()) + " تومان");
         this.titleTextView.setText(card.getTitle());
 
-        goButton.setText(DeckPersister.hasDeck(getActivity(), card.getId()) ? "GO" : "DOWNLOAD");
+        goButton.setText(DeckPersister.hasDeck(getActivity(), card.getId()) ? "بزن بریم" : "دریافت");
     }
 
     @Override

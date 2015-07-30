@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccc"
+    android:background="@drawable/home_background"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="17sp" />
+        android:textColor="@color/blue_dark"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/textView_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/blue_dark"
         android:textSize="17sp" />
 
     <TextView
@@ -25,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/blue_dark"
         android:textSize="17sp" />
 
     <Button

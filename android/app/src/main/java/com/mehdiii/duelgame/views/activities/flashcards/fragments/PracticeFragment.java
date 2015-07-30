@@ -16,6 +16,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.utils.DeckManager;
 import com.mehdiii.duelgame.utils.DeckPersister;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CardView;
 
 /**
@@ -48,6 +49,7 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
         negativeButton.setOnClickListener(this);
         positiveButton.setOnClickListener(this);
 
+        FontHelper.setKoodakFor(getActivity(), negativeButton, positiveButton);
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mainCard = firstCard;
         secondCard.setTranslationX(metrics.widthPixels);
