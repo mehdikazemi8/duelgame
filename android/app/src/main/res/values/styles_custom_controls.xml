@@ -52,7 +52,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_weight">4</item>
-        <item name="android:background">@drawable/result_buttons</item>
+        <item name="android:background">@drawable/buy_button</item>
         <item name="android:minHeight">5dp</item>
         <item name="android:minWidth">5dp</item>
         <item name="android:padding">3dp</item>
