@@ -62,7 +62,7 @@ public class PurchaseItemView extends LinearLayout {
     }
 
     public void setType(int type) {
-        int resourceId = R.drawable.heart_blank;
+        int resourceId = R.drawable.logo;
         switch (type) {
             case 1:
                 resourceId = R.drawable.store_heart;

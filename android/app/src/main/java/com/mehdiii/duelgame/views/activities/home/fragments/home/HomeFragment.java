@@ -48,7 +48,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView textViewCounter;
     TextView textViewSendReport;
     //    ImageButton addFriendButton;
-    ImageView duelButton;
+//    ImageView duelButton;
     //    ProgressBar levelProgress;
     Button refillButton;
     Button buyDiamondButton;
@@ -85,7 +85,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        addFriendButton.setOnClickListener(this);
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
-        duelButton.setOnClickListener(this);
+//        duelButton.setOnClickListener(this);
         flashCardButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
         textViewSendReport.setOnClickListener(this);
@@ -116,7 +116,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        levelProgress = (ProgressBar) view.findViewById(R.id.home_level_progress);
         textViewHearts = (TextView) view.findViewById(R.id.textView_heart);
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
-        duelButton = (ImageView) view.findViewById(R.id.button_duel);
+//        duelButton = (ImageView) view.findViewById(R.id.button_duel);
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         flashCardButton = (TextView) view.findViewById(R.id.button_flash_card);

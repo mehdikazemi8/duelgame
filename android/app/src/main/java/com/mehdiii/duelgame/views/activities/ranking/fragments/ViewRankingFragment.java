@@ -22,7 +22,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter;
+import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
 
 public class ViewRankingFragment extends Fragment {
 

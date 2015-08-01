@@ -38,7 +38,8 @@ public class DuelApp extends Application {
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     //    static protected String wsuri = "ws://duelgame.ir:9001";
-    static protected String wsuri = "ws://192.168.128.169:9000";
+//    static protected String wsuri = "ws://192.168.128.169:9000";
+    static protected String wsuri = "ws://192.168.0.105:9000";
     //    static protected String wsuri = "ws://duelgame.ir:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";

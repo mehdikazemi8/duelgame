@@ -37,7 +37,7 @@ import java.util.Calendar;
 
 public class StartActivity extends ParentActivity {
     private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS = 5000;
-    private static final int CIRCLES_COUNT = 3;
+    private static final int CIRCLES_COUNT = 1;
 
     boolean isSent = false;
     RelativeLayout layout;
