@@ -19,6 +19,7 @@ import com.mehdiii.duelgame.models.GetCourseRanking;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.ranking.RankingListAdapter;
@@ -29,6 +30,7 @@ public class ViewRankingFragment extends Fragment {
     ProgressBar progressBar;
     RankingListAdapter adapter;
     TextView userScoreValue;
+    TextView scoreCaptionTextView;
     Activity activity = null;
 
     @Override
@@ -58,7 +60,7 @@ public class ViewRankingFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
-        DuelApp.getInstance().sendMessage( (new GetCourseRanking(ParentActivity.category, periodType)).serialize(CommandType.GET_COURSE_RANKING) );
+        DuelApp.getInstance().sendMessage((new GetCourseRanking(ParentActivity.category, periodType)).serialize(CommandType.GET_COURSE_RANKING));
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }
@@ -66,8 +68,7 @@ public class ViewRankingFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_COURSE_RANKING)
-            {
+            if (type == CommandType.RECEIVE_COURSE_RANKING) {
                 progressBar.setVisibility(View.GONE);
 
                 RankList list = RankList.deserialize(json, RankList.class);
@@ -97,6 +98,11 @@ public class ViewRankingFragment extends Fragment {
         this.listView = (ListView) view.findViewById(R.id.ranking_list_view);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         this.userScoreValue = (TextView) view.findViewById(R.id.user_score_value);
+        this.scoreCaptionTextView = (TextView) view.findViewById(R.id.scores_title_text);
+    }
+
+    private void configure() {
+        FontHelper.setKoodakFor(this.activity, scoreCaptionTextView, userScoreValue);
     }
 
     @Override
@@ -104,6 +110,7 @@ public class ViewRankingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         find(view);
+        configure();
         onReload("week");
     }
 

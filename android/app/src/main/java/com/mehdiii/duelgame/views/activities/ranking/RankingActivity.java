@@ -73,8 +73,8 @@ public class RankingActivity extends ParentActivity {
     }
 
     protected void configureControls() {
-        focusedColor = getResources().getColor(R.color.yellow);
-        notFocusedColor = getResources().getColor(R.color.yellow_light);
+        focusedColor = getResources().getColor(R.color.purple);
+        notFocusedColor = getResources().getColor(R.color.purple_dark);
 
         FontHelper.setKoodakFor(this, rankTitle[0], rankTitle[1]);
 

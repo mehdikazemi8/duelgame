@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,12 +16,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/yellow_light"
+            android:background="@color/purple_dark"
             android:clickable="true"
             android:contentDescription="1"
             android:gravity="center"
             android:padding="10dp"
-            android:text="کل" />
+            android:text="کل"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
         <View
             android:layout_width="1dp"
@@ -34,12 +35,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/yellow_light"
+            android:background="@color/purple"
             android:clickable="true"
             android:contentDescription="0"
             android:gravity="center"
             android:padding="10dp"
-            android:text="هفته" />
+            android:text="هفته"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <FrameLayout
