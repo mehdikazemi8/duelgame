@@ -8,7 +8,6 @@
     <string name="splash_circle">&#9679;</string>
 
 
-
     <string-array name="province_array">
         <item>انتخاب استان</item>
         <item>خارج از ایران</item>
@@ -73,16 +72,8 @@
     </string-array>
 
     <string-array name="splash_colors_array">
-        <item>#f1c40f</item>
-        <item>#F4B350</item>
-        <item>#f39c12</item>
-        <item>#EB9532</item>
-        <item>#F89406</item>
-        <item>#F39C12</item>
-        <item>#e67e22</item>
-        <item>#E87E04</item>
-        <item>#F9690E</item>
-        <item>#d35400</item>
+        <item>#F0D64E</item>
+        <item>#D7B740</item>
     </string-array>
 
     <string-array name="categories_values">
