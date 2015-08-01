@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +24,13 @@ import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
-import com.mehdiii.duelgame.models.WannaChallenge;
-import com.mehdiii.duelgame.models.WannaPlay;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
-import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
-import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
-import com.mehdiii.duelgame.views.dialogs.AlertDialog;
-import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import java.util.Collections;
@@ -114,7 +107,6 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             textViewCode.setText("کد شما " + currentUser.getId());
     }
 
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -158,56 +150,56 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
-                String.format(getResources().getString(R.string.message_share),
+                 String.format(getResources().getString(R.string.message_share),
                         "http://cafebazaar.ir/app/" + this.activity.getPackageName()));
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
 
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
-        @Override
-        public void onDuel(final Friend request) {
-            final DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
-            dialog.setOnResult(new DuelFriendDialog.OnResult() {
-                @Override
-                public void getChallenge(WannaChallenge challenge) {
-                    Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
-                    // Build and send an Event.
-                    tracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("button_click")
-                            .setAction("duel_button")
-                            .setLabel("send_duel_request")
-                            .build());
-
-//                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
-//                    dialog.show();
-
-
-//                    challenge.setUserNumber(request.getId());
-//                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+//        @Override
+//        public void onDuel(final Friend request) {
+//            final DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
+//            dialog.setOnResult(new DuelFriendDialog.OnResult() {
+//                @Override
+//                public void getChallenge(WannaChallenge challenge) {
+//                    Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
+//                    // Build and send an Event.
+//                    tracker.send(new HitBuilders.EventBuilder()
+//                            .setCategory("button_click")
+//                            .setAction("duel_button")
+//                            .setLabel("send_duel_request")
+//                            .build());
 //
-                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
-
-                    Intent i = new Intent(getActivity(), WaitingActivity.class);
-                    i.putExtra("user_number", request.getId());
-                    i.putExtra("category", challenge.getCategory());
-                    i.putExtra("message", challenge.getMessage());
-                    i.putExtra("master", true);
-
-                    if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
-                        Log.d("FRIEND_FRAGMENT", "activity is null");
-                        return;
-                    }
-
-
-                    startActivity(i);
-                    dialog.dismiss();
-                }
-            });
-
-
-            dialog.show();
-        }
+////                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
+////                    dialog.show();
+//
+//
+////                    challenge.setUserNumber(request.getId());
+////                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+////
+//                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
+//
+//                    Intent i = new Intent(getActivity(), WaitingActivity.class);
+//                    i.putExtra("user_number", request.getId());
+//                    i.putExtra("category", challenge.getCategory());
+//                    i.putExtra("message", challenge.getMessage());
+//                    i.putExtra("master", true);
+//
+//                    if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
+//                        Log.d("FRIEND_FRAGMENT", "activity is null");
+//                        return;
+//                    }
+//
+//
+//                    startActivity(i);
+//                    dialog.dismiss();
+//                }
+//            });
+//
+//
+//            dialog.show();
+//        }
 
         @Override
         public void onApprove(Friend request) {

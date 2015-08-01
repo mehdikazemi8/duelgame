@@ -27,25 +27,34 @@
         android:id="@+id/textView_province"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/space.short"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/fontsize.normal" />
 
     <TextView
         android:id="@+id/textView_score"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space.short"
+        android:gravity="center"
         android:textColor="@color/yellow"
         android:textSize="@dimen/fontsize.normal" />
 
     <Button
-        android:layout_marginTop="@dimen/space.medium"
-        android:textColor="@color/blue_dark"
         android:id="@+id/button_remove_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_remove" />
+        android:layout_marginTop="@dimen/space.medium"
+        android:background="@color/red"
+        android:text="@string/button_remove"
+        android:textColor="@color/blue_dark" />
+
+    <Button
+        android:id="@+id/button_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space.medium"
+        android:text="@string/button_close"
+        android:textColor="@color/blue_dark" />
 </LinearLayout>

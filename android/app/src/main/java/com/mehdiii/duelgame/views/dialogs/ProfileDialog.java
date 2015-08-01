@@ -29,6 +29,7 @@ public class ProfileDialog extends Dialog {
     TextView textViewProvince;
     TextView textViewScore;
     Button buttonRemove;
+    Button buttonClose;
     Friend friend;
 
     public ProfileDialog(Context context, Friend friend) {
@@ -63,7 +64,7 @@ public class ProfileDialog extends Dialog {
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince, textViewScore, buttonRemove);
+        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince, textViewScore, buttonRemove, buttonClose);
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +82,13 @@ public class ProfileDialog extends Dialog {
                 alertDialog.show();
             }
         });
+
+        buttonClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileDialog.this.dismiss();
+            }
+        });
     }
 
     private void findControls() {
@@ -89,6 +97,7 @@ public class ProfileDialog extends Dialog {
         textViewProvince = (TextView) findViewById(R.id.textView_province);
         textViewScore = (TextView) findViewById(R.id.textView_score);
         buttonRemove = (Button) findViewById(R.id.button_remove_friend);
+        buttonClose = (Button) findViewById(R.id.button_close);
     }
 
     public void setOnRemoveListener(OnCompleteListener onRemoveListener) {

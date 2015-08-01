@@ -23,6 +23,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -264,8 +265,7 @@ public class GameResultActivity extends ParentActivity {
 
     private void animateIncreaseInTextView(final int plusThis, final int duration, final int start, final int end, final TextView tv) {
         if (start == end) {
-            AppRater ar = new AppRater();
-            ar.init(GameResultActivity.this, (gameStatus == 1));
+            AppRater.show(GameResultActivity.this, (gameStatus == 1));
         }
 
         Animation increase = new AlphaAnimation(0f, 1f);
@@ -496,28 +496,36 @@ public class GameResultActivity extends ParentActivity {
         finish();
     }
 
-    public void duelWithOthers(View v) {
-        int categoryId;
-
-        try {
-            categoryId = Integer.parseInt(category);
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-            return;
-        }
-
-//        WannaChallenge challenge = new WannaChallenge(opponentUser.getId(), categoryId, getResources().getString(R.string.message_duel_with_friends_default));
-//
-//        DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
-
-        Intent i = new Intent(this, WaitingActivity.class);
-        i.putExtra("user_number", opponentUser.getId());
-        i.putExtra("category", categoryId);
-        i.putExtra("master", true);
-
-        startActivity(i);
-        finish();
+    public void wannaPlay(View view) {
+        Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
+//        ParentActivity.category = //String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
+        cat.setCategory(ParentActivity.category);
+        DuelApp.getInstance().sendMessage(cat.serialize());
+        startActivity(new Intent(this, WaitingActivity.class));
+        this.finish();
     }
+//    public void duelWithOthers(View v) {
+//        int categoryId;
+//
+//        try {
+//            categoryId = Integer.parseInt(category);
+//        } catch (NumberFormatException ex) {
+//            ex.printStackTrace();
+//            return;
+//        }
+//
+////        WannaChallenge challenge = new WannaChallenge(opponentUser.getId(), categoryId, getResources().getString(R.string.message_duel_with_friends_default));
+////
+////        DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+//
+//        Intent i = new Intent(this, WaitingActivity.class);
+//        i.putExtra("user_number", opponentUser.getId());
+//        i.putExtra("category", categoryId);
+//        i.putExtra("master", true);
+//
+//        startActivity(i);
+//        finish();
+//    }
 
     public void reviewQuestions(View view) {
         Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);

@@ -25,11 +25,11 @@ public class AppRater {
 
     private final static int GAME_UNTIL_PROMPT = 10;
 
-    public static void init(Context mContext, boolean wonThisGame) {
+    public static void show(Context mContext, boolean wonThisGame) {
         SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
-        if (prefs.getBoolean("dontshowagain", false)) {
-            return;
-        }
+//        if (prefs.getBoolean("dontshowagain", false)) {
+//            return;
+//        }
 
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -81,7 +81,8 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        b1.setBackgroundResource(R.drawable.game_result_app_rater_button);
+        b1.setTextColor(mContext.getResources().getColor(R.color.white));
+        b1.setBackgroundResource(R.drawable.buy_button);
         ll.addView(b1);
 
         Button b2 = new Button(mContext);
@@ -98,27 +99,27 @@ public class AppRater {
                 dialog.dismiss();
             }
         });
-        b2.setBackgroundResource(R.drawable.game_result_app_rater_button);
+        b2.setBackgroundResource(R.drawable.buy_button);
+        b2.setTextColor(mContext.getResources().getColor(R.color.white));
         ll.addView(b2);
 
-        Button b3 = new Button(mContext);
-        b3.setLayoutParams(buttonParams);
-        b3.setText("نه، مرسی");
-        b3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (editor != null) {
-                    editor.putBoolean("dontshowagain", true);
-                    editor.commit();
-                }
-                dialog.dismiss();
-            }
-        });
-        b3.setBackgroundResource(R.drawable.game_result_app_rater_button);
-        ll.addView(b3);
+//        Button b3 = new Button(mContext);
+//        b3.setLayoutParams(buttonParams);
+//        b3.setText("نه، مرسی");
+//        b3.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                if (editor != null) {
+//                    editor.putBoolean("dontshowagain", true);
+//                    editor.commit();
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        b3.setBackgroundResource(R.drawable.game_result_app_rater_button);
+//        ll.addView(b3);
 
         dialog.setContentView(ll);
-
-        FontHelper.setKoodakFor(mContext, tv, b1, b2, b3);
+        FontHelper.setKoodakFor(mContext, tv, b1, b2/*, b3*/);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
