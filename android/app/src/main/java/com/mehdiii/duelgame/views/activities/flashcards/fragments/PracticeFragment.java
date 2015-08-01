@@ -23,6 +23,8 @@ import com.mehdiii.duelgame.views.custom.CardView;
  * Created by Omid on 7/22/2015.
  */
 public class PracticeFragment extends Fragment implements View.OnClickListener {
+
+    private final static int ANIMATION_DURATION = 500;
     GestureDetectorCompat gestureDetector;
     CardView firstCard, secondCard, mainCard;
     Button positiveButton;
@@ -150,6 +152,8 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
         public void onAnimationStart(Animator animator) {
             negativeButton.setEnabled(false);
             positiveButton.setEnabled(false);
+            negativeButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
+            positiveButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
         }
     }
 
@@ -167,6 +171,8 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
                 card.setTranslationX(metrics.widthPixels);
             }
 
+            negativeButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
+            positiveButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
             negativeButton.setEnabled(true);
             positiveButton.setEnabled(true);
         }

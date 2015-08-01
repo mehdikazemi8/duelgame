@@ -3,7 +3,7 @@
     android:id="@+id/main_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -28,8 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textColor="#ffc92f32"
             android:text="یادم نمیاد"
+            android:textColor="#ffc92f32"
             android:textSize="17sp" />
     </RelativeLayout>
 

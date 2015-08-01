@@ -7,7 +7,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -92,7 +91,7 @@ public class FlashCardActivity extends ParentActivity {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             FlashCard card = ((FlashCardGridAdapter.ViewHolder) view.getTag()).data;
             //
-            if (card.getProgress() < card.getPercentFree()) {
+//            if (card.getProgress() < card.getPercentFree()) {
                 Bundle bundle = new Bundle();
                 bundle.putString(OverviewFragment.BUNDLE_PARAM_FLASH_CARD, card.serialize());
 
@@ -103,9 +102,9 @@ public class FlashCardActivity extends ParentActivity {
                         .add(R.id.frame_wrapper, fragment)
                         .addToBackStack(null)
                         .commit();
-            } else {
-                DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
-            }
+//            } else {
+//                DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
+//            }
         }
     };
 
