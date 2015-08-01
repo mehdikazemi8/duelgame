@@ -377,6 +377,18 @@
 
                 </android.support.v7.widget.CardView>
 
+                <Button
+                    android:id="@+id/textView_send_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/buy_button_invert"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="@string/caption_send_report"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fontsize.normal" />
+
 
             </LinearLayout>
 
@@ -390,18 +402,6 @@
                 android:clickable="true"
                 android:visibility="gone" />
 
-            <!--<Button-->
-            <!--android:id="@+id/textView_send_report"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:minHeight="0dp"-->
-            <!--android:padding="5dp"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:background="@drawable/bg_button_azure"-->
-            <!--android:text="@string/caption_send_report"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="@dimen/fontsize.normal" />-->
 
         </RelativeLayout>
     </LinearLayout>

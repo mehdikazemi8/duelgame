@@ -98,7 +98,7 @@ public class ViewRankingFragment extends Fragment {
         this.listView = (ListView) view.findViewById(R.id.ranking_list_view);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         this.userScoreValue = (TextView) view.findViewById(R.id.user_score_value);
-        this.scoreCaptionTextView = (TextView) view.findViewById(R.id.scores_title_text);
+        this.scoreCaptionTextView = (TextView) view.findViewById(R.id.textView_score_caption);
     }
 
     private void configure() {

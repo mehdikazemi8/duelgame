@@ -7,29 +7,46 @@
     <LinearLayout
         android:id="@+id/user_score"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ranking_menu"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/user_score_value"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="5dp"
-            android:layout_height="wrap_content" />
+            android:textSize="17sp" />
+
         <TextView
+            android:id="@+id/textView_score_caption"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="5dp"
             android:text="امتیاز شما:"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:textSize="17sp" />
+
+
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/ranking_list_view"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_score" />
+
+    <View
+        android:id="@+id/view_delimmiter"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@id/ranking_list_view"
         android:layout_below="@id/user_score"
-        android:layout_height="match_parent" />
+        android:background="@color/purple_dark" />
 
     <ProgressBar
         android:id="@+id/progressbar"

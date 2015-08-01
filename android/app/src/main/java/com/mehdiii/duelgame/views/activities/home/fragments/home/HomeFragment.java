@@ -46,7 +46,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //    TextView provinceRankingText;
 //    TextView provinceRanking;
     TextView textViewCounter;
-    //    TextView textViewSendReport;
+    TextView textViewSendReport;
     //    ImageButton addFriendButton;
     ImageView duelButton;
     //    ProgressBar levelProgress;
@@ -88,12 +88,12 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         duelButton.setOnClickListener(this);
         flashCardButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
-//        textViewSendReport.setOnClickListener(this);
+        textViewSendReport.setOnClickListener(this);
 
         // set font-face
-        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts,
+        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts, textViewSendReport,
                 diamondCount, titleTextView/*, levelText, totalRankingText,
-                totalRanking, friendsRankingText, friendsRanking, textViewSendReport,
+                totalRanking, friendsRankingText, friendsRanking,
                 provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton);
 
     }
@@ -109,7 +109,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
 //        provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
 //        provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
-//        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
+        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
 //        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
@@ -153,9 +153,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 Intent intent = new Intent(getActivity(), FlashCardActivity.class);
                 startActivity(intent);
                 break;
-//            case R.id.textView_send_report:
-//                sendReport();
-//                break;
+            case R.id.textView_send_report:
+                sendReport();
+                break;
         }
     }
 
