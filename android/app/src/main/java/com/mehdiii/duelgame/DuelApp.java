@@ -38,9 +38,8 @@ public class DuelApp extends Application {
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
     //    static protected String wsuri = "ws://duelgame.ir:9001";
-//    static protected String wsuri = "ws://192.168.128.169:9000";
-//    static protected String wsuri = "ws://192.168.0.105:9000";
-    static protected String wsuri = "ws://duelgame.ir:9000";
+    static protected String wsuri = "ws://172.17.9.161:9000";
+    //    static protected String wsuri = "ws://duelgame.ir:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
@@ -68,7 +67,6 @@ public class DuelApp extends Application {
                 @Override
                 public void onTextMessage(String payload) {
                     Log.d(TAG, "Got echo: " + payload);
-
                     dispatchMessage(payload);
                 }
 
@@ -84,9 +82,8 @@ public class DuelApp extends Application {
     }
 
     public void disconnect() {
-        if (wsc.isConnected()) {
+        if (wsc.isConnected())
             wsc.disconnect();
-        }
     }
 
     /**
