@@ -90,21 +90,17 @@ public class FlashCardActivity extends ParentActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             FlashCard card = ((FlashCardGridAdapter.ViewHolder) view.getTag()).data;
-            //
-//            if (card.getProgress() < card.getPercentFree()) {
-                Bundle bundle = new Bundle();
-                bundle.putString(OverviewFragment.BUNDLE_PARAM_FLASH_CARD, card.serialize());
 
-                Fragment fragment = Fragment.instantiate(FlashCardActivity.this, OverviewFragment.class.getName(), bundle);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
-                        .add(R.id.frame_wrapper, fragment)
-                        .addToBackStack(null)
-                        .commit();
-//            } else {
-//                DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
-//            }
+            Bundle bundle = new Bundle();
+            bundle.putString(OverviewFragment.BUNDLE_PARAM_FLASH_CARD, card.serialize());
+
+            Fragment fragment = Fragment.instantiate(FlashCardActivity.this, OverviewFragment.class.getName(), bundle);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
+                    .add(R.id.frame_wrapper, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     };
 

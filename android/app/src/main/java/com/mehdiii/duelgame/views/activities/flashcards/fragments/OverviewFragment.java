@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.FlashCardPurchaseStarter;
+import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
 import com.mehdiii.duelgame.utils.DeckPersister;
@@ -73,29 +77,31 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_go:
-                if (DeckPersister.hasDeck(getActivity(), card.getId()))
-                    startPracticing();
-                else
-                    startDownloadingDeck();
-                break;
+                startPurchase();
+//                if (DeckPersister.hasDeck(getActivity(), card.getId()))
+//                    startPracticing();
+//                else
+//                    startDownloadingDeck();
+//                break;
         }
     }
 
     private void startPracticing() {
-//        if (card.getProgress() < card.getPercentFree()) {
-
-        // open practice fragment
-        Bundle bundle = new Bundle();
-        bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
-        Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
-                .add(R.id.frame_wrapper, fragment)
-                .addToBackStack(null)
-                .commit();
-//        } else
-//            DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
+        if (card.getProgress() < card.getPercentFree()) {
+            // open practice fragment
+            Bundle bundle = new Bundle();
+            bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
+            Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
+                    .add(R.id.frame_wrapper, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            goButton.setText("خرید");
+            DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
+        }
     }
 
     private void startDownloadingDeck() {
@@ -125,5 +131,15 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         EventBus.getDefault().register(this);
     }
 
+    private void startPurchase() {
+        FlashCardPurchaseStarter bundle = new FlashCardPurchaseStarter();
+        bundle.setCardId(card.getId());
+        PurchaseItem item = AuthManager.getCurrentUser().getFlashcardPurchaseItem();
+        if (item != null) {
+            bundle.setPurchaseId(item.getId());
+            DuelApp.getInstance().sendMessage(item.serialize(CommandType.SEND_START_PURCHASE));
+        }
+
+    }
 
 }

@@ -2,7 +2,6 @@ package com.mehdiii.duelgame.managers;
 
 import android.content.Context;
 
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.MemoryCache;
 
@@ -25,4 +24,6 @@ public class AuthManager {
         HeartTracker.configure(context, user.getHeart(), user.isExtremeHeart(), user.getTimeToNextHeart());
         return user;
     }
+
+
 }

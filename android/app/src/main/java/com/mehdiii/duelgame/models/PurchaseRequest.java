@@ -13,7 +13,7 @@ public class PurchaseRequest extends BaseModel {
 
     @SerializedName("id")
     private int id;
-
+    
     public int getId() {
         return id;
     }

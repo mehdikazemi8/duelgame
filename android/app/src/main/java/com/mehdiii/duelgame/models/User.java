@@ -3,8 +3,6 @@ package com.mehdiii.duelgame.models;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.mehdiii.duelgame.DuelApp;
-import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
@@ -215,4 +213,15 @@ public class User extends BaseModel {
         HeartTracker.configure(context, heart, isExtremeHeart());
     }
 
+    public PurchaseItem getFlashcardPurchaseItem() {
+        if (this == null || this.getPurchaseItems() == null || this.getPurchaseItems().size() == 0)
+            return null;
+
+        for (PurchaseItem item : this.getPurchaseItems()) {
+            if (item.getId() == 9) {
+                return item;
+            }
+        }
+        return null;
+    }
 }
