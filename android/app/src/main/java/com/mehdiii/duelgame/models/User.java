@@ -214,7 +214,7 @@ public class User extends BaseModel {
     }
 
     public PurchaseItem getFlashcardPurchaseItem() {
-        if (this == null || this.getPurchaseItems() == null || this.getPurchaseItems().size() == 0)
+        if (this.getPurchaseItems() == null || this.getPurchaseItems().size() == 0)
             return null;
 
         for (PurchaseItem item : this.getPurchaseItems()) {

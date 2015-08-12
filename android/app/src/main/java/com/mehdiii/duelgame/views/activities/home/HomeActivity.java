@@ -83,7 +83,6 @@ public class HomeActivity extends ParentActivity {
         find();
         configure();
 
-        PurchaseManager.init(HomeActivity.this, REQUEST_CODE_PURCHASE);
 
         // Check device for Play Services APK.
         if (checkPlayServices()) {
@@ -98,6 +97,19 @@ public class HomeActivity extends ParentActivity {
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PurchaseManager.connect(HomeActivity.this, REQUEST_CODE_PURCHASE);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PurchaseManager.disconnect();
     }
 
     public static void registerInBackground() {
@@ -308,14 +320,14 @@ public class HomeActivity extends ParentActivity {
         dialog.show();
     }
 
-    public void onEvent(BuyNotification buyNotification) {
+    public void onEvent(BuyNotification notif) {
 
-        switch (buyNotification.getType()) {
+        switch (notif.getType()) {
             case 1:
-                PurchaseManager.getInstance().initiatePurchase(buyNotification);
+                PurchaseManager.getInstance().startPurchase(notif.getId());
                 break;
             case 2:
-                PurchaseManager.getInstance().useDiamond(buyNotification);
+                PurchaseManager.getInstance().useDiamond(notif);
                 break;
         }
     }

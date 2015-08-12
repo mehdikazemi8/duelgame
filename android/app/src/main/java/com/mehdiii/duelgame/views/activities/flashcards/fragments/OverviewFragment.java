@@ -11,12 +11,11 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.FlashCard;
-import com.mehdiii.duelgame.models.FlashCardPurchaseStarter;
-import com.mehdiii.duelgame.models.PurchaseItem;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.FontHelper;
 
@@ -119,6 +118,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         bindData();
     }
 
+    public void onEvent(OnPurchaseResult result) {
+
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -132,14 +135,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startPurchase() {
-        FlashCardPurchaseStarter bundle = new FlashCardPurchaseStarter();
-        bundle.setCardId(card.getId());
-        PurchaseItem item = AuthManager.getCurrentUser().getFlashcardPurchaseItem();
-        if (item != null) {
-            bundle.setPurchaseId(item.getId());
-            DuelApp.getInstance().sendMessage(item.serialize(CommandType.SEND_START_PURCHASE));
-        }
-
+        PurchaseManager.getInstance().startPurchase(9, card.getId());
     }
 
 }

@@ -103,6 +103,12 @@ public class StartActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+//        try {
+//            PurchaseManager.getInstance().consumePurchase();
+//        } catch (Exception e) {
+//
+//        }
+
         layout = (RelativeLayout) findViewById(R.id.container_wrapper);
         splashColors = SplashColors.getArray(this);
 

@@ -8,14 +8,22 @@ import com.mehdiii.duelgame.models.base.BaseModel;
  */
 public class PurchaseCreated extends BaseModel {
     public PurchaseCreated(String purchaseId, String orderId) {
+        this(purchaseId, orderId, "");
+    }
+
+    public PurchaseCreated(String purchaseId, String orderId, String cardId) {
         this.purchaseId = purchaseId;
         this.orderId = orderId;
+        this.cardId = cardId;
     }
 
     @SerializedName("purchase_id")
     private String purchaseId;
     @SerializedName("order_id")
     private String orderId;
+    @SerializedName("card_id")
+    private String cardId;
+
 
     public String getPurchaseId() {
         return purchaseId;
@@ -31,5 +39,13 @@ public class PurchaseCreated extends BaseModel {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 }

@@ -13,6 +13,7 @@ import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.PurchaseCreated;
 import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.PurchaseItem;
+import com.mehdiii.duelgame.models.PurchaseRequest;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
@@ -25,7 +26,6 @@ import com.mehdiii.duelgame.utils.Purchase;
 
 import org.json.JSONException;
 
-import java.lang.NullPointerException;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -42,7 +42,12 @@ public class PurchaseManager {
     public static final String TAG = "PURCHASE_MANAGER";
     static final int RC_REQUEST = 10001;
 
-    public static void init(Activity activity, int requestCode) {
+    public static void disconnect() {
+        LocalBroadcastManager.getInstance(instance.activity).unregisterReceiver(instance.receiver);
+        instance = null;
+    }
+
+    public static void connect(Activity activity, int requestCode) {
         Log.d("PURCHASE_MANAGER", "purchase module is starting.");
         instance = new PurchaseManager();
         instance.activity = activity;
@@ -217,14 +222,30 @@ public class PurchaseManager {
     boolean working = false;
     static PurchaseItem currentPurchase;
 
-    public synchronized void initiatePurchase(BuyNotification buyNotification) {
-        if (!working) {
-            working = true;
+    String cardId;
 
-            currentPurchase = findPurchaseById(buyNotification.getId());
-            if (currentPurchase != null)
-                DuelApp.getInstance().sendMessage(currentPurchase.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
+    public synchronized void startPurchase(int id) {
+        startPurchase(id, "");
+    }
+
+    public synchronized void startPurchase(int id, String cardId) {
+//        if (!working) {
+//            working = true;
+
+        this.cardId = cardId;
+        currentPurchase = findPurchaseById(id);
+        if (currentPurchase != null) {
+            PurchaseRequest bundle;
+
+            if (cardId != null && !cardId.isEmpty())
+                bundle = currentPurchase.toPurchaseRequest(cardId);
+            else
+                bundle = currentPurchase.toPurchaseRequest();
+
+            DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_START_PURCHASE));
+
         }
+//        }
     }
 
     Purchase cafeBazaarPurchase = null;
@@ -252,7 +273,14 @@ public class PurchaseManager {
             }
 
 //            PurchaseCafe purchase = gson.fromJson(purchaseData, PurchaseCafe.class);
-            DuelApp.getInstance().sendMessage(new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId()).serialize(CommandType.SEND_PURCHASE_DONE));
+
+            PurchaseCreated bundle;
+            if (cardId != null && !cardId.isEmpty())
+                bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId(), cardId);
+            else
+                bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId());
+
+            DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
 
             Log.d(TAG, "Purchase successful.");
 //            purchase.getDeveloperPayload()

@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.flashcards;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -10,6 +11,7 @@ import android.widget.GridView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.FlashCardList;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -30,6 +32,13 @@ import de.greenrobot.event.EventBus;
 public class FlashCardActivity extends ParentActivity {
     private static final String FLASH_CARD_LIST_CACHE = "flash_card_list_cache";
     private GridView gridView;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
@@ -59,10 +68,13 @@ public class FlashCardActivity extends ParentActivity {
         gridView.setOnItemClickListener(gridViewClickListener);
     }
 
+    private static final int REQUEST_CODE_PURCHASE = 10001;
+
     @Override
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
+        PurchaseManager.connect(this, REQUEST_CODE_PURCHASE);
         getFlashCards();
     }
 
@@ -70,15 +82,16 @@ public class FlashCardActivity extends ParentActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+//        PurchaseManager.disconnect();
     }
 
     private void getFlashCards() {
-//
-//        if (MemoryCache.get(FLASH_CARD_LIST_CACHE) != null) {
-//            bindListData((FlashCardList) MemoryCache.get(FLASH_CARD_LIST_CACHE));
-//        } else
-//            // request from server
-        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.SEND_GET_FLASH_CARD_LIST));
+
+        if (MemoryCache.get(FLASH_CARD_LIST_CACHE) != null) {
+            bindListData((FlashCardList) MemoryCache.get(FLASH_CARD_LIST_CACHE));
+        } else
+            // request from server
+            DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.SEND_GET_FLASH_CARD_LIST));
     }
 
     private void bindListData(FlashCardList list) {

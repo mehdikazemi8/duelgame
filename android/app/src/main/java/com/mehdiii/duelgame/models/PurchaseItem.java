@@ -73,6 +73,10 @@ public class PurchaseItem extends BaseModel {
         return new PurchaseRequest(getId());
     }
 
+    public PurchaseRequest toPurchaseRequest(String cardId) {
+        return new PurchaseRequest(getId(), cardId);
+    }
+
     public String getSku() {
         return sku;
     }
