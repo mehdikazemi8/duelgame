@@ -102,14 +102,14 @@ public class HomeActivity extends ParentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PurchaseManager.connect(HomeActivity.this, REQUEST_CODE_PURCHASE);
+        PurchaseManager.init(HomeActivity.this, REQUEST_CODE_PURCHASE);
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        PurchaseManager.disconnect();
+        PurchaseManager.disconnectActivity();
     }
 
     public static void registerInBackground() {

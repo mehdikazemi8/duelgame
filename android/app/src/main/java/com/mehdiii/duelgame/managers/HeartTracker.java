@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.receivers.HeartFullyRecovered;
 

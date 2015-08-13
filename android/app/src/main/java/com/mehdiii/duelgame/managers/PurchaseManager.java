@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.managers;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.RemoteException;
@@ -35,24 +36,33 @@ import de.greenrobot.event.EventBus;
  */
 public class PurchaseManager {
     public static final String BASE_64_PUBLIC_KEY = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDQ6R5cmQIA0CRQVsEQoMO5sbONC3Jxuf0ng05fRHvbGakNhDorp86k5KY7ikaHV8BbndgLdjROp/DX/Y8wJaJhdlmoyPfBoTqTIQofhEuZKVAKq6Z5qiIL/fTvx357nME+YTPda4SvrXQ8/lAoasf2bRVdpq2spsmP1HNa8xAs/WnJzF7ShGr84cvIMmo4cOVSi/P3EX/CzXpyU8nwbVW0Mkw6lJ+N+5vV2kun2PUCAwEAAQ==";
+    public static final String TAG = "PURCHASE_MANAGER";
     private static PurchaseManager instance;
+    static final int RC_REQUEST = 10001;
     private Activity activity;
     int requestCode;
+    Purchase purchasedItem = null;
     IabHelper helper;
-    public static final String TAG = "PURCHASE_MANAGER";
-    static final int RC_REQUEST = 10001;
+    boolean isBusy = false;
+    static PurchaseItem currentPurchase;
+    String cardId;
 
-    public static void disconnect() {
+    public static void disconnectActivity() {
         LocalBroadcastManager.getInstance(instance.activity).unregisterReceiver(instance.receiver);
         instance = null;
     }
 
-    public static void connect(Activity activity, int requestCode) {
+    public static void connectActivity(Activity activity) {
+        instance.activity = activity;
+        LocalBroadcastManager.getInstance(instance.activity).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
+        Log.d("PURCHASE_MANAGER", "initiation finished");
+    }
+
+    public static void init(Context context) {
         Log.d("PURCHASE_MANAGER", "purchase module is starting.");
         instance = new PurchaseManager();
-        instance.activity = activity;
-        instance.requestCode = requestCode;
-        instance.helper = new IabHelper(activity, BASE_64_PUBLIC_KEY);
+//        instance.activity = activity;
+        instance.helper = new IabHelper(context, BASE_64_PUBLIC_KEY);
         instance.helper.enableDebugLogging(true, "PURCHASE_MANAGER");
         instance.helper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
@@ -72,9 +82,6 @@ public class PurchaseManager {
                 instance.helper.queryInventoryAsync(instance.mGotInventoryListener);
             }
         });
-
-        LocalBroadcastManager.getInstance(activity).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
-        Log.d("PURCHASE_MANAGER", "initiation finished");
     }
 
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
@@ -115,27 +122,6 @@ public class PurchaseManager {
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-//
-//            // if we were disposed of in the meantime, quit.
-//            if (helper == null) return;
-//
-//            // We know this is the "gas" sku because it's the only one we consume,
-//            // so we don't check which sku was consumed. If you have more than one
-//            // sku, you probably should check...
-//            if (result.isSuccess()) {
-//                // successfully consumed, so we apply the effects of the item in our
-//                // game world's logic, which in our case means filling the gas tank a bit
-//                Log.d(TAG, "Consumption successful. Provisioning.");
-//                mTank = mTank == TANK_MAX ? TANK_MAX : mTank + 1;
-//                saveData();
-//                alert("You filled 1/4 tank. Your tank is now " + String.valueOf(mTank) + "/4 full!");
-//            }
-//            else {
-//                complain("Error while consuming: " + result);
-//            }
-//            updateUi();
-//            setWaitScreen(false);
-//            Log.d(TAG, "End consumption flow.");
         }
     };
 
@@ -219,60 +205,41 @@ public class PurchaseManager {
         }
     });
 
-    boolean working = false;
-    static PurchaseItem currentPurchase;
-
-    String cardId;
 
     public synchronized void startPurchase(int id) {
         startPurchase(id, "");
     }
 
     public synchronized void startPurchase(int id, String cardId) {
-//        if (!working) {
-//            working = true;
+        if (!isBusy) {
+            isBusy = true;
 
-        this.cardId = cardId;
-        currentPurchase = findPurchaseById(id);
-        if (currentPurchase != null) {
-            PurchaseRequest bundle;
+            this.cardId = cardId;
+            currentPurchase = findPurchaseById(id);
+            if (currentPurchase != null) {
+                PurchaseRequest bundle;
 
-            if (cardId != null && !cardId.isEmpty())
-                bundle = currentPurchase.toPurchaseRequest(cardId);
-            else
-                bundle = currentPurchase.toPurchaseRequest();
+                if (cardId != null && !cardId.isEmpty())
+                    bundle = currentPurchase.toPurchaseRequest(cardId);
+                else
+                    bundle = currentPurchase.toPurchaseRequest();
 
-            DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_START_PURCHASE));
-
+                DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_START_PURCHASE));
+            }
         }
-//        }
     }
 
-    Purchase cafeBazaarPurchase = null;
 
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            working = false;
-
             Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-            cafeBazaarPurchase = purchase;
+            isBusy = false;
+            purchasedItem = purchase;
 
             // if we were disposed of in the meantime, quit.
-            if (helper == null) return;
-
-            if (result.isFailure()) {
-//                complain("Error purchasing: " + result);
-//                setWaitScreen(false);
+            if (helper == null || result.isFailure() || !verifyDeveloperPayload(purchase))
                 return;
-            }
-            if (!verifyDeveloperPayload(purchase)) {
-//                complain("Error purchasing. Authenticity verification failed.");
-//                setWaitScreen(false);
-                return;
-            }
-
-//            PurchaseCafe purchase = gson.fromJson(purchaseData, PurchaseCafe.class);
 
             PurchaseCreated bundle;
             if (cardId != null && !cardId.isEmpty())
@@ -283,12 +250,6 @@ public class PurchaseManager {
             DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
 
             Log.d(TAG, "Purchase successful.");
-//            purchase.getDeveloperPayload()
-//            if (purchase.getSku().equals(SKU_GAS)) {
-            // bought 1/4 tank of gas. So consume it.
-//                Log.d(TAG, "Purchase is gas. Starting gas consumption.");
-//                helper.consumeAsync(purchase, mConsumeFinishedListener);
-//            }
         }
     };
 
@@ -325,10 +286,10 @@ public class PurchaseManager {
 
 
     public synchronized void consumePurchase() throws RemoteException {
-        if (cafeBazaarPurchase == null)
+        if (purchasedItem == null)
             return;
 
-        helper.consumeAsync(cafeBazaarPurchase, mConsumeFinishedListener);
+        helper.consumeAsync(purchasedItem, mConsumeFinishedListener);
     }
 
     public boolean handleActivityResult(int resultCode, Intent data) {

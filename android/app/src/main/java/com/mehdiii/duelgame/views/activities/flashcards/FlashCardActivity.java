@@ -68,13 +68,12 @@ public class FlashCardActivity extends ParentActivity {
         gridView.setOnItemClickListener(gridViewClickListener);
     }
 
-    private static final int REQUEST_CODE_PURCHASE = 10001;
 
     @Override
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
-        PurchaseManager.connect(this, REQUEST_CODE_PURCHASE);
+        PurchaseManager.init(this);
         getFlashCards();
     }
 
@@ -82,7 +81,7 @@ public class FlashCardActivity extends ParentActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-//        PurchaseManager.disconnect();
+//        PurchaseManager.disconnectActivity();
     }
 
     private void getFlashCards() {
