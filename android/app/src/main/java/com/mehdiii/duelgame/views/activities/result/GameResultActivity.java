@@ -551,7 +551,7 @@ public class GameResultActivity extends ParentActivity {
     }
 
     @Override
-    public OnCompleteListener getPostChallengeDecisionMadeListener() {
+    public OnCompleteListener onDecisionMadeListener() {
         return new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {

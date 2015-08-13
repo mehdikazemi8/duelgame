@@ -26,7 +26,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Omid on 5/23/2015.
  */
-public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnClickListener {
+public class AnswerDuelWithFriendRequestDialog extends Dialog implements View.OnClickListener {
 
     ImageView imageViewAvatar;
     TextView nameTextView;
@@ -40,7 +40,7 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
     OnCompleteListener onPostDecisionMade = null;
 
 
-    public AnswerOfChallengeRequestDialog(Context context, DuelOpponentRequest data) {
+    public AnswerDuelWithFriendRequestDialog(Context context, DuelOpponentRequest data) {
         super(context);
         this.data = data;
     }
@@ -107,7 +107,7 @@ public class AnswerOfChallengeRequestDialog extends Dialog implements View.OnCli
             onPostDecisionMade.onComplete(requestDecision.getDecision() != 0);
     }
 
-    public void setOnPostDecisionMade(OnCompleteListener onPostDecisionMade) {
+    public void onDecisionMade(OnCompleteListener onPostDecisionMade) {
         this.onPostDecisionMade = onPostDecisionMade;
     }
 }

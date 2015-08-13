@@ -24,7 +24,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
-import com.mehdiii.duelgame.views.dialogs.AnswerOfChallengeRequestDialog;
+import com.mehdiii.duelgame.views.dialogs.AnswerDuelWithFriendRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
@@ -48,9 +48,9 @@ public class ParentActivity extends ActionBarActivity {
                 DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
                 try {
                     category = String.valueOf(request.getCategory());
-                    AnswerOfChallengeRequestDialog dialog = new AnswerOfChallengeRequestDialog(ParentActivity.this, request);
+                    AnswerDuelWithFriendRequestDialog dialog = new AnswerDuelWithFriendRequestDialog(ParentActivity.this, request);
                     dialog.setCancelable(false);
-                    dialog.setOnPostDecisionMade(getPostChallengeDecisionMadeListener());
+                    dialog.onDecisionMade(onDecisionMadeListener());
                     dialog.show();
 
                 } catch (Exception e) {
@@ -141,11 +141,13 @@ public class ParentActivity extends ActionBarActivity {
     }
 
     // sub classes can change this configuration by overriding this method. default value is `true`
+    // if ture then a connecing to server dialog is displayed when connection to server is disconnected.
+    //      otherwise, the situation should be handled separately.
     public boolean showConnectingToServerDialog() {
         return true;
     }
 
-    public OnCompleteListener getPostChallengeDecisionMadeListener() {
+    public OnCompleteListener onDecisionMadeListener() {
         return null;
     }
 }
