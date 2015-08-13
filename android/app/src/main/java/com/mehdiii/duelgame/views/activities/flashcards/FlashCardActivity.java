@@ -110,7 +110,7 @@ public class FlashCardActivity extends ParentActivity {
             Fragment fragment = Fragment.instantiate(FlashCardActivity.this, OverviewFragment.class.getName(), bundle);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
+                    .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.abc_fade_out)
                     .add(R.id.frame_wrapper, fragment)
                     .addToBackStack(null)
                     .commit();

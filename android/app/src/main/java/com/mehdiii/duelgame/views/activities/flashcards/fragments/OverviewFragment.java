@@ -117,7 +117,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             Fragment fragment = Fragment.instantiate(getActivity(), PracticeFragment.class.getName(), bundle);
             getFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
+                    .setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom, R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom)
                     .add(R.id.frame_wrapper, fragment)
                     .addToBackStack(null)
                     .commit();
