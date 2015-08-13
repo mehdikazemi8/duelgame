@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     TextView priceTextView;
     Button goButton;
     Button purchaseButton;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         priceTextView = (TextView) view.findViewById(R.id.textView_price);
         goButton = (Button) view.findViewById(R.id.button_go);
         purchaseButton = (Button) view.findViewById(R.id.button_purchase);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 
         // configure controls
         goButton.setOnClickListener(this);
@@ -75,14 +78,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         this.priceTextView.setText(String.valueOf((int) card.getPrice()) + " تومان");
         this.titleTextView.setText(card.getTitle());
 
-        String buttonText = "";
+        String buttonText = null;
         if (!DeckPersister.hasDeck(getActivity(), card.getId()))
             if (card.getOwned() == 1)
                 buttonText = "دریافت";
             else {
                 buttonText = "دریافت و امتحان مجانی";
                 goButton.setPadding(10, 0, 10, 0);
-                purchaseButton.setWidth(goButton.getWidth());
             }
         else if (card.getOwned() == 1)
             buttonText = "بزن بریم";
@@ -126,6 +128,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startDownloadingDeck() {
+        this.progressBar.setVisibility(View.VISIBLE);
+        turnWaitingMode(true);
         DuelApp.getInstance().sendMessage(card.serialize(CommandType.SEND_GET_FLASH_CARD_REQUEST));
     }
 
@@ -135,6 +139,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
      * @param c receive notice
      */
     public void onEvent(OnFlashCardReceived c) {
+        progressBar.setVisibility(View.INVISIBLE);
+        turnWaitingMode(false);
         bindData();
         card = DeckPersister.getDeck(getActivity(), card.getId());
         bindData();
@@ -158,6 +164,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
     private void startPurchase() {
         PurchaseManager.getInstance().startPurchase(9, card.getId());
+    }
+
+    private void turnWaitingMode(boolean waiting) {
+        goButton.setEnabled(!waiting);
+        purchaseButton.setEnabled(!waiting);
     }
 
 }
