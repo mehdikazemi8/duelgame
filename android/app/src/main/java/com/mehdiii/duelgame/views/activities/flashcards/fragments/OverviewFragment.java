@@ -33,6 +33,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     TextView titleTextView;
     TextView priceTextView;
     Button goButton;
+    Button purchaseButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,10 +50,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
         priceTextView = (TextView) view.findViewById(R.id.textView_price);
         goButton = (Button) view.findViewById(R.id.button_go);
+        purchaseButton = (Button) view.findViewById(R.id.button_purchase);
 
         // configure controls
         goButton.setOnClickListener(this);
-        FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView, goButton);
+        FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView, goButton, purchaseButton);
 
         bindData();
     }
@@ -65,28 +67,48 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindData() {
+
+        if (card.getOwned() == 1)
+            purchaseButton.setVisibility(View.INVISIBLE);
+
         this.ownedTextView.setText(card.getOwned() == 1 ? "OWNED" : "NOT OWNED");
         this.priceTextView.setText(String.valueOf((int) card.getPrice()) + " تومان");
         this.titleTextView.setText(card.getTitle());
 
-        goButton.setText(DeckPersister.hasDeck(getActivity(), card.getId()) ? "بزن بریم" : "دریافت");
+        String buttonText = "";
+        if (!DeckPersister.hasDeck(getActivity(), card.getId()))
+            if (card.getOwned() == 1)
+                buttonText = "دریافت";
+            else {
+                buttonText = "دریافت و امتحان مجانی";
+                goButton.setPadding(10, 0, 10, 0);
+                purchaseButton.setWidth(goButton.getWidth());
+            }
+        else if (card.getOwned() == 1)
+            buttonText = "بزن بریم";
+        else if (card.getProgress() < card.getPercentFree())
+            buttonText = "امتحان کنید";
+        else
+            goButton.setVisibility(View.INVISIBLE);
+
+        goButton.setText(buttonText);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_go:
-                startPurchase();
-//                if (DeckPersister.hasDeck(getActivity(), card.getId()))
-//                    startPracticing();
-//                else
-//                    startDownloadingDeck();
-//                break;
+                if (DeckPersister.hasDeck(getActivity(), card.getId()))
+                    startPracticeIfPossible();
+                else
+                    startDownloadingDeck();
+                break;
         }
     }
 
-    private void startPracticing() {
-        if (card.getProgress() < card.getPercentFree()) {
+    private void startPracticeIfPossible() {
+        if (card.getProgress() < card.getPercentFree() || card.getOwned() == 1) {
             // open practice fragment
             Bundle bundle = new Bundle();
             bundle.putString(PracticeFragment.BUNDLE_DECK_ID, card.getId());
@@ -98,7 +120,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                     .addToBackStack(null)
                     .commit();
         } else {
-            goButton.setText("خرید");
+
             DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
         }
     }

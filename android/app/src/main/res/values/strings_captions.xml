@@ -12,4 +12,5 @@
     <string name="caption_online">آنلاین</string>
     <string name="caption_offline">آفلاین</string>
     <string name="caption_duel_again">دوئل</string>
+    <string name="caption_purchase">خرید</string>
 </resources>
