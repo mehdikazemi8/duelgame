@@ -141,7 +141,7 @@ public class ParentActivity extends ActionBarActivity {
     }
 
     // sub classes can change this configuration by overriding this method. default value is `true`
-    // if ture then a connecing to server dialog is displayed when connection to server is disconnected.
+    // if true then a connecting to server dialog is displayed when connection to server is disconnected.
     //      otherwise, the situation should be handled separately.
     public boolean showConnectingToServerDialog() {
         return true;
