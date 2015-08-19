@@ -37,9 +37,8 @@ public class DuelApp extends Application {
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    //    static protected String wsuri = "ws://duelgame.ir:9001";
-//    static protected String wsuri = "ws://172.17.9.163:9000";
     static protected String wsuri = "ws://duelgame.ir:9003";
+    //    static protected String wsuri = "ws://172.17.9.163:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
@@ -52,7 +51,7 @@ public class DuelApp extends Application {
         initGA();
         if (!wsc.isConnected())
             connectToWs();
-    }   
+    }
 
     public void connectToWs() {
         try {

@@ -102,7 +102,7 @@ public class HomeActivity extends ParentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PurchaseManager.init(HomeActivity.this, REQUEST_CODE_PURCHASE);
+        PurchaseManager.init(HomeActivity.this);
 
     }
 
@@ -120,7 +120,7 @@ public class HomeActivity extends ParentActivity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
-                String msg = "";
+                String msg;
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
@@ -170,6 +170,7 @@ public class HomeActivity extends ParentActivity {
             return false;
         }
         return true;
+
     }
 
     ScoresDialog scoresDialog;
