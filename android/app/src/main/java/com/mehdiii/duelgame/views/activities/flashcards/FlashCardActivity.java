@@ -61,8 +61,8 @@ public class FlashCardActivity extends ParentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_card);
 
+        setContentView(R.layout.activity_flash_card);
         gridView = (GridView) findViewById(R.id.gridView_main);
 
         gridView.setOnItemClickListener(gridViewClickListener);
@@ -73,7 +73,7 @@ public class FlashCardActivity extends ParentActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
-        PurchaseManager.init(this);
+        PurchaseManager.changeActivity(this);
         getFlashCards();
     }
 
@@ -81,7 +81,6 @@ public class FlashCardActivity extends ParentActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-//        PurchaseManager.disconnectActivity();
     }
 
     private void getFlashCards() {
@@ -123,5 +122,12 @@ public class FlashCardActivity extends ParentActivity {
             getFlashCards();
 
         super.onBackPressed();
+    }
+
+    public void reloadAsync() {
+        this.gridView.removeAllViews();
+        MemoryCache.set(FLASH_CARD_LIST_CACHE, null);
+        getFlashCards();
+
     }
 }

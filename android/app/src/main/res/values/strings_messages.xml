@@ -23,5 +23,7 @@
     <string name="message_rate_app">اگه با دوئل حال کردی...</string>
     <string name="message_opponent_left">حریفتون بازیو ترک کرد..</string>
     <string name="message_are_you_sure_to_remove_friend">ایا مطمئنی هستی که دوسست رو پاک کنی؟</string>
-    <string name="message_invalid_purchase">عمتو دوست داری؟</string>
+    <string name="message_invalid_purchase">خرید با موفقیت نجام نشد!</string>
+    <string name="message_purchase_successful">خرید با موفقیت انجام شد.</string>
+    <string name="message_purchase_failed">خرید انجام نشد.</string>
 </resources>

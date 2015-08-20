@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -51,6 +52,8 @@ public class DuelApp extends Application {
         initGA();
         if (!wsc.isConnected())
             connectToWs();
+
+        PurchaseManager.init(this);
     }
 
     public void connectToWs() {

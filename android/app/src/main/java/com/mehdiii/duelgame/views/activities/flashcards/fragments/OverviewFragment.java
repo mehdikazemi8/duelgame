@@ -14,11 +14,13 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 
 import de.greenrobot.event.EventBus;
 
@@ -57,6 +59,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         // configure controls
         goButton.setOnClickListener(this);
+        purchaseButton.setOnClickListener(this);
         FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView, goButton, purchaseButton);
 
         bindData();
@@ -106,6 +109,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 else
                     startDownloadingDeck();
                 break;
+            case R.id.button_purchase:
+                startPurchase();
+                break;
         }
     }
 
@@ -146,8 +152,19 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         bindData();
     }
 
-    public void onEvent(OnPurchaseResult result) {
+    public void onEvent(PurchaseDone result) {
+        // display success/fail message
+        if (result.getPurchaseResult() == PurchaseDone.PurchaseResult.COMPLETED)
+            DuelApp.getInstance().toast(R.string.message_purchase_successful, Toast.LENGTH_SHORT);
+        else
+            DuelApp.getInstance().toast(R.string.message_purchase_failed, Toast.LENGTH_SHORT);
 
+        // remove this fragment and let it the user choose it again.
+        // just an easy way for reloading this at easiest way possible.
+        getFragmentManager().beginTransaction().remove(this).commit();
+
+        // tell its' mother activity to load again.
+        ((FlashCardActivity) getActivity()).reloadAsync();
     }
 
     @Override

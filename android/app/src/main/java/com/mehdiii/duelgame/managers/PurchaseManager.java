@@ -47,14 +47,8 @@ public class PurchaseManager {
     static PurchaseItem currentPurchase;
     String cardId;
 
-    public static void disconnectActivity() {
-        LocalBroadcastManager.getInstance(instance.activity).unregisterReceiver(instance.receiver);
-        instance = null;
-    }
-
-    public static void connectActivity(Activity activity) {
+    public static void changeActivity(Activity activity) {
         instance.activity = activity;
-        LocalBroadcastManager.getInstance(instance.activity).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
         Log.d("PURCHASE_MANAGER", "initiation finished");
     }
 
@@ -82,6 +76,7 @@ public class PurchaseManager {
                 instance.helper.queryInventoryAsync(instance.mGotInventoryListener);
             }
         });
+        LocalBroadcastManager.getInstance(context).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
     }
 
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
@@ -110,7 +105,7 @@ public class PurchaseManager {
                 Purchase gasPurchase = inventory.getPurchase(item.getSku());
                 if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
                     Log.d(TAG, "We have gas. Consuming it.");
-                    helper.consumeAsync(inventory.getPurchase(item.getSku()), mConsumeFinishedListener);
+//                    helper.consumeAsync(inventory.getPurchase(item.getSku()), mConsumeFinishedListener);
                     return;
                 }
             }
@@ -157,9 +152,6 @@ public class PurchaseManager {
         return true;
     }
 
-    public static PurchaseManager getInstance() {
-        return instance;
-    }
 
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
@@ -172,7 +164,7 @@ public class PurchaseManager {
                 case RECEIVE_START_PURCHASE:
                     try {
                         PurchaseCreated purchase = BaseModel.deserialize(json, PurchaseCreated.class);
-                        sendPurchaseIntentToBazaar(purchase);
+                        sendToBazaarForPayment(purchase);
                     } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
                         e.printStackTrace();
                     }
@@ -211,65 +203,63 @@ public class PurchaseManager {
     }
 
     public synchronized void startPurchase(int id, String cardId) {
-        if (!isBusy) {
-            isBusy = true;
+//        if (!isBusy) {
+        isBusy = true;
 
-            this.cardId = cardId;
-            currentPurchase = findPurchaseById(id);
-            if (currentPurchase != null) {
-                PurchaseRequest bundle;
+        this.cardId = cardId;
+        currentPurchase = AuthManager.getCurrentUser().findPurchaseById(id);
+        if (currentPurchase != null) {
+            PurchaseRequest bundle;
 
-                if (cardId != null && !cardId.isEmpty())
-                    bundle = currentPurchase.toPurchaseRequest(cardId);
-                else
-                    bundle = currentPurchase.toPurchaseRequest();
+            if (cardId != null && !cardId.isEmpty())
+                bundle = currentPurchase.toPurchaseRequest(cardId);
+            else
+                bundle = currentPurchase.toPurchaseRequest();
 
-                DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_START_PURCHASE));
-            }
+            DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_START_PURCHASE));
         }
+//        }
     }
 
 
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-            isBusy = false;
-            purchasedItem = purchase;
+            if (result.getResponse() != IabHelper.BILLING_RESPONSE_RESULT_OK) {
+                Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+                isBusy = false;
+                purchasedItem = purchase;
 
-            // if we were disposed of in the meantime, quit.
-            if (helper == null || result.isFailure() || !verifyDeveloperPayload(purchase))
-                return;
+                // if we were disposed of in the meantime, quit.
+                if (helper == null || result.isFailure() || !verifyDeveloperPayload(purchase))
+                    return;
 
-            PurchaseCreated bundle;
-            if (cardId != null && !cardId.isEmpty())
-                bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId(), cardId);
-            else
-                bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId());
+                PurchaseCreated bundle;
+                if (cardId != null && !cardId.isEmpty())
+                    bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId(), cardId);
+                else
+                    bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId());
 
-            DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
+                DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
 
-            Log.d(TAG, "Purchase successful.");
+                Log.d(TAG, "Purchase successful.");
+            }
         }
     };
 
+    public static PurchaseManager getInstance() {
+        return instance;
+    }
+
     public void useDiamond(BuyNotification purchaseNotif) {
-        currentPurchase = findPurchaseById(purchaseNotif.getId());
+        currentPurchase = AuthManager.getCurrentUser().findPurchaseById(purchaseNotif.getId());
         if (currentPurchase != null) {
             DuelApp.getInstance().sendMessage(currentPurchase.toPurchaseRequest().serialize(CommandType.SEND_START_PURCHASE));
         }
     }
 
-    private PurchaseItem findPurchaseById(int id) {
-        List<PurchaseItem> items = AuthManager.getCurrentUser().getPurchaseItems();
 
-        for (PurchaseItem item : items)
-            if (item.getId() == id)
-                return item;
-        return null;
-    }
-
-    private void sendPurchaseIntentToBazaar(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
+    private void sendToBazaarForPayment(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
         if (currentPurchase != null) {
             if (helper != null)
                 helper.flagEndAsync();
@@ -284,7 +274,6 @@ public class PurchaseManager {
         }
     }
 
-
     public synchronized void consumePurchase() throws RemoteException {
         if (purchasedItem == null)
             return;
@@ -294,7 +283,7 @@ public class PurchaseManager {
 
     public boolean handleActivityResult(int resultCode, Intent data) {
         // Pass on the activity result to the helper for handling
-        if (!helper.handleActivityResult(requestCode, resultCode, data)) {
+        if (!helper.handleActivityResult(RC_REQUEST, resultCode, data)) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...

@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.models;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
@@ -186,6 +187,15 @@ public class User extends BaseModel {
 
     public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
         this.purchaseItems = purchaseItems;
+    }
+
+    public PurchaseItem findPurchaseById(int id) {
+        List<PurchaseItem> items = getPurchaseItems();
+
+        for (PurchaseItem item : items)
+            if (item.getId() == id)
+                return item;
+        return null;
     }
 
     public boolean isExtremeHeart() {
