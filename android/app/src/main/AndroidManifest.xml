@@ -100,7 +100,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.flashcards.FlashCardActivity" />
+        <activity
+            android:name=".views.activities.flashcards.FlashCardActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
