@@ -1,6 +1,8 @@
 package com.mehdiii.duelgame.utils;
 
 import com.mehdiii.duelgame.models.Card;
+import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.FlashcardPurchase;
 import com.mehdiii.duelgame.models.Pair;
 
 import java.util.HashMap;
@@ -17,38 +19,50 @@ public class DeckManager {
     int[] capacities = new int[MAX_GROUP_COUNT + 1];
     Map<Integer, Queue<Card>> groups;
     Card currentCard;
-    Wheel wheel = new Wheel(0, MAX_GROUP_COUNT - 1);
+    Wheel wheel;
     DeckSyncer syncer = null;
+    FlashCard deck = null;
     String id;
 
     public void renewCapacities() {
         capacities = new int[]{15, 12, 9, 6, 3};
     }
 
-    public DeckManager(List<Card> cards, int[] capacities, String id) {
+    public DeckManager(FlashCard deck, int[] capacities, String id) {
         groups = new HashMap<>();
+        this.deck = deck;
         this.id = id;
+        List<Card> cards = deck.getCards();
 
-        /// create groups and their capacities
+
+        /// create groups
         for (int i = 0; i < MAX_GROUP_COUNT + 1; i++) {
             groups.put(i, new LinkedList<Card>());
         }
 
-        // add cards to their associated chunks
-        int level = 0;
+        // add cards to their associated chunks with respect to its capacity
+//        int level = 0;
         for (int i = 0; i < cards.size(); i++) {
-            while (cards.get(i).getWeight() != level)
-                level++;
-
-            groups.get(level).add(cards.get(i));
+            groups.get(cards.get(i).getWeight()).add(cards.get(i));
+//            while (cards.get(i).getWeight() != level)
+//                level++;
+//
+//            groups.get(level).add(cards.get(i));
         }
 
         syncer = new DeckSyncer(this);
 
+        // look for previous browsing history, if not create a bare one.
         if (capacities == null)
             renewCapacities();
         else
             this.capacities = capacities;
+
+        // check for wheel start point
+        int wheelStart = 0, counter = 0;
+        while (capacities != null && counter < capacities.length && capacities[counter++] == 0)
+            wheelStart++;
+        wheel = new Wheel(0, MAX_GROUP_COUNT - 1, wheelStart);
     }
 
     public boolean hasCapacity() {
@@ -108,6 +122,14 @@ public class DeckManager {
 
     public String getId() {
         return id;
+    }
+
+    public FlashCard getDeck() {
+        return deck;
+    }
+
+    public void setDeck(FlashCard deck) {
+        this.deck = deck;
     }
 
     public interface OnChangeListener {

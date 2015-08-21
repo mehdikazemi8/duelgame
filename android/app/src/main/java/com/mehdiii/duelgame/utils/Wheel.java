@@ -11,7 +11,7 @@ public class Wheel {
             throw new IllegalStateException("end must be greater than start.");
         this.start = start;
         this.end = end;
-        this.pointer = end;
+        this.pointer = current;
 
     }
 

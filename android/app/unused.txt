@@ -1352,6 +1352,7 @@ com.mehdiii.duelgame.managers.HeartTracker:
     private static final java.lang.String PREFERENCE_EXTREME_HEART
 com.mehdiii.duelgame.managers.PurchaseManager:
     static final int RC_REQUEST
+    int requestCode
 com.mehdiii.duelgame.receivers.HeartFullyRecovered:
     private static final java.lang.String TAG
 com.mehdiii.duelgame.receivers.OnBootCompletedReceiver:
@@ -1369,7 +1370,7 @@ com.mehdiii.duelgame.utils.DeckPersister:
     private static final java.lang.String PREFERENCE_DECK
 com.mehdiii.duelgame.utils.DeckSyncer:
     private static final int SYNC_CACHE_LIMIT
-    60:61:private void clear()
+    63:64:private void clear()
 com.mehdiii.duelgame.utils.DuelMusicPlayer:
     private static final java.lang.String PREFERENCE_VOICE
 com.mehdiii.duelgame.utils.FontHelper:
@@ -1389,8 +1390,6 @@ com.mehdiii.duelgame.views.activities.ParentActivity:
     static final int NUMBER_OF_AVATARS
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity:
     private static final java.lang.String FLASH_CARD_LIST_CACHE
-com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment:
-    166:167:private void startPurchase()
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment:
     private static final int ANIMATION_DURATION
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment$GestureDetector:

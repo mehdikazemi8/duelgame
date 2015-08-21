@@ -58,9 +58,15 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 
         readArguments();
 
-        deck.organize();
-        deckManager = new DeckManager(deck.getCards(), deck.getToAsk(), deck.getId());
+//        deck.organize();
+        deckManager = new DeckManager(deck, deck.getToAsk(), deck.getId());
         firstCard.bind(deckManager.hit());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        DeckPersister.saveDeck(getActivity(), deck);
     }
 
     private void readArguments() {

@@ -27057,6 +27057,8 @@ com.mehdiii.duelgame.R$string: int message_hearts_fully_refilled
 com.mehdiii.duelgame.R$string: int message_internet_is_not_available
 com.mehdiii.duelgame.R$string: int message_invalid_purchase
 com.mehdiii.duelgame.R$string: int message_opponent_left
+com.mehdiii.duelgame.R$string: int message_purchase_failed
+com.mehdiii.duelgame.R$string: int message_purchase_successful
 com.mehdiii.duelgame.R$string: int message_rate_app
 com.mehdiii.duelgame.R$string: int message_revisit_duel_konkoor
 com.mehdiii.duelgame.R$string: int message_settings_save_failed
@@ -27885,12 +27887,11 @@ com.mehdiii.duelgame.managers.PurchaseManager
 com.mehdiii.duelgame.managers.PurchaseManager: java.lang.String BASE_64_PUBLIC_KEY
 com.mehdiii.duelgame.managers.PurchaseManager: java.lang.String TAG
 com.mehdiii.duelgame.managers.PurchaseManager: PurchaseManager()
-com.mehdiii.duelgame.managers.PurchaseManager: void disconnectActivity()
-com.mehdiii.duelgame.managers.PurchaseManager: void connectActivity(android.app.Activity)
+com.mehdiii.duelgame.managers.PurchaseManager: void changeActivity(android.app.Activity)
 com.mehdiii.duelgame.managers.PurchaseManager: void init(android.content.Context)
-com.mehdiii.duelgame.managers.PurchaseManager: com.mehdiii.duelgame.managers.PurchaseManager getInstance()
 com.mehdiii.duelgame.managers.PurchaseManager: void startPurchase(int)
 com.mehdiii.duelgame.managers.PurchaseManager: void startPurchase(int,java.lang.String)
+com.mehdiii.duelgame.managers.PurchaseManager: com.mehdiii.duelgame.managers.PurchaseManager getInstance()
 com.mehdiii.duelgame.managers.PurchaseManager: void useDiamond(com.mehdiii.duelgame.models.BuyNotification)
 com.mehdiii.duelgame.managers.PurchaseManager: void consumePurchase()
 com.mehdiii.duelgame.managers.PurchaseManager: boolean handleActivityResult(int,android.content.Intent)
@@ -28197,6 +28198,7 @@ com.mehdiii.duelgame.models.User: int getHeart()
 com.mehdiii.duelgame.models.User: void setHeart(int)
 com.mehdiii.duelgame.models.User: java.util.List getPurchaseItems()
 com.mehdiii.duelgame.models.User: void setPurchaseItems(java.util.List)
+com.mehdiii.duelgame.models.User: com.mehdiii.duelgame.models.PurchaseItem findPurchaseById(int)
 com.mehdiii.duelgame.models.User: boolean isExtremeHeart()
 com.mehdiii.duelgame.models.User: void setExtremeHeart(boolean)
 com.mehdiii.duelgame.models.User: int getScoreFactor()
@@ -28405,7 +28407,7 @@ com.mehdiii.duelgame.utils.CategoryManager: CategoryManager()
 com.mehdiii.duelgame.utils.CategoryManager: java.lang.String getCategory(android.content.Context,int)
 com.mehdiii.duelgame.utils.DeckManager
 com.mehdiii.duelgame.utils.DeckManager: void renewCapacities()
-com.mehdiii.duelgame.utils.DeckManager: DeckManager(java.util.List,int[],java.lang.String)
+com.mehdiii.duelgame.utils.DeckManager: DeckManager(com.mehdiii.duelgame.models.FlashCard,int[],java.lang.String)
 com.mehdiii.duelgame.utils.DeckManager: boolean hasCapacity()
 com.mehdiii.duelgame.utils.DeckManager: com.mehdiii.duelgame.models.Card hit()
 com.mehdiii.duelgame.utils.DeckManager: void decide(boolean)
@@ -28413,6 +28415,8 @@ com.mehdiii.duelgame.utils.DeckManager: com.mehdiii.duelgame.models.Card getCurr
 com.mehdiii.duelgame.utils.DeckManager: void setOnChangeListener(com.mehdiii.duelgame.utils.DeckManager$OnChangeListener)
 com.mehdiii.duelgame.utils.DeckManager: int[] getCapacities()
 com.mehdiii.duelgame.utils.DeckManager: java.lang.String getId()
+com.mehdiii.duelgame.utils.DeckManager: com.mehdiii.duelgame.models.FlashCard getDeck()
+com.mehdiii.duelgame.utils.DeckManager: void setDeck(com.mehdiii.duelgame.models.FlashCard)
 com.mehdiii.duelgame.utils.DeckManager$OnChangeListener
 com.mehdiii.duelgame.utils.DeckManager$OnChangeListener: void onNextCardHit(com.mehdiii.duelgame.models.Card)
 com.mehdiii.duelgame.utils.DeckPersister
@@ -28645,6 +28649,7 @@ com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity: void onCreat
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity: void onResume()
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity: void onPause()
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity: void onBackPressed()
+com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity: void reloadAsync()
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardGridAdapter
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardGridAdapter: FlashCardGridAdapter(android.content.Context,int,com.mehdiii.duelgame.models.FlashCardList)
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardGridAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
@@ -28661,7 +28666,7 @@ com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: and
 com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onViewCreated(android.view.View,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onClick(android.view.View)
 com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onEvent(com.mehdiii.duelgame.models.events.OnFlashCardReceived)
-com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onEvent(com.mehdiii.duelgame.models.events.OnPurchaseResult)
+com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onEvent(com.mehdiii.duelgame.models.PurchaseDone)
 com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onPause()
 com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment: void onResume()
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment
@@ -28669,6 +28674,7 @@ com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: jav
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: PracticeFragment()
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: void onViewCreated(android.view.View,android.os.Bundle)
+com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: void onDestroyView()
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment: void onClick(android.view.View)
 com.mehdiii.duelgame.views.activities.home.HomeActivity
 com.mehdiii.duelgame.views.activities.home.HomeActivity: java.lang.String TAG

@@ -46,8 +46,11 @@ public class DeckSyncer {
         model.setToAsk(manager.getCapacities());
         model.setId(manager.getId());
 
-        // send to server
+        // send changed to server
         DuelApp.getInstance().sendMessage(model.serialize(CommandType.SEND_FLASH_CARD_PROGRESS));
+
+        // save cards locally
+        DeckPersister.saveDeck(DuelApp.getInstance(), manager.getDeck());
 
         // reset counter
         counter = 0;
