@@ -8,6 +8,7 @@ import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by omid on 4/8/2015.
@@ -51,6 +52,25 @@ public class User extends BaseModel {
     private Rank rank;
     @SerializedName("time_to_next_heart")
     private int timeToNextHeart;
+    @SerializedName("scores")
+    private Map<String, CourseScore> scores;
+
+    public int getScore(String category, String period)
+    {
+        category = "c" + category;
+        CourseScore courseScore = scores.get(category);
+        if(courseScore == null)
+            return 0;
+        return courseScore.getScore(period);
+    }
+
+    public Map<String, CourseScore> getScores() {
+        return scores;
+    }
+
+    public void setScores(Map<String, CourseScore> scores) {
+        this.scores = scores;
+    }
 
     public int getTimeToNextHeart() {
         return timeToNextHeart;
