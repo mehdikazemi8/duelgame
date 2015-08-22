@@ -55,6 +55,16 @@ public class User extends BaseModel {
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
 
+    public void addScore(String category, int addingScore){
+        category = "c" + category;
+        if(scores.get(category) != null){  // update the existing object in 'scores'
+            scores.get(category).addScore(addingScore);
+        }
+        else {    // create a new object in 'scores'
+            scores.put(category, new CourseScore(addingScore, addingScore));
+        }
+    }
+
     public int getScore(String category, String period)
     {
         category = "c" + category;

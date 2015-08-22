@@ -13,6 +13,11 @@ public class CourseScore {
     @SerializedName("week")
     private int week;
 
+    public void addScore(int addingScore){
+        week += addingScore;
+        overall += addingScore;
+    }
+
     public int getScore(String period) {
         if (period.isEmpty())
             return 0;
