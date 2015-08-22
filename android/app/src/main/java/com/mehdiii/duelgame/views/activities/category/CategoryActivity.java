@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -109,6 +110,10 @@ public class CategoryActivity extends ParentActivity {
         ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
         cat.setCategory(ParentActivity.category);
         DuelApp.getInstance().sendMessage(cat.serialize());
+        // 'score' shows the score of his/her last category that he/she has played
+        AuthManager.getCurrentUser().setScore(
+                AuthManager.getCurrentUser().getScore(ParentActivity.category, "week")
+        );
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();
     }
