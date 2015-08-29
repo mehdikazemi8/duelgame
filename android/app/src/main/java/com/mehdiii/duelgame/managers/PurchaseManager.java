@@ -99,16 +99,16 @@ public class PurchaseManager {
              */
 
             // TODO remove next line
-            if( AuthManager.getCurrentUser().getPurchaseItems() != null)
-            for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
-                // Check for gas delivery -- /if we own gas, we should fill up the tank immediately
-                Purchase gasPurchase = inventory.getPurchase(item.getSku());
-                if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
-                    Log.d(TAG, "We have gas. Consuming it.");
+            if (AuthManager.getCurrentUser().getPurchaseItems() != null)
+                for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
+                    // Check for gas delivery -- /if we own gas, we should fill up the tank immediately
+                    Purchase gasPurchase = inventory.getPurchase(item.getSku());
+                    if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
+                        Log.d(TAG, "We have gas. Consuming it.");
 //                    helper.consumeAsync(inventory.getPurchase(item.getSku()), mConsumeFinishedListener);
-                    return;
+                        return;
+                    }
                 }
-            }
             Log.d(TAG, "Initial inventory query finished; enabling main UI.");
         }
     };
@@ -152,6 +152,7 @@ public class PurchaseManager {
         return true;
     }
 
+    String purchaseId;
 
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
@@ -164,6 +165,9 @@ public class PurchaseManager {
                 case RECEIVE_START_PURCHASE:
                     try {
                         PurchaseCreated purchase = BaseModel.deserialize(json, PurchaseCreated.class);
+
+                        if (purchase != null)
+                            purchaseId = purchase.getPurchaseId();
                         sendToBazaarForPayment(purchase);
                     } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
                         e.printStackTrace();
@@ -236,9 +240,9 @@ public class PurchaseManager {
 
                 PurchaseCreated bundle;
                 if (cardId != null && !cardId.isEmpty())
-                    bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId(), cardId);
+                    bundle = new PurchaseCreated(purchaseId, purchase.getOrderId(), cardId);
                 else
-                    bundle = new PurchaseCreated(purchase.getDeveloperPayload(), purchase.getOrderId());
+                    bundle = new PurchaseCreated(purchaseId, purchase.getOrderId());
 
                 DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
 
