@@ -27,8 +27,6 @@ import com.mehdiii.duelgame.utils.Purchase;
 
 import org.json.JSONException;
 
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -72,8 +70,8 @@ public class PurchaseManager {
                 if (instance.helper == null) return;
 
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                Log.d(TAG, "Setup successful. Querying inventory.");
-                instance.helper.queryInventoryAsync(instance.mGotInventoryListener);
+//                Log.d(TAG, "Setup successful. Querying inventory.");
+//                instance.helper.queryInventoryAsync(instance.mGotInventoryListener);
             }
         });
         LocalBroadcastManager.getInstance(context).registerReceiver(instance.receiver, DuelApp.getInstance().getIntentFilter());
@@ -225,7 +223,7 @@ public class PurchaseManager {
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            if (result.getResponse() != IabHelper.BILLING_RESPONSE_RESULT_OK) {
+            if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_OK) {
                 Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
                 isBusy = false;
                 purchasedItem = purchase;
