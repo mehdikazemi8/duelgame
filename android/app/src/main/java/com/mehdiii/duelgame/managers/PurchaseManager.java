@@ -98,6 +98,8 @@ public class PurchaseManager {
              * verifyDeveloperPayload().
              */
 
+            // TODO remove next line
+            if( AuthManager.getCurrentUser().getPurchaseItems() != null)
             for (PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()) {
                 // Check for gas delivery -- /if we own gas, we should fill up the tank immediately
                 Purchase gasPurchase = inventory.getPurchase(item.getSku());

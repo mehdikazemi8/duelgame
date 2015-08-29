@@ -346,12 +346,13 @@ public class GameResultActivity extends ParentActivity {
         allAnimations.addAll(bothScaleAniamtion(gameResultT7, 100, 3200, 0f, 1.1f, 1f));
         allAnimations.addAll(bothScaleAniamtion(gameResultTotalExperience, 300, 3300, 0f, 1.1f, 1f));
 
-
         // TODO onResume? onWindowChangedFocus? onCreate?
         for (int i = 0; i < allAnimations.size(); i++)
             allAnimations.get(i).start();
         animateProgress();
         user.setScore(user.getScore() + totalXP);
+        // score of this category is updated
+        user.addScore(ParentActivity.category, totalXP);
         EventBus.getDefault().post(new OnPurchaseResult());
     }
 

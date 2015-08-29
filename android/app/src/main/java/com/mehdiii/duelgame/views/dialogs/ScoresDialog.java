@@ -163,7 +163,8 @@ public class ScoresDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_scores);
 
-        userScore = AuthManager.getCurrentUser().getScore();
+//        userScore = AuthManager.getCurrentUser().getScore();
+        userScore = 5000000;
         findHeaderControls();
         configureHeaderControls();
 
