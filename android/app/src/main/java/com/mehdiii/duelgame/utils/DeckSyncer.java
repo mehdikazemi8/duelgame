@@ -29,7 +29,7 @@ public class DeckSyncer {
         map.put(pair.getKey(), pair.getValue());
 
         counter++;
-        if (counter > SYNC_CACHE_LIMIT)
+        if (counter >= SYNC_CACHE_LIMIT)
             sync();
     }
 

@@ -2,7 +2,6 @@ package com.mehdiii.duelgame.utils;
 
 import com.mehdiii.duelgame.models.Card;
 import com.mehdiii.duelgame.models.FlashCard;
-import com.mehdiii.duelgame.models.FlashcardPurchase;
 import com.mehdiii.duelgame.models.Pair;
 
 import java.util.HashMap;
@@ -26,6 +25,8 @@ public class DeckManager {
 
     public void renewCapacities() {
         capacities = new int[]{15, 12, 9, 6, 3};
+        if (wheel != null)
+            wheel.seekEnd();
     }
 
     public DeckManager(FlashCard deck, int[] capacities, String id) {
@@ -41,26 +42,21 @@ public class DeckManager {
         }
 
         // add cards to their associated chunks with respect to its capacity
-//        int level = 0;
         for (int i = 0; i < cards.size(); i++) {
             groups.get(cards.get(i).getWeight()).add(cards.get(i));
-//            while (cards.get(i).getWeight() != level)
-//                level++;
-//
-//            groups.get(level).add(cards.get(i));
         }
 
         syncer = new DeckSyncer(this);
 
         // look for previous browsing history, if not create a bare one.
-        if (capacities == null)
+        if (capacities == null || !hasCapacity())
             renewCapacities();
         else
             this.capacities = capacities;
 
         // check for wheel start point
         int wheelStart = 0, counter = 0;
-        while (capacities != null && counter < capacities.length && capacities[counter++] == 0)
+        while (this.capacities != null && counter < this.capacities.length && this.capacities[counter++] == 0)
             wheelStart++;
         wheel = new Wheel(0, MAX_GROUP_COUNT - 1, wheelStart);
     }
@@ -72,12 +68,26 @@ public class DeckManager {
         return false;
     }
 
+    private boolean endOfTheGame() {
+        return deck.getCards().size() == groups.get(5).size();
+    }
+
     public Card hit() {
         if (!hasCapacity())
             renewCapacities();
 
+        if (endOfTheGame()) {
+            return new Card(true, 1000, 1000, "تبریک میگم، همه کارتارو یاد تموم کردی.", "حالا برو یه فلش کارت دیگه رو امتحان کن!");
+        }
+
         int counter = 0;
-        while ((capacities[wheel.peek()] == 0 || groups.get(wheel.peek()).size() == 0) && counter < MAX_GROUP_COUNT * 3) {
+
+        while ((capacities[wheel.peek()] <= 0 || groups.get(wheel.peek()).size() == 0) && counter < MAX_GROUP_COUNT * 3) {
+
+            if (groups.get(wheel.peek()).size() == 0) {
+                capacities[wheel.peek()] = 0;
+            }
+
             wheel.move();
 
             // counter is used to avoid checking for more than once (possible case of STACKOVERFLOW if groups are totally empty)

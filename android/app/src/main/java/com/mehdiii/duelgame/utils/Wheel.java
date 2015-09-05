@@ -31,6 +31,10 @@ public class Wheel {
         return pointer;
     }
 
+    public void seekEnd() {
+        pointer = end;
+    }
+
     public void reset() {
         this.pointer = end;
     }

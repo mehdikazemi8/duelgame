@@ -13,6 +13,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.Card;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.utils.DeckManager;
 import com.mehdiii.duelgame.utils.DeckPersister;
@@ -60,7 +61,16 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 
 //        deck.organize();
         deckManager = new DeckManager(deck, deck.getToAsk(), deck.getId());
-        firstCard.bind(deckManager.hit());
+        hit(firstCard, deckManager.hit());
+    }
+
+    private void hit(CardView view, Card card) {
+        view.bind(card);
+
+        if (card.isDisabled()) {
+            this.positiveButton.setVisibility(View.INVISIBLE);
+            this.negativeButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -129,7 +139,7 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 
         deckManager.decide(answered);
         mainCard.reset();
-        mainCard.bind(deckManager.hit());
+        hit(mainCard, deckManager.hit());
     }
 
     class CardAnimationListener implements Animator.AnimatorListener {
@@ -158,8 +168,8 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
         public void onAnimationStart(Animator animator) {
             negativeButton.setEnabled(false);
             positiveButton.setEnabled(false);
-            negativeButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
-            positiveButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
+//            negativeButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
+//            positiveButton.animate().alpha(0).setDuration(ANIMATION_DURATION);
         }
     }
 
@@ -177,8 +187,8 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
                 card.setTranslationX(metrics.widthPixels);
             }
 
-            negativeButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
-            positiveButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
+//            negativeButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
+//            positiveButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
             negativeButton.setEnabled(true);
             positiveButton.setEnabled(true);
         }

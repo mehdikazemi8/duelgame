@@ -6,7 +6,19 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 /**
  * Created by Omid on 7/22/2015.
  */
-public class Card extends BaseModel /*implements Comparable<Card> */{
+public class Card extends BaseModel /*implements Comparable<Card> */ {
+
+
+    public Card(boolean disabled, int index, int weight, String front, String back) {
+        this.disabled = disabled;
+        this.index = index;
+        this.weight = weight;
+        this.front = front;
+        this.back = back;
+    }
+
+
+    private boolean disabled;
     @SerializedName("index")
     private int index;
     @SerializedName("weight")
@@ -46,6 +58,14 @@ public class Card extends BaseModel /*implements Comparable<Card> */{
 
     public void resetWeight() {
         setWeight(0);
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean enabled) {
+        this.disabled = enabled;
     }
 
     public int getIndex() {

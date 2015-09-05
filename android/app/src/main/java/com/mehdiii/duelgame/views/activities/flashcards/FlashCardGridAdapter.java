@@ -54,6 +54,12 @@ public class FlashCardGridAdapter extends ArrayAdapter<FlashCard> {
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        this.flashCards.clear();
+    }
+
+    @Override
     public FlashCard getItem(int position) {
         return flashCards.get(position);
     }

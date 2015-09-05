@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/brown"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:layout_width="wrap_content"

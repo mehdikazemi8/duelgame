@@ -28,7 +28,6 @@ public class PokeDuelReceiver extends BroadcastReceiver {
         if (!isConnected)
             return;
 
-
         long currentTime = System.currentTimeMillis();
         long previousTime = GlobalPreferenceManager.readLong(context, PREFERENCE_PREVIOUS_CHECK_IN, -1);
         int seed = GlobalPreferenceManager.readInteger(context, PREFERENCE_POKE_SEED, 2);

@@ -19,9 +19,11 @@
 
         <TextView
             android:id="@+id/textView_front"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="2dp"
             android:text="FRONT"
             android:textColor="#73715A"
             android:textSize="30sp" />
@@ -39,9 +41,11 @@
 
         <TextView
             android:id="@+id/textView_back"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="2dp"
             android:text="BACK"
             android:textColor="#157E9E"
             android:textSize="30sp" />
@@ -55,5 +59,6 @@
         android:gravity="center"
         android:text="HELLO"
         android:textSize="20sp"
+        android:visibility="invisible"
         android:textStyle="bold" />
 </RelativeLayout>

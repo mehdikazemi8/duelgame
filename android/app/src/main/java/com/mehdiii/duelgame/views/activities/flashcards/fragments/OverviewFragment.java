@@ -17,7 +17,6 @@ import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.PurchaseDone;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnFlashCardReceived;
-import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
@@ -73,6 +72,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindData() {
+
 
         if (card.getOwned() == 1)
             purchaseButton.setVisibility(View.INVISIBLE);
@@ -147,7 +147,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     public void onEvent(OnFlashCardReceived c) {
         progressBar.setVisibility(View.INVISIBLE);
         turnWaitingMode(false);
-        bindData();
         card = DeckPersister.getDeck(getActivity(), card.getId());
         bindData();
     }

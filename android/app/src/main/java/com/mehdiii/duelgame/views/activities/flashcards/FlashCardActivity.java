@@ -125,7 +125,10 @@ public class FlashCardActivity extends ParentActivity {
     }
 
     public void reloadAsync() {
-        this.gridView.removeAllViews();
+        FlashCardGridAdapter adapter = (FlashCardGridAdapter) this.gridView.getAdapter();
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+
         MemoryCache.set(FLASH_CARD_LIST_CACHE, null);
         getFlashCards();
 
