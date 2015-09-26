@@ -94,7 +94,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), friend.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(friend.getName());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
-        holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()) + " از ");
+        // title is removed
+//        holder.textViewLevel.setText(ScoreHelper.getTitle(friend.getScore()) + " از ");
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
 
         holder.container.setOnClickListener(new View.OnClickListener() {
