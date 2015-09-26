@@ -248,7 +248,6 @@ public class WaitingActivity extends ParentActivity {
             }
         }, 15000);
 
-
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             String userNumber = extras.getString("user_number", null);

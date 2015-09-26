@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -133,6 +134,7 @@ public class ParentActivity extends ActionBarActivity {
     }
 
     public void onEvent(ChallengeRequestDecision challengeRequestDecision) {
+        Log.d("TAG", "ParentActivity onEvent");
         Intent i = new Intent(ParentActivity.this, WaitingActivity.class);
         i.putExtra("user_number", challengeRequestDecision.getUserNumber());
         i.putExtra("category", challengeRequestDecision.getCategory());
