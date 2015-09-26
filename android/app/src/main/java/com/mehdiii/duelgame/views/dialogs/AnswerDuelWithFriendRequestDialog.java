@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.views.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -76,7 +77,9 @@ public class AnswerDuelWithFriendRequestDialog extends Dialog implements View.On
     private void bindUiData() {
         imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), data.getAvatar()));
         nameTextView.setText(data.getName());
-        titleTextView.setText(ScoreHelper.getTitle(data.getScore()));
+        // TODO: I don't have user score in this category, I just have his 'score'
+//        Log.d("TAG", "bindUiData " + data.getCategory());
+//        titleTextView.setText(ScoreHelper.getTitle(data.getScore(String.valueOf(data.getCategory()), "overall")));
         provinceTextView.setText(ProvinceManager.get(getContext(), data.getProvince()));
         messageTextView.setText(data.getMessage());
         categoryTextView.setText(CategoryManager.getCategory(getContext(), data.getCategory()));
