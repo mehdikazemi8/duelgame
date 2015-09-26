@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -124,6 +127,13 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.duelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("TAG", "duelButton");
+                if (!HeartTracker.getInstance().canUseHeart()) {
+                    HeartLowDialog dialog = new HeartLowDialog(getContext());
+                    dialog.show();
+                    return;
+                }
+
                 if (onUserDecisionIsMade != null) {
                     onUserDecisionIsMade.onDuel(friend);
                 }
