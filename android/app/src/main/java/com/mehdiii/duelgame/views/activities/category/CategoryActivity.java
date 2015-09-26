@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -12,6 +13,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.fragments.RankPlayFragment;
@@ -21,9 +23,13 @@ import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 public class CategoryActivity extends ParentActivity {
 
     final int NUMBER_OF_COURSES = 5;
+    private String[] categories = {"10001", "10002", "10003", "10004", "10005"};
     private Fragment[] rankPlayFragment = new Fragment[NUMBER_OF_COURSES];
     private int[] fragmentHolderId = new int[NUMBER_OF_COURSES];
-    private TextView[] course = new TextView[NUMBER_OF_COURSES];
+    private TextView[] courseTitle = new TextView[NUMBER_OF_COURSES];
+    private TextView[] courseLevel = new TextView[NUMBER_OF_COURSES];
+    private TextView[] courseLevelRange = new TextView[NUMBER_OF_COURSES];
+    private ProgressBar[] courseLevelProgress = new ProgressBar[NUMBER_OF_COURSES];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,19 +74,46 @@ public class CategoryActivity extends ParentActivity {
         fragmentHolderId[3] = R.id.fragment_holder_zaban_englisi;
         fragmentHolderId[4] = R.id.fragment_holder_shimi;
 
-        course[0] = (TextView) findViewById(R.id.adabiat_title);
-        course[1] = (TextView) findViewById(R.id.arabi_title);
-        course[2] = (TextView) findViewById(R.id.din_o_zendegi_title);
-        course[3] = (TextView) findViewById(R.id.zaban_englisi_title);
-        course[4] = (TextView) findViewById(R.id.shimi_title);
+        courseTitle[0] = (TextView) findViewById(R.id.adabiat_title);
+        courseTitle[1] = (TextView) findViewById(R.id.arabi_title);
+        courseTitle[2] = (TextView) findViewById(R.id.din_o_zendegi_title);
+        courseTitle[3] = (TextView) findViewById(R.id.zaban_englisi_title);
+        courseTitle[4] = (TextView) findViewById(R.id.shimi_title);
+
+        courseLevel[0] = (TextView) findViewById(R.id.adabiat_level);
+        courseLevel[1] = (TextView) findViewById(R.id.arabi_level);
+        courseLevel[2] = (TextView) findViewById(R.id.din_o_zendegi_level);
+        courseLevel[3] = (TextView) findViewById(R.id.zaban_englisi_level);
+        courseLevel[4] = (TextView) findViewById(R.id.shimi_level);
+
+        courseLevelRange[0] = (TextView) findViewById(R.id.adabiat_level_range);
+        courseLevelRange[1] = (TextView) findViewById(R.id.arabi_level_range);
+        courseLevelRange[2] = (TextView) findViewById(R.id.din_o_zendegi_level_range);
+        courseLevelRange[3] = (TextView) findViewById(R.id.zaban_englisi_level_range);
+        courseLevelRange[4] = (TextView) findViewById(R.id.shimi_level_range);
+
+        courseLevelProgress[0] = (ProgressBar) findViewById(R.id.adabiat_level_progress);
+        courseLevelProgress[1] = (ProgressBar) findViewById(R.id.arabi_level_progress);
+        courseLevelProgress[2] = (ProgressBar) findViewById(R.id.din_o_zendegi_level_progress);
+        courseLevelProgress[3] = (ProgressBar) findViewById(R.id.zaban_englisi_level_progress);
+        courseLevelProgress[4] = (ProgressBar) findViewById(R.id.shimi_level_progress);
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(this, course[0], course[1], course[2], course[3], course[4]);
+        FontHelper.setKoodakFor(this,
+                courseTitle[0], courseTitle[1], courseTitle[2], courseTitle[3], courseTitle[4],
+                courseLevel[0], courseLevel[1], courseLevel[2], courseLevel[3], courseLevel[4],
+                courseLevelRange[0], courseLevelRange[1], courseLevelRange[2], courseLevelRange[3], courseLevelRange[4]);
+
+        for(int c = 0; c < NUMBER_OF_COURSES; c ++) {
+            int userScore = AuthManager.getCurrentUser().getScore(categories[c], "overall");
+            courseLevel[c].setText(String.valueOf(ScoreHelper.getLevel(userScore)));
+            courseLevelProgress[c].setProgress(ScoreHelper.getThisLevelPercentage(userScore));
+            courseLevelRange[c].setText(ScoreHelper.getThisLevelRange(userScore));
+        }
     }
 
     public void clicked(View view) {
-
         int courseId = Integer.parseInt(view.getContentDescription().toString());
 
         if (getFragmentManager().getBackStackEntryCount() == 0) {

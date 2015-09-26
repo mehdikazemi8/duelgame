@@ -53,7 +53,7 @@ public class ScoreHelper {
             return 1;
 
         for (int i = 0; i < LEVEL_SIZE; i++) {
-            if (score - xpLevel[i] > 0)
+            if (score - xpLevel[i] >= 0)
                 score -= xpLevel[i];
             else
                 return i + 1;
@@ -69,7 +69,7 @@ public class ScoreHelper {
             return 0;
 
         for (int i = 0; i < LEVEL_SIZE; i++) {
-            if (score - xpLevel[i] > 0)
+            if (score - xpLevel[i] >= 0)
                 score -= xpLevel[i];
             else
                 return score * 100 / xpLevel[i];
@@ -77,6 +77,21 @@ public class ScoreHelper {
 
         // TODO last level it is always 50
         return 50;
+    }
+
+    public static String getThisLevelRange(int score) {
+        if (xpTitle == null)
+            load();
+
+        for (int i = 0; i < LEVEL_SIZE; i++) {
+            if (score - xpLevel[i] >= 0)
+                score -= xpLevel[i];
+            else
+                return String.valueOf(score) + " / " + String.valueOf(xpLevel[i]);
+        }
+
+        // TODO last level it is always 50
+        return "X / X";
     }
 
     public static String getTitle(int score) {

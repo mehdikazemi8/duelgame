@@ -82,6 +82,7 @@
         <item>عربی</item>
         <item>دین و زندگی</item>
         <item>زبان</item>
+        <item>شیمی</item>
     </string-array>
     <string-array name="categories_keys">
         <item>-1</item>
@@ -89,6 +90,7 @@
         <item>10002</item>
         <item>10003</item>
         <item>10004</item>
+        <item>10005</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

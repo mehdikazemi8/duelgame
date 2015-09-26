@@ -23,105 +23,177 @@
                 style="@style/category_option"
                 android:background="@drawable/edge_shadow_background_one"
                 android:contentDescription="0">
-
-                <TextView
-                    android:id="@+id/adabiat_level"
-                    style="@style/category_option_course_level"
-                    android:text="level 5" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/adabiat_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/adabiat_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/adabiat_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/adabiat_title"
                     style="@style/category_option_course_title"
                     android:text="ادبیات" />
             </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/fragment_holder_adabiat"
-                style="@style/category_option_fragment"></FrameLayout>
+                style="@style/category_option_fragment"/>
+
 
             <LinearLayout
                 android:id="@+id/arabi"
                 style="@style/category_option"
-                android:background="@drawable/edge_shadow_background_two"
+                android:background="@drawable/edge_shadow_background_one"
                 android:contentDescription="1">
-
-                <TextView
-                    android:id="@+id/arabi_level"
-                    style="@style/category_option_course_level"
-                    android:text="level 5" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/arabi_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/arabi_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/arabi_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/arabi_title"
                     style="@style/category_option_course_title"
                     android:text="عربی" />
             </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/fragment_holder_arabi"
-                style="@style/category_option_fragment" />
+                style="@style/category_option_fragment"/>
+
+
 
             <LinearLayout
                 android:id="@+id/din_o_zendegi"
                 style="@style/category_option"
                 android:background="@drawable/edge_shadow_background_one"
                 android:contentDescription="2">
-
-                <TextView
-                    android:id="@+id/din_o_zendegi_level"
-                    style="@style/category_option_course_level"
-                    android:text="level 5" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/din_o_zendegi_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/din_o_zendegi_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/din_o_zendegi_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/din_o_zendegi_title"
                     style="@style/category_option_course_title"
                     android:text="دین و زندگی" />
             </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/fragment_holder_din_o_zendegi"
-                style="@style/category_option_fragment" />
+                style="@style/category_option_fragment"/>
+
+
 
             <LinearLayout
                 android:id="@+id/zaban_englisi"
                 style="@style/category_option"
-                android:background="@drawable/edge_shadow_background_two"
+                android:background="@drawable/edge_shadow_background_one"
                 android:contentDescription="3">
-
-                <TextView
-                    android:id="@+id/zaban_englisi_level"
-                    style="@style/category_option_course_level"
-                    android:text="level 5" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/zaban_englisi_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/zaban_englisi_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/zaban_englisi_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/zaban_englisi_title"
                     style="@style/category_option_course_title"
                     android:text="انگلیسی" />
             </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/fragment_holder_zaban_englisi"
-                style="@style/category_option_fragment" />
+                style="@style/category_option_fragment"/>
+
+
 
             <LinearLayout
                 android:id="@+id/shimi"
                 style="@style/category_option"
                 android:background="@drawable/edge_shadow_background_one"
                 android:contentDescription="4">
-
-                <TextView
-                    android:id="@+id/shimi_level"
-                    style="@style/category_option_course_level"
-                    android:text="level 5" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/shimi_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/shimi_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/shimi_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/shimi_title"
                     style="@style/category_option_course_title"
                     android:text="شیمی" />
             </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/fragment_holder_shimi"
-                style="@style/category_option_fragment" />
+                style="@style/category_option_fragment"/>
 
         </LinearLayout>
     </ScrollView>
