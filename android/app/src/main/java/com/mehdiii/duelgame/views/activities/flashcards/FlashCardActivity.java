@@ -131,6 +131,10 @@ public class FlashCardActivity extends ParentActivity {
 
         MemoryCache.set(FLASH_CARD_LIST_CACHE, null);
         getFlashCards();
+    }
 
+    @Override
+    public boolean canHandleChallengeRequest() {
+        return true;
     }
 }
