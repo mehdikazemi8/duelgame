@@ -129,13 +129,31 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             return;
         Collections.sort(list.getFriends(), new Comparator<Friend>() {
             @Override
-            public int compare(Friend friend, Friend t1) {
-                if (friend.getStatus().equals("request") && !t1.getStatus().equals("request")) {
-                    return -1;
-                }
+            public int compare(Friend x, Friend y) {
+                if(x.getStatus().equals("request") || y.getStatus().equals("request")) {
 
-                return friend.isOnline() && !t1.isOnline() ? -1 : 1;
-//                return friend.isOnline() && !t1.isOnline() ? -1 : friend.getScore() < t1.getScore() ? 1 : -1;
+                    if(x.getStatus().equals("request") && !y.getStatus().equals("request"))
+                        return -1;
+                    if(!x.getStatus().equals("request") && y.getStatus().equals("request"))
+                        return 1;
+                    return x.getId().compareTo(y.getId());
+                }
+                else if(x.isOnline() || y.isOnline()) {
+                    if(x.isOnline() && !y.isOnline())
+                        return -1;
+                    if(!x.isOnline() && y.isOnline())
+                        return 1;
+                    return x.getId().compareTo(y.getId());
+                }
+                else if(x.getStatus().equals("friend") || y.getStatus().equals("friend")) {
+
+                    if(x.getStatus().equals("friend") && !y.getStatus().equals("friend"))
+                        return -1;
+                    if(!x.getStatus().equals("friend") && y.getStatus().equals("friend"))
+                        return 1;
+                    return x.getId().compareTo(y.getId());
+                }
+                return x.getId().compareTo(y.getId());
             }
         });
         adapter = new FriendsListAdapter(this.activity, R.layout.template_friends_list, list.getFriends());
