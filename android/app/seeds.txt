@@ -26500,6 +26500,8 @@ com.mehdiii.duelgame.R$id: int action_mode_close_button
 com.mehdiii.duelgame.R$id: int activity_chooser_view_content
 com.mehdiii.duelgame.R$id: int adabiat
 com.mehdiii.duelgame.R$id: int adabiat_level
+com.mehdiii.duelgame.R$id: int adabiat_level_progress
+com.mehdiii.duelgame.R$id: int adabiat_level_range
 com.mehdiii.duelgame.R$id: int adabiat_title
 com.mehdiii.duelgame.R$id: int adjust_height
 com.mehdiii.duelgame.R$id: int adjust_width
@@ -26507,6 +26509,8 @@ com.mehdiii.duelgame.R$id: int alertTitle
 com.mehdiii.duelgame.R$id: int always
 com.mehdiii.duelgame.R$id: int arabi
 com.mehdiii.duelgame.R$id: int arabi_level
+com.mehdiii.duelgame.R$id: int arabi_level_progress
+com.mehdiii.duelgame.R$id: int arabi_level_range
 com.mehdiii.duelgame.R$id: int arabi_title
 com.mehdiii.duelgame.R$id: int beginning
 com.mehdiii.duelgame.R$id: int book_now
@@ -26571,6 +26575,8 @@ com.mehdiii.duelgame.R$id: int default_activity_button
 com.mehdiii.duelgame.R$id: int dialog
 com.mehdiii.duelgame.R$id: int din_o_zendegi
 com.mehdiii.duelgame.R$id: int din_o_zendegi_level
+com.mehdiii.duelgame.R$id: int din_o_zendegi_level_progress
+com.mehdiii.duelgame.R$id: int din_o_zendegi_level_range
 com.mehdiii.duelgame.R$id: int din_o_zendegi_title
 com.mehdiii.duelgame.R$id: int disableHome
 com.mehdiii.duelgame.R$id: int donate_with_google
@@ -26751,6 +26757,8 @@ com.mehdiii.duelgame.R$id: int select_dialog_listview
 com.mehdiii.duelgame.R$id: int selectionDetails
 com.mehdiii.duelgame.R$id: int shimi
 com.mehdiii.duelgame.R$id: int shimi_level
+com.mehdiii.duelgame.R$id: int shimi_level_progress
+com.mehdiii.duelgame.R$id: int shimi_level_range
 com.mehdiii.duelgame.R$id: int shimi_title
 com.mehdiii.duelgame.R$id: int shortcut
 com.mehdiii.duelgame.R$id: int showCustom
@@ -26838,6 +26846,8 @@ com.mehdiii.duelgame.R$id: int withText
 com.mehdiii.duelgame.R$id: int wrap_content
 com.mehdiii.duelgame.R$id: int zaban_englisi
 com.mehdiii.duelgame.R$id: int zaban_englisi_level
+com.mehdiii.duelgame.R$id: int zaban_englisi_level_progress
+com.mehdiii.duelgame.R$id: int zaban_englisi_level_range
 com.mehdiii.duelgame.R$id: int zaban_englisi_title
 com.mehdiii.duelgame.R$id: R$id()
 com.mehdiii.duelgame.R$integer
@@ -27388,8 +27398,11 @@ com.mehdiii.duelgame.R$style: int button_home_recharge
 com.mehdiii.duelgame.R$style: int button_ranking_sub
 com.mehdiii.duelgame.R$style: int category_option
 com.mehdiii.duelgame.R$style: int category_option_course_level
+com.mehdiii.duelgame.R$style: int category_option_course_level_range
 com.mehdiii.duelgame.R$style: int category_option_course_title
 com.mehdiii.duelgame.R$style: int category_option_fragment
+com.mehdiii.duelgame.R$style: int category_option_progress_holder
+com.mehdiii.duelgame.R$style: int category_option_star
 com.mehdiii.duelgame.R$style: int edit_text_bordered
 com.mehdiii.duelgame.R$style: int friends_nav_buttons
 com.mehdiii.duelgame.R$style: int home_nav_buttons
@@ -28575,6 +28588,7 @@ com.mehdiii.duelgame.utils.ScoreHelper
 com.mehdiii.duelgame.utils.ScoreHelper: ScoreHelper()
 com.mehdiii.duelgame.utils.ScoreHelper: int getLevel(int)
 com.mehdiii.duelgame.utils.ScoreHelper: int getThisLevelPercentage(int)
+com.mehdiii.duelgame.utils.ScoreHelper: java.lang.String getThisLevelRange(int)
 com.mehdiii.duelgame.utils.ScoreHelper: java.lang.String getTitle(int)
 com.mehdiii.duelgame.utils.ScoreHelper: java.util.List getTitles()
 com.mehdiii.duelgame.utils.ScoreHelper: java.util.List getLevelScores()
@@ -28739,6 +28753,7 @@ com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter:
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter: void setOnUserDecisionIsMade(com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter: java.lang.Object getItem(int)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade
+com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade: void onDuel(com.mehdiii.duelgame.models.Friend)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade: void onApprove(com.mehdiii.duelgame.models.Friend)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade: void onReject(com.mehdiii.duelgame.models.Friend)
 com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsListAdapter$OnUserDecisionIsMade: void onSelect(com.mehdiii.duelgame.models.Friend)
