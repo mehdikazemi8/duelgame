@@ -7,8 +7,8 @@
     <string name="caption_play_music">پخش موسیقی</string>
     <string name="caption_play_music_not">توقف موسیقی</string>
     <string name="caption_friend_id">کد دوست شما</string>
-    <string name="caption_send_report">گزارش خطا</string>
-    <string name="caption_send_report_title">[گزارش خطا]</string>
+    <string name="caption_send_report">ارتباط با ما</string>
+    <string name="caption_send_report_title">[ارتباط با سازندگان]</string>
     <string name="caption_online">آنلاین</string>
     <string name="caption_offline">آفلاین</string>
     <string name="caption_duel_again">دوئل</string>
