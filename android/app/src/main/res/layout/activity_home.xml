@@ -34,7 +34,6 @@
         <com.mehdiii.duelgame.views.custom.ToggleButton
             android:id="@+id/button_online_users"
             style="@style/home_nav_buttons"
-            android:textSize="@dimen/fontsize.large"
             android:text="+" />
 
         <com.mehdiii.duelgame.views.custom.ToggleButton
