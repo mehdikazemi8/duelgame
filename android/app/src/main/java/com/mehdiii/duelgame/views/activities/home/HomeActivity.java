@@ -106,6 +106,9 @@ public class HomeActivity extends ParentActivity {
     protected void onResume() {
         super.onResume();
         PurchaseManager.changeActivity(this);
+
+        if(! DuelApp.getInstance().isConnected())
+            DuelApp.getInstance().connectToWs();
     }
 
     @Override
@@ -318,6 +321,8 @@ public class HomeActivity extends ParentActivity {
         childFragments.add(homeFragment);
     }
 
+
+
     @Override
     public void onBackPressed() {
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
@@ -327,7 +332,6 @@ public class HomeActivity extends ParentActivity {
                 if ((Boolean) data) {
                     HomeActivity.super.onBackPressed();
                     // TODO: don't disconnect, add notification instead
-
                     DuelApp.getInstance().disconnect();
                 }
             }

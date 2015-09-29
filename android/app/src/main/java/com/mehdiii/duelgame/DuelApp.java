@@ -56,6 +56,10 @@ public class DuelApp extends Application {
         PurchaseManager.init(this);
     }
 
+    public boolean isConnected() {
+        return wsc.isConnected();
+    }
+
     public void connectToWs() {
         try {
             EventBus.getDefault().post(new OnConnectionStateChanged(OnConnectionStateChanged.ConnectionState.CONNECTING));
