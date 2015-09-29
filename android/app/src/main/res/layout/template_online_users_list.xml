@@ -24,7 +24,7 @@
             android:paddingRight="4dp"
             android:background="@drawable/bg_button_blue_dark"
             android:gravity="center"
-            android:text="@string/button_add_friend"
+            android:text="@string/button_add_to_friends"
             android:textColor="@color/white" />
     </LinearLayout>
 

@@ -324,8 +324,12 @@ public class HomeActivity extends ParentActivity {
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
-                if ((Boolean) data)
+                if ((Boolean) data) {
                     HomeActivity.super.onBackPressed();
+                    // TODO: don't disconnect, add notification instead
+
+                    DuelApp.getInstance().disconnect();
+                }
             }
         });
         dialog.show();
