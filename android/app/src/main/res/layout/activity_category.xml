@@ -195,6 +195,45 @@
                 android:id="@+id/fragment_holder_shimi"
                 style="@style/category_option_fragment"/>
 
+
+
+
+            <LinearLayout
+                android:id="@+id/zist"
+                style="@style/category_option"
+                android:background="@drawable/edge_shadow_background_one"
+                android:contentDescription="5">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView style="@style/category_option_star" />
+                    <TextView android:id="@+id/zist_level"
+                        style="@style/category_option_course_level" />
+                </FrameLayout>
+                <LinearLayout style="@style/category_option_progress_holder" >
+                    <TextView
+                        android:id="@+id/zist_level_range"
+                        style="@style/category_option_course_level_range" />
+                    <ProgressBar
+                        android:id="@+id/zist_level_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="10dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/my_progress_bar" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/zist_title"
+                    style="@style/category_option_course_title"
+                    android:text="زیست شناسی" />
+            </LinearLayout>
+            <FrameLayout
+                android:id="@+id/fragment_holder_zist"
+                style="@style/category_option_fragment"/>
+
+
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

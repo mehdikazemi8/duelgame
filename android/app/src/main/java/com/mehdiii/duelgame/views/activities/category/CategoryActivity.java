@@ -22,8 +22,8 @@ import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 public class CategoryActivity extends ParentActivity {
 
-    final int NUMBER_OF_COURSES = 5;
-    private String[] categories = {"10001", "10002", "10003", "10004", "10005"};
+    final int NUMBER_OF_COURSES = 6;
+    private String[] categories = {"10001", "10002", "10003", "10004", "10005", "10006"};
     private Fragment[] rankPlayFragment = new Fragment[NUMBER_OF_COURSES];
     private int[] fragmentHolderId = new int[NUMBER_OF_COURSES];
     private TextView[] courseTitle = new TextView[NUMBER_OF_COURSES];
@@ -73,37 +73,42 @@ public class CategoryActivity extends ParentActivity {
         fragmentHolderId[2] = R.id.fragment_holder_din_o_zendegi;
         fragmentHolderId[3] = R.id.fragment_holder_zaban_englisi;
         fragmentHolderId[4] = R.id.fragment_holder_shimi;
+        fragmentHolderId[5] = R.id.fragment_holder_zist;
 
         courseTitle[0] = (TextView) findViewById(R.id.adabiat_title);
         courseTitle[1] = (TextView) findViewById(R.id.arabi_title);
         courseTitle[2] = (TextView) findViewById(R.id.din_o_zendegi_title);
         courseTitle[3] = (TextView) findViewById(R.id.zaban_englisi_title);
         courseTitle[4] = (TextView) findViewById(R.id.shimi_title);
+        courseTitle[5] = (TextView) findViewById(R.id.zist_title);
 
         courseLevel[0] = (TextView) findViewById(R.id.adabiat_level);
         courseLevel[1] = (TextView) findViewById(R.id.arabi_level);
         courseLevel[2] = (TextView) findViewById(R.id.din_o_zendegi_level);
         courseLevel[3] = (TextView) findViewById(R.id.zaban_englisi_level);
         courseLevel[4] = (TextView) findViewById(R.id.shimi_level);
+        courseLevel[5] = (TextView) findViewById(R.id.zist_level);
 
         courseLevelRange[0] = (TextView) findViewById(R.id.adabiat_level_range);
         courseLevelRange[1] = (TextView) findViewById(R.id.arabi_level_range);
         courseLevelRange[2] = (TextView) findViewById(R.id.din_o_zendegi_level_range);
         courseLevelRange[3] = (TextView) findViewById(R.id.zaban_englisi_level_range);
         courseLevelRange[4] = (TextView) findViewById(R.id.shimi_level_range);
+        courseLevelRange[5] = (TextView) findViewById(R.id.zist_level_range);
 
         courseLevelProgress[0] = (ProgressBar) findViewById(R.id.adabiat_level_progress);
         courseLevelProgress[1] = (ProgressBar) findViewById(R.id.arabi_level_progress);
         courseLevelProgress[2] = (ProgressBar) findViewById(R.id.din_o_zendegi_level_progress);
         courseLevelProgress[3] = (ProgressBar) findViewById(R.id.zaban_englisi_level_progress);
         courseLevelProgress[4] = (ProgressBar) findViewById(R.id.shimi_level_progress);
+        courseLevelProgress[5] = (ProgressBar) findViewById(R.id.zist_level_progress);
     }
 
     private void configure() {
         FontHelper.setKoodakFor(this,
-                courseTitle[0], courseTitle[1], courseTitle[2], courseTitle[3], courseTitle[4],
-                courseLevel[0], courseLevel[1], courseLevel[2], courseLevel[3], courseLevel[4],
-                courseLevelRange[0], courseLevelRange[1], courseLevelRange[2], courseLevelRange[3], courseLevelRange[4]);
+                courseTitle[0], courseTitle[1], courseTitle[2], courseTitle[3], courseTitle[4], courseTitle[5],
+                courseLevel[0], courseLevel[1], courseLevel[2], courseLevel[3], courseLevel[4], courseLevel[5],
+                courseLevelRange[0], courseLevelRange[1], courseLevelRange[2], courseLevelRange[3], courseLevelRange[4], courseLevelRange[5]);
 
         for(int c = 0; c < NUMBER_OF_COURSES; c ++) {
             int userScore = AuthManager.getCurrentUser().getScore(categories[c], "overall");
