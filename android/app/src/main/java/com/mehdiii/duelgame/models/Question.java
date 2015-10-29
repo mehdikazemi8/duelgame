@@ -12,6 +12,16 @@ public class Question {
     private String questionText;
     @SerializedName("options")
     private ArrayList<String> options;
+    @SerializedName("question_number")
+    private int questionNumberInServer;
+
+    public int getQuestionNumberInServer() {
+        return questionNumberInServer;
+    }
+
+    public void setQuestionNumberInServer(int questionNumberInServer) {
+        this.questionNumberInServer = questionNumberInServer;
+    }
 
     public String getQuestionText() {
         return questionText;

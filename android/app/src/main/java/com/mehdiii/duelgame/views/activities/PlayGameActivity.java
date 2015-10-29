@@ -22,6 +22,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -576,6 +577,8 @@ public class PlayGameActivity extends ParentActivity {
     private ImageView userAvatar;
     private ImageView opponentAvatar;
 
+    private Button reportProblem;
+
     private TextView playGameHintAgainCost;
     private TextView playGameHintAgainText;
     private TextView playGameHintRemoveCost;
@@ -643,16 +646,38 @@ public class PlayGameActivity extends ParentActivity {
                 questionTextView,
                 playGameHintAgainCost, playGameHintRemoveCost,
                 playGameHintAgainText, playGameHintRemoveText,
-                collectedDiamondTextView, collectedDiamondTextViewTmp);
+                collectedDiamondTextView, collectedDiamondTextViewTmp,
+                reportProblem);
 
         userNameTextView.setText(AuthManager.getCurrentUser().getName());
         userAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, AuthManager.getCurrentUser().getAvatar()));
 
         opponentNameTextView.setText(opponentUser.getName());
         opponentAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, opponentUser.getAvatar()));
+
+        reportProblem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final int reportProblemIndex = problemIndex - 1;
+                ConfirmDialog dialog = new ConfirmDialog(PlayGameActivity.this, getResources().getString(R.string.report_problem_confirm));
+                dialog.setOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        if ((Boolean) data) {
+                            
+                            if(0 <= reportProblemIndex && reportProblemIndex < questionsToAsk.size())
+                                Log.d("TAGG", questionsToAsk.get(reportProblemIndex).getQuestionText() + " " +
+                                questionsToAsk.get(reportProblemIndex).getQuestionNumberInServer());
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     private void findControls() {
+        reportProblem = (Button) findViewById(R.id.report_problem);
         tick = (ImageView) findViewById(R.id.play_game_tick);
         opponentNameTextView = (TextView) findViewById(R.id.play_game_opponent_name);
         opponentPointsTextView = (TextView) findViewById(R.id.play_game_opponent_score);

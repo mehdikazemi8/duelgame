@@ -201,25 +201,38 @@
 
         </FrameLayout>
 
-        <ScrollView
-            android:id="@+id/play_game_problem_statement"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@id/play_game_header"
             android:layout_weight="7">
 
-            <TextView
-                android:id="@+id/play_game_question_text"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/report_problem"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:text="صورت سوال"
-                android:textColor="@color/play_game_question_text"
-                android:textSize="25sp" />
-        </ScrollView>
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/report_problem" />
+
+            <ScrollView
+                android:id="@+id/play_game_problem_statement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/play_game_header">
+                <TextView
+                    android:id="@+id/play_game_question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="صورت سوال"
+                    android:textColor="@color/play_game_question_text"
+                    android:textSize="25sp" />
+            </ScrollView>
+
+        </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/play_game_options"
