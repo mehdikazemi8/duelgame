@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -143,7 +144,9 @@ public class DuelApp extends Application {
      * @param length     length of the toast, i.e. typically TOAST.LENGTH_SHORT or TOAST.LENGTH_LONG
      */
     public void toast(int resourceId, int length) {
-        Toast.makeText(getApplicationContext(), getResources().getString(resourceId), length).show();
+        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(resourceId), length);
+        toast.setGravity(Gravity.TOP, 0, 150);
+        toast.show();
     }
 
     /**

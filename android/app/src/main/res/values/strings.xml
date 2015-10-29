@@ -9,6 +9,7 @@
 
     <string name="report_problem">ایراد؟</string>
     <string name="report_problem_confirm">این سوال ایراد علمی یا املایی دارد؟</string>
+    <string name="report_problem_thanks">ممنون، به زودی ایراد رو برطرف می کنیم.</string>
 
     <string-array name="province_array">
         <item>انتخاب استان</item>

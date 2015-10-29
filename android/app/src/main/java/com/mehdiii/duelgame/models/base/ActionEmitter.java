@@ -71,6 +71,7 @@ public class ActionEmitter {
         map.put(CommandType.SEND_FLASH_CARD_PROGRESS, "UUFCS");
         map.put(CommandType.SEND_GET_ONLINE_USERS, "GOUL");
         map.put(CommandType.RECEIVE_GET_ONLINE_USERS, "ROUL");
+        map.put(CommandType.REPORT_PROBLEM, "RP");
     }
 
     public String getCommandCode(CommandType type) {

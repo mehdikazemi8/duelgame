@@ -36,6 +36,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.GetQuestion;
+import com.mehdiii.duelgame.models.ReportProblem;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -664,10 +665,13 @@ public class PlayGameActivity extends ParentActivity {
                     @Override
                     public void onComplete(Object data) {
                         if ((Boolean) data) {
-                            
-                            if(0 <= reportProblemIndex && reportProblemIndex < questionsToAsk.size())
-                                Log.d("TAGG", questionsToAsk.get(reportProblemIndex).getQuestionText() + " " +
-                                questionsToAsk.get(reportProblemIndex).getQuestionNumberInServer());
+                            if(0 <= reportProblemIndex && reportProblemIndex < questionsToAsk.size()) {
+                                ReportProblem reportProblem = new ReportProblem(CommandType.REPORT_PROBLEM);
+                                reportProblem.setCategory(Integer.valueOf(category));
+                                reportProblem.setDescription(String.valueOf(questionsToAsk.get(reportProblemIndex).getQuestionNumberInServer()));
+                                DuelApp.getInstance().sendMessage(reportProblem.serialize());
+                            }
+                            DuelApp.getInstance().toast(R.string.report_problem_thanks, Toast.LENGTH_SHORT);
                         }
                     }
                 });

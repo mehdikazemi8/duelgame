@@ -5,6 +5,7 @@ package com.mehdiii.duelgame.models.base;
  */
 public enum CommandType {
     UNKNOWN,
+    REPORT_PROBLEM,
     SEND_GET_ONLINE_USERS,
     RECEIVE_GET_ONLINE_USERS,
     SEND_GET_PROVINCE_RANK,
