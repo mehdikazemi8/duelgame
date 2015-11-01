@@ -1,9 +1,11 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +59,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
+    Button telegramBotButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,12 +92,14 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         flashCardButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
         textViewSendReport.setOnClickListener(this);
+        telegramBotButton.setOnClickListener(this);
 
         // set font-face
         FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts, textViewSendReport,
                 diamondCount, titleTextView/*, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking,
-                provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton);
+                provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton,
+                telegramBotButton);
 
     }
 
@@ -121,6 +126,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         flashCardButton = (TextView) view.findViewById(R.id.button_flash_card);
         duel2Button = (TextView) view.findViewById(R.id.button_duel2);
+        telegramBotButton = (Button) view.findViewById(R.id.button_telegram_bot);
     }
 
     @Override
@@ -139,6 +145,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.button_telegram_bot:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoorbot"));
+                startActivity(browserIntent);
+                break;
             case R.id.button_add_friend:
                 break;
             case R.id.button_buy_diamond:
