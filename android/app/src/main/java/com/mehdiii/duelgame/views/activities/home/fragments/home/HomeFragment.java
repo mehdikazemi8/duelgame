@@ -146,7 +146,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_telegram_bot:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoorbot"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoor"));
                 startActivity(browserIntent);
                 break;
             case R.id.button_add_friend:
