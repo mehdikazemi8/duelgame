@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
+import com.mehdiii.duelgame.models.PVsPStatRequest;
 import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.WannaChallenge;
