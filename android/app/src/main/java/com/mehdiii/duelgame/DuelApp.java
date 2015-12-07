@@ -145,7 +145,7 @@ public class DuelApp extends Application {
      */
     public void toast(int resourceId, int length) {
         Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(resourceId), length);
-        toast.setGravity(Gravity.TOP, 0, 150);
+        toast.setGravity(Gravity.TOP, 0, 180);
         toast.show();
     }
 
