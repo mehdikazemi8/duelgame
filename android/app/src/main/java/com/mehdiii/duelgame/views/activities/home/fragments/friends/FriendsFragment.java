@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -53,6 +54,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private TextView textViewCode;
     private Button buttonAddFriend;
     private Button buttonTellFriend;
+    private ImageButton refreshButton;
     private ProgressBar progressBar;
 
     Activity activity = null;
@@ -78,6 +80,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         buttonTellFriend = (Button) view.findViewById(R.id.button_tell_friends);
         textViewCode = (TextView) view.findViewById(R.id.textView_code);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        refreshButton = (ImageButton) view.findViewById(R.id.refresh_button);
     }
 
 
@@ -94,6 +97,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         sendFetchRequest();
     }
 
+
+
     @Override
     public void onPause() {
         super.onPause();
@@ -102,6 +107,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private void configure() {
         buttonAddFriend.setOnClickListener(this);
         buttonTellFriend.setOnClickListener(this);
+        refreshButton.setOnClickListener(this);
         if (this.activity != null)
             FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend);
     }
@@ -258,6 +264,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 break;
             case R.id.button_tell_friends:
                 tellFriends();
+                break;
+            case R.id.refresh_button:
+                sendFetchRequest();
                 break;
         }
     }
