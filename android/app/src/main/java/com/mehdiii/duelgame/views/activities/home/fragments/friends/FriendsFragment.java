@@ -59,7 +59,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private Button buttonTellFriend;
     private ImageButton refreshButton;
     private ProgressBar progressBar;
+
     private ProgressDialog progressDialog;
+    private ProfileDialog profileDialog = null;
 
     private Friend selectedFriend;
 
@@ -308,15 +310,18 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
                 selectedFriend.setStatistics(mutualStats);
 
-                ProfileDialog dialog = new ProfileDialog(getActivity(), selectedFriend);
-                dialog.setOnRemoveListener(new OnCompleteListener() {
+                if(profileDialog != null)
+                    profileDialog.dismiss();
+
+                profileDialog = new ProfileDialog(getActivity(), selectedFriend);
+                profileDialog.setOnRemoveListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
                         DuelApp.getInstance().sendMessage(new RemoveFriend(selectedFriend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
                         sendFetchRequest();
                     }
                 });
-                dialog.show();
+                profileDialog.show();
             }
         }
     });
