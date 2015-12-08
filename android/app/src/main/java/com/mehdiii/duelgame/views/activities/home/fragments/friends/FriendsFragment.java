@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.friends;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
+import com.mehdiii.duelgame.models.MutualStats;
 import com.mehdiii.duelgame.models.PVsPStatRequest;
 import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
@@ -57,6 +59,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private Button buttonTellFriend;
     private ImageButton refreshButton;
     private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
+
+    private Friend selectedFriend;
 
     Activity activity = null;
 
@@ -84,6 +89,16 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         refreshButton = (ImageButton) view.findViewById(R.id.refresh_button);
     }
 
+    private void configure() {
+        buttonAddFriend.setOnClickListener(this);
+        buttonTellFriend.setOnClickListener(this);
+        refreshButton.setOnClickListener(this);
+        if (this.activity != null)
+            FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("لطفا کمی صبر کنید");
+    }
 
     @Override
     public void onResume() {
@@ -98,19 +113,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         sendFetchRequest();
     }
 
-
-
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    private void configure() {
-        buttonAddFriend.setOnClickListener(this);
-        buttonTellFriend.setOnClickListener(this);
-        refreshButton.setOnClickListener(this);
-        if (this.activity != null)
-            FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend);
     }
 
     private void bindViewData() {
@@ -245,15 +250,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 
         @Override
         public void onSelect(final Friend friend) {
-            ProfileDialog dialog = new ProfileDialog(getActivity(), friend);
-            dialog.setOnRemoveListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(Object data) {
-                    DuelApp.getInstance().sendMessage(new RemoveFriend(friend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
-                    sendFetchRequest();
-                }
-            });
-            dialog.show();
+            selectedFriend = friend;
+            progressDialog.show();
+            DuelApp.getInstance().sendMessage(new PVsPStatRequest(CommandType.GET_ONE_VS_ONE_RESULTS, friend.getId()).serialize());
         }
     };
 
@@ -293,6 +292,22 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 if (null != list) {
                     bindListViewData(list);
                 }
+            } else if (type == CommandType.RECEIVE_ONE_VS_ONE_RESULTS) {
+                if(progressDialog != null)
+                    progressDialog.dismiss();
+
+                MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
+                Log.d("TAG", "json " + mutualStats.getOpponentId() + " " + selectedFriend.getId());
+
+                ProfileDialog dialog = new ProfileDialog(getActivity(), selectedFriend);
+                dialog.setOnRemoveListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        DuelApp.getInstance().sendMessage(new RemoveFriend(selectedFriend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
+                        sendFetchRequest();
+                    }
+                });
+                dialog.show();
             }
         }
     });

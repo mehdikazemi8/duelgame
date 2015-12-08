@@ -157,10 +157,6 @@ public class PurchaseManager {
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            Log.d("PURCHASE_MANAGER", "received message");
-            Log.d("PURCHASE_MANAGER", type.name());
-            Log.d("PURCHASE_MANAGER", json);
-
             switch (type) {
                 case RECEIVE_START_PURCHASE:
                     try {
