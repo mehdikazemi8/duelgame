@@ -7,6 +7,11 @@
 
     <string name="splash_circle">&#9679;</string>
 
+    <string name="win_caption">برد</string>
+    <string name="draw_caption">مساوی</string>
+    <string name="lose_caption">باخت</string>
+    <string name="course_caption">درس</string>
+
     <string name="report_problem">ایراد؟</string>
     <string name="report_problem_confirm">این سوال ایراد علمی یا املایی دارد؟</string>
     <string name="report_problem_thanks">ممنون، به زودی ایراد رو برطرف می کنیم.</string>

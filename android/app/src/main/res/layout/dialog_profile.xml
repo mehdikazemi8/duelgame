@@ -2,17 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark"
+    android:background="@color/azure_dark2"
     android:gravity="center|top"
     android:orientation="vertical"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imageView_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/av1" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button_remove_friend"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/delete_button" />
+
+        <ImageButton
+            android:id="@+id/button_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/close_button" />
+
+        <ImageView
+            android:id="@+id/imageView_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/av1" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView_name"
@@ -20,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space.short"
         android:gravity="center"
+        android:singleLine="true"
         android:textColor="@color/yellow"
         android:textSize="@dimen/fontsize.large" />
 
@@ -32,29 +53,34 @@
         android:textColor="@color/white"
         android:textSize="@dimen/fontsize.normal" />
 
-    <TextView
-        android:id="@+id/textView_score"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space.short"
-        android:gravity="center"
-        android:textColor="@color/yellow"
-        android:textSize="@dimen/fontsize.normal" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/lose_caption"
+            style="@style/statistics_captions"
+            android:layout_weight="2"
+            android:text="@string/lose_caption" />
+        <TextView
+            android:id="@+id/draw_caption"
+            style="@style/statistics_captions"
+            android:layout_weight="2"
+            android:text="@string/draw_caption" />
+        <TextView
+            android:id="@+id/win_caption"
+            style="@style/statistics_captions"
+            android:layout_weight="2"
+            android:text="@string/win_caption" />
+        <TextView
+            android:id="@+id/course_caption"
+            style="@style/statistics_captions"
+            android:layout_weight="5"
+            android:text="@string/course_caption" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/button_remove_friend"
+    <ListView
+        android:id="@+id/statistics_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space.medium"
-        android:background="@color/red"
-        android:text="@string/button_remove"
-        android:textColor="@color/blue_dark" />
+        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/button_close"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space.medium"
-        android:text="@string/button_close"
-        android:textColor="@color/blue_dark" />
 </LinearLayout>

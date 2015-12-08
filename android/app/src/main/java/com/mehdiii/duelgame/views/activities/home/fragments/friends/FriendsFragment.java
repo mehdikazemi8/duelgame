@@ -297,7 +297,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     progressDialog.dismiss();
 
                 MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
-                Log.d("TAG", "json " + mutualStats.getOpponentId() + " " + selectedFriend.getId());
+                selectedFriend.setStatistics(mutualStats);
 
                 ProfileDialog dialog = new ProfileDialog(getActivity(), selectedFriend);
                 dialog.setOnRemoveListener(new OnCompleteListener() {

@@ -13,6 +13,15 @@ public class Friend extends User {
     @SerializedName("accepted")
     private boolean accepted;
 
+    MutualStats statistics;
+
+    public MutualStats getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(MutualStats statistics) {
+        this.statistics = statistics;
+    }
 
     public String getStatus() {
         return status;
