@@ -21,6 +21,8 @@ public class ActionEmitter {
     private BidirectionalMap<CommandType, String> map = new BidirectionalMap<>();
 
     private void init() {
+        map.put(CommandType.GET_DUEL_HOUR_RANKING, "GDHR");
+        map.put(CommandType.RECEIVE_DUEL_HOUR_RANKING, "RDHR");
         map.put(CommandType.GET_ONE_VS_ONE_RESULTS, "GOVOR");
         map.put(CommandType.RECEIVE_ONE_VS_ONE_RESULTS, "ROVOR");
         map.put(CommandType.RECEIVE_LOGIN_INFO, "LI");
