@@ -159,6 +159,17 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     return x.getId().compareTo(y.getId());
                 }
                 else if(x.isOnline() || y.isOnline()) {
+
+                    if(x.isOnline() && y.isOnline()) {
+                        if(x.getStatus().equals("friend") || y.getStatus().equals("friend")) {
+                            if(x.getStatus().equals("friend") && !y.getStatus().equals("friend"))
+                                return -1;
+                            if(!x.getStatus().equals("friend") && y.getStatus().equals("friend"))
+                                return 1;
+                            return x.getId().compareTo(y.getId());
+                        }
+                    }
+
                     if(x.isOnline() && !y.isOnline())
                         return -1;
                     if(!x.isOnline() && y.isOnline())
