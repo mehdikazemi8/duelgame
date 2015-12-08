@@ -63,6 +63,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 
     private Friend selectedFriend;
 
+    private boolean viewAvailable;
+
     Activity activity = null;
 
     @Override
@@ -73,6 +75,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewAvailable = true;
 
         find(view);
         configure();
@@ -105,6 +109,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         super.onResume();
         if (this.activity != null)
             LocalBroadcastManager.getInstance(this.activity).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+        viewAvailable = true;
     }
 
     @Override
@@ -116,6 +121,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     @Override
     public void onPause() {
         super.onPause();
+        viewAvailable = false;
     }
 
     private void bindViewData() {
@@ -293,6 +299,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     bindListViewData(list);
                 }
             } else if (type == CommandType.RECEIVE_ONE_VS_ONE_RESULTS) {
+                if(!viewAvailable)
+                    return;
+
                 if(progressDialog != null)
                     progressDialog.dismiss();
 

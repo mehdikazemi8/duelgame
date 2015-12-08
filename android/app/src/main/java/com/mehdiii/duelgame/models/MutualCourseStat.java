@@ -16,6 +16,16 @@ public class MutualCourseStat extends BaseModel {
     int lose;
     @SerializedName("course_name")
     String courseName;
+    @SerializedName("category")
+    String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public MutualCourseStat(int win, int draw, int lose, String courseName) {
         this.win = win;

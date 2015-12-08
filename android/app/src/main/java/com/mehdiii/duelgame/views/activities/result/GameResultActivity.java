@@ -2,9 +2,11 @@ package com.mehdiii.duelgame.views.activities.result;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,13 +26,20 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.FriendRequest;
+import com.mehdiii.duelgame.models.MutualCourseStat;
+import com.mehdiii.duelgame.models.MutualStats;
+import com.mehdiii.duelgame.models.PVsPStatRequest;
+import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -38,6 +47,7 @@ import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.custom.AppRater;
 import com.mehdiii.duelgame.views.custom.ProgressBarAnimation;
+import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 import com.mehdiii.duelgame.views.dialogs.ReviewQuestionsDialog;
 
 import org.json.JSONArray;
@@ -90,6 +100,9 @@ public class GameResultActivity extends ParentActivity {
     private TextView gameResultLevelText;
     private TextView gameResultDiamondCnt;
     private ImageView gameResultDiamondPicture;
+
+    TextView winCounter, loseCounter, drawCounter;
+    TextView winCaption, loseCaption, drawCaption;
 
     private Button gameResultDuelOthers;
     private Button gameResultAddFriend;
@@ -364,8 +377,9 @@ public class GameResultActivity extends ParentActivity {
                 gameResultT5, gameResultT6, gameResultT7, gameResultT8,
                 gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor,
                 gameResultDiamondCnt, gameResultLevelText, gameResultTotalExperience,
-                gameResultAddFriend, gameResultDuelOthers, gameResultReport, gameResultHome);
-
+                gameResultAddFriend, gameResultDuelOthers, gameResultReport, gameResultHome,
+                winCounter, loseCounter, drawCounter,
+                winCaption, loseCaption, drawCaption);
 
         userAvatar.setImageResource(AvatarHelper.getResourceId(GameResultActivity.this, user.getAvatar()));
         userName.setText(user.getName());
@@ -461,6 +475,13 @@ public class GameResultActivity extends ParentActivity {
         gameResultHome = (Button) findViewById(R.id.game_result_home);
         gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
         gameResultReport = (Button) findViewById(R.id.game_result_report);
+
+        winCounter = (TextView) findViewById(R.id.win_counter);
+        loseCounter = (TextView) findViewById(R.id.lose_counter);
+        drawCounter = (TextView) findViewById(R.id.draw_counter);
+        winCaption = (TextView) findViewById(R.id.win_caption);
+        loseCaption = (TextView) findViewById(R.id.lose_caption);
+        drawCaption = (TextView) findViewById(R.id.draw_caption);
     }
 
     private void readArguments() {
@@ -560,4 +581,41 @@ public class GameResultActivity extends ParentActivity {
             }
         };
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+        DuelApp.getInstance().sendMessage(new PVsPStatRequest(CommandType.GET_ONE_VS_ONE_RESULTS, opponentUser.getId()).serialize());
+    }
+
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if(json.isEmpty())
+                return;
+
+            if (type == CommandType.RECEIVE_ONE_VS_ONE_RESULTS) {
+                MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
+                if(mutualStats == null || mutualStats.getResults() == null) {
+                    Log.d("TAG", "error RECEIVE_ONE_VS_ONE_RESULTS GameResultActivity");
+                    return;
+                }
+
+                for(MutualCourseStat courseStat : mutualStats.getResults()) {
+                    if(courseStat.getCategory() != null && courseStat.getCategory().equals(ParentActivity.category)) {
+                        winCounter.setText(String.valueOf(courseStat.getWin()));
+                        loseCounter.setText(String.valueOf(courseStat.getLose()));
+                        drawCounter.setText(String.valueOf(courseStat.getDraw()));
+                    }
+                }
+            }
+        }
+    });
 }
