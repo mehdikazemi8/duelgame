@@ -1,11 +1,9 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +124,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         flashCardButton = (TextView) view.findViewById(R.id.button_flash_card);
         duel2Button = (TextView) view.findViewById(R.id.button_duel2);
-        telegramBotButton = (Button) view.findViewById(R.id.button_telegram_bot);
+        telegramBotButton = (Button) view.findViewById(R.id.button_telegram_channel);
     }
 
     @Override
@@ -145,7 +143,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button_telegram_bot:
+            case R.id.button_telegram_channel:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoor"));
                 startActivity(browserIntent);
                 break;

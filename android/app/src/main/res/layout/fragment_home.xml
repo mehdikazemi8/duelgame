@@ -388,7 +388,7 @@
                     android:textSize="@dimen/fontsize.normal" />
 
                 <Button
-                    android:id="@+id/button_telegram_bot"
+                    android:id="@+id/button_telegram_channel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
