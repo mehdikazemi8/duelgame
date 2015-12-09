@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,10 +36,12 @@ public class ProfileDialog extends Dialog {
     ImageButton buttonClose;
     Friend friend;
 
+    LinearLayout captions;
     TextView winCaption;
     TextView loseCaption;
     TextView drawCaption;
     TextView courseCaption;
+    TextView noMutualStatistics;
 
     ListView statisticsListView;
 
@@ -74,7 +77,7 @@ public class ProfileDialog extends Dialog {
 
     private void configure() {
         FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince,
-                winCaption, loseCaption, drawCaption, courseCaption);
+                winCaption, loseCaption, drawCaption, courseCaption, noMutualStatistics);
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,8 +103,13 @@ public class ProfileDialog extends Dialog {
             }
         });
 
-        StatisticsListAdapter adapter = new StatisticsListAdapter(getContext(), R.id.course_title, friend.getStatistics().getResults());
-        statisticsListView.setAdapter(adapter);
+        if(friend.getStatistics().getResults().size() != 0) {
+            StatisticsListAdapter adapter = new StatisticsListAdapter(getContext(), R.id.course_title, friend.getStatistics().getResults());
+            statisticsListView.setAdapter(adapter);
+        } else {
+            captions.setVisibility(View.GONE);
+            noMutualStatistics.setVisibility(View.VISIBLE);
+        }
     }
 
     private void findControls() {
@@ -111,10 +119,13 @@ public class ProfileDialog extends Dialog {
         buttonRemove = (ImageButton) findViewById(R.id.button_remove_friend);
         buttonClose = (ImageButton) findViewById(R.id.button_close);
 
+        captions = (LinearLayout) findViewById(R.id.captions);
         winCaption = (TextView) findViewById(R.id.win_caption);
         loseCaption = (TextView) findViewById(R.id.lose_caption);
         drawCaption = (TextView) findViewById(R.id.draw_caption);
         courseCaption = (TextView) findViewById(R.id.course_caption);
+
+        noMutualStatistics = (TextView) findViewById(R.id.no_mutual_statistics);
 
         statisticsListView = (ListView) findViewById(R.id.statistics_list_view);
     }

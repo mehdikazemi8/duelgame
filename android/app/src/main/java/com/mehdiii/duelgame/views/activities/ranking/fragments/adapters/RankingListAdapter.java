@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.ranking.fragments.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,8 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("TAG", "" + position);
+
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.template_ranklist, null);
             ViewHolder viewHolder = new ViewHolder();

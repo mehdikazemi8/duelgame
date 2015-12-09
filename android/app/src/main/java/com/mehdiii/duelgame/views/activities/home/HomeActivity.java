@@ -26,6 +26,7 @@ import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.duelhour.DuelHourFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.onlineusers.OnlineUsersFragment;
@@ -48,6 +49,7 @@ public class HomeActivity extends ParentActivity {
     ToggleButton storeButton;
     //    ToggleButton rankingButton;
     ToggleButton onlineUsersButton;
+    ToggleButton duelHourButton;
     ToggleButton settingsButton;
     ToggleButton homeButton;
     ToggleButton friendsButton;
@@ -59,6 +61,7 @@ public class HomeActivity extends ParentActivity {
     FlippableFragment settingsFragment;
     FlippableFragment homeFragment;
     FlippableFragment friendsFragment;
+    FlippableFragment duelHourFragment;
 
     List<Fragment> childFragments;
 
@@ -192,6 +195,7 @@ public class HomeActivity extends ParentActivity {
         this.homeButton = (ToggleButton) findViewById(R.id.button_home);
         this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
         this.onlineUsersButton = (ToggleButton) findViewById(R.id.button_online_users);
+        this.duelHourButton = (ToggleButton) findViewById(R.id.button_duel_hour);
     }
 
     private void configure() {
@@ -205,6 +209,7 @@ public class HomeActivity extends ParentActivity {
         this.storeButton.setOnClickListener(pageSelectorClickListener);
         this.friendsButton.setOnClickListener(pageSelectorClickListener);
         this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
+        this.duelHourButton.setOnClickListener(pageSelectorClickListener);
         this.homeButton.setOnClickListener(pageSelectorClickListener);
 //        this.rankingButton.setOnClickListener(pageSelectorClickListener);
         this.settingsButton.setOnClickListener(pageSelectorClickListener);
@@ -212,8 +217,8 @@ public class HomeActivity extends ParentActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
         viewPager.setAdapter(adapter);
         this.viewPager.setOnPageChangeListener(pageChangeListener);
-        this.viewPager.setCurrentItem(4);
-        viewPager.setOffscreenPageLimit(4);
+        this.viewPager.setCurrentItem(5);
+        viewPager.setOffscreenPageLimit(5);
     }
 
 
@@ -227,9 +232,12 @@ public class HomeActivity extends ParentActivity {
 
             switch (view.getId()) {
                 case R.id.button_home:
-                    viewPager.setCurrentItem(4, true);
+                    viewPager.setCurrentItem(5, true);
                     break;
                 case R.id.button_friends:
+                    viewPager.setCurrentItem(4, true);
+                    break;
+                case R.id.button_duel_hour:
                     viewPager.setCurrentItem(3, true);
                     break;
                 case R.id.button_online_users:
@@ -283,10 +291,14 @@ public class HomeActivity extends ParentActivity {
                     onlineUsersFragment.onBringToFront();
                     break;
                 case 3:
+                    selection = duelHourButton;
+                    duelHourFragment.onBringToFront();
+                    break;
+                case 4:
                     selection = friendsButton;
                     friendsFragment.onBringToFront();
                     break;
-                case 4:
+                case 5:
                     selection = homeButton;
                     homeFragment.onBringToFront();
                     break;
@@ -309,6 +321,7 @@ public class HomeActivity extends ParentActivity {
         settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
 //        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
         friendsFragment = (FlippableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
+        duelHourFragment = (FlippableFragment) Fragment.instantiate(this, DuelHourFragment.class.getName(), null);
         onlineUsersFragment = (FlippableFragment) Fragment.instantiate(this, OnlineUsersFragment.class.getName(), null);
         storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
@@ -317,6 +330,7 @@ public class HomeActivity extends ParentActivity {
         childFragments.add(storeFragment);
 //        childFragments.add(rankingFragment);
         childFragments.add(onlineUsersFragment);
+        childFragments.add(duelHourFragment);
         childFragments.add(friendsFragment);
         childFragments.add(homeFragment);
     }

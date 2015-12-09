@@ -54,6 +54,7 @@
         android:textSize="@dimen/fontsize.normal" />
 
     <LinearLayout
+        android:id="@+id/captions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -77,6 +78,15 @@
             android:layout_weight="5"
             android:text="@string/course_caption" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_mutual_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/no_mutual_statistics_message"
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/statistics_list_view"

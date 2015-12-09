@@ -12,6 +12,8 @@
     <string name="lose_caption">باخت</string>
     <string name="course_caption">درس</string>
 
+    <string name="no_mutual_statistics_message">تا حالا با هم بازی نکردید!</string>
+
     <string name="report_problem">ایراد؟</string>
     <string name="report_problem_confirm">این سوال ایراد علمی یا املایی دارد؟</string>
     <string name="report_problem_thanks">ممنون، به زودی ایراد رو برطرف می کنیم.</string>
