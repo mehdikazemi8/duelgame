@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:clickable="true"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context="com.mehdiii.duelgame.views.activities.home.fragments.ranking.ViewRankingFragment">
 
     <LinearLayout
@@ -40,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="0" />
+                android:text="0"
+                android:textSize="@dimen/fontsize.normal" />
         </LinearLayout>
 
         <LinearLayout
