@@ -11,15 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by mehdiii on 12/8/15.
@@ -28,6 +33,8 @@ public class DuelHourFragment extends FlippableFragment {
 
     ListView listView;
     ProgressBar progressBar;
+    TextView yourScoreCaption;
+    TextView yourScoreValue;
 
     RankingListAdapter adapter;
     Activity activity = null;
@@ -44,11 +51,18 @@ public class DuelHourFragment extends FlippableFragment {
 
         viewAvailable = true;
         find(view);
+        configure();
+    }
+
+    private void configure() {
+        FontHelper.setKoodakFor(getActivity(), yourScoreCaption, yourScoreValue);
     }
 
     private void find(View view) {
         listView = (ListView) view.findViewById(R.id.ranking_list_view);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        yourScoreCaption = (TextView) view.findViewById(R.id.your_score_caption);
+        yourScoreValue = (TextView) view.findViewById(R.id.your_score_value);
     }
 
     @Override
@@ -86,6 +100,8 @@ public class DuelHourFragment extends FlippableFragment {
     private void bindListViewData(RankList list) {
         if (this.activity == null)
             return;
+
+        yourScoreValue.setText(String.valueOf(list.getScore()));
 
         adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, list.getTop());
         this.listView.setAdapter(adapter);

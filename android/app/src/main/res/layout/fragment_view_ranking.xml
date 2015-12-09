@@ -27,9 +27,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="5dp"
-            android:text="امتیاز شما:"
+            android:text="@string/your_score"
             android:textSize="17sp" />
-
 
     </LinearLayout>
 

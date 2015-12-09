@@ -48,7 +48,6 @@
         android:id="@+id/textView_province"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space.short"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/fontsize.normal" />
@@ -56,7 +55,8 @@
     <LinearLayout
         android:id="@+id/captions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space.short">
         <TextView
             android:id="@+id/lose_caption"
             style="@style/statistics_captions"

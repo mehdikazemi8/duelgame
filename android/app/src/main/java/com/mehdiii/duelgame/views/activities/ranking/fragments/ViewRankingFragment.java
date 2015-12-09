@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,8 @@ public class ViewRankingFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
 
                 RankList list = RankList.deserialize(json, RankList.class);
+
+                Log.d("TAG", "ViewRankingFragment BroadcastReceiver " + json);
 
                 if (null != list) {
                     bindListViewData(list);

@@ -6,6 +6,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/fontsize.normal</item>
     </style>
 
     <style name="statistics_captions_game_result">
