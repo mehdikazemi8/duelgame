@@ -111,7 +111,7 @@
                             android:paddingRight="3dp"
                             android:text="0"
                             android:textColor="@color/play_game_question_text"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/fontsize.normal" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -178,7 +178,7 @@
                             android:paddingRight="3dp"
                             android:text="0"
                             android:textColor="@color/play_game_question_text"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/fontsize.normal" />
                     </LinearLayout>
 
                     <LinearLayout
