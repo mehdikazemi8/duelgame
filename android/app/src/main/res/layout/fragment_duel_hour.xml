@@ -18,6 +18,7 @@
             android:layout_weight="1"
             android:gravity="center">
             <ImageButton
+                android:id="@+id/info_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/info" />

@@ -10,6 +10,7 @@
         android:id="@+id/textView_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/fontsize.normal"
         android:gravity="center|top" />
 
 

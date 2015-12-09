@@ -329,10 +329,11 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     profileDialog.dismiss();
 
                 profileDialog = new ProfileDialog(getActivity(), selectedFriend);
+                final Friend localSelectedFriend = selectedFriend;
                 profileDialog.setOnRemoveListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
-                        DuelApp.getInstance().sendMessage(new RemoveFriend(selectedFriend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
+                        DuelApp.getInstance().sendMessage(new RemoveFriend(localSelectedFriend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
                         sendFetchRequest();
                     }
                 });

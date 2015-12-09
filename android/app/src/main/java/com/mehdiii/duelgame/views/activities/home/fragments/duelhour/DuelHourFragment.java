@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.DuelHourInfo;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.MutualStats;
 import com.mehdiii.duelgame.models.PVsPStatRequest;
@@ -33,6 +34,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import org.w3c.dom.Text;
@@ -51,6 +53,7 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
     TextView yourScoreCaption;
     TextView yourScoreValue;
     ImageButton refreshButton;
+    ImageButton infoButton;
 
     RankingListAdapter adapter;
     Activity activity = null;
@@ -70,11 +73,20 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
         configure();
     }
 
+    private void sendGetInfoRequest() {
+        if(progressDialog != null)
+            progressDialog.show();
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_DUEL_HOUR_INFO));
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.refresh_button:
                 sendFetchRequest();
+                break;
+            case R.id.info_button:
+                sendGetInfoRequest();
                 break;
         }
     }
@@ -82,6 +94,7 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
     private void configure() {
         FontHelper.setKoodakFor(getActivity(), yourScoreCaption, yourScoreValue);
         refreshButton.setOnClickListener(this);
+        infoButton.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.please_wait_message));
@@ -108,6 +121,7 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
         yourScoreCaption = (TextView) view.findViewById(R.id.your_score_caption);
         yourScoreValue = (TextView) view.findViewById(R.id.your_score_value);
         refreshButton = (ImageButton) view.findViewById(R.id.refresh_button);
+        infoButton = (ImageButton) view.findViewById(R.id.info_button);
     }
 
     @Override
@@ -206,6 +220,15 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
                 selectedFriend = null;
                 Log.d("TAG", "xxxx DuelHourFragment show2222");
                 profileDialog.show();
+            } else if(type == CommandType.RECEIVE_DUEL_HOUR_INFO) {
+                if(progressDialog != null)
+                    progressDialog.dismiss();
+
+                Log.d("TAG", "bbbbbbbbb RECEIVE_DUEL_HOUR_INFO");
+
+                DuelHourInfo duelHourInfo = DuelHourInfo.deserialize(json, DuelHourInfo.class);
+                AlertDialog alertDialog = new AlertDialog(getActivity(), duelHourInfo.getMessage());
+                alertDialog.show();
             }
         }
     });
