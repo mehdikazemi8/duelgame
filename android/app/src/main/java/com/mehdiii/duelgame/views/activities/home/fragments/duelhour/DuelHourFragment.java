@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities.home.fragments.duelhour;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,12 +31,13 @@ import org.w3c.dom.Text;
 /**
  * Created by mehdiii on 12/8/15.
  */
-public class DuelHourFragment extends FlippableFragment {
+public class DuelHourFragment extends FlippableFragment implements View.OnClickListener {
 
     ListView listView;
     ProgressBar progressBar;
     TextView yourScoreCaption;
     TextView yourScoreValue;
+    ImageButton refreshButton;
 
     RankingListAdapter adapter;
     Activity activity = null;
@@ -54,8 +57,18 @@ public class DuelHourFragment extends FlippableFragment {
         configure();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.refresh_button:
+                sendFetchRequest();
+                break;
+        }
+    }
+
     private void configure() {
         FontHelper.setKoodakFor(getActivity(), yourScoreCaption, yourScoreValue);
+        refreshButton.setOnClickListener(this);
     }
 
     private void find(View view) {
@@ -63,6 +76,7 @@ public class DuelHourFragment extends FlippableFragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         yourScoreCaption = (TextView) view.findViewById(R.id.your_score_caption);
         yourScoreValue = (TextView) view.findViewById(R.id.your_score_value);
+        refreshButton = (ImageButton) view.findViewById(R.id.refresh_button);
     }
 
     @Override
