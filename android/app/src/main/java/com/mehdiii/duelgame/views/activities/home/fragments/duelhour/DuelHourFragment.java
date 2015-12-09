@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.duelhour;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.media.Image;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -17,14 +19,21 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.Friend;
+import com.mehdiii.duelgame.models.MutualStats;
+import com.mehdiii.duelgame.models.PVsPStatRequest;
+import com.mehdiii.duelgame.models.RemoveFriend;
+import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
+import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +41,10 @@ import org.w3c.dom.Text;
  * Created by mehdiii on 12/8/15.
  */
 public class DuelHourFragment extends FlippableFragment implements View.OnClickListener {
+
+    private ProgressDialog progressDialog;
+    private ProfileDialog profileDialog = null;
+    private Friend selectedFriend;
 
     ListView listView;
     ProgressBar progressBar;
@@ -69,6 +82,24 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
     private void configure() {
         FontHelper.setKoodakFor(getActivity(), yourScoreCaption, yourScoreValue);
         refreshButton.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getString(R.string.please_wait_message));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                progressDialog.show();
+
+                UserForRanklist user = (UserForRanklist)adapterView.getAdapter().getItem(i);
+                selectedFriend = new Friend();
+                selectedFriend.setId(user.getId());
+                selectedFriend.setAvatar(user.getAvatar());
+                selectedFriend.setName(user.getName());
+                selectedFriend.setProvince(user.getProvince());
+                DuelApp.getInstance().sendMessage(new PVsPStatRequest(CommandType.GET_ONE_VS_ONE_RESULTS, selectedFriend.getId()).serialize());
+            }
+        });
     }
 
     private void find(View view) {
@@ -147,6 +178,34 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
                 if (list != null) {
                     bindListViewData(list);
                 }
+            } else if (type == CommandType.RECEIVE_ONE_VS_ONE_RESULTS) {
+                if(!viewAvailable || selectedFriend == null)
+                    return;
+
+                Log.d("TAG", "xxxx DuelHourFragment show");
+
+                if(progressDialog != null)
+                    progressDialog.dismiss();
+
+                MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
+                if(!mutualStats.getOpponentId().equals(selectedFriend.getId()))
+                    return;
+                selectedFriend.setStatistics(mutualStats);
+
+                if(profileDialog != null)
+                    profileDialog.dismiss();
+
+                profileDialog = new ProfileDialog(getActivity(), selectedFriend, false);
+                profileDialog.setOnRemoveListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        DuelApp.getInstance().sendMessage(new RemoveFriend(selectedFriend.getId()).serialize(CommandType.SEND_REMOVE_FRIEND));
+                        sendFetchRequest();
+                    }
+                });
+                selectedFriend = null;
+                Log.d("TAG", "xxxx DuelHourFragment show2222");
+                profileDialog.show();
             }
         }
     });

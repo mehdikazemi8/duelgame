@@ -20,6 +20,8 @@
     <string name="report_problem_confirm">این سوال ایراد علمی یا املایی دارد؟</string>
     <string name="report_problem_thanks">ممنون، به زودی ایراد رو برطرف می کنیم.</string>
 
+    <string name="please_wait_message">لطفا کمی صبر کنید</string>
+
     <string-array name="province_array">
         <item>انتخاب استان</item>
         <item>خارج از ایران</item>

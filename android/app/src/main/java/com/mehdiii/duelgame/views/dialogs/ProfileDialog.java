@@ -44,15 +44,27 @@ public class ProfileDialog extends Dialog {
     TextView noMutualStatistics;
 
     ListView statisticsListView;
+    boolean showDeleteButton;
+
+    public ProfileDialog(Context context, Friend friend, boolean showDeleteButton) {
+        super(context);
+        Log.d("TAG", "ProfileDialog Constructor");
+        this.friend = friend;
+        this.showDeleteButton = showDeleteButton;
+    }
 
     public ProfileDialog(Context context, Friend friend) {
         super(context);
+        Log.d("TAG", "ProfileDialog Constructor");
         this.friend = friend;
+        this.showDeleteButton = true;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("TAG", "ProfileDialog onCreate");
 
         // remove title from top
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -70,12 +82,14 @@ public class ProfileDialog extends Dialog {
     }
 
     private void bindViewData() {
+        Log.d("TAG", "ProfileDialog bindViewData");
         this.avatarImageView.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
         this.textViewName.setText(friend.getName());
         this.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
     }
 
     private void configure() {
+        Log.d("TAG", "ProfileDialog configure");
         FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince,
                 winCaption, loseCaption, drawCaption, courseCaption, noMutualStatistics);
         buttonRemove.setOnClickListener(new View.OnClickListener() {
@@ -110,9 +124,14 @@ public class ProfileDialog extends Dialog {
             captions.setVisibility(View.GONE);
             noMutualStatistics.setVisibility(View.VISIBLE);
         }
+
+        if(!showDeleteButton) {
+            buttonRemove.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void findControls() {
+        Log.d("TAG", "ProfileDialog findControls");
         avatarImageView = (ImageView) findViewById(R.id.imageView_avatar);
         textViewName = (TextView) findViewById(R.id.textView_name);
         textViewProvince = (TextView) findViewById(R.id.textView_province);
@@ -131,6 +150,7 @@ public class ProfileDialog extends Dialog {
     }
 
     public void setOnRemoveListener(OnCompleteListener onRemoveListener) {
+        Log.d("TAG", "ProfileDialog setOnRemoveListener");
         this.onRemoveListener = onRemoveListener;
     }
 }

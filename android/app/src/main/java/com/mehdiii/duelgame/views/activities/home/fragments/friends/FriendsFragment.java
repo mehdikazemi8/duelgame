@@ -312,13 +312,17 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                     bindListViewData(list);
                 }
             } else if (type == CommandType.RECEIVE_ONE_VS_ONE_RESULTS) {
-                if(!viewAvailable)
+                if(!viewAvailable || selectedFriend == null)
                     return;
+
+                Log.d("TAG", "xxxx FriendsFragment show");
 
                 if(progressDialog != null)
                     progressDialog.dismiss();
 
                 MutualStats mutualStats = MutualStats.deserialize(json, MutualStats.class);
+                if(!mutualStats.getOpponentId().equals(selectedFriend.getId()))
+                    return;
                 selectedFriend.setStatistics(mutualStats);
 
                 if(profileDialog != null)
@@ -332,6 +336,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                         sendFetchRequest();
                     }
                 });
+                selectedFriend = null;
+                Log.d("TAG", "xxxx FriendsFragment show2222");
                 profileDialog.show();
             }
         }
