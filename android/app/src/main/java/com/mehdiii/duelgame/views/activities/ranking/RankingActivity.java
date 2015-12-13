@@ -81,4 +81,9 @@ public class RankingActivity extends ParentActivity {
         setFocusInitialState();
         setBackColor();
     }
+
+    @Override
+    public boolean canHandleChallengeRequest() {
+        return true;
+    }
 }
