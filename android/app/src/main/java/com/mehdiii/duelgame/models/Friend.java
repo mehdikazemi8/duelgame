@@ -10,10 +10,20 @@ public class Friend extends User {
     private String status;
     @SerializedName("is_online")
     private boolean isOnline;
+    @SerializedName("is_busy")
+    private boolean isBusy;
     @SerializedName("accepted")
     private boolean accepted;
 
     MutualStats statistics;
+
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void setIsBusy(boolean isBusy) {
+        this.isBusy = isBusy;
+    }
 
     public MutualStats getStatistics() {
         return statistics;

@@ -147,6 +147,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private void bindListViewData(FriendList list) {
         if (activity == null)
             return;
+
+        /*
         Collections.sort(list.getFriends(), new Comparator<Friend>() {
             @Override
             public int compare(Friend x, Friend y) {
@@ -186,7 +188,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 }
                 return x.getId().compareTo(y.getId());
             }
-        });
+        }); */
+
         adapter = new FriendsListAdapter(this.activity, R.layout.template_friends_list, list.getFriends());
         adapter.setOnUserDecisionIsMade(onUserDecisionIsMadeListener);
         this.listView.setAdapter(adapter);

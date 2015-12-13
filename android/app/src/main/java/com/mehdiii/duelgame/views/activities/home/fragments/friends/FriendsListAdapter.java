@@ -155,7 +155,9 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.textViewStatus.setVisibility(View.GONE);
         holder.duelButton.setVisibility(View.GONE);
 
-        if (friend.isOnline()) {
+        if(friend.isBusy()) {
+            holder.onlineImageView.setImageResource(R.drawable.circle_busy);
+        } else if (friend.isOnline()) {
             holder.onlineImageView.setImageResource(R.drawable.circle_online);
         } else {
             holder.onlineImageView.setImageResource(R.drawable.circle_offline);
