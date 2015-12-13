@@ -66,6 +66,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
     @Override
     public void onPause() {
         super.onPause();
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).unregisterReceiver(broadcastReceiver);
     }
 
     @Override

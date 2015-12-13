@@ -103,6 +103,8 @@ public class DuelApp extends Application {
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         i.putExtra(DuelBroadcastReceiver.BUNDLE_JSON_KEY, json);
 
+        Log.d("TAG", "dispatchMessage");
+
         // use `local broadcast manager` instead of `global broadcast manager` to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }

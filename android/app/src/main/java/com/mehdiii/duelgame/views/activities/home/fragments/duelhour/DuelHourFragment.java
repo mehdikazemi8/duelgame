@@ -142,6 +142,8 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
     public void onPause() {
         super.onPause();
         viewAvailable = false;
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -179,6 +181,9 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
+
+            Log.d("TAG", "DuelHourFragment onReceive");
+
             if (type == CommandType.RECEIVE_DUEL_HOUR_RANKING) {
                 if(!viewAvailable)
                     return;

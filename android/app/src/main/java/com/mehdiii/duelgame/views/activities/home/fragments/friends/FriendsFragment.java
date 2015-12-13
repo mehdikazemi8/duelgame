@@ -124,6 +124,8 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     public void onPause() {
         super.onPause();
         viewAvailable = false;
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).unregisterReceiver(broadcastReceiver);
     }
 
     private void bindViewData() {

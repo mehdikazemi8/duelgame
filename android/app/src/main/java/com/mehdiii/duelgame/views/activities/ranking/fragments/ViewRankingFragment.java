@@ -91,6 +91,13 @@ public class ViewRankingFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (this.activity != null)
+            LocalBroadcastManager.getInstance(this.activity).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
