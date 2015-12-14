@@ -105,7 +105,6 @@ public class GameResultActivity extends ParentActivity {
     TextView winCaption, loseCaption, drawCaption;
 
     private Button gameResultDuelOthers;
-    private Button gameResultAddFriend;
     private Button gameResultReport;
     private Button gameResultHome;
 
@@ -377,7 +376,7 @@ public class GameResultActivity extends ParentActivity {
                 gameResultT5, gameResultT6, gameResultT7, gameResultT8,
                 gameResultPositivePoints, gameResultWinBonus, gameResultPointFactor,
                 gameResultDiamondCnt, gameResultLevelText, gameResultTotalExperience,
-                gameResultAddFriend, gameResultDuelOthers, gameResultReport, gameResultHome,
+                gameResultDuelOthers, gameResultReport, gameResultHome,
                 winCounter, loseCounter, drawCounter,
                 winCaption, loseCaption, drawCaption);
 
@@ -471,7 +470,6 @@ public class GameResultActivity extends ParentActivity {
         gameResultLevelText = (TextView) findViewById(R.id.game_result_level_text);
         gameResultDiamondCnt = (TextView) findViewById(R.id.game_result_diamond_cnt);
         gameResultDiamondPicture = (ImageView) findViewById(R.id.game_result_diamond_picture);
-        gameResultAddFriend = (Button) findViewById(R.id.game_result_add_friend);
         gameResultHome = (Button) findViewById(R.id.game_result_home);
         gameResultDuelOthers = (Button) findViewById(R.id.game_result_duel_others);
         gameResultReport = (Button) findViewById(R.id.game_result_report);
