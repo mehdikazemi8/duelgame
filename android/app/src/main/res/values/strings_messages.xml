@@ -14,7 +14,7 @@
     <string name="message_connection_lost">ارتباط با سرور قطع شد. برای اتصال دوباره روی دکمه زیر را بزنید!</string>
     <string name="message_internet_is_not_available">انگار به اینترنت متصل نیستید. لطفا بعد از اینکه وصل شدید دکمه زیر را بزنید.</string>
     <string name="message_connecting_to_server">"در حال اتصال به سرور.."</string>
-    <string name="message_hearts_fully_refilled">قبلهایتان دوباره پر شدند!</string>
+    <string name="message_hearts_fully_refilled">قلب هایتان دوباره پر شده اند.</string>
     <string name="message_revisit_duel_konkoor">بزن بریم واسه یه دوئل!</string>
     <string name="message_duel_with_friends_default">میای باهم دوئل کنیم؟</string>
     <string name="messege_duel_request_denied">ایشون الان نمی خواد باهات دوئل کنه!</string>

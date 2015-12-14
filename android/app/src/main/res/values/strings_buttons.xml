@@ -24,6 +24,6 @@
     <string name="button_rate">امتیاز دادن به دوئل کنکور</string>
     <string name="button_not_now">نه، مرسی</string>
     <string name="button_remove">حذف دوست</string>
-    <string name="button_leave">دوسستون نیومد. میخواین خارج شین؟</string>
+    <string name="button_leave">دوستتون نیمد! می خواید خارج بشید؟</string>
     <string name="button_close">بستن</string>
 </resources>
