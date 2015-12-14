@@ -49,6 +49,10 @@ public class StoreFragment extends FlippableFragment implements View.OnClickList
         boolean newLine = true;
         LinearLayout linearLayout = null;
         int parity = 0;
+
+        if(AuthManager.getCurrentUser() == null)
+            return;
+
         List<PurchaseItem> purchaseItems = AuthManager.getCurrentUser().getPurchaseItems();
         int counter = 1;
 //        PurchaseItem item : AuthManager.getCurrentUser().getPurchaseItems()

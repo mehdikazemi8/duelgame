@@ -26147,6 +26147,7 @@ com.mehdiii.duelgame.R$color: int purple_dark_2
 com.mehdiii.duelgame.R$color: int purple_light
 com.mehdiii.duelgame.R$color: int purple_sexy
 com.mehdiii.duelgame.R$color: int red
+com.mehdiii.duelgame.R$color: int red_light
 com.mehdiii.duelgame.R$color: int ripple_material_dark
 com.mehdiii.duelgame.R$color: int ripple_material_light
 com.mehdiii.duelgame.R$color: int secondary_text_default_material_dark
@@ -26392,6 +26393,7 @@ com.mehdiii.duelgame.R$drawable: int buy_button_enabled
 com.mehdiii.duelgame.R$drawable: int buy_button_focused
 com.mehdiii.duelgame.R$drawable: int buy_button_invert
 com.mehdiii.duelgame.R$drawable: int buy_button_pressed
+com.mehdiii.duelgame.R$drawable: int circle_busy
 com.mehdiii.duelgame.R$drawable: int circle_offline
 com.mehdiii.duelgame.R$drawable: int circle_online
 com.mehdiii.duelgame.R$drawable: int clock
@@ -28090,6 +28092,8 @@ com.mehdiii.duelgame.models.FlashcardPurchase: int getPurchaseId()
 com.mehdiii.duelgame.models.FlashcardPurchase: void setPurchaseId(int)
 com.mehdiii.duelgame.models.Friend
 com.mehdiii.duelgame.models.Friend: Friend()
+com.mehdiii.duelgame.models.Friend: boolean isBusy()
+com.mehdiii.duelgame.models.Friend: void setIsBusy(boolean)
 com.mehdiii.duelgame.models.Friend: com.mehdiii.duelgame.models.MutualStats getStatistics()
 com.mehdiii.duelgame.models.Friend: void setStatistics(com.mehdiii.duelgame.models.MutualStats)
 com.mehdiii.duelgame.models.Friend: java.lang.String getStatus()
@@ -28940,11 +28944,13 @@ com.mehdiii.duelgame.views.activities.ranking.RankingActivity: RankingActivity()
 com.mehdiii.duelgame.views.activities.ranking.RankingActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ranking.RankingActivity: void findControls()
 com.mehdiii.duelgame.views.activities.ranking.RankingActivity: void configureControls()
+com.mehdiii.duelgame.views.activities.ranking.RankingActivity: boolean canHandleChallengeRequest()
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: ViewRankingFragment()
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onAttach(android.app.Activity)
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onDetach()
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onResume()
+com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onPause()
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onViewCreated(android.view.View,android.os.Bundle)
 com.mehdiii.duelgame.views.activities.ranking.fragments.ViewRankingFragment: void onReload(java.lang.String)
