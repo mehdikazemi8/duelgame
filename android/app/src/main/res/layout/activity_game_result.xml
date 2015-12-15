@@ -498,7 +498,7 @@
                 <Button
                     android:id="@+id/game_result_duel_others"
                     style="@style/button_game_result_footer"
-                    android:onClick="wannaPlay"
+                    android:onClick="wannaChallenge"
                     android:text="@string/caption_duel_again" />
 
                 <Button

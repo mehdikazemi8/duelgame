@@ -11,7 +11,7 @@
     <string name="caption_send_report_title">[ارتباط با سازندگان]</string>
     <string name="caption_online">آنلاین</string>
     <string name="caption_offline">آفلاین</string>
-    <string name="caption_duel_again">دوئل</string>
+    <string name="caption_duel_again">دوئل مجدد با همین رقیب</string>
     <string name="caption_purchase">خرید</string>
     <string name="caption_telegram_channel">کانال تلگرام</string>
 </resources>

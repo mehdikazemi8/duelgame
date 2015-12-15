@@ -33,6 +33,7 @@ import com.mehdiii.duelgame.models.MutualStats;
 import com.mehdiii.duelgame.models.PVsPStatRequest;
 import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.WannaChallenge;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
@@ -516,14 +517,24 @@ public class GameResultActivity extends ParentActivity {
         finish();
     }
 
-    public void wannaPlay(View view) {
-        Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
+    public void wannaChallenge(View view) {
+//        Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
 //        ParentActivity.category = //String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
-        cat.setCategory(ParentActivity.category);
-        DuelApp.getInstance().sendMessage(cat.serialize());
-        startActivity(new Intent(this, WaitingActivity.class));
+//        cat.setCategory(ParentActivity.category);
+//        DuelApp.getInstance().sendMessage(cat.serialize());
+//        startActivity(new Intent(this, WaitingActivity.class));
+//        WannaChallenge challenge = new WannaChallenge(opponentUser.getId(), Integer.valueOf(category), getResources().getString(R.string.message_duel_with_friends_default));
+//        DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
+
+        Intent i = new Intent(this, WaitingActivity.class);
+        i.putExtra("user_number", opponentUser.getId());
+        i.putExtra("category", Integer.valueOf(category));
+        i.putExtra("message", getResources().getString(R.string.message_duel_with_friends_default));
+        i.putExtra("master", true);
+        startActivity(i);
         this.finish();
     }
+
 //    public void duelWithOthers(View v) {
 //        int categoryId;
 //

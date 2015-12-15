@@ -373,7 +373,14 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void onEvent(OnPurchaseResult alert) {
-        if (alert.getStatus().equals("invalid"))
+
+        if(alert == null) {
+            Log.d("TAG", "alert is null");
+        } else if(alert.getStatus() == null) {
+            Log.d("TAG", "alert.getStatus is null");
+        }
+
+        if (alert != null && alert.getStatus() != null && alert.getStatus().equals("invalid"))
             DuelApp.getInstance().toast(R.string.message_invalid_purchase, Toast.LENGTH_LONG);
         else
             scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());

@@ -26620,7 +26620,6 @@ com.mehdiii.duelgame.R$id: int frame_wrapper
 com.mehdiii.duelgame.R$id: int from1
 com.mehdiii.duelgame.R$id: int from2
 com.mehdiii.duelgame.R$id: int from3
-com.mehdiii.duelgame.R$id: int game_result_add_friend
 com.mehdiii.duelgame.R$id: int game_result_alaki_layout
 com.mehdiii.duelgame.R$id: int game_result_diamond_cnt
 com.mehdiii.duelgame.R$id: int game_result_diamond_picture
