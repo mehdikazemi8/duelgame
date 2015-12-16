@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.utils.NotificationHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 
@@ -21,6 +22,8 @@ public class DuelHourStarted extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("TAG", "DuelHourStarted onReceive");
+
+        NotificationHelper.setLEDNotification(context);
 
         Intent openAppIntent = new Intent(context, StartActivity.class);
         openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

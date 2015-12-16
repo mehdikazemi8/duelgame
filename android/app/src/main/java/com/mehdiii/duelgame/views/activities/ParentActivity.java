@@ -78,8 +78,8 @@ public class ParentActivity extends ActionBarActivity {
     private static final int DUEL_HOUR_HOUR = 20;
     private static final int DUEL_HOUR_MINUTE = 0;
     private static final int DUEL_HOUR_SECOND = 0;
-    private static final long DUEL_HOUR_INTERVAL = AlarmManager.INTERVAL_DAY;
-//    private static final long DUEL_HOUR_INTERVAL = 60*1000*5;
+//    private static final long DUEL_HOUR_INTERVAL = AlarmManager.INTERVAL_DAY;
+    private static final long DUEL_HOUR_INTERVAL = 30*1000;
 
     public static void setAlarmForDuelHour(Context context) {
         Intent intent = new Intent(context, DuelHourStarted.class);
