@@ -68,9 +68,7 @@ public class ParentActivity extends ActionBarActivity {
         }
     });
 
-    protected void cancelDuelHourNotification() {
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(DUEL_HOUR_NOTIFICATION_ID);
-    }
+
 
     public static final int DUEL_HOUR_NOTIFICATION_ID = 1708;
     public static final int DUEL_HOUR_ALARM_ID = 1709;
@@ -78,8 +76,26 @@ public class ParentActivity extends ActionBarActivity {
     private static final int DUEL_HOUR_HOUR = 20;
     private static final int DUEL_HOUR_MINUTE = 0;
     private static final int DUEL_HOUR_SECOND = 0;
-//    private static final long DUEL_HOUR_INTERVAL = AlarmManager.INTERVAL_DAY;
-    private static final long DUEL_HOUR_INTERVAL = 30*1000;
+    private static final long DUEL_HOUR_INTERVAL = AlarmManager.INTERVAL_DAY;
+//    private static final long DUEL_HOUR_INTERVAL = 30*1000;
+
+    protected void cancelDuelHourNotification() {
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(DUEL_HOUR_NOTIFICATION_ID);
+    }
+
+    public static boolean isItNearDuelHour() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        long now = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.HOUR_OF_DAY, DUEL_HOUR_HOUR);
+        calendar.set(Calendar.MINUTE, DUEL_HOUR_MINUTE);
+        calendar.set(Calendar.SECOND, DUEL_HOUR_SECOND);
+        long duelHour = calendar.getTimeInMillis();
+
+        return Math.abs(now - duelHour) < 1000*60*2;
+    }
 
     public static void setAlarmForDuelHour(Context context) {
         Intent intent = new Intent(context, DuelHourStarted.class);
@@ -95,6 +111,8 @@ public class ParentActivity extends ActionBarActivity {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 DUEL_HOUR_INTERVAL, pendingIntent);
     }
+
+
 
     protected static Random rand = new Random();
     public static String category;
