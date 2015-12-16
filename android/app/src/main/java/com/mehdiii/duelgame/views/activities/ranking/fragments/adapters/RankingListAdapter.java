@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,10 +26,12 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
 
     List<UserForRanklist> users;
     private LayoutInflater layoutInflater;
+    Context context;
 
     public RankingListAdapter(Context context, int resource, List<UserForRanklist> users) {
         super(context, resource);
         this.users = users;
+        this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -67,6 +70,8 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
             viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.ranking_user_title);
             viewHolder.textViewScore = (TextView) convertView.findViewById(R.id.ranking_user_score);
             viewHolder.textViewUserPosition = (TextView) convertView.findViewById(R.id.ranking_user_position);
+            viewHolder.cupPositionHolder = (FrameLayout) convertView.findViewById(R.id.cup_position_holder);
+            viewHolder.imageViewCup = (ImageView) convertView.findViewById(R.id.ranking_cup);
 
             convertView.setTag(viewHolder);
         }
@@ -109,10 +114,27 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         int containerBackgroundColor = getContainerBackgroundColor(position);
         holder.container.setBackgroundColor(containerBackgroundColor);
 
-        if(user.getId().equals(AuthManager.getCurrentUser().getId())) {
-            holder.textViewUserPosition.setBackgroundColor(getContext().getResources().getColor(R.color.green));
+        // setting cup for the first 12 persons in rank
+        if(isGold(position)) {
+            holder.imageViewCup.setVisibility(View.VISIBLE);
+            holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_gold));
+        } else if(isSilver(position)) {
+            holder.imageViewCup.setVisibility(View.VISIBLE);
+            holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_silver));
+        } else if(isBronze(position)) {
+            holder.imageViewCup.setVisibility(View.VISIBLE);
+            holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_bronze));
         } else {
-            holder.textViewUserPosition.setBackgroundColor(containerBackgroundColor);
+            holder.imageViewCup.setVisibility(View.INVISIBLE);
+        }
+
+        if(user.getId().equals(AuthManager.getCurrentUser().getId())) {
+            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.green));
+//            holder.textViewUserPosition.setBackgroundColor(getContext().getResources().getColor(R.color.green));
+        } else {
+            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+//            holder.textViewUserPosition.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+            // holder.textViewUserPosition.setBackgroundColor(containerBackgroundColor);
         }
 
         FontHelper.setKoodakFor(getContext(), holder.textViewName, holder.textViewProvince, holder.textViewTitle, holder.textViewScore, holder.textViewUserPosition);
@@ -120,11 +142,13 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
 
     protected class ViewHolder {
         private LinearLayout container;
+        private FrameLayout cupPositionHolder;
         private ImageView imageViewAvatar;
         private TextView textViewName;
         private TextView textViewProvince;
         private TextView textViewTitle;
         private TextView textViewScore;
         private TextView textViewUserPosition;
+        private ImageView imageViewCup;
     }
 }

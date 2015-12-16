@@ -64,11 +64,27 @@
             android:padding="5dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ranking_user_position"
+    <FrameLayout
+        android:id="@+id/cup_position_holder"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="match_parent" />
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp">
+
+        <TextView
+            android:id="@+id/ranking_user_position"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/ranking_cup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:src="@drawable/cup_gold" />
+
+    </FrameLayout>
 
 </LinearLayout>
