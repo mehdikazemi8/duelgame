@@ -1,7 +1,11 @@
 package com.mehdiii.duelgame.views.activities;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -20,6 +24,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
+import com.mehdiii.duelgame.receivers.DuelHourStarted;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -29,6 +34,7 @@ import com.mehdiii.duelgame.views.dialogs.AnswerDuelWithFriendRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -61,6 +67,34 @@ public class ParentActivity extends ActionBarActivity {
             }
         }
     });
+
+    protected void cancelDuelHourNotification() {
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(DUEL_HOUR_NOTIFICATION_ID);
+    }
+
+    public static final int DUEL_HOUR_NOTIFICATION_ID = 1708;
+    public static final int DUEL_HOUR_ALARM_ID = 1709;
+
+    private static final int DUEL_HOUR_HOUR = 20;
+    private static final int DUEL_HOUR_MINUTE = 0;
+    private static final int DUEL_HOUR_SECOND = 0;
+    private static final long DUEL_HOUR_INTERVAL = AlarmManager.INTERVAL_DAY;
+//    private static final long DUEL_HOUR_INTERVAL = 60*1000*5;
+
+    public static void setAlarmForDuelHour(Context context) {
+        Intent intent = new Intent(context, DuelHourStarted.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, DUEL_HOUR_HOUR);
+        calendar.set(Calendar.MINUTE, DUEL_HOUR_MINUTE);
+        calendar.set(Calendar.SECOND, DUEL_HOUR_SECOND);
+
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                DUEL_HOUR_INTERVAL, pendingIntent);
+    }
 
     protected static Random rand = new Random();
     public static String category;
@@ -97,6 +131,7 @@ public class ParentActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        DuelApp.getInstance().onActivityResumed(this);
         EventBus.getDefault().register(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
     }
@@ -104,6 +139,7 @@ public class ParentActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        DuelApp.getInstance().onActivityPaused(this);
         EventBus.getDefault().unregister(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
@@ -118,12 +154,15 @@ public class ParentActivity extends ActionBarActivity {
         }
 
         if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED) {
+            Log.d("TAG", "onEvent disconnected");
             ConnectionLostDialog dialog = new ConnectionLostDialog(this);
             dialog.setCancelable(false);
             dialog.show();
         } else if (status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {
+            Log.d("TAG", "onEvent connected");
             DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
         } else if (status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTING) {
+            Log.d("TAG", "onEvent connecting");
             if (showConnectingToServerDialog()) {
                 dialog = new ProgressDialog(this);
                 dialog.setMessage(getResources().getString(R.string.message_connecting_to_server));
@@ -152,4 +191,6 @@ public class ParentActivity extends ActionBarActivity {
     public OnCompleteListener onDecisionMadeListener() {
         return null;
     }
+
+
 }

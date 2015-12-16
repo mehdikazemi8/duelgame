@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +23,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.splunk.mint.Mint;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,15 +35,15 @@ import de.tavendo.autobahn.WebSocketHandler;
 /**
  * Created by omid on 4/12/2015.
  */
-public class DuelApp extends Application {
+public class DuelApp extends Application implements Application.ActivityLifecycleCallbacks {
     public static final String PROPERTY_ID = "UA-62041991-1";
     public static final String TAG = "DUEL_APP";
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-//    static protected String wsuri = "ws://duelgame.ir:9003";
-    static protected String wsuri = "ws://192.168.177.153:9000";
+    static protected String wsuri = "ws://duelgame.ir:9003";
+//    static protected String wsuri = "ws://192.168.177.153:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
@@ -49,6 +52,8 @@ public class DuelApp extends Application {
         super.onCreate();
         instance = this;
         Mint.initAndStartSession(this, "fe0c054c");
+
+        resumedActivities = 0;
 
         initGA();
         if (!wsc.isConnected())
@@ -258,4 +263,51 @@ public class DuelApp extends Application {
                 Context.MODE_PRIVATE);
     }
 
+
+    /**
+     * Implementing ActivityLifecycleCallbacks
+     */
+
+    private int resumedActivities;
+
+    public int getResumedActivities() {
+        return resumedActivities;
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        Log.d("TAG", "ActivityLifecycle onActivityStarted");
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        Log.d("TAG", "ActivityLifecycle onActivityStopped");
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+        Log.d("TAG", "ActivityLifecycle onActivitySaveInstanceState");
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        Log.d("TAG", "ActivityLifecycle onActivityDestroyed");
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        resumedActivities --;
+        Log.d("TAG", "ActivityLifecycle onActivityPaused " + getResumedActivities() + " " + Calendar.getInstance().getTime().toString());
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        resumedActivities ++;
+        Log.d("TAG", "ActivityLifecycle onActivityResumed " + getResumedActivities() + " " + Calendar.getInstance().getTime().toString());
+    }
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle bundle) {
+        Log.d("TAG", "ActivityLifecycle onActivityCreated");
+    }
 }

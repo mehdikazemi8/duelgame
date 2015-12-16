@@ -1,5 +1,8 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,6 +26,8 @@ import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.SendGcmCode;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
+import com.mehdiii.duelgame.receivers.DuelHourStarted;
+import com.mehdiii.duelgame.receivers.HeartFullyRecovered;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -32,12 +37,14 @@ import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.onlineusers.OnlineUsersFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
+import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends ParentActivity {
@@ -86,6 +93,9 @@ public class HomeActivity extends ParentActivity {
 
         context = getApplicationContext();
 
+        setAlarmForDuelHour(this);
+        cancelDuelHourNotification();
+
         find();
         configure();
 
@@ -114,11 +124,6 @@ public class HomeActivity extends ParentActivity {
             DuelApp.getInstance().connectToWs();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
 
     public static void registerInBackground() {
         registerInBackground(null);
@@ -366,6 +371,7 @@ public class HomeActivity extends ParentActivity {
                 break;
         }
     }
+
 
 
     public void onEvent(ChangePage change) {

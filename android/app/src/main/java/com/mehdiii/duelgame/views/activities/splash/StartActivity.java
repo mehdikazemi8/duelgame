@@ -1,12 +1,15 @@
 package com.mehdiii.duelgame.views.activities.splash;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -71,6 +74,12 @@ public class StartActivity extends ParentActivity {
         }
     });
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
+    }
+
     public void createShortCut() {
         Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         shortcutintent.putExtra("duplicate", false);
@@ -102,6 +111,10 @@ public class StartActivity extends ParentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        Log.d("TAG", "onEvent onCreate");
+
+        cancelDuelHourNotification();
 
 //        try {
 //            PurchaseManager.getInstance().consumePurchase();

@@ -41,6 +41,10 @@
             android:enabled="true" />
 
         <receiver
+            android:name=".receivers.DuelHourStarted"
+            android:enabled="true" />
+
+        <receiver
             android:name=".receivers.OnBootCompletedReceiver"
             android:enabled="true">
             <intent-filter>
