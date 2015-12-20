@@ -22,6 +22,12 @@ public class FontHelper {
         return koodak;
     }
 
+    public static Typeface getDefaultTypeface(Context context) {
+        if (koodak == null)
+            koodak = Typeface.createFromAsset(context.getAssets(), FONT_APP_NAME);
+        return koodak;
+    }
+
     public static void setKoodakFor(Context context, TextView... views) {
         Typeface koodak = getKoodak(context);
         for (TextView view : views) {

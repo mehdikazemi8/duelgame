@@ -6,22 +6,18 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ListView;
 
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.WannaChallenge;
 import com.mehdiii.duelgame.utils.FontHelper;
 
-/**
- * Created by Omid on 5/23/2015.
- */
 public class DuelFriendDialog extends Dialog {
-    Button okayButton;
     EditText messageEditText;
-    Spinner categorySpinner;
+    ListView courses;
 
     public interface OnResult {
         void getChallenge(WannaChallenge wannaChallenge);
@@ -54,23 +50,17 @@ public class DuelFriendDialog extends Dialog {
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getContext(), okayButton, messageEditText);
-        okayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String[] categoryKeys = getContext().getResources().getStringArray(R.array.categories_keys);
-                int selectedCat = categorySpinner.getSelectedItemPosition();
-                int categoryId = -1;
-                try {
-                    categoryId = Integer.parseInt(categoryKeys[selectedCat]);
-                } catch (NumberFormatException ex) {
-                    ex.printStackTrace();
-                }
+        FontHelper.setKoodakFor(getContext(), messageEditText);
 
-                // if category is not selected display an error
-                // TODO
-                if (categoryId == -1)
-                    return;
+        // setting list view that shows courses
+        String[] coursesNames = getContext().getResources().getStringArray(R.array.categories_values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.template_course_challenge_dialog, R.id.course_name, coursesNames);
+        courses.setAdapter(adapter);
+        courses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] categories = getContext().getResources().getStringArray(R.array.categories_keys);
+                int categoryId = Integer.parseInt(categories[i]);
                 String message = messageEditText.getText().toString().trim();
                 if (onResult != null) {
                     onResult.getChallenge(new WannaChallenge(null, categoryId, message));
@@ -80,8 +70,7 @@ public class DuelFriendDialog extends Dialog {
     }
 
     private void findControls() {
-        categorySpinner = (Spinner) findViewById(R.id.spinner_category);
         messageEditText = (EditText) findViewById(R.id.editText_message);
-        okayButton = (Button) findViewById(R.id.button_okay);
+        courses = (ListView) findViewById(R.id.courses_list);
     }
 }
