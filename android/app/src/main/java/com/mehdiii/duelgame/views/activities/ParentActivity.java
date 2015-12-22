@@ -165,8 +165,10 @@ public class ParentActivity extends ActionBarActivity {
     ProgressDialog dialog;
 
     public void onEvent(OnConnectionStateChanged status) {
+
         if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED ||
                 status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {
+
             if (dialog != null)
                 dialog.dismiss();
         }

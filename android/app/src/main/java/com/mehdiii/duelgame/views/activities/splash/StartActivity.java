@@ -18,16 +18,19 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.receivers.PokeDuelReceiver;
+import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -127,6 +130,10 @@ public class StartActivity extends ParentActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
 
+        // TODO: just works, doesn't make sense !!!
+        if(DuelApp.getInstance().isConnected())
+            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
+
         if (AuthManager.isLoggedin()) {
             loginOrRegisterUser(AuthManager.getCurrentUser());
         }
@@ -160,6 +167,11 @@ public class StartActivity extends ParentActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 addAnimations(image);
+
+//                if (AuthManager.isLoggedin()) {
+//                    loginOrRegisterUser(AuthManager.getCurrentUser());
+//                }
+
             }
 
             @Override
