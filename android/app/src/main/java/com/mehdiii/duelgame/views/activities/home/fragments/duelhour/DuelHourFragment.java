@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.MutualStats;
 import com.mehdiii.duelgame.models.PVsPStatRequest;
 import com.mehdiii.duelgame.models.RemoveFriend;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -32,12 +33,15 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 /**
  * Created by mehdiii on 12/8/15.
@@ -102,6 +106,8 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if( ((UserForRanklist)adapterView.getAdapter().getItem(i)).getCup() == ParentActivity.SEPARATOR_CUP)
                 progressDialog.show();
 
                 UserForRanklist user = (UserForRanklist)adapterView.getAdapter().getItem(i);
@@ -164,7 +170,15 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
 
         yourScoreValue.setText(String.valueOf(list.getScore()));
 
-        adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, list.getTop());
+        List <UserForRanklist> all = list.getTop();
+        if(list.getTop().size() != 0) {
+            UserForRanklist separator = new UserForRanklist(0, ParentActivity.SEPARATOR_CUP);
+            all.add(separator);
+            for(UserForRanklist user : list.getNear())
+                all.add(user);
+        }
+
+        adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, all);
         this.listView.setAdapter(adapter);
     }
 

@@ -18,6 +18,7 @@ import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -59,10 +60,13 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Log.d("TAG", "" + position);
 
-        if (convertView == null) {
+        if(users.get(position).getCup() == ParentActivity.SEPARATOR_CUP) {
+            convertView = layoutInflater.inflate(R.layout.template_separator, null);
+            return convertView;
+        } else {
             convertView = layoutInflater.inflate(R.layout.template_ranklist, null);
-            ViewHolder viewHolder = new ViewHolder();
 
+            ViewHolder viewHolder = new ViewHolder();
             viewHolder.container = (LinearLayout) convertView.findViewById(R.id.container_wrapper);
             viewHolder.imageViewAvatar = (ImageView) convertView.findViewById(R.id.ranking_user_avatar);
             viewHolder.textViewName = (TextView) convertView.findViewById(R.id.ranking_user_name);
@@ -75,19 +79,16 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
 
             convertView.setTag(viewHolder);
         }
+
         initializeViews(position, getItem(position), (ViewHolder) convertView.getTag());
         return convertView;
     }
 
-    int getContainerBackgroundColor(int cup) {
-        if(cup == 0)
-            return getContext().getResources().getColor(R.color.gold);
-        else if(cup == 1)
-            return getContext().getResources().getColor(R.color.silver);
-        else if(cup == 2)
-            return getContext().getResources().getColor(R.color.bronze);
+    int getContainerBackgroundColor(String userId) {
+        if(userId.equals(AuthManager.getCurrentUser().getId()))
+            return getContext().getResources().getColor(R.color.green_light);
         else
-            return getContext().getResources().getColor(R.color.white);
+            return getContext().getResources().getColor(R.color.background_1);
     }
 
     private void initializeViews(final int position, final UserForRanklist user, ViewHolder holder) {
@@ -96,10 +97,10 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         holder.textViewScore.setText(""+user.getScore());
         holder.textViewUserPosition.setText("" + user.getRank());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), user.getProvince()));
-        holder.textViewName.setText(user.getName() + " # " + user.getCup() + " ### " + user.getRank());
+        holder.textViewName.setText(user.getName());
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), user.getAvatar()));
 
-        int containerBackgroundColor = getContainerBackgroundColor(users.get(position).getCup());
+        int containerBackgroundColor = getContainerBackgroundColor(users.get(position).getId());
         holder.container.setBackgroundColor(containerBackgroundColor);
 
         // setting cup for the first 12 persons in rank
@@ -117,10 +118,10 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         }
 
         if(user.getId().equals(AuthManager.getCurrentUser().getId())) {
-            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.green));
+//            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.green));
 //            holder.textViewUserPosition.setBackgroundColor(getContext().getResources().getColor(R.color.green));
         } else {
-            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+//            holder.cupPositionHolder.setBackgroundColor(getContext().getResources().getColor(R.color.white));
 //            holder.textViewUserPosition.setBackgroundColor(getContext().getResources().getColor(R.color.white));
             // holder.textViewUserPosition.setBackgroundColor(containerBackgroundColor);
         }

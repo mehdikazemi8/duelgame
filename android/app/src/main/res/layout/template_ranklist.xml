@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:padding="5dp" />
+            android:padding="15dp" />
     </LinearLayout>
 
     <FrameLayout
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:src="@drawable/cup_gold" />
+            android:padding="8dp" />
 
     </FrameLayout>
 

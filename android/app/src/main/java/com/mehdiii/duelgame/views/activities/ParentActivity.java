@@ -69,6 +69,7 @@ public class ParentActivity extends ActionBarActivity {
     });
 
 
+    public static int SEPARATOR_CUP = 404;
 
     public static final int DUEL_HOUR_NOTIFICATION_ID = 1708;
     public static final int DUEL_HOUR_ALARM_ID = 1709;
