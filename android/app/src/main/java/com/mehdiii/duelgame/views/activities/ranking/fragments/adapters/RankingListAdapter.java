@@ -106,7 +106,7 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), user.getAvatar())).into(holder.imageViewAvatar);
         holder.textViewTitle.setText(ScoreHelper.getTitle(user.getScore()));
         holder.textViewScore.setText(""+user.getScore());
-        holder.textViewUserPosition.setText("" + user.getPlaceInRank());
+        holder.textViewUserPosition.setText("" + user.getRank());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), user.getProvince()));
         holder.textViewName.setText(user.getName());
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), user.getAvatar()));

@@ -48,8 +48,6 @@ public class User extends BaseModel {
     private int gender;
     @SerializedName("update_version")
     private UpdateVersion updateVersion;
-    @SerializedName("rank")
-    private Rank rank;
     @SerializedName("time_to_next_heart")
     private int timeToNextHeart;
     @SerializedName("scores")
@@ -88,14 +86,6 @@ public class User extends BaseModel {
 
     public void setTimeToNextHeart(int timeToNextHeart) {
         this.timeToNextHeart = timeToNextHeart;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
-    }
-
-    public Rank getRank() {
-        return rank;
     }
 
     public UpdateVersion getUpdateVersion() {

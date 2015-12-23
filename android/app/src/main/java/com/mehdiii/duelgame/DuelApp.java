@@ -42,8 +42,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://duelgame.ir:9003";
-//    static protected String wsuri = "ws://192.168.177.153:9000";
+//    static protected String wsuri = "ws://duelgame.ir:9003";
+    static protected String wsuri = "ws://192.168.177.153:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
@@ -120,6 +120,14 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
     public void sendMessage(String json) {
         Log.d("sentit", json);
+        if(wsc == null) {
+            Log.e("sentit", "wsc is null");
+            return;
+        }
+        if(!wsc.isConnected()) {
+            Log.e("sentit", "wsc is not connected");
+            return;
+        }
         wsc.sendTextMessage(json);
     }
 

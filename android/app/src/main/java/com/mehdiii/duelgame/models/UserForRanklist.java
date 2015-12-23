@@ -1,20 +1,34 @@
 package com.mehdiii.duelgame.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by MeHdi on 5/12/2015.
  */
 public class UserForRanklist extends User {
-    private int placeInRank;
+    @SerializedName("rank")
+    private int rank;
+    @SerializedName("cup")
+    private int cup;
 
-    public UserForRanklist(int placeInRank) {
-        this.placeInRank = placeInRank;
+    public UserForRanklist(int rank, int cup) {
+        this.rank = rank;
+        this.cup = cup;
     }
 
-    public int getPlaceInRank() {
-        return placeInRank;
+    public int getCup() {
+        return cup;
     }
 
-    public void setPlaceInRank(int placeInRank) {
-        this.placeInRank = placeInRank;
+    public void setCup(int cup) {
+        this.cup = cup;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }
