@@ -26,6 +26,8 @@ import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.dialogs.DuelDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import de.greenrobot.event.EventBus;
@@ -198,7 +200,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             return;
         }
 
-        getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
+        DuelDialog duelFriendDialog = new DuelDialog(getActivity());
+        duelFriendDialog.show();
+
+//        getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
 
     private void refillHeart() {

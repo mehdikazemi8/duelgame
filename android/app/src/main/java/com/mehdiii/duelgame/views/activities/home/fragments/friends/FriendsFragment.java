@@ -233,7 +233,6 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
 //                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
 //                    dialog.show();
 
-
 //                    challenge.setUserNumber(request.getId());
 //                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
 //
