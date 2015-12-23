@@ -79,24 +79,12 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         return convertView;
     }
 
-    private boolean isGold(int p) {
-        return 0 <= p && p < 4;
-    }
-
-    private boolean isSilver(int p) {
-        return 4 <= p && p < 8;
-    }
-
-    private boolean isBronze(int p) {
-        return 8 <= p && p < 12;
-    }
-
-    int getContainerBackgroundColor(int p) {
-        if(isGold(p))
+    int getContainerBackgroundColor(int cup) {
+        if(cup == 0)
             return getContext().getResources().getColor(R.color.gold);
-        else if(isSilver(p))
+        else if(cup == 1)
             return getContext().getResources().getColor(R.color.silver);
-        else if(isBronze(p))
+        else if(cup == 2)
             return getContext().getResources().getColor(R.color.bronze);
         else
             return getContext().getResources().getColor(R.color.white);
@@ -108,20 +96,20 @@ public class RankingListAdapter extends ArrayAdapter<UserForRanklist> {
         holder.textViewScore.setText(""+user.getScore());
         holder.textViewUserPosition.setText("" + user.getRank());
         holder.textViewProvince.setText(ProvinceManager.get(getContext(), user.getProvince()));
-        holder.textViewName.setText(user.getName());
+        holder.textViewName.setText(user.getName() + " # " + user.getCup() + " ### " + user.getRank());
         holder.imageViewAvatar.setImageResource(AvatarHelper.getResourceId(getContext(), user.getAvatar()));
 
-        int containerBackgroundColor = getContainerBackgroundColor(position);
+        int containerBackgroundColor = getContainerBackgroundColor(users.get(position).getCup());
         holder.container.setBackgroundColor(containerBackgroundColor);
 
         // setting cup for the first 12 persons in rank
-        if(isGold(position)) {
+        if(users.get(position).getCup() == 0) {
             holder.imageViewCup.setVisibility(View.VISIBLE);
             holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_gold));
-        } else if(isSilver(position)) {
+        } else if(users.get(position).getCup() == 1) {
             holder.imageViewCup.setVisibility(View.VISIBLE);
             holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_silver));
-        } else if(isBronze(position)) {
+        } else if(users.get(position).getCup() == 2) {
             holder.imageViewCup.setVisibility(View.VISIBLE);
             holder.imageViewCup.setImageDrawable(context.getResources().getDrawable(R.drawable.cup_bronze));
         } else {
