@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,6 +26,7 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.DrawerItem;
 import com.mehdiii.duelgame.models.SendGcmCode;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
@@ -53,8 +57,11 @@ public class HomeActivity extends ParentActivity {
     ViewPager viewPager;
     ViewPagerAdapter adapter;
 
-    ToggleButton storeButton;
-    //    ToggleButton rankingButton;
+    private DrawerLayout drawerLayout;
+    ListView drawerListView;
+
+//    ToggleButton storeButton;
+//    ToggleButton rankingButton;
     ToggleButton onlineUsersButton;
     ToggleButton duelHourButton;
     ToggleButton settingsButton;
@@ -193,8 +200,10 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void find() {
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        this.drawerListView = (ListView) findViewById(R.id.right_drawer);
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
-        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
+//        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
 //        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
         this.settingsButton = (ToggleButton) findViewById(R.id.button_settings);
         this.homeButton = (ToggleButton) findViewById(R.id.button_home);
@@ -211,7 +220,7 @@ public class HomeActivity extends ParentActivity {
         if (previous == null)
             previous = this.homeButton.toggle();
 
-        this.storeButton.setOnClickListener(pageSelectorClickListener);
+//        this.storeButton.setOnClickListener(pageSelectorClickListener);
         this.friendsButton.setOnClickListener(pageSelectorClickListener);
         this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
         this.duelHourButton.setOnClickListener(pageSelectorClickListener);
@@ -222,14 +231,31 @@ public class HomeActivity extends ParentActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
         viewPager.setAdapter(adapter);
         this.viewPager.setOnPageChangeListener(pageChangeListener);
-        this.viewPager.setCurrentItem(5);
-        viewPager.setOffscreenPageLimit(5);
+        this.viewPager.setCurrentItem(3);
+        viewPager.setOffscreenPageLimit(4);
+
+        // configure drawer
+        List <DrawerItem> drawerItems = new ArrayList<>();
+        final int drawerSize = 3;
+        String[] drawerIconsStr = getResources().getStringArray(R.array.drawer_icons);
+        String[] drawerTitlesStr = getResources().getStringArray(R.array.drawer_titles);
+        for(int idx = 0; idx < drawerSize; idx ++) {
+            drawerItems.add(new DrawerItem(drawerTitlesStr[idx], drawerIconsStr[idx]));
+        }
+        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
+        drawerListView.setAdapter(adapter);
     }
 
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            if(view.getId() == R.id.button_settings) {
+                drawerLayout.openDrawer(Gravity.RIGHT);
+                return;
+            }
+
             if (previous != null)
                 previous.toggle();
             ((ToggleButton) view).toggle();
@@ -237,23 +263,23 @@ public class HomeActivity extends ParentActivity {
 
             switch (view.getId()) {
                 case R.id.button_home:
-                    viewPager.setCurrentItem(5, true);
-                    break;
-                case R.id.button_friends:
-                    viewPager.setCurrentItem(4, true);
-                    break;
-                case R.id.button_duel_hour:
                     viewPager.setCurrentItem(3, true);
                     break;
-                case R.id.button_online_users:
+                case R.id.button_friends:
                     viewPager.setCurrentItem(2, true);
                     break;
-                case R.id.button_store:
+                case R.id.button_duel_hour:
                     viewPager.setCurrentItem(1, true);
                     break;
-                case R.id.button_settings:
+                case R.id.button_online_users:
                     viewPager.setCurrentItem(0, true);
                     break;
+//                case R.id.button_store:
+//                    viewPager.setCurrentItem(1, true);
+//                    break;
+//                case R.id.button_settings:
+//                    viewPager.setCurrentItem(0, true);
+//                    break;
             }
         }
     };
@@ -279,31 +305,31 @@ public class HomeActivity extends ParentActivity {
             });
 
             switch (position) {
-                case 0:
-                    selection = settingsButton;
-                    settingsFragment.onBringToFront();
-                    break;
-                case 1:
-                    selection = storeButton;
-                    storeFragment.onBringToFront();
-                    break;
-//                case 2:
-////                    selection = rankingButton;
-////                    rankingFragment.onBringToFront();
+//                case 0:
+//                    selection = settingsButton;
+//                    settingsFragment.onBringToFront();
 //                    break;
-                case 2:
+//                case 1:
+//                    selection = storeButton;
+//                    storeFragment.onBringToFront();
+//                    break;
+//                case 2:
+//                    selection = rankingButton;
+//                    rankingFragment.onBringToFront();
+//                    break;
+                case 0:
                     selection = onlineUsersButton;
                     onlineUsersFragment.onBringToFront();
                     break;
-                case 3:
+                case 1:
                     selection = duelHourButton;
                     duelHourFragment.onBringToFront();
                     break;
-                case 4:
+                case 2:
                     selection = friendsButton;
                     friendsFragment.onBringToFront();
                     break;
-                case 5:
+                case 3:
                     selection = homeButton;
                     homeFragment.onBringToFront();
                     break;
@@ -331,16 +357,14 @@ public class HomeActivity extends ParentActivity {
         storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
-        childFragments.add(settingsFragment);
-        childFragments.add(storeFragment);
+//        childFragments.add(settingsFragment);
+//        childFragments.add(storeFragment);
 //        childFragments.add(rankingFragment);
         childFragments.add(onlineUsersFragment);
         childFragments.add(duelHourFragment);
         childFragments.add(friendsFragment);
         childFragments.add(homeFragment);
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -372,10 +396,9 @@ public class HomeActivity extends ParentActivity {
         }
     }
 
-
-
     public void onEvent(ChangePage change) {
-        viewPager.setCurrentItem(change.getPage());
+        storeFragment.onBringToFront();
+//        viewPager.setCurrentItem(change.getPage());
     }
 
     public void onEvent(OnPurchaseResult alert) {

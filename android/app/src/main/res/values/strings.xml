@@ -85,6 +85,18 @@
         <item>@drawable/av24</item>
     </string-array>
 
+
+    <string-array name="drawer_titles">
+        <item>خرید الماس</item>
+        <item>رده بندی ها</item>
+        <item>تنظیمات</item>
+    </string-array>
+    <string-array name="drawer_icons">
+        <item>H</item>
+        <item>I</item>
+        <item>E</item>
+    </string-array>
+
     <string-array name="splash_colors_array">
         <item>#F0D64E</item>
         <item>#D7B740</item>

@@ -182,8 +182,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             holder.buttonPositive.setVisibility(View.VISIBLE);
             holder.buttonNegative.setVisibility(View.VISIBLE);
 
-            holder.buttonPositive.setText("F");
-            holder.buttonNegative.setText("G");
+            holder.buttonPositive.setText("A");
+            holder.buttonNegative.setText("B");
 
             Typeface icons = FontHelper.getIcons(getContext());
             holder.buttonNegative.setTypeface(icons);
