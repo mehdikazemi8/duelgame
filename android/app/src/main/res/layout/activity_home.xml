@@ -35,7 +35,7 @@
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_online_users"
                 style="@style/home_nav_buttons"
-                android:text="M" />
+                android:text="R" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_duel_hour"
