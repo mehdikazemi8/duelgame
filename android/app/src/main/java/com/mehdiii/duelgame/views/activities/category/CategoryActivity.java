@@ -119,6 +119,10 @@ public class CategoryActivity extends ParentActivity {
     }
 
     public void clicked(View view) {
+        ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
+        startActivity(new Intent(this, RankingActivity.class));
+
+        /*
         int courseId = Integer.parseInt(view.getContentDescription().toString());
 
         if (getFragmentManager().getBackStackEntryCount() == 0) {
@@ -137,6 +141,7 @@ public class CategoryActivity extends ParentActivity {
                         .addToBackStack(String.valueOf(courseId)).commit();
             }
         }
+        */
     }
 
     public void wannaRace(View view) {

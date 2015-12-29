@@ -209,8 +209,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             return;
         }
 
-        DuelDialog duelFriendDialog = new DuelDialog(getActivity());
-        duelFriendDialog.show();
+        DuelDialog duelDialog = new DuelDialog(getActivity());
+        duelDialog.show();
 
 //        getActivity().startActivity(new Intent(getActivity(), CategoryActivity.class));
     }
