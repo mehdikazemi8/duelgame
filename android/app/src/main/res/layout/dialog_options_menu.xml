@@ -15,6 +15,8 @@
             android:text="I" />
     </LinearLayout>
 
+    <View style="@style/home_options_menu_separator" />
+
     <LinearLayout
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
@@ -24,6 +26,8 @@
             style="@style/home_options_menu_icon"
             android:text="G" />
     </LinearLayout>
+
+    <View style="@style/home_options_menu_separator" />
 
     <LinearLayout
         android:id="@+id/option_store"
@@ -36,6 +40,8 @@
             android:text="H" />
     </LinearLayout>
 
+    <View style="@style/home_options_menu_separator" />
+
     <LinearLayout
         android:id="@+id/option_telegram_channel"
         style="@style/home_options_menu">
@@ -47,6 +53,8 @@
             android:text="Q" />
     </LinearLayout>
 
+    <View style="@style/home_options_menu_separator" />
+
     <LinearLayout
         android:id="@+id/option_contact_us"
         style="@style/home_options_menu">
@@ -57,6 +65,8 @@
             style="@style/home_options_menu_icon"
             android:text="P" />
     </LinearLayout>
+
+    <View style="@style/home_options_menu_separator" />
 
     <LinearLayout
         style="@style/home_options_menu">

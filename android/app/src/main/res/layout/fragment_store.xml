@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_1"
-    android:clickable="true">
+    android:gravity="center">
 
-    <LinearLayout
-        android:id="@+id/container_store"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp" />
-</ScrollView>
+        android:layout_height="match_parent"
+        android:background="@color/background_1"
+        android:clickable="true">
+
+        <LinearLayout
+            android:id="@+id/container_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" />
+    </ScrollView>
+</RelativeLayout>
