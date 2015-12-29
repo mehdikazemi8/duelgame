@@ -216,12 +216,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        EventBus.getDefault().post(new ChangePage(1));
+        EventBus.getDefault().post(new ChangePage(10));
     }
 
     private void sendReport() {
-
-
         Intent send = new Intent(Intent.ACTION_SENDTO);
         String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
                 "?subject=" + Uri.encode(getResources().getString(R.string.caption_send_report_title)) +

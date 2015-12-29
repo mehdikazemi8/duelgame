@@ -289,7 +289,7 @@ public class HomeActivity extends ParentActivity {
                 case R.id.button_online_users:
                     viewPager.setCurrentItem(0, true);
                     break;
-//                case R.id.button_store:
+//                case R.id.button:
 //                    viewPager.setCurrentItem(1, true);
 //                    break;
 //                case R.id.button_settings:
@@ -383,6 +383,11 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onBackPressed() {
+        if( getSupportFragmentManager().getFragments().size() != 0 ) {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
+
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
@@ -412,7 +417,14 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void onEvent(ChangePage change) {
-        storeFragment.onBringToFront();
+        Log.d("TAG", "onEvent ChangePage " + change.getPage());
+        if(change.getPage() == 10) {
+            FlippableFragment storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
 //        viewPager.setCurrentItem(change.getPage());
     }
 

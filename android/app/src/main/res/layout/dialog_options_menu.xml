@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/courses_rankings"
+        android:id="@+id/option_courses_rankings"
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             style="@style/home_options_menu_text"
@@ -26,6 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/option_store"
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             style="@style/home_options_menu_text"
