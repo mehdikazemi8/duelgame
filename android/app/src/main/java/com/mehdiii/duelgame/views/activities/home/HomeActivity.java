@@ -1,8 +1,5 @@
 package com.mehdiii.duelgame.views.activities.home;
 
-import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,11 +26,8 @@ import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.DrawerItem;
 import com.mehdiii.duelgame.models.SendGcmCode;
-import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
-import com.mehdiii.duelgame.receivers.DuelHourStarted;
-import com.mehdiii.duelgame.receivers.HeartFullyRecovered;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -44,7 +37,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.onlineusers.OnlineUsersFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
-import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
@@ -52,7 +44,6 @@ import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends ParentActivity {
@@ -65,20 +56,13 @@ public class HomeActivity extends ParentActivity {
     static String SENDER_ID = "753066845572";
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-    ListView drawerListView;
-    //    ToggleButton storeButton;
-//    ToggleButton rankingButton;
     ToggleButton onlineUsersButton;
     ToggleButton duelHourButton;
-    ToggleButton settingsButton;
+    ToggleButton moreOptionsButton;
     ToggleButton homeButton;
     ToggleButton friendsButton;
     ToggleButton previous;
 
-//    public DuelMusicPlayer musicPlayer;
-//    FlippableFragment settingsFragment;
-//    FlippableFragment rankingFragment;
-//    FlippableFragment storeFragment;
     FlippableFragment homeFragment;
     FlippableFragment onlineUsersFragment;
     FlippableFragment friendsFragment;
@@ -86,14 +70,12 @@ public class HomeActivity extends ParentActivity {
 
     List<Fragment> childFragments;
     ScoresDialog scoresDialog;
-    private DrawerLayout drawerLayout;
+
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            if(view.getId() == R.id.button_settings) {
-//                drawerLayout.openDrawer(Gravity.LEFT);
-
+            if(view.getId() == R.id.button_more_options) {
                 OptionsMenuDialog menuDialog = new OptionsMenuDialog();
                 menuDialog.setContext(HomeActivity.this);
                 menuDialog.show(getSupportFragmentManager(), "OPTIONS_MENU");
@@ -149,18 +131,6 @@ public class HomeActivity extends ParentActivity {
             });
 
             switch (position) {
-//                case 0:
-//                    selection = settingsButton;
-//                    settingsFragment.onBringToFront();
-//                    break;
-//                case 1:
-//                    selection = storeButton;
-//                    storeFragment.onBringToFront();
-//                    break;
-//                case 2:
-//                    selection = rankingButton;
-//                    rankingFragment.onBringToFront();
-//                    break;
                 case 0:
                     selection = onlineUsersButton;
                     onlineUsersFragment.onBringToFront();
@@ -297,12 +267,8 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void find() {
-        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        this.drawerListView = (ListView) findViewById(R.id.left_drawer);
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
-//        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
-//        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
-        this.settingsButton = (ToggleButton) findViewById(R.id.button_settings);
+        this.moreOptionsButton = (ToggleButton) findViewById(R.id.button_more_options);
         this.homeButton = (ToggleButton) findViewById(R.id.button_home);
         this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
         this.onlineUsersButton = (ToggleButton) findViewById(R.id.button_online_users);
@@ -323,47 +289,23 @@ public class HomeActivity extends ParentActivity {
         this.duelHourButton.setOnClickListener(pageSelectorClickListener);
         this.homeButton.setOnClickListener(pageSelectorClickListener);
 //        this.rankingButton.setOnClickListener(pageSelectorClickListener);
-        this.settingsButton.setOnClickListener(pageSelectorClickListener);
+        this.moreOptionsButton.setOnClickListener(pageSelectorClickListener);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
         viewPager.setAdapter(adapter);
         this.viewPager.setOnPageChangeListener(pageChangeListener);
         this.viewPager.setCurrentItem(3);
         viewPager.setOffscreenPageLimit(4);
-
-        // configure drawer
-        List <DrawerItem> drawerItems = new ArrayList<>();
-        final int drawerSize = 3;
-        String[] drawerIconsStr = getResources().getStringArray(R.array.drawer_icons);
-        String[] drawerTitlesStr = getResources().getStringArray(R.array.drawer_titles);
-        for(int idx = 0; idx < drawerSize; idx ++) {
-            drawerItems.add(new DrawerItem(drawerTitlesStr[idx], drawerIconsStr[idx]));
-        }
-//        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.template_drawer_item, R.id.title, drawerTitlesStr);
-        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("TAG", "drawerListView " + i);
-            }
-        });
-        drawerListView.setAdapter(adapter);
     }
 
     private void createChildFragments() {
         childFragments = new ArrayList<>();
 
-//        settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
-//        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
-//        storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         friendsFragment = (FlippableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
         duelHourFragment = (FlippableFragment) Fragment.instantiate(this, DuelHourFragment.class.getName(), null);
         onlineUsersFragment = (FlippableFragment) Fragment.instantiate(this, OnlineUsersFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
-//        childFragments.add(settingsFragment);
-//        childFragments.add(storeFragment);
-//        childFragments.add(rankingFragment);
         childFragments.add(onlineUsersFragment);
         childFragments.add(duelHourFragment);
         childFragments.add(friendsFragment);
@@ -373,11 +315,16 @@ public class HomeActivity extends ParentActivity {
     @Override
     public void onBackPressed() {
         Log.d("TAG", "onBackPressed " + getSupportFragmentManager().getFragments().size());
-        if( getSupportFragmentManager().findFragmentByTag("STORE_FRAGMENT") != null ) {
+
+        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.STORE_FRAGMENT) != null ) {
             getSupportFragmentManager().popBackStack();
             return;
         }
 
+        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.SETTINGS_FRAGMENT) != null ) {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
 
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
         dialog.setOnCompleteListener(new OnCompleteListener() {
@@ -409,14 +356,24 @@ public class HomeActivity extends ParentActivity {
 
     public void onEvent(ChangePage change) {
         Log.d("TAG", "onEvent ChangePage " + change.getPage());
-        if(change.getPage() == 10) {
+
+        // store fragment
+        if(change.getPage() == ParentActivity.STORE_PAGE) {
             FlippableFragment storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment, "STORE_FRAGMENT")
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment, ParentActivity.STORE_FRAGMENT)
                     .addToBackStack(null)
                     .commit();
         }
 
-//        viewPager.setCurrentItem(change.getPage());
+        // settings fragment
+        if(change.getPage() == ParentActivity.SETTINGS_PAGE) {
+            FlippableFragment settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, settingsFragment, ParentActivity.SETTINGS_FRAGMENT)
+                    .addToBackStack(null)
+                    .commit();
+
+            settingsFragment.onBringToFront();
+        }
     }
 
     public void onEvent(OnPurchaseResult alert) {

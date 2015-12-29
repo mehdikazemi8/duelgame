@@ -69,6 +69,12 @@ public class ParentActivity extends ActionBarActivity {
     });
 
 
+    public static int STORE_PAGE = 10;
+    public static int SETTINGS_PAGE = 11;
+
+    public static String STORE_FRAGMENT = "STORE_FRAGMENT";
+    public static String SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT";
+
     public static int SEPARATOR_CUP = 404;
 
     public static final int DUEL_HOUR_NOTIFICATION_ID = 1708;

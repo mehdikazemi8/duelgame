@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +139,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                 EventBus.getDefault().post(new OnSoundStateChanged(b));
             }
         });
+
+        initializeData();
     }
 
     @Override
@@ -148,9 +151,14 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
 
         if (getView() != null)
             initializeData();
+        else {
+            Log.d("TAG", "view is null");
+        }
     }
 
     private void initializeData() {
+        newSettings.setAvatar(AuthManager.getCurrentUser().getAvatar());
+
         User user = AuthManager.getCurrentUser();
         usernameEditText.setText(user.getName());
         emailEditText.setText(user.getEmail());

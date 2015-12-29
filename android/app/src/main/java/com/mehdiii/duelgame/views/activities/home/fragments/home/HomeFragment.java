@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -215,7 +216,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void refillHeart() {
-        EventBus.getDefault().post(new ChangePage(10));
+        EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {

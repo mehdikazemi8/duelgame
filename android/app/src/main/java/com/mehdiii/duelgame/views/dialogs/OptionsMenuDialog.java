@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
@@ -33,6 +34,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout store;
     LinearLayout telegramChannel;
     LinearLayout contactUs;
+    LinearLayout settings;
 
     public OptionsMenuDialog() {
         super();
@@ -72,6 +74,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         store = (LinearLayout) view.findViewById(R.id.option_store);
         telegramChannel = (LinearLayout) view.findViewById(R.id.option_telegram_channel);
         contactUs = (LinearLayout) view.findViewById(R.id.option_contact_us);
+        settings = (LinearLayout) view.findViewById(R.id.option_settings);
     }
 
     private void configure() {
@@ -79,6 +82,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         store.setOnClickListener(this);
         telegramChannel.setOnClickListener(this);
         contactUs.setOnClickListener(this);
+        settings.setOnClickListener(this);
     }
 
     @Override
@@ -91,7 +95,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
                 break;
 
             case R.id.option_store:
-                EventBus.getDefault().post(new ChangePage(10));
+                EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));
                 break;
 
             case R.id.option_telegram_channel:
@@ -101,6 +105,10 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
 
             case R.id.option_contact_us:
                 sendReport();
+                break;
+
+            case R.id.option_settings:
+                EventBus.getDefault().post(new ChangePage(ParentActivity.SETTINGS_PAGE));
                 break;
         }
     }
