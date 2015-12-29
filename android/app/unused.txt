@@ -1379,6 +1379,8 @@ com.mehdiii.duelgame.utils.FontHelper:
 com.mehdiii.duelgame.utils.Inventory:
     66:66:java.util.List getAllOwnedSkus()
     80:80:java.util.List getAllPurchases()
+com.mehdiii.duelgame.utils.NotificationHelper:
+    private static final int LED_NOTIFICATION
 com.mehdiii.duelgame.utils.ScoreHelper:
     static final int TITLE_SIZE
     static final int LEVEL_SIZE
@@ -1387,6 +1389,10 @@ com.mehdiii.duelgame.utils.Security:
     private static final java.lang.String KEY_FACTORY_ALGORITHM
     private static final java.lang.String SIGNATURE_ALGORITHM
 com.mehdiii.duelgame.views.activities.ParentActivity:
+    private static final int DUEL_HOUR_HOUR
+    private static final int DUEL_HOUR_MINUTE
+    private static final int DUEL_HOUR_SECOND
+    private static final long DUEL_HOUR_INTERVAL
     static final int NUMBER_OF_AVATARS
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity:
     private static final java.lang.String FLASH_CARD_LIST_CACHE
