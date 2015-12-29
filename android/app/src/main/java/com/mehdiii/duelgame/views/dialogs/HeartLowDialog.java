@@ -52,7 +52,7 @@ public class HeartLowDialog extends Dialog implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_buy_hearts:
-                EventBus.getDefault().post(new ChangePage(1));
+                EventBus.getDefault().post(new ChangePage(10));
                 break;
         }
 

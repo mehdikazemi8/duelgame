@@ -30,13 +30,14 @@
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             style="@style/home_options_menu_text"
-            android:text="خرید الماس" />
+            android:text="فروشگاه" />
         <com.mehdiii.duelgame.views.custom.IconTextView
             style="@style/home_options_menu_icon"
             android:text="H" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/option_telegram_channel"
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             style="@style/home_options_menu_text"

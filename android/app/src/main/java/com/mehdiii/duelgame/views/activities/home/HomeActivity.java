@@ -56,15 +56,17 @@ import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends ParentActivity {
+    public static final String TAG = "TAG_GCM";
     private static final int REQUEST_CODE_PURCHASE = 10001;
-
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    static GoogleCloudMessaging gcm;
+    static Context context;
+    static String regid;
+    static String SENDER_ID = "753066845572";
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-
-    private DrawerLayout drawerLayout;
     ListView drawerListView;
-
-//    ToggleButton storeButton;
+    //    ToggleButton storeButton;
 //    ToggleButton rankingButton;
     ToggleButton onlineUsersButton;
     ToggleButton duelHourButton;
@@ -73,190 +75,18 @@ public class HomeActivity extends ParentActivity {
     ToggleButton friendsButton;
     ToggleButton previous;
 
-    FlippableFragment storeFragment;
-    //    FlippableFragment rankingFragment;
-    FlippableFragment onlineUsersFragment;
-    FlippableFragment settingsFragment;
+//    public DuelMusicPlayer musicPlayer;
+//    FlippableFragment settingsFragment;
+//    FlippableFragment rankingFragment;
+//    FlippableFragment storeFragment;
     FlippableFragment homeFragment;
+    FlippableFragment onlineUsersFragment;
     FlippableFragment friendsFragment;
     FlippableFragment duelHourFragment;
 
     List<Fragment> childFragments;
-
-
-//    public DuelMusicPlayer musicPlayer;
-
-    static GoogleCloudMessaging gcm;
-    static Context context;
-    static String regid;
-    static String SENDER_ID = "753066845572";
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
-            super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        context = getApplicationContext();
-
-        setAlarmForDuelHour(this);
-        cancelDuelHourNotification();
-
-        find();
-        configure();
-
-
-        // Check device for Play Services APK.
-        if (checkPlayServices()) {
-            // If this check succeeds, proceed with normal processing.
-            // Otherwise, prompt user to get valid Play Services APK.
-            gcm = GoogleCloudMessaging.getInstance(this);
-            regid = DuelApp.getRegistrationId(context);
-
-            if (regid.isEmpty()) {
-                registerInBackground();
-            }
-        } else {
-            Log.i(TAG, "No valid Google Play Services APK found.");
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        PurchaseManager.changeActivity(this);
-
-        if(! DuelApp.getInstance().isConnected())
-            DuelApp.getInstance().connectToWs();
-    }
-
-
-    public static void registerInBackground() {
-        registerInBackground(null);
-    }
-
-    public static void registerInBackground(final OnCompleteListener onComplete) {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                String msg;
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(context);
-                    }
-
-                    regid = gcm.register(SENDER_ID);
-                    msg = "Device registered, registration ID=" + regid;
-
-                    // You should send the registration ID to your server over HTTP,
-                    // so it can use GCM/HTTP or CCS to send messages to your app.
-                    // The request to your server should be authenticated if your app
-                    // is using accounts.
-                    sendRegistrationIdToBackend();
-
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                    // If there is an error, don't just keep trying to register.
-                    // Require the user to click a button again, or perform
-                    // exponential back-off.
-                }
-                return msg;
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-            }
-        }.execute(null, null, null);
-    }
-
-    public static void sendRegistrationIdToBackend() {
-        DuelApp.getInstance().sendMessage(new SendGcmCode(regid).serialize(CommandType.SEND_GCM_CODE));
-    }
-
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    public static final String TAG = "TAG_GCM";
-
-    private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            } else {
-                Log.i(TAG, "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        return true;
-
-    }
-
     ScoresDialog scoresDialog;
-
-    public void viewLevels(View view) {
-        scoresDialog.show();
-    }
-
-    private void find() {
-        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        this.drawerListView = (ListView) findViewById(R.id.left_drawer);
-        this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
-//        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
-//        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
-        this.settingsButton = (ToggleButton) findViewById(R.id.button_settings);
-        this.homeButton = (ToggleButton) findViewById(R.id.button_home);
-        this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
-        this.onlineUsersButton = (ToggleButton) findViewById(R.id.button_online_users);
-        this.duelHourButton = (ToggleButton) findViewById(R.id.button_duel_hour);
-    }
-
-    private void configure() {
-        scoresDialog = new ScoresDialog(HomeActivity.this);
-
-        createChildFragments();
-
-        if (previous == null)
-            previous = this.homeButton.toggle();
-
-//        this.storeButton.setOnClickListener(pageSelectorClickListener);
-        this.friendsButton.setOnClickListener(pageSelectorClickListener);
-        this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
-        this.duelHourButton.setOnClickListener(pageSelectorClickListener);
-        this.homeButton.setOnClickListener(pageSelectorClickListener);
-//        this.rankingButton.setOnClickListener(pageSelectorClickListener);
-        this.settingsButton.setOnClickListener(pageSelectorClickListener);
-
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
-        viewPager.setAdapter(adapter);
-        this.viewPager.setOnPageChangeListener(pageChangeListener);
-        this.viewPager.setCurrentItem(3);
-        viewPager.setOffscreenPageLimit(4);
-
-        // configure drawer
-        List <DrawerItem> drawerItems = new ArrayList<>();
-        final int drawerSize = 3;
-        String[] drawerIconsStr = getResources().getStringArray(R.array.drawer_icons);
-        String[] drawerTitlesStr = getResources().getStringArray(R.array.drawer_titles);
-        for(int idx = 0; idx < drawerSize; idx ++) {
-            drawerItems.add(new DrawerItem(drawerTitlesStr[idx], drawerIconsStr[idx]));
-        }
-//        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.template_drawer_item, R.id.title, drawerTitlesStr);
-        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("TAG", "drawerListView " + i);
-            }
-        });
-        drawerListView.setAdapter(adapter);
-    }
-
+    private DrawerLayout drawerLayout;
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -298,7 +128,6 @@ public class HomeActivity extends ParentActivity {
             }
         }
     };
-
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -361,15 +190,175 @@ public class HomeActivity extends ParentActivity {
         }
     };
 
+    public static void registerInBackground() {
+        registerInBackground(null);
+    }
+
+    public static void registerInBackground(final OnCompleteListener onComplete) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg;
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+
+                    regid = gcm.register(SENDER_ID);
+                    msg = "Device registered, registration ID=" + regid;
+
+                    // You should send the registration ID to your server over HTTP,
+                    // so it can use GCM/HTTP or CCS to send messages to your app.
+                    // The request to your server should be authenticated if your app
+                    // is using accounts.
+                    sendRegistrationIdToBackend();
+
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+            }
+        }.execute(null, null, null);
+    }
+
+    public static void sendRegistrationIdToBackend() {
+        DuelApp.getInstance().sendMessage(new SendGcmCode(regid).serialize(CommandType.SEND_GCM_CODE));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        context = getApplicationContext();
+
+        setAlarmForDuelHour(this);
+        cancelDuelHourNotification();
+
+        find();
+        configure();
+
+
+        // Check device for Play Services APK.
+        if (checkPlayServices()) {
+            // If this check succeeds, proceed with normal processing.
+            // Otherwise, prompt user to get valid Play Services APK.
+            gcm = GoogleCloudMessaging.getInstance(this);
+            regid = DuelApp.getRegistrationId(context);
+
+            if (regid.isEmpty()) {
+                registerInBackground();
+            }
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PurchaseManager.changeActivity(this);
+
+        if(! DuelApp.getInstance().isConnected())
+            DuelApp.getInstance().connectToWs();
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+
+    }
+
+    public void viewLevels(View view) {
+        scoresDialog.show();
+    }
+
+    private void find() {
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        this.drawerListView = (ListView) findViewById(R.id.left_drawer);
+        this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
+//        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
+//        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
+        this.settingsButton = (ToggleButton) findViewById(R.id.button_settings);
+        this.homeButton = (ToggleButton) findViewById(R.id.button_home);
+        this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
+        this.onlineUsersButton = (ToggleButton) findViewById(R.id.button_online_users);
+        this.duelHourButton = (ToggleButton) findViewById(R.id.button_duel_hour);
+    }
+
+    private void configure() {
+        scoresDialog = new ScoresDialog(HomeActivity.this);
+
+        createChildFragments();
+
+        if (previous == null)
+            previous = this.homeButton.toggle();
+
+//        this.storeButton.setOnClickListener(pageSelectorClickListener);
+        this.friendsButton.setOnClickListener(pageSelectorClickListener);
+        this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
+        this.duelHourButton.setOnClickListener(pageSelectorClickListener);
+        this.homeButton.setOnClickListener(pageSelectorClickListener);
+//        this.rankingButton.setOnClickListener(pageSelectorClickListener);
+        this.settingsButton.setOnClickListener(pageSelectorClickListener);
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
+        viewPager.setAdapter(adapter);
+        this.viewPager.setOnPageChangeListener(pageChangeListener);
+        this.viewPager.setCurrentItem(3);
+        viewPager.setOffscreenPageLimit(4);
+
+        // configure drawer
+        List <DrawerItem> drawerItems = new ArrayList<>();
+        final int drawerSize = 3;
+        String[] drawerIconsStr = getResources().getStringArray(R.array.drawer_icons);
+        String[] drawerTitlesStr = getResources().getStringArray(R.array.drawer_titles);
+        for(int idx = 0; idx < drawerSize; idx ++) {
+            drawerItems.add(new DrawerItem(drawerTitlesStr[idx], drawerIconsStr[idx]));
+        }
+//        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.template_drawer_item, R.id.title, drawerTitlesStr);
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG", "drawerListView " + i);
+            }
+        });
+        drawerListView.setAdapter(adapter);
+    }
+
     private void createChildFragments() {
         childFragments = new ArrayList<>();
 
-        settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
+//        settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
 //        rankingFragment = (FlippableFragment) Fragment.instantiate(this, RankingFragment.class.getName(), null);
+//        storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         friendsFragment = (FlippableFragment) Fragment.instantiate(this, FriendsFragment.class.getName(), null);
         duelHourFragment = (FlippableFragment) Fragment.instantiate(this, DuelHourFragment.class.getName(), null);
         onlineUsersFragment = (FlippableFragment) Fragment.instantiate(this, OnlineUsersFragment.class.getName(), null);
-        storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
 
 //        childFragments.add(settingsFragment);
@@ -383,10 +372,12 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onBackPressed() {
-        if( getSupportFragmentManager().getFragments().size() != 0 ) {
+        Log.d("TAG", "onBackPressed " + getSupportFragmentManager().getFragments().size());
+        if( getSupportFragmentManager().findFragmentByTag("STORE_FRAGMENT") != null ) {
             getSupportFragmentManager().popBackStack();
             return;
         }
+
 
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
         dialog.setOnCompleteListener(new OnCompleteListener() {
@@ -420,7 +411,7 @@ public class HomeActivity extends ParentActivity {
         Log.d("TAG", "onEvent ChangePage " + change.getPage());
         if(change.getPage() == 10) {
             FlippableFragment storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment)
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment, "STORE_FRAGMENT")
                     .addToBackStack(null)
                     .commit();
         }

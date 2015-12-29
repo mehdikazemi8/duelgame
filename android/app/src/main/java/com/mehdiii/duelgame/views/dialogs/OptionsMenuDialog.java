@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.dialogs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
 
     LinearLayout coursesRankings;
     LinearLayout store;
+    LinearLayout telegramChannel;
 
     public OptionsMenuDialog() {
         super();
@@ -67,11 +69,13 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     private void find(View view) {
         coursesRankings = (LinearLayout) view.findViewById(R.id.option_courses_rankings);
         store = (LinearLayout) view.findViewById(R.id.option_store);
+        telegramChannel = (LinearLayout) view.findViewById(R.id.option_telegram_channel);
     }
 
     private void configure() {
         coursesRankings.setOnClickListener(this);
         store.setOnClickListener(this);
+        telegramChannel.setOnClickListener(this);
     }
 
     @Override
@@ -85,6 +89,11 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
 
             case R.id.option_store:
                 EventBus.getDefault().post(new ChangePage(10));
+                break;
+
+            case R.id.option_telegram_channel:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoor"));
+                startActivity(browserIntent);
                 break;
         }
     }
