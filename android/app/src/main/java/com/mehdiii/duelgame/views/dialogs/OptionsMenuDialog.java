@@ -32,6 +32,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout coursesRankings;
     LinearLayout store;
     LinearLayout telegramChannel;
+    LinearLayout contactUs;
 
     public OptionsMenuDialog() {
         super();
@@ -70,12 +71,14 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         coursesRankings = (LinearLayout) view.findViewById(R.id.option_courses_rankings);
         store = (LinearLayout) view.findViewById(R.id.option_store);
         telegramChannel = (LinearLayout) view.findViewById(R.id.option_telegram_channel);
+        contactUs = (LinearLayout) view.findViewById(R.id.option_contact_us);
     }
 
     private void configure() {
         coursesRankings.setOnClickListener(this);
         store.setOnClickListener(this);
         telegramChannel.setOnClickListener(this);
+        contactUs.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +98,21 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://telegram.me/duelkonkoor"));
                 startActivity(browserIntent);
                 break;
+
+            case R.id.option_contact_us:
+                sendReport();
+                break;
         }
+    }
+
+    private void sendReport() {
+        Intent send = new Intent(Intent.ACTION_SENDTO);
+        String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
+                "?subject=" + Uri.encode(getResources().getString(R.string.caption_send_report_title)) +
+                "&body=" + Uri.encode("");
+        Uri uri = Uri.parse(uriText);
+
+        send.setData(uri);
+        startActivity(Intent.createChooser(send, "Send mail..."));
     }
 }

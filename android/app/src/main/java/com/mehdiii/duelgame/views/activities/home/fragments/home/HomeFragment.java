@@ -41,18 +41,18 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView diamondCount;
     ImageView avatarImageView;
     TextView titleTextView;
-    //    TextView levelText;
-    //    TextView totalRankingText;
+//    TextView levelText;
+//    TextView totalRankingText;
 //    TextView totalRanking;
 //    TextView friendsRankingText;
 //    TextView friendsRanking;
 //    TextView provinceRankingText;
 //    TextView provinceRanking;
     TextView textViewCounter;
-    TextView textViewSendReport;
-    //    ImageButton addFriendButton;
+//    TextView textViewSendReport;
+//    ImageButton addFriendButton;
 //    ImageView duelButton;
-    //    ProgressBar levelProgress;
+//    ProgressBar levelProgress;
     Button refillButton;
     Button buyDiamondButton;
     TextView flashCardButton;
@@ -92,11 +92,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        duelButton.setOnClickListener(this);
         flashCardButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
-        textViewSendReport.setOnClickListener(this);
+//        textViewSendReport.setOnClickListener(this);
 //        telegramBotButton.setOnClickListener(this);
 
         // set font-face
-        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts, textViewSendReport,
+        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts, /*textViewSendReport,*/
                 diamondCount, titleTextView/*, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking,
                 provinceRanking, provinceRankingText*/, textViewCounter, buyDiamondButton, refillButton
@@ -114,7 +114,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        friendsRanking = (TextView) view.findViewById(R.id.home_friends_ranking);
 //        provinceRanking = (TextView) view.findViewById(R.id.home_province_ranking);
 //        provinceRankingText = (TextView) view.findViewById(R.id.home_province_ranking_text);
-        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
+//        textViewSendReport = (TextView) view.findViewById(R.id.textView_send_report);
 //        addFriendButton = (ImageButton) view.findViewById(R.id.button_add_friend);
         refillButton = (Button) view.findViewById(R.id.button_refill);
         buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
@@ -163,9 +163,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 Intent intent = new Intent(getActivity(), FlashCardActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.textView_send_report:
-                sendReport();
-                break;
+//            case R.id.textView_send_report:
+//                sendReport();
+//                break;
         }
     }
 
@@ -216,17 +216,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     private void refillHeart() {
         EventBus.getDefault().post(new ChangePage(10));
-    }
-
-    private void sendReport() {
-        Intent send = new Intent(Intent.ACTION_SENDTO);
-        String uriText = "mailto:" + Uri.encode("duelapp@gmail.com") +
-                "?subject=" + Uri.encode(getResources().getString(R.string.caption_send_report_title)) +
-                "&body=" + Uri.encode("");
-        Uri uri = Uri.parse(uriText);
-
-        send.setData(uri);
-        startActivity(Intent.createChooser(send, "Send mail..."));
     }
 
     public void onEvent(OnHeartChangeNotice notice) {
