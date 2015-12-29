@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +172,14 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     public void bindViewData() {
         User user = AuthManager.getCurrentUser();
+        if(user == null) {
+            // TODO, user must not be null
+            Log.d("TAG", "bindViewData HomeFragment user is null");
+            return;
+        } else {
+            Log.d("TAG", "bindViewData HomeFragment user is NOT null");
+        }
+
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
 //        levelText.setText(String.valueOf(ScoreHelper.getLevel(user.getScore())));

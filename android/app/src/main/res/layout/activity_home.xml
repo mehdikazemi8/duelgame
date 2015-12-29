@@ -28,6 +28,11 @@
             <!--android:text="J" />-->
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
+                android:id="@+id/button_settings"
+                style="@style/home_nav_buttons"
+                android:text="N" />
+
+            <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_online_users"
                 style="@style/home_nav_buttons"
                 android:text="M" />
@@ -47,11 +52,6 @@
                 style="@style/home_nav_buttons"
                 android:text="C" />
 
-            <com.mehdiii.duelgame.views.custom.ToggleButton
-                android:id="@+id/button_settings"
-                style="@style/home_nav_buttons"
-                android:text="J" />
-
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
@@ -62,10 +62,10 @@
 
     </RelativeLayout>
 
-    <ListView android:id="@+id/right_drawer"
+    <ListView android:id="@+id/left_drawer"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:layout_gravity="left"
         android:background="#fff"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"

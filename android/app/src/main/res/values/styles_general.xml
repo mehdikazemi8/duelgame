@@ -142,4 +142,32 @@
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
+    <style name="home_options_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="home_options_menu_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/fontsize.large</item>
+    </style>
+
+    <style name="home_options_menu_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/fontsize.large</item>
+    </style>
+
+
+
 </resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="رده بندی درس ها" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="I" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="کاپ های Duel Hour" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="G" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="خرید الماس" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="H" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="کانال تلگرام" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="Q" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="ارتباط با ما" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="P" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_options_menu">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            style="@style/home_options_menu_text"
+            android:text="تنظیمات" />
+        <com.mehdiii.duelgame.views.custom.IconTextView
+            style="@style/home_options_menu_icon"
+            android:text="E" />
+    </LinearLayout>
+    
+</LinearLayout>

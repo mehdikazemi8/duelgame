@@ -14,6 +14,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.DrawerItem;
 import com.mehdiii.duelgame.models.SendGcmCode;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.receivers.DuelHourStarted;
@@ -44,6 +47,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
 import java.io.IOException;
@@ -201,7 +205,7 @@ public class HomeActivity extends ParentActivity {
 
     private void find() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        this.drawerListView = (ListView) findViewById(R.id.right_drawer);
+        this.drawerListView = (ListView) findViewById(R.id.left_drawer);
         this.viewPager = (ViewPager) findViewById(R.id.viewpager_main);
 //        this.storeButton = (ToggleButton) findViewById(R.id.button_store);
 //        this.rankingButton = (ToggleButton) findViewById(R.id.button_ranking);
@@ -242,17 +246,28 @@ public class HomeActivity extends ParentActivity {
         for(int idx = 0; idx < drawerSize; idx ++) {
             drawerItems.add(new DrawerItem(drawerTitlesStr[idx], drawerIconsStr[idx]));
         }
-        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
+//        DrawerListAdapter adapter = new DrawerListAdapter(this, R.id.icon, drawerItems);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.template_drawer_item, R.id.title, drawerTitlesStr);
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG", "drawerListView " + i);
+            }
+        });
         drawerListView.setAdapter(adapter);
     }
-
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
             if(view.getId() == R.id.button_settings) {
-                drawerLayout.openDrawer(Gravity.RIGHT);
+//                drawerLayout.openDrawer(Gravity.LEFT);
+
+                OptionsMenuDialog menuDialog = new OptionsMenuDialog();
+                menuDialog.setContext(HomeActivity.this);
+                menuDialog.show(getSupportFragmentManager(), "OPTIONS_MENU");
+
                 return;
             }
 
