@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
@@ -79,24 +80,17 @@ public class DuelHourTotalFragment extends Fragment {
                 a.get(2).equals(b.get(2));
     }
 
-
-    private List<UserForRanklist> setRanks(List<UserForRanklist> rank) {
-        if(rank.size() <= 0)
-            return rank;
-
-        rank.get(0).setRank(1);
-        for(int i = 1; i < rank.size(); i ++) {
-            if( areEqual(rank.get(i).getCups(), rank.get(i-1).getCups()) ) {
-                rank.get(i).setRank( rank.get(i-1).getRank() );
-            } else {
-                rank.get(i).setRank( i+1 );
-            }
-        }
-        return rank;
-    }
-
     private void bindListViewData(RankList list) {
-        DuelHourTotalAdapter adapter = new DuelHourTotalAdapter(getActivity(), R.layout.template_duel_hour_total, setRanks(list.getTop()));
+
+        List <UserForRanklist> all = list.getTop();
+        if(list.getTop().size() != 0) {
+            UserForRanklist separator = new UserForRanklist(0, ParentActivity.SEPARATOR_CUP);
+            all.add(separator);
+            for(UserForRanklist user : list.getNear())
+                all.add(user);
+        }
+
+        DuelHourTotalAdapter adapter = new DuelHourTotalAdapter(getActivity(), R.layout.template_duel_hour_total, all);
         listView.setAdapter(adapter);
     }
 

@@ -7,9 +7,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.squareup.picasso.Picasso;
 
@@ -29,23 +31,33 @@ public class DuelHourTotalAdapter extends ArrayAdapter<UserForRanklist> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+
+        if(getItem(position).getCup() == ParentActivity.SEPARATOR_CUP) {
+            convertView = View.inflate(context, R.layout.template_separator, null);
+            return convertView;
+        } else {
             convertView = View.inflate(context, R.layout.template_duel_hour_total, null);
-
-            ViewHolder holder = new ViewHolder();
-
-            holder.gold = (CustomTextView) convertView.findViewById(R.id.gold_cnt);
-            holder.silver = (CustomTextView) convertView.findViewById(R.id.silver_cnt);
-            holder.bronze = (CustomTextView) convertView.findViewById(R.id.bronze_cnt);
-            holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
-            holder.name = (CustomTextView) convertView.findViewById(R.id.name);
-            holder.province = (CustomTextView) convertView.findViewById(R.id.province);
-            holder.rank = (CustomTextView) convertView.findViewById(R.id.rank);
-
-            convertView.setTag(holder);
         }
 
+        ViewHolder holder = new ViewHolder();
+
+        holder.gold = (CustomTextView) convertView.findViewById(R.id.gold_cnt);
+        holder.silver = (CustomTextView) convertView.findViewById(R.id.silver_cnt);
+        holder.bronze = (CustomTextView) convertView.findViewById(R.id.bronze_cnt);
+        holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+        holder.name = (CustomTextView) convertView.findViewById(R.id.name);
+        holder.province = (CustomTextView) convertView.findViewById(R.id.province);
+        holder.rank = (CustomTextView) convertView.findViewById(R.id.rank);
+
+        convertView.setTag(holder);
+
         initViews(getItem(position), (ViewHolder) convertView.getTag());
+
+        if(getItem(position).getId().equals(AuthManager.getCurrentUser().getId()))
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.green_light));
+        else
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.background_1));
+
         return convertView;
     }
 
