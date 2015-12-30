@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="5dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -54,14 +54,17 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/ranking_user_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:padding="15dp" />
+            android:padding="@dimen/avatar_padding" />
     </LinearLayout>
 
     <FrameLayout
@@ -80,10 +83,13 @@
 
         <ImageView
             android:id="@+id/ranking_cup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/cup_size"
+            android:layout_height="@dimen/cup_size"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
             android:gravity="center"
-            android:padding="4dp" />
+            android:padding="@dimen/cup_padding"
+            android:scaleType="centerInside" />
 
     </FrameLayout>
 

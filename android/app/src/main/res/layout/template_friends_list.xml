@@ -110,14 +110,24 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView_avatar"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY" />
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView_avatar"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/avatar_padding"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imageView_online"
