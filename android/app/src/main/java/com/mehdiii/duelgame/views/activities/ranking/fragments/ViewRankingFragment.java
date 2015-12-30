@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.GetCourseRanking;
+import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -24,6 +25,8 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
+
+import java.util.List;
 
 public class ViewRankingFragment extends Fragment {
 
@@ -50,7 +53,15 @@ public class ViewRankingFragment extends Fragment {
         if (this.activity == null)
             return;
 
-        adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, list.getTop());
+        List<UserForRanklist> all = list.getTop();
+        if(list.getTop().size() != 0) {
+            UserForRanklist separator = new UserForRanklist(0, ParentActivity.SEPARATOR_CUP);
+            all.add(separator);
+            for(UserForRanklist user : list.getNear())
+                all.add(user);
+        }
+
+        adapter = new RankingListAdapter(this.activity, R.layout.template_ranklist, all);
         this.listView.setAdapter(adapter);
         this.userScoreValue.setText(String.valueOf(list.getScore()));
     }

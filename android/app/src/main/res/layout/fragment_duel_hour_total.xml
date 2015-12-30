@@ -37,12 +37,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"/>
 
-        <TextView
+        <com.mehdiii.duelgame.views.custom.CustomTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.5"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="رتبه"
+            android:textSize="@dimen/fontsize.normal" />
 
     </LinearLayout>
 
