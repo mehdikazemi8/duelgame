@@ -19,6 +19,8 @@ import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 
 import de.greenrobot.event.EventBus;
@@ -35,6 +37,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout telegramChannel;
     LinearLayout contactUs;
     LinearLayout settings;
+    LinearLayout totalDuelHour;
 
     public OptionsMenuDialog() {
         super();
@@ -75,6 +78,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         telegramChannel = (LinearLayout) view.findViewById(R.id.option_telegram_channel);
         contactUs = (LinearLayout) view.findViewById(R.id.option_contact_us);
         settings = (LinearLayout) view.findViewById(R.id.option_settings);
+        totalDuelHour = (LinearLayout) view.findViewById(R.id.option_total_duel_hour);
     }
 
     private void configure() {
@@ -83,6 +87,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         telegramChannel.setOnClickListener(this);
         contactUs.setOnClickListener(this);
         settings.setOnClickListener(this);
+        totalDuelHour.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +114,14 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
 
             case R.id.option_settings:
                 EventBus.getDefault().post(new ChangePage(ParentActivity.SETTINGS_PAGE));
+                break;
+
+            case R.id.option_total_duel_hour:
+                DuelHourTotalFragment fragment = (DuelHourTotalFragment) Fragment.instantiate(getActivity(), DuelHourTotalFragment.class.getName(), null);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_holder, fragment, ParentActivity.DUEL_HOUR_TOTAL_FRAGMENT)
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
     }

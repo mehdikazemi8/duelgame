@@ -74,6 +74,7 @@ public class ParentActivity extends ActionBarActivity {
 
     public static String STORE_FRAGMENT = "STORE_FRAGMENT";
     public static String SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT";
+    public static String DUEL_HOUR_TOTAL_FRAGMENT = "DUEL_HOUR_TOTAL_FRAGMENT";
 
     public static int SEPARATOR_CUP = 404;
 

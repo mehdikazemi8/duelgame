@@ -321,6 +321,11 @@ public class HomeActivity extends ParentActivity {
             return;
         }
 
+        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.DUEL_HOUR_TOTAL_FRAGMENT) != null ) {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
+
         if( getSupportFragmentManager().findFragmentByTag(ParentActivity.SETTINGS_FRAGMENT) != null ) {
             getSupportFragmentManager().popBackStack();
             return;

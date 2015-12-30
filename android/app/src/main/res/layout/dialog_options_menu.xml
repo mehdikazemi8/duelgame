@@ -18,6 +18,7 @@
     <View style="@style/home_options_menu_separator" />
 
     <LinearLayout
+        android:id="@+id/option_total_duel_hour"
         style="@style/home_options_menu">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             style="@style/home_options_menu_text"
