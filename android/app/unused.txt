@@ -1403,6 +1403,8 @@ com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment$Gest
 com.mehdiii.duelgame.views.activities.home.HomeActivity:
     private static final int REQUEST_CODE_PURCHASE
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST
+com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment:
+    75:80:private boolean areEqual(java.util.List,java.util.List)
 com.mehdiii.duelgame.views.activities.splash.StartActivity:
     private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS
     private static final int CIRCLES_COUNT
