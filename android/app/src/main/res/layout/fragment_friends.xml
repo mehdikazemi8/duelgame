@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/space.short"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_indian_red"
+                android:background="@drawable/bg_button_blue_dark"
                 android:text="@string/button_add_friend"
                 android:textColor="@color/white" />
 
@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_blue_dark"
+                android:background="@drawable/buy_button"
                 android:text="@string/button_tell_friends"
                 android:textColor="@color/white" />
         </LinearLayout>

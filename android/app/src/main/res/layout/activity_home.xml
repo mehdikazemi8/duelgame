@@ -62,15 +62,6 @@
 
     </RelativeLayout>
 
-    <ListView android:id="@+id/left_drawer"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:background="#fff"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"/>
-
     <FrameLayout
         android:id="@+id/fragment_holder"
         android:layout_width="match_parent"
