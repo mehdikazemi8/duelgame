@@ -193,9 +193,10 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:background="@drawable/buy_button"
+                    android:padding="10dp"
                     android:text="دوئل"
                     android:textColor="@color/white"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/fontsize.large" />
 
                 <Button
                     android:id="@+id/button_flash_card"
@@ -204,9 +205,10 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:background="@drawable/buy_button"
+                    android:padding="10dp"
                     android:text="فلش کارت"
                     android:textColor="@color/white"
-                    android:textSize="23sp" />
+                    android:textSize="@dimen/fontsize.large" />
 
             </LinearLayout>
         </RelativeLayout>
