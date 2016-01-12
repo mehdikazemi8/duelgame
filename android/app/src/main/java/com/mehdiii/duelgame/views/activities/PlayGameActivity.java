@@ -93,6 +93,7 @@ public class PlayGameActivity extends ParentActivity {
     private ImageView tick;
 
     private ImageView removeOptionImageView;
+    private ImageView reportProblemImageView;
 
     DuelMusicPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
@@ -186,6 +187,18 @@ public class PlayGameActivity extends ParentActivity {
         removeOptionsFadeIn.setInterpolator(new LinearInterpolator());
         removeOptionsFadeIn.setStartDelay(1000);
         removeOptionsFadeIn.start();
+
+        // fade in report problem
+        reportProblemImageView.setAlpha(0f);
+        reportProblemImageView.setClickable(true);
+        reportProblemImageView.setVisibility(View.VISIBLE);
+        ObjectAnimator reportProblemFadeIn = ObjectAnimator.ofFloat(reportProblemImageView,
+                "alpha", 0f, 1f);
+        reportProblemFadeIn.setDuration(1000);
+        reportProblemFadeIn.setInterpolator(new LinearInterpolator());
+        reportProblemFadeIn.setStartDelay(1000);
+        reportProblemFadeIn.start();
+        reportProblemImageView.setClickable(true);
 
         int idx = 0;
         for (TextView view : views) {
@@ -337,8 +350,6 @@ public class PlayGameActivity extends ParentActivity {
             //((Button) v).setBackgroundColor(Color.GREEN);
             ((FontFitButton) v).setTextColor(getResources().getColor(R.color.correct_answer));
             ok = 1;
-
-            removeOptionImageView.setClickable(false);
         } else {
 
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
@@ -392,8 +403,6 @@ public class PlayGameActivity extends ParentActivity {
 
     private ImageView userAvatar;
     private ImageView opponentAvatar;
-
-    private ImageView reportProblem;
 
     private TextView collectedDiamondTextView;
     private TextView collectedDiamondTextViewTmp;
@@ -457,9 +466,9 @@ public class PlayGameActivity extends ParentActivity {
         opponentNameTextView.setText(opponentUser.getName());
         opponentAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, opponentUser.getAvatar()));
 
-        reportProblem.setOnClickListener(new View.OnClickListener() {
+        reportProblemImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 Log.d("TAG", "reportProblem onClick");
                 final int reportProblemIndex = problemIndex - 1;
                 ConfirmDialog dialog = new ConfirmDialog(PlayGameActivity.this, getResources().getString(R.string.report_problem_confirm));
@@ -474,6 +483,7 @@ public class PlayGameActivity extends ParentActivity {
                                 DuelApp.getInstance().sendMessage(reportProblem.serialize());
                             }
                             DuelApp.getInstance().toast(R.string.report_problem_thanks, Toast.LENGTH_SHORT);
+                            view.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
@@ -483,7 +493,7 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     private void findControls() {
-        reportProblem = (ImageView) findViewById(R.id.report_problem);
+        reportProblemImageView = (ImageView) findViewById(R.id.report_problem);
         tick = (ImageView) findViewById(R.id.play_game_tick);
         opponentNameTextView = (TextView) findViewById(R.id.play_game_opponent_name);
         opponentPointsTextView = (TextView) findViewById(R.id.play_game_opponent_score);
@@ -509,6 +519,7 @@ public class PlayGameActivity extends ParentActivity {
         collectedDiamondGroup = (RelativeLayout) findViewById(R.id.play_game_collected_diamond_group);
 
         removeOptionImageView = (ImageView) findViewById(R.id.remove_option_imageview);
+        reportProblemImageView = (ImageView) findViewById(R.id.report_problem);
     }
 
     User opponentUser;
@@ -610,6 +621,15 @@ public class PlayGameActivity extends ParentActivity {
         removeOptionsFadeOut.setInterpolator(new LinearInterpolator());
         removeOptionsFadeOut.start();
 
+        // fade out the report problem
+        ObjectAnimator reportProblemFadeOut = ObjectAnimator.ofFloat(reportProblemImageView,
+                "alpha", 1f, 0f);
+        reportProblemFadeOut.setDuration(1000);
+        reportProblemFadeOut.setInterpolator(new LinearInterpolator());
+        reportProblemFadeOut.start();
+        reportProblemImageView.setClickable(false);
+
+
         ObjectAnimator[] fadeOutAnim = new ObjectAnimator[NOP];
         for(int k = 0; k < NOP; k ++) {
             fadeOutAnim[k] = ObjectAnimator.ofFloat(optionBtn[k], "alpha", 1f, 0f);
@@ -685,12 +705,13 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     public void hintRemoveMethod(View v) {
-        if (hintRemoveClicked == true)
+        if (hintRemoveClicked)
             return;
         hintRemoveClicked = true;
 
         if (user.getDiamond() < HINT_REMOVE_COST) {
             showToast("متاسفانه الماس کافی ندارید.");
+            v.setVisibility(View.INVISIBLE);
             return;
         } else {
             user.decreaseDiamond(HINT_REMOVE_COST);

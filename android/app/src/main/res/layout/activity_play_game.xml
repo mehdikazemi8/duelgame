@@ -229,17 +229,18 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="left|bottom"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="6dp"
                 android:layout_marginLeft="2dp"
                 android:background="@drawable/report_problem"
-                android:clickable="true" />
+                android:clickable="true"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/remove_option_imageview"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right|bottom"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="6dp"
                 android:layout_marginRight="2dp"
                 android:clickable="true"
                 android:onClick="hintRemoveTapped"
@@ -254,7 +255,7 @@
             android:layout_height="0dp"
             android:layout_above="@+id/play_game_hint_options"
             android:layout_below="@+id/play_game_problem_statement"
-            android:layout_weight="10">
+            android:layout_weight="12">
 
             <LinearLayout
                 android:id="@+id/play_game_my_progress_parent"
