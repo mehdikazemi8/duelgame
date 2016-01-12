@@ -79,12 +79,10 @@ public class PlayGameActivity extends ParentActivity {
 
     int iAnsweredThisTime;
     boolean iAnsweredThisCorrect;
-    int opponentAnsweredThisTime;
     int problemIndex;
 
     boolean hintRemoveClicked;
-    boolean hintAgainClicked;
-    int clickedHintRemove, clickedHintAgain;
+    int clickedHintRemove;
 
     FontFitButton[] optionBtn = new FontFitButton[NOP];
 
@@ -103,46 +101,9 @@ public class PlayGameActivity extends ParentActivity {
 
     ArrayList<Integer> correctOptionsArrayList = new ArrayList<Integer>();
 
-    private final int HINT_AGAIN_COST = 15;
-    private final int HINT_REMOVE_COST = 10;
+    private final int HINT_REMOVE_COST = 97;
 
     private String[] round = new String[NUMBER_OF_QUESTIONS];
-
-    BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_ASK_NEXT_QUESTION) {
-                endQuestionAnimation(false);
-            } else if (type == CommandType.RECEIVE_OPPONENT_SCORE) {
-                try {
-                    JSONObject parser = new JSONObject(json);
-
-                    if (parser.getInt("ok") == 1) {
-                        opponentAnsweredThisTime = parser.getInt("time");
-
-                        Log.d("--- opponent", "" + problemIndex + " -- " + json);
-
-                        if (problemIndex == 6)
-                            opponentPoints += 5;
-                        else
-                            opponentPoints += 3;
-                    } else {
-                        if (parser.getInt("time") != -1) // wrong answer
-                            opponentPoints += -1;
-                    }
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
-
-                setTextView(opponentPointsTextView, "" + opponentPoints);
-                setProgressBar(opProgress, opponentPoints);
-
-            } else if (type == CommandType.RECEIVE_GAME_ENDED) {
-                resultInfo = json;
-                endQuestionAnimation(true);
-            }
-        }
-    });
 
     public void setProgressBar(ProgressBar pb, int progress) {
         if (progress < 0) {
@@ -157,17 +118,14 @@ public class PlayGameActivity extends ParentActivity {
     public void askQuestion() {
         numberOfOptionChose = 0;
         choseOption[0] = choseOption[1] = choseOption[2] = choseOption[3] = 0;
-        hintRemoveClicked = hintAgainClicked = false;
-        clickedHintAgain = clickedHintRemove = 0;
+        hintRemoveClicked = false;
+        clickedHintRemove = 0;
 
         iAnsweredThisCorrect = false;
         iAnsweredThisTime = -1;
-        opponentAnsweredThisTime = -1;
         remainingTimeOfThisQuestion = 20;
 
-        String questionText = questionsToAsk.get(problemIndex).getQuestionText();
-
-        setTextView(questionTextView, questionText);
+        setTextView(questionTextView, questionsToAsk.get(problemIndex).getQuestionText());
 
         List<String> opts = questionsToAsk.get(problemIndex).getOptions();
         problemIndex++;
@@ -176,18 +134,13 @@ public class PlayGameActivity extends ParentActivity {
         shuffleArray(opts);
         shuffleArray(opts);
 
-        if (opts.get(0).equals(correctAnswerStr))
-            correctOption = 0;
-        else if (opts.get(1).equals(correctAnswerStr))
-            correctOption = 1;
-        else if (opts.get(2).equals(correctAnswerStr))
-            correctOption = 2;
-        else
-            correctOption = 3;
-
-        correctOptionsArrayList.add(correctOption);
-
         for(int k = 0; k < NOP; k ++) {
+            if(opts.get(k).equals(correctAnswerStr)) {
+                correctOption = k;
+            }
+        }
+        correctOptionsArrayList.add(correctOption);
+        for(int k = 0; k < NOP; k++) {
             setButton(optionBtn[k], opts.get(k));
         }
 
@@ -199,21 +152,14 @@ public class PlayGameActivity extends ParentActivity {
 
             @Override
             public void onFinish() {
-
                 if (iAnsweredThisCorrect == true)
                     return;
 
                 /*
                 If the dialog is created at all and it is showing then we dismiss it
                 */
-                if (chooseAgainDialog != null && chooseAgainDialog.isShowing())
-                    chooseAgainDialog.dismiss();
-
                 if (removeOptionDialog != null && removeOptionDialog.isShowing())
                     removeOptionDialog.dismiss();
-
-//                hintAgainBtn.setClickable(false);
-//                hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
             }
         };
@@ -224,17 +170,6 @@ public class PlayGameActivity extends ParentActivity {
             optionBtn[k].setBackgroundResource(R.drawable.option_button);
             optionBtn[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         }
-
-//        hintAgainBtn.setClickable(true);
-//        hintRemoveBtn.setClickable(true);
-
-
-
-        hintRemoveView.setPivotX(0);
-        hintRemoveView.setPivotY(0);
-
-        hintRemoveViewIsOpen = true;
-        doAnimateHintOption(hintRemoveView, 0f, 1f, 1000, 1000);
 
         setStartAnimation(0f, 1f, questionTextView, optionBtn[0], optionBtn[1], optionBtn[2], optionBtn[3]);
     }
@@ -275,8 +210,6 @@ public class PlayGameActivity extends ParentActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-//                                hintAgainBtn.setClickable(false);
-//                                hintRemoveBtn.setClickable(false);
                                 changeButtonsClickableState(false);
                             }
 
@@ -300,62 +233,6 @@ public class PlayGameActivity extends ParentActivity {
             fadeIn.start();
             idx++;
         }
-    }
-
-    private void showDialogIfNecessary(final View v) {
-        Log.d("trace", "PlayGameActivity showDialogIfNecessary");
-
-        /*
-         if two options are pressed at the same time and the first option is correct
-         then the second option is incorrect and we must not show dialog
-          */
-        if (iAnsweredThisCorrect)
-            return;
-
-        /*
-        if two wrong options are pressed at the same time the the first one will show dialog
-        don't show two dialogs
-         */
-        if (chooseAgainDialog != null && chooseAgainDialog.isShowing())
-            return;
-
-        if (numberOfOptionChose == 1) {
-            chooseAgainDialog = new ConfirmDialog(PlayGameActivity.this, "انتخاب دوباره 15 الماس", true);
-
-            chooseAgainDialog.setOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(Object data) {
-                    if ((Boolean) data) {
-                        hintAgainMethodFromDialog(v);
-                    }
-                }
-            });
-            chooseAgainDialog.show();
-        }
-    }
-
-    private void hintAgainMethodFromDialog(final View v) {
-        if (iAnsweredThisTime == -1) {
-            hintAgainClicked = true;
-        }
-
-        if (user.getDiamond() < HINT_AGAIN_COST) {
-            showToast("متاسفانه الماس کافی ندارید.");
-            return;
-        } else {
-            user.decreaseDiamond(HINT_AGAIN_COST);
-            clickedHintAgain = 1;
-            answered(v);
-            Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
-            // Build and send an Event.
-            tracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("button_click")
-                    .setAction("report_button")
-                    .setLabel("hint_again")
-                    .build());
-        }
-
-//        hintAgainBtn.setClickable(false);
     }
 
     private void animateGainingDiamond(final int thisQuestionDiamond) {
@@ -408,15 +285,8 @@ public class PlayGameActivity extends ParentActivity {
         be choosed.
         by this condition I won't let him do this
          */
-        if (numberOfOptionChose == 2)
+        if (numberOfOptionChose == 1)
             return;
-
-        Log.d("trace", "PlayGameActivity " + numberOfOptionChose + " " + clickedHintAgain);
-
-        if (numberOfOptionChose == 1 && clickedHintAgain == 0) {
-            showDialogIfNecessary(v);
-            return;
-        }
 
         int clickedButtonIndex = Integer.parseInt(v.getContentDescription().toString());
 
@@ -424,7 +294,6 @@ public class PlayGameActivity extends ParentActivity {
         if (numberOfOptionChose == 2) {
             // there is no other possibility to choose options, he has chosen 2 options already
             changeButtonsClickableState(false);
-//            hintRemoveBtn.setClickable(false);
         }
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
@@ -436,14 +305,11 @@ public class PlayGameActivity extends ParentActivity {
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((FontFitButton) v).getText().toString()) == 0) {
-
             // answered correct, lets disable all buttons
             changeButtonsClickableState(false);
 
             myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
-
             collectedDiamond += iAnsweredThisTime;
-
             animateGainingDiamond(iAnsweredThisTime);
 
             iAnsweredThisCorrect = true;
@@ -462,34 +328,17 @@ public class PlayGameActivity extends ParentActivity {
             ok = 1;
 
             removeOptionImageView.setClickable(false);
-//            hintAgainBtn.setClickable(false);
-//            hintRemoveBtn.setClickable(false);
         } else {
 
-
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
-            userPoints += -1;
+//            userPoints += -1;
 
-            setTextView(userPointsTextView, "" + userPoints);
-            setProgressBar(myProgress, userPoints);
+//            setTextView(userPointsTextView, "" + userPoints);
+//            setProgressBar(myProgress, userPoints);
 
-            // what if he has chosen the wrong answer but he has a chance to choose another one
-            if (hintAgainClicked) {
-                iAnsweredThisTime = -1;
-                hintAgainClicked = false;
-
-                for(int k = 0; k < NOP; k ++){
-                    if(choseOption[k] == 0) {
-                        optionBtn[k].setClickable(true);
-                    }
-                }
-
-            } else {
-
-                for(int k = 0; k < NOP; k ++){
-                    if(choseOption[k] == 0) {
-                        optionBtn[k].setTextColor(getResources().getColor(R.color.gray_light));
-                    }
+            for(int k = 0; k < NOP; k ++){
+                if(choseOption[k] == 0) {
+                    optionBtn[k].setTextColor(getResources().getColor(R.color.gray_light));
                 }
             }
 
@@ -499,28 +348,28 @@ public class PlayGameActivity extends ParentActivity {
 
             }
         }
-
         myPlayer.execute();
 
+        // send result of user choice
         GetQuestion request = new GetQuestion();
         request.setHintAgain(0);
         request.setHintRemove(0);
-        if (ok == 1) {
-            if (clickedHintAgain == 1) request.setHintAgain(1);
-            if (clickedHintRemove == 1) request.setHintRemove(1);
+        if (clickedHintRemove == 1) request.setHintRemove(1);
+        if(ok == 1) {
+            request.setTime(remainingTimeOfThisQuestion);
+        } else {
+            request.setTime(-1);
         }
-        request.setTime(remainingTimeOfThisQuestion);
         request.setOk(ok);
-
         DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
 
 //        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
 
-        // if he has chosen two options and has answered this option wrong, so this is the end of this question
-        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
-            iAnsweredThisCorrect = true;
-            sendGQMinusOne();
-        }
+//        if he has chosen ONE options and has answered this option wrong, so this is the end of this question
+//        if (numberOfOptionChose == 1 && iAnsweredThisCorrect == false) {
+//            iAnsweredThisCorrect = true;
+//            sendGQMinusOne();
+//        }
     }
 
     public void setButton(FontFitButton tv, String s) {
@@ -542,22 +391,14 @@ public class PlayGameActivity extends ParentActivity {
 
     private ImageView reportProblem;
 
-    private TextView playGameHintAgainCost;
-    private TextView playGameHintAgainText;
-    private TextView playGameHintRemoveCost;
-    private TextView playGameHintRemoveText;
     private TextView collectedDiamondTextView;
     private TextView collectedDiamondTextViewTmp;
     private RelativeLayout collectedDiamondGroup;
-
-    private RelativeLayout hintRemoveView;
-    private boolean hintRemoveViewIsOpen;
 
     private LinearLayout header;
 
     DuelMusicPlayer musicPlayer;
 
-    ConfirmDialog chooseAgainDialog = null;
     ConfirmDialog removeOptionDialog = null;
 
     @Override
@@ -568,8 +409,6 @@ public class PlayGameActivity extends ParentActivity {
         findControls();
 
         readArguments();
-
-        hintRemoveViewIsOpen = false;
 
         round[0] = "سوال اول";
         round[1] = "سوال دوم";
@@ -606,8 +445,6 @@ public class PlayGameActivity extends ParentActivity {
                 opponentNameTextView, opponentPointsTextView,
                 userNameTextView, userPointsTextView,
                 questionTextView,
-                playGameHintAgainCost, playGameHintRemoveCost,
-                playGameHintAgainText, playGameHintRemoveText,
                 collectedDiamondTextView, collectedDiamondTextViewTmp);
 
         userNameTextView.setText(AuthManager.getCurrentUser().getName());
@@ -657,18 +494,10 @@ public class PlayGameActivity extends ParentActivity {
         optionBtn[1] = (FontFitButton) findViewById(R.id.play_game_option_1);
         optionBtn[2] = (FontFitButton) findViewById(R.id.play_game_option_2);
         optionBtn[3] = (FontFitButton) findViewById(R.id.play_game_option_3);
-//        hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
-//        hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
 
         myProgress = (ProgressBar) findViewById(R.id.play_game_my_progress);
         opProgress = (ProgressBar) findViewById(R.id.play_game_op_progress);
 
-        playGameHintAgainCost = (TextView) findViewById(R.id.play_game_hint_again_cost);
-        playGameHintAgainText = (TextView) findViewById(R.id.play_game_hint_again_text);
-        playGameHintRemoveCost = (TextView) findViewById(R.id.play_game_hint_remove_cost);
-        playGameHintRemoveText = (TextView) findViewById(R.id.play_game_hint_remove_text);
-
-        hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
         header = (LinearLayout) findViewById(R.id.play_game_header);
 
         collectedDiamondTextView = (TextView) findViewById(R.id.play_game_collected_diamond);
@@ -699,41 +528,10 @@ public class PlayGameActivity extends ParentActivity {
         GetQuestion request = new GetQuestion();
         request.setHintAgain(0);
         request.setHintRemove(0);
-        if (clickedHintAgain == 1) request.setHintAgain(1);
         if (clickedHintRemove == 1) request.setHintRemove(1);
         request.setTime(-1);
         request.setOk(0);
-
         DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
-    }
-
-    public void doAnimateHintOption(final RelativeLayout hintView, float from, float to, int duration, int startDelay) {
-        ObjectAnimator animation = ObjectAnimator.ofFloat(hintView,
-                "scaleX", from, to);
-        animation.setDuration(duration);
-        animation.setStartDelay(startDelay);
-        animation.setInterpolator(new DecelerateInterpolator());
-
-        animation.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                hintView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-        });
-
-        animation.start();
     }
 
     public void doAnimateProgressBar(ProgressBar pb, int fromX, int toX, int duration) {
@@ -816,11 +614,6 @@ public class PlayGameActivity extends ParentActivity {
             }
         }
 
-        if (hintRemoveViewIsOpen == true) {
-            doAnimateHintOption(hintRemoveView, 1f, 0f, 1000, 0);
-            hintRemoveViewIsOpen = false;
-        }
-
         ObjectAnimator questionFadeOut = ObjectAnimator.ofFloat(questionTextView, "alpha", 1f, 0f);
         questionFadeOut.setDuration(1000);
         questionFadeOut.setStartDelay(1000);
@@ -901,11 +694,6 @@ public class PlayGameActivity extends ParentActivity {
                     .build());
         }
 
-        if (hintRemoveViewIsOpen == true) {
-            doAnimateHintOption(hintRemoveView, 1f, 0f, 100, 0);
-            hintRemoveViewIsOpen = false;
-        }
-
         if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
             iAnsweredThisCorrect = true;
             sendGQMinusOne();
@@ -936,40 +724,6 @@ public class PlayGameActivity extends ParentActivity {
         }
 
 //        hintRemoveBtn.setClickable(false);
-    }
-
-    public void hintAgainMethod(View v) {
-        if (iAnsweredThisTime == -1) {
-            hintAgainClicked = true;
-        }
-
-        if (user.getDiamond() < HINT_AGAIN_COST) {
-            showToast("متاسفانه الماس کافی ندارید.");
-            return;
-        } else {
-            user.decreaseDiamond(HINT_AGAIN_COST);
-            clickedHintAgain = 1;
-            Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
-            // Build and send an Event.
-            tracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("button_click")
-                    .setAction("report_button")
-                    .setLabel("hint_again")
-                    .build());
-        }
-
-        iAnsweredThisTime = -1;
-
-        for(int k = 0; k < NOP; k ++) {
-            if(choseOption[k] == 0) {
-                optionBtn[k].setClickable(true);
-                optionBtn[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-            } else if(correctOption != k) {
-                optionBtn[k].setVisibility(View.INVISIBLE);
-            }
-        }
-
-//        hintAgainBtn.setClickable(false);
     }
 
     private void showToast(String message) {
@@ -1035,4 +789,35 @@ public class PlayGameActivity extends ParentActivity {
             timeToAnswer.cancel();
         finish();
     }
+
+    BroadcastReceiver mListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_ASK_NEXT_QUESTION) {
+                endQuestionAnimation(false);
+            } else if (type == CommandType.RECEIVE_OPPONENT_SCORE) {
+                try {
+                    JSONObject parser = new JSONObject(json);
+                    if (parser.getInt("ok") == 1) {
+                        if (problemIndex == 6)
+                            opponentPoints += 5;
+                        else
+                            opponentPoints += 3;
+                    } else {
+//                        if (parser.getInt("time") != -1) // wrong answer
+//                            opponentPoints += -1;
+                    }
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+
+                setTextView(opponentPointsTextView, "" + opponentPoints);
+                setProgressBar(opProgress, opponentPoints);
+
+            } else if (type == CommandType.RECEIVE_GAME_ENDED) {
+                resultInfo = json;
+                endQuestionAnimation(true);
+            }
+        }
+    });
 }

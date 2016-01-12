@@ -134,18 +134,18 @@ public class ParentActivity extends ActionBarActivity {
         return false;
     }
 
-    static void shuffleArray(List<String> ar) {
-        for (int i = ar.size() - 1; i > 0; i--) {
+    static void shuffleArray(List<String> opts) {
+        for (int i = opts.size() - 1; i > 0; i--) {
             int index = rand.nextInt(i) + 1;
-            String a = ar.get(index);
-            ar.set(index, ar.get(i));
-            ar.set(i, a);
+            String a = opts.get(index);
+            opts.set(index, opts.get(i));
+            opts.set(i, a);
         }
 
-        int index = rand.nextInt(ar.size());
-        String a = ar.get(0);
-        ar.set(0, ar.get(index));
-        ar.set(index, a);
+        int index = rand.nextInt(opts.size());
+        String a = opts.get(0);
+        opts.set(0, opts.get(index));
+        opts.set(index, a);
     }
 
     @Override
