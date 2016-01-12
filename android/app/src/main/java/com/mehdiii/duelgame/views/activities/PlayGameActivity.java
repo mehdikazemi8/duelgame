@@ -78,7 +78,7 @@ public class PlayGameActivity extends ParentActivity {
     int numberOfOptionChose;
 
     int iAnsweredThisTime;
-    boolean iAnsweredThisCorrect;
+    boolean iAnsweredThis;
     int problemIndex;
 
     boolean hintRemoveClicked;
@@ -121,7 +121,7 @@ public class PlayGameActivity extends ParentActivity {
         hintRemoveClicked = false;
         clickedHintRemove = 0;
 
-        iAnsweredThisCorrect = false;
+        iAnsweredThis = false;
         iAnsweredThisTime = -1;
         remainingTimeOfThisQuestion = 20;
 
@@ -152,7 +152,7 @@ public class PlayGameActivity extends ParentActivity {
 
             @Override
             public void onFinish() {
-                if (iAnsweredThisCorrect == true)
+                if (iAnsweredThis == true)
                     return;
 
                 /*
@@ -175,6 +175,17 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     public void setStartAnimation(float from, float to, TextView... views) {
+
+        // fade in the bomb
+        removeOptionImageView.setAlpha(0f);
+        removeOptionImageView.setClickable(true);
+        removeOptionImageView.setVisibility(View.VISIBLE);
+        ObjectAnimator removeOptionsFadeIn = ObjectAnimator.ofFloat(removeOptionImageView,
+                "alpha", 0f, 1f);
+        removeOptionsFadeIn.setDuration(1000);
+        removeOptionsFadeIn.setInterpolator(new LinearInterpolator());
+        removeOptionsFadeIn.setStartDelay(1000);
+        removeOptionsFadeIn.start();
 
         int idx = 0;
         for (TextView view : views) {
@@ -288,6 +299,7 @@ public class PlayGameActivity extends ParentActivity {
         if (numberOfOptionChose == 1)
             return;
 
+        removeOptionImageView.setClickable(false);
         int clickedButtonIndex = Integer.parseInt(v.getContentDescription().toString());
 
         numberOfOptionChose += 1;
@@ -303,6 +315,8 @@ public class PlayGameActivity extends ParentActivity {
         ((FontFitButton) v).setClickable(false);
 //        changeButtonsClickableState(false);
 
+        iAnsweredThis = true;
+
         int ok = 0;
         if (correctAnswerStr.compareTo(((FontFitButton) v).getText().toString()) == 0) {
             // answered correct, lets disable all buttons
@@ -311,8 +325,6 @@ public class PlayGameActivity extends ParentActivity {
             myPlayer = new DuelMusicPlayer(this, CORRECT_ANSWER, false);
             collectedDiamond += iAnsweredThisTime;
             animateGainingDiamond(iAnsweredThisTime);
-
-            iAnsweredThisCorrect = true;
 
             if (problemIndex == 6)
                 userPoints += 5;
@@ -362,14 +374,6 @@ public class PlayGameActivity extends ParentActivity {
         }
         request.setOk(ok);
         DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
-
-//        if (numberOfOptionChose == 2 && hintRemoveClicked == true && iAnsweredThisCorrect == false) {
-
-//        if he has chosen ONE options and has answered this option wrong, so this is the end of this question
-//        if (numberOfOptionChose == 1 && iAnsweredThisCorrect == false) {
-//            iAnsweredThisCorrect = true;
-//            sendGQMinusOne();
-//        }
     }
 
     public void setButton(FontFitButton tv, String s) {
@@ -599,6 +603,13 @@ public class PlayGameActivity extends ParentActivity {
 
     public void endQuestionAnimation(final boolean goToResult) {
 
+        // fade out the bomb
+        ObjectAnimator removeOptionsFadeOut = ObjectAnimator.ofFloat(removeOptionImageView,
+                "alpha", 1f, 0f);
+        removeOptionsFadeOut.setDuration(1000);
+        removeOptionsFadeOut.setInterpolator(new LinearInterpolator());
+        removeOptionsFadeOut.start();
+
         ObjectAnimator[] fadeOutAnim = new ObjectAnimator[NOP];
         for(int k = 0; k < NOP; k ++) {
             fadeOutAnim[k] = ObjectAnimator.ofFloat(optionBtn[k], "alpha", 1f, 0f);
@@ -693,11 +704,6 @@ public class PlayGameActivity extends ParentActivity {
                     .build());
             v.setVisibility(View.INVISIBLE);
         }
-
-//        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
-//            iAnsweredThisCorrect = true;
-//            sendGQMinusOne();
-//        }
 
         ArrayList<Integer> canRemove = new ArrayList<Integer>();
 

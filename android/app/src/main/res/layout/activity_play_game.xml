@@ -243,7 +243,8 @@
                 android:layout_marginRight="2dp"
                 android:clickable="true"
                 android:onClick="hintRemoveTapped"
-                android:src="@drawable/remove_option" />
+                android:src="@drawable/remove_option"
+                android:visibility="invisible" />
 
         </FrameLayout>
 
