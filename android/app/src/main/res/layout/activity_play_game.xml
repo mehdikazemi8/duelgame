@@ -206,14 +206,6 @@
             android:layout_height="0dp"
             android:layout_weight="7">
 
-            <Button
-                android:id="@+id/report_problem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:text="@string/report_problem" />
-
             <ScrollView
                 android:id="@+id/play_game_problem_statement"
                 android:layout_width="match_parent"
@@ -232,6 +224,25 @@
                     android:textSize="25sp" />
             </ScrollView>
 
+            <ImageView
+                android:id="@+id/report_problem"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="left|bottom"
+                android:layout_margin="4dp"
+                android:background="@drawable/report_problem"
+                android:clickable="true" />
+
+            <ImageView
+                android:id="@+id/remove_option_imageview"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="4dp"
+                android:clickable="true"
+                android:onClick="hintRemoveTapped"
+                android:src="@drawable/remove_option" />
+
         </FrameLayout>
 
         <RelativeLayout
@@ -244,10 +255,10 @@
 
             <LinearLayout
                 android:id="@+id/play_game_my_progress_parent"
-                android:layout_width="10dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:clipChildren="false"
                 android:orientation="vertical">
 
@@ -262,10 +273,10 @@
 
             <LinearLayout
                 android:id="@+id/play_game_op_progress_parent"
-                android:layout_width="10dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:clipChildren="false"
                 android:orientation="vertical">
 
@@ -274,7 +285,6 @@
                     style="@style/Widget.ProgressBar.Vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:max="20"
                     android:progress="0" />
             </LinearLayout>
@@ -319,7 +329,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="2"
+            android:layout_weight="0"
             android:clipChildren="false"
             android:gravity="center_vertical">
 

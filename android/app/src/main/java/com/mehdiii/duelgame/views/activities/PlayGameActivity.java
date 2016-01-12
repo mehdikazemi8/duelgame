@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
@@ -22,7 +20,6 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -54,13 +51,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class PlayGameActivity extends ParentActivity {
 
     public static final String ARGUMENT_OPPONENT = "argument_opponent";
 
     final int DURATION = 20000;
+    final int NOP = 4;
     final int durationNumberOfProblem = 1000;
     final int durationOptions = 1000;
     final int durationCorrectOption = 1000;
@@ -74,7 +74,7 @@ public class PlayGameActivity extends ParentActivity {
 
     String correctAnswerStr;
     int correctOption;
-    int[] choseOption = new int[4];
+    int[] choseOption = new int[NOP];
     int numberOfOptionChose;
 
     int iAnsweredThisTime;
@@ -86,14 +86,15 @@ public class PlayGameActivity extends ParentActivity {
     boolean hintAgainClicked;
     int clickedHintRemove, clickedHintAgain;
 
-    FontFitButton option0Btn, option1Btn, option2Btn, option3Btn;
-    ImageView hintRemoveBtn, hintAgainBtn;
+    FontFitButton[] optionBtn = new FontFitButton[NOP];
 
     private Display mobileDisplay;
     private Point screenSize = new Point();
     private int screenHeight;
 
     private ImageView tick;
+
+    private ImageView removeOptionImageView;
 
     DuelMusicPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
@@ -143,13 +144,6 @@ public class PlayGameActivity extends ParentActivity {
         }
     });
 
-    public void cancelDanceHintAgain() {
-        if (danceHintAgainX != null && danceHintAgainX.isRunning())
-            danceHintAgainX.cancel();
-        if (danceHintAgainY != null && danceHintAgainY.isRunning())
-            danceHintAgainY.cancel();
-    }
-
     public void setProgressBar(ProgressBar pb, int progress) {
         if (progress < 0) {
             pb.setProgressDrawable(getResources().getDrawable(R.drawable.vertical_progress_bar_red));
@@ -193,10 +187,9 @@ public class PlayGameActivity extends ParentActivity {
 
         correctOptionsArrayList.add(correctOption);
 
-        setButton(option0Btn, opts.get(0));
-        setButton(option1Btn, opts.get(1));
-        setButton(option2Btn, opts.get(2));
-        setButton(option3Btn, opts.get(3));
+        for(int k = 0; k < NOP; k ++) {
+            setButton(optionBtn[k], opts.get(k));
+        }
 
         timeToAnswer = new CountDownTimer(DURATION, 1000) {
             @Override
@@ -216,42 +209,34 @@ public class PlayGameActivity extends ParentActivity {
                 if (chooseAgainDialog != null && chooseAgainDialog.isShowing())
                     chooseAgainDialog.dismiss();
 
-                hintAgainBtn.setClickable(false);
-                hintRemoveBtn.setClickable(false);
+                if (removeOptionDialog != null && removeOptionDialog.isShowing())
+                    removeOptionDialog.dismiss();
+
+//                hintAgainBtn.setClickable(false);
+//                hintRemoveBtn.setClickable(false);
                 sendGQMinusOne();
             }
         };
 
         changeButtonsClickableState(true);
 
-        option0Btn.setBackgroundResource(R.drawable.option_button);
-        option1Btn.setBackgroundResource(R.drawable.option_button);
-        option2Btn.setBackgroundResource(R.drawable.option_button);
-        option3Btn.setBackgroundResource(R.drawable.option_button);
+        for(int k = 0; k < NOP; k ++) {
+            optionBtn[k].setBackgroundResource(R.drawable.option_button);
+            optionBtn[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        }
 
-//        option0Btn.setVisibility(View.VISIBLE);
-//        option1Btn.setVisibility(View.VISIBLE);
-//        option2Btn.setVisibility(View.VISIBLE);
-//        option3Btn.setVisibility(View.VISIBLE);
+//        hintAgainBtn.setClickable(true);
+//        hintRemoveBtn.setClickable(true);
 
-        option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
 
-        hintAgainBtn.setClickable(true);
-        hintRemoveBtn.setClickable(true);
 
-        hintAgainView.setPivotX(hintAgainView.getRight());
-        hintAgainView.setPivotY(0);
         hintRemoveView.setPivotX(0);
         hintRemoveView.setPivotY(0);
 
-        hintAgainViewIsOpen = hintRemoveViewIsOpen = true;
+        hintRemoveViewIsOpen = true;
         doAnimateHintOption(hintRemoveView, 0f, 1f, 1000, 1000);
-        doAnimateHintOption(hintAgainView, 0f, 1f, 1000, 1000);
 
-        setStartAnimation(0f, 1f, questionTextView, option0Btn, option1Btn, option2Btn, option3Btn);
+        setStartAnimation(0f, 1f, questionTextView, optionBtn[0], optionBtn[1], optionBtn[2], optionBtn[3]);
     }
 
     public void setStartAnimation(float from, float to, TextView... views) {
@@ -290,8 +275,8 @@ public class PlayGameActivity extends ParentActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                hintAgainBtn.setClickable(false);
-                                hintRemoveBtn.setClickable(false);
+//                                hintAgainBtn.setClickable(false);
+//                                hintRemoveBtn.setClickable(false);
                                 changeButtonsClickableState(false);
                             }
 
@@ -370,14 +355,7 @@ public class PlayGameActivity extends ParentActivity {
                     .build());
         }
 
-        if (hintAgainViewIsOpen == true) {
-            cancelDanceHintAgain();
-
-            doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
-            hintAgainViewIsOpen = false;
-        }
-
-        hintAgainBtn.setClickable(false);
+//        hintAgainBtn.setClickable(false);
     }
 
     private void animateGainingDiamond(final int thisQuestionDiamond) {
@@ -446,7 +424,7 @@ public class PlayGameActivity extends ParentActivity {
         if (numberOfOptionChose == 2) {
             // there is no other possibility to choose options, he has chosen 2 options already
             changeButtonsClickableState(false);
-            hintRemoveBtn.setClickable(false);
+//            hintRemoveBtn.setClickable(false);
         }
 
         iAnsweredThisTime = (int) remainingTimeOfThisQuestion;
@@ -483,8 +461,9 @@ public class PlayGameActivity extends ParentActivity {
             ((FontFitButton) v).setTextColor(getResources().getColor(R.color.correct_answer));
             ok = 1;
 
-            hintAgainBtn.setClickable(false);
-            hintRemoveBtn.setClickable(false);
+            removeOptionImageView.setClickable(false);
+//            hintAgainBtn.setClickable(false);
+//            hintRemoveBtn.setClickable(false);
         } else {
 
 
@@ -495,46 +474,29 @@ public class PlayGameActivity extends ParentActivity {
             setProgressBar(myProgress, userPoints);
 
             // what if he has chosen the wrong answer but he has a chance to choose another one
-            if (hintAgainClicked == true) {
+            if (hintAgainClicked) {
                 iAnsweredThisTime = -1;
                 hintAgainClicked = false;
 
-                if (choseOption[0] == 0)
-                    option0Btn.setClickable(true);
-                if (choseOption[1] == 0)
-                    option1Btn.setClickable(true);
-                if (choseOption[2] == 0)
-                    option2Btn.setClickable(true);
-                if (choseOption[3] == 0)
-                    option3Btn.setClickable(true);
+                for(int k = 0; k < NOP; k ++){
+                    if(choseOption[k] == 0) {
+                        optionBtn[k].setClickable(true);
+                    }
+                }
 
             } else {
-                if (choseOption[0] == 0)
-                    option0Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[1] == 0)
-                    option1Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[2] == 0)
-                    option2Btn.setTextColor(getResources().getColor(R.color.gray_light));
-                if (choseOption[3] == 0)
-                    option3Btn.setTextColor(getResources().getColor(R.color.gray_light));
+
+                for(int k = 0; k < NOP; k ++){
+                    if(choseOption[k] == 0) {
+                        optionBtn[k].setTextColor(getResources().getColor(R.color.gray_light));
+                    }
+                }
             }
 
             ((FontFitButton) v).setTextColor(getResources().getColor(R.color.wrong_answer));
 
-            if (numberOfOptionChose == 1 && hintAgainViewIsOpen == true) {
-                danceHintAgainX = ObjectAnimator.ofFloat(hintAgainView, "scaleX", 1, 1.1f, 0.95f, 1);
-                danceHintAgainX.setDuration(1000);
-                danceHintAgainX.setRepeatCount(1);
-                danceHintAgainX.setInterpolator(new AccelerateInterpolator());
-                danceHintAgainX.setRepeatMode(ObjectAnimator.REVERSE);
-                danceHintAgainX.start();
+            if (numberOfOptionChose == 1) {
 
-                danceHintAgainY = ObjectAnimator.ofFloat(hintAgainView, "scaleY", 1, 1.1f, 0.95f, 1);
-                danceHintAgainY.setDuration(1000);
-                danceHintAgainY.setRepeatCount(1);
-                danceHintAgainY.setInterpolator(new OvershootInterpolator());
-                danceHintAgainY.setRepeatMode(ObjectAnimator.REVERSE);
-                danceHintAgainY.start();
             }
         }
 
@@ -578,7 +540,7 @@ public class PlayGameActivity extends ParentActivity {
     private ImageView userAvatar;
     private ImageView opponentAvatar;
 
-    private Button reportProblem;
+    private ImageView reportProblem;
 
     private TextView playGameHintAgainCost;
     private TextView playGameHintAgainText;
@@ -588,16 +550,15 @@ public class PlayGameActivity extends ParentActivity {
     private TextView collectedDiamondTextViewTmp;
     private RelativeLayout collectedDiamondGroup;
 
-    private RelativeLayout hintAgainView, hintRemoveView;
-    private boolean hintAgainViewIsOpen, hintRemoveViewIsOpen;
+    private RelativeLayout hintRemoveView;
+    private boolean hintRemoveViewIsOpen;
 
     private LinearLayout header;
-
-    private ObjectAnimator danceHintAgainX, danceHintAgainY;
 
     DuelMusicPlayer musicPlayer;
 
     ConfirmDialog chooseAgainDialog = null;
+    ConfirmDialog removeOptionDialog = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -608,7 +569,7 @@ public class PlayGameActivity extends ParentActivity {
 
         readArguments();
 
-        hintAgainViewIsOpen = hintRemoveViewIsOpen = false;
+        hintRemoveViewIsOpen = false;
 
         round[0] = "سوال اول";
         round[1] = "سوال دوم";
@@ -641,14 +602,13 @@ public class PlayGameActivity extends ParentActivity {
 
     private void configureControls() {
         FontHelper.setKoodakFor(getApplicationContext(),
-                option0Btn, option1Btn, option2Btn, option3Btn,
+                optionBtn[0], optionBtn[1], optionBtn[2], optionBtn[3],
                 opponentNameTextView, opponentPointsTextView,
                 userNameTextView, userPointsTextView,
                 questionTextView,
                 playGameHintAgainCost, playGameHintRemoveCost,
                 playGameHintAgainText, playGameHintRemoveText,
-                collectedDiamondTextView, collectedDiamondTextViewTmp,
-                reportProblem);
+                collectedDiamondTextView, collectedDiamondTextViewTmp);
 
         userNameTextView.setText(AuthManager.getCurrentUser().getName());
         userAvatar.setImageResource(AvatarHelper.getResourceId(PlayGameActivity.this, AuthManager.getCurrentUser().getAvatar()));
@@ -659,6 +619,7 @@ public class PlayGameActivity extends ParentActivity {
         reportProblem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("TAG", "reportProblem onClick");
                 final int reportProblemIndex = problemIndex - 1;
                 ConfirmDialog dialog = new ConfirmDialog(PlayGameActivity.this, getResources().getString(R.string.report_problem_confirm));
                 dialog.setOnCompleteListener(new OnCompleteListener() {
@@ -681,7 +642,7 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     private void findControls() {
-        reportProblem = (Button) findViewById(R.id.report_problem);
+        reportProblem = (ImageView) findViewById(R.id.report_problem);
         tick = (ImageView) findViewById(R.id.play_game_tick);
         opponentNameTextView = (TextView) findViewById(R.id.play_game_opponent_name);
         opponentPointsTextView = (TextView) findViewById(R.id.play_game_opponent_score);
@@ -692,13 +653,12 @@ public class PlayGameActivity extends ParentActivity {
         userAvatar = (ImageView) findViewById(R.id.play_game_user_avatar);
         opponentAvatar = (ImageView) findViewById(R.id.play_game_opponent_avatar);
 
-        option0Btn = (FontFitButton) findViewById(R.id.play_game_option_0);
-        option1Btn = (FontFitButton) findViewById(R.id.play_game_option_1);
-        option2Btn = (FontFitButton) findViewById(R.id.play_game_option_2);
-        option3Btn = (FontFitButton) findViewById(R.id.play_game_option_3);
-        hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
-        hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
-
+        optionBtn[0] = (FontFitButton) findViewById(R.id.play_game_option_0);
+        optionBtn[1] = (FontFitButton) findViewById(R.id.play_game_option_1);
+        optionBtn[2] = (FontFitButton) findViewById(R.id.play_game_option_2);
+        optionBtn[3] = (FontFitButton) findViewById(R.id.play_game_option_3);
+//        hintRemoveBtn = (ImageView) findViewById(R.id.play_game_hint_remove);
+//        hintAgainBtn = (ImageView) findViewById(R.id.play_game_hint_again);
 
         myProgress = (ProgressBar) findViewById(R.id.play_game_my_progress);
         opProgress = (ProgressBar) findViewById(R.id.play_game_op_progress);
@@ -708,13 +668,14 @@ public class PlayGameActivity extends ParentActivity {
         playGameHintRemoveCost = (TextView) findViewById(R.id.play_game_hint_remove_cost);
         playGameHintRemoveText = (TextView) findViewById(R.id.play_game_hint_remove_text);
 
-        hintAgainView = (RelativeLayout) findViewById(R.id.play_game_hint_again_view);
         hintRemoveView = (RelativeLayout) findViewById(R.id.play_game_hint_remove_view);
         header = (LinearLayout) findViewById(R.id.play_game_header);
 
         collectedDiamondTextView = (TextView) findViewById(R.id.play_game_collected_diamond);
         collectedDiamondTextViewTmp = (TextView) findViewById(R.id.play_game_collected_diamond_tmp);
         collectedDiamondGroup = (RelativeLayout) findViewById(R.id.play_game_collected_diamond_group);
+
+        removeOptionImageView = (ImageView) findViewById(R.id.remove_option_imageview);
     }
 
     User opponentUser;
@@ -804,11 +765,6 @@ public class PlayGameActivity extends ParentActivity {
             timeToAnswer.cancel();
         }
 
-//        option0Btn.setVisibility(View.INVISIBLE);
-//        option1Btn.setVisibility(View.INVISIBLE);
-//        option2Btn.setVisibility(View.INVISIBLE);
-//        option3Btn.setVisibility(View.INVISIBLE);
-
         setTextView(questionTextView, round[problemIndex]);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(questionTextView,
                 "alpha", 0f, 1f);
@@ -845,51 +801,21 @@ public class PlayGameActivity extends ParentActivity {
 
     public void endQuestionAnimation(final boolean goToResult) {
 
-        ObjectAnimator fadeOut0 = ObjectAnimator.ofFloat(option0Btn, "alpha", 1f, 0f);
-        fadeOut0.setDuration(1000);
-        fadeOut0.setInterpolator(new LinearInterpolator());
-
-        ObjectAnimator fadeOut1 = ObjectAnimator.ofFloat(option1Btn, "alpha", 1f, 0f);
-        fadeOut1.setDuration(1000);
-        fadeOut1.setInterpolator(new LinearInterpolator());
-
-        ObjectAnimator fadeOut2 = ObjectAnimator.ofFloat(option2Btn, "alpha", 1f, 0f);
-        fadeOut2.setDuration(1000);
-        fadeOut2.setInterpolator(new LinearInterpolator());
-
-        ObjectAnimator fadeOut3 = ObjectAnimator.ofFloat(option3Btn, "alpha", 1f, 0f);
-        fadeOut3.setDuration(1000);
-        fadeOut3.setInterpolator(new LinearInterpolator());
-
-        if (correctOption == 0) {
-            option0Btn.setTextColor(getResources().getColor(R.color.correct_answer));
-            fadeOut1.start();
-            fadeOut2.start();
-            fadeOut3.start();
-        } else if (correctOption == 1) {
-            option1Btn.setTextColor(getResources().getColor(R.color.correct_answer));
-            fadeOut0.start();
-            fadeOut2.start();
-            fadeOut3.start();
-        } else if (correctOption == 2) {
-            option2Btn.setTextColor(getResources().getColor(R.color.correct_answer));
-            fadeOut0.start();
-            fadeOut1.start();
-            fadeOut3.start();
-        } else // if(correctOption == 3)
-        {
-            option3Btn.setTextColor(getResources().getColor(R.color.correct_answer));
-            fadeOut0.start();
-            fadeOut1.start();
-            fadeOut2.start();
+        ObjectAnimator[] fadeOutAnim = new ObjectAnimator[NOP];
+        for(int k = 0; k < NOP; k ++) {
+            fadeOutAnim[k] = ObjectAnimator.ofFloat(optionBtn[k], "alpha", 1f, 0f);
+            fadeOutAnim[k].setDuration(1000);
+            fadeOutAnim[k].setInterpolator(new LinearInterpolator());
         }
 
-        cancelDanceHintAgain();
-
-        if (hintAgainViewIsOpen == true) {
-            doAnimateHintOption(hintAgainView, 1f, 0f, 1000, 0);
-            hintAgainViewIsOpen = false;
+        for(int k = 0; k < NOP; k ++) {
+            if(correctOption == k) {
+                optionBtn[k].setTextColor(getResources().getColor(R.color.correct_answer));
+            } else {
+                fadeOutAnim[k].start();
+            }
         }
+
         if (hintRemoveViewIsOpen == true) {
             doAnimateHintOption(hintRemoveView, 1f, 0f, 1000, 0);
             hintRemoveViewIsOpen = false;
@@ -931,28 +857,28 @@ public class PlayGameActivity extends ParentActivity {
             }
         });
 
-        switch (correctOption) {
-            case 0:
-                fadeOut0.setStartDelay(1000);
-                fadeOut0.start();
+        for(int k = 0; k < NOP; k ++) {
+            if(correctOption == k) {
+                fadeOutAnim[k].setStartDelay(1000);
+                fadeOutAnim[k].start();
                 questionFadeOut.start();
-                break;
-            case 1:
-                fadeOut1.setStartDelay(1000);
-                fadeOut1.start();
-                questionFadeOut.start();
-                break;
-            case 2:
-                fadeOut2.setStartDelay(1000);
-                fadeOut2.start();
-                questionFadeOut.start();
-                break;
-            case 3:
-                fadeOut3.setStartDelay(1000);
-                fadeOut3.start();
-                questionFadeOut.start();
-                break;
+            }
         }
+    }
+
+    public void hintRemoveTapped(final View v) {
+        removeOptionDialog = new ConfirmDialog(PlayGameActivity.this, "حذف دو گزینه ۹۷ الماس", true);
+
+        removeOptionDialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if ((Boolean) data) {
+                    hintRemoveMethod(v);
+                    v.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        removeOptionDialog.show();
     }
 
     public void hintRemoveMethod(View v) {
@@ -996,23 +922,20 @@ public class PlayGameActivity extends ParentActivity {
         if (correctOption != 3 && choseOption[3] == 0)
             canRemove.add(3);
 
-        int removeItem = canRemove.get(rand.nextInt((int) canRemove.size()));
+        long seed = System.nanoTime();
+        Collections.shuffle(canRemove, new Random(seed));
 
-        if (removeItem == 0) {
-            option0Btn.setVisibility(View.INVISIBLE);
-            choseOption[0] = 1;
-        } else if (removeItem == 1) {
-            option1Btn.setVisibility(View.INVISIBLE);
-            choseOption[1] = 1;
-        } else if (removeItem == 2) {
-            option2Btn.setVisibility(View.INVISIBLE);
-            choseOption[2] = 1;
-        } else {
-            option3Btn.setVisibility(View.INVISIBLE);
-            choseOption[3] = 1;
+        int removeItem = canRemove.get(0);
+        int removeItem1 = canRemove.get(1);
+
+        for(int k = 0; k < NOP; k ++) {
+            if(removeItem == k || removeItem1 == k) {
+                choseOption[k] = 1;
+                optionBtn[k].setVisibility(View.INVISIBLE);
+            }
         }
 
-        hintRemoveBtn.setClickable(false);
+//        hintRemoveBtn.setClickable(false);
     }
 
     public void hintAgainMethod(View v) {
@@ -1035,42 +958,18 @@ public class PlayGameActivity extends ParentActivity {
                     .build());
         }
 
-
-        if (hintAgainViewIsOpen == true) {
-            cancelDanceHintAgain();
-
-            doAnimateHintOption(hintAgainView, 1f, 0f, 100, 0);
-            hintAgainViewIsOpen = false;
-        }
-
         iAnsweredThisTime = -1;
 
-        if (choseOption[0] == 0) {
-            option0Btn.setClickable(true);
-            option0Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else if (correctOption != 0) {
-            option0Btn.setVisibility(View.INVISIBLE);
-        }
-        if (choseOption[1] == 0) {
-            option1Btn.setClickable(true);
-            option1Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else if (correctOption != 1) {
-            option1Btn.setVisibility(View.INVISIBLE);
-        }
-        if (choseOption[2] == 0) {
-            option2Btn.setClickable(true);
-            option2Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else if (correctOption != 2) {
-            option2Btn.setVisibility(View.INVISIBLE);
-        }
-        if (choseOption[3] == 0) {
-            option3Btn.setClickable(true);
-            option3Btn.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        } else if (correctOption != 3) {
-            option3Btn.setVisibility(View.INVISIBLE);
+        for(int k = 0; k < NOP; k ++) {
+            if(choseOption[k] == 0) {
+                optionBtn[k].setClickable(true);
+                optionBtn[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+            } else if(correctOption != k) {
+                optionBtn[k].setVisibility(View.INVISIBLE);
+            }
         }
 
-        hintAgainBtn.setClickable(false);
+//        hintAgainBtn.setClickable(false);
     }
 
     private void showToast(String message) {
@@ -1107,10 +1006,9 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     public void changeButtonsClickableState(boolean state) {
-        option0Btn.setClickable(state);
-        option1Btn.setClickable(state);
-        option2Btn.setClickable(state);
-        option3Btn.setClickable(state);
+        for(int k = 0; k < NOP; k ++) {
+            optionBtn[k].setClickable(state);
+        }
     }
 
     @Override
@@ -1137,10 +1035,4 @@ public class PlayGameActivity extends ParentActivity {
             timeToAnswer.cancel();
         finish();
     }
-
-//    @Override
-//    public void onBackPressed() {
-//
-//
-//    }
 }

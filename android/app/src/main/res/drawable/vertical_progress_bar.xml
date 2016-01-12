@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="5dip" />
+            <corners android:radius="1dip" />
             <gradient
                 android:angle="180"
                 android:centerColor="@color/play_game_bar_background"
@@ -16,7 +16,7 @@
             android:clipOrientation="vertical"
             android:gravity="bottom">
             <shape>
-                <corners android:radius="5dip" />
+                <corners android:radius="1dip" />
                 <gradient
                     android:angle="180"
                     android:centerColor="#80ffb600"
@@ -31,7 +31,7 @@
             android:clipOrientation="vertical"
             android:gravity="bottom">
             <shape>
-                <corners android:radius="5dip" />
+                <corners android:radius="1dip" />
                 <gradient
                     android:angle="180"
                     android:centerColor="@color/play_game_bar_foreground"
