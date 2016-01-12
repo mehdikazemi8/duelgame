@@ -320,7 +320,6 @@ public class PlayGameActivity extends ParentActivity {
                 userPoints += 3;
 
             setTextView(userPointsTextView, "" + userPoints);
-
             setProgressBar(myProgress, userPoints);
 
             //((Button) v).setBackgroundColor(Color.GREEN);
@@ -343,6 +342,7 @@ public class PlayGameActivity extends ParentActivity {
             }
 
             ((FontFitButton) v).setTextColor(getResources().getColor(R.color.wrong_answer));
+            optionBtn[correctOption].setTextColor(getResources().getColor(R.color.correct_answer));
 
             if (numberOfOptionChose == 1) {
 
@@ -667,7 +667,6 @@ public class PlayGameActivity extends ParentActivity {
             public void onComplete(Object data) {
                 if ((Boolean) data) {
                     hintRemoveMethod(v);
-                    v.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -692,12 +691,13 @@ public class PlayGameActivity extends ParentActivity {
                     .setAction("report_button")
                     .setLabel("hint_remove")
                     .build());
+            v.setVisibility(View.INVISIBLE);
         }
 
-        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
-            iAnsweredThisCorrect = true;
-            sendGQMinusOne();
-        }
+//        if (numberOfOptionChose == 2 && iAnsweredThisCorrect == false) {
+//            iAnsweredThisCorrect = true;
+//            sendGQMinusOne();
+//        }
 
         ArrayList<Integer> canRemove = new ArrayList<Integer>();
 
@@ -796,6 +796,7 @@ public class PlayGameActivity extends ParentActivity {
             if (type == CommandType.RECEIVE_ASK_NEXT_QUESTION) {
                 endQuestionAnimation(false);
             } else if (type == CommandType.RECEIVE_OPPONENT_SCORE) {
+//                DuelApp.getInstance().toast(R.string.win_caption, Toast.LENGTH_LONG);
                 try {
                     JSONObject parser = new JSONObject(json);
                     if (parser.getInt("ok") == 1) {
