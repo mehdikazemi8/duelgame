@@ -21,6 +21,12 @@
             android:layout_weight="3"
             android:clipChildren="false">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/header_background"
+                android:layout_height="5dp"
+                android:background="#67FFFFFF" />
+
             <RelativeLayout
                 android:id="@+id/play_game_collected_diamond_group"
                 android:layout_width="match_parent"
@@ -118,35 +124,6 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clipChildren="false"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="14"
-                        android:clipChildren="false">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            android:src="@drawable/clock" />
-
-                        <ImageView
-                            android:id="@+id/play_game_tick"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            android:src="@drawable/tick0" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
                     android:layout_weight="2">
 
                     <LinearLayout
@@ -208,8 +185,8 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="left">
                 <ImageView
                     android:id="@+id/op_tick0"
                     style="@style/tick_cross_game_play" />
@@ -232,8 +209,8 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_gravity="right"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
                 <ImageView
                     android:id="@+id/user_tick5"
                     style="@style/tick_cross_game_play" />
@@ -278,7 +255,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="left|bottom"
                 android:layout_marginBottom="6dp"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:background="@drawable/report_problem"
                 android:clickable="true"
                 android:visibility="invisible" />
@@ -289,7 +266,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="right|bottom"
                 android:layout_marginBottom="6dp"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="4dp"
                 android:clickable="true"
                 android:onClick="hintRemoveTapped"
                 android:src="@drawable/remove_option"

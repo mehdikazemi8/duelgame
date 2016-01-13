@@ -17,7 +17,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -69,7 +68,7 @@ public class PlayGameActivity extends ParentActivity {
 
     long remainingTimeOfThisQuestion;
     CountDownTimer timeToAnswer = null;
-    RotateAnimation rotateTickAnimation = null;
+    ScaleAnimation timerScaleAnimation = null;
     String resultInfo;
 
     String correctAnswerStr;
@@ -90,8 +89,6 @@ public class PlayGameActivity extends ParentActivity {
     private Point screenSize = new Point();
     private int screenHeight;
 
-    private ImageView tick;
-
     private ImageView removeOptionImageView;
     private ImageView reportProblemImageView;
     private ImageView[] userTick = new ImageView[NUMBER_OF_QUESTIONS];
@@ -103,6 +100,7 @@ public class PlayGameActivity extends ParentActivity {
     int WRONG_ANSWER, CORRECT_ANSWER;
 
     ProgressBar myProgress, opProgress;
+    private TextView headerBackground;
 
     ArrayList<Integer> correctOptionsArrayList = new ArrayList<Integer>();
 
@@ -227,11 +225,10 @@ public class PlayGameActivity extends ParentActivity {
                     public void onAnimationEnd(Animator animation) {
                         timeToAnswer.start();
 
-                        rotateTickAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
-                                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                        rotateTickAnimation.setDuration(DURATION);
-                        rotateTickAnimation.setInterpolator(new LinearInterpolator());
-                        rotateTickAnimation.setAnimationListener(new Animation.AnimationListener() {
+                        timerScaleAnimation = new ScaleAnimation(1f, 0f, 1f, 1f, Animation.RELATIVE_TO_SELF, Animation.RELATIVE_TO_SELF);
+                        timerScaleAnimation.setDuration(DURATION);
+                        timerScaleAnimation.setInterpolator(new LinearInterpolator());
+                        timerScaleAnimation.setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation animation) {
 
@@ -247,7 +244,7 @@ public class PlayGameActivity extends ParentActivity {
 
                             }
                         });
-                        tick.startAnimation(rotateTickAnimation);
+                        headerBackground.startAnimation(timerScaleAnimation);
                     }
 
                     @Override
@@ -518,7 +515,6 @@ public class PlayGameActivity extends ParentActivity {
 
     private void findControls() {
         reportProblemImageView = (ImageView) findViewById(R.id.report_problem);
-        tick = (ImageView) findViewById(R.id.play_game_tick);
         opponentNameTextView = (TextView) findViewById(R.id.play_game_opponent_name);
         opponentPointsTextView = (TextView) findViewById(R.id.play_game_opponent_score);
         userNameTextView = (TextView) findViewById(R.id.play_game_user_name);
@@ -558,6 +554,8 @@ public class PlayGameActivity extends ParentActivity {
         oppTick[3] = (ImageView) findViewById(R.id.op_tick3);
         oppTick[4] = (ImageView) findViewById(R.id.op_tick4);
         oppTick[5] = (ImageView) findViewById(R.id.op_tick5);
+
+        headerBackground = (TextView) findViewById(R.id.header_background);
     }
 
     User opponentUser;
@@ -609,8 +607,8 @@ public class PlayGameActivity extends ParentActivity {
     }
 
     public void startQuestionAnimation() {
-        if (rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
-            rotateTickAnimation.cancel();
+        if (timerScaleAnimation != null && timerScaleAnimation.hasEnded() == false)
+            timerScaleAnimation.cancel();
 
         if (timeToAnswer != null) {
             timeToAnswer.cancel();
@@ -847,8 +845,8 @@ public class PlayGameActivity extends ParentActivity {
     private void goodbye() {
         DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
 
-        if (rotateTickAnimation != null && rotateTickAnimation.hasEnded() == false)
-            rotateTickAnimation.cancel();
+        if (timerScaleAnimation != null && timerScaleAnimation.hasEnded() == false)
+            timerScaleAnimation.cancel();
 
         if (timeToAnswer != null)
             timeToAnswer.cancel();
