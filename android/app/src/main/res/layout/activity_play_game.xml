@@ -206,6 +206,54 @@
             android:layout_height="0dp"
             android:layout_weight="7">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="left"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/op_tick0"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick1"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick2"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick3"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick4"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick5"
+                    style="@style/tick_cross_game_play" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/user_tick5"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick4"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick3"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick2"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick1"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick0"
+                    style="@style/tick_cross_game_play" />
+            </LinearLayout>
+
             <ScrollView
                 android:id="@+id/play_game_problem_statement"
                 android:layout_width="match_parent"

@@ -94,6 +94,10 @@ public class PlayGameActivity extends ParentActivity {
 
     private ImageView removeOptionImageView;
     private ImageView reportProblemImageView;
+    private ImageView[] userTick = new ImageView[NUMBER_OF_QUESTIONS];
+    private ImageView[] oppTick = new ImageView[NUMBER_OF_QUESTIONS];
+    private int oppTickIndex = 0;
+    private int userTickIndex = 0;
 
     DuelMusicPlayer myPlayer;
     int WRONG_ANSWER, CORRECT_ANSWER;
@@ -161,6 +165,7 @@ public class PlayGameActivity extends ParentActivity {
                 */
                 if (removeOptionDialog != null && removeOptionDialog.isShowing())
                     removeOptionDialog.dismiss();
+                setUserTick(false);
                 sendGQMinusOne();
             }
         };
@@ -296,6 +301,23 @@ public class PlayGameActivity extends ParentActivity {
         collectedDiamondGroup.startAnimation(all);
     }
 
+    private void setUserTick(boolean correct) {
+        if(correct) {
+            userTick[userTickIndex].setImageResource(R.drawable.tick);
+        } else {
+            userTick[userTickIndex].setImageResource(R.drawable.cross);
+        }
+        userTick[userTickIndex++].setVisibility(View.VISIBLE);
+    }
+
+    private void setOppTick(boolean correct) {
+        if(correct) {
+            oppTick[oppTickIndex].setImageResource(R.drawable.tick);
+        } else {
+            oppTick[oppTickIndex].setImageResource(R.drawable.cross);
+        }
+        oppTick[oppTickIndex++].setVisibility(View.VISIBLE);
+    }
 
     public void answered(View v) {
 
@@ -332,6 +354,8 @@ public class PlayGameActivity extends ParentActivity {
 
         int ok = 0;
         if (correctAnswerStr.compareTo(((FontFitButton) v).getText().toString()) == 0) {
+            setUserTick(true);
+
             // answered correct, lets disable all buttons
             changeButtonsClickableState(false);
 
@@ -351,7 +375,7 @@ public class PlayGameActivity extends ParentActivity {
             ((FontFitButton) v).setTextColor(getResources().getColor(R.color.correct_answer));
             ok = 1;
         } else {
-
+            setUserTick(false);
             myPlayer = new DuelMusicPlayer(this, WRONG_ANSWER, false);
 //            userPoints += -1;
 
@@ -520,6 +544,20 @@ public class PlayGameActivity extends ParentActivity {
 
         removeOptionImageView = (ImageView) findViewById(R.id.remove_option_imageview);
         reportProblemImageView = (ImageView) findViewById(R.id.report_problem);
+
+        userTick[0] = (ImageView) findViewById(R.id.user_tick0);
+        userTick[1] = (ImageView) findViewById(R.id.user_tick1);
+        userTick[2] = (ImageView) findViewById(R.id.user_tick2);
+        userTick[3] = (ImageView) findViewById(R.id.user_tick3);
+        userTick[4] = (ImageView) findViewById(R.id.user_tick4);
+        userTick[5] = (ImageView) findViewById(R.id.user_tick5);
+
+        oppTick[0] = (ImageView) findViewById(R.id.op_tick0);
+        oppTick[1] = (ImageView) findViewById(R.id.op_tick1);
+        oppTick[2] = (ImageView) findViewById(R.id.op_tick2);
+        oppTick[3] = (ImageView) findViewById(R.id.op_tick3);
+        oppTick[4] = (ImageView) findViewById(R.id.op_tick4);
+        oppTick[5] = (ImageView) findViewById(R.id.op_tick5);
     }
 
     User opponentUser;
@@ -831,9 +869,12 @@ public class PlayGameActivity extends ParentActivity {
                             opponentPoints += 5;
                         else
                             opponentPoints += 3;
+
+                        setOppTick(true);
                     } else {
 //                        if (parser.getInt("time") != -1) // wrong answer
 //                            opponentPoints += -1;
+                        setOppTick(false);
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
