@@ -26439,6 +26439,7 @@ com.mehdiii.duelgame.R$drawable: int common_signin_btn_text_normal_dark
 com.mehdiii.duelgame.R$drawable: int common_signin_btn_text_normal_light
 com.mehdiii.duelgame.R$drawable: int common_signin_btn_text_pressed_dark
 com.mehdiii.duelgame.R$drawable: int common_signin_btn_text_pressed_light
+com.mehdiii.duelgame.R$drawable: int cross
 com.mehdiii.duelgame.R$drawable: int cup_bronze
 com.mehdiii.duelgame.R$drawable: int cup_gold
 com.mehdiii.duelgame.R$drawable: int cup_silver
@@ -26490,6 +26491,8 @@ com.mehdiii.duelgame.R$drawable: int powered_by_google_light
 com.mehdiii.duelgame.R$drawable: int refresh_icon
 com.mehdiii.duelgame.R$drawable: int register_user_bg
 com.mehdiii.duelgame.R$drawable: int register_user_bg_pic
+com.mehdiii.duelgame.R$drawable: int remove_option
+com.mehdiii.duelgame.R$drawable: int report_problem
 com.mehdiii.duelgame.R$drawable: int result_button_review
 com.mehdiii.duelgame.R$drawable: int result_buttons
 com.mehdiii.duelgame.R$drawable: int round_tv
@@ -26499,6 +26502,7 @@ com.mehdiii.duelgame.R$drawable: int star
 com.mehdiii.duelgame.R$drawable: int store_diamond
 com.mehdiii.duelgame.R$drawable: int store_heart
 com.mehdiii.duelgame.R$drawable: int store_point
+com.mehdiii.duelgame.R$drawable: int tick
 com.mehdiii.duelgame.R$drawable: int tick0
 com.mehdiii.duelgame.R$drawable: int vertical_progress_bar
 com.mehdiii.duelgame.R$drawable: int vertical_progress_bar_red
@@ -26592,6 +26596,7 @@ com.mehdiii.duelgame.R$id: int choose_avatar_list
 com.mehdiii.duelgame.R$id: int chronometer
 com.mehdiii.duelgame.R$id: int classic
 com.mehdiii.duelgame.R$id: int collapseActionView
+com.mehdiii.duelgame.R$id: int collected_diamond_counter
 com.mehdiii.duelgame.R$id: int confirm_dialog_diamond
 com.mehdiii.duelgame.R$id: int container_avatars
 com.mehdiii.duelgame.R$id: int container_buttons
@@ -26678,6 +26683,7 @@ com.mehdiii.duelgame.R$id: int game_result_win_bonus
 com.mehdiii.duelgame.R$id: int gold_cnt
 com.mehdiii.duelgame.R$id: int grayscale
 com.mehdiii.duelgame.R$id: int gridView_main
+com.mehdiii.duelgame.R$id: int header_background
 com.mehdiii.duelgame.R$id: int holo_dark
 com.mehdiii.duelgame.R$id: int holo_light
 com.mehdiii.duelgame.R$id: int home
@@ -26717,6 +26723,12 @@ com.mehdiii.duelgame.R$id: int never
 com.mehdiii.duelgame.R$id: int no_mutual_statistics
 com.mehdiii.duelgame.R$id: int none
 com.mehdiii.duelgame.R$id: int normal
+com.mehdiii.duelgame.R$id: int op_tick0
+com.mehdiii.duelgame.R$id: int op_tick1
+com.mehdiii.duelgame.R$id: int op_tick2
+com.mehdiii.duelgame.R$id: int op_tick3
+com.mehdiii.duelgame.R$id: int op_tick4
+com.mehdiii.duelgame.R$id: int op_tick5
 com.mehdiii.duelgame.R$id: int opponent_fragment_holder
 com.mehdiii.duelgame.R$id: int option_contact_us
 com.mehdiii.duelgame.R$id: int option_courses_rankings
@@ -26728,7 +26740,6 @@ com.mehdiii.duelgame.R$id: int parentPanel
 com.mehdiii.duelgame.R$id: int play
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond_group
-com.mehdiii.duelgame.R$id: int play_game_collected_diamond_group_divider
 com.mehdiii.duelgame.R$id: int play_game_collected_diamond_tmp
 com.mehdiii.duelgame.R$id: int play_game_empty_text
 com.mehdiii.duelgame.R$id: int play_game_header
@@ -26757,7 +26768,6 @@ com.mehdiii.duelgame.R$id: int play_game_options
 com.mehdiii.duelgame.R$id: int play_game_problem_statement
 com.mehdiii.duelgame.R$id: int play_game_question_text
 com.mehdiii.duelgame.R$id: int play_game_right_hint_diamond
-com.mehdiii.duelgame.R$id: int play_game_tick
 com.mehdiii.duelgame.R$id: int play_game_user_avatar
 com.mehdiii.duelgame.R$id: int play_game_user_name
 com.mehdiii.duelgame.R$id: int play_game_user_score
@@ -26786,6 +26796,7 @@ com.mehdiii.duelgame.R$id: int ranking_user_title
 com.mehdiii.duelgame.R$id: int ranking_week
 com.mehdiii.duelgame.R$id: int refresh_button
 com.mehdiii.duelgame.R$id: int refresh_info_score_container
+com.mehdiii.duelgame.R$id: int remove_option_imageview
 com.mehdiii.duelgame.R$id: int report_problem
 com.mehdiii.duelgame.R$id: int review_answer
 com.mehdiii.duelgame.R$id: int review_option_0
@@ -26889,6 +26900,12 @@ com.mehdiii.duelgame.R$id: int useLogo
 com.mehdiii.duelgame.R$id: int user_fragment_holder
 com.mehdiii.duelgame.R$id: int user_score
 com.mehdiii.duelgame.R$id: int user_score_value
+com.mehdiii.duelgame.R$id: int user_tick0
+com.mehdiii.duelgame.R$id: int user_tick1
+com.mehdiii.duelgame.R$id: int user_tick2
+com.mehdiii.duelgame.R$id: int user_tick3
+com.mehdiii.duelgame.R$id: int user_tick4
+com.mehdiii.duelgame.R$id: int user_tick5
 com.mehdiii.duelgame.R$id: int view_course_ranking_fragment_holder
 com.mehdiii.duelgame.R$id: int view_delimmiter
 com.mehdiii.duelgame.R$id: int view_ranking_fragment_holder
@@ -27510,6 +27527,7 @@ com.mehdiii.duelgame.R$style: int ranking_nav_buttons
 com.mehdiii.duelgame.R$style: int spinner_default_style
 com.mehdiii.duelgame.R$style: int statistics_captions
 com.mehdiii.duelgame.R$style: int statistics_captions_game_result
+com.mehdiii.duelgame.R$style: int tick_cross_game_play
 com.mehdiii.duelgame.R$style: R$style()
 com.mehdiii.duelgame.R$styleable
 com.mehdiii.duelgame.R$styleable: int[] ActionBar
@@ -28817,7 +28835,6 @@ com.mehdiii.duelgame.views.activities.ParentActivity: com.mehdiii.duelgame.views
 com.mehdiii.duelgame.views.activities.PlayGameActivity
 com.mehdiii.duelgame.views.activities.PlayGameActivity: java.lang.String ARGUMENT_OPPONENT
 com.mehdiii.duelgame.views.activities.PlayGameActivity: PlayGameActivity()
-com.mehdiii.duelgame.views.activities.PlayGameActivity: void cancelDanceHintAgain()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void setProgressBar(android.widget.ProgressBar,int)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void askQuestion()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void setStartAnimation(float,float,android.widget.TextView[])
@@ -28826,13 +28843,12 @@ com.mehdiii.duelgame.views.activities.PlayGameActivity: void setButton(com.mehdi
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void setTextView(android.widget.TextView,java.lang.String)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onCreate(android.os.Bundle)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void sendGQMinusOne()
-com.mehdiii.duelgame.views.activities.PlayGameActivity: void doAnimateHintOption(android.widget.RelativeLayout,float,float,int,int)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void doAnimateProgressBar(android.widget.ProgressBar,int,int,int)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void startGameAnimation()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void startQuestionAnimation()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void endQuestionAnimation(boolean)
+com.mehdiii.duelgame.views.activities.PlayGameActivity: void hintRemoveTapped(android.view.View)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void hintRemoveMethod(android.view.View)
-com.mehdiii.duelgame.views.activities.PlayGameActivity: void hintAgainMethod(android.view.View)
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onPause()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onResume()
 com.mehdiii.duelgame.views.activities.PlayGameActivity: void onDestroy()

@@ -1414,7 +1414,7 @@ com.mehdiii.duelgame.views.activities.waiting.WaitingActivity$1
 com.mehdiii.duelgame.views.custom.AppRater:
     private static final java.lang.String APP_TITLE
     private static final java.lang.String APP_PNAME
-    private static final int GAME_UNTIL_PROMPT
+    private static final int WIN_UNTIL_PROMPT
 com.mehdiii.duelgame.views.custom.AvatarViewer:
     30:31:private void setDefaultAvatar()
 com.mehdiii.duelgame.views.dialogs.UpdateDialog:
