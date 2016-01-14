@@ -1,3 +1,4 @@
+
 package com.mehdiii.duelgame.views.custom;
 
 import android.app.Dialog;
@@ -5,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -19,31 +21,37 @@ import com.mehdiii.duelgame.utils.FontHelper;
 /**
  * Created by MeHdi on 4/20/2015.
  */
+
+/**
+ * If he wins the game,
+ */
+
 public class AppRater {
     private final static String APP_TITLE = "دوئل کنکور";
     private final static String APP_PNAME = "YOUR-PACKAGE-NAME";
 
-    private final static int GAME_UNTIL_PROMPT = 10;
+    private final static int WIN_UNTIL_PROMPT = 8;
 
     public static void show(Context mContext, boolean wonThisGame) {
+        Log.d("TAG", "AppRater show");
+
         SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
-//        if (prefs.getBoolean("dontshowagain", false)) {
-//            return;
-//        }
+
+        if (prefs.getBoolean("dontshowagain", false)) {
+            return;
+        }
 
         SharedPreferences.Editor editor = prefs.edit();
 
         // Increment game counter
         long game_count = prefs.getLong("game_count", 0) + 1;
         editor.putLong("game_count", game_count);
+        editor.apply();
 
-        // Wait at least GAME_UNTIL_PROMPT games and he has to win
-        if (game_count >= GAME_UNTIL_PROMPT && wonThisGame) {
+        // Wait at least WIN UNTIL PROMPT games and he has to win
+        if (game_count >= WIN_UNTIL_PROMPT && wonThisGame) {
             showRateDialog(mContext, editor);
         }
-
-        editor.apply();
-        showRateDialog(mContext, editor);
     }
 
     public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
@@ -78,6 +86,8 @@ public class AppRater {
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://cafebazaar.ir/app/ir.ugstudio.duelkonkoor/?l=fa")));
+                editor.putBoolean("dontshowagain", true);
+                editor.apply();
                 dialog.dismiss();
             }
         });

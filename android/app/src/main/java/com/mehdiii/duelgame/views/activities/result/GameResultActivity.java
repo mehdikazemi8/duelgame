@@ -277,6 +277,7 @@ public class GameResultActivity extends ParentActivity {
     }
 
     private void animateIncreaseInTextView(final int plusThis, final int duration, final int start, final int end, final TextView tv) {
+        Log.d("TAG", "game_count cnt " + start + " " + end);
         if (start == end) {
             AppRater.show(GameResultActivity.this, (gameStatus == 1));
         }
