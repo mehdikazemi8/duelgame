@@ -23,7 +23,11 @@ import com.mehdiii.duelgame.utils.FontHelper;
  */
 
 /**
- * If he wins the game,
+ * If he wins the game or draws method show is called,
+ * then we check if he has rated before by checking SharedPreferences for dontshowagain
+ * if this value is true we don't show AppRater otherwise the dialog is shown
+ * when button of rate is tapped dontshowagain is set to true
+ * when remind me later button is tapped the counter is set to Zero
  */
 
 public class AppRater {
