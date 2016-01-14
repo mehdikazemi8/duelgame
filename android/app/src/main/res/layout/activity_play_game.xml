@@ -22,41 +22,10 @@
             android:clipChildren="false">
 
             <TextView
-                android:layout_width="match_parent"
                 android:id="@+id/header_background"
-                android:layout_height="5dp"
-                android:background="#67FFFFFF" />
-
-            <RelativeLayout
-                android:id="@+id/play_game_collected_diamond_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:visibility="invisible">
-
-                <TextView
-                    android:id="@+id/play_game_collected_diamond_group_divider"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/play_game_collected_diamond_group_divider"
-                    android:src="@drawable/diamond" />
-
-                <TextView
-                    android:id="@+id/play_game_collected_diamond_tmp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/play_game_collected_diamond_group_divider"
-                    android:gravity="center"
-                    android:text="19"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp" />
-            </RelativeLayout>
+                android:layout_height="5dp"
+                android:background="#86FFFFFF" />
 
             <LinearLayout
                 android:id="@+id/play_game_header"
@@ -176,6 +145,26 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/diamond" />
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/collected_diamond_counter"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
         </FrameLayout>
 
         <FrameLayout
@@ -271,6 +260,27 @@
                 android:onClick="hintRemoveTapped"
                 android:src="@drawable/remove_option"
                 android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/play_game_collected_diamond_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/diamond" />
+                <TextView
+                    android:id="@+id/play_game_collected_diamond_tmp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp" />
+            </LinearLayout>
 
         </FrameLayout>
 

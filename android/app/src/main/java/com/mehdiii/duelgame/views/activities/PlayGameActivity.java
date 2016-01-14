@@ -43,6 +43,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.result.GameResultActivity;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.custom.FontFitButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
@@ -101,6 +102,7 @@ public class PlayGameActivity extends ParentActivity {
 
     ProgressBar myProgress, opProgress;
     private TextView headerBackground;
+    private CustomTextView diamondCounter;
 
     ArrayList<Integer> correctOptionsArrayList = new ArrayList<Integer>();
 
@@ -272,7 +274,7 @@ public class PlayGameActivity extends ParentActivity {
 
         //int dx = collectedDiamondGroup.getWidth();
 
-        Animation translateText = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 200);
+        Animation translateText = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
         translateText.setDuration(400);
         translateText.setInterpolator(new DecelerateInterpolator());
         translateText.setAnimationListener(new Animation.AnimationListener() {
@@ -286,6 +288,8 @@ public class PlayGameActivity extends ParentActivity {
                                                public void onAnimationEnd(Animation animation) {
                                                    collectedDiamondGroup.setVisibility(View.INVISIBLE);
                                                    collectedDiamondTextView.setText(String.valueOf(collectedDiamond));
+
+                                                   diamondCounter.setText(String.valueOf(collectedDiamond));
                                                }
 
                                                @Override
@@ -427,7 +431,7 @@ public class PlayGameActivity extends ParentActivity {
 
     private TextView collectedDiamondTextView;
     private TextView collectedDiamondTextViewTmp;
-    private RelativeLayout collectedDiamondGroup;
+    private LinearLayout collectedDiamondGroup;
 
     private LinearLayout header;
 
@@ -536,7 +540,7 @@ public class PlayGameActivity extends ParentActivity {
 
         collectedDiamondTextView = (TextView) findViewById(R.id.play_game_collected_diamond);
         collectedDiamondTextViewTmp = (TextView) findViewById(R.id.play_game_collected_diamond_tmp);
-        collectedDiamondGroup = (RelativeLayout) findViewById(R.id.play_game_collected_diamond_group);
+        collectedDiamondGroup = (LinearLayout) findViewById(R.id.play_game_collected_diamond_group);
 
         removeOptionImageView = (ImageView) findViewById(R.id.remove_option_imageview);
         reportProblemImageView = (ImageView) findViewById(R.id.report_problem);
@@ -556,6 +560,7 @@ public class PlayGameActivity extends ParentActivity {
         oppTick[5] = (ImageView) findViewById(R.id.op_tick5);
 
         headerBackground = (TextView) findViewById(R.id.header_background);
+        diamondCounter = (CustomTextView) findViewById(R.id.collected_diamond_counter);
     }
 
     User opponentUser;
