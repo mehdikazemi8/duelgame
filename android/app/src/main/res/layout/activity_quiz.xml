@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/purple_dark"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
@@ -18,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/info" />
+            android:background="@drawable/info_white" />
 
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:layout_width="match_parent"
@@ -27,6 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:text="آزمون های جمع بندی"
+            android:textColor="@color/white"
             android:textSize="@dimen/fontsize.large" />
     </RelativeLayout>
 
