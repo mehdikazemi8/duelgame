@@ -82,6 +82,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".views.activities.quiz.QuizActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".views.activities.PlayGameActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />

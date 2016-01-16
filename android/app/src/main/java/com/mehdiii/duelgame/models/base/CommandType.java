@@ -5,6 +5,10 @@ package com.mehdiii.duelgame.models.base;
  */
 public enum CommandType {
     UNKNOWN,
+
+    GET_QUIZ_LIST,
+    RECEIVE_QUIZ_LIST,
+
     GET_DUEL_HOUR_RANKING_TOTAL,
     RECEIVE_DUEL_HOUR_RANKING_TOTAL,
     GET_DUEL_HOUR_INFO,

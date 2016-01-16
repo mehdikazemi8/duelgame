@@ -187,28 +187,20 @@
 
                 <Button
                     android:id="@+id/button_duel2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/home_buttons"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:background="@drawable/buy_button"
-                    android:padding="10dp"
-                    android:text="دوئل"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize.large" />
+                    android:text="دوئل" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/quiz_button"
+                    style="@style/home_buttons"
+                    android:layout_marginBottom="8dp"
+                    android:text="آزمون جمع بندی" />
 
                 <Button
                     android:id="@+id/button_flash_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:background="@drawable/buy_button"
-                    android:padding="10dp"
-                    android:text="فلش کارت"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize.large" />
+                    style="@style/home_buttons"
+                    android:text="فلش کارت" />
 
             </LinearLayout>
         </RelativeLayout>

@@ -3,7 +3,6 @@ package com.mehdiii.duelgame.views.activities.home.fragments.duelhour;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -23,8 +22,10 @@ import com.mehdiii.duelgame.models.DuelHourInfo;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.MutualStats;
 import com.mehdiii.duelgame.models.PVsPStatRequest;
+import com.mehdiii.duelgame.models.Quiz;
+import com.mehdiii.duelgame.models.QuizCourse;
+import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.RemoveFriend;
-import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -38,8 +39,6 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.ranking.fragments.adapters.RankingListAdapter;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

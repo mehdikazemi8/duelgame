@@ -14,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
@@ -29,6 +32,8 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
+import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
@@ -38,6 +43,8 @@ import de.greenrobot.event.EventBus;
  * Created by omid on 4/5/2015.
  */
 public class HomeFragment extends FlippableFragment implements View.OnClickListener {
+
+    CustomButton quizButton;
 
     TextView diamondCount;
     ImageView avatarImageView;
@@ -89,6 +96,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
         buyDiamondButton.setTypeface(FontHelper.getIcons(getActivity()));
         refillButton.setTypeface(FontHelper.getIcons(getActivity()));
+
+        quizButton.setOnClickListener(this);
     }
 
     private void find(View view) {
@@ -103,6 +112,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         flashCardButton = (Button) view.findViewById(R.id.button_flash_card);
         duel2Button = (Button) view.findViewById(R.id.button_duel2);
+
+        quizButton = (CustomButton) view.findViewById(R.id.quiz_button);
     }
 
     @Override
@@ -134,6 +145,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.button_flash_card:
                 Intent intent = new Intent(getActivity(), FlashCardActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.quiz_button:
+                startActivity(new Intent(getActivity(), QuizActivity.class));
                 break;
         }
     }
@@ -171,6 +185,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         DuelDialog duelDialog = new DuelDialog(getActivity());
         duelDialog.show();
     }
+
+
 
     private void refillHeart() {
         EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));

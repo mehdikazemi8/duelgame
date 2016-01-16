@@ -24,9 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by omid on 4/11/2015.
- */
 public class FriendsListAdapter extends ArrayAdapter<Friend> {
     public interface OnUserDecisionIsMade {
         void onDuel(Friend request);

@@ -7,6 +7,7 @@
     <dimen name="space.medium">10dp</dimen>
     <dimen name="space.long">20dp</dimen>
     <dimen name="fontsize.normal">20sp</dimen>
+    <dimen name="fontsize.largex">27sp</dimen>
     <dimen name="fontsize.large">25sp</dimen>
     <dimen name="fontsize.small">15sp</dimen>
     <dimen name="fontsize.smallx">10sp</dimen>

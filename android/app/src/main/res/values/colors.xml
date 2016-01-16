@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="blue_light">#b3e6ff</color>
+    <color name="green_very_light">#99ff99</color>
+    <color name="gray_very_light">#eaeae1</color>
+
     <color name="gold">#FFD700</color>
     <color name="silver">#C0C0C0</color>
     <color name="bronze">#CD7F32</color>
