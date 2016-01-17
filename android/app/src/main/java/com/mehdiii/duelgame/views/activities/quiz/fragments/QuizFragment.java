@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -8,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
+import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
 import java.util.Calendar;
@@ -22,12 +25,19 @@ import java.util.Timer;
 /**
  * Created by mehdiii on 1/14/16.
  */
-public class QuizFragment extends Fragment {
+public class QuizFragment extends Fragment implements View.OnClickListener {
 
+    final int NOP = 4;
     Quiz quiz;
     long remainingTime;
+    int currentQuestionIdx;
     CustomTextView quizTimerTextView;
     CountDownTimer countDownTimer;
+
+    CustomButton[] options = new CustomButton[NOP];
+    CustomTextView questionText;
+    CustomTextView title;
+    CustomButton nextQuestion;
 
     public QuizFragment() {
         super();
@@ -51,6 +61,13 @@ public class QuizFragment extends Fragment {
 
     private void find(View view) {
         quizTimerTextView = (CustomTextView) view.findViewById(R.id.quiz_timer);
+        options[0] = (CustomButton) view.findViewById(R.id.option_0);
+        options[1] = (CustomButton) view.findViewById(R.id.option_1);
+        options[2] = (CustomButton) view.findViewById(R.id.option_2);
+        options[3] = (CustomButton) view.findViewById(R.id.option_3);
+        questionText = (CustomTextView) view.findViewById(R.id.question_text);
+        nextQuestion = (CustomButton) view.findViewById(R.id.next_question_button);
+        title = (CustomTextView) view.findViewById(R.id.title);
     }
 
     private void configure() {
@@ -82,9 +99,66 @@ public class QuizFragment extends Fragment {
         };
         countDownTimer.start();
 
+        // set onclick for options
+        for(int k = 0; k < NOP; k ++) {
+            options[k].setOnClickListener(this);
+        }
+        nextQuestion.setOnClickListener(this);
+
+        // start quiz
+        startQuiz();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.option_0:
+            case R.id.option_1:
+            case R.id.option_2:
+            case R.id.option_3:
+                for(int k = 0; k < NOP; k ++) {
+                    options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+                }
+                ((CustomButton)view).setTextColor(getResources().getColor(R.color.blue));
+                break;
+
+            case R.id.next_question_button:
+                showNextQuestion();
+                break;
+        }
+    }
+
+    private void startQuiz() {
+        currentQuestionIdx = 0;
+        showNextQuestion();
+    }
+
+    private void showNextQuestion() {
+        if(currentQuestionIdx == quiz.getQuestions().size()) {
+            // TODO
+            return;
+        }
+
+        Log.d("TAG", "sss " + currentQuestionIdx + " " + quiz.getQuestions().size());
+
+        for(int k = 0; k < NOP; k ++) {
+            options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+        }
+        QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
+        title.setText(String.valueOf(currentQuestionIdx+1) + " - " + question.getCourseName());
+        questionText.setText(question.getQuestionText());
+        for(int k = 0; k < NOP; k ++) {
+            options[k].setText(question.getOptions().get(k));
+        }
+
+        currentQuestionIdx ++;
+
+        if(currentQuestionIdx == quiz.getQuestions().size()) {
+            nextQuestion.setText("ارسال جواب ها");
+        }
     }
 
     private String calculateRemainingTime(long sec) {
-        return String.format("%d:%d", sec/60, sec%60);
+        return String.format("%d:%d", sec / 60, sec % 60);
     }
 }

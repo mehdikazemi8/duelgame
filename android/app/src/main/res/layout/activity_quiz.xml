@@ -21,7 +21,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/info_white" />
+            android:background="@drawable/info_white"
+            android:visibility="gone" />
 
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:layout_width="match_parent"

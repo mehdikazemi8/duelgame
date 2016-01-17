@@ -94,7 +94,7 @@
         <item name="android:textSize">@dimen/fontsize.large</item>
     </style>
 
-    <style name="quiz_info_buttons">
+    <style name="quiz_info_different_buttons">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>

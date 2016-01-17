@@ -30,19 +30,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="یکشمینتیکبنمشت"
+            android:text="سوال"
             android:textColor="@color/white"
             android:textSize="@dimen/fontsize.large" />
     </RelativeLayout>
+
+    <com.mehdiii.duelgame.views.custom.CustomButton
+        android:id="@+id/next_question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:text="سوال بعدی" />
 
     <ScrollView
         android:id="@+id/body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/next_question_button"
         android:layout_below="@id/header"
         android:layout_marginTop="10dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,66 +60,37 @@
             android:orientation="vertical">
 
             <com.mehdiii.duelgame.views.custom.CustomTextView
-                android:id="@+id/from_to"
+                android:id="@+id/question_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/fontsize.normal" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:text=" در حال حاضر ارسال درخواست دوستی برای کاربران عضو سایت مقدور می باشد. میتوانید مشخص کنید، چه کسانی مجاز به ارسال درخواست دوستی برای شما باشند (اینجا) کلیک کنید.  در حال حاضر ارسال درخواست دوستی برای کاربران عضو سایت مقدور می باشد. میتوانید مشخص کنید، چه کسانی مجاز به ارسال درخواست دوستی برای شما باشند (اینجا) کلیک کنید. "
+                android:textSize="@dimen/fontsize.normal2" />
 
-            <com.mehdiii.duelgame.views.custom.CustomTextView
-                android:id="@+id/duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="@dimen/fontsize.normal" />
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/option_0"
+                style="@style/quiz_option_buttons"
+                android:text="حهخع حهخ ع حخهع حخهع حهخع حهخع حهخع حهخع حخهع" />
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/option_1"
+                style="@style/quiz_option_buttons"
+                android:text="یسبشیسکبنم ک  کنمت کم ت " />
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/option_2"
+                style="@style/quiz_option_buttons"
+                android:text="لیست درخواستهای دوستی شما خالی می باشد. زمانی که در آینده کاربری درخواست دوستی برای شما ارسال کند اینجا نمایش داده خواهد شد." />
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/option_3"
+                style="@style/quiz_option_buttons"
+                android:layout_marginBottom="5dp"
+                android:text="لیست درخواستهای دوستی شما خالی می باشد. زمانی که در آینده کاربری درخواست دوستی برای شما ارسال کند اینجا نمایش داده خواهد شد." />
 
         </LinearLayout>
     </ScrollView>
-
-    <ListView
-        android:id="@+id/courses_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/body"
-        android:layout_marginTop="10dp"
-        android:divider="@null"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/courses_list_view"
-        android:orientation="vertical">
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/attend_quiz_button"
-            style="@style/quiz_info_buttons"
-            android:text="شرکت در آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/register_quiz_button"
-            style="@style/quiz_info_buttons"
-            android:text="ثبت نام در آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/review_quiz_button"
-            style="@style/quiz_info_buttons"
-            android:text="مرور سوالات آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/review_results_button"
-            style="@style/quiz_info_buttons"
-            android:text="نتایج آزمون"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@id/fragment_holder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>

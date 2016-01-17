@@ -15,7 +15,7 @@ public class QuestionForQuiz extends BaseModel {
     private ArrayList<String> options;
     @SerializedName("category")
     private String category;
-    @SerializedName("courseName")
+    @SerializedName("course_name")
     private String courseName;
     @SerializedName("description")
     private String description;

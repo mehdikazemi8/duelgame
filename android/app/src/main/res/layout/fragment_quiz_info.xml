@@ -22,7 +22,8 @@
             android:layout_height="32dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/info_white" />
+            android:background="@drawable/info_white"
+            android:visibility="gone" />
 
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:id="@+id/title"
@@ -93,25 +94,25 @@
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/attend_quiz_button"
-            style="@style/quiz_info_buttons"
+            style="@style/quiz_info_different_buttons"
             android:text="شرکت در آزمون"
             android:textColor="@color/white" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/register_quiz_button"
-            style="@style/quiz_info_buttons"
+            style="@style/quiz_info_different_buttons"
             android:text="ثبت نام در آزمون"
             android:textColor="@color/white" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/review_quiz_button"
-            style="@style/quiz_info_buttons"
+            style="@style/quiz_info_different_buttons"
             android:text="مرور سوالات آزمون"
             android:textColor="@color/white" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/review_results_button"
-            style="@style/quiz_info_buttons"
+            style="@style/quiz_info_different_buttons"
             android:text="نتایج آزمون"
             android:textColor="@color/white" />
 
