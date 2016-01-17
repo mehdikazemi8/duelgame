@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="confirm_start_quiz">"از زمانی که آزمون رو شروع کنی فقط %s دقیقه فرصت داری جواب هات رو ثبت کنی."</string>
+
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

@@ -6,7 +6,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -19,6 +18,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.quiz.fragments.QuizInfoFragment;
 import com.mehdiii.duelgame.views.activities.quiz.fragments.adapters.QuizCardAdapter;
 
 import java.util.ArrayList;
@@ -32,6 +32,22 @@ public class QuizActivity extends ParentActivity {
     ImageButton refreshButton;
     ImageButton infoButton;
     ListView quizzesListView;
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            Log.d("TAG", "QuizActivity onReceive");
+            if(type == CommandType.RECEIVE_QUIZ_LIST) {
+                Quizzes quizzes = Quizzes.deserialize(json, Quizzes.class);
+
+                if(quizzes.getQuizzes().size() == 0) {
+                    // TODO
+                    return;
+                }
+
+                bindListViewData(quizzes);
+            }
+        }
+    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,27 +87,28 @@ public class QuizActivity extends ParentActivity {
         return titles;
     }
 
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            Log.d("TAG", "QuizActivity onReceive");
-            if(type == CommandType.RECEIVE_QUIZ_LIST) {
-                Quizzes quizzes = Quizzes.deserialize(json, Quizzes.class);
-
-                if(quizzes.getQuizzes().size() == 0) {
-                    // TODO
-                    return;
-                }
-
-                QuizCardAdapter adapter = new QuizCardAdapter(QuizActivity.this, R.layout.template_quiz_card, quizzes.getQuizzes());
-                quizzesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.d("TAG", "quizzesListView " + adapterView.getAdapter().getItem(i));
-                    }
-                });
-                quizzesListView.setAdapter(adapter);
+    private void bindListViewData(Quizzes quizzes) {
+        QuizCardAdapter adapter = new QuizCardAdapter(QuizActivity.this, R.layout.template_quiz_card, quizzes.getQuizzes());
+        quizzesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG", "quizzesListView " + adapterView.getAdapter().getItem(i));
             }
-        }
-    });
+        });
+        quizzesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                QuizInfoFragment fragment = QuizInfoFragment.getInstance();
+                Bundle bundle = new Bundle();
+                bundle.putString("quiz", ((Quiz)adapterView.getItemAtPosition(i)).serialize());
+                fragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        quizzesListView.setAdapter(adapter);
+    }
 }

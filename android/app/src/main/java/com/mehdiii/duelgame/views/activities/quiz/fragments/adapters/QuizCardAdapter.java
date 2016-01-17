@@ -56,24 +56,25 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
      * if sec <= 0 then quiz has started
      * if sec > 0 then we have time to quiz
      */
-    private String calculateTimeToQuiz(int sec) {
-        if(sec <= 0) {
-            sec *= -1;
-            if(sec > DAY) {
+    private String calculateTimeToQuiz(int sec, String status) {
+        if(status.equals("due")) {
+            if(sec > DAY)
                 return String.valueOf(sec / DAY) + " روز پس از آزمون";
-            }
-            if(sec > HOUR) {
+            if(sec > HOUR)
                 return String.valueOf(sec / HOUR) + " ساعت پس از آزمون";
-            }
             return String.valueOf(sec / MINUTE) + "دقیقه پس از آزمون";
-        } else {
-            if(sec > DAY) {
+        } else if(status.equals("future")) {
+            if(sec > DAY)
                 return String.valueOf(sec / DAY) + " روز مانده به شروع آزمون";
-            }
-            if(sec > HOUR) {
+            if(sec > HOUR)
                 return String.valueOf(sec / HOUR) + " ساعت مانده به شروع آزمون";
-            }
             return String.valueOf(sec / MINUTE) + " دقیقه مانده به شروع آزمون";
+        } else {
+            if(sec > DAY)
+                return String.valueOf(sec / DAY) + " روز تا پایان آزمون";
+            if(sec > HOUR)
+                return String.valueOf(sec / HOUR) + " ساعت تا پایان آزمون";
+            return String.valueOf(sec / MINUTE) + " دقیقه تا پایان آزمون";
         }
     }
 
@@ -86,7 +87,7 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
             holder.container.setBackgroundColor(getContext().getResources().getColor(R.color.green_very_light));
         }
 
-        holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz()));
+        holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz(), quiz.getStatus()));
         holder.title.setText(quiz.getTitle());
     }
 

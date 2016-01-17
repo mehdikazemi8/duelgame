@@ -20,7 +20,8 @@
             android:id="@+id/textView_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|top" />
+            android:gravity="right|top"
+            android:textSize="@dimen/fontsize.normal" />
 
     </LinearLayout>
 
