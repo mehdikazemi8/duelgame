@@ -15,11 +15,14 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
+import com.mehdiii.duelgame.models.QuizAnswer;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 
 /**
@@ -38,6 +41,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     CustomTextView questionText;
     CustomTextView title;
     CustomButton nextQuestion;
+    CustomButton submitAnswer;
+
+    String lastQShuffle;
+    QuizAnswer quizAnswer;
 
     public QuizFragment() {
         super();
@@ -67,6 +74,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         options[3] = (CustomButton) view.findViewById(R.id.option_3);
         questionText = (CustomTextView) view.findViewById(R.id.question_text);
         nextQuestion = (CustomButton) view.findViewById(R.id.next_question_button);
+        submitAnswer = (CustomButton) view.findViewById(R.id.submit_answer_button);
         title = (CustomTextView) view.findViewById(R.id.title);
     }
 
@@ -88,7 +96,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onTick(long l) {
                 remainingTime -= 1;
-                Log.d("TAG", "onTick " + remainingTime);
                 quizTimerTextView.setText(calculateRemainingTime(remainingTime));
             }
 
@@ -104,6 +111,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             options[k].setOnClickListener(this);
         }
         nextQuestion.setOnClickListener(this);
+        submitAnswer.setOnClickListener(this);
 
         // start quiz
         startQuiz();
@@ -111,6 +119,21 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.option_0:
+                lastQShuffle += lastQShuffle.charAt(0);
+                break;
+            case R.id.option_1:
+                lastQShuffle += lastQShuffle.charAt(1);
+                break;
+            case R.id.option_2:
+                lastQShuffle += lastQShuffle.charAt(2);
+                break;
+            case R.id.option_3:
+                lastQShuffle += lastQShuffle.charAt(3);
+                break;
+        }
+
         switch (view.getId()) {
             case R.id.option_0:
             case R.id.option_1:
@@ -125,22 +148,71 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             case R.id.next_question_button:
                 showNextQuestion();
                 break;
+
+            case R.id.submit_answer_button:
+                submitAnswerToServer();
+                break;
         }
+    }
+
+    private void submitAnswerToServer() {
+        Log.d("TAG", "func submitAnswerToServer");
     }
 
     private void startQuiz() {
-        currentQuestionIdx = 0;
+        int lastQuestionAnsweredIdx = GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1);
+        if(lastQuestionAnsweredIdx == -1) {
+            currentQuestionIdx = 0;
+            quizAnswer = new QuizAnswer();
+        } else {
+            currentQuestionIdx = lastQuestionAnsweredIdx;
+            String previousAnswersJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"result", null);
+            if(previousAnswersJson != null) {
+                quizAnswer = QuizAnswer.deserialize(previousAnswersJson, QuizAnswer.class);
+            } else {
+                quizAnswer = new QuizAnswer();
+            }
+        }
+
+        lastQShuffle = null;
         showNextQuestion();
     }
 
-    private void showNextQuestion() {
-        if(currentQuestionIdx == quiz.getQuestions().size()) {
-            // TODO
+    private void addAnswer(String category) {
+        if(lastQShuffle == null) {
             return;
         }
 
-        Log.d("TAG", "sss " + currentQuestionIdx + " " + quiz.getQuestions().size());
+        if(lastQShuffle.length() == 4) {
+            lastQShuffle += "9";
+        }
+        Log.d("TAG", "answer " + lastQShuffle);
+    }
 
+    private void showNextQuestion() {
+        Log.d("TAG", "func showNextQuestion");
+
+        if(currentQuestionIdx > 0) {
+            addAnswer(quiz.getQuestions().get(currentQuestionIdx - 1).getCategory());
+        }
+
+        if(currentQuestionIdx == quiz.getQuestions().size()) {
+            // TODO
+            nextQuestion.setVisibility(View.GONE);
+            questionText.setVisibility(View.GONE);
+            for(int k = 0; k < NOP; k++) {
+                options[k].setVisibility(View.GONE);
+            }
+            title.setText("ارسال جواب ها");
+            submitAnswer.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        lastQShuffle = "0123";
+        lastQShuffle = shuffleString(lastQShuffle);
+        Log.d("TAG", "shuff " + lastQShuffle);
+
+        GlobalPreferenceManager.writeInt(getActivity(), quiz.getId() + "idx", currentQuestionIdx);
         for(int k = 0; k < NOP; k ++) {
             options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         }
@@ -148,17 +220,26 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         title.setText(String.valueOf(currentQuestionIdx+1) + " - " + question.getCourseName());
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOP; k ++) {
-            options[k].setText(question.getOptions().get(k));
+            options[Integer.valueOf(""+lastQShuffle.charAt(k))].setText(question.getOptions().get(k));
         }
 
         currentQuestionIdx ++;
-
-        if(currentQuestionIdx == quiz.getQuestions().size()) {
-            nextQuestion.setText("ارسال جواب ها");
-        }
     }
 
     private String calculateRemainingTime(long sec) {
         return String.format("%d:%d", sec / 60, sec % 60);
+    }
+
+    private String shuffleString(String input){
+        List<Character> characters = new ArrayList<Character>();
+        for(char c:input.toCharArray()){
+            characters.add(c);
+        }
+        StringBuilder output = new StringBuilder(input.length());
+        while(characters.size()!= 0) {
+            int randPicker = (int)(Math.random()*characters.size());
+            output.append(characters.remove(randPicker));
+        }
+        return output.toString();
     }
 }

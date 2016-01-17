@@ -45,6 +45,34 @@
         android:layout_marginTop="15dp"
         android:text="سوال بعدی" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:gravity="center"
+            android:padding="5dp"
+            android:hint="نظر شما در مورد آزمون"
+            android:textSize="@dimen/fontsize.normal" />
+
+        <com.mehdiii.duelgame.views.custom.CustomButton
+            android:id="@+id/submit_answer_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="ارسال جواب ها"
+            android:textSize="@dimen/fontsize.normal"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/body"
         android:layout_width="match_parent"

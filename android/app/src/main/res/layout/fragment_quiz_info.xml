@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="اطلاعات مهم:"
+                android:text="نکات مهم:"
                 android:textColor="@color/purple_dark3"
                 android:textSize="@dimen/fontsize.normal" />
 
