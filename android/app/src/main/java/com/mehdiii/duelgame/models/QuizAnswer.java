@@ -16,6 +16,17 @@ public class QuizAnswer extends BaseModel {
     @SerializedName("answers")
     private ArrayList<OneCourseAnswer> answers;
 
+    public QuizAnswer(String id) {
+        this.id = id;
+    }
+
+    public void addOneCourseAnswer(OneCourseAnswer oneCourseAnswer) {
+        if(answers == null) {
+            answers = new ArrayList<>();
+        }
+        answers.add(oneCourseAnswer);
+    }
+
     public String getId() {
         return id;
     }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
@@ -17,6 +18,7 @@ import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
@@ -43,6 +45,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     CustomTextView title;
     CustomButton nextQuestion;
     CustomButton submitAnswer;
+    EditText comment;
 
     String lastQShuffle;
     QuizAnswer quizAnswer;
@@ -77,9 +80,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         nextQuestion = (CustomButton) view.findViewById(R.id.next_question_button);
         submitAnswer = (CustomButton) view.findViewById(R.id.submit_answer_button);
         title = (CustomTextView) view.findViewById(R.id.title);
+        comment = (EditText) view.findViewById(R.id.comment);
     }
 
     private void configure() {
+        FontHelper.setKoodakFor(getActivity(), comment);
+
         // calculating remaining time of the quiz and setting start of the quiz if needed
         long startTime = GlobalPreferenceManager.readLong(getActivity(), quiz.getId(), -1l);
         remainingTime = quiz.getDuration();
@@ -164,7 +170,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         int lastQuestionAnsweredIdx = GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1);
         if(lastQuestionAnsweredIdx == -1) {
             currentQuestionIdx = 0;
-            quizAnswer = new QuizAnswer();
+            quizAnswer = new QuizAnswer(quiz.getId());
         } else {
             currentQuestionIdx = lastQuestionAnsweredIdx;
             String previousAnswersJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"result", null);
@@ -172,7 +178,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             if(previousAnswersJson != null) {
                 quizAnswer = QuizAnswer.deserialize(previousAnswersJson, QuizAnswer.class);
             } else {
-                quizAnswer = new QuizAnswer();
+                quizAnswer = new QuizAnswer(quiz.getId());
             }
         }
 
@@ -203,6 +209,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
         OneCourseAnswer oneCourseAnswer = new OneCourseAnswer(category);
         oneCourseAnswer.addAnswer(lastQShuffle);
+        quizAnswer.addOneCourseAnswer(oneCourseAnswer);
         GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"result", quizAnswer.serialize());
     }
 
@@ -222,6 +229,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             }
             title.setText("ارسال جواب ها");
             submitAnswer.setVisibility(View.VISIBLE);
+            comment.setVisibility(View.VISIBLE);
             return;
         }
 

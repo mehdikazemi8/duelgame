@@ -53,10 +53,12 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_border"
             android:gravity="center"
+            android:visibility="gone"
             android:padding="5dp"
             android:hint="نظر شما در مورد آزمون"
             android:textSize="@dimen/fontsize.normal" />
