@@ -13,6 +13,10 @@ public class OneCourseAnswer {
     @SerializedName("data")
     private ArrayList<String> data;
 
+    public OneCourseAnswer(String category) {
+        this.category = category;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -27,5 +31,12 @@ public class OneCourseAnswer {
 
     public void setData(ArrayList<String> data) {
         this.data = data;
+    }
+
+    public void addAnswer(String answer) {
+        if(data == null) {
+            data = new ArrayList<>();
+        }
+        data.add(answer);
     }
 }

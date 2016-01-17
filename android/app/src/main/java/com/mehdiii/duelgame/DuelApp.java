@@ -32,9 +32,6 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
-/**
- * Created by omid on 4/12/2015.
- */
 public class DuelApp extends Application implements Application.ActivityLifecycleCallbacks {
     public static final String PROPERTY_ID = "UA-62041991-1";
     public static final String TAG = "DUEL_APP";
@@ -43,8 +40,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
 //    static protected String wsuri = "ws://duelgame.ir:9003";
-//    static protected String wsuri = "ws://duelgame.ir:9000";
-    static protected String wsuri = "ws://192.168.44.23:9000";
+    static protected String wsuri = "ws://duelgame.ir:9000";
+//    static protected String wsuri = "ws://192.168.44.23:9000";
 //    static protected String wsuri = "ws://10.42.0.249:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";

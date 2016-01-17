@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
@@ -167,6 +168,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         } else {
             currentQuestionIdx = lastQuestionAnsweredIdx;
             String previousAnswersJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"result", null);
+            Log.d("TAG", "previous " + previousAnswersJson);
             if(previousAnswersJson != null) {
                 quizAnswer = QuizAnswer.deserialize(previousAnswersJson, QuizAnswer.class);
             } else {
@@ -186,7 +188,22 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         if(lastQShuffle.length() == 4) {
             lastQShuffle += "9";
         }
+
         Log.d("TAG", "answer " + lastQShuffle);
+
+        if(quizAnswer.getAnswers() != null) {
+            for(OneCourseAnswer oneCourseAnswer : quizAnswer.getAnswers()) {
+                if(oneCourseAnswer.getCategory().equals(category)) {
+                    oneCourseAnswer.addAnswer(lastQShuffle);
+                    GlobalPreferenceManager.writeString(getActivity(), quiz.getId() + "result", quizAnswer.serialize());
+                    return;
+                }
+            }
+        }
+
+        OneCourseAnswer oneCourseAnswer = new OneCourseAnswer(category);
+        oneCourseAnswer.addAnswer(lastQShuffle);
+        GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"result", quizAnswer.serialize());
     }
 
     private void showNextQuestion() {
