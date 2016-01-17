@@ -6,14 +6,14 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 /**
  * Created by mehdiii on 1/17/16.
  */
-public class GetQuizRequest extends BaseModel {
+public class GetBuyQuizRequest extends BaseModel {
     @SerializedName("id")
     private String id;
 
-    public GetQuizRequest() {
+    public GetBuyQuizRequest() {
     }
 
-    public GetQuizRequest(String id) {
+    public GetBuyQuizRequest(String id) {
         this.id = id;
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by mehdiii on 1/14/16.
  */
-public class Quiz extends GetQuizRequest {
+public class Quiz extends GetBuyQuizRequest {
     @SerializedName("title")
     private String title;
     @SerializedName("start")

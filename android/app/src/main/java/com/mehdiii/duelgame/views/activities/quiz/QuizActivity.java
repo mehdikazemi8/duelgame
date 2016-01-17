@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.BoughtQuiz;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -24,6 +26,8 @@ import com.mehdiii.duelgame.views.activities.quiz.fragments.adapters.QuizCardAda
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by mehdiii on 1/14/16.
  */
@@ -32,12 +36,14 @@ public class QuizActivity extends ParentActivity {
     ImageButton refreshButton;
     ImageButton infoButton;
     ListView quizzesListView;
+    Quizzes quizzes;
+
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             Log.d("TAG", "QuizActivity onReceive");
             if(type == CommandType.RECEIVE_QUIZ_LIST) {
-                Quizzes quizzes = Quizzes.deserialize(json, Quizzes.class);
+                quizzes = Quizzes.deserialize(json, Quizzes.class);
 
                 if(quizzes.getQuizzes().size() == 0) {
                     // TODO
@@ -74,11 +80,24 @@ public class QuizActivity extends ParentActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
+    public void onEvent(BoughtQuiz boughtQuiz) {
+        Log.d("TAG", "onEvent " + boughtQuiz.getId());
+        if(quizzes.getQuizzes().size() == 0)
+            return;
+
+        for(Quiz quiz : quizzes.getQuizzes()) {
+            if(quiz.getId().equals(boughtQuiz.getId())) {
+                quiz.setOwned(true);
+            }
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
+
 
     private List<String> getQuizzesTitles(Quizzes quizzes) {
         List<String> titles = new ArrayList<>();

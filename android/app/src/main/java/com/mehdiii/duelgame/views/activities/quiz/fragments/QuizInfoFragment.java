@@ -13,9 +13,10 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizCourse;
-import com.mehdiii.duelgame.models.GetQuizRequest;
+import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -25,8 +26,12 @@ import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
@@ -103,6 +108,11 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         reviewQuiz.setOnClickListener(this);
         registerQuiz.setOnClickListener(this);
 
+        attendQuiz.setVisibility(View.GONE);
+        reviewResults.setVisibility(View.GONE);
+        reviewQuiz.setVisibility(View.GONE);
+        registerQuiz.setVisibility(View.GONE);
+
         // configuring buttons
         if(quiz.getStatus().equals("future")) {
             if(quiz.getOwned()) {
@@ -152,15 +162,13 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.attend_quiz_button:
-
                 ConfirmDialog dialog = new ConfirmDialog(getActivity(),
                         String.format(getResources().getString(R.string.confirm_start_quiz), String.valueOf(quiz.getDuration() / 60)));
-
                 dialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-                            GetQuizRequest request = new GetQuizRequest(quiz.getId());
+                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
                             request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
                             DuelApp.getInstance().sendMessage(request.serialize());
                         }
@@ -176,9 +184,11 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.register_quiz_button:
+                GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+                request.setCommand(CommandType.GET_BUY_QUIZ);
+                DuelApp.getInstance().sendMessage(request.serialize());
                 break;
         }
-
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
@@ -197,6 +207,16 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                         .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
                         .addToBackStack(null)
                         .commit();
+            } else if(type == CommandType.RECEIVE_BUY_QUIZ) {
+                try {
+                    if(new JSONObject(json).get("id").equals(quiz.getId())) {
+                        quiz.setOwned(true);
+                        configure();
+                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     });
