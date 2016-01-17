@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizCourse;
@@ -45,6 +48,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     CustomTextView fromTo;
     CustomTextView duration;
     ListView coursesListView;
+    ProgressDialog progressDialog;
 
     CustomButton attendQuiz;
     CustomButton registerQuiz;
@@ -145,6 +149,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 reviewResults.setVisibility(View.VISIBLE);
             }
         }
+
     }
 
     @Override
@@ -159,6 +164,25 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
+    private void sendGetQuestionsRequest() {
+        // if we have saved data of quiz, then there is no need to request it again
+        String quizJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"quiz", null);
+        if(quizJson != null) {
+            startQuizFragment(quizJson);
+            return;
+        }
+
+        // set progress dialog and then send request
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("لطفا کمی صبر کنید...");
+        progressDialog.show();
+
+        // send request for getting questions and then wait in broadcast receiver
+        GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+        request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
+        DuelApp.getInstance().sendMessage(request.serialize());
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -169,15 +193,18 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                     break;
                 }
 
+                if(GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1) != -1) {
+                    sendGetQuestionsRequest();
+                    break;
+                }
+
                 ConfirmDialog dialog = new ConfirmDialog(getActivity(),
                         String.format(getResources().getString(R.string.confirm_start_quiz), String.valueOf(quiz.getDuration() / 60)));
                 dialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
-                            request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
-                            DuelApp.getInstance().sendMessage(request.serialize());
+                            sendGetQuestionsRequest();
                         }
                     }
                 });
@@ -198,22 +225,30 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void startQuizFragment(String json) {
+        QuizFragment fragment = QuizFragment.getInstance();
+        Bundle bundle = new Bundle();
+        Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);
+        quiz.setQuestions(quizQuestions.getQuestions());
+        bundle.putString("quiz", quiz.serialize());
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
+
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
-                QuizFragment fragment = QuizFragment.getInstance();
-                Bundle bundle = new Bundle();
+                if(progressDialog != null) {
+                    progressDialog.dismiss();
+                }
 
-                Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);
-                quiz.setQuestions(quizQuestions.getQuestions());
-                bundle.putString("quiz", quiz.serialize());
-
-                fragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
-                        .addToBackStack(null)
-                        .commit();
+                // write data of quiz so you won't ask for it again and again
+                GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"quiz", json);
+                startQuizFragment(json);
             } else if(type == CommandType.RECEIVE_BUY_QUIZ) {
                 try {
                     if(new JSONObject(json).get("id").equals(quiz.getId())) {

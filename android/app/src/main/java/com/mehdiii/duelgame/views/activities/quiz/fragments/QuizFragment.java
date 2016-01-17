@@ -237,7 +237,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         lastQShuffle = shuffleString(lastQShuffle);
         Log.d("TAG", "shuff " + lastQShuffle);
 
-        GlobalPreferenceManager.writeInt(getActivity(), quiz.getId() + "idx", currentQuestionIdx);
+        GlobalPreferenceManager.writeInt(getActivity(), quiz.getId()+"idx", currentQuestionIdx);
         for(int k = 0; k < NOP; k ++) {
             options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         }
@@ -249,6 +249,9 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         }
 
         currentQuestionIdx ++;
+        if(currentQuestionIdx == quiz.getQuestions().size()) {
+            nextQuestion.setText("پایان آزمون و ارسال جواب ها");
+        }
     }
 
     private String calculateRemainingTime(long sec) {

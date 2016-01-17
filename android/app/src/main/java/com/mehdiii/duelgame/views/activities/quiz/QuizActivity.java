@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.quiz;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.Quiz;
@@ -33,27 +35,11 @@ import de.greenrobot.event.EventBus;
  */
 public class QuizActivity extends ParentActivity {
 
+    ProgressDialog progressDialog;
     ImageButton refreshButton;
     ImageButton infoButton;
     ListView quizzesListView;
     Quizzes quizzes;
-
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            Log.d("TAG", "QuizActivity onReceive");
-            if(type == CommandType.RECEIVE_QUIZ_LIST) {
-                quizzes = Quizzes.deserialize(json, Quizzes.class);
-
-                if(quizzes.getQuizzes().size() == 0) {
-                    // TODO
-                    return;
-                }
-
-                bindListViewData(quizzes);
-            }
-        }
-    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +58,10 @@ public class QuizActivity extends ParentActivity {
 
     private void configure() {
         DuelApp.getInstance().sendMessage(new BaseModel(CommandType.GET_QUIZ_LIST).serialize());
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("لطفا کمی صبر کنید...");
+        progressDialog.show();
     }
 
     @Override
@@ -130,4 +120,24 @@ public class QuizActivity extends ParentActivity {
         });
         quizzesListView.setAdapter(adapter);
     }
+
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            Log.d("TAG", "QuizActivity onReceive");
+            if(type == CommandType.RECEIVE_QUIZ_LIST) {
+                if(progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
+                quizzes = Quizzes.deserialize(json, Quizzes.class);
+                if(quizzes.getQuizzes().size() == 0) {
+                    // TODO
+                    return;
+                }
+
+                bindListViewData(quizzes);
+            }
+        }
+    });
 }
