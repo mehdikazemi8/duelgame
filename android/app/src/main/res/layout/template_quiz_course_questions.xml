@@ -2,6 +2,7 @@
 <com.mehdiii.duelgame.views.custom.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:textColor="@color/purple_dark3"
     android:textSize="@dimen/fontsize.normal">
 
 </com.mehdiii.duelgame.views.custom.CustomTextView>

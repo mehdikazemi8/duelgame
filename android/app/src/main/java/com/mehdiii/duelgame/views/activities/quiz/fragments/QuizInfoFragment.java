@@ -187,7 +187,11 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
             if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
                 QuizFragment fragment = QuizFragment.getInstance();
                 Bundle bundle = new Bundle();
-                bundle.putString("questions", json);
+
+                Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);
+                quiz.setQuestions(quizQuestions.getQuestions());
+                bundle.putString("quiz", quiz.serialize());
+
                 fragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)

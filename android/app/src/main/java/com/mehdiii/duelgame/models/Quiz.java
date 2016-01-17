@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,16 @@ public class Quiz extends GetQuizRequest {
     private List<QuizCourse> courses;
     @SerializedName("seconds_to_start")
     private Integer timeToQuiz;
+    @SerializedName("questions")
+    private ArrayList<QuestionForQuiz> questions;
+
+    public ArrayList<QuestionForQuiz> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<QuestionForQuiz> questions) {
+        this.questions = questions;
+    }
 
     public Integer getTimeToQuiz() {
         return timeToQuiz;
