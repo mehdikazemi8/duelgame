@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import org.json.JSONObject;
@@ -162,6 +163,12 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.attend_quiz_button:
+                if(quiz.getStatus().equals("future")) {
+                    AlertDialog dialog = new AlertDialog(getActivity(), "از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت داری توی این آزمون شرکت کنی.");
+                    dialog.show();
+                    break;
+                }
+
                 ConfirmDialog dialog = new ConfirmDialog(getActivity(),
                         String.format(getResources().getString(R.string.confirm_start_quiz), String.valueOf(quiz.getDuration() / 60)));
                 dialog.setOnCompleteListener(new OnCompleteListener() {
