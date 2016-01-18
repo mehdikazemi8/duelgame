@@ -333,8 +333,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                         AlertDialog dialog = new AlertDialog(getActivity(), reason);
                         dialog.show();
                     } else {
-                        GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"taken", "taken");
-
                         ConfirmDialog tellFriendDialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_introduce_friend_after_quiz), R.layout.dialog_invite_friends);
                         tellFriendDialog.setCancelable(false);
                         tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {

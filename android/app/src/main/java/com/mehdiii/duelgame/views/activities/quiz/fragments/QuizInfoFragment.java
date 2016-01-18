@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.games.event.EventRef;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
@@ -67,7 +68,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        Log.d("TAG", "QuizInfoFragment " + getArguments().getString("quiz"));
         this.quiz = Quiz.deserialize(getArguments().getString("quiz"), Quiz.class);
         return inflater.inflate(R.layout.fragment_quiz_info, container, false);
     }
@@ -75,9 +75,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Log.d("TAG", "onEvent onViewCreated QuizInfoFragment");
-
         find(view);
         configure();
     }
@@ -103,8 +100,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     private void configure() {
-        Log.d("TAG", "onEvent QuizInfoFragment configure");
-
         title.setText(quiz.getTitle());
         fromTo.setText("از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت دارید در این آزمون شرکت کنید.");
         duration.setText("از زمانی که آزمون رو شروع کنید "
@@ -164,19 +159,14 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
-        Log.d("TAG", "onEvent QuizInfoFragment pasued");
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
-        Log.d("TAG", "onEvent QuizInfoFragment resumed " + quiz.getOwned() + " " + quiz.getId());
-
-//        if(GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"taken", null) != null) {
-//            quiz.setTaken(true);
-//            configure();
-//        }
+        EventBus.getDefault().register(this);
     }
 
     private void showProgressDialog() {
@@ -205,8 +195,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.attend_quiz_button:
-                Log.d("TAG", "onEvent attendQuiz " + quiz.getOwned() + " " + quiz.getId());
-
                 if(quiz.getStatus().equals("future")) {
                     AlertDialog dialog = new AlertDialog(getActivity(), "از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت داری توی این آزمون شرکت کنی.");
                     dialog.show();
@@ -262,7 +250,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         QuizFragment fragment = QuizFragment.getInstance();
         Bundle bundle = new Bundle();
         Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);
-
         quiz.setQuestions(quizQuestions.getQuestions());
         bundle.putString("quiz", quiz.serialize());
         fragment.setArguments(bundle);
@@ -273,7 +260,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onEvent(TookQuiz tookQuiz) {
-        Log.d("TAG", "onEvent QuizInfoFragment TookQuiz " + tookQuiz.getId());
         if(quiz.getId().equals(tookQuiz.getId())) {
             quiz.setTaken(true);
             configure();
@@ -295,7 +281,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 try {
                     if(new JSONObject(json).get("id").equals(quiz.getId())) {
                         quiz.setOwned(true);
-                        Log.d("TAG", "onEvent RECEIVE_BUY_QUIZ " + quiz.getOwned() + " " + quiz.getId());
                         configure();
                         EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
 
