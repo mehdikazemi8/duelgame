@@ -22,7 +22,8 @@
     <string name="report_problem_confirm">این سوال ایراد علمی یا املایی دارد؟</string>
     <string name="report_problem_thanks">ممنون، به زودی ایراد رو برطرف می کنیم.</string>
 
-    <string name="please_wait_message">لطفا کمی صبر کنید</string>
+    <string name="please_wait_message">لطفا کمی صبر کنید...</string>
+    <string name="caption_introduce_friend_after_quiz">جواب آزمون ثبت شد\nحالا می تونی از صفحه ی آزمون نتایج رو ببینی\n\nبا معرفی دوئل به دوستات از طریق تلگرام یا ایمیل خودت رو تو یه جامعه آماری بزرگتر بسنج</string>
 
     <string-array name="province_array">
         <item>انتخاب استان</item>

@@ -1,10 +1,13 @@
 package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +22,14 @@ import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
+import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,11 +59,25 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     String lastQShuffle;
     QuizAnswer quizAnswer;
 
+    ProgressDialog progressDialog;
+
     public QuizFragment() {
         super();
     }
 
     public static QuizFragment getInstance() { return new QuizFragment(); }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -167,9 +188,17 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private void submitAnswerToServer() {
         Log.d("TAG", "func submitAnswerToServer " + quizAnswer.serialize());
 
+        // TODO uncomment
+//        progressDialog = new ProgressDialog(getActivity());
+//        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
+//        progressDialog.show();
+
         quizAnswer.setCommand(CommandType.SUBMIT_QUIZ_ANSWER);
         quizAnswer.setComment(comment.getText().toString());
         DuelApp.getInstance().sendMessage(quizAnswer.serialize());
+
+        ConfirmDialog dialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_introduce_friend_after_quiz), R.layout.dialog_invite_friends);
+        dialog.show();
     }
 
     private void startQuiz() {
@@ -276,4 +305,18 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         }
         return output.toString();
     }
+
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if(type == CommandType.RECEIVED_SUBMIT_QUIZ_ANSWER) {
+                if(progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
+
+
+            }
+        }
+    });
 }

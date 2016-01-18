@@ -12,9 +12,11 @@
     <string name="button_got_it">حله!</string>
     <string name="button_buy_heart">خرید قلب</string>
     <string name="button_cancel">بیخیال</string>
+    <string name="button_later">بذار بعدا</string>
     <string name="button_buy_diamond">خرید الماس</string>
     <string name="button_refill_heart">بازیابی قلب</string>
     <string name="button_confirm">تایید</string>
+    <string name="button_invite_friend">بذار دوئل رو به دوستم معرفی کنم</string>
     <string name="button_update">به روزرسانی</string>
     <string name="button_retry_connect">تلاش دوباره</string>
     <string name="button_enable_wifi">روشن کردن Wi-Fi</string>

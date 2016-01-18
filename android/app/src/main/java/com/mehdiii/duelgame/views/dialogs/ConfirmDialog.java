@@ -24,6 +24,8 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     String captionText;
     ImageView diamondImageView;
     boolean showDiamond;
+    int resoursId = -1;
+    boolean useResuoursId = false;
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
         this.onCompleteListener = onCompleteListener;
@@ -40,11 +42,23 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         this.showDiamond = showDiamond;
     }
 
+    public ConfirmDialog(Context context, String captionText, int resourseId) {
+        super(context);
+
+        this.captionText = captionText;
+        this.resoursId = resourseId;
+        this.useResuoursId = true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_confirm);
+
+        if(useResuoursId)
+            setContentView(resoursId);
+        else
+            setContentView(R.layout.dialog_confirm);
 
         find();
         configure();

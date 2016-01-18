@@ -65,7 +65,7 @@ public class QuizActivity extends ParentActivity {
         DuelApp.getInstance().sendMessage(new BaseModel(CommandType.GET_QUIZ_LIST).serialize());
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("لطفا کمی صبر کنید...");
+        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
         progressDialog.show();
     }
 

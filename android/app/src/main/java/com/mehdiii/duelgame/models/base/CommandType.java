@@ -7,6 +7,7 @@ public enum CommandType {
     UNKNOWN,
 
     SUBMIT_QUIZ_ANSWER,
+    RECEIVED_SUBMIT_QUIZ_ANSWER,
 
     GET_BUY_QUIZ,
     RECEIVE_BUY_QUIZ,
