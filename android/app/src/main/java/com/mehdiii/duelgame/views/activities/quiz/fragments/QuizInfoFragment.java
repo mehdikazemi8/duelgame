@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizCourse;
 import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -29,6 +30,7 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.BuyQuizDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import org.json.JSONObject;
@@ -73,6 +75,9 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.d("TAG", "onEvent onViewCreated QuizInfoFragment");
+
         find(view);
         configure();
     }
@@ -98,6 +103,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     private void configure() {
+        Log.d("TAG", "onEvent QuizInfoFragment configure");
+
         title.setText(quiz.getTitle());
         fromTo.setText("از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت دارید در این آزمون شرکت کنید.");
         duration.setText("از زمانی که آزمون رو شروع کنید "
@@ -157,12 +164,26 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
+        Log.d("TAG", "onEvent QuizInfoFragment pasued");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
+        Log.d("TAG", "onEvent QuizInfoFragment resumed " + quiz.getOwned() + " " + quiz.getId());
+
+//        if(GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"taken", null) != null) {
+//            quiz.setTaken(true);
+//            configure();
+//        }
+    }
+
+    private void showProgressDialog() {
+        // set progress dialog and then send request
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("لطفا کمی صبر کنید...");
+        progressDialog.show();
     }
 
     private void sendGetQuestionsRequest() {
@@ -173,11 +194,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        // set progress dialog and then send request
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("لطفا کمی صبر کنید...");
-        progressDialog.show();
-
+        showProgressDialog();
         // send request for getting questions and then wait in broadcast receiver
         GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
         request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
@@ -188,17 +205,17 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.attend_quiz_button:
+                Log.d("TAG", "onEvent attendQuiz " + quiz.getOwned() + " " + quiz.getId());
+
                 if(quiz.getStatus().equals("future")) {
                     AlertDialog dialog = new AlertDialog(getActivity(), "از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت داری توی این آزمون شرکت کنی.");
                     dialog.show();
                     break;
                 }
-
                 if(GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1) != -1) {
                     sendGetQuestionsRequest();
                     break;
                 }
-
                 ConfirmDialog dialog = new ConfirmDialog(getActivity(),
                         String.format(getResources().getString(R.string.confirm_start_quiz), String.valueOf(quiz.getDuration() / 60)));
                 dialog.setOnCompleteListener(new OnCompleteListener() {
@@ -219,9 +236,24 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.register_quiz_button:
-                GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
-                request.setCommand(CommandType.GET_BUY_QUIZ);
-                DuelApp.getInstance().sendMessage(request.serialize());
+                BuyQuizDialog buyQuizDialog = new BuyQuizDialog(
+                        getActivity(),
+                        String.valueOf(quiz.getPrice()),
+                        String.valueOf(quiz.getDiscount()),
+                        String.valueOf(quiz.getPrice()-quiz.getPrice()*quiz.getDiscount()/100)
+                );
+                buyQuizDialog.setOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        if((boolean)data) {
+                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+                            request.setCommand(CommandType.GET_BUY_QUIZ);
+                            DuelApp.getInstance().sendMessage(request.serialize());
+                            showProgressDialog();
+                        }
+                    }
+                });
+                buyQuizDialog.show();
                 break;
         }
     }
@@ -230,23 +262,32 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         QuizFragment fragment = QuizFragment.getInstance();
         Bundle bundle = new Bundle();
         Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);
+
         quiz.setQuestions(quizQuestions.getQuestions());
         bundle.putString("quiz", quiz.serialize());
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
+                .add(R.id.fragment_holder, fragment, ParentActivity.QUIZ_INFO_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public void onEvent(TookQuiz tookQuiz) {
+        Log.d("TAG", "onEvent QuizInfoFragment TookQuiz " + tookQuiz.getId());
+        if(quiz.getId().equals(tookQuiz.getId())) {
+            quiz.setTaken(true);
+            configure();
+        }
     }
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
-                if(progressDialog != null) {
-                    progressDialog.dismiss();
-                }
+            if(progressDialog != null) {
+                progressDialog.dismiss();
+            }
 
+            if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
                 // write data of quiz so you won't ask for it again and again
                 GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"quiz", json);
                 startQuizFragment(json);
@@ -254,8 +295,12 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 try {
                     if(new JSONObject(json).get("id").equals(quiz.getId())) {
                         quiz.setOwned(true);
+                        Log.d("TAG", "onEvent RECEIVE_BUY_QUIZ " + quiz.getOwned() + " " + quiz.getId());
                         configure();
                         EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
+
+                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
+                        dialog.show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

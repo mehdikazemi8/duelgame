@@ -1,5 +1,7 @@
 package com.mehdiii.duelgame.models;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class Quiz extends GetBuyQuizRequest {
     private Boolean owned;
     @SerializedName("price")
     private Integer price;
+    @SerializedName("discount")
+    private Integer discount;
     @SerializedName("taken")
     private Boolean taken;
     @SerializedName("duration")
@@ -31,6 +35,14 @@ public class Quiz extends GetBuyQuizRequest {
     private Integer timeToQuiz;
     @SerializedName("questions")
     private ArrayList<QuestionForQuiz> questions;
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
 
     public ArrayList<QuestionForQuiz> getQuestions() {
         return questions;
@@ -86,6 +98,7 @@ public class Quiz extends GetBuyQuizRequest {
 
     public void setOwned(Boolean owned) {
         this.owned = owned;
+        Log.d("TAG", "onEvent owned changed " + owned);
     }
 
     public Integer getPrice() {

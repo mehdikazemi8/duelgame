@@ -23,6 +23,7 @@ public class ActionEmitter {
     private void init() {
 
         map.put(CommandType.SUBMIT_QUIZ_ANSWER, "SQA");
+        map.put(CommandType.RECEIVED_SUBMIT_QUIZ_ANSWER, "RSQA");
 
         map.put(CommandType.GET_BUY_QUIZ, "GBQ");
         map.put(CommandType.RECEIVE_BUY_QUIZ, "RBQ");

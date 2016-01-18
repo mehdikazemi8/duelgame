@@ -24,6 +24,13 @@
 
     <string name="please_wait_message">لطفا کمی صبر کنید...</string>
     <string name="caption_introduce_friend_after_quiz">جواب آزمون ثبت شد\nحالا می تونی از صفحه ی آزمون نتایج رو ببینی\n\nبا معرفی دوئل به دوستات از طریق تلگرام یا ایمیل خودت رو تو یه جامعه آماری بزرگتر بسنج</string>
+    <string name="submit_quiz_answer_not_ok">جواب ثبت نشد :-( \n میشه چند دقیقه دیگه امتحان کنی؟</string>
+    <string name="caption_quiz_cost">هزینه ی آزمون: </string>
+    <string name="caption_quiz_discount">تخفیف: </string>
+    <string name="caption_quiz_payable_price">هزینه ی قابل پرداخت: </string>
+    <string name="caption_quiz_bought_successfully">آزمون خریداری شد، می تونی تو زمان مشخص شده توی آزمون شرکت کنی.</string>
+    <string name="caption_toman">تومان</string>
+    <string name="caption_discount">درصد</string>
 
     <string-array name="province_array">
         <item>انتخاب استان</item>

@@ -17,6 +17,7 @@
     <string name="button_refill_heart">بازیابی قلب</string>
     <string name="button_confirm">تایید</string>
     <string name="button_invite_friend">بذار دوئل رو به دوستم معرفی کنم</string>
+    <string name="button_buy_quiz">خرید آزمون</string>
     <string name="button_update">به روزرسانی</string>
     <string name="button_retry_connect">تلاش دوباره</string>
     <string name="button_enable_wifi">روشن کردن Wi-Fi</string>

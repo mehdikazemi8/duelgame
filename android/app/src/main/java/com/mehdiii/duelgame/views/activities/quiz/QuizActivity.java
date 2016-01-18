@@ -19,6 +19,7 @@ import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -34,6 +35,7 @@ import de.greenrobot.event.EventBus;
  * Created by mehdiii on 1/14/16.
  *
  * quizId + idx : last index of the question user has answered
+ * quizId + taken : if this quiz has been taken or not
  * quizId + quiz : data of the quiz without user's answers
  * quizId + result : the result of user (in the middle of exam)
  * quizId + quizresult : the data of quiz and user's answers
@@ -75,6 +77,18 @@ public class QuizActivity extends ParentActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
+    public void onEvent(TookQuiz tookQuiz) {
+        Log.d("TAG", "onEvent quizActivity TookQuiz " + tookQuiz.getId());
+        if(quizzes.getQuizzes().size() == 0)
+            return;
+
+        for(Quiz quiz : quizzes.getQuizzes()) {
+            if(quiz.getId().equals(tookQuiz.getId())) {
+                quiz.setTaken(true);
+            }
+        }
+    }
+
     public void onEvent(BoughtQuiz boughtQuiz) {
         Log.d("TAG", "onEvent " + boughtQuiz.getId());
         if(quizzes.getQuizzes().size() == 0)
@@ -92,7 +106,6 @@ public class QuizActivity extends ParentActivity {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
-
 
     private List<String> getQuizzesTitles(Quizzes quizzes) {
         List<String> titles = new ArrayList<>();

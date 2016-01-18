@@ -58,10 +58,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_border"
             android:gravity="center"
-            android:visibility="gone"
-            android:padding="5dp"
             android:hint="نظر شما در مورد آزمون"
-            android:textSize="@dimen/fontsize.normal" />
+            android:padding="5dp"
+            android:textSize="@dimen/fontsize.normal"
+            android:visibility="gone" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/submit_answer_button"
@@ -69,7 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
+            android:background="@drawable/buy_button"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:text="ارسال جواب ها"
+            android:textColor="@color/white"
             android:textSize="@dimen/fontsize.normal"
             android:visibility="invisible" />
 

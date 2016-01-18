@@ -18,12 +18,14 @@ import android.widget.EditText;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
 import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -31,13 +33,18 @@ import com.mehdiii.duelgame.utils.TellFriendManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
@@ -84,6 +91,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         quiz = Quiz.deserialize(getArguments().getString("quiz"), Quiz.class);
+        Log.d("TAG", "onEvent onCreateView QuizFragment " + quiz.getId() + " " + quiz.getOwned());
         return inflater.inflate(R.layout.fragment_quiz, container, false);
     }
 
@@ -190,25 +198,13 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private void submitAnswerToServer() {
         Log.d("TAG", "func submitAnswerToServer " + quizAnswer.serialize());
 
-        // TODO uncomment
-//        progressDialog = new ProgressDialog(getActivity());
-//        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
+        progressDialog.show();
 
         quizAnswer.setCommand(CommandType.SUBMIT_QUIZ_ANSWER);
         quizAnswer.setComment(comment.getText().toString());
         DuelApp.getInstance().sendMessage(quizAnswer.serialize());
-
-        ConfirmDialog dialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_introduce_friend_after_quiz), R.layout.dialog_invite_friends);
-        dialog.setOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(Object data) {
-                if((boolean)data) {
-                    TellFriendManager.tellFriends(getActivity());
-                }
-            }
-        });
-        dialog.show();
     }
 
     private void startQuiz() {
@@ -319,13 +315,44 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
+            if(progressDialog != null) {
+                progressDialog.dismiss();
+            }
+
             if(type == CommandType.RECEIVED_SUBMIT_QUIZ_ANSWER) {
-                if(progressDialog != null) {
-                    progressDialog.dismiss();
+                try {
+                    JSONObject parser = new JSONObject(json);
+                    if( !parser.getString("id").equals(quiz.getId()) )
+                        return;
+
+                    if( !parser.getBoolean("ok") ) {
+                        String reason = parser.getString("reason");
+                        if(reason == null) {
+                            reason = getResources().getString(R.string.submit_quiz_answer_not_ok);
+                        }
+                        AlertDialog dialog = new AlertDialog(getActivity(), reason);
+                        dialog.show();
+                    } else {
+                        GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"taken", "taken");
+
+                        ConfirmDialog tellFriendDialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_introduce_friend_after_quiz), R.layout.dialog_invite_friends);
+                        tellFriendDialog.setCancelable(false);
+                        tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
+                            @Override
+                            public void onComplete(Object data) {
+                                getActivity().getSupportFragmentManager().popBackStack();
+                                if((boolean)data) {
+                                    TellFriendManager.tellFriends(getActivity());
+                                } else {
+                                }
+                                EventBus.getDefault().post(new TookQuiz(quiz.getId()));
+                            }
+                        });
+                        tellFriendDialog.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-
-
             }
         }
     });
