@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
@@ -163,7 +165,11 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     }
 
     private void submitAnswerToServer() {
-        Log.d("TAG", "func submitAnswerToServer");
+        Log.d("TAG", "func submitAnswerToServer " + quizAnswer.serialize());
+
+        quizAnswer.setCommand(CommandType.SUBMIT_QUIZ_ANSWER);
+        quizAnswer.setComment(comment.getText().toString());
+        DuelApp.getInstance().sendMessage(quizAnswer.serialize());
     }
 
     private void startQuiz() {

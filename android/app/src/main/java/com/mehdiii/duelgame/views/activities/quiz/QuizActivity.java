@@ -32,6 +32,11 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
+ *
+ * quizId + idx : last index of the question user has answered
+ * quizId + quiz : data of the quiz without user's answers
+ * quizId + result : the result of user (in the middle of exam)
+ * quizId + quizresult : the data of quiz and user's answers
  */
 public class QuizActivity extends ParentActivity {
 

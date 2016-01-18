@@ -6,6 +6,8 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    SUBMIT_QUIZ_ANSWER,
+
     GET_BUY_QUIZ,
     RECEIVE_BUY_QUIZ,
 
