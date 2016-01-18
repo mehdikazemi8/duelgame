@@ -27,6 +27,8 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.utils.TellFriendManager;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
@@ -198,6 +200,14 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         DuelApp.getInstance().sendMessage(quizAnswer.serialize());
 
         ConfirmDialog dialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_introduce_friend_after_quiz), R.layout.dialog_invite_friends);
+        dialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if((boolean)data) {
+                    TellFriendManager.tellFriends(getActivity());
+                }
+            }
+        });
         dialog.show();
     }
 

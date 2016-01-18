@@ -34,6 +34,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.utils.TellFriendManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -197,24 +198,6 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         this.listView.setAdapter(adapter);
     }
 
-    private void tellFriends() {
-        Tracker tracker = DuelApp.getInstance().getTracker(DuelApp.TrackerName.GLOBAL_TRACKER);
-        // Build and send an Event.
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("button_click")
-                .setAction("report_button")
-                .setLabel("tell_friend")
-                .build());
-
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                 String.format(getResources().getString(R.string.message_share),
-                        "http://cafebazaar.ir/app/" + this.activity.getPackageName()));
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
-    }
-
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
         public void onDuel(final Friend request) {
@@ -286,7 +269,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 openAddFriendDialog();
                 break;
             case R.id.button_tell_friends:
-                tellFriends();
+                TellFriendManager.tellFriends(activity);
                 break;
             case R.id.refresh_button:
                 sendFetchRequest();
