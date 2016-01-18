@@ -191,6 +191,14 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         DuelApp.getInstance().sendMessage(request.serialize());
     }
 
+    private void showQuizResults() {
+        QuizResultFragment fragment = QuizResultFragment.getInstance();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_holder, fragment, ParentActivity.QUIZ_RESULT_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -221,6 +229,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.review_results_button:
+                showQuizResults();
                 break;
 
             case R.id.register_quiz_button:
