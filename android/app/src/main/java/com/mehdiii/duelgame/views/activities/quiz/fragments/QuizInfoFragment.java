@@ -205,6 +205,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         ReviewQuizFragment fragment = ReviewQuizFragment.getInstance();
         Bundle bundle = new Bundle();
         bundle.putString("id", quiz.getId());
+        bundle.putBoolean("isQuizTaken", quiz.getTaken());
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_holder, fragment, ParentActivity.REVIEW_QUIZ_FRAGMENT)

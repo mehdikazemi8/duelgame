@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.models.CourseResult;
 import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
@@ -51,6 +52,7 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
 
     final int NOPTIONS = 4;
     String quizId;
+    boolean isQuizTaken;
     Quiz quiz;
     int currentQuestionIdx;
 
@@ -85,6 +87,7 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         quizId = getArguments().getString("id");
+        isQuizTaken = getArguments().getBoolean("isQuizTaken");
         return inflater.inflate(R.layout.fragment_review_quiz, container, false);
     }
 
@@ -200,12 +203,39 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    private String shuffleString(String input){
+        List<Character> characters = new ArrayList<Character>();
+        for(char c:input.toCharArray()){
+            characters.add(c);
+        }
+        StringBuilder output = new StringBuilder(input.length());
+        while(characters.size()!= 0) {
+            int randPicker = (int)(Math.random()*characters.size());
+            output.append(characters.remove(randPicker));
+        }
+        return output.toString();
+    }
+
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if(type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
-                GlobalPreferenceManager.writeString(getActivity(), quizId+"quizresult", json);
-                startReview(json);
+                quiz = Quiz.deserialize(json, Quiz.class);
+
+                if(!isQuizTaken) {
+                    for(QuestionForQuiz question : quiz.getQuestions()) {
+                        String shuff = "0123";
+                        shuff = shuffleString(shuff);
+                        shuff += '9';
+                        question.setAnswer(shuff);
+                    }
+                    Log.d("TAG", "mehdiii444 " + quiz.serialize());
+                    GlobalPreferenceManager.writeString(getActivity(), quizId + "quizresult", quiz.serialize());
+                    startReview(quiz.serialize());
+                } else {
+                    GlobalPreferenceManager.writeString(getActivity(), quizId+"quizresult", json);
+                    startReview(json);
+                }
             }
         }
     });
