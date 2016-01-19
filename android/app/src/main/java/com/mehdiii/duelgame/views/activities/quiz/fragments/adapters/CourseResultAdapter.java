@@ -42,11 +42,16 @@ public class CourseResultAdapter extends ArrayAdapter<CourseResult> {
     }
 
     private void initViews(CourseResult courseResult, ViewHolder holder) {
-        holder.averagePercent.setText(String.valueOf(courseResult.getAvgPercent()));
         holder.courseName.setText(String.valueOf(courseResult.getCourseName()));
-        holder.rank.setText(String.valueOf(courseResult.getRank()));
-        holder.maximumPercent.setText(String.valueOf(courseResult.getMaxPercent()));
-        holder.userPercent.setText(String.valueOf(courseResult.getUserPercent()));
+        holder.averagePercent.setText(String.format("%.2f", courseResult.getAvgPercent()));
+        holder.maximumPercent.setText(String.format("%.2f", courseResult.getMaxPercent()));
+        if(courseResult.getRank() != -1) {
+            holder.rank.setText(String.valueOf(courseResult.getRank()));
+            holder.userPercent.setText(String.valueOf(courseResult.getUserPercent()));
+        } else {
+            holder.rank.setText(String.valueOf("-"));
+            holder.userPercent.setText("-");
+        }
     }
 
     protected class ViewHolder {

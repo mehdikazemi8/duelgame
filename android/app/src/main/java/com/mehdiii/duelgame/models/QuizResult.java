@@ -14,6 +14,8 @@ public class QuizResult extends BaseModel {
     private String id;
     @SerializedName("num_participants")
     private Integer numOfParticipants;
+    @SerializedName("show_nop")
+    private Boolean showNOP;
     @SerializedName("results")
     private ArrayList<CourseResult> results;
 
@@ -24,6 +26,14 @@ public class QuizResult extends BaseModel {
         super(command);
         setCommand(command);
         this.id = id;
+    }
+
+    public Boolean getShowNOP() {
+        return showNOP;
+    }
+
+    public void setShowNOP(Boolean showNOP) {
+        this.showNOP = showNOP;
     }
 
     public String getId() {
