@@ -79,10 +79,10 @@ public class QuizResultFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
         QuizResult quizResult = QuizResult.deserialize(json, QuizResult.class);
-//        if(quizResult.getShowNOP()) {
-//            nopHolder.setVisibility(View.VISIBLE);
-//            numberOfParticipants.setText(String.valueOf(quizResult.getNumOfParticipants()));
-//        }
+        if(quizResult.getShowNOP()) {
+            nopHolder.setVisibility(View.VISIBLE);
+            numberOfParticipants.setText(String.valueOf(quizResult.getNumOfParticipants()));
+        }
         CourseResultAdapter adapter = new CourseResultAdapter(getActivity(), R.layout.template_course_result, quizResult.getResults());
         listView.setAdapter(adapter);
     }

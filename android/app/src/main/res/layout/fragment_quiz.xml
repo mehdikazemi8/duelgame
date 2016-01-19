@@ -100,29 +100,29 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
-                android:text=" در حال حاضر ارسال درخواست دوستی برای کاربران عضو سایت مقدور می باشد. میتوانید مشخص کنید، چه کسانی مجاز به ارسال درخواست دوستی برای شما باشند (اینجا) کلیک کنید.  در حال حاضر ارسال درخواست دوستی برای کاربران عضو سایت مقدور می باشد. میتوانید مشخص کنید، چه کسانی مجاز به ارسال درخواست دوستی برای شما باشند (اینجا) کلیک کنید. "
+                android:text="تکست"
                 android:textSize="@dimen/fontsize.normal2" />
 
             <com.mehdiii.duelgame.views.custom.CustomButton
                 android:id="@+id/option_0"
                 style="@style/quiz_option_buttons"
-                android:text="حهخع حهخ ع حخهع حخهع حهخع حهخع حهخع حهخع حخهع" />
+                android:text="تکست" />
 
             <com.mehdiii.duelgame.views.custom.CustomButton
                 android:id="@+id/option_1"
                 style="@style/quiz_option_buttons"
-                android:text="یسبشیسکبنم ک  کنمت کم ت " />
+                android:text="تکست" />
 
             <com.mehdiii.duelgame.views.custom.CustomButton
                 android:id="@+id/option_2"
                 style="@style/quiz_option_buttons"
-                android:text="لیست درخواستهای دوستی شما خالی می باشد. زمانی که در آینده کاربری درخواست دوستی برای شما ارسال کند اینجا نمایش داده خواهد شد." />
+                android:text="تکست" />
 
             <com.mehdiii.duelgame.views.custom.CustomButton
                 android:id="@+id/option_3"
                 style="@style/quiz_option_buttons"
                 android:layout_marginBottom="5dp"
-                android:text="لیست درخواستهای دوستی شما خالی می باشد. زمانی که در آینده کاربری درخواست دوستی برای شما ارسال کند اینجا نمایش داده خواهد شد." />
+                android:text="تکست" />
 
         </LinearLayout>
     </ScrollView>

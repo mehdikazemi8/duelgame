@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_1"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_dark"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp">
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/quiz_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="مرور آزمون"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:id="@+id/verdict_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/verdict_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="-" />
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="انتخاب تو: " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/next_question_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="سوال بعدی" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/buttons_holder"
+            android:layout_below="@id/verdict_holder"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:text="تکست"
+                    android:textSize="@dimen/fontsize.normal2" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/option_0"
+                    style="@style/quiz_option_buttons"
+                    android:text="تکست" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/option_1"
+                    style="@style/quiz_option_buttons"
+                    android:text="تکست" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/option_2"
+                    style="@style/quiz_option_buttons"
+                    android:text="تکست" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/option_3"
+                    style="@style/quiz_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:text="تکست" />
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/fontsize.normal" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

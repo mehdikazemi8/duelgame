@@ -152,7 +152,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 reviewResults.setVisibility(View.VISIBLE);
             }
         }
-
     }
 
     @Override
@@ -202,6 +201,17 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 .commit();
     }
 
+    private void openReviewQuiz() {
+        ReviewQuizFragment fragment = ReviewQuizFragment.getInstance();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", quiz.getId());
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_holder, fragment, ParentActivity.REVIEW_QUIZ_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -229,6 +239,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.review_quiz_button:
+                openReviewQuiz();
                 break;
 
             case R.id.review_results_button:
@@ -259,6 +270,9 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startQuizFragment(String json) {
+        if(quiz.getTaken() || !quiz.getStatus().equals("running"))
+            return;
+
         QuizFragment fragment = QuizFragment.getInstance();
         Bundle bundle = new Bundle();
         Quiz quizQuestions = Quiz.deserialize(json, Quiz.class);

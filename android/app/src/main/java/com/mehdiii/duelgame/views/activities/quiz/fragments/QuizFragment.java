@@ -2,7 +2,6 @@ package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -12,18 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
-import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
-import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -41,8 +37,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
-import java.util.Timer;
 
 import de.greenrobot.event.EventBus;
 
@@ -51,14 +45,14 @@ import de.greenrobot.event.EventBus;
  */
 public class QuizFragment extends Fragment implements View.OnClickListener {
 
-    final int NOP = 4;
+    final int NOPTIONS = 4;
     Quiz quiz;
     long remainingTime;
     int currentQuestionIdx;
     CustomTextView quizTimerTextView;
     CountDownTimer countDownTimer;
 
-    CustomButton[] options = new CustomButton[NOP];
+    CustomButton[] options = new CustomButton[NOPTIONS];
     CustomTextView questionText;
     CustomTextView title;
     CustomButton nextQuestion;
@@ -147,7 +141,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         countDownTimer.start();
 
         // set onclick for options
-        for(int k = 0; k < NOP; k ++) {
+        for(int k = 0; k < NOPTIONS; k ++) {
             options[k].setOnClickListener(this);
         }
         nextQuestion.setOnClickListener(this);
@@ -179,7 +173,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             case R.id.option_1:
             case R.id.option_2:
             case R.id.option_3:
-                for(int k = 0; k < NOP; k ++) {
+                for(int k = 0; k < NOPTIONS; k ++) {
                     options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
                 }
                 ((CustomButton)view).setTextColor(getResources().getColor(R.color.blue));
@@ -265,7 +259,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             // TODO
             nextQuestion.setVisibility(View.GONE);
             questionText.setVisibility(View.GONE);
-            for(int k = 0; k < NOP; k++) {
+            for(int k = 0; k < NOPTIONS; k++) {
                 options[k].setVisibility(View.GONE);
             }
             title.setText("ارسال جواب ها");
@@ -279,13 +273,13 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         Log.d("TAG", "shuff " + lastQShuffle);
 
         GlobalPreferenceManager.writeInt(getActivity(), quiz.getId()+"idx", currentQuestionIdx);
-        for(int k = 0; k < NOP; k ++) {
+        for(int k = 0; k < NOPTIONS; k ++) {
             options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         }
         QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
         title.setText(String.valueOf(currentQuestionIdx+1) + " - " + question.getCourseName());
         questionText.setText(question.getQuestionText());
-        for(int k = 0; k < NOP; k ++) {
+        for(int k = 0; k < NOPTIONS; k ++) {
             options[Integer.valueOf(""+lastQShuffle.charAt(k))].setText(question.getOptions().get(k));
         }
 

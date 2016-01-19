@@ -33,7 +33,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
- *
+ * quizId : start of the quiz
  * quizId + idx : last index of the question user has answered
  * quizId + quiz : data of the quiz without user's answers
  * quizId + result : the result of user (in the middle of exam)
@@ -148,7 +148,7 @@ public class QuizActivity extends ParentActivity {
                 }
 
                 quizzes = Quizzes.deserialize(json, Quizzes.class);
-                if(quizzes.getQuizzes().size() == 0) {
+                    if(quizzes.getQuizzes().size() == 0) {
                     // TODO
                     return;
                 }
