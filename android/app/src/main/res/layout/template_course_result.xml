@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.mehdiii.duelgame.views.custom.CustomTextView
+        android:id="@+id/rank"
+        style="@style/course_result_style"
+        android:layout_weight="1" />
+
+    <com.mehdiii.duelgame.views.custom.CustomTextView
+        android:id="@+id/user_percent"
+        style="@style/course_result_style"
+        android:layout_weight="1" />
+
+    <com.mehdiii.duelgame.views.custom.CustomTextView
+        android:id="@+id/average_percent"
+        style="@style/course_result_style"
+        android:layout_weight="1" />
+
+    <com.mehdiii.duelgame.views.custom.CustomTextView
+        android:id="@+id/maximum_percent"
+        style="@style/course_result_style"
+        android:layout_weight="1" />
+
+    <com.mehdiii.duelgame.views.custom.CustomTextView
+        android:id="@+id/course_name"
+        style="@style/course_result_style"
+        android:layout_weight="2" />
+
+</LinearLayout>

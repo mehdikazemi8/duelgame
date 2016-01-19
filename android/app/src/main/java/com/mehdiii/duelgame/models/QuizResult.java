@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,12 @@ public class QuizResult extends BaseModel {
     private ArrayList<CourseResult> results;
 
     public QuizResult() {
+    }
+
+    public QuizResult(CommandType command, String id) {
+        super(command);
+        setCommand(command);
+        this.id = id;
     }
 
     public String getId() {

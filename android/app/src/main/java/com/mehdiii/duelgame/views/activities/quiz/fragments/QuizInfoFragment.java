@@ -193,6 +193,9 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
     private void showQuizResults() {
         QuizResultFragment fragment = QuizResultFragment.getInstance();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", quiz.getId());
+        fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_holder, fragment, ParentActivity.QUIZ_RESULT_FRAGMENT)
                 .addToBackStack(null)

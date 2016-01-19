@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="confirm_start_quiz">"از زمانی که آزمون رو شروع کنی فقط %s دقیقه فرصت داری جواب هات رو ارسال کنی."</string>
+    <string name="confirm_start_quiz">از زمانی که آزمون رو شروع کنی فقط %s دقیقه فرصت داری جواب هات رو ارسال کنی. \n\n وسط آزمون می تونی اپ رو ببندی ولی هر سوال رو فقط یک باری می تونی جواب بدی.</string>
 
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>
