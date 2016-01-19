@@ -78,7 +78,8 @@
                 android:id="@+id/next_question_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="سوال بعدی" />
+                android:text="سوال بعدی"
+                android:textSize="@dimen/fontsize.normal" />
         </LinearLayout>
 
         <ScrollView

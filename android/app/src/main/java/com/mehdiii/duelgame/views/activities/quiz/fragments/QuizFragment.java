@@ -228,6 +228,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
         if(lastQShuffle.length() == 4) {
             lastQShuffle += "9";
+        } else if(lastQShuffle.length() > 5) {
+            lastQShuffle = lastQShuffle.substring(0, 4) + lastQShuffle.charAt(lastQShuffle.length()-1);
         }
 
         Log.d("TAG", "answer " + lastQShuffle);
@@ -280,7 +282,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         title.setText(String.valueOf(currentQuestionIdx+1) + " - " + question.getCourseName());
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
-            options[Integer.valueOf(""+lastQShuffle.charAt(k))].setText(question.getOptions().get(k));
+            options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
         }
 
         currentQuestionIdx ++;

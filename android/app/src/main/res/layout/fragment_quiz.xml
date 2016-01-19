@@ -43,7 +43,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="15dp"
-        android:text="سوال بعدی" />
+        android:text="سوال بعدی"
+        android:textSize="@dimen/fontsize.normal" />
 
     <LinearLayout
         android:layout_width="match_parent"

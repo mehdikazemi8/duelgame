@@ -177,13 +177,13 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
             verdictText.setText("درست");
             verdictText.setTextColor(getResources().getColor(R.color.correct_answer));
         } else {
-            verdictText.setText("نا درست");
+            verdictText.setText("نادرست");
             verdictText.setTextColor(getResources().getColor(R.color.wrong_answer));
         }
         title.setText(String.valueOf(currentQuestionIdx+1) + " - " + question.getCourseName());
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
-            options[Integer.valueOf(""+lastQShuffle.charAt(k))].setText(question.getOptions().get(k));
+            options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
 
             if(lastQShuffle.charAt(k) == '0') {
                 options[k].setTextColor(getResources().getColor(R.color.correct_answer));
