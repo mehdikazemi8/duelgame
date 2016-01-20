@@ -51,19 +51,27 @@ public class ParentActivity extends ActionBarActivity {
                     AuthManager.authenticate(ParentActivity.this, user);
                 }
             }
-            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST && canHandleChallengeRequest()) {
-                DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
-                try {
-                    category = String.valueOf(request.getCategory());
-                    AnswerDuelWithFriendRequestDialog dialog = new AnswerDuelWithFriendRequestDialog(ParentActivity.this, request);
-                    dialog.setCancelable(false);
-                    dialog.onDecisionMade(onDecisionMadeListener());
-                    dialog.show();
+            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
+                if(canHandleChallengeRequest()) {
+                    DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
+                    try {
+                        category = String.valueOf(request.getCategory());
+                        AnswerDuelWithFriendRequestDialog dialog = new AnswerDuelWithFriendRequestDialog(ParentActivity.this, request);
+                        dialog.setCancelable(false);
+                        dialog.onDecisionMade(onDecisionMadeListener());
+                        dialog.show();
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if(isInQuizActivity()) {
+                    DuelOpponentRequest data = BaseModel.deserialize(json, DuelOpponentRequest.class);
+                    ChallengeRequestDecision requestDecision = new ChallengeRequestDecision(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST);
+                    requestDecision.setDecision(6);
+                    requestDecision.setUserNumber(data.getId());
+                    requestDecision.setCategory(data.getCategory());
+                    DuelApp.getInstance().sendMessage(requestDecision.serialize());
                 }
-
             }
         }
     });
@@ -134,6 +142,10 @@ public class ParentActivity extends ActionBarActivity {
     static final int NUMBER_OF_AVATARS = 6;
 
     public boolean canHandleChallengeRequest() {
+        return false;
+    }
+
+    public boolean isInQuizActivity() {
         return false;
     }
 

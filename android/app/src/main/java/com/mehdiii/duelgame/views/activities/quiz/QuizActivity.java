@@ -138,6 +138,11 @@ public class QuizActivity extends ParentActivity {
         quizzesListView.setAdapter(adapter);
     }
 
+    @Override
+    public boolean isInQuizActivity() {
+        return true;
+    }
+
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {

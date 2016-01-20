@@ -40,7 +40,6 @@ public class AnswerDuelWithFriendRequestDialog extends Dialog implements View.On
     DuelOpponentRequest data;
     OnCompleteListener onPostDecisionMade = null;
 
-
     public AnswerDuelWithFriendRequestDialog(Context context, DuelOpponentRequest data) {
         super(context);
         this.data = data;

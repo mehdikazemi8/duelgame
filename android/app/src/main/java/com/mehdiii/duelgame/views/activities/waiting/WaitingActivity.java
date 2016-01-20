@@ -150,6 +150,10 @@ public class WaitingActivity extends ParentActivity {
             case 4:
                 message = getResources().getString(R.string.message_duel_request_heart_finished);
                 break;
+            case 6:
+                message = getResources().getString(R.string.message_duel_request_in_quiz);
+                break;
+
         }
         if (decision.getDecision() != 1) {
             AlertDialog dialog = new AlertDialog(WaitingActivity.this, message);
