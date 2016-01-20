@@ -39,7 +39,8 @@
         android:id="@+id/quizzes_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header" />
+        android:layout_below="@id/header"
+        android:scrollbars="none" />
 
     <FrameLayout
         android:id="@+id/fragment_holder"

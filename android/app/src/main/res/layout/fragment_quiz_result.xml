@@ -41,6 +41,13 @@
                 android:textSize="@dimen/fontsize.large" />
         </RelativeLayout>
 
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:layout_width="match_parent"
+            android:text="نتایج نهایی در پایان زمان مشخص شده تثبیت می شوند. \n تا این لحظه نتایج به این صورت است."
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/nop_holder"
             android:layout_width="match_parent"
