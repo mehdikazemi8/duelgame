@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/waiting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#6600cc"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:clipChildren="false"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="دیپلم"
+                android:textColor="@color/white" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/title"
+                android:gravity="right"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="اسم"
+                android:textColor="@color/white" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="استان"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/waiting_avatar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:padding="5dp"
+            android:src="@drawable/av1" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/text_and_button_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/caption_you_duel_first"
+                android:textSize="@dimen/fontsize.normal" />
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/lets_go_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_blue_dark"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/button_got_it_lets_go"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.normal" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -10,6 +10,7 @@
     <string name="button_tell_friends">معرفی به دوستان</string>
     <string name="button_add">افزودن</string>
     <string name="button_got_it">حله!</string>
+    <string name="button_got_it_lets_go">حله، بزن بریم</string>
     <string name="button_buy_heart">خرید قلب</string>
     <string name="button_cancel">بیخیال</string>
     <string name="button_later">بذار بعدا</string>
@@ -24,6 +25,7 @@
     <string name="button_enable_data">روشن کردن 3G</string>
     <string name="button_duel_with_friends">تایید</string>
     <string name="button_duel">دوئل</string>
+    <string name="button_challenge_offline">دوئل آفلاین</string>
     <string name="button_rate">امتیاز دادن به دوئل کنکور</string>
     <string name="button_not_now">نه، مرسی</string>
     <string name="button_remove">حذف دوست</string>

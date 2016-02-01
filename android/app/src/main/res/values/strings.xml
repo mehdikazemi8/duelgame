@@ -3,6 +3,7 @@
 
     <string name="confirm_start_quiz">از زمانی که آزمون رو شروع کنی فقط %s دقیقه فرصت داری جواب هات رو ارسال کنی. \n\n وسط آزمون می تونی اپ رو ببندی ولی هر سوال رو فقط یک باری می تونی جواب بدی.</string>
     <string name="caption_number_of_participants">تعداد شرکت کنندگان: </string>
+    <string name="caption_you_duel_first">اول تو دوئل می‌کنی\nبعدش دوستت دوئل می‌کنه\nآخرش نتیجه مشخص می‌شه</string>
 
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>

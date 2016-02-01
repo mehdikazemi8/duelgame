@@ -16,9 +16,14 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
+import com.mehdiii.duelgame.models.StartOfflineDuelRequest;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.dialogs.DuelDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 import com.squareup.picasso.Picasso;
 
@@ -81,6 +86,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             viewHolder.duelButton = (Button) convertView.findViewById(R.id.button_duel);
             viewHolder.onlineImageView = (ImageView) convertView.findViewById(R.id.imageView_online);
             viewHolder.container = (LinearLayout) convertView.findViewById(R.id.container_wrapper);
+            viewHolder.offlineDuelButton = (CustomButton) convertView.findViewById(R.id.button_duel_offline);
 
 //            viewHolder.textViewOnline = (TextView) convertView.findViewById(R.id.textView_online);
 
@@ -151,6 +157,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.buttonNegative.setVisibility(View.GONE);
         holder.textViewStatus.setVisibility(View.GONE);
         holder.duelButton.setVisibility(View.GONE);
+        holder.offlineDuelButton.setVisibility(View.GONE);
 
         if(friend.isBusy()) {
             holder.onlineImageView.setImageResource(R.drawable.circle_busy);
@@ -168,7 +175,12 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
         } else if (friend.getStatus().equals("friend")) {
 
-            holder.duelButton.setVisibility(View.VISIBLE);
+            if(!friend.isOnline()) {
+                holder.offlineDuelButton.setVisibility(View.VISIBLE);
+            } else {
+                holder.duelButton.setVisibility(View.VISIBLE);
+            }
+
             holder.buttonPositive.setTypeface(FontHelper.getKoodak(getContext()));
 
             holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.black));
@@ -189,6 +201,16 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             holder.buttonPositive.setTextColor(getContext().getResources().getColor(R.color.green));
             holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.red));
         }
+
+        holder.offlineDuelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "abcd " + friend.getId());
+                DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
+                dialog.show();
+            }
+        });
+
     }
 
     public OnUserDecisionIsMade getOnUserDecisionIsMade() {
@@ -209,6 +231,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         private Button buttonPositive;
         private Button buttonNegative;
         private Button duelButton;
+        private CustomButton offlineDuelButton;
         private ImageView onlineImageView;
 //        private TextView textViewOnline;
     }

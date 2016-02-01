@@ -23,18 +23,37 @@
             android:layout_weight="1"
             android:gravity="center" />
 
-        <Button
-            android:id="@+id/button_duel"
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/buy_button"
-            android:gravity="center"
-            android:text="@string/button_duel"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fontsize.large"
-            android:visibility="gone" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_duel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/buy_button"
+                android:gravity="center"
+                android:text="@string/button_duel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.large"
+                android:visibility="gone" />
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/button_duel_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/buy_button"
+                android:gravity="center"
+                android:text="@string/button_challenge_offline"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.large"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/button_positive"

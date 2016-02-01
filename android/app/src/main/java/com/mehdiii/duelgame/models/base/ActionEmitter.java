@@ -22,21 +22,19 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.WANNA_START_OFFLINE_DUEL, "WSC");
+        map.put(CommandType.RECEIVE_START_OFFLINE_DUEL, "RSC");
+
         map.put(CommandType.GET_QUIZ_RESULTS, "GQR");
         map.put(CommandType.RECEIVE_QUIZ_RESULTS, "RQR");
-
         map.put(CommandType.SUBMIT_QUIZ_ANSWER, "SQA");
         map.put(CommandType.RECEIVED_SUBMIT_QUIZ_ANSWER, "RSQA");
-
         map.put(CommandType.GET_BUY_QUIZ, "GBQ");
         map.put(CommandType.RECEIVE_BUY_QUIZ, "RBQ");
-
         map.put(CommandType.GET_QUIZ_QUESTIONS, "GQQ");
         map.put(CommandType.RECEIVE_QUIZ_QUESTIONS, "RQQ");
-
         map.put(CommandType.GET_QUIZ_LIST, "GQL");
         map.put(CommandType.RECEIVE_QUIZ_LIST, "RQL");
-
         map.put(CommandType.GET_DUEL_HOUR_RANKING_TOTAL, "GDHRT");
         map.put(CommandType.RECEIVE_DUEL_HOUR_RANKING_TOTAL, "RDHRT");
         map.put(CommandType.GET_DUEL_HOUR_INFO, "GDHI");
