@@ -30,9 +30,11 @@ import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.DuelAnswers;
 import com.mehdiii.duelgame.models.GetQuestion;
 import com.mehdiii.duelgame.models.ProblemCollection;
 import com.mehdiii.duelgame.models.Question;
+import com.mehdiii.duelgame.models.QuestionAnswer;
 import com.mehdiii.duelgame.models.ReportProblem;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -64,6 +66,8 @@ public class DuelOfflineActivity extends ParentActivity {
 
     public static final String GAME_DATA_JSON = "gameDataJson";
     public static final String IS_MASTER = "IS_MASTER";
+
+    private DuelAnswers duelAnswers = new DuelAnswers();
 
     private boolean isMaster;
     final int DURATION = 20000;
@@ -403,6 +407,9 @@ public class DuelOfflineActivity extends ParentActivity {
 
             }
         }
+
+        duelAnswers.addAnswer(new QuestionAnswer(ok==1, iAnsweredThisTime, hintRemoveClicked?1:0));
+
         myPlayer.execute();
 
 //        // send result of user choice
@@ -608,6 +615,7 @@ public class DuelOfflineActivity extends ParentActivity {
 //        request.setTime(-1);
 //        request.setOk(0);
 //        DuelApp.getInstance().sendMessage(request.serialize(CommandType.SEND_GET_QUESTION));
+        duelAnswers.addAnswer(new QuestionAnswer(false, 0, hintRemoveClicked ? 1 : 0));
         endQuestionAnimation(false);
     }
 
@@ -724,6 +732,17 @@ public class DuelOfflineActivity extends ParentActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (goToResult == true) {
+
+//                    Log.d("TAG", "dddd " + duelAnswers.getAnswers().size());
+//                    for(QuestionAnswer answer : duelAnswers.getAnswers()) {
+//                        Log.d("TAG", "dddd " + answer.getOk());
+//                        Log.d("TAG", "dddd " + answer.getHintRemove());
+//                        Log.d("TAG", "dddd " + answer.getTime());
+//                        Log.d("TAG", "dddd ------------");
+//                    }
+
+                    duelAnswers.setCommand(CommandType.SUBMIT_DUEL_ANSWERS);
+                    DuelApp.getInstance().sendMessage(duelAnswers.serialize());
 
                     Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
                     i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);

@@ -94,6 +94,7 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
                 intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, gameDataJson);
                 intent.putExtra(DuelOfflineActivity.IS_MASTER, isMaster);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -22,6 +22,8 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.SUBMIT_DUEL_ANSWERS, "SCA");
+
         map.put(CommandType.WANNA_START_OFFLINE_DUEL, "WSC");
         map.put(CommandType.RECEIVE_START_OFFLINE_DUEL, "RSC");
 
