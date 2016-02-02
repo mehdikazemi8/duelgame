@@ -59,7 +59,7 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/waiting_avatar"
+            android:id="@+id/avatar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

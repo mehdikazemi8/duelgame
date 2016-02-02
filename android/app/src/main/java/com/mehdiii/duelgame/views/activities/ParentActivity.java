@@ -149,7 +149,7 @@ public class ParentActivity extends ActionBarActivity {
         return false;
     }
 
-    static void shuffleArray(List<String> opts) {
+    static protected void shuffleArray(List<String> opts) {
         for (int i = opts.size() - 1; i > 0; i--) {
             int index = rand.nextInt(i) + 1;
             String a = opts.get(index);

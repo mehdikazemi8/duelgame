@@ -1,10 +1,12 @@
-package com.mehdiii.duelgame.views.activities.offlinewaiting;
+package com.mehdiii.duelgame.views.activities.duelofflinewaiting;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -12,25 +14,28 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.ProvinceManager;
-import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.StartOfflineDuelRequest;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by mehdiii on 2/1/16.
  */
-public class OfflineDuelWaitingActivity extends ParentActivity {
+public class DuelOfflineWaitingActivity extends ParentActivity {
 
     CustomTextView name;
     CustomTextView title;
     CustomTextView province;
     ProgressBar progressBar;
+    ImageView avatar;
     LinearLayout holder;
     CustomButton letsGoButton;
     String gameDataJson = null;
@@ -72,9 +77,11 @@ public class OfflineDuelWaitingActivity extends ParentActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         letsGoButton = (CustomButton) findViewById(R.id.lets_go_button);
         holder = (LinearLayout) findViewById(R.id.text_and_button_holder);
+        avatar = (ImageView) findViewById(R.id.avatar);
     }
 
     private void configure() {
+        Picasso.with(this).load(AvatarHelper.getResourceId(this, AuthManager.getCurrentUser().getAvatar())).into(avatar);
         name.setText(AuthManager.getCurrentUser().getName());
         province.setText(ProvinceManager.get(this, AuthManager.getCurrentUser().getProvince()));
         title.setText(ScoreHelper.getTitle(AuthManager.getCurrentUser().getScore()));
@@ -83,11 +90,13 @@ public class OfflineDuelWaitingActivity extends ParentActivity {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "jsonn " + gameDataJson);
+                Intent intent = new Intent(DuelOfflineWaitingActivity.this, DuelOfflineActivity.class);
+                intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, gameDataJson);
+                intent.putExtra(DuelOfflineActivity.IS_MASTER, isMaster);
+                startActivity(intent);
             }
         });
     }
-
-
 
     @Override
     protected void onResume() {

@@ -1,0 +1,505 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_dark"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:clipChildren="false">
+
+            <TextView
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#86FFFFFF" />
+
+            <LinearLayout
+                android:id="@+id/play_game_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#10000000"
+                android:clipChildren="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:alpha="0.3"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/play_game_opponent_avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:padding="5dp"
+                            android:src="@drawable/av1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toRightOf="@id/play_game_opponent_avatar"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/play_game_opponent_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:padding="3dp"
+                            android:singleLine="true"
+                            android:text="mehdi.kazemi8"
+                            android:textColor="@color/play_game_question_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/play_game_opponent_score"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:text="0"
+                            android:textColor="@color/play_game_question_text"
+                            android:textSize="@dimen/fontsize.normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toRightOf="@id/play_game_opponent_avatar"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/play_game_user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:padding="3dp"
+                            android:singleLine="true"
+                            android:text="imogharian"
+                            android:textColor="@color/play_game_question_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/play_game_user_score"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:text="0"
+                            android:textColor="@color/play_game_question_text"
+                            android:textSize="@dimen/fontsize.normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/play_game_user_avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:padding="5dp"
+                            android:src="@drawable/av1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/diamond" />
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/collected_diamond_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left">
+                <ImageView
+                    android:id="@+id/op_tick0"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick1"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick2"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick3"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick4"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/op_tick5"
+                    style="@style/tick_cross_game_play" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+                <ImageView
+                    android:id="@+id/user_tick5"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick4"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick3"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick2"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick1"
+                    style="@style/tick_cross_game_play" />
+                <ImageView
+                    android:id="@+id/user_tick0"
+                    style="@style/tick_cross_game_play" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/play_game_problem_statement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/play_game_header">
+                <TextView
+                    android:id="@+id/play_game_question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="صورت سوال"
+                    android:textColor="@color/play_game_question_text"
+                    android:textSize="25sp" />
+            </ScrollView>
+
+            <ImageView
+                android:id="@+id/report_problem"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="left|bottom"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/report_problem"
+                android:clickable="true"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/remove_option_imageview"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="6dp"
+                android:layout_marginRight="4dp"
+                android:clickable="true"
+                android:onClick="hintRemoveTapped"
+                android:src="@drawable/remove_option"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/play_game_collected_diamond_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/diamond" />
+                <TextView
+                    android:id="@+id/play_game_collected_diamond_tmp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/play_game_options"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/play_game_hint_options"
+            android:layout_below="@+id/play_game_problem_statement"
+            android:layout_weight="12">
+
+            <LinearLayout
+                android:id="@+id/play_game_my_progress_parent"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:clipChildren="false"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/play_game_my_progress"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="20"
+                    android:progress="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/play_game_op_progress_parent"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:clipChildren="false"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/play_game_op_progress"
+                    style="@style/Widget.ProgressBar.Vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="20"
+                    android:progress="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/play_game_my_progress_parent"
+                android:layout_toRightOf="@id/play_game_op_progress_parent"
+                android:orientation="vertical">
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/play_game_option_0"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="0" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/play_game_option_1"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="1" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/play_game_option_2"
+                    style="@style/play_game_option_buttons"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="2" />
+
+                <com.mehdiii.duelgame.views.custom.FontFitButton
+                    android:id="@+id/play_game_option_3"
+                    style="@style/play_game_option_buttons"
+                    android:contentDescription="3" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/play_game_hint_options"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0"
+            android:clipChildren="false"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/play_game_empty_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true" />
+
+            <RelativeLayout
+                android:id="@+id/play_game_hint_again_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignRight="@id/play_game_empty_text"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/play_game_hint_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hintAgainMethod"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hint_btn_left" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_again_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/play_game_hint_again"
+                    android:layout_alignLeft="@id/play_game_hint_again"
+                    android:layout_alignTop="@id/play_game_hint_again"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15" />
+
+                <ImageView
+                    android:id="@+id/play_game_left_hint_diamond"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@id/play_game_hint_again"
+                    android:layout_alignTop="@id/play_game_hint_again"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/play_game_hint_again_cost"
+                    android:src="@drawable/diamond" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_again_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/play_game_left_hint_diamond"
+                    android:gravity="center"
+                    android:text="انتخاب دوباره" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/play_game_hint_remove_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@id/play_game_empty_text"
+                android:layout_marginRight="6dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/play_game_hint_remove"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hintRemoveMethod"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hint_btn_right" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_remove_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/play_game_hint_remove"
+                    android:layout_alignRight="@id/play_game_hint_remove"
+                    android:layout_alignTop="@id/play_game_hint_remove"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="10" />
+
+                <ImageView
+                    android:id="@+id/play_game_right_hint_diamond"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@id/play_game_hint_remove"
+                    android:layout_alignTop="@id/play_game_hint_remove"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/play_game_hint_remove_cost"
+                    android:src="@drawable/diamond" />
+
+                <TextView
+                    android:id="@+id/play_game_hint_remove_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/play_game_right_hint_diamond"
+                    android:gravity="center"
+                    android:src="@drawable/hint_btn_right"
+                    android:text="حذف یک گزینه" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/game_diamond_circle" />
+
+                <TextView
+                    android:id="@+id/play_game_collected_diamond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#7A3D6D" />
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

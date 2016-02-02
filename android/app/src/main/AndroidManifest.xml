@@ -62,7 +62,12 @@
         <service android:name=".MusicPlayer" />
 
         <activity
-            android:name=".views.activities.offlinewaiting.OfflineDuelWaitingActivity"
+            android:name=".views.activities.duelofflinewaiting.DuelOfflineWaitingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activities.dueloffline.DuelOfflineActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
 

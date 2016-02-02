@@ -14,19 +14,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Category;
-import com.mehdiii.duelgame.models.StartOfflineDuelRequest;
-import com.mehdiii.duelgame.models.WannaChallenge;
-import com.mehdiii.duelgame.models.base.CommandType;
-import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.offlinewaiting.OfflineDuelWaitingActivity;
+import com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 public class DuelDialog extends Dialog {
@@ -78,7 +73,7 @@ public class DuelDialog extends Dialog {
 //                    Log.d("TAG", ParentActivity.category + " " + opponentUserNumber);
 //                    DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, ParentActivity.category).serialize());
 
-                    Intent intent = new Intent(getContext(), OfflineDuelWaitingActivity.class);
+                    Intent intent = new Intent(getContext(), DuelOfflineWaitingActivity.class);
                     intent.putExtra("opponent_user_number", opponentUserNumber);
                     intent.putExtra("category", ParentActivity.category);
                     intent.putExtra("master", true);
