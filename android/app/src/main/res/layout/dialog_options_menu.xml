@@ -1,83 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/option_courses_rankings"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="رده بندی درس ها" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="I" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/option_courses_rankings"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="رده بندی درس ها" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="I" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_total_duel_hour"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="کاپ های Duel Hour" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="G" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_store"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="فروشگاه" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="H" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_telegram_channel"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="کانال تلگرام" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="Q" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_contact_us"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="ارتباط با سازندگان" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="P" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_flash_card"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="فلش کارت" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="S" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
+            android:id="@+id/option_settings"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="تنظیمات" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="E" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <View style="@style/home_options_menu_separator" />
-
-    <LinearLayout
-        android:id="@+id/option_total_duel_hour"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="کاپ های Duel Hour" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="G" />
-    </LinearLayout>
-
-    <View style="@style/home_options_menu_separator" />
-
-    <LinearLayout
-        android:id="@+id/option_store"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="فروشگاه" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="H" />
-    </LinearLayout>
-
-    <View style="@style/home_options_menu_separator" />
-
-    <LinearLayout
-        android:id="@+id/option_telegram_channel"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="کانال تلگرام" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="Q" />
-    </LinearLayout>
-
-    <View style="@style/home_options_menu_separator" />
-
-    <LinearLayout
-        android:id="@+id/option_contact_us"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="ارتباط با سازندگان" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="P" />
-    </LinearLayout>
-
-    <View style="@style/home_options_menu_separator" />
-
-    <LinearLayout
-        android:id="@+id/option_settings"
-        style="@style/home_options_menu">
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            style="@style/home_options_menu_text"
-            android:text="تنظیمات" />
-        <com.mehdiii.duelgame.views.custom.IconTextView
-            style="@style/home_options_menu_icon"
-            android:text="E" />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

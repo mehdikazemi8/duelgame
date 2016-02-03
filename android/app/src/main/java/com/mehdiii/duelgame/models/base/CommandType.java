@@ -6,6 +6,9 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    GET_CHALLENGE_LIST,
+    RECEIVE_CHALLENGE_LIST,
+
     SUBMIT_DUEL_ANSWERS,
 
     WANNA_START_OFFLINE_DUEL,

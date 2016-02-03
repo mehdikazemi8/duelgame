@@ -134,18 +134,22 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         switch (view.getId()) {
             case R.id.button_add_friend:
                 break;
+
             case R.id.button_buy_diamond:
             case R.id.button_refill:
                 refillHeart();
                 break;
+
             case R.id.button_duel:
             case R.id.button_duel2:
                 startGame();
                 break;
+
             case R.id.button_flash_card:
                 Intent intent = new Intent(getActivity(), FlashCardActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.quiz_button:
                 startActivity(new Intent(getActivity(), QuizActivity.class));
                 break;

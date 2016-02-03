@@ -22,6 +22,9 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.GET_CHALLENGE_LIST, "GCL");
+        map.put(CommandType.RECEIVE_CHALLENGE_LIST, "RCL");
+
         map.put(CommandType.SUBMIT_DUEL_ANSWERS, "SCA");
 
         map.put(CommandType.WANNA_START_OFFLINE_DUEL, "WSC");

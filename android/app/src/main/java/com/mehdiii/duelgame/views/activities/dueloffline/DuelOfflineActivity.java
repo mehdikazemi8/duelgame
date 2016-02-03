@@ -46,6 +46,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.result.GameResultActivity;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.custom.FontFitButton;
@@ -744,13 +745,11 @@ public class DuelOfflineActivity extends ParentActivity {
                     duelAnswers.setCommand(CommandType.SUBMIT_DUEL_ANSWERS);
                     DuelApp.getInstance().sendMessage(duelAnswers.serialize());
 
-                    Intent i = new Intent(getApplicationContext(), GameResultActivity.class);
-                    i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
-                    i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
-                    i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
-
-                    i.putIntegerArrayListExtra(GameResultActivity.ARGUMENT_CORRECT_OPTIONS, correctOptionsArrayList);
-
+                    Intent i = new Intent(DuelOfflineActivity.this, OfflineDuelsListsActivity.class);
+//                    i.putExtra(GameResultActivity.ARGUMENT_RESULT_INFO, resultInfo);
+//                    i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
+//                    i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
+//                    i.putIntegerArrayListExtra(GameResultActivity.ARGUMENT_CORRECT_OPTIONS, correctOptionsArrayList);
                     startActivity(i);
                     finish();
                 } else {

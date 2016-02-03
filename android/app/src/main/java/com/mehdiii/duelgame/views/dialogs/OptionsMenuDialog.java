@@ -18,6 +18,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
@@ -38,6 +39,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout contactUs;
     LinearLayout settings;
     LinearLayout totalDuelHour;
+    LinearLayout flashCard;
 
     public OptionsMenuDialog() {
         super();
@@ -79,6 +81,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         contactUs = (LinearLayout) view.findViewById(R.id.option_contact_us);
         settings = (LinearLayout) view.findViewById(R.id.option_settings);
         totalDuelHour = (LinearLayout) view.findViewById(R.id.option_total_duel_hour);
+        flashCard = (LinearLayout) view.findViewById(R.id.option_flash_card);
     }
 
     private void configure() {
@@ -88,6 +91,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         contactUs.setOnClickListener(this);
         settings.setOnClickListener(this);
         totalDuelHour.setOnClickListener(this);
+        flashCard.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +126,11 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
                         .replace(R.id.fragment_holder, fragment, ParentActivity.DUEL_HOUR_TOTAL_FRAGMENT)
                         .addToBackStack(null)
                         .commit();
+                break;
+
+            case R.id.option_flash_card:
+                Intent intent = new Intent(getContext(), FlashCardActivity.class);
+                startActivity(intent);
                 break;
         }
     }

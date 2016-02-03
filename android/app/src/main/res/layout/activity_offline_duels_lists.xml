@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/menu_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/purple_dark"
+            android:clickable="true"
+            android:contentDescription="2"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="تمام شده"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_their_turn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/purple"
+            android:clickable="true"
+            android:contentDescription="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="نوبت رقیب"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_my_turn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/purple_dark"
+            android:clickable="true"
+            android:contentDescription="0"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="نوبت من"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/view_course_ranking_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_holder" />
+
+</RelativeLayout>
