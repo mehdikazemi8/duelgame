@@ -320,7 +320,18 @@ public class DuelOfflineActivity extends ParentActivity {
         } else {
             userTick[userTickIndex].setImageResource(R.drawable.cross);
         }
-        userTick[userTickIndex++].setVisibility(View.VISIBLE);
+        userTick[userTickIndex].setVisibility(View.VISIBLE);
+
+        if(!isMaster) {
+            if(questionsToAsk.get(userTickIndex).getOpponentAnswer()) {
+                oppTick[userTickIndex].setImageResource(R.drawable.tick);
+            } else {
+                oppTick[userTickIndex].setImageResource(R.drawable.cross);
+            }
+            oppTick[userTickIndex].setVisibility(View.VISIBLE);
+        }
+
+        userTickIndex ++;
     }
 
     private void setOppTick(boolean correct) {
@@ -750,7 +761,11 @@ public class DuelOfflineActivity extends ParentActivity {
 //                    i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
 //                    i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
 //                    i.putIntegerArrayListExtra(GameResultActivity.ARGUMENT_CORRECT_OPTIONS, correctOptionsArrayList);
-                    i.putExtra("tab", 1);
+                    if(isMaster) {
+                        i.putExtra("tab", 1);
+                    } else {
+                        i.putExtra("tab", 2);
+                    }
                     startActivity(i);
                     finish();
                 } else {

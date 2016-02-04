@@ -19,6 +19,8 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.RECEIVE_ACCEPT_CHALLENGE, "RAC");
+        map.put(CommandType.WANNA_ACCEPT_CHALLENGE, "WAC");
         map.put(CommandType.WANNA_REJECT_CHALLENGE, "WRC");
 
         map.put(CommandType.GET_CHALLENGE_LIST, "GCL");

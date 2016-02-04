@@ -14,6 +14,16 @@ public class Question {
     private ArrayList<String> options;
     @SerializedName("question_number")
     private int questionNumberInServer;
+    @SerializedName("opponent_answer")
+    private Boolean opponentAnswer;
+
+    public Boolean getOpponentAnswer() {
+        return opponentAnswer;
+    }
+
+    public void setOpponentAnswer(Boolean opponentAnswer) {
+        this.opponentAnswer = opponentAnswer;
+    }
 
     public int getQuestionNumberInServer() {
         return questionNumberInServer;

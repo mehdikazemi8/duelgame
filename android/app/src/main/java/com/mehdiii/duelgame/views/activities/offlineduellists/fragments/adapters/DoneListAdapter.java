@@ -23,8 +23,9 @@ import java.util.List;
 public class DoneListAdapter extends BaseOfflineDuelAdapter {
 
     private static final String WIN = "U";
-    private static final String DRAW = "S";
+    private static final String DRAW = "T";
     private static final String LOSE = "V";
+    private static final String CANCELED = "-";
 
     public DoneListAdapter(Context context, int resource, List<OfflineDuel> objects) {
         super(context, resource, objects);
@@ -56,12 +57,23 @@ public class DoneListAdapter extends BaseOfflineDuelAdapter {
         holder.courseName.setText(offlineDuel.getCourseName());
         holder.opponentName.setText(offlineDuel.getOpponent().getName());
         holder.opponentProvince.setText(ProvinceManager.get(getContext(), offlineDuel.getOpponent().getProvince()));
-        holder.userDuelScore.setText(String.valueOf(offlineDuel.getUserDuelScore()));
-        holder.opponentDuelScore.setText(String.valueOf(offlineDuel.getOpponent().getDuelScore()));
+
+        if(offlineDuel.getUserDuelScore() != -100)
+            holder.userDuelScore.setText(String.valueOf(offlineDuel.getUserDuelScore()));
+        else
+            holder.userDuelScore.setText("رد");
+
+        if(offlineDuel.getOpponent().getDuelScore() != -100)
+            holder.opponentDuelScore.setText(String.valueOf(offlineDuel.getOpponent().getDuelScore()));
+        else
+            holder.opponentDuelScore.setText("رد");
 
         holder.duelVerdict.setTypeface(FontHelper.getIcons(getContext()));
         int colorRes;
-        if(offlineDuel.getUserDuelScore() == offlineDuel.getOpponent().getDuelScore()) {
+        if(offlineDuel.getUserDuelScore() == -100 || -100 == offlineDuel.getOpponent().getDuelScore()) {
+            holder.duelVerdict.setText(CANCELED);
+            colorRes = getContext().getResources().getColor(R.color.black);
+        } else if(offlineDuel.getUserDuelScore() == offlineDuel.getOpponent().getDuelScore()) {
             holder.duelVerdict.setText(DRAW);
             colorRes = getContext().getResources().getColor(R.color.black);
         } else if(offlineDuel.getUserDuelScore() > offlineDuel.getOpponent().getDuelScore()) {

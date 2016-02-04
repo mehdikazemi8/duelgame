@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities.offlineduellists.fragments;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.BaseOfflineDuelAdapter;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.DoneListAdapter;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.MyTurnListAdapter;
@@ -148,7 +150,9 @@ public class ViewOfflineDuelsFragment extends Fragment {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-
+                            OfflineDuel request = new OfflineDuel();
+                            request.setDuelId(((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId());
+                            DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_ACCEPT_CHALLENGE));
                         } else {
                             OfflineDuel request = new OfflineDuel();
                             request.setDuelId(((BaseOfflineDuelAdapter)adapterView.getAdapter()).getItem(i).getDuelId());
@@ -192,6 +196,12 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 if (list != null) {
                     bindListViewData(list);
                 }
+            } else if(type == CommandType.RECEIVE_ACCEPT_CHALLENGE) {
+                Intent intent = new Intent(getActivity(), DuelOfflineActivity.class);
+                intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, json);
+                intent.putExtra(DuelOfflineActivity.IS_MASTER, false);
+                startActivity(intent);
+                getActivity().finish();
             }
         }
     });
