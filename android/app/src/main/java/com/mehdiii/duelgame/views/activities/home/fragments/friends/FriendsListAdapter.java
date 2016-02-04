@@ -175,7 +175,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
             holder.buttonNegative.setTextColor(getContext().getResources().getColor(R.color.black));
         } else if (friend.getStatus().equals("friend")) {
 
-            if(!friend.isOnline()) {
+            if(!friend.isOnline() || friend.isBusy()) {
                 holder.offlineDuelButton.setVisibility(View.VISIBLE);
             } else {
                 holder.duelButton.setVisibility(View.VISIBLE);

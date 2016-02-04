@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/avatar_padding"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/opponent_name"
+            style="@style/template_offline_duel_text"
+            android:text="مهدی" />
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/opponent_province"
+            style="@style/template_offline_duel_text"
+            android:text="تهران" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/course_name"
+            style="@style/template_offline_duel_text"
+            android:text="دین و زندگی" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/opponent_duel_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="\?" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="-" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/user_duel_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="17" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center">
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/duel_verdict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="x" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -198,9 +198,9 @@
                     android:text="آزمون جمع بندی" />
 
                 <Button
-                    android:id="@+id/button_flash_card"
+                    android:id="@+id/button_offline_duels_lists"
                     style="@style/home_buttons"
-                    android:text="فلش کارت" />
+                    android:text="لیست دوئل‌های آفلاین" />
 
             </LinearLayout>
         </RelativeLayout>

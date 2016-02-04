@@ -34,6 +34,8 @@ public class User extends BaseModel {
     private int diamond;
     @SerializedName("score")
     private int score;
+    @SerializedName("game_score")
+    private int duelScore;
     @SerializedName("heart")
     private int heart;
     @SerializedName("user_number")
@@ -52,6 +54,14 @@ public class User extends BaseModel {
     private int timeToNextHeart;
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
+
+    public int getDuelScore() {
+        return duelScore;
+    }
+
+    public void setDuelScore(int duelScore) {
+        this.duelScore = duelScore;
+    }
 
     public void addScore(String category, int addingScore){
         category = "c" + category;

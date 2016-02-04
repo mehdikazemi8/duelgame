@@ -1,10 +1,8 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
-import com.mehdiii.duelgame.models.base.BaseModel;
-import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
@@ -29,9 +24,10 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
+import com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
@@ -52,7 +48,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView textViewCounter;
     Button refillButton;
     Button buyDiamondButton;
-    Button flashCardButton;
+    Button offlineDuelsListsButton;
     Button duel2Button;
     TextView textViewHearts;
     ImageView heartsImageView;
@@ -84,11 +80,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     private void configure(View view) {
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
-        flashCardButton.setOnClickListener(this);
+        offlineDuelsListsButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
 
         // set font-face
-        FontHelper.setKoodakFor(view.getContext(), flashCardButton, duel2Button, textViewHearts, /*textViewSendReport,*/
+        FontHelper.setKoodakFor(view.getContext(), offlineDuelsListsButton, duel2Button, textViewHearts, /*textViewSendReport,*/
                 diamondCount, titleTextView/*, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking,
                 provinceRanking, provinceRankingText*/, textViewCounter
@@ -110,7 +106,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         textViewCounter = (TextView) view.findViewById(R.id.textView_counter);
         heartsImageView = (ImageView) view.findViewById(R.id.imageView_hearts);
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
-        flashCardButton = (Button) view.findViewById(R.id.button_flash_card);
+        offlineDuelsListsButton = (Button) view.findViewById(R.id.button_offline_duels_lists);
         duel2Button = (Button) view.findViewById(R.id.button_duel2);
 
         quizButton = (CustomButton) view.findViewById(R.id.quiz_button);
@@ -145,8 +141,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 startGame();
                 break;
 
-            case R.id.button_flash_card:
-                Intent intent = new Intent(getActivity(), FlashCardActivity.class);
+            case R.id.button_offline_duels_lists:
+                Intent intent = new Intent(getActivity(), OfflineDuelsListsActivity.class);
                 startActivity(intent);
                 break;
 
