@@ -27,15 +27,22 @@ public class OfflineDuelsListsActivity extends ParentActivity {
 //    String[] sendWhat = new String[]{"week", "overall"};
     private Fragment viewDuelsFragment;
 
+    int whichTabToShow;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_duels_lists);
 
+        whichTabToShow = getIntent().getExtras().getInt("tab", 0);
+
         findControls();
         configureControls();
 
         viewDuelsFragment = Fragment.instantiate(this, ViewOfflineDuelsFragment.class.getName(), null);
+        Bundle bundle = new Bundle();
+        bundle.putString("turn", sendWhat[whichTabToShow]);
+        viewDuelsFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.view_course_ranking_fragment_holder, viewDuelsFragment).commit();
     }
 
@@ -48,6 +55,8 @@ public class OfflineDuelsListsActivity extends ParentActivity {
     }
 
     protected void findControls() {
+        setFocusInitialState(whichTabToShow);
+
         duelOfflineMenu[0] = (CustomTextView) findViewById(R.id.menu_my_turn);
         duelOfflineMenu[1] = (CustomTextView) findViewById(R.id.menu_their_turn);
         duelOfflineMenu[2] = (CustomTextView) findViewById(R.id.menu_done);
@@ -71,17 +80,20 @@ public class OfflineDuelsListsActivity extends ParentActivity {
         }
     }
 
-    private void setFocusInitialState() {
-        isFocused[0] = true;
-        isFocused[1] = false;
-        isFocused[2] = false;
+    private void setFocusInitialState(int focusedTab) {
+        for(int k = 0; k < NUMBER_OF_TABS; k ++) {
+            if(k == focusedTab) {
+                isFocused[k] = true;
+            } else {
+                isFocused[k] = false;
+            }
+        }
     }
 
     protected void configureControls() {
         focusedColor = getResources().getColor(R.color.purple);
         notFocusedColor = getResources().getColor(R.color.purple_dark);
 
-        setFocusInitialState();
         setBackColor();
     }
 

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by mehdiii on 2/4/16.
  */
-public class DoneListAdapter extends ArrayAdapter<OfflineDuel> {
+public class DoneListAdapter extends BaseOfflineDuelAdapter {
 
     private static final String WIN = "U";
     private static final String DRAW = "S";

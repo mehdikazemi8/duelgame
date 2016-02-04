@@ -23,9 +23,6 @@ import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.StatisticsListAdapter;
 
-/**
- * Created by Omid on 6/2/2015.
- */
 public class ProfileDialog extends Dialog {
 
     OnCompleteListener onRemoveListener;

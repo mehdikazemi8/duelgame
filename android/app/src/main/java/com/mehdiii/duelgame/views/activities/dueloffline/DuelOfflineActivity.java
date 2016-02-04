@@ -750,6 +750,7 @@ public class DuelOfflineActivity extends ParentActivity {
 //                    i.putExtra(GameResultActivity.ARGUMENT_OPPONENT, opponentUser.serialize());
 //                    i.putExtra(GameResultActivity.ARGUMENT_DIAMOND, collectedDiamond);
 //                    i.putIntegerArrayListExtra(GameResultActivity.ARGUMENT_CORRECT_OPTIONS, correctOptionsArrayList);
+                    i.putExtra("tab", 1);
                     startActivity(i);
                     finish();
                 } else {

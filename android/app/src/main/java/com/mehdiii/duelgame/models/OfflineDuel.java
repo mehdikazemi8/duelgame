@@ -16,6 +16,9 @@ public class OfflineDuel extends BaseModel {
     @SerializedName("opponent")
     private User opponent;
 
+    public OfflineDuel() {
+    }
+
     public OfflineDuel(Integer userDuelScore, String duelId, User opponent) {
         this.userDuelScore = userDuelScore;
         this.duelId = duelId;

@@ -10,18 +10,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.OfflineDuelsList;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.BaseOfflineDuelAdapter;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.DoneListAdapter;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.MyTurnListAdapter;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.OpponentTurnListAdapter;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 public class ViewOfflineDuelsFragment extends Fragment {
 
@@ -29,6 +35,8 @@ public class ViewOfflineDuelsFragment extends Fragment {
     ProgressBar progressBar;
     Activity activity = null;
     String lastRequestTurnType = null;
+
+    CustomTextView messageTextView;
 
     MyTurnListAdapter myTurnAdapter;
     OpponentTurnListAdapter opponentTurnAdapter;
@@ -60,19 +68,38 @@ public class ViewOfflineDuelsFragment extends Fragment {
         this.activity = null;
     }
 
+    String getMessageWhenEmptyList() {
+        Log.d("TAG", "jjj " + lastRequestTurnType);
+
+        if(lastRequestTurnType.equals("mine"))
+            return getString(R.string.caption_no_pending_my_turn);
+        if(lastRequestTurnType.equals("theirs"))
+            return getString(R.string.caption_no_pending_opponent_turn);
+        if(lastRequestTurnType.equals("done"))
+            return getString(R.string.caption_no_pending_done);
+        return "";
+    }
+
     private void bindListViewData(OfflineDuelsList list) {
         if (this.activity == null)
             return;
 
-        if(lastRequestTurnType.equals("mine")) {
-            myTurnAdapter = new MyTurnListAdapter(this.activity, R.layout.template_my_turn, list.getOfflineDuels());
-            duelsListView.setAdapter(myTurnAdapter);
-        } else if(lastRequestTurnType.equals("theirs")) {
-            opponentTurnAdapter = new OpponentTurnListAdapter(this.activity, R.layout.template_opponent_turn, list.getOfflineDuels());
-            duelsListView.setAdapter(opponentTurnAdapter);
-        } else if(lastRequestTurnType.equals("done")) {
-            doneAdapter = new DoneListAdapter(this.activity, R.layout.template_done, list.getOfflineDuels());
-            duelsListView.setAdapter(doneAdapter);
+        if(list.getOfflineDuels().size() == 0) {
+            messageTextView.setVisibility(View.VISIBLE);
+            messageTextView.setText(getMessageWhenEmptyList());
+        } else {
+            messageTextView.setVisibility(View.GONE);
+
+            if(lastRequestTurnType.equals("mine")) {
+                myTurnAdapter = new MyTurnListAdapter(this.activity, R.layout.template_my_turn, list.getOfflineDuels());
+                duelsListView.setAdapter(myTurnAdapter);
+            } else if(lastRequestTurnType.equals("theirs")) {
+                opponentTurnAdapter = new OpponentTurnListAdapter(this.activity, R.layout.template_opponent_turn, list.getOfflineDuels());
+                duelsListView.setAdapter(opponentTurnAdapter);
+            } else if(lastRequestTurnType.equals("done")) {
+                doneAdapter = new DoneListAdapter(this.activity, R.layout.template_done, list.getOfflineDuels());
+                duelsListView.setAdapter(doneAdapter);
+            }
         }
     }
 
@@ -90,6 +117,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
             doneAdapter.notifyDataSetChanged();
         }
 
+        messageTextView.setVisibility(View.GONE);
         DuelApp.getInstance().sendMessage((new OfflineDuelsList(turnType, 0, 10)).serialize(CommandType.GET_CHALLENGE_LIST));
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
@@ -105,9 +133,35 @@ public class ViewOfflineDuelsFragment extends Fragment {
     private void find(View view)     {
         this.duelsListView = (ListView) view.findViewById(R.id.duels_list);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        this.messageTextView = (CustomTextView) view.findViewById(R.id.message);
     }
 
     private void configure() {
+        duelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> adapterView, View view, final int i, long l) {
+                if(!lastRequestTurnType.equals("mine"))
+                    return;
+
+                ConfirmDialog dialog = new ConfirmDialog(getActivity(), getString(R.string.button_accept), getString(R.string.button_deny), true, getString(R.string.caption_accept_duel_offline));
+                dialog.setOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        if((boolean)data) {
+
+                        } else {
+                            OfflineDuel request = new OfflineDuel();
+                            request.setDuelId(((BaseOfflineDuelAdapter)adapterView.getAdapter()).getItem(i).getDuelId());
+                            DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_REJECT_CHALLENGE));
+                            sendFetchRequest(lastRequestTurnType);
+                        }
+                    }
+                });
+
+                dialog.show();
+                Log.d("TAG", "zzaa " + i + " " + lastRequestTurnType);
+            }
+        });
     }
 
     @Override
@@ -116,7 +170,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
 
         find(view);
         configure();
-        onReload("mine");
+        onReload(getArguments().getString("turn"));
     }
 
     public void onReload(String turnType) {

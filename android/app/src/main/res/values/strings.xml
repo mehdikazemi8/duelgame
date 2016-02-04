@@ -5,6 +5,14 @@
     <string name="caption_number_of_participants">تعداد شرکت کنندگان: </string>
     <string name="caption_you_duel_first">اول تو دوئل می‌کنی\nبعدش دوستت دوئل می‌کنه\nآخرش نتیجه مشخص می‌شه</string>
 
+    <string name="caption_accept_duel_offline">دوستت تو رو به دوئل دعوت کرده و سوالات رو جواب داده\nالان نوبت توء که سوالات رو جواب بدی</string>
+    <string name="button_accept">قبول</string>
+    <string name="button_deny">بیخیال</string>
+
+    <string name="caption_no_pending_opponent_turn">کسی رو به دوئل آفلاین دعوت نکردی</string>
+    <string name="caption_no_pending_my_turn">کسی تو رو به دوئل آفلاین دعوت نکرده</string>
+    <string name="caption_no_pending_done">تا حالا هیچ دوئل آفلاینی رو به پایان نرسوندی</string>
+
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

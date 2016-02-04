@@ -20,7 +20,7 @@ import java.util.zip.Inflater;
 /**
  * Created by mehdiii on 2/4/16.
  */
-public class MyTurnListAdapter extends ArrayAdapter<OfflineDuel> {
+public class MyTurnListAdapter extends BaseOfflineDuelAdapter  {
 
     public MyTurnListAdapter(Context context, int resource, List<OfflineDuel> objects) {
         super(context, resource, objects);

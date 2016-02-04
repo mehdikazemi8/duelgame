@@ -46,9 +46,6 @@ import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * Created by omid on 4/5/2015.
- */
 public class FriendsFragment extends FlippableFragment implements View.OnClickListener {
     //    TabPageIndicator indicator;
     ListView listView;

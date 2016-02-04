@@ -2,9 +2,6 @@ package com.mehdiii.duelgame.models.base;
 
 import com.mehdiii.duelgame.utils.BidirectionalMap;
 
-/**
- * Created by omid on 4/22/2015.
- */
 public class ActionEmitter {
     static ActionEmitter instance = null;
 
@@ -21,6 +18,8 @@ public class ActionEmitter {
     private BidirectionalMap<CommandType, String> map = new BidirectionalMap<>();
 
     private void init() {
+
+        map.put(CommandType.WANNA_REJECT_CHALLENGE, "WRC");
 
         map.put(CommandType.GET_CHALLENGE_LIST, "GCL");
         map.put(CommandType.RECEIVE_CHALLENGE_LIST, "RCL");

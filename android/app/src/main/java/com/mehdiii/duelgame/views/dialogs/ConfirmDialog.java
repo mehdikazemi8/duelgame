@@ -22,10 +22,23 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     Button confirmButton;
     Button cancelButton;
     String captionText;
+
     ImageView diamondImageView;
     boolean showDiamond;
-    int resoursId = -1;
-    boolean useResuoursId = false;
+    int resourceId = -1;
+    boolean useResourceId = false;
+
+    boolean changeButtonsTexts = false;
+    String confirmText;
+    String cancelText;
+
+    public ConfirmDialog(Context context, String confirmText, String cancelText, boolean changeButtonsTexts, String captionText) {
+        super(context);
+        this.confirmText = confirmText;
+        this.cancelText = cancelText;
+        this.changeButtonsTexts = changeButtonsTexts;
+        this.captionText = captionText;
+    }
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
         this.onCompleteListener = onCompleteListener;
@@ -42,12 +55,12 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         this.showDiamond = showDiamond;
     }
 
-    public ConfirmDialog(Context context, String captionText, int resourseId) {
+    public ConfirmDialog(Context context, String captionText, int resourceId) {
         super(context);
 
         this.captionText = captionText;
-        this.resoursId = resourseId;
-        this.useResuoursId = true;
+        this.resourceId = resourceId;
+        this.useResourceId = true;
     }
 
     @Override
@@ -55,8 +68,8 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        if(useResuoursId)
-            setContentView(resoursId);
+        if(useResourceId)
+            setContentView(resourceId);
         else
             setContentView(R.layout.dialog_confirm);
 
@@ -80,6 +93,11 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         FontHelper.setKoodakFor(getContext(), confirmButton, cancelButton, captionTextView);
         cancelButton.setOnClickListener(this);
         confirmButton.setOnClickListener(this);
+
+        if(changeButtonsTexts) {
+            cancelButton.setText(cancelText);
+            confirmButton.setText(confirmText);
+        }
     }
 
     @Override

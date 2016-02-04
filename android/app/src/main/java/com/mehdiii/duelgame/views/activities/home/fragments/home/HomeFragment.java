@@ -143,6 +143,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.button_offline_duels_lists:
                 Intent intent = new Intent(getActivity(), OfflineDuelsListsActivity.class);
+                intent.putExtra("tab", 0);
                 startActivity(intent);
                 break;
 

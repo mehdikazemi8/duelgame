@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by mehdiii on 2/4/16.
  */
-public class OpponentTurnListAdapter extends ArrayAdapter<OfflineDuel> {
+public class OpponentTurnListAdapter extends BaseOfflineDuelAdapter {
 
     public OpponentTurnListAdapter(Context context, int resource, List<OfflineDuel> objects) {
         super(context, resource, objects);
