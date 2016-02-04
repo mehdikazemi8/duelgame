@@ -185,17 +185,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button_duel2"
-                    style="@style/home_buttons"
-                    android:layout_marginBottom="8dp"
-                    android:text="دوئل" />
+
 
                 <com.mehdiii.duelgame.views.custom.CustomButton
                     android:id="@+id/quiz_button"
                     style="@style/home_buttons"
                     android:layout_marginBottom="8dp"
                     android:text="آزمون جمع بندی" />
+
+                <Button
+                    android:id="@+id/button_duel2"
+                    style="@style/home_buttons"
+                    android:layout_marginBottom="8dp"
+                    android:text="دوئل" />
 
                 <Button
                     android:id="@+id/button_offline_duels_lists"

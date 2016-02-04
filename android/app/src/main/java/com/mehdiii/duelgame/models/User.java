@@ -54,6 +54,16 @@ public class User extends BaseModel {
     private int timeToNextHeart;
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
+    @SerializedName("pending_offline_challenges")
+    private Integer pendingOfflineChallenges;
+
+    public Integer getPendingOfflineChallenges() {
+        return pendingOfflineChallenges;
+    }
+
+    public void setPendingOfflineChallenges(Integer pendingOfflineChallenges) {
+        this.pendingOfflineChallenges = pendingOfflineChallenges;
+    }
 
     public int getDuelScore() {
         return duelScore;

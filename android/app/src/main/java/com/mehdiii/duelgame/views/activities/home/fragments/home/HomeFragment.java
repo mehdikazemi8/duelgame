@@ -75,6 +75,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
 //        AppRater ar = new AppRater();
 //        ar.show(getActivity(), true);
+
+        if(AuthManager.getCurrentUser() != null && AuthManager.getCurrentUser().getPendingOfflineChallenges() > 0) {
+            Log.d("TAG", "hhjj " + AuthManager.getCurrentUser().getPendingOfflineChallenges());
+            AuthManager.getCurrentUser().setPendingOfflineChallenges(0);
+        }
     }
 
     private void configure(View view) {
