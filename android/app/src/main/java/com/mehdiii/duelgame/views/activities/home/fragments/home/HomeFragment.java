@@ -30,6 +30,8 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
@@ -77,7 +79,12 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        ar.show(getActivity(), true);
 
         if(AuthManager.getCurrentUser() != null && AuthManager.getCurrentUser().getPendingOfflineChallenges() > 0) {
+            // TODO Loading baraye accept kardane challenge
             Log.d("TAG", "hhjj " + AuthManager.getCurrentUser().getPendingOfflineChallenges());
+            AlertDialog dialog = new AlertDialog(getActivity(),
+                    String.format(getString(R.string.caption_number_of_pending_duels),
+                            AuthManager.getCurrentUser().getPendingOfflineChallenges()));
+            dialog.show();
             AuthManager.getCurrentUser().setPendingOfflineChallenges(0);
         }
     }

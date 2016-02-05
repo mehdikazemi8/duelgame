@@ -1394,6 +1394,9 @@ com.mehdiii.duelgame.views.activities.ParentActivity:
     private static final int DUEL_HOUR_SECOND
     private static final long DUEL_HOUR_INTERVAL
     static final int NUMBER_OF_AVATARS
+com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity:
+    66:66:static synthetic int access$900()
+    66:66:static synthetic int access$1200()
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity:
     private static final java.lang.String FLASH_CARD_LIST_CACHE
 com.mehdiii.duelgame.views.activities.flashcards.fragments.PracticeFragment:
@@ -1405,6 +1408,11 @@ com.mehdiii.duelgame.views.activities.home.HomeActivity:
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST
 com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment:
     75:80:private boolean areEqual(java.util.List,java.util.List)
+com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.DoneListAdapter:
+    private static final java.lang.String WIN
+    private static final java.lang.String DRAW
+    private static final java.lang.String LOSE
+    private static final java.lang.String CANCELED
 com.mehdiii.duelgame.views.activities.quiz.QuizActivity:
     110:113:private java.util.List getQuizzesTitles(com.mehdiii.duelgame.models.Quizzes)
 com.mehdiii.duelgame.views.activities.splash.StartActivity:
