@@ -328,6 +328,13 @@ public class DuelOfflineActivity extends ParentActivity {
         if(!isMaster) {
             if(questionsToAsk.get(userTickIndex).getOpponentAnswer()) {
                 oppTick[userTickIndex].setImageResource(R.drawable.tick);
+                if(userTickIndex == 5) {
+                    opponentPoints += 5;
+                } else {
+                    opponentPoints += 3;
+                }
+                setProgressBar(opProgress, opponentPoints);
+                opponentPointsTextView.setText(String.valueOf(opponentPoints));
             } else {
                 oppTick[userTickIndex].setImageResource(R.drawable.cross);
             }

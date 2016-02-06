@@ -26948,6 +26948,7 @@ com.mehdiii.duelgame.R$id: int top
 com.mehdiii.duelgame.R$id: int topPanel
 com.mehdiii.duelgame.R$id: int triangle
 com.mehdiii.duelgame.R$id: int try_to_connect_status
+com.mehdiii.duelgame.R$id: int turn_base_duel_button
 com.mehdiii.duelgame.R$id: int underline
 com.mehdiii.duelgame.R$id: int up
 com.mehdiii.duelgame.R$id: int useLogo
@@ -27210,6 +27211,7 @@ com.mehdiii.duelgame.R$string: int caption_send_report
 com.mehdiii.duelgame.R$string: int caption_send_report_title
 com.mehdiii.duelgame.R$string: int caption_telegram_channel
 com.mehdiii.duelgame.R$string: int caption_toman
+com.mehdiii.duelgame.R$string: int caption_turn_base_duel
 com.mehdiii.duelgame.R$string: int caption_username
 com.mehdiii.duelgame.R$string: int caption_you_duel_first
 com.mehdiii.duelgame.R$string: int common_android_wear_notification_needs_update_text
@@ -27245,6 +27247,7 @@ com.mehdiii.duelgame.R$string: int course_caption
 com.mehdiii.duelgame.R$string: int create_calendar_message
 com.mehdiii.duelgame.R$string: int create_calendar_title
 com.mehdiii.duelgame.R$string: int decline
+com.mehdiii.duelgame.R$string: int direct_duel
 com.mehdiii.duelgame.R$string: int draw_caption
 com.mehdiii.duelgame.R$string: int error_add_friend_duplicate
 com.mehdiii.duelgame.R$string: int error_add_friend_invalid
@@ -27289,7 +27292,9 @@ com.mehdiii.duelgame.R$string: int store_picture_message
 com.mehdiii.duelgame.R$string: int store_picture_title
 com.mehdiii.duelgame.R$string: int submit_quiz_answer_not_ok
 com.mehdiii.duelgame.R$string: int toast_friend_request_sent
+com.mehdiii.duelgame.R$string: int turn_base_duel
 com.mehdiii.duelgame.R$string: int wallet_buy_button_place_holder
+com.mehdiii.duelgame.R$string: int which_duel_type
 com.mehdiii.duelgame.R$string: int win_caption
 com.mehdiii.duelgame.R$string: int your_score
 com.mehdiii.duelgame.R$string: R$string()
