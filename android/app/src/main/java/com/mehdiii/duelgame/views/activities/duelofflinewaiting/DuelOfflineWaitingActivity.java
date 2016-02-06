@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.StartOfflineDuelRequest;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -90,6 +91,8 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
         letsGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HeartTracker.getInstance().useHeart(DuelOfflineWaitingActivity.this);
+
                 Log.d("TAG", "jsonn " + gameDataJson);
                 Intent intent = new Intent(DuelOfflineWaitingActivity.this, DuelOfflineActivity.class);
                 intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, gameDataJson);

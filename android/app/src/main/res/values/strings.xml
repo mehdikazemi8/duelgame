@@ -15,6 +15,10 @@
     
     <string name="caption_number_of_pending_duels">دوستات %d بار تو رو به دوئل نوبتی دعوت کردن و الان منتظر تو هستن که جواب دوئلشون رو بدی\nلیست دوئل‌های نوبتی رو نگاه کن</string>
 
+    <string name="direct_duel">مستقیم</string>
+    <string name="turn_base_duel">نوبتی</string>
+    <string name="which_duel_type">دوئل از کدوم نوع؟</string>
+
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

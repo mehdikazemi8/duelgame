@@ -31,26 +31,27 @@
         android:layout_marginTop="@dimen/space.medium"
         android:orientation="horizontal">
 
-
         <Button
             android:id="@+id/button_confirm"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/space.short"
             android:layout_weight="1"
-            android:textSize="@dimen/fontsize.normal"
             android:background="@drawable/bg_button_blue_dark"
+            android:padding="5dp"
             android:text="@string/button_confirm"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.normal" />
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/fontsize.normal"
             android:background="@drawable/bg_button_blue_dark"
+            android:padding="5dp"
             android:text="@string/button_cancel"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.normal" />
     </LinearLayout>
 </LinearLayout>

@@ -21,7 +21,9 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
@@ -137,9 +139,26 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
                     return;
                 }
 
-                if (onUserDecisionIsMade != null) {
-                    onUserDecisionIsMade.onDuel(friend);
-                }
+                ConfirmDialog dialog = new ConfirmDialog(
+                        getContext(),
+                        getContext().getString(R.string.turn_base_duel),
+                        getContext().getString(R.string.direct_duel),
+                        true,
+                        getContext().getString(R.string.which_duel_type));
+                dialog.setOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(Object data) {
+                        if((boolean)data) {
+                            DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
+                            dialog.show();
+                        } else {
+                            if (onUserDecisionIsMade != null) {
+                                onUserDecisionIsMade.onDuel(friend);
+                            }
+                        }
+                    }
+                });
+                dialog.show();
             }
         });
 
@@ -205,6 +224,12 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
         holder.offlineDuelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!HeartTracker.getInstance().canUseHeart()) {
+                    HeartLowDialog dialog = new HeartLowDialog(getContext());
+                    dialog.show();
+                    return;
+                }
+
                 Log.d("TAG", "abcd " + friend.getId());
                 DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
                 dialog.show();
