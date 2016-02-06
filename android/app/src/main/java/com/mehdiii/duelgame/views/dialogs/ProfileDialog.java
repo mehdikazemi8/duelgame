@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.StatisticsListAdapter;
+import com.mehdiii.duelgame.views.custom.CustomButton;
 
 public class ProfileDialog extends Dialog {
 
@@ -31,6 +32,7 @@ public class ProfileDialog extends Dialog {
     TextView textViewProvince;
     ImageButton buttonRemove;
     ImageButton buttonClose;
+    CustomButton turnBaseDuelButton;
     Friend friend;
 
     LinearLayout captions;
@@ -125,6 +127,15 @@ public class ProfileDialog extends Dialog {
         if(!showDeleteButton) {
             buttonRemove.setVisibility(View.INVISIBLE);
         }
+
+        turnBaseDuelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
+                dialog.show();
+                dismiss();
+            }
+        });
     }
 
     private void findControls() {
@@ -144,6 +155,8 @@ public class ProfileDialog extends Dialog {
         noMutualStatistics = (TextView) findViewById(R.id.no_mutual_statistics);
 
         statisticsListView = (ListView) findViewById(R.id.statistics_list_view);
+
+        turnBaseDuelButton = (CustomButton) findViewById(R.id.turn_base_duel_button);
     }
 
     public void setOnRemoveListener(OnCompleteListener onRemoveListener) {

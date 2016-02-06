@@ -17,6 +17,7 @@
 
     <string name="direct_duel">مستقیم</string>
     <string name="turn_base_duel">نوبتی</string>
+    <string name="caption_turn_base_duel">دوئل نوبتی</string>
     <string name="which_duel_type">دوئل از کدوم نوع؟</string>
 
     <string name="app_name">دوئل کنکور</string>
