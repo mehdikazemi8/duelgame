@@ -24,8 +24,6 @@ import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity;
-import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;

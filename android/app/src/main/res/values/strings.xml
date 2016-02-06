@@ -9,11 +9,11 @@
     <string name="button_accept">قبول</string>
     <string name="button_deny">بیخیال</string>
 
-    <string name="caption_no_pending_opponent_turn">کسی رو به دوئل آفلاین دعوت نکردی</string>
-    <string name="caption_no_pending_my_turn">کسی تو رو به دوئل آفلاین دعوت نکرده</string>
-    <string name="caption_no_pending_done">تا حالا هیچ دوئل آفلاینی رو به پایان نرسوندی</string>
+    <string name="caption_no_pending_opponent_turn">کسی رو به دوئل نوبتی دعوت نکردی</string>
+    <string name="caption_no_pending_my_turn">کسی تو رو به دوئل نوبتی دعوت نکرده</string>
+    <string name="caption_no_pending_done">تا حالا هیچ دوئل نوبتی‌ای رو به پایان نرسوندی</string>
     
-    <string name="caption_number_of_pending_duels">دوستات %d بار تو رو به دوئل دعوت کردن و الان منتظر تو هستن که جواب دوئلشون رو بدی\nلیست دوئل‌های آفلاین رو نگاه کن</string>
+    <string name="caption_number_of_pending_duels">دوستات %d بار تو رو به دوئل نوبتی دعوت کردن و الان منتظر تو هستن که جواب دوئلشون رو بدی\nلیست دوئل‌های نوبتی رو نگاه کن</string>
 
     <string name="app_name">دوئل کنکور</string>
     <string name="hello_world">Hello world!</string>

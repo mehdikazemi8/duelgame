@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
+import com.mehdiii.duelgame.models.SyncData;
 import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -39,8 +42,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-//    static protected String wsuri = "ws://duelgame.ir:9003";
-    static protected String wsuri = "ws://duelgame.ir:9000";
+    static protected String wsuri = "ws://duelgame.ir:9003";
+//    static protected String wsuri = "ws://duelgame.ir:9000";
 //    static protected String wsuri = "ws://192.168.44.23:9000";
 //    static protected String wsuri = "ws://192.168.177.153:9000";
 //    static protected String wsuri = "ws://192.168.1.110:9000";
@@ -98,6 +101,18 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
             wsc.disconnect();
     }
 
+    private void syncData(String json) {
+        BaseModel baseModel = BaseModel.deserialize(json, BaseModel.class);
+        if(baseModel != null &&
+                baseModel.getCommand() != null &&
+                baseModel.getCommand() == CommandType.RECEIVE_SYNC_DATA) {
+            SyncData syncData = SyncData.deserialize(json, SyncData.class);
+            if(AuthManager.getCurrentUser() != null && syncData != null && syncData.getDiamond() != null) {
+                AuthManager.getCurrentUser().setDiamond(syncData.getDiamond());
+            }
+        }
+    }
+
     /**
      * sends off messages delivered to wsc from server to all of the app.
      *
@@ -112,6 +127,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
         // use `local broadcast manager` instead of `global broadcast manager` to avoid unnecessary calls to other apps
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+
+        syncData(json);
     }
 
     public IntentFilter getIntentFilter() {

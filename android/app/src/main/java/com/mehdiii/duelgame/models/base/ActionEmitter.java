@@ -19,6 +19,10 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.RECEIVE_SYNC_DATA, "RSD");
+
+        map.put(CommandType.WANNA_CANCEL_CHALLENGE, "WCC");
+
         map.put(CommandType.RECEIVE_ACCEPT_CHALLENGE, "RAC");
         map.put(CommandType.WANNA_ACCEPT_CHALLENGE, "WAC");
         map.put(CommandType.WANNA_REJECT_CHALLENGE, "WRC");

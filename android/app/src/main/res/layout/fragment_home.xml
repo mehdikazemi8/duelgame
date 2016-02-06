@@ -202,7 +202,7 @@
                 <Button
                     android:id="@+id/button_offline_duels_lists"
                     style="@style/home_buttons"
-                    android:text="لیست دوئل‌های آفلاین" />
+                    android:text="لیست دوئل‌های نوبتی" />
 
             </LinearLayout>
         </RelativeLayout>

@@ -1,10 +1,11 @@
 package com.mehdiii.duelgame.models.base;
 
-/**
- * Created by omid on 4/22/2015.
- */
 public enum CommandType {
     UNKNOWN,
+
+    RECEIVE_SYNC_DATA,
+
+    WANNA_CANCEL_CHALLENGE,
 
     RECEIVE_ACCEPT_CHALLENGE,
     WANNA_ACCEPT_CHALLENGE,

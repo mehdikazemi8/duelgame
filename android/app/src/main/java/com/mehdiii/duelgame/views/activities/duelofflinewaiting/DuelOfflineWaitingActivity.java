@@ -15,6 +15,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.StartOfflineDuelRequest;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -93,10 +94,19 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
                 Intent intent = new Intent(DuelOfflineWaitingActivity.this, DuelOfflineActivity.class);
                 intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, gameDataJson);
                 intent.putExtra(DuelOfflineActivity.IS_MASTER, isMaster);
+                intent.putExtra(DuelOfflineActivity.DUEL_ID, "duel_id_hehe");
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isMaster) {
+            DuelApp.getInstance().sendMessage(new BaseModel(CommandType.WANNA_CANCEL_CHALLENGE).serialize());
+        }
     }
 
     @Override

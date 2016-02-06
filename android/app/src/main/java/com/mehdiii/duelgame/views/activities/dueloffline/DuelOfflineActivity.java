@@ -32,6 +32,7 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.DuelAnswers;
 import com.mehdiii.duelgame.models.GetQuestion;
+import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.ProblemCollection;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.QuestionAnswer;
@@ -47,6 +48,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
+import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.BaseOfflineDuelAdapter;
 import com.mehdiii.duelgame.views.activities.result.GameResultActivity;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.custom.FontFitButton;
@@ -67,6 +69,7 @@ public class DuelOfflineActivity extends ParentActivity {
 
     public static final String GAME_DATA_JSON = "gameDataJson";
     public static final String IS_MASTER = "IS_MASTER";
+    public static final String DUEL_ID = "DUEL_ID";
 
     private DuelAnswers duelAnswers = new DuelAnswers();
 
@@ -908,7 +911,13 @@ public class DuelOfflineActivity extends ParentActivity {
     }
 
     private void goodbye() {
-        DuelApp.getInstance().sendMessage(new BaseModel(CommandType.SEND_USER_LEFT_GAME).serialize());
+        if(isMaster) {
+            DuelApp.getInstance().sendMessage(new BaseModel(CommandType.WANNA_CANCEL_CHALLENGE).serialize());
+        } else {
+            OfflineDuel request = new OfflineDuel();
+            request.setDuelId(getIntent().getExtras().getString(DUEL_ID));
+            DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_REJECT_CHALLENGE));
+        }
 
         if (timerScaleAnimation != null && timerScaleAnimation.hasEnded() == false)
             timerScaleAnimation.cancel();

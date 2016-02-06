@@ -28596,6 +28596,10 @@ com.mehdiii.duelgame.models.StartOfflineDuelRequest: java.lang.String getOpponen
 com.mehdiii.duelgame.models.StartOfflineDuelRequest: void setOpponentUserNumber(java.lang.String)
 com.mehdiii.duelgame.models.StartOfflineDuelRequest: java.lang.String getCategory()
 com.mehdiii.duelgame.models.StartOfflineDuelRequest: void setCategory(java.lang.String)
+com.mehdiii.duelgame.models.SyncData
+com.mehdiii.duelgame.models.SyncData: SyncData(java.lang.Integer)
+com.mehdiii.duelgame.models.SyncData: java.lang.Integer getDiamond()
+com.mehdiii.duelgame.models.SyncData: void setDiamond(java.lang.Integer)
 com.mehdiii.duelgame.models.UpdateVersion
 com.mehdiii.duelgame.models.UpdateVersion: UpdateVersion()
 com.mehdiii.duelgame.models.UpdateVersion: int getVersion()
@@ -28689,6 +28693,8 @@ com.mehdiii.duelgame.models.base.BaseModel: java.lang.String serialize()
 com.mehdiii.duelgame.models.base.BaseModel: java.lang.Object deserialize(java.lang.String,java.lang.reflect.Type)
 com.mehdiii.duelgame.models.base.CommandType
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType UNKNOWN
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_SYNC_DATA
+com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType WANNA_CANCEL_CHALLENGE
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType RECEIVE_ACCEPT_CHALLENGE
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType WANNA_ACCEPT_CHALLENGE
 com.mehdiii.duelgame.models.base.CommandType: com.mehdiii.duelgame.models.base.CommandType WANNA_REJECT_CHALLENGE
@@ -29157,6 +29163,7 @@ com.mehdiii.duelgame.views.activities.category.fragments.RankPlayFragment: void 
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: java.lang.String GAME_DATA_JSON
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: java.lang.String IS_MASTER
+com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: java.lang.String DUEL_ID
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: DuelOfflineActivity()
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: void setProgressBar(android.widget.ProgressBar,int)
 com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: void askQuestion()
@@ -29180,6 +29187,7 @@ com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity: void onBa
 com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity
 com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity: DuelOfflineWaitingActivity()
 com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity: void onCreate(android.os.Bundle)
+com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity: void onBackPressed()
 com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity: void onResume()
 com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity: void onPause()
 com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity

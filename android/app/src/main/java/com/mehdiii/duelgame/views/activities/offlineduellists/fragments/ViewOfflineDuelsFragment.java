@@ -37,6 +37,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
     ProgressBar progressBar;
     Activity activity = null;
     String lastRequestTurnType = null;
+    String duelId = null;
 
     CustomTextView messageTextView;
 
@@ -151,7 +152,8 @@ public class ViewOfflineDuelsFragment extends Fragment {
                     public void onComplete(Object data) {
                         if((boolean)data) {
                             OfflineDuel request = new OfflineDuel();
-                            request.setDuelId(((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId());
+                            duelId = ((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId();
+                            request.setDuelId(duelId);
                             DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_ACCEPT_CHALLENGE));
                         } else {
                             OfflineDuel request = new OfflineDuel();
@@ -200,6 +202,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DuelOfflineActivity.class);
                 intent.putExtra(DuelOfflineActivity.GAME_DATA_JSON, json);
                 intent.putExtra(DuelOfflineActivity.IS_MASTER, false);
+                intent.putExtra(DuelOfflineActivity.DUEL_ID, duelId);
                 startActivity(intent);
                 getActivity().finish();
             }
