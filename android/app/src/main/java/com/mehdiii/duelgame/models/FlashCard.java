@@ -5,9 +5,6 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
 
-/**
- * Created by Omid on 7/22/2015.
- */
 public class FlashCard extends BaseModel {
     @SerializedName("title")
     private String title;

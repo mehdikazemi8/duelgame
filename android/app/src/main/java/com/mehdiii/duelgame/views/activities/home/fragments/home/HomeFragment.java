@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
@@ -35,9 +36,6 @@ import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by omid on 4/5/2015.
- */
 public class HomeFragment extends FlippableFragment implements View.OnClickListener {
 
     CustomButton quizButton;
@@ -143,6 +141,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.button_buy_diamond:
             case R.id.button_refill:
+//                PurchaseManager.getInstance().startPurchase(3);
                 refillHeart();
                 break;
 

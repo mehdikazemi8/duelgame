@@ -29,9 +29,6 @@ import org.json.JSONException;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by omid on 4/23/2015.
- */
 public class PurchaseManager {
     public static final String BASE_64_PUBLIC_KEY = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDQ6R5cmQIA0CRQVsEQoMO5sbONC3Jxuf0ng05fRHvbGakNhDorp86k5KY7ikaHV8BbndgLdjROp/DX/Y8wJaJhdlmoyPfBoTqTIQofhEuZKVAKq6Z5qiIL/fTvx357nME+YTPda4SvrXQ8/lAoasf2bRVdpq2spsmP1HNa8xAs/WnJzF7ShGr84cvIMmo4cOVSi/P3EX/CzXpyU8nwbVW0Mkw6lJ+N+5vV2kun2PUCAwEAAQ==";
     public static final String TAG = "PURCHASE_MANAGER";
@@ -220,7 +217,6 @@ public class PurchaseManager {
         }
 //        }
     }
-
 
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {

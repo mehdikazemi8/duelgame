@@ -24,7 +24,6 @@ public class OfflineDuelsListsActivity extends ParentActivity {
     int notFocusedColor;
     CustomTextView[] duelOfflineMenu = new CustomTextView[NUMBER_OF_TABS];
     String[] sendWhat = new String[]{"mine", "theirs", "done"};
-//    String[] sendWhat = new String[]{"week", "overall"};
     private Fragment viewDuelsFragment;
 
     int whichTabToShow;
@@ -43,7 +42,10 @@ public class OfflineDuelsListsActivity extends ParentActivity {
         Bundle bundle = new Bundle();
         bundle.putString("turn", sendWhat[whichTabToShow]);
         viewDuelsFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.view_course_ranking_fragment_holder, viewDuelsFragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.view_offline_duel_fragment_holder, viewDuelsFragment)
+                .commit();
     }
 
     private void setBackColor() {

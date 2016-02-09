@@ -12,9 +12,7 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
-import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -28,8 +26,6 @@ import com.mehdiii.duelgame.views.activities.quiz.fragments.adapters.QuizCardAda
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.

@@ -3,9 +3,6 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
-/**
- * Created by Omid on 8/5/2015.
- */
 public class FlashCardPurchaseStarter extends BaseModel {
     @SerializedName("card_id")
     private String cardId;

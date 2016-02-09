@@ -23,9 +23,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by omid on 4/5/2015.
- */
 public class StoreFragment extends FlippableFragment implements View.OnClickListener {
 
     LinearLayout storeContainer;

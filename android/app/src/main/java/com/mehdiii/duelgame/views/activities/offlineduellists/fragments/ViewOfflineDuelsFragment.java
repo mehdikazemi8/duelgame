@@ -133,6 +133,15 @@ public class ViewOfflineDuelsFragment extends Fragment {
         return getActivity().getLayoutInflater().inflate(R.layout.fragment_view_offline_duels, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        find(view);
+        configure();
+        onReload(getArguments().getString("turn"));
+    }
+
     private void find(View view)     {
         this.duelsListView = (ListView) view.findViewById(R.id.duels_list);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
@@ -143,6 +152,8 @@ public class ViewOfflineDuelsFragment extends Fragment {
         duelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, View view, final int i, long l) {
+                Log.d("TAG", "aaabbbccc");
+
                 if(!lastRequestTurnType.equals("mine"))
                     return;
 
@@ -168,15 +179,6 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 Log.d("TAG", "zzaa " + i + " " + lastRequestTurnType);
             }
         });
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        find(view);
-        configure();
-        onReload(getArguments().getString("turn"));
     }
 
     public void onReload(String turnType) {

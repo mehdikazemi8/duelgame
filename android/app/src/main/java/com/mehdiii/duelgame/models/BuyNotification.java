@@ -1,8 +1,5 @@
 package com.mehdiii.duelgame.models;
 
-/**
- * Created by omid on 4/19/2015.
- */
 public class BuyNotification {
     int id;
     int type;
