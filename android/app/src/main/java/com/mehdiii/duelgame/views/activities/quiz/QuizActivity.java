@@ -2,6 +2,7 @@ package com.mehdiii.duelgame.views.activities.quiz;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
@@ -69,9 +71,16 @@ public class QuizActivity extends ParentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        PurchaseManager.changeActivity(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+    
     public void onEvent(TookQuiz tookQuiz) {
         Log.d("TAG", "onEvent quizActivity TookQuiz " + tookQuiz.getId());
         if(quizzes.getQuizzes().size() == 0)

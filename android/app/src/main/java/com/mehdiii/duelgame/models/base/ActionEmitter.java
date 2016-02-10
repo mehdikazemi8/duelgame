@@ -19,6 +19,11 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.GET_EXAM_PURCHASE_PERMISSION, "GQPP");
+        map.put(CommandType.RECEIVE_EXAM_PURCHASE_PERMISSION, "RQPP");
+        map.put(CommandType.GET_EXAM_PURCHASE_CONFIRMATION, "GQPC");
+        map.put(CommandType.RECEIVE_EXAM_PURCHASE_CONFIRMATION, "RQPC");
+
         map.put(CommandType.RECEIVE_SYNC_DATA, "RSD");
 
         map.put(CommandType.WANNA_CANCEL_CHALLENGE, "WCC");
