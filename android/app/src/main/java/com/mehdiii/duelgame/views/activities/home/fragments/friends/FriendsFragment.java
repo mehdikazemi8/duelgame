@@ -30,6 +30,7 @@ import com.mehdiii.duelgame.models.PVsPStatRequest;
 import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.WannaChallenge;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -279,8 +280,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             adapter.clear();
             adapter.notifyDataSetChanged();
         }
-        User user = AuthManager.getCurrentUser();
-        DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_GET_FRIEND_LIST));
+//        User user = AuthManager.getCurrentUser();
+//        DuelApp.getInstance().sendMessage(user.serialize(CommandType.SEND_GET_FRIEND_LIST));
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.SEND_GET_FRIEND_LIST));
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }
