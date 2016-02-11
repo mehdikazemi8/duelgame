@@ -19,6 +19,9 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.GET_QUIZ_LIST_PAGE, "GQLP");
+        map.put(CommandType.RECEIVE_QUIZ_LIST_PAGE, "RQLP");
+
         map.put(CommandType.GET_EXAM_PURCHASE_PERMISSION, "GQPP");
         map.put(CommandType.RECEIVE_EXAM_PURCHASE_PERMISSION, "RQPP");
         map.put(CommandType.GET_EXAM_PURCHASE_CONFIRMATION, "GQPC");

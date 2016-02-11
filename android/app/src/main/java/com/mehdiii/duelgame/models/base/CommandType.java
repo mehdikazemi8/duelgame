@@ -3,6 +3,9 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    GET_QUIZ_LIST_PAGE,
+    RECEIVE_QUIZ_LIST_PAGE,
+
     GET_EXAM_PURCHASE_PERMISSION,
     RECEIVE_EXAM_PURCHASE_PERMISSION,
 

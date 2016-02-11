@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.widget.TextView;
 
-/**
- * Created by omid on 4/5/2015.
- */
 public class FontHelper {
     private static final String FONT_APP_NAME = "roya_bold.ttf";
 //    private static final String FONT_AVATAR_NAME = "avatars.ttf";

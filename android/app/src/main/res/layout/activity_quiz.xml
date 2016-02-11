@@ -5,6 +5,43 @@
     android:background="@color/background_1"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/pagination_buttons_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/purple_dark"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/previous_ten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:textSize="@dimen/fontsize.normal" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/from_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:textSize="@dimen/fontsize.normal"
+            android:paddingRight="5dp"
+            android:text="۱ تا ۱۰"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/next_ten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="W"
+            android:textSize="@dimen/fontsize.normal" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -35,11 +72,49 @@
             android:textSize="@dimen/fontsize.large" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/menu_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:orientation="horizontal">
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_due"
+            style="@style/quiz_activity_menu_buttons"
+            android:contentDescription="0"
+            android:text="@string/quiz_due" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_running"
+            style="@style/quiz_activity_menu_buttons"
+            android:contentDescription="1"
+            android:text="@string/quiz_running" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/menu_future"
+            style="@style/quiz_activity_menu_buttons"
+            android:contentDescription="2"
+            android:text="@string/quiz_future" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/quizzes_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
+        android:layout_above="@id/pagination_buttons_holder"
+        android:layout_below="@id/menu_holder"
         android:scrollbars="none" />
 
     <FrameLayout

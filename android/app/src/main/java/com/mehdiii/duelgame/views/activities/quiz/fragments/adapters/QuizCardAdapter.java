@@ -25,10 +25,12 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
     private final int DAY = 24 * 60 * 60;
     private final int HOUR = 60 * 60;
     private final int MINUTE = 60;
+    private String status;
 
-    public QuizCardAdapter(Context context, int resource, List<Quiz> items) {
+    public QuizCardAdapter(Context context, int resource, List<Quiz> items, String status) {
         super(context, resource, items);
         inflater = LayoutInflater.from(context);
+        this.status = status;
     }
 
     @Override
@@ -79,15 +81,15 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
     }
 
     private void initViews(Quiz quiz, ViewHolder holder) {
-        if(quiz.getStatus().equals("due")) {
+        if(status.equals("due")) {
             holder.container.setBackgroundColor(getContext().getResources().getColor(R.color.gray_very_light));
-        } else if(quiz.getStatus().equals("future")) {
+        } else if(status.equals("future")) {
             holder.container.setBackgroundColor(getContext().getResources().getColor(R.color.blue_light));
-        } else if(quiz.getStatus().equals("running")) {
+        } else if(status.equals("running")) {
             holder.container.setBackgroundColor(getContext().getResources().getColor(R.color.green_very_light));
         }
 
-        holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz(), quiz.getStatus()));
+        holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz(), status));
         holder.title.setText(quiz.getTitle());
     }
 
