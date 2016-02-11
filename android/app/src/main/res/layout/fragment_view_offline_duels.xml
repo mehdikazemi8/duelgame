@@ -1,28 +1,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	<RelativeLayout
+		android:id="@+id/pagination_holder"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:background="@color/purple_dark"
+		android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/duels_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true" />
+		<ImageButton
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/preTen"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/left_arrow"/>
+		<com.mehdiii.duelgame.views.custom.CustomTextView
+			android:id="@+id/pagination_info"
+			style="@style/pagination_info"
+			android:text="خالیه که"
+			android:layout_width="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_centerHorizontal="true" />
+		<ImageButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/nextTen"
+			android:layout_gravity="right"
+			android:src="@drawable/right_arrow"
+			android:layout_alignParentRight="true" />
 
-    <com.mehdiii.duelgame.views.custom.CustomTextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="10dp"
-        android:textSize="@dimen/fontsize.normal"
-        android:visibility="gone" />
+	</RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+		<ListView
+			android:id="@+id/duels_list"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@id/pagination_holder"
+			android:clickable="true" />
 
-</RelativeLayout>
+		<com.mehdiii.duelgame.views.custom.CustomTextView
+			android:id="@+id/message"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:padding="10dp"
+			android:textSize="@dimen/fontsize.normal"
+			android:visibility="gone" />
+
+		<ProgressBar
+			android:id="@+id/progressbar"
+			style="?android:progressBarStyleLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:visibility="gone" />
+
+	</RelativeLayout>
