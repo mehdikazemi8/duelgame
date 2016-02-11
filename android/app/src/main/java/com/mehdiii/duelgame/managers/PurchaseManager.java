@@ -32,6 +32,7 @@ import de.greenrobot.event.EventBus;
 public class PurchaseManager {
     public static final String BASE_64_PUBLIC_KEY = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDQ6R5cmQIA0CRQVsEQoMO5sbONC3Jxuf0ng05fRHvbGakNhDorp86k5KY7ikaHV8BbndgLdjROp/DX/Y8wJaJhdlmoyPfBoTqTIQofhEuZKVAKq6Z5qiIL/fTvx357nME+YTPda4SvrXQ8/lAoasf2bRVdpq2spsmP1HNa8xAs/WnJzF7ShGr84cvIMmo4cOVSi/P3EX/CzXpyU8nwbVW0Mkw6lJ+N+5vV2kun2PUCAwEAAQ==";
     public static final String TAG = "PURCHASE_MANAGER";
+    public static final int TYPE_EXAM = 401;
     private static PurchaseManager instance;
     static final int RC_REQUEST = 10001;
     private Activity activity;
@@ -151,49 +152,12 @@ public class PurchaseManager {
 
     String purchaseId;
 
-    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            switch (type) {
-                case RECEIVE_START_PURCHASE:
-                    try {
-                        PurchaseCreated purchase = BaseModel.deserialize(json, PurchaseCreated.class);
-
-                        if (purchase != null)
-                            purchaseId = purchase.getPurchaseId();
-                        sendToBazaarForPayment(purchase);
-                    } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case RECEIVE_PURCHASE_DONE:
-                    PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
-                    if (purchaseDone != null) {
-
-                        if (purchaseDone.getStatus().equals("invalid")) {
-                            EventBus.getDefault().post(new OnPurchaseResult(purchaseDone.getStatus()));
-                            EventBus.getDefault().post(purchaseDone);
-
-                            return;
-                        } else {
-                            AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
-                            purchaseDone.setPurchaseItem(currentPurchase);
-
-                            try {
-                                consumePurchase();
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        EventBus.getDefault().post(new OnPurchaseResult());
-                        EventBus.getDefault().post(purchaseDone);
-                    }
-
-                    break;
-            }
-        }
-    });
-
+    public synchronized void startPurchase(String quizId) {
+        currentPurchase = new PurchaseItem();
+        currentPurchase.setQuizId(quizId);
+        currentPurchase.setEntityType(TYPE_EXAM);
+        DuelApp.getInstance().sendMessage(currentPurchase.serialize(CommandType.GET_EXAM_PURCHASE_PERMISSION));
+    }
 
     public synchronized void startPurchase(int id) {
         startPurchase(id, "");
@@ -223,6 +187,7 @@ public class PurchaseManager {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_OK) {
                 Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+
                 isBusy = false;
                 purchasedItem = purchase;
 
@@ -230,13 +195,22 @@ public class PurchaseManager {
                 if (helper == null || result.isFailure() || !verifyDeveloperPayload(purchase))
                     return;
 
-                PurchaseCreated bundle;
-                if (cardId != null && !cardId.isEmpty())
-                    bundle = new PurchaseCreated(purchaseId, purchase.getOrderId(), cardId);
-                else
-                    bundle = new PurchaseCreated(purchaseId, purchase.getOrderId());
+                if(currentPurchase.getEntityType() == TYPE_EXAM) {
 
-                DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
+                    PurchaseCreated confirmRequest = new PurchaseCreated();
+                    confirmRequest.setQuizId(currentPurchase.getQuizId());
+                    confirmRequest.setOrderId(purchase.getOrderId());
+                    DuelApp.getInstance().sendMessage(confirmRequest.serialize(CommandType.GET_EXAM_PURCHASE_CONFIRMATION));
+
+                } else {
+                    PurchaseCreated bundle;
+                    if (cardId != null && !cardId.isEmpty())
+                        bundle = new PurchaseCreated(purchaseId, purchase.getOrderId(), cardId);
+                    else
+                        bundle = new PurchaseCreated(purchaseId, purchase.getOrderId());
+
+                    DuelApp.getInstance().sendMessage(bundle.serialize(CommandType.SEND_PURCHASE_DONE));
+                }
 
                 Log.d(TAG, "Purchase successful.");
             }
@@ -254,7 +228,6 @@ public class PurchaseManager {
         }
     }
 
-
     private void sendToBazaarForPayment(PurchaseCreated purchaseDone) throws RemoteException, JSONException, IntentSender.SendIntentException {
         if (currentPurchase != null) {
             if (helper != null)
@@ -266,7 +239,6 @@ public class PurchaseManager {
             } catch (NullPointerException ex) {
                 ex.printStackTrace();
             }
-
         }
     }
 
@@ -291,5 +263,74 @@ public class PurchaseManager {
         return true;
     }
 
+    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            switch (type) {
+                case RECEIVE_START_PURCHASE:
+                    try {
+                        PurchaseCreated purchase = BaseModel.deserialize(json, PurchaseCreated.class);
 
+                        if (purchase != null)
+                            purchaseId = purchase.getPurchaseId();
+                        sendToBazaarForPayment(purchase);
+                    } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case RECEIVE_PURCHASE_DONE:
+                    PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
+                    if (purchaseDone != null) {
+
+                        if (purchaseDone.getStatus().equals("invalid")) {
+                            EventBus.getDefault().post(new OnPurchaseResult(purchaseDone.getStatus()));
+                            EventBus.getDefault().post(purchaseDone);
+
+                            return;
+                        } else {
+                            AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
+                            purchaseDone.setPurchaseItem(currentPurchase);
+
+                            try {
+                                consumePurchase();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        EventBus.getDefault().post(new OnPurchaseResult());
+                        EventBus.getDefault().post(purchaseDone);
+                    }
+                    break;
+
+                case RECEIVE_EXAM_PURCHASE_PERMISSION:
+                    Log.d("TAG", "hhh " + json);
+                    try {
+                        PurchaseCreated purchase = BaseModel.deserialize(json, PurchaseCreated.class);
+
+                        if (purchase != null)
+                            purchaseId = purchase.getPurchaseId();
+
+                        currentPurchase.setSku(purchase.getSku());
+                        sendToBazaarForPayment(purchase);
+                    } catch (RemoteException | JSONException | IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case RECEIVE_EXAM_PURCHASE_CONFIRMATION:
+                    PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
+                    if (purchaseConfirm != null) {
+                        if (purchaseConfirm.getOk()) {
+                            try {
+                                consumePurchase();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    });
 }

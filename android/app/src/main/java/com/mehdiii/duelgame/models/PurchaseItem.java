@@ -20,6 +20,39 @@ public class PurchaseItem extends BaseModel {
     private Cost cost;
     @SerializedName("sku")
     private String sku;
+    @SerializedName("quiz_id")
+    private String quizId;
+    @SerializedName("ok")
+    private Boolean ok;
+    @SerializedName("purchase_id")
+    private String purchaseId;
+
+    public String getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(String quizId) {
+        this.quizId = quizId;
+    }
+
+    public Boolean getOk() {
+        return ok;
+    }
+
+    public void setOk(Boolean ok) {
+        this.ok = ok;
+    }
+
+    public String getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(String purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public PurchaseItem() {
+    }
 
     public PurchaseItem(int mode, int entityType, int id, String title, Cost cost) {
         this.mode = mode;

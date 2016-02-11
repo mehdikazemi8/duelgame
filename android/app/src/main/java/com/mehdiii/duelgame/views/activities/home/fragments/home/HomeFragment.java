@@ -141,7 +141,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.button_buy_diamond:
             case R.id.button_refill:
-//                PurchaseManager.getInstance().startPurchase(3);
                 refillHeart();
                 break;
 

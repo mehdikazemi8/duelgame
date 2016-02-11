@@ -80,7 +80,7 @@ public class QuizActivity extends ParentActivity {
         if (!PurchaseManager.getInstance().handleActivityResult(resultCode, data))
             super.onActivityResult(requestCode, resultCode, data);
     }
-    
+
     public void onEvent(TookQuiz tookQuiz) {
         Log.d("TAG", "onEvent quizActivity TookQuiz " + tookQuiz.getId());
         if(quizzes.getQuizzes().size() == 0)

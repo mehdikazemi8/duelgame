@@ -18,10 +18,13 @@ import com.google.android.gms.games.event.EventRef;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
+import com.mehdiii.duelgame.models.PurchaseCreated;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizCourse;
 import com.mehdiii.duelgame.models.GetBuyQuizRequest;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -258,9 +261,10 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
-                            request.setCommand(CommandType.GET_BUY_QUIZ);
-                            DuelApp.getInstance().sendMessage(request.serialize());
+//                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+//                            request.setCommand(CommandType.GET_BUY_QUIZ);
+//                            DuelApp.getInstance().sendMessage(request.serialize());
+                            PurchaseManager.getInstance().startPurchase(quiz.getId());
                             showProgressDialog();
                         }
                     }
@@ -316,6 +320,18 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            } else if(type == CommandType.RECEIVE_EXAM_PURCHASE_CONFIRMATION) {
+                PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
+                if(purchaseConfirm != null && purchaseConfirm.getOk()) {
+                    if( purchaseConfirm.getQuizId().equals(quiz.getId()) ) {
+                        quiz.setOwned(true);
+                        configure();
+                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
+
+                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
+                        dialog.show();
+                    }
                 }
             }
         }
