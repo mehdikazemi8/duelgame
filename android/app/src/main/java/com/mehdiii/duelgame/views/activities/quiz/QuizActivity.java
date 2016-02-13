@@ -60,6 +60,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     ImageButton refreshButton;
     ImageButton infoButton;
     ListView quizzesListView;
+    QuizCardAdapter adapter;
     Quizzes quizzes;
 
     Button nextTen;
@@ -114,6 +115,9 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
             quizMenu[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    adapter.clear();
+                    adapter.notifyDataSetChanged();
+
                     int titleIndex = Integer.parseInt(v.getContentDescription().toString());
                     if (isFocused[titleIndex])
                         return;
@@ -227,9 +231,9 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     }
 
     private void bindListViewData(Quizzes quizzes) {
-        fromTo.setText(String.valueOf(offset+1) + " تا " + String.valueOf(offset+10));
-        
-        QuizCardAdapter adapter = new QuizCardAdapter(QuizActivity.this, R.layout.template_quiz_card, quizzes.getQuizzes(), quizzes.getStatus());
+        fromTo.setText(String.valueOf(offset+1) + " - " + String.valueOf(offset+10));
+
+        adapter = new QuizCardAdapter(QuizActivity.this, R.layout.template_quiz_card, quizzes.getQuizzes(), quizzes.getStatus());
         quizzesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

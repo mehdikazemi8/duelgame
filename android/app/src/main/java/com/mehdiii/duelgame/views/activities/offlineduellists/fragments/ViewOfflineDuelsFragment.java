@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.OfflineDuelsList;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -161,6 +162,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 dialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
+                        AuthManager.getCurrentUser().decreasePendingOfflineChallenges();
                         if((boolean)data) {
                             OfflineDuel request = new OfflineDuel();
                             duelId = ((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId();

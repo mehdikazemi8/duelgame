@@ -10,9 +10,6 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by omid on 4/8/2015.
- */
 public class User extends BaseModel {
     public User() {
         this.setAvatar(1);
@@ -63,6 +60,10 @@ public class User extends BaseModel {
 
     public void setPendingOfflineChallenges(Integer pendingOfflineChallenges) {
         this.pendingOfflineChallenges = pendingOfflineChallenges;
+    }
+
+    public void decreasePendingOfflineChallenges() {
+        this.pendingOfflineChallenges --;
     }
 
     public int getDuelScore() {

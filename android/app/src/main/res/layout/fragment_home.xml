@@ -1,10 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_1"
-    android:padding="@dimen/space.medium"
-    tools:context=".StartActivity">
+    android:padding="@dimen/space.medium">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,8 +183,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-
-
                 <com.mehdiii.duelgame.views.custom.CustomButton
                     android:id="@+id/quiz_button"
                     style="@style/home_buttons"
@@ -199,11 +195,32 @@
                     android:layout_marginBottom="8dp"
                     android:text="دوئل" />
 
-                <Button
-                    android:id="@+id/button_offline_duels_lists"
-                    style="@style/home_buttons"
-                    android:text="لیست دوئل‌های نوبتی" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <Button
+                        android:id="@+id/button_offline_duels_lists"
+                        style="@style/home_buttons"
+                        android:text="دوئل‌های نوبتی" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|right"
+                        android:layout_marginRight="54dp"
+                        android:background="@drawable/round_background"
+                        android:elevation="2dp">
+                        <com.mehdiii.duelgame.views.custom.CustomTextView
+                            android:id="@+id/pending_offline_duels"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/fontsize.normal2"
+                            android:padding="4dp"
+                            android:text="0"
+                            android:textColor="@color/purple_dark" />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

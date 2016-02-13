@@ -5,9 +5,6 @@ import android.content.Context;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.utils.MemoryCache;
 
-/**
- * Created by omid on 4/12/2015.
- */
 public class AuthManager {
     public static final String CACHE_TAG = "cache_auth_user";
 

@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.views.activities.home.fragments.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
@@ -29,6 +31,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
@@ -39,6 +42,8 @@ import de.greenrobot.event.EventBus;
 public class HomeFragment extends FlippableFragment implements View.OnClickListener {
 
     CustomButton quizButton;
+
+    CustomTextView pendingOfflineDuels;
 
     TextView diamondCount;
     ImageView avatarImageView;
@@ -61,6 +66,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d("TAG", "onResume onViewCreated");
+
         /**
          * find controls and bind view data
          */
@@ -81,7 +88,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                     String.format(getString(R.string.caption_number_of_pending_duels),
                             AuthManager.getCurrentUser().getPendingOfflineChallenges()));
             dialog.show();
-            AuthManager.getCurrentUser().setPendingOfflineChallenges(0);
+//            AuthManager.getCurrentUser().setPendingOfflineChallenges(0);
         }
     }
 
@@ -104,7 +111,18 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         quizButton.setOnClickListener(this);
     }
 
+    private void setPendingOfflineDuels() {
+        if(AuthManager.getCurrentUser().getPendingOfflineChallenges() == 0) {
+            pendingOfflineDuels.setVisibility(View.GONE);
+        } else {
+            pendingOfflineDuels.setVisibility(View.VISIBLE);
+            pendingOfflineDuels.setText(String.valueOf(AuthManager.getCurrentUser().getPendingOfflineChallenges()));
+        }
+    }
+
     private void find(View view) {
+        pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
+
         diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
@@ -123,6 +141,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+
+        Log.d("TAG", "onResume HomeFragment");
+
         EventBus.getDefault().register(this);
         bindViewData();
     }
@@ -170,6 +191,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         } else {
             Log.d("TAG", "bindViewData HomeFragment user is NOT null");
         }
+
+        setPendingOfflineDuels();
 
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));

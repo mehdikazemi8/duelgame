@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
@@ -55,6 +57,11 @@ public class ProfileDialog extends Dialog {
     public ProfileDialog(Context context, Friend friend) {
         super(context);
         Log.d("TAG", "ProfileDialog Constructor");
+
+//        // TODO DELETE THESE
+//        Toast toast = Toast.makeText(getContext(), "a: "+friend.getId(), Toast.LENGTH_LONG);
+//        toast.show();
+
         this.friend = friend;
         this.showDeleteButton = true;
     }
