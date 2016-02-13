@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -56,7 +57,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     String[] sendWhat = new String[]{"due", "running", "future"};
     int whichTabToShow;
 
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
     ImageButton refreshButton;
     ImageButton infoButton;
     ListView quizzesListView;
@@ -77,6 +78,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     }
 
     private void find() {
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         nextTen = (Button) findViewById(R.id.next_ten);
         previousTen = (Button) findViewById(R.id.previous_ten);
         fromTo = (CustomTextView) findViewById(R.id.from_to);
@@ -157,9 +159,10 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
 
     private void sendFetchRequest() {
         // setting progress dialog
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
-        progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage(getResources().getString(R.string.please_wait_message));
+//        progressDialog.show();
         DuelApp.getInstance().sendMessage(new Quizzes(offset, 10, sendWhat[whichTabToShow]).serialize(CommandType.GET_QUIZ_LIST_PAGE));
     }
 
@@ -267,8 +270,8 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
         public void onReceive(String json, CommandType type) {
             Log.d("TAG", "QuizActivity onReceive " + type);
             if(type == CommandType.RECEIVE_QUIZ_LIST_PAGE) {
-                if(progressDialog != null) {
-                    progressDialog.dismiss();
+                if(progressBar.isShown()) {
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 quizzes = Quizzes.deserialize(json, Quizzes.class);

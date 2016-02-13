@@ -5,42 +5,48 @@
     android:background="@color/background_1"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <RelativeLayout
         android:id="@+id/pagination_buttons_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/purple_dark"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/previous_ten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X"
-            android:textSize="@dimen/fontsize.normal" />
+            android:layout_alignParentLeft="true"
+            android:text="X" />
 
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:id="@+id/from_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:paddingLeft="5dp"
-            android:textSize="@dimen/fontsize.normal"
             android:paddingRight="5dp"
             android:text="۱ تا ۱۰"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.normal" />
 
         <Button
             android:id="@+id/next_ten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="W"
-            android:textSize="@dimen/fontsize.normal" />
+            android:layout_alignParentRight="true"
+            android:text="W" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/header"

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,6 +24,7 @@ import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.OfflineDuelsList;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.dueloffline.DuelOfflineActivity;
@@ -47,8 +49,8 @@ public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickLi
     OpponentTurnListAdapter opponentTurnAdapter;
     DoneListAdapter doneAdapter;
 
-    ImageButton nextTen;
-    ImageButton preTen;
+    Button nextTen;
+    Button preTen;
     CustomTextView pagination_info;
     int currentOffset = 0;
     boolean dataExist = false;
@@ -122,7 +124,7 @@ public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickLi
                 return;
             }
         }
-        pagination_info.setText(String.valueOf(list.getOffset()) +" تا "+ String.valueOf(list.getOffset() + 10));
+        pagination_info.setText(String.valueOf(list.getOffset()+1) + " - " + String.valueOf(list.getOffset() + 10));
 
         if (myTurnAdapter != null) {
             myTurnAdapter.clear();
@@ -185,12 +187,15 @@ public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickLi
         this.duelsListView = (ListView) view.findViewById(R.id.duels_list);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         this.messageTextView = (CustomTextView) view.findViewById(R.id.message);
-        this.nextTen = (ImageButton) view.findViewById(R.id.nextTen);
-        this.preTen = (ImageButton) view.findViewById(R.id.preTen);
+        this.nextTen = (Button) view.findViewById(R.id.nextTen);
+        this.preTen = (Button) view.findViewById(R.id.preTen);
         this.pagination_info = (CustomTextView) view.findViewById(R.id.pagination_info);
     }
 
     private void configure() {
+        nextTen.setTypeface(FontHelper.getIcons(getActivity()));
+        preTen.setTypeface(FontHelper.getIcons(getActivity()));
+
         duelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, View view, final int i, long l) {

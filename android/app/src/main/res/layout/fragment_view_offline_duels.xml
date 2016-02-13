@@ -9,12 +9,13 @@
 		android:background="@color/purple_dark"
 		android:orientation="horizontal">
 
-		<ImageButton
+		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:id="@+id/preTen"
 			android:layout_alignParentLeft="true"
-			android:src="@drawable/left_arrow"/>
+			android:text="X"/>
+
 		<com.mehdiii.duelgame.views.custom.CustomTextView
 			android:id="@+id/pagination_info"
 			style="@style/pagination_info"
@@ -22,12 +23,13 @@
 			android:layout_width="wrap_content"
 			android:layout_centerVertical="true"
 			android:layout_centerHorizontal="true" />
-		<ImageButton
+
+		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/nextTen"
 			android:layout_gravity="right"
-			android:src="@drawable/right_arrow"
+			android:text="W"
 			android:layout_alignParentRight="true" />
 
 	</RelativeLayout>
