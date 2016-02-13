@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -32,7 +33,7 @@ import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
-public class ViewOfflineDuelsFragment extends Fragment {
+public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickListener {
 
     ListView duelsListView;
     ProgressBar progressBar;
@@ -46,6 +47,11 @@ public class ViewOfflineDuelsFragment extends Fragment {
     OpponentTurnListAdapter opponentTurnAdapter;
     DoneListAdapter doneAdapter;
 
+    ImageButton nextTen;
+    ImageButton preTen;
+    CustomTextView pagination_info;
+    int currentOffset = 0;
+    boolean dataExist = false;
     @Override
     public void onResume() {
         super.onResume();
@@ -72,6 +78,26 @@ public class ViewOfflineDuelsFragment extends Fragment {
         this.activity = null;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch( view.getId() ){
+            case R.id.preTen:
+                if( currentOffset >= 10 )
+                    currentOffset -= 10;
+                else
+                    break;
+                sendFetchRequest(this.lastRequestTurnType, currentOffset);
+                break;
+            case R.id.nextTen:
+                if( dataExist == false ) {
+                    break;
+                }
+                currentOffset += 10;
+                sendFetchRequest(this.lastRequestTurnType, currentOffset);
+                break;
+        }
+    }
+
     String getMessageWhenEmptyList() {
         Log.d("TAG", "jjj " + lastRequestTurnType);
 
@@ -88,26 +114,16 @@ public class ViewOfflineDuelsFragment extends Fragment {
         if (this.activity == null)
             return;
 
-        if(list.getOfflineDuels().size() == 0) {
-            messageTextView.setVisibility(View.VISIBLE);
-            messageTextView.setText(getMessageWhenEmptyList());
-        } else {
-            messageTextView.setVisibility(View.GONE);
-
-            if(lastRequestTurnType.equals("mine")) {
-                myTurnAdapter = new MyTurnListAdapter(this.activity, R.layout.template_my_turn, list.getOfflineDuels());
-                duelsListView.setAdapter(myTurnAdapter);
-            } else if(lastRequestTurnType.equals("theirs")) {
-                opponentTurnAdapter = new OpponentTurnListAdapter(this.activity, R.layout.template_opponent_turn, list.getOfflineDuels());
-                duelsListView.setAdapter(opponentTurnAdapter);
-            } else if(lastRequestTurnType.equals("done")) {
-                doneAdapter = new DoneListAdapter(this.activity, R.layout.template_done, list.getOfflineDuels());
-                duelsListView.setAdapter(doneAdapter);
+        if( list.getOfflineDuels().size()==0 ){
+            dataExist = false;
+            if (currentOffset != 0 )
+            {
+                currentOffset -=10;
+                return;
             }
         }
-    }
+        pagination_info.setText(String.valueOf(list.getOffset()) +" تا "+ String.valueOf(list.getOffset() + 10));
 
-    private void sendFetchRequest(String turnType) {
         if (myTurnAdapter != null) {
             myTurnAdapter.clear();
             myTurnAdapter.notifyDataSetChanged();
@@ -121,10 +137,32 @@ public class ViewOfflineDuelsFragment extends Fragment {
             doneAdapter.notifyDataSetChanged();
         }
 
+        if(list.getOfflineDuels().size() == 0) {
+            pagination_info.setText(" ");
+            messageTextView.setVisibility(View.VISIBLE);
+            messageTextView.setText(getMessageWhenEmptyList());
+        } else {
+            messageTextView.setVisibility(View.GONE);
+            if(lastRequestTurnType.equals("mine")) {
+                myTurnAdapter = new MyTurnListAdapter(this.activity, R.layout.template_my_turn, list.getOfflineDuels());
+                duelsListView.setAdapter(myTurnAdapter);
+            } else if(lastRequestTurnType.equals("theirs")) {
+                opponentTurnAdapter = new OpponentTurnListAdapter(this.activity, R.layout.template_opponent_turn, list.getOfflineDuels());
+                duelsListView.setAdapter(opponentTurnAdapter);
+            } else if(lastRequestTurnType.equals("done")) {
+                doneAdapter = new DoneListAdapter(this.activity, R.layout.template_done, list.getOfflineDuels());
+                duelsListView.setAdapter(doneAdapter);
+            }
+        }
+    }
+
+    private void sendFetchRequest(String turnType, int offset) {
+
         messageTextView.setVisibility(View.GONE);
-        DuelApp.getInstance().sendMessage((new OfflineDuelsList(turnType, 0, 10)).serialize(CommandType.GET_CHALLENGE_LIST));
-        if (progressBar != null)
+        DuelApp.getInstance().sendMessage((new OfflineDuelsList(turnType, offset, 10)).serialize(CommandType.GET_CHALLENGE_LIST));
+        if (progressBar != null) {
             progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -147,13 +185,15 @@ public class ViewOfflineDuelsFragment extends Fragment {
         this.duelsListView = (ListView) view.findViewById(R.id.duels_list);
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         this.messageTextView = (CustomTextView) view.findViewById(R.id.message);
+        this.nextTen = (ImageButton) view.findViewById(R.id.nextTen);
+        this.preTen = (ImageButton) view.findViewById(R.id.preTen);
+        this.pagination_info = (CustomTextView) view.findViewById(R.id.pagination_info);
     }
 
     private void configure() {
         duelsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, View view, final int i, long l) {
-                Log.d("TAG", "aaabbbccc");
 
                 if(!lastRequestTurnType.equals("mine"))
                     return;
@@ -172,7 +212,7 @@ public class ViewOfflineDuelsFragment extends Fragment {
                             OfflineDuel request = new OfflineDuel();
                             request.setDuelId(((BaseOfflineDuelAdapter)adapterView.getAdapter()).getItem(i).getDuelId());
                             DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_REJECT_CHALLENGE));
-                            sendFetchRequest(lastRequestTurnType);
+                            sendFetchRequest(lastRequestTurnType, 0);
                         }
                     }
                 });
@@ -181,12 +221,19 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 Log.d("TAG", "zzaa " + i + " " + lastRequestTurnType);
             }
         });
+
+        nextTen.setOnClickListener(this);
+        preTen.setOnClickListener(this);
+
     }
 
     public void onReload(String turnType) {
         lastRequestTurnType = turnType;
-        sendFetchRequest(turnType);
+        currentOffset = 0;
+        sendFetchRequest(turnType, currentOffset);
     }
+
+
 
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
@@ -196,6 +243,11 @@ public class ViewOfflineDuelsFragment extends Fragment {
                 Log.d("TAG", "ViewRankingFragment BroadcastReceiver " + json);
 
                 OfflineDuelsList list = OfflineDuelsList.deserialize(json, OfflineDuelsList.class);
+                if (list != null){
+                    dataExist = true;
+                }else {
+                    dataExist = false;
+                }
                 if(list != null && list.getTurn() != null && !list.getTurn().equals(lastRequestTurnType))
                     return;
 
