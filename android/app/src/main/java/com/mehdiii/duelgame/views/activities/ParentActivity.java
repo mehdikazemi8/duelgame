@@ -54,8 +54,7 @@ public class ParentActivity extends ActionBarActivity {
                 if (user != null) {
                     AuthManager.authenticate(ParentActivity.this, user);
                 }
-            }
-            if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
+            } else if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
                 if(canHandleChallengeRequest()) {
                     DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
                     try {
@@ -76,6 +75,8 @@ public class ParentActivity extends ActionBarActivity {
                     requestDecision.setCategory(data.getCategory());
                     DuelApp.getInstance().sendMessage(requestDecision.serialize());
                 }
+            } else if(type == CommandType.RECEIVE_CHALLENGE_UPDATES) {
+                Log.d("TAG", "update " + json);
             }
         }
     });

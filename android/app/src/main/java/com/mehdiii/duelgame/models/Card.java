@@ -3,9 +3,6 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
-/**
- * Created by Omid on 7/22/2015.
- */
 public class Card extends BaseModel /*implements Comparable<Card> */ {
 
 

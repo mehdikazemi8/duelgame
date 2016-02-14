@@ -13,8 +13,28 @@ public class OfflineDuel extends BaseModel {
     private Integer userDuelScore;
     @SerializedName("id")
     private String duelId;
+    @SerializedName("category")
+    private String category;
     @SerializedName("opponent")
     private User opponent;
+    @SerializedName("diamonds_collected")
+    private Integer diamondsCollected;
+
+    public Integer getDiamondsCollected() {
+        return diamondsCollected;
+    }
+
+    public void setDiamondsCollected(Integer diamondsCollected) {
+        this.diamondsCollected = diamondsCollected;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public OfflineDuel() {
     }

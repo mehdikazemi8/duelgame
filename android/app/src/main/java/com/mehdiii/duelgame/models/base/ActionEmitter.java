@@ -19,6 +19,9 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.GET_CHALLENGE_UPDATES, "GCU");
+        map.put(CommandType.RECEIVE_CHALLENGE_UPDATES, "RCU");
+
         map.put(CommandType.GET_QUIZ_LIST_PAGE, "GQLP");
         map.put(CommandType.RECEIVE_QUIZ_LIST_PAGE, "RQLP");
 

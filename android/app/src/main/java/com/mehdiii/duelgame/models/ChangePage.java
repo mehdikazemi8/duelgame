@@ -1,8 +1,5 @@
 package com.mehdiii.duelgame.models;
 
-/**
- * Created by Omid on 5/6/2015.
- */
 public class ChangePage {
     int page;
 

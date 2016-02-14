@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 
-/**
- * Created by Omid on 5/23/2015.
- */
 public class ChallengeRequestDecision extends BaseModel {
     @SerializedName("decision")
     private int decision;
