@@ -347,17 +347,17 @@ public class HomeActivity extends ParentActivity {
         dialog.show();
     }
 
-    public void onEvent(BuyNotification notif) {
-
-        switch (notif.getType()) {
-            case 1:
-                PurchaseManager.getInstance().startPurchase(notif.getId());
-                break;
-            case 2:
-                PurchaseManager.getInstance().useDiamond(notif);
-                break;
-        }
-    }
+//    public void onEvent(BuyNotification notif) {
+//
+//        switch (notif.getType()) {
+//            case 1:
+//                PurchaseManager.getInstance().startPurchase(notif.getId());
+//                break;
+//            case 2:
+//                PurchaseManager.getInstance().useDiamond(notif);
+//                break;
+//        }
+//    }
 
     public void onEvent(ChangePage change) {
         Log.d("TAG", "onEvent ChangePage " + change.getPage());
@@ -381,8 +381,8 @@ public class HomeActivity extends ParentActivity {
         }
     }
 
+    @Override
     public void onEvent(OnPurchaseResult alert) {
-
         if(alert == null) {
             Log.d("TAG", "alert is null");
         } else if(alert.getStatus() == null) {

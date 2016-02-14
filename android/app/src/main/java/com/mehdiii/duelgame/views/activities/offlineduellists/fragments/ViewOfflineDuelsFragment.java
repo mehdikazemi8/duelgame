@@ -20,9 +20,11 @@ import android.widget.ProgressBar;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.OfflineDuelsList;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnShowStoreFragment;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -34,6 +36,10 @@ import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.adapters.OpponentTurnListAdapter;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelDialog;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
+
+import de.greenrobot.event.EventBus;
 
 public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickListener {
 
@@ -200,37 +206,77 @@ public class ViewOfflineDuelsFragment extends Fragment implements View.OnClickLi
             @Override
             public void onItemClick(final AdapterView<?> adapterView, View view, final int i, long l) {
 
-                if(!lastRequestTurnType.equals("mine"))
-                    return;
+//                if(!lastRequestTurnType.equals("mine"))
+//                    return;
 
-                ConfirmDialog dialog = new ConfirmDialog(getActivity(), getString(R.string.button_accept), getString(R.string.button_deny), true, getString(R.string.caption_accept_duel_offline));
-                dialog.setOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(Object data) {
-                        AuthManager.getCurrentUser().decreasePendingOfflineChallenges();
-                        if((boolean)data) {
-                            OfflineDuel request = new OfflineDuel();
-                            duelId = ((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId();
-                            request.setDuelId(duelId);
-                            DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_ACCEPT_CHALLENGE));
-                        } else {
-                            OfflineDuel request = new OfflineDuel();
-                            request.setDuelId(((BaseOfflineDuelAdapter)adapterView.getAdapter()).getItem(i).getDuelId());
-                            DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_REJECT_CHALLENGE));
-                            sendFetchRequest(lastRequestTurnType, 0);
+                if(lastRequestTurnType.equals("mine")) {
+                    ConfirmDialog dialog = new ConfirmDialog(getActivity(), getString(R.string.button_accept), getString(R.string.button_deny), true, getString(R.string.caption_accept_duel_offline));
+                    dialog.setOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(Object data) {
+                            AuthManager.getCurrentUser().decreasePendingOfflineChallenges();
+                            if((boolean)data) {
+                                OfflineDuel request = new OfflineDuel();
+                                duelId = ((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getDuelId();
+                                request.setDuelId(duelId);
+                                DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_ACCEPT_CHALLENGE));
+                            } else {
+                                OfflineDuel request = new OfflineDuel();
+                                request.setDuelId(((BaseOfflineDuelAdapter)adapterView.getAdapter()).getItem(i).getDuelId());
+                                DuelApp.getInstance().sendMessage(request.serialize(CommandType.WANNA_REJECT_CHALLENGE));
+                                sendFetchRequest(lastRequestTurnType, 0);
+                            }
                         }
-                    }
-                });
+                    });
 
-                dialog.show();
-                Log.d("TAG", "zzaa " + i + " " + lastRequestTurnType);
+                    dialog.show();
+                } else {
+                    ConfirmDialog offlineDuelDialog = new ConfirmDialog(
+                            getActivity(),
+                            getString(R.string.message_yes),
+                            getString(R.string.button_cancel),
+                            true,
+                            getString(R.string.message_duel_offline_request));
+                    offlineDuelDialog.setOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(Object data) {
+                            if((boolean)data) {
+                                if (!HeartTracker.getInstance().canUseHeart()) {
+//                                    HeartLowDialog heartLowDialog = new HeartLowDialog(getActivity());
+//                                    heartLowDialog.show();
+                                    ConfirmDialog buyHeart = new ConfirmDialog(getActivity(),
+                                            getString(R.string.button_buy_heart),
+                                            getString(R.string.button_cancel),
+                                            true,
+                                            getString(R.string.message_heart_is_low));
+                                    buyHeart.setOnCompleteListener(new OnCompleteListener() {
+                                        @Override
+                                        public void onComplete(Object data) {
+                                            if((boolean)data) {
+                                                EventBus.getDefault().post(new OnShowStoreFragment());
+                                            }
+                                        }
+                                    });
+                                    buyHeart.show();
+                                    return;
+                                }
+
+                                String opponentUserNumber = ((BaseOfflineDuelAdapter) adapterView.getAdapter()).getItem(i).getOpponent().getId();
+                                DuelDialog duelDialog = new DuelDialog(getActivity(), true, opponentUserNumber);
+                                duelDialog.show();
+                            }
+                        }
+                    });
+                    offlineDuelDialog.show();
+                }
             }
         });
 
         nextTen.setOnClickListener(this);
         preTen.setOnClickListener(this);
-
     }
+
+
 
     public void onReload(String turnType) {
         lastRequestTurnType = turnType;

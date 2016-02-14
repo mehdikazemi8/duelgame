@@ -28,6 +28,7 @@ import com.mehdiii.duelgame.utils.Purchase;
 import org.json.JSONException;
 
 import de.greenrobot.event.EventBus;
+import de.greenrobot.event.util.ExceptionToResourceMapping;
 
 public class PurchaseManager {
     public static final String BASE_64_PUBLIC_KEY = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDQ6R5cmQIA0CRQVsEQoMO5sbONC3Jxuf0ng05fRHvbGakNhDorp86k5KY7ikaHV8BbndgLdjROp/DX/Y8wJaJhdlmoyPfBoTqTIQofhEuZKVAKq6Z5qiIL/fTvx357nME+YTPda4SvrXQ8/lAoasf2bRVdpq2spsmP1HNa8xAs/WnJzF7ShGr84cvIMmo4cOVSi/P3EX/CzXpyU8nwbVW0Mkw6lJ+N+5vV2kun2PUCAwEAAQ==";
@@ -243,6 +244,7 @@ public class PurchaseManager {
     }
 
     public synchronized void consumePurchase() throws RemoteException {
+        Log.d("TAG", "consumePurchase " + (purchasedItem == null));
         if (purchasedItem == null)
             return;
 
@@ -281,12 +283,18 @@ public class PurchaseManager {
 
                 case RECEIVE_PURCHASE_DONE:
                     PurchaseDone purchaseDone = BaseModel.deserialize(json, PurchaseDone.class);
-                    if (purchaseDone != null) {
 
+//                    // TODO DELETE THIS
+//                    try {
+//                        consumePurchase();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
+                    if (purchaseDone != null) {
                         if (purchaseDone.getStatus().equals("invalid")) {
                             EventBus.getDefault().post(new OnPurchaseResult(purchaseDone.getStatus()));
                             EventBus.getDefault().post(purchaseDone);
-
                             return;
                         } else {
                             AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());

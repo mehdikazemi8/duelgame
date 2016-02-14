@@ -21,6 +21,8 @@ import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
+import com.mehdiii.duelgame.models.events.OnFinishActivity;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -117,12 +119,14 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
             quizMenu[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    adapter.clear();
-                    adapter.notifyDataSetChanged();
-
                     int titleIndex = Integer.parseInt(v.getContentDescription().toString());
                     if (isFocused[titleIndex])
                         return;
+
+                    if(adapter != null) {
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                    }
 
                     offset = 0;
 

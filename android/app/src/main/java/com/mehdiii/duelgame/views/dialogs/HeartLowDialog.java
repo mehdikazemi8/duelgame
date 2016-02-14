@@ -10,14 +10,12 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.events.OnFinishActivity;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by omid on 4/29/2015.
- */
 public class HeartLowDialog extends Dialog implements View.OnClickListener {
     public HeartLowDialog(Context context) {
         super(context);
@@ -53,6 +51,7 @@ public class HeartLowDialog extends Dialog implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_buy_hearts:
+//                EventBus.getDefault().post(new OnFinishActivity());
                 EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));
                 break;
         }

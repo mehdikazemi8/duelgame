@@ -100,7 +100,7 @@ public class StartActivity extends ParentActivity {
 
         isSent = false;
         stopCircles = true;
-        if (user.getId() == null)
+        if (user == null || user.getId() == null)
             // register user
             startActivity(new Intent(StartActivity.this, RegisterActivity.class));
         else {

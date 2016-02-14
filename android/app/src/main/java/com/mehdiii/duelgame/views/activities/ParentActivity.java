@@ -12,10 +12,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.PurchaseManager;
+import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.DuelOpponentRequest;
 import com.mehdiii.duelgame.models.LoginRequest;
@@ -24,6 +27,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
+import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.receivers.DuelHourStarted;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -116,6 +120,42 @@ public class ParentActivity extends ActionBarActivity {
         return Math.abs(now - duelHour) < 1000*60*2;
     }
 
+    public void onEvent(BuyNotification notif) {
+        switch (notif.getType()) {
+            case 1:
+                PurchaseManager.getInstance().startPurchase(notif.getId());
+                break;
+            case 2:
+                PurchaseManager.getInstance().useDiamond(notif);
+                break;
+        }
+    }
+
+    public void onEvent(OnPurchaseResult purchaseResult) {
+        if(purchaseResult == null) {
+            Log.d("TAG", "alert is null");
+        } else if(purchaseResult.getStatus() == null) {
+            Log.d("TAG", "alert.getStatus is null");
+        }
+
+        if (purchaseResult != null && purchaseResult.getStatus() != null && purchaseResult.getStatus().equals("invalid"))
+            DuelApp.getInstance().toast(R.string.message_invalid_purchase, Toast.LENGTH_LONG);
+    }
+
+//    public void onEvent(OnPurchaseResult alert) {
+//
+//        if(alert == null) {
+//            Log.d("TAG", "alert is null");
+//        } else if(alert.getStatus() == null) {
+//            Log.d("TAG", "alert.getStatus is null");
+//        }
+//
+//        if (alert != null && alert.getStatus() != null && alert.getStatus().equals("invalid"))
+//            DuelApp.getInstance().toast(R.string.message_invalid_purchase, Toast.LENGTH_LONG);
+//        else
+//            scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
+//    }
+
     public static void setAlarmForDuelHour(Context context) {
         Intent intent = new Intent(context, DuelHourStarted.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -172,6 +212,7 @@ public class ParentActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("TAG", "Parent onResume");
         DuelApp.getInstance().onActivityResumed(this);
         EventBus.getDefault().register(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
@@ -180,15 +221,14 @@ public class ParentActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("TAG", "Parent onPause");
         DuelApp.getInstance().onActivityPaused(this);
         EventBus.getDefault().unregister(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
     ProgressDialog dialog;
-
     public void onEvent(OnConnectionStateChanged status) {
-
         if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED ||
                 status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {
 

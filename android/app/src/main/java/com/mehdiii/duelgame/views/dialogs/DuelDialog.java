@@ -20,9 +20,12 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.models.events.OnFinishActivity;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
+
+import de.greenrobot.event.EventBus;
 
 public class DuelDialog extends Dialog {
     ListView courses;
@@ -69,6 +72,7 @@ public class DuelDialog extends Dialog {
                         AuthManager.getCurrentUser().getScore(ParentActivity.category, "week")
                 );
 
+                EventBus.getDefault().post(new OnFinishActivity());
                 if(offlineDuel) {
 //                    Log.d("TAG", ParentActivity.category + " " + opponentUserNumber);
 //                    DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, ParentActivity.category).serialize());
@@ -87,7 +91,6 @@ public class DuelDialog extends Dialog {
                 dismiss();
             }
         });
-
     }
 
     private void findControls() {

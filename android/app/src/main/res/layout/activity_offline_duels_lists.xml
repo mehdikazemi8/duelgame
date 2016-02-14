@@ -46,4 +46,11 @@
         android:layout_height="match_parent"
         android:layout_below="@id/menu_holder" />
 
+    <FrameLayout
+        android:id="@+id/store_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_holder" />
+
+
 </RelativeLayout>
