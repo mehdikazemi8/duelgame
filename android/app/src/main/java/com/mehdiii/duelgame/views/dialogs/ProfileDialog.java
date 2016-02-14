@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.utils.AvatarHelper;
@@ -138,6 +139,13 @@ public class ProfileDialog extends Dialog {
         turnBaseDuelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!HeartTracker.getInstance().canUseHeart()) {
+                    HeartLowDialog heartLowDialog = new HeartLowDialog(getContext());
+                    heartLowDialog.show();
+                    dismiss();
+                    return;
+                }
+
                 DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
                 dialog.show();
                 dismiss();
