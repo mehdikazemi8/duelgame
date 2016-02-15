@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.AsyncTask;
 import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -295,6 +296,12 @@ public class PurchaseManager {
                         if (purchaseDone.getStatus().equals("invalid")) {
                             EventBus.getDefault().post(new OnPurchaseResult(purchaseDone.getStatus()));
                             EventBus.getDefault().post(purchaseDone);
+
+                            try {
+                                consumePurchase();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
                             return;
                         } else {
                             AuthManager.getCurrentUser().changeConfiguration(DuelApp.getInstance(), purchaseDone.getDiamond(), purchaseDone.getHeart(), purchaseDone.isExtremeHeart(), purchaseDone.getScoreFactor());
@@ -330,6 +337,12 @@ public class PurchaseManager {
                     PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
                     if (purchaseConfirm != null) {
                         if (purchaseConfirm.getOk()) {
+                            try {
+                                consumePurchase();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
                             try {
                                 consumePurchase();
                             } catch (RemoteException e) {

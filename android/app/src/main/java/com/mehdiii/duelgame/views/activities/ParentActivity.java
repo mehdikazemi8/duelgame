@@ -34,7 +34,9 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.AnswerDuelWithFriendRequestDialog;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
 
 import java.util.ArrayList;
@@ -77,6 +79,8 @@ public class ParentActivity extends ActionBarActivity {
                 }
             } else if(type == CommandType.RECEIVE_CHALLENGE_UPDATES) {
                 Log.d("TAG", "update " + json);
+                AlertDialog dialog = new AlertDialog(ParentActivity.this, "eaeuoaeou");
+                dialog.show();
             }
         }
     });
