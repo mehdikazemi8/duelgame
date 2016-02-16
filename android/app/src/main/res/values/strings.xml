@@ -141,6 +141,7 @@
         <item>شیمی</item>
         <item>زیست</item>
     </string-array>
+
     <string-array name="categories_keys">
         <item>10001</item>
         <item>10002</item>
@@ -152,5 +153,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="caption_offline_duel">نتیجه دوئل نوبتی</string>
+    <string name="caption_offline_duel_again">می‌خوای دوباره به دوئل نوبتی دعوتش کنی؟</string>
 
 </resources>

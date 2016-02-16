@@ -28,6 +28,7 @@
     <string name="button_challenge_offline">دوئل نوبتی</string>
     <string name="button_rate">امتیاز دادن به دوئل کنکور</string>
     <string name="button_not_now">نه، مرسی</string>
+    <string name="button_not_now2">الان نه</string>
     <string name="button_remove">حذف دوست</string>
     <string name="button_leave">دوستتون نیمد! می خواید خارج بشید؟</string>
     <string name="button_close">بستن</string>

@@ -24,9 +24,6 @@ import com.mehdiii.duelgame.views.OnCompleteListener;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by Omid on 5/23/2015.
- */
 public class AnswerDuelWithFriendRequestDialog extends Dialog implements View.OnClickListener {
 
     ImageView imageViewAvatar;

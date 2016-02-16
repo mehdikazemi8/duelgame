@@ -28,7 +28,7 @@ public class ChallengeUpdates extends BaseModel {
         return newChallenges.get(0);
     }
 
-    public  OfflineDuel getFirstChallengeResult() {
+    public OfflineDuel getFirstChallengeResult() {
         if(challengeResults.size() == 0)
             return null;
         return challengeResults.get(0);

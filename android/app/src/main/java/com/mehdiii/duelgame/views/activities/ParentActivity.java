@@ -20,8 +20,10 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChallengeRequestDecision;
+import com.mehdiii.duelgame.models.ChallengeUpdates;
 import com.mehdiii.duelgame.models.DuelOpponentRequest;
 import com.mehdiii.duelgame.models.LoginRequest;
+import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.Question;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -29,12 +31,14 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.receivers.DuelHourStarted;
+import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.AnswerDuelOfflineDialog;
 import com.mehdiii.duelgame.views.dialogs.AnswerDuelWithFriendRequestDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.ConnectionLostDialog;
@@ -79,12 +83,29 @@ public class ParentActivity extends ActionBarActivity {
                 }
             } else if(type == CommandType.RECEIVE_CHALLENGE_UPDATES) {
                 Log.d("TAG", "update " + json);
-                AlertDialog dialog = new AlertDialog(ParentActivity.this, "eaeuoaeou");
-                dialog.show();
+                ChallengeUpdates updates = ChallengeUpdates.deserialize(json, ChallengeUpdates.class);
+                if(updates == null)
+                    return;
+
+                if(updates.isChallengeResult()) {
+                    OfflineDuel challengeResult = updates.getFirstChallengeResult();
+                    AnswerDuelOfflineDialog dialog = new AnswerDuelOfflineDialog(ParentActivity.this, challengeResult);
+                    dialog.show();
+                } else if(updates.isNewChallenge()) {
+                    OfflineDuel newChallenge = updates.getFirstNewChallenge();
+                    String message = newChallenge.getOpponent().getName() +
+                            "\n" +
+                            " توی درس " +
+                            CategoryManager.getCategory(getApplicationContext(), Integer.valueOf(newChallenge.getCategory()) ) +
+                            " به دوئل نوبتی دعوتت کرده." +
+                            "\n" +
+                            "برو تو لیست دوئل‌های نوبتی جوابش رو بده.";
+                    AlertDialog dialog = new AlertDialog(ParentActivity.this, message);
+                    dialog.show();
+                }
             }
         }
     });
-
 
     public static int STORE_PAGE = 10;
     public static int SETTINGS_PAGE = 11;

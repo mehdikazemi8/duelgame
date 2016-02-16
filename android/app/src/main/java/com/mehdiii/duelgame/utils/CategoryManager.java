@@ -7,9 +7,6 @@ import com.mehdiii.duelgame.R;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Omid on 5/23/2015.
- */
 public class CategoryManager {
 
     //    private static String[] values = null;

@@ -1,0 +1,159 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_dark"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/caption_offline_duel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="درمقابل"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imageView_avatar"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/av1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/textView_name"
+                    style="@style/offline_duel_dialog_textviews" />
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/textView_province"
+                    style="@style/offline_duel_dialog_textviews" />
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/textView_category"
+                    style="@style/offline_duel_dialog_textviews" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/textView_duel_offline_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="بردی"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/textView_opponent_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17"
+                android:textColor="@color/white" />
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textColor="@color/white" />
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/textView_user_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/diamond" />
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/textView_collected_diamond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="+17"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/caption_offline_duel_again"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <Button
+                android:id="@+id/button_okay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buy_button"
+                android:text="@string/message_yes"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.normal" />
+
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/option_button"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:padding="5dp"
+                android:text="@string/button_not_now2"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
