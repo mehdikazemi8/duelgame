@@ -61,6 +61,19 @@
         <View style="@style/home_options_menu_separator" />
 
         <LinearLayout
+            android:id="@+id/option_instagram"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="اینستاگرام" />
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="Y" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
             android:id="@+id/option_contact_us"
             style="@style/home_options_menu">
             <com.mehdiii.duelgame.views.custom.CustomTextView

@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.models.SyncData;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
+import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.splunk.mint.Mint;
@@ -109,8 +110,12 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
             SyncData syncData = SyncData.deserialize(json, SyncData.class);
             if(AuthManager.getCurrentUser() != null && syncData != null && syncData.getDiamond() != null) {
                 AuthManager.getCurrentUser().setDiamond(syncData.getDiamond());
+                AuthManager.getCurrentUser().setHeart(syncData.getHeart());
+                AuthManager.getCurrentUser().setPendingOfflineChallenges(syncData.getPendingOfflineChallenges());
             }
         }
+
+        EventBus.getDefault().post(new OnSyncDataReceived());
     }
 
     /**

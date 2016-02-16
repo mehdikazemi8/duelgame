@@ -23,6 +23,7 @@ import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
+import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
@@ -255,6 +256,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     public void onEvent(OnPurchaseResult settings) {
+        bindViewData();
+    }
+
+    public void onEvent(OnSyncDataReceived data) {
         bindViewData();
     }
 

@@ -1,11 +1,15 @@
 package com.mehdiii.duelgame.views.dialogs;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +35,14 @@ import de.greenrobot.event.EventBus;
  */
 public class OptionsMenuDialog extends DialogFragment implements View.OnClickListener {
 
+    private final String INSTAGRAM_PACKAGE = "com.instagram.android";
+
     Context context;
 
     LinearLayout coursesRankings;
     LinearLayout store;
     LinearLayout telegramChannel;
+    LinearLayout instagram;
     LinearLayout contactUs;
     LinearLayout settings;
     LinearLayout totalDuelHour;
@@ -78,6 +85,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         coursesRankings = (LinearLayout) view.findViewById(R.id.option_courses_rankings);
         store = (LinearLayout) view.findViewById(R.id.option_store);
         telegramChannel = (LinearLayout) view.findViewById(R.id.option_telegram_channel);
+        instagram = (LinearLayout) view.findViewById(R.id.option_instagram);
         contactUs = (LinearLayout) view.findViewById(R.id.option_contact_us);
         settings = (LinearLayout) view.findViewById(R.id.option_settings);
         totalDuelHour = (LinearLayout) view.findViewById(R.id.option_total_duel_hour);
@@ -88,6 +96,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         coursesRankings.setOnClickListener(this);
         store.setOnClickListener(this);
         telegramChannel.setOnClickListener(this);
+        instagram.setOnClickListener(this);
         contactUs.setOnClickListener(this);
         settings.setOnClickListener(this);
         totalDuelHour.setOnClickListener(this);
@@ -105,6 +114,25 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
 
             case R.id.option_store:
                 EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));
+                break;
+
+            case R.id.option_instagram:
+                try{
+                    if(getContext().getPackageManager().getPackageInfo(INSTAGRAM_PACKAGE, 0) != null) {
+                        Intent instaIntent = getContext().getPackageManager().getLaunchIntentForPackage(INSTAGRAM_PACKAGE);
+                        instaIntent.setComponent(new ComponentName(INSTAGRAM_PACKAGE, "com.instagram.android.activity.UrlHandlerActivity"));
+                        instaIntent.setData(Uri.parse("https://www.instagram.com/p/BB18CnnHKI0/"));
+                        startActivity(instaIntent);
+                    } else {
+                        Intent instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/duelkonkoor/"));
+                        startActivity(instagramIntent);
+                    }
+                } catch (Exception e) {
+                    Log.d("TAG", "aaxx 33");
+                    Intent instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/duelkonkoor/"));
+                    startActivity(instagramIntent);
+                    e.printStackTrace();
+                }
                 break;
 
             case R.id.option_telegram_channel:
