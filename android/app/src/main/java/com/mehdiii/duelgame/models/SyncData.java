@@ -3,6 +3,8 @@ package com.mehdiii.duelgame.models;
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
+import java.util.Map;
+
 /**
  * Created by mehdiii on 2/5/16.
  */
@@ -15,6 +17,27 @@ public class SyncData extends BaseModel {
     private Integer heart;
     @SerializedName("remaining_time_for_next_heart")
     private Integer remainingTimeForNextHeart;
+    @SerializedName("weekly_ranks")
+    private Map<String, Integer> weeklyRanks;
+    @SerializedName("scores")
+    private Map<String, CourseScore> scores;
+
+    public Map<String, CourseScore> getScores() {
+        return scores;
+    }
+
+    public void setScores(Map<String, CourseScore> scores) {
+        this.scores = scores;
+    }
+
+    public Map<String, Integer> getWeeklyRanks() {
+
+        return weeklyRanks;
+    }
+
+    public void setWeeklyRanks(Map<String, Integer> weeklyRanks) {
+        this.weeklyRanks = weeklyRanks;
+    }
 
     public Integer getPendingOfflineChallenges() {
         return pendingOfflineChallenges;

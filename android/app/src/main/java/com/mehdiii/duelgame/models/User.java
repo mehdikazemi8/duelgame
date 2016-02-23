@@ -1,14 +1,15 @@
 package com.mehdiii.duelgame.models;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
-import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class User extends BaseModel {
     public User() {
@@ -49,10 +50,41 @@ public class User extends BaseModel {
     private UpdateVersion updateVersion;
     @SerializedName("time_to_next_heart")
     private int timeToNextHeart;
-    @SerializedName("scores")
-    private Map<String, CourseScore> scores;
     @SerializedName("pending_offline_challenges")
     private Integer pendingOfflineChallenges;
+    @SerializedName("weekly_ranks")
+    private Map<String, Integer> weeklyRanks;
+    @SerializedName("scores")
+    private Map<String, CourseScore> scores;
+
+    public Map<String, Integer> getWeeklyRanks() {
+        return weeklyRanks;
+    }
+
+    public void setWeeklyRanks(Map<String, Integer> weeklyRanks) {
+        this.weeklyRanks = weeklyRanks;
+    }
+
+//    public void addRank(String category, int addingRank){
+//        category = "c" + category;
+//        if(weeklyRanks.get(category) != null){  // update the existing object in 'scores'
+//            weeklyRanks.get(category).setRank(addingRank);
+//        }
+//        else {    // create a new object in 'weekly rank'
+//            weeklyRanks.put(category, new CourseRank(category, addingRank));
+//        }
+//    }
+
+    public int getRank(String category)
+    {
+        category = "c" + category;
+        int courseRank = weeklyRanks.get(category);
+        if(courseRank == -1)
+            return new Random().nextInt(2);
+        return courseRank;
+    }
+
+//
 
     public Integer getPendingOfflineChallenges() {
         return pendingOfflineChallenges;

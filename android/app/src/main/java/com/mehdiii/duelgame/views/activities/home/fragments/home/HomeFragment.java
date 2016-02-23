@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -25,6 +26,7 @@ import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.AvatarHelper;
+import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -37,6 +39,10 @@ import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import de.greenrobot.event.EventBus;
 
@@ -57,6 +63,18 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
+    LinearLayout rankingsHolder;
+    Map<Integer, CustomTextView> courseRanks;
+    Map<Integer, CustomTextView> courseScores;
+    Map<Integer, LinearLayout> courseHolders;
+    int courseIds[] = new int []{
+        10001,
+        10002,
+        10003,
+        10004,
+        10005,
+        10006
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -121,6 +139,26 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
     }
 
+    /**
+     * return number of visible course stats of home page
+     *
+     **/
+    private int getNumberOfVisibleCourses(){
+        User user = AuthManager.getCurrentUser();
+        if (user == null)
+            return 0;
+        int totalRanks = 0;
+        for (int courseId : courseIds){
+            if (user.getRank(String.valueOf(courseId))>0) {
+                courseRanks.get(courseId).setText(String.valueOf(user.getRank(String.valueOf(courseId))));
+                totalRanks += 1;
+            }
+            else
+                courseHolders.get(courseId).setVisibility(View.GONE);
+        }
+        return totalRanks;
+    }
+
     private void find(View view) {
         pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
 
@@ -137,6 +175,30 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         duel2Button = (Button) view.findViewById(R.id.button_duel2);
 
         quizButton = (CustomButton) view.findViewById(R.id.quiz_button);
+        rankingsHolder = (LinearLayout) view.findViewById(R.id.rankings_holder);
+        courseRanks = new HashMap<>();
+        courseRanks.put(10001, (CustomTextView) view.findViewById(R.id.c10001_rank));
+        courseRanks.put(10002, (CustomTextView) view.findViewById(R.id.c10002_rank));
+        courseRanks.put(10003, (CustomTextView) view.findViewById(R.id.c10003_rank));
+        courseRanks.put(10004, (CustomTextView) view.findViewById(R.id.c10004_rank));
+        courseRanks.put(10005, (CustomTextView) view.findViewById(R.id.c10005_rank));
+        courseRanks.put(10006, (CustomTextView) view.findViewById(R.id.c10006_rank));
+
+        courseScores = new HashMap<>();
+        courseScores.put(10001, (CustomTextView) view.findViewById(R.id.c10001_score));
+        courseScores.put(10002, (CustomTextView) view.findViewById(R.id.c10002_score));
+        courseScores.put(10003, (CustomTextView) view.findViewById(R.id.c10003_score));
+        courseScores.put(10004, (CustomTextView) view.findViewById(R.id.c10004_score));
+        courseScores.put(10005, (CustomTextView) view.findViewById(R.id.c10005_score));
+        courseScores.put(10006, (CustomTextView) view.findViewById(R.id.c10006_score));
+
+        courseHolders = new HashMap<>();
+        courseHolders.put(10001, (LinearLayout) view.findViewById(R.id.c10001_holder));
+        courseHolders.put(10002, (LinearLayout) view.findViewById(R.id.c10002_holder));
+        courseHolders.put(10003, (LinearLayout) view.findViewById(R.id.c10003_holder));
+        courseHolders.put(10004, (LinearLayout) view.findViewById(R.id.c10004_holder));
+        courseHolders.put(10005, (LinearLayout) view.findViewById(R.id.c10005_holder));
+        courseHolders.put(10006, (LinearLayout) view.findViewById(R.id.c10006_holder));
     }
 
     @Override
@@ -198,6 +260,26 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
+
+        if (getNumberOfVisibleCourses() == 0)
+            rankingsHolder.setVisibility(View.GONE);
+
+
+
+//        courseRanks.get(10002).setText(String.valueOf(user.getRank("10002")));
+//        courseRanks.get(10003).setText(String.valueOf(user.getRank("10003")));
+//        courseRanks.get(10004).setText(String.valueOf(user.getRank("10004")));
+//        courseRanks.get(10005).setText(String.valueOf(user.getRank("10005")));
+//        courseRanks.get(10006).setText(String.valueOf(user.getRank("10006")));
+
+        Log.d("bello", "" + user.getScore("10001", "week"));
+
+        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
+        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
+        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
+        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
+        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
+        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
 
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);

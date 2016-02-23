@@ -61,9 +61,10 @@ public class StartActivity extends ParentActivity {
     BroadcastReceiver commandListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-
             if (CommandType.RECEIVE_LOGIN_INFO == type && !isFinishing()) {
                 final User user = BaseModel.deserialize(json, User.class);
+                Log.d("taggg", "" + (user==null));
+                Log.d("taggg", "" + (json));
                 if (user != null && user.getUpdateVersion() != null) {
                     displayUpdateDialog(user.getUpdateVersion(), new OnCompleteListener() {
                         @Override

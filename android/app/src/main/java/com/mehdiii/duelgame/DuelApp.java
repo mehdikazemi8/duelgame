@@ -43,10 +43,10 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-    static protected String wsuri = "ws://duelgame.ir:9003";
+//    static protected String wsuri = "ws://duelgame.ir:9003";
 //    static protected String wsuri = "ws://duelgame.ir:9000";
 //    static protected String wsuri = "ws://192.168.44.23:9000";
-//    static protected String wsuri = "ws://192.168.177.153:9000";
+    static protected String wsuri = "ws://192.168.177.153:9000";
 //    static protected String wsuri = "ws://192.168.1.110:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "a]ppVersion";
@@ -112,6 +112,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
                 AuthManager.getCurrentUser().setDiamond(syncData.getDiamond());
                 AuthManager.getCurrentUser().setHeart(syncData.getHeart());
                 AuthManager.getCurrentUser().setPendingOfflineChallenges(syncData.getPendingOfflineChallenges());
+                AuthManager.getCurrentUser().setScores(syncData.getScores());
+                AuthManager.getCurrentUser().setWeeklyRanks(syncData.getWeeklyRanks());
             }
         }
 
