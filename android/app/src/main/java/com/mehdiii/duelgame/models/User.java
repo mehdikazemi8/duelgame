@@ -80,7 +80,7 @@ public class User extends BaseModel {
         category = "c" + category;
         int courseRank = weeklyRanks.get(category);
         if(courseRank == -1)
-            return new Random().nextInt(2);
+            return 0;
         return courseRank;
     }
 
