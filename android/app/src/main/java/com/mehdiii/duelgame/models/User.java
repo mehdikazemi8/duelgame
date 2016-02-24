@@ -9,7 +9,6 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class User extends BaseModel {
     public User() {
