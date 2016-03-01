@@ -33,6 +33,7 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
+import com.mehdiii.duelgame.views.activities.stepbystep.StepActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
@@ -60,6 +61,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Button buyDiamondButton;
     Button offlineDuelsListsButton;
     Button duel2Button;
+    CustomButton stepButton;
     TextView textViewHearts;
     ImageView heartsImageView;
     LinearLayout containerHearts;
@@ -128,6 +130,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         refillButton.setTypeface(FontHelper.getIcons(getActivity()));
 
         quizButton.setOnClickListener(this);
+        stepButton.setOnClickListener(this);
     }
 
     private void setPendingOfflineDuels() {
@@ -173,6 +176,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         containerHearts = (LinearLayout) view.findViewById(R.id.container_hearts);
         offlineDuelsListsButton = (Button) view.findViewById(R.id.button_offline_duels_lists);
         duel2Button = (Button) view.findViewById(R.id.button_duel2);
+        stepButton = (CustomButton) view.findViewById(R.id.step_quiz);
 
         quizButton = (CustomButton) view.findViewById(R.id.quiz_button);
         rankingsHolder = (LinearLayout) view.findViewById(R.id.rankings_holder);
@@ -242,6 +246,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.quiz_button:
                 startActivity(new Intent(getActivity(), QuizActivity.class));
                 break;
+
+            case R.id.step_quiz:
+                startActivity(new Intent(getActivity(), StepActivity.class));
+                break;
         }
     }
 
@@ -260,26 +268,29 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
+// TODO
+//        if (getNumberOfVisibleCourses() == 0)
+//            rankingsHolder.setVisibility(View.GONE);
+//
 
-        if (getNumberOfVisibleCourses() == 0)
-            rankingsHolder.setVisibility(View.GONE);
-
-
-
+//do not uncomment
 //        courseRanks.get(10002).setText(String.valueOf(user.getRank("10002")));
 //        courseRanks.get(10003).setText(String.valueOf(user.getRank("10003")));
 //        courseRanks.get(10004).setText(String.valueOf(user.getRank("10004")));
 //        courseRanks.get(10005).setText(String.valueOf(user.getRank("10005")));
 //        courseRanks.get(10006).setText(String.valueOf(user.getRank("10006")));
+//
 
-        Log.d("bello", "" + user.getScore("10001", "week"));
 
-        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
-        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
-        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
-        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
-        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
-        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
+// TODO
+//        Log.d("bello", "" + user.getScore("10001", "week"));
+//
+//        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
+//        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
+//        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
+//        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
+//        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
+//        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
 
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);

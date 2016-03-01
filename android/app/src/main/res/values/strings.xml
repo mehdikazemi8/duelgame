@@ -151,6 +151,38 @@
         <item>10006</item>
     </string-array>
 
+    <string-array name="step_values">
+        <item>زبان ۳، درس ۱</item>
+        <item>زبان ۳، درس ۲</item>
+        <item>زبان ۳، درس ۳</item>
+        <item>زبان ۳، درس ۴</item>
+        <item>زبان ۳، درس ۵</item>
+        <item>زبان ۳، درس ۶</item>
+        <item>زبان پیش، درس ۱</item>
+        <item>زبان پیش، درس ۲</item>
+        <item>زبان پیش، درس ۳</item>
+        <item>زبان پیش، درس ۴</item>
+        <item>زبان پیش، درس ۵</item>
+        <item>زبان پیش، درس ۶</item>
+        <item>زبان پیش، درس ۷</item>
+        <item>زبان پیش، درس ۸</item>
+    </string-array>
+    <string-array name="step_keys">
+        <item>1000411</item>
+        <item>1000412</item>
+        <item>1000413</item>
+        <item>1000414</item>
+        <item>1000415</item>
+        <item>1000416</item>
+        <item>1000421</item>
+        <item>1000422</item>
+        <item>1000423</item>
+        <item>1000424</item>
+        <item>1000425</item>
+        <item>1000426</item>
+        <item>1000427</item>
+        <item>1000428</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -495,7 +495,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
 
                 <Button
                     android:id="@+id/button_offline_duels_lists"
@@ -519,6 +520,11 @@
                         android:textColor="@color/purple_dark" />
                 </LinearLayout>
             </FrameLayout>
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/step_quiz"
+                style="@style/home_buttons"
+                android:layout_marginBottom="8dp"
+                android:text="آزمون مرحله ای" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

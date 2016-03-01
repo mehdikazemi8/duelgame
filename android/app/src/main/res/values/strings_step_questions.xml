@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cbc1000411">
+        <item>What did she see there? He wants to know ..... .###what she saw there###what did she see there###what she did see there###what saw she there</item>
+        <item>A: "I didn\'t know the person Jack saw." B: "Jack! ..... did you see?"###Whom###Who###Whose###What</item>
+        <item>Which one is correct?###I remember what he said.###I remember what did he say?###I remember what he said?###I remember what said he.</item>
+        <item>Which one is correct?###Do you know when she comes?###Do you know when she come?###Do you know when does she come?###Do you know when comes she ?</item>
+        <item>She told me where ..... that book.###to buy###buy###do I buy###that buy</item>
+        <item>I don\'t know ..... is working on the project.###who###whom###which###whose</item>
+        <item>Would you tell me ..... she said yesterday?###what###who###whom###shoes</item>
+        <item>Zahra\'s mother came into the room and asked her where ..... going.###she was###is she###she is###was she</item>
+        <item>The man over there, ..... name I don\'t remember is an artist.###whose###whom###that his###who</item>
+        <item>Ali: "I am going to buy the car." Ali told me that he ..... the car.###was going to buy###is going to buy###will buy###would buy</item>
+        <item>Lisa asked Paul how ..... to remember so many telephone numbers.###he managed###do you manage###did he manage###was he managed</item>
+        <item>She had a bad illness, but recently, her health has ..... a lot.###improved###increased###risen###succeeded</item>
+        <item>If I had the ....., I would study physics in college.###choice###care###effect###problem</item>
+        <item>John\'s father only ..... when he knows that his son is safe.###relaxes###relies###remains###requires</item>
+        <item>Jane isn\'t very clever. She is a(n) ..... student.###average###successful###harmful###relaxed</item>
+        <item>We need a car urgently. We ..... to buy one very soon.###are going###have gone###were going###had gone</item>
+        <item>He ..... the office by the time we got there.###had left###left###has left###leaves</item>
+        <item>The sun ..... yet when I started my journey.###had not set###has not set###did not set###was not set</item>
+        <item>I ..... how to ride a bicycle when I was five years old.###learnt###have learnt###learn###was learnt</item>
+        <item>This region is too cold and dry for plants. Most of the plants ..... well in warm and wet climates.###grow###are growing###grew###have grown</item>
+        <item>The children were playing in the yard while their mothers ..... them.###were watching###were###watched###had watched###have been watching</item>
+        <item>I usually have just a salad for dinner, but I ..... a sandwich now.###am having###have###have had###had</item>
+        <item>A: "When is your brother leaving for London?" B: "He is going ..... tomorrow evening."###to leave###leaves###leaving###leave</item>
+        <item>We ..... the museum next Monday.###are going to visit###would visit###visited###have visited</item>
+        <item>While trying to enhance the sales’ figures, he did a lot to ... conditions for the company workers.###improve###produce###observe###struggle</item>
+    </string-array>
+
+    <string-array name="cbc1000412">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000413">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000414">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000415">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000416">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000421">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000422">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000423">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000424">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000425">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000426">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000427">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000428">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+</resources>
