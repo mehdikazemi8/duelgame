@@ -57,9 +57,38 @@
             android:id="@+id/stars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_border"
             android:gravity="center"
-            android:hint="درصد شما:"
+            android:padding="5dp"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/cup_size"
+            android:visibility="gone" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/trues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="تعداد پاسخ‌های درست: "
+            android:padding="5dp"
+            android:textSize="@dimen/fontsize.normal"
+            android:visibility="gone" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/falses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="تعداد پاسخ‌های نادرست: "
+            android:padding="5dp"
+            android:textSize="@dimen/fontsize.normal"
+            android:visibility="gone" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/nones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="بی پاسخ"
             android:padding="5dp"
             android:textSize="@dimen/fontsize.normal"
             android:visibility="gone" />
@@ -68,7 +97,6 @@
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_border"
             android:gravity="center"
             android:hint="درصد شما:"
             android:padding="5dp"

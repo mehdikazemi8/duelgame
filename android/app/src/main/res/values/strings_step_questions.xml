@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="cbc1000411">
+    <string-array name="cbc10004111">
         <item>What did she see there? He wants to know ..... .###what she saw there###what did she see there###what she did see there###what saw she there</item>
         <item>A: "I didn\'t know the person Jack saw." B: "Jack! ..... did you see?"###Whom###Who###Whose###What</item>
         <item>Which one is correct?###I remember what he said.###I remember what did he say?###I remember what he said?###I remember what said he.</item>
@@ -27,7 +27,17 @@
         <item>We ..... the museum next Monday.###are going to visit###would visit###visited###have visited</item>
         <item>While trying to enhance the sales’ figures, he did a lot to ... conditions for the company workers.###improve###produce###observe###struggle</item>
     </string-array>
-
+    <string-array name="cbc1000411">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
     <string-array name="cbc1000412">
         <item>quest1###answer###opt2###opt3###opt4</item>
         <item>quest2###answer###opt2###opt3###opt4</item>

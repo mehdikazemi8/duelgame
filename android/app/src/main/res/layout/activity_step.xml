@@ -55,7 +55,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان ۳"
                                 />
@@ -72,13 +72,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_gravity="center"
-                            >
-
+                            android:layout_gravity="center">
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000411_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -101,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
+                            style="@style/step_book_text"
                             android:textSize="20dp"
                             android:text="زبان ۳"
                             />
@@ -123,7 +121,7 @@
                         <TextView
                             style="@style/step_star"
                             android:id="@+id/cbc1000412_star"
-                            android:text="XXX"/>
+                            android:text="aaa"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -167,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان ۳"
                                 />
@@ -189,7 +187,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000414_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -212,7 +210,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان ۳"
                                 />
@@ -233,7 +231,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000413_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -282,7 +280,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان ۳"
                                 />
@@ -304,7 +302,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000415_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -329,7 +327,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان ۳"
                                 />
@@ -351,7 +349,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000416_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -400,7 +398,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان پیش"
                                 />
@@ -422,7 +420,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000422_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -447,7 +445,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان پیش"
                                 />
@@ -469,7 +467,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000421_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -520,7 +518,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان پیش"
                                 />
@@ -542,7 +540,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000423_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -566,7 +564,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <com.mehdiii.duelgame.views.custom.CustomTextView
-                        style="@style/home_ranking_text"
+                        style="@style/step_book_text"
                         android:textSize="20dp"
                         android:text="زبان پیش"
                         />
@@ -588,7 +586,7 @@
                     <TextView
                         style="@style/step_star"
                         android:id="@+id/cbc1000424_star"
-                        android:text="XXX"/>
+                        android:text="aaa"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -638,7 +636,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان پیش"
                                 />
@@ -660,7 +658,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000426_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -685,7 +683,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <com.mehdiii.duelgame.views.custom.CustomTextView
-                                style="@style/home_ranking_text"
+                                style="@style/step_book_text"
                                 android:textSize="20dp"
                                 android:text="زبان پیش"
                                 />
@@ -707,7 +705,7 @@
                             <TextView
                                 style="@style/step_star"
                                 android:id="@+id/cbc1000425_star"
-                                android:text="XXX"/>
+                                android:text="aaa"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -757,7 +755,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                                 <com.mehdiii.duelgame.views.custom.CustomTextView
-                                    style="@style/home_ranking_text"
+                                    style="@style/step_book_text"
                                     android:textSize="20dp"
                                     android:text="زبان پیش"
                                     />
@@ -779,7 +777,7 @@
                                 <TextView
                                     style="@style/step_star"
                                     android:id="@+id/cbc1000427_star"
-                                    android:text="XXX"/>
+                                    android:text="aaa"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -804,7 +802,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                                 <com.mehdiii.duelgame.views.custom.CustomTextView
-                                    style="@style/home_ranking_text"
+                                    style="@style/step_book_text"
                                     android:textSize="20dp"
                                     android:text="زبان پیش"
                                     />
@@ -826,7 +824,7 @@
                                 <TextView
                                     style="@style/step_star"
                                     android:id="@+id/cbc1000428_star"
-                                    android:text="XXX"/>
+                                    android:text="aaa"/>
                             </LinearLayout>
 
                         </LinearLayout>
