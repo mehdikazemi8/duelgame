@@ -130,7 +130,10 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
     private void checkRetake(final String s) {
         int stars = GlobalPreferenceManager.readInteger(this, s, -1);
         if (stars > 0) {
-            final RetakeStepDialog retakeStepDialog = new RetakeStepDialog(this, String.valueOf(RETAKE_DIAMOND));
+            final RetakeStepDialog retakeStepDialog = new RetakeStepDialog(this,
+                    String.format(getResources().getString(R.string.caption_diamond_cnt), AuthManager.getCurrentUser().getDiamond()) +
+                            getResources().getString(R.string.caption_retake_step));
+
             retakeStepDialog.setOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(Object data) {

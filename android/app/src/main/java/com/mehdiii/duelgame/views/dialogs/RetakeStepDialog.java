@@ -10,6 +10,7 @@ import android.view.Window;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 
 /**
  * Created by frshd on 3/2/16.
@@ -19,12 +20,13 @@ public class RetakeStepDialog extends Dialog implements View.OnClickListener {
 
     CustomButton confirmButton;
     CustomButton cancelButton;
+    CustomTextView captionText;
 
-    String diamond;
+    String captionTextStr;
 
-    public RetakeStepDialog(Context context, String diamond) {
+    public RetakeStepDialog(Context context, String captionTextStr) {
         super(context);
-        this.diamond = diamond;
+        this.captionTextStr = captionTextStr;
     }
 
     @Override
@@ -40,14 +42,17 @@ public class RetakeStepDialog extends Dialog implements View.OnClickListener {
         configure();
     }
 
-    private void configure() {
-        cancelButton.setOnClickListener(this);
-        confirmButton.setOnClickListener(this);
-    }
-
     private void find() {
         cancelButton = (CustomButton) findViewById(R.id.button_cancel);
         confirmButton = (CustomButton) findViewById(R.id.button_confirm);
+        captionText = (CustomTextView) findViewById(R.id.caption_text);
+    }
+
+    private void configure() {
+        cancelButton.setOnClickListener(this);
+        confirmButton.setOnClickListener(this);
+
+        captionText.setText(captionTextStr);
     }
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {

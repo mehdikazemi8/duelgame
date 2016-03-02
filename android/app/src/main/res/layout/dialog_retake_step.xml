@@ -10,10 +10,12 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/caption_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/fontsize.normal"
-            android:text="برای آزمون دوباره باید ۱۰۰تا الماس بدی" />
+            android:gravity="center"
+            android:text="برای آزمون دوباره باید ۱۰۰تا الماس بدی"
+            android:textSize="@dimen/fontsize.normal" />
     </LinearLayout>
 
     <LinearLayout
@@ -30,17 +32,17 @@
             android:background="@drawable/bg_button_blue_dark"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="@dimen/fontsize.normal"
             android:text="بزن بریم"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.normal" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/fontsize.normal"
             android:text="بیخیال"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontsize.normal" />
     </LinearLayout>
 
 </LinearLayout>

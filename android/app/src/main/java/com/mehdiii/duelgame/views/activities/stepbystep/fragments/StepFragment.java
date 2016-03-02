@@ -210,6 +210,10 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
         }
         QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
+
+        // TODO DELETE THIS
+        question.getOptions().set(0, "abcd");
+
         title.setText(String.valueOf(currentQuestionIdx+1) + " - " + getArguments().getString("stepName"));
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
@@ -289,11 +293,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         falsesView.setText("تعداد پاسخ‌های نادرست: " + falses);
         nonesView.setText("تعداد سوالات بی پاسخ: " + nones);
         Log.d("total score", "" + (int) Math.round(score));
-        if (score > 80)
+        if (score >= 80)
             stars = 3;
-        else if(score > 60)
+        else if(score >= 60)
             stars = 2;
-        else if(score > 40)
+        else if(score >= 40)
             stars = 1;
         else
             stars = 0;

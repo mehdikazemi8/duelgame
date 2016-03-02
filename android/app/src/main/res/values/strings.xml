@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
+    <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۱۷۰ الماس بپردازی</string>
+
     <string name="quiz_running">باز</string>
     <string name="quiz_due">تمام شده</string>
     <string name="quiz_future">آینده</string>
