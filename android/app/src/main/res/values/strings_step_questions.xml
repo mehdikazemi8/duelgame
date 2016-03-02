@@ -107,171 +107,203 @@
         <item>The new book he has recently written ..... very soon.###will be published###will publish###would be published###would publish</item>
         <item>The building looks very old. It ..... built many years ago.###was###had###has###is</item>
     </string-array>
-    <string-array name="cbc1000411f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
-    <string-array name="cbc1000412f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
-
-    <string-array name="cbc1000413f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
-
-    <string-array name="cbc1000414f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
-
-    <string-array name="cbc1000415f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
-
-    <string-array name="cbc1000416f">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
 
     <string-array name="cbc1000421">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>Students can improve English language ..... reading suitable texts, speaking to natives and listening to the tapes.###by###in###at###about</item>
+        <item>I\'m going to climb that mountain ..... it is cold or not.###whether###while###even###so that</item>
+        <item>We know that ..... are things needed to keep a living thing alive and to help it grow.###nutrients###fuels###fats###muscles</item>
+        <item>To pick apples from a tree, we have to ..... our arms to reach it.###stretch###advance###develop###increase</item>
+        <item>Her thin coat gave little ..... against the cold.###protection###position###proportion###prediction</item>
+        <item>Both the driver and the passenger received serious ..... to the legs and arms.###injuries###crashes###dangers###accidents</item>
+        <item>These plants should not be planted in the shade, ..... they need sunlight for growth.###since###so###when###whether</item>
+        <item>..... they live near us, we see them quite often.###As###For###Where###Such</item>
+        <item>Tickets are expensive, so we only go to the theater once in a ..... .###while###goal###role###variety</item>
+        <item>Her style of painting had been ..... by Japanese art.###influenced###relied###viewed###increased</item>
+        <item>Doctors expect some more ..... in the spread of the disease.###increase###pressure###research###experiment</item>
+        <item>If you can type ..... she can, you must be a very good typist.###as quickly as###quicker as###quicker than###as more quickly as</item>
+        <item>The ..... of the heart is to pump blood around the body.###function###condition###proportion###definition</item>
+        <item>You need to be more ..... in doing exercises.###flexible###basic###suitable###actual</item>
+        <item>When the tourists visited the monuments in Isfahan, they felt ..... they had traveled back in time to another world.###as if###as good as###as long as###even though</item>
+        <item>You have to take regular ..... to reduce the risk of heart attack.###exercise###practice###influence###activity</item>
+        <item>After the heart attack, the doctor advised him to take ..... exercise.###aerobic###public###robotic###attractive</item>
+        <item>The latest model has an important new feature. "Feature" is closest in meaning to ..... .###quality###poverty###density###possibility</item>
+        <item>A: "Have you decided ..... the picnic?" B: "Well, it depends ..... the weather."###on, on###for, in###on, in###for, on</item>
+        <item>Ronald\'s jacket costs ..... Jack\'s.###twice as much as###two times as###two times than###twice more than</item>
+        <item>The story was ..... interesting that I liked to read it several times.###so###too###very###such</item>
+        <item>Today we didn\'t have class ..... the teacher was absent.###because###so###whenever###however</item>
+        <item>Be .....! We can never work late at night.###reasonable###flexible###repetitive###emotionless</item>
+        <item>..... the police arrived, the crowd began to shout loudly.###When###While###Whereas###Whether</item>
+        <item>Most students ..... their parents to support them financially.###rely to###lead to###insist on###carry out</item>
     </string-array>
 
     <string-array name="cbc1000422">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>The number of students who want to get out of the country to study is ..... these years.###decreasing###controlling###involving###following</item>
+        <item>School teachers can help the ..... of a nation character in young students.###formation###capacity###collection###freedom</item>
+        <item>I cannot ever forget the kind ..... of his face.###expression###attraction###impression###recognition</item>
+        <item>Do you know the ..... of the bottle? "No, let me pour some of it out and then test it."###content###taste###label###flavor</item>
+        <item>John might need to ..... you, so give him your mobile phone number.###contact###predict###achieve###compete</item>
+        <item>Old parents often have difficulty ..... with their children.###communicating###meddling###imposing###performing</item>
+        <item>I felt ..... that I would pass my driving test.###confident###artificial###addictive###complex</item>
+        <item>It is important to ..... the road when you are driving.###concentrate on###recognize###protect###react with</item>
+        <item>The horse that they let Jone ..... was the most beautiful animal I had ever seen.###ride###to ride###riding###rides</item>
+        <item>Could you stop talking please? You are ..... me from my work.###distracting###recalling###influencing###denying</item>
+        <item>From his ..... expression I realize he was sad but not happy.###facial###reasonable###natural###private</item>
+        <item>Don\'t ..... out of window while the train is moving.###lean###react###cross###handle</item>
+        <item>Students are normally ..... about the results of their exams.###anxious###emotional###conscious###specific</item>
+        <item>It is a/an ..... for the family to arrange a celebration.###occasion###performance###function###influence</item>
+        <item>Our teacher usually makes all the students ..... a lecture in the class.###give###to give###be given###that they give</item>
+        <item>Betty did not regret ..... that she did not let her son ..... graduate school.###saying - enter###to say - to enter###saying - entering###say - to enter</item>
+        <item>Helen changed the subject to save me the ..... of replying.###embarrassment###experiment###involvement###environment</item>
+        <item>You can find out somebody\'s phone number ..... in the directory.###by looking###to look###in looking###from looking</item>
+        <item>Her face remained quite ..... so it was impossible to tell what she thought of my news.###emotionless###implicit###artificial###unexpected</item>
+        <item>She made the coffee ..... that it was impossible to drink only one cup.###so well###very well###so good###very good</item>
+        <item>..... means the position that your body is when you sit, stand, or walk.###Posture###Gesture###Measure###Feature</item>
+        <item>A good education will help you ..... in life.###succeed###continue###operate###suggest</item>
+        <item>The children are ..... of the danger of taking drugs.###aware###firm###relevant###applicable</item>
+        <item>A: Do you want to go to the movies? B: No, I\'m not ..... .###in the mood###in the leisure time###on my part###on track</item>
+        <item>The children were ..... according to their academic abilities.###ranked###followed###expected###survived</item>
     </string-array>
 
     <string-array name="cbc1000423">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>In hot ....., animals are faced by the problem of overheating.###climates###climbing###surroundings###fight</item>
+        <item>Living creatures are generally affected by the ..... in which they live.###environment###development###employment###management</item>
+        <item>Ahmad\'s parents were ..... in a heavy snow on the road.###trapped###dropped###picked###selected</item>
+        <item>The Earth is only a small ..... located on the edge of the Milky way.###planet###plane###plant###plan</item>
+        <item>The weather is not so hot as it was yesterday. It is very ..... today.###mild###awful###blank###local</item>
+        <item>He tries not to let ..... interfere with his home life.###business###reference###contest###distance</item>
+        <item>Most people go to nice ..... during their summer holidays.###regions###spaces###squares###bridges</item>
+        <item>The experiment ..... at the University of Tehran was successful.###conducted###which conducted###to conduct###conducting</item>
+        <item>It was difficult ..... to how many houses were destroyed in the earthquake.###estimate###notice###rank###wonder</item>
+        <item>..... is a type of black material that is mined from the ground.###Coal###Core###Crater###Crust</item>
+        <item>We are living in the ..... of the computer.###era###environment###pace###plain</item>
+        <item>More than a hundred people were killed in the accident and only five passengers ..... .###survived###contained###prevented###transferred</item>
+        <item>Plants draw minerals and other ..... from the soil.###nutrients###chemicals###underpasses###features</item>
+        <item>We need stronger laws to protect the ..... from pollution.###environment###projection###achievement###biography</item>
+        <item>Test the ..... of the water to make sure it\'s not too hot.###temperature###posture###gesture###atmosphere</item>
+        <item>Since AIDS is now a(n) ..... problem, it requires the contribution of all nations.###global###addictive###populated###explicit</item>
+        <item>Man will use ..... heating instead of coal and oil in future.###solar###extra###global###regular</item>
+        <item>No one exactly knows what led to the ..... of dinosaurs.###extinction###involvement###performance###conclusion</item>
+        <item>What you consider as can be recycled to be used again.###trash###mineral###slum###fuel</item>
+        <item>At the conference, there were several writers, the most famous ..... was Paul Theroux.###of whom###of those###from them###writer of whom</item>
+        <item>Young people tend to be more ..... clothes than older people.###concerned about###kept in touch with###invoved###aware of</item>
+        <item>We take our empty bottles to the bottle bank for ..... .###recycling###reacting###stretching###distracting</item>
+        <item>I think the fire has ..... a lot of damages to the houses.###caused###applied###carried###gathered</item>
+        <item>The house, ..... Shakespeare was born ....., is open to the public.###where, in###that, -###that, in###which, in</item>
+        <item>The hotel is ideally located for visiting the ..... area.###surrounding###actual###powerful###reasonable</item>
     </string-array>
 
     <string-array name="cbc1000424">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>I wasn\'t ..... to lift the table, so I asked for help.###strong enough###as strong###such strong###too strong</item>
+        <item>Ahmad was ..... that he couldn\'t speak at first.###so out of breath###such out of breath###as out of breath###very out of breath</item>
+        <item>It was ..... that we were all frightened.###such a terrible storm###too terrible storm###so terrible storm###so terribly storm</item>
+        <item>I wish science improved and scientists could inform people where and when an ..... was going to happen.###earthquake###accident###advantage###environment</item>
+        <item>Please type the letter more carefully. You\'re making ..... mistakes.###too many###too much###enough###too</item>
+        <item>Staying up at night can be ..... to your health.###damaging###cracking###delaying###shaking</item>
+        <item>Feather ..... on water but sand drowns.###floats###freezes###fastens###furnishes</item>
+        <item>..... the museum was not damaged by the earthquake.###Luckily###Terribly###Necessarily###Straightly</item>
+        <item>The Earth ..... us with all we need to live in a healthy, happy and high way.###provides###combines###describes###performs</item>
+        <item>There was ..... time to finish the exam that I ..... .###so little - gave up###such less - gave up###so less - gave it up###such little - gave it up</item>
+        <item>If we call water a vital ....., then we should consume it carefully.###liquid###figure###benefit###contract</item>
+        <item>They are ..... heavy rain in the North for tomorrow.###predicting###producing###providing###preventing</item>
+        <item>Government must inform the young about the ..... effects of drinks and drugs.###destructive###explicit###repetitive###scientific</item>
     </string-array>
 
     <string-array name="cbc1000425">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>He said strongly that nothing could ..... him from the right path.###prevent###avoid###interfere###cancel</item>
+        <item>Nothing can prevent you from achieving higher goals in life. The opposite of "prevent" is:###permit###predict###present###prepare</item>
+        <item>Scientists have ..... many new drugs to fight diseases.###developed###divided###decided###decoded</item>
+        <item>The government should act quickly to help people in ..... .###poverty###struggle###extinction###region</item>
+        <item>In some countries trade is very good, where as in others it is not good. "Trade" is a kind of ..... .###financial activity###partner###mission###artificial charity</item>
+        <item>He first worked as an ..... to his father before he started his own business.###apprentice###agency###adult###advisability</item>
+        <item>I believe ..... life is usually more peaceful than city life.###rural###global###available###formal</item>
+        <item>Taking coal, gold, etc. from a large hole or tunnel in the ground is called ..... .###mining###stretching###recycling###manufacturing</item>
+        <item>Someone whose job is to connect or repair wires or equipment is called a/an .....###electrician###pioneer###researcher###discoverer</item>
+        <item>She is very good at ..... her duties.###handling###winning###releasing###following</item>
+        <item>Vitamins cannot be ..... by our bodies.###manufactured###observed###explored###forwarded</item>
+        <item>People should respect each other\'s ..... in a civilized society.###rights###behaviors###choices###habits</item>
+        <item>Automobile factories are situated in the ..... regions of the country.###industrial###inevitable###impossible###international</item>
+        <item>He was so tired after the day\'s labour that he went to bed at night. "Labour" means ..... .###work###action###service###practice</item>
+        <item>An organization for a particular group of people who do the same job is called a/an ..... .###union###agency###clinic###nation</item>
+        <item>Fishing ..... is improving in Iran. People eat more fish now than before.###industry###article###concept###definition</item>
+        <item>How much should we pay if we ..... a taxi for a day?###hire###choose###like###prepare</item>
+        <item>Riding a bicycle is good for developing the leg ..... .###muscles###means###pressures###proportions</item>
+        <item>These books are divided into ..... according to subjects.###categories###victories###qualities###strategies</item>
+        <item>His food ..... Italian cooking at its best.###exemplifies###emphasizes###classifies###summarizes</item>
+        <item>The train service could be run more ..... by increasing the price of the tickets.###economically###definitely###fortunately###emotionally</item>
+        <item>Traffic noise, pollution, and huge buildings are the main features of ..... areas.###urban###global###basic###human</item>
+        <item>The ..... of rubbish was done by three workers.###removal###process###overpass###procedure</item>
+        <item>They haven\'t fixed a(n) ..... date for their wedding yet, but it will be this summer.###specific###basic###operative###individual</item>
     </string-array>
 
     <string-array name="cbc1000426">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>I phoned the airport ..... when my friend\'s plane would arrive.###to find out###find out###for finding out###finding out</item>
+        <item>Apollo 12 was launched to the moon ..... it could bring back samples of rock for research.###so that###unless###in order###so as to</item>
+        <item>Your ..... is to send back information about the enemy\'s movements.###mission###construction###extinction###competition</item>
+        <item>This microscope ..... bacteria to 1000 times their actual size.###magnifies###improves###attributes###measures</item>
+        <item>Most flowers sold in supermarkets are ..... .###artificial###flexible###effective###extreme</item>
+        <item>He was on a dangerous ..... behind enemy lines when he disappeared.###mission###action###stance###effect</item>
+        <item>The teacher opened the window ..... let some fresh air in the room.###in order to###till###while###so that</item>
+        <item>China is going to ..... communications satellite into the space very soon.###launch###operate###design###attract</item>
+        <item>During the Second World War, deaths took place on a ..... scale.###massive###detailed###populated###destructive</item>
+        <item>The loudness of a sound, is called ..... .###volume###pattern###posture###strategy</item>
+        <item>Management need to ..... ways of improving office security.###explore###assist###trap###reflect</item>
+        <item>The results will ..... whether the experience was successful.###indicate###follow###operate###recognize</item>
+        <item>Mountains and lakes are the main ..... of the landscape of Wales.###features###gestures###pressures###structures</item>
+        <item>My study involves the ..... of animals in their natural surroundings.###observation###impression###promotion###destination</item>
+        <item>An ..... is a person who travels in a spaceship into the space.###astronaut###official###apprentice###observer</item>
+        <item>The blood ..... were sent to the laboratory for analysis.###samples###vessels###injuries###aspects</item>
+        <item>A(n) crowd waited for the arrival of their popular president.###dense###public###extensive###sufficient</item>
+        <item>Are there any helpful ..... in this book on how to launch a satellite into outer space?###instructions###presentations###limitations###capacities</item>
     </string-array>
 
     <string-array name="cbc1000427">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>The program will automatically save any you open ..... .###documents###movements###statements###environments</item>
+        <item>Mr.Armstrong isn\'t losing weight, ..... he eats a little every day.###even though###when###so as###because</item>
+        <item>The information stored in a computer can be ..... whenever needed.###accessed###entered###attracted###devoted</item>
+        <item>..... my friend was as tall as me, I was a little older than him.###Although###As###Even###Yet</item>
+        <item>If you want to get online, you have to ..... your computer to a phone line using a modem.###connect###access###attach###correct</item>
+        <item>Can she develop a ..... in my computer so that I can draw plans?###system###policy###wing###space</item>
+        <item>We have planned to place ..... in the newspapers and on radio.###advertisements###experiments###arrangements###responsibilities</item>
+        <item>..... this computer is quite cheap, it is one of the best machines on the market.###Although###Until###However###Unless</item>
+        <item>The post office is ..... all our mail.###forwarding###combining###launching###restating</item>
+        <item>I got money through an electronic ..... into my account.###transfer###resource###channel###destination</item>
+        <item>An international medical conference was established to ..... new ideas.###interchange###realize###notice###hypothesize</item>
+        <item>Morphine and heroin are harmful to health and extremely ..... .###addictive###artificial###emotional###confusing</item>
+        <item>..... the captain was badly injured, he managed to save the ship.###Even though###Until###Since###However</item>
+        <item>An electronic device that is sent into space and moves round the earth is called a(n) ..... .###satellite###probe###explorer###helicopter</item>
+        <item>What we have in this factory is a new generation of advanced ..... .###technology###happening###imagination###mechanism</item>
+        <item>The information about countries need ..... from time to time.###updating###stretching###developing###predicting</item>
+        <item>I attached a photo to my application form. "Attach" means ..... .###fix###fit###fill###force</item>
+        <item>Newspapers, magazines, and TV are important ..... for advertising.###media###pace###capacity###mission</item>
+        <item>Ali showed some figures to his sister and asked her to ..... .###look them up###give them up###add them up###pick them up</item>
+        <item>A ..... is a place where someone or something is going.###destination###core###destiny###course</item>
+        <item>I ..... told you not to go near the river.###specifically###physically###smoothly###scientifically</item>
+        <item>Although Maryam has been studying English all day, ..... most of the new words.###she has not yet learned###but she had been learning###but she was learning###she would have not learned</item>
+        <item>..... the weather was bad, we climbed to the top of the mountain.###Though###Unless###Whereas###However</item>
+        <item>Don\'t worry! Buses drive ..... between the hotel and the airport.###frequently###primarily###seriously###efficiently</item>
+        <item>The ..... between parents and school has improved a lot.###link###issue###usefulness###emotion</item>
+        <item>Unfortunately, there is little real ..... between Ted and his daughter.###communication###comparison###culture###transfer</item>
     </string-array>
 
     <string-array name="cbc1000428">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>Mother thinks that I ..... have eaten that much food in the party.###shouldn\'t###mightn\'t###mustn\'t###wouldn\'t</item>
+        <item>My mother did not leave the house in the morning. She thought somebody ..... have visited her.###may###must###should###would</item>
+        <item>"I can\'t find my bag anywhere?" "You ..... have left it in the shop."###might###could###should###would</item>
+        <item>When he asked me about it, I ..... him the truth but for some reason I didn\'t.###could have told###would have told###must have told###might have told</item>
+        <item>"I don\'t know why the driver was stopped by the police." "He ..... too fast."###might have been driving###might be driven###might be driving###might have been driven</item>
+        <item>Whenever we ..... someone without meaning to, we should apologize immediately.###annoy###enjoy###employ###destroy</item>
+        <item>I decided to leave the university and start working for ..... reasons.###various###collective###chargeable###decisive</item>
+        <item>I ..... have watched that program last night because I had to go out.###couldn\'t###might not###won\'t###wouldn\'t</item>
+        <item>You need to be more careful while cooking. You ..... your hands.###could have burned###should burn###could be burning###should have burned</item>
+        <item>We will go on a trip ..... we are ready or not.###whether###unless###because###although</item>
+        <item>A group of people having the same religion, job, etc. are a ..... .###community###category###government###missionary</item>
+        <item>My mother warned me ..... my little brother.###not to wake###not wake###don\'t wake###not waking</item>
+        <item>Reza, you ..... in bed at least for a week! Why didn\'t you?###should have stayed###must stay###should stay###must have stayed</item>
+        <item>There was a fire at the hotel last week. Two of the rooms ..... .###were damaged###have damaged###had damaged###were damaging</item>
+        <item>Let\'s go for a walk before having dinner, ..... we?###shall###do###should###will</item>
+        <item>Two countries border on the United States: one is Canada and ..... is Mexico.###the other###other###another###another one</item>
+        <item>This is the pair of shoes which I have to ..... to Diane.###give back###give it back###give them back###give back them</item>
+        <item>A: "Hello. May I speak to Jim, please?"" B: "Just a moment. I ..... him."###will get###get###am getting###am going to get</item>
     </string-array>
 
 </resources>
