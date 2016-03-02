@@ -53,7 +53,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     private Quiz quiz;
     CustomTextView title;
     CustomTextView fromTo;
-    CustomTextView duration;
     ListView coursesListView;
     ProgressDialog progressDialog;
 
@@ -85,7 +84,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     private void find(View view) {
         title = (CustomTextView) view.findViewById(R.id.title);
         fromTo = (CustomTextView) view.findViewById(R.id.from_to);
-        duration = (CustomTextView) view.findViewById(R.id.duration);
         coursesListView = (ListView) view.findViewById(R.id.courses_list_view);
 
         attendQuiz = (CustomButton) view.findViewById(R.id.attend_quiz_button);
@@ -105,9 +103,6 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     private void configure() {
         title.setText(quiz.getTitle());
         fromTo.setText("از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت دارید در این آزمون شرکت کنید.");
-        duration.setText("از زمانی که آزمون رو شروع کنید "
-                + String.valueOf(quiz.getDuration() / 60)
-                + " دقیقه فرصت دارید سوالات آزمون رو پاسخ بدید.");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 R.layout.template_quiz_course_questions,

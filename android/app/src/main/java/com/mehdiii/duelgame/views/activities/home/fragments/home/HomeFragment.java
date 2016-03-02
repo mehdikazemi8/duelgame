@@ -268,29 +268,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
-// TODO
-//        if (getNumberOfVisibleCourses() == 0)
-//            rankingsHolder.setVisibility(View.GONE);
-//
 
-//do not uncomment
-//        courseRanks.get(10002).setText(String.valueOf(user.getRank("10002")));
-//        courseRanks.get(10003).setText(String.valueOf(user.getRank("10003")));
-//        courseRanks.get(10004).setText(String.valueOf(user.getRank("10004")));
-//        courseRanks.get(10005).setText(String.valueOf(user.getRank("10005")));
-//        courseRanks.get(10006).setText(String.valueOf(user.getRank("10006")));
-//
+        if (getNumberOfVisibleCourses() == 0)
+            rankingsHolder.setVisibility(View.GONE);
 
-
-// TODO
-//        Log.d("bello", "" + user.getScore("10001", "week"));
-//
-//        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
-//        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
-//        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
-//        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
-//        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
-//        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
+        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
+        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
+        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
+        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
+        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
+        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
 
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);

@@ -63,22 +63,36 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/fontsize.normal" />
 
-            <com.mehdiii.duelgame.views.custom.CustomTextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="نکات مهم:"
-                android:textColor="@color/purple_dark3"
-                android:textSize="@dimen/fontsize.normal" />
+                android:orientation="vertical">
 
-            <com.mehdiii.duelgame.views.custom.CustomTextView
-                android:id="@+id/duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/purple_dark3"
-                android:textSize="@dimen/fontsize.normal" />
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/attend_quiz_button"
+                    style="@style/quiz_info_different_buttons"
+                    android:text="شرکت در آزمون"
+                    android:textColor="@color/white" />
 
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/register_quiz_button"
+                    style="@style/quiz_info_different_buttons"
+                    android:text="ثبت نام در آزمون"
+                    android:textColor="@color/white" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/review_quiz_button"
+                    style="@style/quiz_info_different_buttons"
+                    android:text="مرور سوالات آزمون"
+                    android:textColor="@color/white" />
+
+                <com.mehdiii.duelgame.views.custom.CustomButton
+                    android:id="@+id/review_results_button"
+                    style="@style/quiz_info_different_buttons"
+                    android:text="نتایج آزمون"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -92,38 +106,6 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textColor="@color/purple_dark3" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/courses_list_view"
-        android:orientation="vertical">
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/attend_quiz_button"
-            style="@style/quiz_info_different_buttons"
-            android:text="شرکت در آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/register_quiz_button"
-            style="@style/quiz_info_different_buttons"
-            android:text="ثبت نام در آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/review_quiz_button"
-            style="@style/quiz_info_different_buttons"
-            android:text="مرور سوالات آزمون"
-            android:textColor="@color/white" />
-
-        <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/review_results_button"
-            style="@style/quiz_info_different_buttons"
-            android:text="نتایج آزمون"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 
     <FrameLayout
         android:id="@id/fragment_holder"
