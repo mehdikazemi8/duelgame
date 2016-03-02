@@ -1,13 +1,18 @@
 package com.mehdiii.duelgame.views.activities.stepbystep.fragments;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
@@ -49,10 +54,14 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     CustomButton submitAnswer;
     CustomTextView result;
     ProgressDialog progressDialog;
-    TextView starsView;
+    TextView star1View;
+    TextView star2View;
+    TextView star3View;
     String lastQShuffle;
     QuizAnswer quizAnswer;
     StepResult stepResult;
+
+    int viewWidth = 1000;
 
     public StepFragment() {
         super();
@@ -73,6 +82,9 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+        viewWidth = metrics.widthPixels;
+
         find(view);
         configure();
     }
@@ -87,7 +99,9 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         submitAnswer = (CustomButton) view.findViewById(R.id.submit_answer_button);
         title = (CustomTextView) view.findViewById(R.id.title);
         result = (CustomTextView) view.findViewById(R.id.result);
-        starsView = (TextView) view.findViewById(R.id.stars);
+        star1View = (TextView) view.findViewById(R.id.star1);
+        star2View = (TextView) view.findViewById(R.id.star2);
+        star3View = (TextView) view.findViewById(R.id.star3);
         falsesView = (CustomTextView) view.findViewById(R.id.falses);
         truesView = (CustomTextView) view.findViewById(R.id.trues);
         nonesView = (CustomTextView) view.findViewById(R.id.nones);
@@ -99,7 +113,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         for(int k = 0; k < NOPTIONS; k ++) {
             options[k].setOnClickListener(this);
         }
-        starsView.setTypeface(FontHelper.getIcons(getActivity()));
+
+        star1View.setTypeface(FontHelper.getIcons(getActivity()));
+        star2View.setTypeface(FontHelper.getIcons(getActivity()));
+        star3View.setTypeface(FontHelper.getIcons(getActivity()));
+
         nextQuestion.setOnClickListener(this);
         submitAnswer.setOnClickListener(this);
         stepResult = new StepResult();
@@ -176,6 +194,44 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
+    public void animateStars() {
+        animateStar(star1View, 500, 0);
+        animateStar(star2View, 500, 1000);
+        animateStar(star3View, 500, 1500);
+    }
+
+    public void animateStar(final TextView tv, int duration, int delay) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tv, "translationX", viewWidth, 0);
+
+        objectAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                tv.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        objectAnimator.setStartDelay(delay);
+        objectAnimator.setDuration(duration);
+        objectAnimator.setInterpolator(new DecelerateInterpolator());
+        objectAnimator.start();
+    }
+
+
     private void showNextQuestion() {
 
         Log.d("TAG", "func showNextQuestion");
@@ -190,7 +246,13 @@ public class StepFragment extends Fragment implements View.OnClickListener {
                 options[k].setVisibility(View.GONE);
             }
             calculateScore();
-            starsView.setVisibility(View.VISIBLE);
+
+//            star1View.setVisibility(View.VISIBLE);
+//            star2View.setVisibility(View.VISIBLE);
+//            star3View.setVisibility(View.VISIBLE);
+
+            animateStars();
+
             nonesView.setVisibility(View.VISIBLE);
             truesView.setVisibility(View.VISIBLE);
             falsesView.setVisibility(View.VISIBLE);
@@ -304,18 +366,25 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         if (stars >= 0){
             switch (stars){
                 case 0:
-                    starsView.setText("aaa");
+                    star1View.setText("a");
+                    star2View.setText("a");
+                    star3View.setText("a");
                     break;
                 case 1:
-                    starsView.setText("caa");
+                    star1View.setText("c");
+                    star2View.setText("a");
+                    star3View.setText("a");
                     break;
                 case 2:
-                    starsView.setText("cca");
+                    star1View.setText("c");
+                    star2View.setText("c");
+                    star3View.setText("a");
                     break;
                 case 3:
-                    starsView.setText("ccc");
+                    star1View.setText("c");
+                    star2View.setText("c");
+                    star3View.setText("c");
                     break;
-
             }
         }
     }
