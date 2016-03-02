@@ -155,11 +155,27 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             if (user.getRank(String.valueOf(courseId))>0) {
                 courseRanks.get(courseId).setText(String.valueOf(user.getRank(String.valueOf(courseId))));
                 totalRanks += 1;
+            } else {
+//                courseHolders.get(courseId).setVisibility(View.GONE);
+
+                courseRanks.get(courseId).setText("-");
             }
-            else
-                courseHolders.get(courseId).setVisibility(View.GONE);
         }
         return totalRanks;
+    }
+
+    private void setCoursesRank(){
+        User user = AuthManager.getCurrentUser();
+        if (user == null)
+            return;
+
+        for (int courseId : courseIds){
+            if (user.getRank(String.valueOf(courseId))>0) {
+                courseRanks.get(courseId).setText(String.valueOf(user.getRank(String.valueOf(courseId))));
+            } else {
+                courseRanks.get(courseId).setText("-");
+            }
+        }
     }
 
     private void find(View view) {
@@ -269,8 +285,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
 
-        if (getNumberOfVisibleCourses() == 0)
-            rankingsHolder.setVisibility(View.GONE);
+//        if (getNumberOfVisibleCourses() == 0)
+//            rankingsHolder.setVisibility(View.GONE);
+
+        setCoursesRank();
 
         courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
         courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
