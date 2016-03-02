@@ -307,6 +307,10 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
 
     }
 
+    public boolean canHandleChallengeRequest() {
+        return true;
+    }
+
     public void onEvent(OnStepCompleted event) {
         putStepStars();
     }

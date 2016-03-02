@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="course_to_course">درس به درس</string>
+
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
     <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۱۷۰ الماس بپردازی</string>
 

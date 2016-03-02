@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:text="آزمون‌های مرحله‌ای"
+            android:text="@string/course_to_course"
             android:textColor="@color/white"
             android:textSize="@dimen/fontsize.large" />
     </RelativeLayout>

@@ -194,7 +194,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             nonesView.setVisibility(View.VISIBLE);
             truesView.setVisibility(View.VISIBLE);
             falsesView.setVisibility(View.VISIBLE);
-            title.setText("ارسال جواب ها");
+            title.setText("ثبت جواب‌ها");
             submitAnswer.setVisibility(View.VISIBLE);
 
             result.setVisibility(View.VISIBLE);
@@ -214,7 +214,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         // TODO DELETE THIS
         question.getOptions().set(0, "abcd");
 
-        title.setText(String.valueOf(currentQuestionIdx+1) + " - " + getArguments().getString("stepName"));
+        title.setText("سوال " + String.valueOf(currentQuestionIdx+1) + " - " + getArguments().getString("stepName"));
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
             options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
