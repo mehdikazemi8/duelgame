@@ -22,6 +22,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.DeliveryReport;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
@@ -33,7 +34,9 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AvatarSelectionDialog;
 
 import de.greenrobot.event.EventBus;
@@ -43,6 +46,11 @@ import de.greenrobot.event.EventBus;
  */
 public class SettingsFragment extends FlippableFragment implements View.OnClickListener {
     public static final String PREFERENCE_VOICE = "preference_voice";
+
+    CustomTextView diamondCount;
+    Button refillButton;
+    Button buyDiamondButton;
+    CustomTextView textViewHearts;
 
     private EditText usernameEditText;
     private EditText emailEditText;
@@ -126,6 +134,10 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         saveButton = (Button) view.findViewById(R.id.button_save);
         textViewSoundOn = (TextView) view.findViewById(R.id.textView_music_on);
         textViewSoundOff = (TextView) view.findViewById(R.id.textView_music_off);
+        diamondCount = (CustomTextView) view.findViewById(R.id.home_diamond_cnt);
+        textViewHearts = (CustomTextView) view.findViewById(R.id.textView_heart);
+        buyDiamondButton = (Button) view.findViewById(R.id.button_buy_diamond);
+        refillButton = (Button) view.findViewById(R.id.button_refill);
     }
 
     private void configure() {
@@ -139,7 +151,12 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                 EventBus.getDefault().post(new OnSoundStateChanged(b));
             }
         });
-
+        diamondCount.setText(String.valueOf(AuthManager.getCurrentUser().getDiamond()));
+        buyDiamondButton.setTypeface(FontHelper.getIcons(getActivity()));
+        buyDiamondButton.setOnClickListener(this);
+        refillButton.setTypeface(FontHelper.getIcons(getActivity()));
+        refillButton.setOnClickListener(this);
+        textViewHearts.setText(String.valueOf(AuthManager.getCurrentUser().getHeart()));
         initializeData();
     }
 
@@ -193,9 +210,15 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             case R.id.button_save:
                 saveSettings();
                 break;
+            case R.id.button_buy_diamond:
+            case R.id.button_refill:
+                refillHeart();
+                break;
         }
     }
-
+    private void refillHeart() {
+        EventBus.getDefault().post(new ChangePage(ParentActivity.STORE_PAGE));
+    }
     private void saveSettings() {
 
         if (validateForm()) {

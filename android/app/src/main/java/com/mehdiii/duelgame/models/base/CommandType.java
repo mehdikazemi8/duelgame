@@ -3,6 +3,8 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    USE_DIAMOND,
+
     LOG_COURSE_STEP_UP,
 
     GET_CHALLENGE_UPDATES,

@@ -19,6 +19,8 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.USE_DIAMOND, "UD");
+
         map.put(CommandType.LOG_COURSE_STEP_UP, "LCSU");
 
         map.put(CommandType.GET_CHALLENGE_UPDATES, "GCU");

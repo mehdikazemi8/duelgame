@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="cbc10004111">
+    <string-array name="cbc1000411">
         <item>What did she see there? He wants to know ..... .###what she saw there###what did she see there###what she did see there###what saw she there</item>
         <item>A: "I didn\'t know the person Jack saw." B: "Jack! ..... did you see?"###Whom###Who###Whose###What</item>
         <item>Which one is correct?###I remember what he said.###I remember what did he say?###I remember what he said?###I remember what said he.</item>
@@ -27,54 +27,98 @@
         <item>We ..... the museum next Monday.###are going to visit###would visit###visited###have visited</item>
         <item>While trying to enhance the sales’ figures, he did a lot to ... conditions for the company workers.###improve###produce###observe###struggle</item>
     </string-array>
-    <string-array name="cbc1000411">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
-    </string-array>
     <string-array name="cbc1000412">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>It is easy for us ..... the problem.###to solve###solve###solving###that solve</item>
+        <item>It is ..... for him to enter the final match.###important###glad###eager###able</item>
+        <item>..... football for five hours made him tired.###Playing###Play###That play###He plays</item>
+        <item>We are tired of ..... here.###sitting###sit###to sit###have sat</item>
+        <item>I saw ..... the street while the light was red.###him crossing###him to cross###his crossing###him/his crossing</item>
+        <item>A: "Are you ready?" B: "Oh, no. I haven\'t finished ..... the dishes."###washing###wash###to wash###washed</item>
+        <item>Hurry up! I don\'t want to risk ..... the train.###missing###to miss###missed###miss</item>
+        <item>I miss John ..... me at 8 o\'clock each night.###calling###call###to call###called</item>
+        <item>Do you mind ..... in this room?###not smoking###not smoke###don\'t smoke###not be smoke</item>
+        <item>He was studying but when I went into his room, he stopped ..... to me.###to talk###talk###talking###talked</item>
+        <item>A: "Did he stop ..... when you called him?" "No, he didn\'t even look at me."###working###to work###work###worked</item>
+        <item>I like ..... . It\'s interesting for me.###to swim / swimming###swim###swam###swims</item>
+        <item>On summer days, I prefer ..... at home.###staying###stay###to stay###stayed</item>
     </string-array>
-
     <string-array name="cbc1000413">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>I want to study. Please turn ..... the radio.###off###on###up###into</item>
+        <item>A: "What should I do with the TV?" B: "Please ..... ." Which is not correct?###turn on it###turn the TV on###turn on the TV###turn it on</item>
+        <item>When my parents get old, I will look  ..... them.###after###at###for###up</item>
+        <item>Which one is a prepositional verb?###look for###put on###give back###wake up</item>
+        <item>I am going to ..... him.###talk to###wake up###call up###take away</item>
+        <item>She ..... happily ..... the shirt.###looked / at###turned / off###put / on###took / off</item>
+        <item>This is the student whom I ..... .###talked to###talked###talked to him###to talk</item>
+        <item>I don\'t like the shirt which you have ..... .###put on###put it on###put on it###put them on</item>
+        <item>I don\'t mind what you want ..... .###to put on###to put it on###put on it###put on</item>
+        <item>Look at the coins he has ..... .###picked up###picked up them###picked them up###them</item>
+        <item>Jim is the man ..... whom I was ..... .###to / talking###up / walking###up / calling###away / taking</item>
     </string-array>
-
     <string-array name="cbc1000414">
-        <item>quest1###answer###opt2###opt3###opt4</item>
-        <item>quest2###answer###opt2###opt3###opt4</item>
-        <item>quest3###answer###opt2###opt3###opt4</item>
-        <item>quest4###answer###opt2###opt3###opt4</item>
-        <item>quest5###answer###opt2###opt3###opt4</item>
-        <item>quest6###answer###opt2###opt3###opt4</item>
-        <item>quest7###answer###opt2###opt3###opt4</item>
-        <item>quest8###answer###opt2###opt3###opt4</item>
-        <item>quest9###answer###opt2###opt3###opt4</item>
+        <item>Mary hopes ..... her exams this year.###to pass###pass###passing###will pass</item>
+        <item>I hope ..... to Italy next Monday.###to be flying###flying###be flying###to flying</item>
+        <item>Our company wants us ..... before we start our work there.###to be examined###examine###be examined###to examine</item>
+        <item>I didn\'t expect you ..... to the party.###to be invited###to invite###be invited###invite</item>
+        <item>A: "What would you like to do?" B: "I prefer ..... my books."###to study###study###studying###to studying</item>
+        <item>It was starting ..... when I arrived.###to rain###rain###raining###to raining</item>
+        <item>After I had finished my homework, I went on ..... a letter to my friend, Liza.###writing###to write###write###wrote</item>
+        <item>Our teacher encourages us ..... more.###to study###study###studying###studied</item>
+        <item>She said, "Mary, please open the door." She ..... the door.###told Mary to open###said Mary open###said Many to open###told Mary to please open</item>
+        <item>Ali said, "Don\'t be silly." Ali ..... silly.###told me not to be###said don\'t be###said not to be###told me don\'t be</item>
     </string-array>
-
     <string-array name="cbc1000415">
+        <item>I didn\'t like the film because it was ..... .###boring###bore###bored###to bore</item>
+        <item>The show was very nice, so we were ..... .###excited###excite###to excite###exciting</item>
+        <item>I couldn\'t solve the problem. I was ..... .###confused###confuse###confusing###to confuse</item>
+        <item>I couldn\'t solve the problem. It was ..... .###confusing###confuse###confused###to confuse</item>
+        <item>At night, it gets ..... in this room.###cold###coldness###coldly###colds</item>
+        <item>He got too ..... to answer me.###excited###excite###excitement###excitedly</item>
+        <item>He is slowly growing ..... .###old###oldness###coldly###cold</item>
+        <item>The soup turned ..... because it was kept for two weeks.###bad###badly###badness###badness</item>
+        <item>The doctor felt my arm ..... .###carefully###care###careful###careless</item>
+        <item>The new player seems ..... .###strong###strongly###be strong###all choices</item>
+        <item>The new player seems ..... .###to be strong###strongly###be strong###all choices</item>
+        <item>John has a ..... .###nice big black car###big nice black car###black big nice car###black nice big car</item>
+        <item>Give me the ..... carpet.###beautiful small Persian###beautiful Persian small###small beautiful Persian###Persian small beautiful</item>
+        <item>The ..... cars will become cheaper.###new blue Japanese###blue Japanese new###Japanese blue new###blue new Japanese</item>
+        <item>The ..... shirt was very old.###large white cotton###large cotton white###white large cotton###cotton white large</item>
+        <item>The ..... shirts were not beautiful.###first two Indian cotton###first two cotton Indian###two first cotton Indian###two first Indian cotton</item>
+        <item>Which sentence is grammatically correct?###He bought a large white cotton shirt###He bought a white cotton large shirt###He bought a cotton large white shirt###He bought a white large cotton shirt</item>
+    </string-array>
+    <string-array name="cbc1000416">
+        <item>English ..... in many countries.###is spoken###speaks###is speaking###has spoken</item>
+        <item>Many cars ..... in this place.###are bought###buy###are buying###will buy</item>
+        <item>"The students cleaned the blackboard." The blackboard ..... by the students.###was cleaned###cleaned###is cleaned###was cleaning</item>
+        <item>Peter was watering the garden at 6. The garden ..... at 6.###was being watered###was watered###was been watered###was be watered</item>
+        <item>My car isn\'t ready yet. It ..... since yesterday.###has been being repaired###has repaired###has been repairing###has been repaired</item>
+        <item>The tiger ..... in the forest last year.###was seen###sees###is seen###saw</item>
+        <item>The exam papers ..... tomorrow.###will be corrected###will correct###correct###is corrected</item>
+        <item>What ..... in this factory?###is made###makes###it makes###is it made</item>
+        <item>He likes ..... to the party.###to be invited###to invite###be invited###to invited</item>
+        <item>How much homework ..... by the student?###has to be done###has to do###have to do###have to be done</item>
+        <item>He never walks to school. He is used to ..... to school by car.###being taken###take###taking###be taken</item>
+        <item>The letter my family wrote for Jim ..... next week.###is going to be sent###are going to send###is going to send###are going to be sent</item>
+        <item>He was killed ..... a knife.###with###at###by###on</item>
+        <item>Nobody bought the flower. The flower ..... .###wasn\'t bought###was bought###is bought###isn\'t bought</item>
+        <item>"Don\'t speak until someone asks you."###Don\'t be spoken until someone asks you.###Don\'t speak until you are asked.###Don\'t be spoken until you are asked.###Don\'t speak until someone is asked.</item>
+        <item>Betty\'s uncle ..... to hospital for an urgent operation last night.###was taken###is taken###is taking###was taking</item>
+        <item>I would like to know how the height of huge waves ..... at a sea.###is measured###are measuring###are measured###is measuring</item>
+        <item>The new book he has recently written ..... very soon.###will be published###will publish###would be published###would publish</item>
+        <item>The building looks very old. It ..... built many years ago.###was###had###has###is</item>
+    </string-array>
+    <string-array name="cbc1000411f">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+    <string-array name="cbc1000412f">
         <item>quest1###answer###opt2###opt3###opt4</item>
         <item>quest2###answer###opt2###opt3###opt4</item>
         <item>quest3###answer###opt2###opt3###opt4</item>
@@ -86,7 +130,43 @@
         <item>quest9###answer###opt2###opt3###opt4</item>
     </string-array>
 
-    <string-array name="cbc1000416">
+    <string-array name="cbc1000413f">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000414f">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000415f">
+        <item>quest1###answer###opt2###opt3###opt4</item>
+        <item>quest2###answer###opt2###opt3###opt4</item>
+        <item>quest3###answer###opt2###opt3###opt4</item>
+        <item>quest4###answer###opt2###opt3###opt4</item>
+        <item>quest5###answer###opt2###opt3###opt4</item>
+        <item>quest6###answer###opt2###opt3###opt4</item>
+        <item>quest7###answer###opt2###opt3###opt4</item>
+        <item>quest8###answer###opt2###opt3###opt4</item>
+        <item>quest9###answer###opt2###opt3###opt4</item>
+    </string-array>
+
+    <string-array name="cbc1000416f">
         <item>quest1###answer###opt2###opt3###opt4</item>
         <item>quest2###answer###opt2###opt3###opt4</item>
         <item>quest3###answer###opt2###opt3###opt4</item>
