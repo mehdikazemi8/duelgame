@@ -36,7 +36,7 @@ import java.util.Map;
  * Created by frshd on 2/24/16.
  */
 public class StepActivity extends ParentActivity implements View.OnClickListener {
-    private final int RETAKE_DIAMOND = 100;
+    private final int RETAKE_DIAMOND = 170;
     Quiz quiz;
     Map<Integer, TextView> stepStars;
     Map<Integer, LinearLayout> stepHolders;
