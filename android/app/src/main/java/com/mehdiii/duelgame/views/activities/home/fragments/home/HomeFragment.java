@@ -33,6 +33,7 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
+import com.mehdiii.duelgame.views.activities.ranking.RankingActivity;
 import com.mehdiii.duelgame.views.activities.stepbystep.StepActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
@@ -113,7 +114,23 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
     }
 
+    private void configureCourseHolders() {
+        for(final int courseId : courseIds) {
+            courseHolders.get(courseId).setClickable(true);
+            courseHolders.get(courseId).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ParentActivity.category = String.valueOf(courseId);
+                    getActivity().startActivity(new Intent(getActivity(), RankingActivity.class));
+                }
+            });
+        }
+    }
+
     private void configure(View view) {
+
+        configureCourseHolders();
+
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
         offlineDuelsListsButton.setOnClickListener(this);

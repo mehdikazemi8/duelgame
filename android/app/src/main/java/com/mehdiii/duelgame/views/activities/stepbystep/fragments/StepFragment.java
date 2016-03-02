@@ -273,9 +273,6 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         }
         QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
 
-        // TODO DELETE THIS
-        question.getOptions().set(0, "abcd");
-
         title.setText("سوال " + String.valueOf(currentQuestionIdx+1) + " - " + getArguments().getString("stepName"));
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
