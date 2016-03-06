@@ -194,4 +194,7 @@
     <string name="caption_offline_duel">نتیجه دوئل نوبتی</string>
     <string name="caption_offline_duel_again">می‌خوای دوباره به دوئل نوبتی دعوتش کنی؟</string>
 
+
+    <string name="step_duel_not_passed_yet">برای اینکه روی مطالب این درس دوئل کنی باید توی قسمت درس به درس بگذرونیش.</string>
+
 </resources>

@@ -85,6 +85,21 @@ public class DuelDialog extends Dialog {
                 } else {
                     Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
                     cat.setCategory(categories[i]);
+
+
+                    // frshd added this
+
+                    if(i == 3)
+                    {
+                        dismiss();
+                        StepDuelDialog stepDuelDialog = new StepDuelDialog(getContext(), cat);
+                        stepDuelDialog.show();
+                        return;
+                    }
+
+
+
+
                     DuelApp.getInstance().sendMessage(cat.serialize());
                     getContext().startActivity(new Intent(getContext(), WaitingActivity.class));
                 }
