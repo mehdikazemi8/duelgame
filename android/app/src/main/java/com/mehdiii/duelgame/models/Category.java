@@ -24,6 +24,26 @@ public class Category extends BaseModel {
 
     @SerializedName("category")
     private String category;
+    @SerializedName("book")
+    private int book;
+    @SerializedName("chapter")
+    private int chapter;
+
+    public int getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(int chapter) {
+        this.chapter = chapter;
+    }
+
+    public int getBook() {
+        return book;
+    }
+
+    public void setBook(int book) {
+        this.book = book;
+    }
 
     public String getCategory() {
         return category;

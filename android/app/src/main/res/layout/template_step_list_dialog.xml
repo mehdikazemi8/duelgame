@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/step_stars"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/purple_sexy"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="aaa"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/fontsize.large" />
+
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/step_book"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:background="@color/purple_sexy"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="زبان ۳"
+            android:textColor="@color/background_2"
+            android:textSize="@dimen/fontsize.normal" />
+    </LinearLayout>
+</LinearLayout>
