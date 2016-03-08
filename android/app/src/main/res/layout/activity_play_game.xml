@@ -154,10 +154,10 @@
                     android:src="@drawable/diamond" />
                 <com.mehdiii.duelgame.views.custom.CustomTextView
                     android:id="@+id/collected_diamond_counter"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:text="0"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
@@ -169,6 +169,24 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7">
+
+            <ScrollView
+                android:id="@+id/play_game_problem_statement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/play_game_question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="صورت سوال"
+                    android:textColor="@color/play_game_question_text"
+                    android:textSize="25sp" />
+            </ScrollView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -217,24 +235,6 @@
                     android:id="@+id/user_tick0"
                     style="@style/tick_cross_game_play" />
             </LinearLayout>
-
-            <ScrollView
-                android:id="@+id/play_game_problem_statement"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/play_game_header">
-                <TextView
-                    android:id="@+id/play_game_question_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:gravity="center"
-                    android:text="صورت سوال"
-                    android:textColor="@color/play_game_question_text"
-                    android:textSize="25sp" />
-            </ScrollView>
 
             <ImageView
                 android:id="@+id/report_problem"
