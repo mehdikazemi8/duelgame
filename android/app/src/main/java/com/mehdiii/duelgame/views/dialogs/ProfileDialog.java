@@ -26,13 +26,16 @@ import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.StatisticsListAdapter;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 
 public class ProfileDialog extends Dialog {
 
     OnCompleteListener onRemoveListener;
     ImageView avatarImageView;
     TextView textViewName;
-    TextView textViewProvince;
+    CustomTextView textViewProvince;
+    CustomTextView textViewSchool;
+    CustomTextView textViewField;
     ImageButton buttonRemove;
     ImageButton buttonClose;
     CustomButton turnBaseDuelButton;
@@ -93,11 +96,22 @@ public class ProfileDialog extends Dialog {
         this.avatarImageView.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
         this.textViewName.setText(friend.getName());
         this.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
+//        TODO
+//        remove this
+        friend.setField("ریاضیات");
+        friend.setSchool("امیکربیر");
+//
+//
+        if (friend.getSchool()!=null)
+            this.textViewSchool.setText(getContext().getResources().getString(R.string.school)+": "+friend.getSchool());
+        else
+            this.textViewSchool.setText(getContext().getResources().getString(R.string.school)+": -");
+        this.textViewField.setText(friend.getField());
     }
 
     private void configure() {
         Log.d("TAG", "ProfileDialog configure");
-        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince,
+        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince, textViewField, textViewSchool,
                 winCaption, loseCaption, drawCaption, courseCaption, noMutualStatistics);
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +171,9 @@ public class ProfileDialog extends Dialog {
         Log.d("TAG", "ProfileDialog findControls");
         avatarImageView = (ImageView) findViewById(R.id.imageView_avatar);
         textViewName = (TextView) findViewById(R.id.textView_name);
-        textViewProvince = (TextView) findViewById(R.id.textView_province);
+        textViewProvince = (CustomTextView) findViewById(R.id.textView_province);
+        textViewSchool = (CustomTextView) findViewById(R.id.textView_school);
+        textViewField = (CustomTextView) findViewById(R.id.textView_field);
         buttonRemove = (ImageButton) findViewById(R.id.button_remove_friend);
         buttonClose = (ImageButton) findViewById(R.id.button_close);
 
