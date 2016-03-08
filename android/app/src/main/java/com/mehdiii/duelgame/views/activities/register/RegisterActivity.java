@@ -40,6 +40,7 @@ public class RegisterActivity extends ParentActivity {
     TextView hintTextView;
     TextView girlTextView;
     TextView boyTextView;
+    TextView referralCodeTextView;
     EditText usernameEditText;
     EditText emailEditText;
     Button registerButton;
@@ -97,13 +98,15 @@ public class RegisterActivity extends ParentActivity {
         girlTextView = (TextView) findViewById(R.id.textView_girl);
         boyTextView = (TextView) findViewById(R.id.textView_boy);
         genderSwitch = (SwitchButton) findViewById(R.id.switch_gender);
+
+        referralCodeTextView = (TextView) findViewById(R.id.referral_code);
     }
 
     private void configure() {
         /**
          * set font to controls
          */
-        FontHelper.setKoodakFor(this, usernameEditText, registerButton, emailEditText, girlTextView, boyTextView, hintTextView);
+        FontHelper.setKoodakFor(this, usernameEditText, registerButton, emailEditText, girlTextView, boyTextView, hintTextView, referralCodeTextView);
         // set default gender value
         genderSwitch.setChecked(true);
 
@@ -149,6 +152,7 @@ public class RegisterActivity extends ParentActivity {
         user.setEmail(emailEditText.getText().toString());
         user.setProvince(provinceSpinner.getSelectedItemPosition());
         user.setGender(genderSwitch.isChecked() ? 1 : 0);
+        user.setReferralCode(referralCodeTextView.getText().toString());
 
         if (validateForm()) {
             ProgressDialog dialog = new ProgressDialog(this);

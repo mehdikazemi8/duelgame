@@ -56,6 +56,17 @@ public class User extends BaseModel {
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
 
+    @SerializedName("referral_code")
+    private String referralCode;
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
     public Map<String, Integer> getWeeklyRanks() {
         return weeklyRanks;
     }
