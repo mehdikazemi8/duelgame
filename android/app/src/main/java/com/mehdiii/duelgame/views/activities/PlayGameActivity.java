@@ -130,8 +130,7 @@ public class PlayGameActivity extends ParentActivity {
         iAnsweredThisTime = -1;
         remainingTimeOfThisQuestion = 20;
 
-//        setTextView(questionTextView, questionsToAsk.get(problemIndex).getQuestionText());
-        setTextView(questionTextView, "aaaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbb cccccccccccccccccccccccccccccccccccccccccccccc cccccccccccccccccccccccccccccccccc ccccccccccccccccccccccccccccccccc ccccccccccccccccc dddddddddddddddddddddddddddddddddddddddddd dddddddddddddddddddddddddd dddddddddddddddddddd eeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeee eeeeeeeeeeeee eeeeeeeeeeeeeeeeee ffffffffffffff fffffffffffffffff fffffffffffffffffff fffffffffffffffffff fffffffffffffffff ffffffffffffffff fffffffffffffffffff ffffffffffffffffffffff ffffffffffffffff ffffffffffffffffff gggggggggggggggggggg gggggggggggggggggggg ggggggggggggggggg hhhhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhhhhhhh");
+        setTextView(questionTextView, questionsToAsk.get(problemIndex).getQuestionText());
 
         List<String> opts = questionsToAsk.get(problemIndex).getOptions();
         problemIndex++;

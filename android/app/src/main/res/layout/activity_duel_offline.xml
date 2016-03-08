@@ -224,13 +224,12 @@
             <ScrollView
                 android:id="@+id/play_game_problem_statement"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/play_game_header">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
                 <TextView
                     android:id="@+id/play_game_question_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"

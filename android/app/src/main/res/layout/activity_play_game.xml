@@ -173,7 +173,7 @@
             <ScrollView
                 android:id="@+id/play_game_problem_statement"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
                 <TextView
