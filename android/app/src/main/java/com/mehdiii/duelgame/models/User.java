@@ -21,6 +21,10 @@ public class User extends BaseModel {
     private String deviceId;
     @SerializedName("name")
     private String name;
+    @SerializedName("school")
+    private String school;
+    @SerializedName("field")
+    private String field;
     @SerializedName("province")
     private int province;
     @SerializedName("avatar")
@@ -75,7 +79,23 @@ public class User extends BaseModel {
         this.weeklyRanks = weeklyRanks;
     }
 
-//    public void addRank(String category, int addingRank){
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    //    public void addRank(String category, int addingRank){
 //        category = "c" + category;
 //        if(weeklyRanks.get(category) != null){  // update the existing object in 'scores'
 //            weeklyRanks.get(category).setRank(addingRank);

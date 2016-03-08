@@ -202,7 +202,24 @@
             android:layout_marginTop="@dimen/space.short"
             android:entries="@array/province_array"
             android:textSize="25sp" />
-
+        <EditText
+            android:id="@+id/editText_school"
+            style="@style/edit_text_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.short"
+            android:hint="@string/caption_school"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/editText_field"
+            style="@style/edit_text_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.short"
+            android:hint="@string/caption_field"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
