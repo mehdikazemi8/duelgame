@@ -46,6 +46,9 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
     String category;
     boolean isMaster;
 
+    int book;
+    int chapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,12 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
 
         find();
         configure();
-
-        DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, category).serialize());
+        if (book>0 && chapter>0){
+            Log.d("TAG", "Step Duel Offline Message" + new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, category, book, chapter).serialize());
+            DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, category, book, chapter).serialize());
+        }else {
+            DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, category).serialize());
+        }
     }
 
     private boolean readExtras(Bundle extras) {
@@ -67,6 +74,8 @@ public class DuelOfflineWaitingActivity extends ParentActivity {
             opponentUserNumber = extras.getString("opponent_user_number");
             category = extras.getString("category");
             isMaster = extras.getBoolean("master");
+            book = extras.getInt("book", -1);
+            chapter = extras.getInt("chapter", -1);
             return true;
         }
         return false;

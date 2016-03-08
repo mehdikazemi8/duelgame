@@ -72,20 +72,29 @@ public class DuelDialog extends Dialog {
                         AuthManager.getCurrentUser().getScore(ParentActivity.category, "week")
                 );
 
-                EventBus.getDefault().post(new OnFinishActivity());
+
                 if(offlineDuel) {
 //                    Log.d("TAG", ParentActivity.category + " " + opponentUserNumber);
 //                    DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, ParentActivity.category).serialize());
-
-                    Intent intent = new Intent(getContext(), DuelOfflineWaitingActivity.class);
-                    intent.putExtra("opponent_user_number", opponentUserNumber);
-                    intent.putExtra("category", ParentActivity.category);
-                    intent.putExtra("master", true);
-                    getContext().startActivity(intent);
+                    if(i == 3)
+                    {
+                        dismiss();
+                        Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
+                        cat.setCategory(categories[i]);
+                        StepOfflineDuelDialog stepOfflineDuelDialog= new StepOfflineDuelDialog(getContext(), cat, opponentUserNumber);
+                        stepOfflineDuelDialog.show();
+                        return;
+                    } else {
+                        Intent intent = new Intent(getContext(), DuelOfflineWaitingActivity.class);
+                        intent.putExtra("opponent_user_number", opponentUserNumber);
+                        intent.putExtra("category", ParentActivity.category);
+                        intent.putExtra("master", true);
+                        getContext().startActivity(intent);
+                        EventBus.getDefault().post(new OnFinishActivity());
+                    }
                 } else {
                     Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
                     cat.setCategory(categories[i]);
-
 
                     // frshd added this
 
@@ -96,9 +105,6 @@ public class DuelDialog extends Dialog {
                         stepDuelDialog.show();
                         return;
                     }
-
-
-
 
                     DuelApp.getInstance().sendMessage(cat.serialize());
                     getContext().startActivity(new Intent(getContext(), WaitingActivity.class));

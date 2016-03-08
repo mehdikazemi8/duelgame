@@ -12,6 +12,10 @@ public class StartOfflineDuelRequest extends BaseModel {
     private String opponentUserNumber;
     @SerializedName("category")
     private String category;
+    @SerializedName("book")
+    private int book;
+    @SerializedName("chapter")
+    private int chapter;
 
     public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, String category) {
         super(command);
@@ -19,7 +23,12 @@ public class StartOfflineDuelRequest extends BaseModel {
         this.category = category;
     }
 
-    public StartOfflineDuelRequest() {
+    public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, String category, int book, int chapter) {
+        super(command);
+        this.opponentUserNumber = opponentUserNumber;
+        this.category = category;
+        this.book = book;
+        this.chapter = chapter;
     }
 
     public StartOfflineDuelRequest(String opponentUserNumber, String category) {
