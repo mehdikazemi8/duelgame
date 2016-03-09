@@ -60,9 +60,10 @@ public class User extends BaseModel {
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
 
+
+
     @SerializedName("referral_code")
     private String referralCode;
-
     public String getReferralCode() {
         return referralCode;
     }

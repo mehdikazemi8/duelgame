@@ -18,6 +18,16 @@ public class StepResult extends BaseModel{
     private Integer correct;
     @SerializedName("all")
     private Integer all;
+    @SerializedName("stars")
+    private Integer stars;
+
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
 
     public Integer getAll() {
         return all;

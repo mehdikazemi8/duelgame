@@ -23,6 +23,7 @@ import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.utils.StepManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.StatisticsListAdapter;
 import com.mehdiii.duelgame.views.custom.CustomButton;
@@ -36,6 +37,9 @@ public class ProfileDialog extends Dialog {
     CustomTextView textViewProvince;
     CustomTextView textViewSchool;
     CustomTextView textViewField;
+    CustomTextView textViewLastStep;
+    CustomTextView textViewLastStepStar;
+    CustomTextView textViewLastStepStarCount;
     ImageButton buttonRemove;
     ImageButton buttonClose;
     CustomButton turnBaseDuelButton;
@@ -100,6 +104,9 @@ public class ProfileDialog extends Dialog {
 //        remove this
         friend.setField("ریاضیات");
         friend.setSchool("امیکربیر");
+        friend.setTotalStars(12);
+        friend.setLastStepBook(41);
+        friend.setLastStepChapter(4);
 //
 //
         if (friend.getSchool()!=null)
@@ -107,6 +114,11 @@ public class ProfileDialog extends Dialog {
         else
             this.textViewSchool.setText(getContext().getResources().getString(R.string.school)+": -");
         this.textViewField.setText(friend.getField());
+        String lastStep = StepManager.getStep(getContext(),"1000"+String.valueOf(friend.getLastStepBook())+String.valueOf(friend.getLastStepChapter()));
+        this.textViewLastStep.setText( lastStep);
+        this.textViewLastStepStar.setText("c");
+        this.textViewLastStepStar.setTypeface(FontHelper.getIcons(getContext()));
+        this.textViewLastStepStarCount.setText("/"+friend.getTotalStars());
     }
 
     private void configure() {
@@ -174,6 +186,9 @@ public class ProfileDialog extends Dialog {
         textViewProvince = (CustomTextView) findViewById(R.id.textView_province);
         textViewSchool = (CustomTextView) findViewById(R.id.textView_school);
         textViewField = (CustomTextView) findViewById(R.id.textView_field);
+        textViewLastStep = (CustomTextView) findViewById(R.id.textView_last_step);
+        textViewLastStepStar = (CustomTextView) findViewById(R.id.textView_last_step_star);
+        textViewLastStepStarCount = (CustomTextView) findViewById(R.id.textView_last_step_star_count);
         buttonRemove = (ImageButton) findViewById(R.id.button_remove_friend);
         buttonClose = (ImageButton) findViewById(R.id.button_close);
 

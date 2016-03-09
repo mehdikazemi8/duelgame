@@ -15,7 +15,38 @@ public class Friend extends User {
     @SerializedName("accepted")
     private boolean accepted;
 
+    @SerializedName("totalStars")
+    private Integer totalStars;
+    @SerializedName("lastStepBook")
+    private Integer lastStepBook;
+    @SerializedName("lastStepChapter")
+    private Integer lastStepChapter;
+
     MutualStats statistics;
+
+    public Integer getLastStepChapter() {
+        return lastStepChapter;
+    }
+
+    public void setLastStepChapter(Integer lastStepChapter) {
+        this.lastStepChapter = lastStepChapter;
+    }
+
+    public Integer getLastStepBook() {
+        return lastStepBook;
+    }
+
+    public void setLastStepBook(Integer lastStepBook) {
+        this.lastStepBook = lastStepBook;
+    }
+
+    public Integer getTotalStars() {
+        return totalStars;
+    }
+
+    public void setTotalStars(Integer totalStars) {
+        this.totalStars = totalStars;
+    }
 
     public boolean isBusy() {
         return isBusy;
