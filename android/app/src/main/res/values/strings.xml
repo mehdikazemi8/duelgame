@@ -201,5 +201,6 @@
     <string name="school">مدرسه</string>
     <string name="field">رشته</string>
     <string name="step_title">درس به درس</string>
+    <string name="not_enough_diamond">متاسفانه الماس کافی نداری...</string>
 
 </resources>
