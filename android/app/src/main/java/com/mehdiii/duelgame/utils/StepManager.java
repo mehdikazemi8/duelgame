@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class StepManager {
     static Map<String, String> map = new HashMap<>();
+    static Map<String,Integer> positionMap = new HashMap<>();
     static boolean loaded = false;
 
     private static void load(Context context) {
@@ -22,6 +23,7 @@ public class StepManager {
         for (String key : keys) {
             String k = key;
             map.put(k, values[counter++]);
+            positionMap.put(k, counter);
         }
         loaded = true;
     }
@@ -30,6 +32,12 @@ public class StepManager {
         if (!loaded)
             load(context);
         return map.get(id);
+    }
+
+    public static int getStepPosition(Context context, String id){
+        if (!loaded)
+            load(context);
+        return positionMap.get(id);
     }
 }
 

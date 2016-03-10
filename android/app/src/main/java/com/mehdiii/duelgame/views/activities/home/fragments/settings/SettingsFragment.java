@@ -184,7 +184,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         usernameEditText.setText(user.getName());
         emailEditText.setText(user.getEmail());
         schoolEditText.setText(user.getSchool());
-        fieldEditText.setText(user.getField());
+        fieldEditText.setText(user.getMajor());
         spinnerProvince.setSelection(user.getProvince());
         switchGender.setChecked(user.getGender() == 1);
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
@@ -237,7 +237,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             newSettings.setName(this.usernameEditText.getText().toString().trim());
             newSettings.setEmail(this.emailEditText.getText().toString().trim());
             newSettings.setSchool(this.schoolEditText.getText().toString().trim());
-            newSettings.setField(this.fieldEditText.getText().toString().trim());
+            newSettings.setMajor(this.fieldEditText.getText().toString().trim());
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
             newSettings.setGender(this.switchGender.isChecked() ? 1 : 0);
             Log.d("TAG", "user edited"+ newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));

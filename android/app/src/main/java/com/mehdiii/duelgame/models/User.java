@@ -23,8 +23,8 @@ public class User extends BaseModel {
     private String name;
     @SerializedName("school")
     private String school;
-    @SerializedName("field")
-    private String field;
+    @SerializedName("major")
+    private String major;
     @SerializedName("province")
     private int province;
     @SerializedName("avatar")
@@ -59,11 +59,21 @@ public class User extends BaseModel {
     private Map<String, Integer> weeklyRanks;
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
-
+    @SerializedName("progress")
+    private List<StepProgress> stepProgress;
 
 
     @SerializedName("referral_code")
     private String referralCode;
+
+    public List<StepProgress> getStepProgress() {
+        return stepProgress;
+    }
+
+    public void setStepProgress(List<StepProgress> stepProgress) {
+        this.stepProgress = stepProgress;
+    }
+
     public String getReferralCode() {
         return referralCode;
     }
@@ -80,12 +90,12 @@ public class User extends BaseModel {
         this.weeklyRanks = weeklyRanks;
     }
 
-    public String getField() {
-        return field;
+    public String getMajor() {
+        return major;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setMajor(String major) {
+        this.major= major;
     }
 
     public String getSchool() {

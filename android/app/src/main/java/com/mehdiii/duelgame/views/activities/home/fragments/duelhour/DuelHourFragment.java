@@ -223,7 +223,7 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
                 if(!mutualStats.getOpponentId().equals(selectedFriend.getId()))
                     return;
                 selectedFriend.setStatistics(mutualStats);
-
+                Log.d("TAG", "friennnnnn"+ selectedFriend.serialize());
                 if(profileDialog != null)
                     profileDialog.dismiss();
 
@@ -243,6 +243,7 @@ public class DuelHourFragment extends FlippableFragment implements View.OnClickL
                     progressDialog.dismiss();
 
                 Log.d("TAG", "bbbbbbbbb RECEIVE_DUEL_HOUR_INFO");
+
 
                 DuelHourInfo duelHourInfo = DuelHourInfo.deserialize(json, DuelHourInfo.class);
                 AlertDialog alertDialog = new AlertDialog(getActivity(), duelHourInfo.getMessage());
