@@ -132,8 +132,8 @@ public class StartActivity extends ParentActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
 
         // TODO: just works, doesn't make sense !!!
-//        if(DuelApp.getInstance().isConnected())
-//            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
+        if(DuelApp.getInstance().isConnected())
+            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
 
         if (AuthManager.isLoggedin()) {
             loginOrRegisterUser(AuthManager.getCurrentUser());

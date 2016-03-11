@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.receivers.GcmBroadcastReceiver;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 
 /**
@@ -21,6 +23,7 @@ import com.mehdiii.duelgame.views.activities.splash.StartActivity;
 public class GcmIntentService extends IntentService {
     public static final String TAG = "TAG_GCM";
     private final static String NEW_APP_INTRODUCTION = "new_app_introduction";
+    private final static String OPEN_DUEL = "open_duel";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -43,6 +46,7 @@ public class GcmIntentService extends IntentService {
              */
             if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 String type = extras.getString("type");
+
                 if (type.equals(NEW_APP_INTRODUCTION)) {
                     try {
                         String url = extras.getString("url");
@@ -53,8 +57,8 @@ public class GcmIntentService extends IntentService {
 
                             NotificationManager notificationManager =
                                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                            int icon = R.drawable.star;
-                            CharSequence notiText = "Your notification from the service";
+                            int icon = R.drawable.ic_launcher;
+                            CharSequence notiText = title;
                             long meow = System.currentTimeMillis();
 
                             Notification notification = new Notification(icon, notiText, meow);
@@ -68,6 +72,37 @@ public class GcmIntentService extends IntentService {
                             notificationManager.notify(SERVER_DATA_RECEIVED, notification);
 
                         }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else if(type.equals(OPEN_DUEL)) {
+                    try {
+                        String message = extras.getString("message");
+                        String title = extras.getString("title");
+
+                        Intent openAppIntent = new Intent(getApplicationContext(), StartActivity.class);
+                        openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                        PendingIntent pendingIntent;
+                        boolean autoCancel = false;
+                        if(DuelApp.getInstance().getResumedActivities() == 0) {
+                            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, openAppIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                        }
+                        else {
+                            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
+                            autoCancel = true;
+                        }
+
+                        android.support.v4.app.NotificationCompat.Builder mBuilder =
+                                new android.support.v4.app.NotificationCompat.Builder(getApplicationContext())
+                                        .setSmallIcon(R.drawable.ic_launcher)
+                                        .setContentTitle(title)
+                                        .setContentText(message)
+                                        .setContentIntent(pendingIntent)
+                                        .setAutoCancel(autoCancel);
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(ParentActivity.OPEN_DUEL_ID, mBuilder.build());
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

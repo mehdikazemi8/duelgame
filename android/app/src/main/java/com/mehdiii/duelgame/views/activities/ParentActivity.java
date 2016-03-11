@@ -121,6 +121,7 @@ public class ParentActivity extends ActionBarActivity {
 
     public static final int DUEL_HOUR_NOTIFICATION_ID = 1708;
     public static final int DUEL_HOUR_ALARM_ID = 1709;
+    public static final int OPEN_DUEL_ID = 1710;
 
     private static final int DUEL_HOUR_HOUR = 20;
     private static final int DUEL_HOUR_MINUTE = 0;

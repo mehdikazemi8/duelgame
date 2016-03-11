@@ -53,7 +53,7 @@ public class NotificationHelper {
 
         Intent openAppIntent = new Intent(context, StartActivity.class);
         openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         PendingIntent pendingIntent;
         if(DuelApp.getInstance().getResumedActivities() == 0)
