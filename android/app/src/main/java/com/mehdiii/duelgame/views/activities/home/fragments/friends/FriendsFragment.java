@@ -294,6 +294,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                 if (progressBar != null)
                     progressBar.setVisibility(View.GONE);
                 FriendList list = FriendList.deserialize(json, FriendList.class);
+                Log.d("TAG", "frienddd"+ json);
                 if (null != list) {
                     bindListViewData(list);
                 }

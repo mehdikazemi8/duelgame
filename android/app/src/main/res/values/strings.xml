@@ -198,5 +198,9 @@
 
 
     <string name="step_duel_not_passed_yet">برای اینکه روی مطالب این درس دوئل کنی باید توی قسمت درس به درس بگذرونیش.</string>
+    <string name="school">مدرسه</string>
+    <string name="field">رشته</string>
+    <string name="step_title">درس به درس</string>
+    <string name="not_enough_diamond">متاسفانه الماس کافی نداری...</string>
 
 </resources>

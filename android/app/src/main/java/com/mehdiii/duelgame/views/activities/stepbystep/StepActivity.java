@@ -147,7 +147,7 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
                             Log.d("TAG", "used diamond" + ud.serialize() + AuthManager.getCurrentUser().getDiamond());
                             startStep(s);
                         } else {
-                            String message = "متاسفانه الماس کافی نداری...";
+                            String message = getResources().getString(R.string.not_enough_diamond);
                             AlertDialog ad = new AlertDialog(StepActivity.this, message);
                             ad.show();
                         }
@@ -263,8 +263,11 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
         for (int stepId = 0; stepId < stepIds.length; stepId++) {
             stepHolders.get(stepIds[stepId]).setOnClickListener(this);
             int stars = -1;
-            if (stepId == 0)
-                stars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId]), 0);
+            if (stepId == 0){
+                stars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId]), -1);
+                if(stars == -1)
+                    GlobalPreferenceManager.writeInt(this, String.valueOf(stepIds[stepId]), 0);
+            }
             else
                 stars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId]), -1);
             int nextStars = -1;

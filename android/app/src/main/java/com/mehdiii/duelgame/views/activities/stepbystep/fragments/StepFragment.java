@@ -360,6 +360,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             stars = 1;
         else
             stars = 0;
+
+        stepResult.setStars(stars);
         if (stars >= 0){
             switch (stars){
                 case 0:

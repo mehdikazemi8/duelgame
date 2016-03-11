@@ -20,19 +20,29 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
+import com.mehdiii.duelgame.models.StepProgress;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.utils.StepManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.StatisticsListAdapter;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
+
+import java.util.List;
 
 public class ProfileDialog extends Dialog {
 
     OnCompleteListener onRemoveListener;
     ImageView avatarImageView;
     TextView textViewName;
-    TextView textViewProvince;
+    CustomTextView textViewProvince;
+    CustomTextView textViewSchool;
+    CustomTextView textViewField;
+    CustomTextView textViewLastStep;
+    CustomTextView textViewLastStepStar;
+    CustomTextView textViewLastStepStarCount;
     ImageButton buttonRemove;
     ImageButton buttonClose;
     CustomButton turnBaseDuelButton;
@@ -71,7 +81,7 @@ public class ProfileDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("TAG", "ProfileDialog onCreate");
+        Log.d("TAG", "ProfileDialog onCreate" + friend.serialize());
 
         // remove title from top
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -89,15 +99,53 @@ public class ProfileDialog extends Dialog {
     }
 
     private void bindViewData() {
-        Log.d("TAG", "ProfileDialog bindViewData");
-        this.avatarImageView.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
+        Log.d("TAG", "ProfileDialog bindViewData"+ friend.getSchool());
+        StepProgress zaban = new StepProgress();
+        List<StepProgress> progresses= friend.getStepProgress();
+        if(progresses!=null){
+            for ( StepProgress p : progresses){
+                if(p.getCategory()==10004){
+                    zaban.setBook(p.getBook());
+                    zaban.setChapter(p.getChapter());
+                    zaban.setStars(p.getStars());
+                }
+            }
+        }
+        if (zaban.getBook() == null){
+            zaban.setChapter(1);
+            zaban.setBook(41);
+            zaban.setStars(0);
+        }
+        String lastStep = StepManager.getStep(getContext(),"1000"+String.valueOf(zaban.getBook())+String.valueOf(zaban.getChapter()));
+        int stepPosition = StepManager.getStepPosition(getContext(), "1000" + String.valueOf(zaban.getBook()) + String.valueOf(zaban.getChapter()));
+        int totalPossibleStars = stepPosition*3;
+        this.textViewLastStepStarCount.setText(zaban.getStars() + " از " + String.valueOf(totalPossibleStars));
+        this.textViewLastStep.setText( lastStep);
+        this.textViewLastStepStar.setText("c");
+        this.textViewLastStepStar.setTypeface(FontHelper.getIcons(getContext()));
+
+        if (friend.getSchool()!=null) {
+            this.textViewSchool.setText(getContext().getResources().getString(R.string.school)+": "+friend.getSchool());
+        }
+        else {
+            this.textViewSchool.setText(getContext().getResources().getString(R.string.school)+": -");
+        }
+
+        if (friend.getMajor()!=null) {
+            this.textViewField.setText(getContext().getResources().getString(R.string.field)+": " + friend.getMajor());
+        }
+        else {
+            this.textViewField.setText(getContext().getResources().getString(R.string.field)+": -");
+        }
+
         this.textViewName.setText(friend.getName());
+        this.avatarImageView.setImageResource(AvatarHelper.getResourceId(getContext(), friend.getAvatar()));
         this.textViewProvince.setText(ProvinceManager.get(getContext(), friend.getProvince()));
     }
 
     private void configure() {
         Log.d("TAG", "ProfileDialog configure");
-        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince,
+        FontHelper.setKoodakFor(getContext(), textViewName, textViewProvince, textViewField, textViewSchool,
                 winCaption, loseCaption, drawCaption, courseCaption, noMutualStatistics);
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +205,12 @@ public class ProfileDialog extends Dialog {
         Log.d("TAG", "ProfileDialog findControls");
         avatarImageView = (ImageView) findViewById(R.id.imageView_avatar);
         textViewName = (TextView) findViewById(R.id.textView_name);
-        textViewProvince = (TextView) findViewById(R.id.textView_province);
+        textViewProvince = (CustomTextView) findViewById(R.id.textView_province);
+        textViewSchool = (CustomTextView) findViewById(R.id.textView_school);
+        textViewField = (CustomTextView) findViewById(R.id.textView_field);
+        textViewLastStep = (CustomTextView) findViewById(R.id.textView_last_step);
+        textViewLastStepStar = (CustomTextView) findViewById(R.id.textView_last_step_star);
+        textViewLastStepStarCount = (CustomTextView) findViewById(R.id.textView_last_step_star_count);
         buttonRemove = (ImageButton) findViewById(R.id.button_remove_friend);
         buttonClose = (ImageButton) findViewById(R.id.button_close);
 

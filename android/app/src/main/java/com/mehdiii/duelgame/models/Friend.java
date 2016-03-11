@@ -2,6 +2,8 @@ package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by omid on 4/13/2015.
  */
@@ -14,6 +16,7 @@ public class Friend extends User {
     private boolean isBusy;
     @SerializedName("accepted")
     private boolean accepted;
+
 
     MutualStats statistics;
 

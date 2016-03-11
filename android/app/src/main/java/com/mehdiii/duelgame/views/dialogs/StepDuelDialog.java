@@ -69,11 +69,16 @@ public class StepDuelDialog extends Dialog {
 
     private void configure() {
         final List<StepForDuel> stepList = new ArrayList<>();
-        for (int s : stepIds){
+        for (int s = 0; s < stepIds.length; s++) {
             StepForDuel temp = new StepForDuel();
-            temp.setName(StepManager.getStep(getContext(), String.valueOf(s)));
-            temp.setStars(GlobalPreferenceManager.readInteger(getContext(), String.valueOf(s), -1));
-            temp.setStepId(s);
+            if (s == 0){
+                temp.setStars(GlobalPreferenceManager.readInteger(getContext(), String.valueOf(stepIds[s]), -1));
+                if (temp.getStars()==-1)
+                    GlobalPreferenceManager.writeInt(getContext(), String.valueOf(stepIds[s]), 0);
+            }
+            temp.setName(StepManager.getStep(getContext(), String.valueOf(stepIds[s])));
+            temp.setStars(GlobalPreferenceManager.readInteger(getContext(), String.valueOf(stepIds[s]), -1));
+            temp.setStepId(stepIds[s]);
             stepList.add(temp);
         }
         StepListAdapter adapter = new StepListAdapter(getContext(), R.layout.template_step_list_dialog, stepList);
