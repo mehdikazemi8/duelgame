@@ -61,7 +61,16 @@ public class User extends BaseModel {
     private Map<String, CourseScore> scores;
     @SerializedName("progress")
     private List<StepProgress> stepProgress;
+    @SerializedName("open_exams_not_taken")
+    private Integer openExamNotTaken;
 
+    public Integer getOpenExamNotTaken() {
+        return openExamNotTaken;
+    }
+
+    public void setOpenExamNotTaken(Integer openExamNotTaken) {
+        this.openExamNotTaken = openExamNotTaken;
+    }
 
     @SerializedName("referral_code")
     private String referralCode;

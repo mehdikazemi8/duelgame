@@ -12,7 +12,8 @@ public class QuizCourse extends BaseModel {
     private String courseName;
     @SerializedName("count")
     private Integer count;
-
+    @SerializedName("syllabus")
+    private String syllabus;
     public QuizCourse(String courseName, Integer count) {
         this.courseName = courseName;
         this.count = count;
@@ -22,6 +23,14 @@ public class QuizCourse extends BaseModel {
         super(command);
         this.courseName = courseName;
         this.count = count;
+    }
+
+    public String getSyllabus() {
+        return syllabus;
+    }
+
+    public void setSyllabus(String syllabus) {
+        this.syllabus = syllabus;
     }
 
     public Integer getCount() {

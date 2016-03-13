@@ -36,6 +36,6 @@
             android:layout_gravity="center"
             android:gravity="right|center"
             android:paddingRight="16dp"
-            android:textSize="@dimen/fontsize.normal" />
+            android:textSize="@dimen/fontsize.large" />
     </LinearLayout>
 </LinearLayout>

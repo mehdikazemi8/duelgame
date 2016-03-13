@@ -96,7 +96,7 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
         holder.isTaken.setTypeface(FontHelper.getIcons(getContext()));
         if (quiz.getTaken()==true){
             holder.isTaken.setText("e");
-            holder.isTaken.setTextColor(getContext().getResources().getColor(R.color.green));
+            holder.isTaken.setTextColor(getContext().getResources().getColor(R.color.green_dark));
         }
         else{
             holder.isTaken.setText("d");

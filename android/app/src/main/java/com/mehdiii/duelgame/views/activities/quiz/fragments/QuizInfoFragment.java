@@ -95,7 +95,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     private List<String> getCoursesQuestionsCount(List<QuizCourse> quizCourses) {
         List<String> res = new ArrayList<>();
         for(QuizCourse quizCourse : quizCourses) {
-            res.add(quizCourse.getCourseName() + ": " + quizCourse.getCount() + " سوال");
+            res.add(quizCourse.getCourseName() + ": " + quizCourse.getCount() + " سوال" + "-" + quizCourse.getSyllabus());
         }
         return res;
     }

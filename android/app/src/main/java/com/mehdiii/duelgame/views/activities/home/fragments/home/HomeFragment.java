@@ -53,6 +53,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     CustomButton quizButton;
 
     CustomTextView pendingOfflineDuels;
+    CustomTextView openExamNotTaken;
 
     TextView diamondCount;
     ImageView avatarImageView;
@@ -155,10 +156,18 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             pendingOfflineDuels.setVisibility(View.GONE);
         } else {
             pendingOfflineDuels.setVisibility(View.VISIBLE);
-            pendingOfflineDuels.setText(String.valueOf(AuthManager.getCurrentUser().getPendingOfflineChallenges()));
+            pendingOfflineDuels.setText( String.valueOf(AuthManager.getCurrentUser().getPendingOfflineChallenges()));
         }
     }
 
+    private void setOpenExamNotTaken(){
+        if(AuthManager.getCurrentUser().getOpenExamNotTaken() == 0 || AuthManager.getCurrentUser().getOpenExamNotTaken() == null) {
+            openExamNotTaken.setVisibility(View.GONE);
+        } else {
+            openExamNotTaken.setVisibility(View.VISIBLE);
+            openExamNotTaken.setText( String.valueOf(AuthManager.getCurrentUser().getOpenExamNotTaken()));
+        }
+    }
     /**
      * return number of visible course stats of home page
      *
@@ -197,7 +206,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     private void find(View view) {
         pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
-
+        openExamNotTaken = (CustomTextView) view.findViewById(R.id.open_exams_not_taken);
         diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
@@ -297,7 +306,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         }
 
         setPendingOfflineDuels();
-
+        setOpenExamNotTaken();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
