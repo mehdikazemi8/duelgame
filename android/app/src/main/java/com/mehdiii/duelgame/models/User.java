@@ -63,6 +63,36 @@ public class User extends BaseModel {
     private List<StepProgress> stepProgress;
     @SerializedName("open_exams_not_taken")
     private Integer openExamNotTaken;
+    @SerializedName("subscribed_for_exam")
+    private boolean subscribedForExam;
+    @SerializedName("free_exam_count")
+    private int freeExamCount;
+    @SerializedName("invited_by_me")
+    private int invitedByMe;
+
+    public int getInvitedByMe() {
+        return invitedByMe;
+    }
+
+    public void setInvitedByMe(int invitedByMe) {
+        this.invitedByMe = invitedByMe;
+    }
+
+    public int getFreeExamCount() {
+        return freeExamCount;
+    }
+
+    public void setFreeExamCount(int freeExamCount) {
+        this.freeExamCount = freeExamCount;
+    }
+
+    public boolean isSubscribedForExam() {
+        return subscribedForExam;
+    }
+
+    public void setSubscribedForExam(boolean subscribedForExam) {
+        this.subscribedForExam = subscribedForExam;
+    }
 
     public Integer getOpenExamNotTaken() {
         return openExamNotTaken;

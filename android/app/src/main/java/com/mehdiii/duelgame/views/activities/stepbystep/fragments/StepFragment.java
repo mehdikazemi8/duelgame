@@ -273,7 +273,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         }
         QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
 
-        title.setText("سوال " + String.valueOf(currentQuestionIdx+1) + " - " + getArguments().getString("stepName"));
+        title.setText("سوال " + String.valueOf(currentQuestionIdx+1) + " از " + quiz.getQuestions().size() + "\n" + getArguments().getString("stepName"));
         questionText.setText(question.getQuestionText());
         for(int k = 0; k < NOPTIONS; k ++) {
             options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
