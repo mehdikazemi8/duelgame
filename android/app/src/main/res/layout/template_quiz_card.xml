@@ -15,12 +15,27 @@
         android:paddingRight="16dp"
         android:textSize="@dimen/fontsize.large" />
 
-    <com.mehdiii.duelgame.views.custom.CustomTextView
-        android:id="@+id/time_to_quiz"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="16dp"
-        android:textSize="@dimen/fontsize.small" />
+        android:gravity="right">
 
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/time_to_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="right|center"
+            android:paddingRight="16dp"
+            android:textSize="@dimen/fontsize.small" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/is_taken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="right|center"
+            android:paddingRight="16dp"
+            android:textSize="@dimen/fontsize.normal" />
+    </LinearLayout>
 </LinearLayout>

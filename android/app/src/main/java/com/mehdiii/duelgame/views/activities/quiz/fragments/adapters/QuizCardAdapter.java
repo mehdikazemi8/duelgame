@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Quiz;
+import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
             holder.title = (CustomTextView) convertView.findViewById(R.id.quiz_title);
             holder.timeToQuiz = (CustomTextView) convertView.findViewById(R.id.time_to_quiz);
             holder.container = (LinearLayout) convertView.findViewById(R.id.container_wrapper);
+            holder.isTaken = (CustomTextView) convertView.findViewById(R.id.is_taken);
             convertView.setTag(holder);
         }
 
@@ -91,11 +93,21 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
 
         holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz(), status));
         holder.title.setText(quiz.getTitle());
+        holder.isTaken.setTypeface(FontHelper.getIcons(getContext()));
+        if (quiz.getTaken()==true){
+            holder.isTaken.setText("e");
+            holder.isTaken.setTextColor(getContext().getResources().getColor(R.color.green));
+        }
+        else{
+            holder.isTaken.setText("d");
+            holder.isTaken.setTextColor(getContext().getResources().getColor(R.color.red));
+        }
     }
 
     protected class ViewHolder {
         LinearLayout container;
         CustomTextView title;
         CustomTextView timeToQuiz;
+        CustomTextView isTaken;
     }
 }
