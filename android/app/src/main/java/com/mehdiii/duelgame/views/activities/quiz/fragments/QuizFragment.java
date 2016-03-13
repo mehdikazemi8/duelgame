@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
@@ -199,6 +200,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         quizAnswer.setCommand(CommandType.SUBMIT_QUIZ_ANSWER);
         quizAnswer.setComment(comment.getText().toString());
         DuelApp.getInstance().sendMessage(quizAnswer.serialize());
+
+        AuthManager.getCurrentUser().
+                setOpenExamNotTaken(AuthManager.getCurrentUser()
+                        .getOpenExamNotTaken()-1);
     }
 
     private void startQuiz() {
