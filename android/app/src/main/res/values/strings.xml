@@ -96,6 +96,13 @@
         <item>یزد</item>
     </string-array>
 
+    <string-array name="majors">
+        <item>انتخاب رشته</item>
+        <item>ریاضی</item>
+        <item>تجربی</item>
+        <item>انسانی</item>
+    </string-array>
+
     <string-array name="avatars">
         <item>@drawable/av1</item>
         <item>@drawable/av2</item>

@@ -55,7 +55,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     private EditText usernameEditText;
     private EditText emailEditText;
     private EditText schoolEditText;
-    private EditText fieldEditText;
+    private Spinner spinnerMajor;
     private ImageView avatarImageView;
     private TextView textViewHintAvatar;
     private Spinner spinnerProvince;
@@ -86,7 +86,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
                     AuthManager.getCurrentUser().setEmail(newSettings.getEmail());
                     AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
                     AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
-
+                    AuthManager.getCurrentUser().setMajor(newSettings.getMajor());
+                    AuthManager.getCurrentUser().setSchool(newSettings.getSchool());
                     // notify user changed to update ui
                     EventBus.getDefault().post(new OnPurchaseResult());
                     // set message for toast
@@ -134,7 +135,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         usernameEditText = (EditText) view.findViewById(R.id.editText_username);
         emailEditText = (EditText) view.findViewById(R.id.editText_email);
         schoolEditText= (EditText) view.findViewById(R.id.editText_school);
-        fieldEditText = (EditText) view.findViewById(R.id.editText_field);
+        spinnerMajor = (Spinner) view.findViewById(R.id.editText_field);
         saveButton = (Button) view.findViewById(R.id.button_save);
         textViewSoundOn = (TextView) view.findViewById(R.id.textView_music_on);
         textViewSoundOff = (TextView) view.findViewById(R.id.textView_music_off);
@@ -145,7 +146,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     }
 
     private void configure() {
-        FontHelper.setKoodakFor(getActivity(), textViewHintAvatar, textViewGirl, textViewBoy, usernameEditText, emailEditText, schoolEditText, fieldEditText, saveButton, textViewSoundOff, textViewSoundOn);
+        FontHelper.setKoodakFor(getActivity(), textViewHintAvatar, textViewGirl, textViewBoy, usernameEditText, emailEditText, schoolEditText, saveButton, textViewSoundOff, textViewSoundOn);
         avatarImageView.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         switchMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -184,7 +185,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         usernameEditText.setText(user.getName());
         emailEditText.setText(user.getEmail());
         schoolEditText.setText(user.getSchool());
-        fieldEditText.setText(user.getMajor());
+        spinnerMajor.setSelection(Integer.valueOf(user.getMajor()));
         spinnerProvince.setSelection(user.getProvince());
         switchGender.setChecked(user.getGender() == 1);
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
@@ -237,7 +238,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             newSettings.setName(this.usernameEditText.getText().toString().trim());
             newSettings.setEmail(this.emailEditText.getText().toString().trim());
             newSettings.setSchool(this.schoolEditText.getText().toString().trim());
-            newSettings.setMajor(this.fieldEditText.getText().toString().trim());
+            newSettings.setMajor(String.valueOf(this.spinnerMajor.getSelectedItemPosition()));
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
             newSettings.setGender(this.switchGender.isChecked() ? 1 : 0);
             Log.d("TAG", "user edited"+ newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));

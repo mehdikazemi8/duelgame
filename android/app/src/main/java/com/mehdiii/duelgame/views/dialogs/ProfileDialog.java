@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.HeartTracker;
+import com.mehdiii.duelgame.managers.MajorManager;
 import com.mehdiii.duelgame.managers.ProvinceManager;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.StepProgress;
@@ -132,7 +133,8 @@ public class ProfileDialog extends Dialog {
         }
 
         if (friend.getMajor()!=null) {
-            this.textViewField.setText(getContext().getResources().getString(R.string.field)+": " + friend.getMajor());
+            this.textViewField.setText(getContext().getResources().getString(R.string.field)+": " +
+                    MajorManager.get(getContext(),Integer.valueOf(friend.getMajor())));
         }
         else {
             this.textViewField.setText(getContext().getResources().getString(R.string.field)+": -");
