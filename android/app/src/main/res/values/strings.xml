@@ -9,7 +9,7 @@
     <string name="caption_free_quiz_cnt">می‌تونی توی %d آزمون دیگه شرکت کنی</string>
     <string name="caption_free_quiz_cnt_infinity">می‌تونی تو هر چند تا آزمون دیگه که خواستی شرکت کنی :-)</string>
 
-    <string name="caption_invite_friends_info">به ازای هر ۲ نفری که از طریق تو وارد دوئل بشن یک آزمون رایگان به همراه ۴۰۰ الماس دریافت می‌کنی</string>
+    <string name="caption_invite_friends_info">معرفی هر ۲ نفر\n=\nیک آزمون رایگان\n+\n۴۰۰ الماس</string>
 
     <string name="caption_subscribe_description">\n\u2022 تمامی آزمون‌های جمع‌بندی قلم‌چی\n\u2022 تمامی آزمون‌های جمع‌بندی سنجش\n\u2022 تمامی آزمون‌های روزانه\n\u2022 روزانه ۴۰ قلب برای دوئل\n\u2022 ۷۰۰۰ الماس \n\nهزینه: %d تومان</string>
 
@@ -27,6 +27,8 @@
     <string name="caption_accept_duel_offline">دوستت تو رو به دوئل دعوت کرده و سوالات رو جواب داده\nالان نوبت توء که سوالات رو جواب بدی</string>
     <string name="button_accept">قبول</string>
     <string name="button_deny">بیخیال</string>
+
+    <string name="button_use_free_exam">استفاده از یکی از آزمون‌های رایگانم</string>
 
     <string name="caption_no_pending_opponent_turn">کسی رو به دوئل نوبتی دعوت نکردی</string>
     <string name="caption_no_pending_my_turn">کسی تو رو به دوئل نوبتی دعوت نکرده</string>

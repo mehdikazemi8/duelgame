@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.games.event.EventRef;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
@@ -29,6 +31,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.utils.TellFriendManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.custom.CustomButton;
@@ -61,6 +64,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     CustomButton reviewQuiz;
     CustomButton reviewResults;
 
+    ImageButton infoButton;
+
     public QuizInfoFragment() {
     }
 
@@ -90,6 +95,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         registerQuiz = (CustomButton) view.findViewById(R.id.register_quiz_button);
         reviewQuiz = (CustomButton) view.findViewById(R.id.review_quiz_button);
         reviewResults = (CustomButton) view.findViewById(R.id.review_results_button);
+
+        infoButton = (ImageButton) view.findViewById(R.id.info_button);
     }
 
     private List<String> getCoursesQuestionsCount(List<QuizCourse> quizCourses) {
@@ -113,6 +120,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         reviewResults.setOnClickListener(this);
         reviewQuiz.setOnClickListener(this);
         registerQuiz.setOnClickListener(this);
+
+        infoButton.setOnClickListener(this);
 
         attendQuiz.setVisibility(View.GONE);
         reviewResults.setVisibility(View.GONE);
@@ -211,6 +220,21 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 .commit();
     }
 
+    private void handleInfoButton() {
+        ConfirmDialog tellFriendDialog = new ConfirmDialog(getActivity(), getResources().getString(R.string.caption_invite_friends_info), R.layout.dialog_invite_friends);
+        tellFriendDialog.setCancelable(true);
+        tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if((boolean)data) {
+                    TellFriendManager.tellFriends(getActivity());
+                }
+            }
+        });
+        tellFriendDialog.show();
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -241,26 +265,37 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 openReviewQuiz();
                 break;
 
+            case R.id.info_button:
+                handleInfoButton();
+                break;
+
             case R.id.review_results_button:
                 showQuizResults();
                 break;
 
             case R.id.register_quiz_button:
+
+                final int finalExamPrice = quiz.getPrice()-quiz.getPrice()*quiz.getDiscount()/100;
+
                 BuyQuizDialog buyQuizDialog = new BuyQuizDialog(
                         getActivity(),
                         String.valueOf(quiz.getPrice()),
                         String.valueOf(quiz.getDiscount()),
-                        String.valueOf(quiz.getPrice()-quiz.getPrice()*quiz.getDiscount()/100)
+                        String.valueOf(finalExamPrice),
+                        finalExamPrice == 0
                 );
                 buyQuizDialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-//                            GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
-//                            request.setCommand(CommandType.GET_BUY_QUIZ);
-//                            DuelApp.getInstance().sendMessage(request.serialize());
                             PurchaseManager.getInstance().startPurchase(quiz.getId());
                             showProgressDialog();
+                        } else {
+                            if(finalExamPrice != 0 && AuthManager.getCurrentUser().getFreeExamCount() != 0) {
+                                GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+                                request.setCommand(CommandType.GET_BUY_QUIZ);
+                                DuelApp.getInstance().sendMessage(request.serialize());
+                            }
                         }
                     }
                 });

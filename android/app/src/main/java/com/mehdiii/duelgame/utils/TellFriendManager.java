@@ -28,7 +28,7 @@ public class TellFriendManager {
                 String.format(context.getResources().getString(R.string.message_share),
                         "http://cafebazaar.ir/app/" + context.getPackageName()) +
                         "\n\n" +
-                        "موقع ثبت نام کد کاربریه من رو بزن " + AuthManager.getCurrentUser().getId()
+                        "موقع ثبت نام کد کاربری من رو بزن آزمون رایگان بگیریم " + AuthManager.getCurrentUser().getId()
         );
         sendIntent.setType("text/plain");
         context.startActivity(sendIntent);

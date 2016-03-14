@@ -107,6 +107,7 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
         if(baseModel != null &&
                 baseModel.getCommand() != null &&
                 baseModel.getCommand() == CommandType.RECEIVE_SYNC_DATA) {
+
             SyncData syncData = SyncData.deserialize(json, SyncData.class);
             if(AuthManager.getCurrentUser() != null && syncData != null && syncData.getDiamond() != null) {
                 AuthManager.getCurrentUser().setDiamond(syncData.getDiamond());
@@ -115,6 +116,10 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
                 AuthManager.getCurrentUser().setScores(syncData.getScores());
                 AuthManager.getCurrentUser().setWeeklyRanks(syncData.getWeeklyRanks());
+
+                AuthManager.getCurrentUser().setFreeExamCount(syncData.getFreeExamCount());
+                AuthManager.getCurrentUser().setSubscribedForExam(syncData.isSubscribedForExam());
+                AuthManager.getCurrentUser().setInvitedByMe(syncData.getInvitedByMe());
             }
         }
 

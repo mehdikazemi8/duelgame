@@ -79,25 +79,6 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     ImageButton infoButton;
     LinearLayout infoHolder;
     private int offset = 0;
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            Log.d("TAG", "QuizActivity onReceive " + type);
-            if(type == CommandType.RECEIVE_QUIZ_LIST_PAGE) {
-                if(progressBar.isShown()) {
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                quizzes = Quizzes.deserialize(json, Quizzes.class);
-                if(quizzes.getQuizzes().size() == 0) {
-                    // TODO
-                    return;
-                }
-
-                bindListViewData(quizzes);
-            }
-        }
-    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,8 +167,13 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
         infoButton.setOnClickListener(this);
         infoHolder.setOnClickListener(this);
 
+        updateInfo();
+    }
+
+    private void updateInfo() {
         if(AuthManager.getCurrentUser().isSubscribedForExam()) {
             freeQuizCnt.setText(getString(R.string.caption_free_quiz_cnt_infinity));
+            subscribeButton.setVisibility(View.INVISIBLE);
         } else {
             freeQuizCnt.setText(String.format(getString(R.string.caption_free_quiz_cnt),
                     AuthManager.getCurrentUser().getFreeExamCount()));
@@ -273,7 +259,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
 
     private void handleInfoButton() {
         ConfirmDialog tellFriendDialog = new ConfirmDialog(this, getResources().getString(R.string.caption_invite_friends_info), R.layout.dialog_invite_friends);
-        tellFriendDialog.setCancelable(false);
+        tellFriendDialog.setCancelable(true);
         tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
@@ -290,7 +276,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
                 String.format(getResources().getString(R.string.caption_subscribe_description),
                 AuthManager.getCurrentUser().getSubscriptionPrice()),
                 R.layout.dialog_subscribe);
-        tellFriendDialog.setCancelable(false);
+        tellFriendDialog.setCancelable(true);
         tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
@@ -368,4 +354,28 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     public boolean isInQuizActivity() {
         return true;
     }
+
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            Log.d("TAG", "QuizActivity onReceive " + type);
+            if(type == CommandType.RECEIVE_QUIZ_LIST_PAGE) {
+                if(progressBar.isShown()) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                quizzes = Quizzes.deserialize(json, Quizzes.class);
+                if(quizzes.getQuizzes().size() == 0) {
+                    // TODO
+                    return;
+                }
+
+                bindListViewData(quizzes);
+            } else if(type == CommandType.RECEIVE_SUBSCRIPTION_PURCHASE_CONFIRMATION) {
+                AuthManager.getCurrentUser().setSubscribedForExam(true);
+                updateInfo();
+                sendFetchRequest();
+            }
+        }
+    });
 }

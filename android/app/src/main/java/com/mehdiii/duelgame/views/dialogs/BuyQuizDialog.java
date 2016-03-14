@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.custom.CustomButton;
@@ -29,12 +30,15 @@ public class BuyQuizDialog extends Dialog implements View.OnClickListener {
     String quizPriceStr;
     String quizDiscountStr;
     String quizPayablePriceStr;
+    boolean isThisFreeExam;
 
-    public BuyQuizDialog(Context context, String quizPriceStr, String quizDiscountStr, String quizPayablePriceStr) {
+    public BuyQuizDialog(Context context, String quizPriceStr, String quizDiscountStr,
+                         String quizPayablePriceStr, boolean isThisFreeExam) {
         super(context);
         this.quizPriceStr = quizPriceStr;
         this.quizDiscountStr = quizDiscountStr;
         this.quizPayablePriceStr = quizPayablePriceStr;
+        this.isThisFreeExam = isThisFreeExam;
     }
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
@@ -69,6 +73,10 @@ public class BuyQuizDialog extends Dialog implements View.OnClickListener {
         quizPrice.setText(quizPriceStr + " " + getContext().getResources().getString(R.string.caption_toman));
         quizDiscount.setText(quizDiscountStr + " " + getContext().getResources().getString(R.string.caption_discount));
         quizPayablePrice.setText(quizPayablePriceStr + " " + getContext().getResources().getString(R.string.caption_toman));
+
+        if(!isThisFreeExam && AuthManager.getCurrentUser().getFreeExamCount() != 0) {
+            cancelButton.setText(getContext().getString(R.string.button_use_free_exam));
+        }
     }
 
     @Override

@@ -22,6 +22,37 @@ public class SyncData extends BaseModel {
     @SerializedName("scores")
     private Map<String, CourseScore> scores;
 
+    @SerializedName("free_exam_count")
+    private int freeExamCount;
+    @SerializedName("subscribed_for_exam")
+    private boolean subscribedForExam;
+    @SerializedName("invited_by_me")
+    private int invitedByMe;
+
+    public int getFreeExamCount() {
+        return freeExamCount;
+    }
+
+    public void setFreeExamCount(int freeExamCount) {
+        this.freeExamCount = freeExamCount;
+    }
+
+    public boolean isSubscribedForExam() {
+        return subscribedForExam;
+    }
+
+    public void setSubscribedForExam(boolean subscribedForExam) {
+        this.subscribedForExam = subscribedForExam;
+    }
+
+    public int getInvitedByMe() {
+        return invitedByMe;
+    }
+
+    public void setInvitedByMe(int invitedByMe) {
+        this.invitedByMe = invitedByMe;
+    }
+
     public Map<String, CourseScore> getScores() {
         return scores;
     }

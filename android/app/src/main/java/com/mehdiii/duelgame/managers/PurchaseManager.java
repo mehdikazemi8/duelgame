@@ -205,7 +205,13 @@ public class PurchaseManager {
                 if (helper == null || result.isFailure() || !verifyDeveloperPayload(purchase))
                     return;
 
-                if(currentPurchase.getEntityType() == TYPE_EXAM) {
+                if(currentPurchase.getEntityType() == TYPE_SUBSCRIBE) {
+
+                    PurchaseCreated confirmRequest = new PurchaseCreated();
+                    confirmRequest.setOrderId(purchase.getOrderId());
+                    DuelApp.getInstance().sendMessage(confirmRequest.serialize(CommandType.GET_SUBSCRIPTION_PURCHASE_CONFIRMATION));
+
+                } else if(currentPurchase.getEntityType() == TYPE_EXAM) {
 
                     PurchaseCreated confirmRequest = new PurchaseCreated();
                     confirmRequest.setQuizId(currentPurchase.getQuizId());
@@ -326,7 +332,7 @@ public class PurchaseManager {
                     }
                     break;
 
-                
+                case RECEIVE_SUBSCRIPTION_PURCHASE_PERMISSION:
                 case RECEIVE_EXAM_PURCHASE_PERMISSION:
                     Log.d("TAG", "hhh " + json);
                     try {
@@ -342,6 +348,7 @@ public class PurchaseManager {
                     }
                     break;
 
+                case RECEIVE_SUBSCRIPTION_PURCHASE_CONFIRMATION:
                 case RECEIVE_EXAM_PURCHASE_CONFIRMATION:
                     PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
                     if (purchaseConfirm != null) {
