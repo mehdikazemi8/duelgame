@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     final int NOPTIONS = 4;
     Quiz quiz;
     int currentQuestionIdx;
+    int currentReviewIdx = 0;
     double score = 0;
     int stars = 0;
     CustomButton[] options = new CustomButton[NOPTIONS];
@@ -61,6 +64,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     QuizAnswer quizAnswer;
     StepResult stepResult;
 
+    ArrayList<String> shuffles = new ArrayList<>();
+    boolean isFinished = false;
     int viewWidth = 1000;
 
     public StepFragment() {
@@ -96,7 +101,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         options[3] = (CustomButton) view.findViewById(R.id.option_3);
         questionText = (CustomTextView) view.findViewById(R.id.question_text);
         nextQuestion = (CustomButton) view.findViewById(R.id.next_question_button);
-        submitAnswer = (CustomButton) view.findViewById(R.id.submit_answer_button);
+        submitAnswer = (CustomButton) view.findViewById(R.id.review_button);
         title = (CustomTextView) view.findViewById(R.id.title);
         result = (CustomTextView) view.findViewById(R.id.result);
         star1View = (TextView) view.findViewById(R.id.star1);
@@ -118,11 +123,13 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         star2View.setTypeface(FontHelper.getIcons(getActivity()));
         star3View.setTypeface(FontHelper.getIcons(getActivity()));
 
+        Log.d("tag", "ffffffffff" + getArguments().getString("stepId"));
         nextQuestion.setOnClickListener(this);
         submitAnswer.setOnClickListener(this);
         stepResult = new StepResult();
         stepResult.setCategory(10004);
-        String sid = getArguments().getString("stepId");
+        String sid = "";
+        sid = getArguments().getString("stepId");
         stepResult.setBook(Integer.valueOf(sid.substring(sid.length() - 3, sid.length() - 1)));
         stepResult.setChapter(Integer.valueOf(sid.substring(sid.length() - 1)));
         stepResult.setCommand(CommandType.LOG_COURSE_STEP_UP);
@@ -152,19 +159,25 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             case R.id.option_1:
             case R.id.option_2:
             case R.id.option_3:
-                for(int k = 0; k < NOPTIONS; k ++) {
-                    options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+                if(isFinished){
+                    break;
+                }else {
+
+                    for(int k = 0; k < NOPTIONS; k ++) {
+                        options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+                    }
+                    ((CustomButton)view).setTextColor(getResources().getColor(R.color.blue));
+                    break;
                 }
-                ((CustomButton)view).setTextColor(getResources().getColor(R.color.blue));
-                break;
 
             case R.id.next_question_button:
                 showNextQuestion();
                 break;
 
-            case R.id.submit_answer_button:
-                submitAnswer();
+            case R.id.review_button:{
+                review(shuffles);
                 break;
+            }
         }
 
     }
@@ -190,8 +203,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         if (lastRes < stars)
             GlobalPreferenceManager.writeInt(getActivity(), getArguments().getString("stepId"), stars);
         DuelApp.getInstance().sendMessage(stepResult.serialize());
-        EventBus.getDefault().post(new OnStepCompleted());
-        getActivity().getSupportFragmentManager().popBackStack();
+
     }
 
     public void animateStars() {
@@ -235,53 +247,97 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     private void showNextQuestion() {
 
         Log.d("TAG", "func showNextQuestion");
-        if(currentQuestionIdx > 0) {
+        if(currentQuestionIdx > 0 && isFinished==false) {
             addAnswer(quiz.getQuestions().get(currentQuestionIdx - 1).getCategory());
         }
 
-        if(currentQuestionIdx == quiz.getQuestions().size()) {
+        if(currentQuestionIdx == quiz.getQuestions().size() && isFinished==false) {
             nextQuestion.setVisibility(View.GONE);
             questionText.setVisibility(View.GONE);
             for(int k = 0; k < NOPTIONS; k++) {
                 options[k].setVisibility(View.GONE);
             }
-            calculateScore();
-
-//            star1View.setVisibility(View.VISIBLE);
-//            star2View.setVisibility(View.VISIBLE);
-//            star3View.setVisibility(View.VISIBLE);
-
-            animateStars();
-
             nonesView.setVisibility(View.VISIBLE);
             truesView.setVisibility(View.VISIBLE);
             falsesView.setVisibility(View.VISIBLE);
-            title.setText("ثبت جواب‌ها");
             submitAnswer.setVisibility(View.VISIBLE);
-
             result.setVisibility(View.VISIBLE);
+            title.setText("نتیجه آزمون");
+            calculateScore();
+            submitAnswer();
+            animateStars();
+
             return;
         }
 
-        lastQShuffle = "0123";
-        lastQShuffle = shuffleString(lastQShuffle);
-        Log.d("TAG", "shuff " + lastQShuffle);
 
-        GlobalPreferenceManager.writeInt(getActivity(), quiz.getId()+"idx", currentQuestionIdx);
-        for(int k = 0; k < NOPTIONS; k ++) {
-            options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
-        }
-        QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
+        if (isFinished){
+            if(currentQuestionIdx - currentReviewIdx + 1== quiz.getQuestions().size()){
+                EventBus.getDefault().post(new OnStepCompleted());
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
 
-        title.setText("سوال " + String.valueOf(currentQuestionIdx+1) + " از " + quiz.getQuestions().size() + "\n" + getArguments().getString("stepName"));
-        questionText.setText(question.getQuestionText());
-        for(int k = 0; k < NOPTIONS; k ++) {
-            options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
-        }
+            nonesView.setVisibility(View.GONE);
+            truesView.setVisibility(View.GONE);
+            falsesView.setVisibility(View.GONE);
+            submitAnswer.setVisibility(View.GONE);
+            result.setVisibility(View.GONE);
 
-        currentQuestionIdx ++;
-        if(currentQuestionIdx == quiz.getQuestions().size()) {
-            nextQuestion.setText("پایان آزمون و ثبت جواب ها");
+            nextQuestion.setVisibility(View.VISIBLE);
+            questionText.setVisibility(View.VISIBLE);
+            for(int k = 0; k < NOPTIONS; k++) {
+                options[k].setVisibility(View.VISIBLE);
+            }
+            star1View.setVisibility(View.GONE);
+            star2View.setVisibility(View.GONE);
+            star3View.setVisibility(View.GONE);
+            nextQuestion.setText("سوال بعدی");
+
+
+            lastQShuffle = shuffles.get(currentQuestionIdx - currentReviewIdx);
+            QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx - currentReviewIdx);
+
+            title.setText("سوال " + String.valueOf(currentQuestionIdx- currentReviewIdx + 1) + " از " + quiz.getQuestions().size() + "\n" + getArguments().getString("stepName"));
+            questionText.setText(question.getQuestionText());
+            for(int k = 0; k < NOPTIONS; k ++) {
+                String ans = lastQShuffle.substring(lastQShuffle.length()-1);
+                if (ans=="0" && k == Integer.valueOf(ans)) {
+                    options[k].setTextColor(getResources().getColor(R.color.correct_answer));
+                }
+                else if(ans!="0" && k == Integer.valueOf(ans)){
+                    options[k].setTextColor(getResources().getColor(R.color.wrong_answer));
+                }
+                else {
+                    options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+                }
+                options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
+            }
+
+            currentQuestionIdx ++;
+            if(currentQuestionIdx - currentReviewIdx == quiz.getQuestions().size()) {
+                nextQuestion.setText("پایان مرور");
+            }
+        }else {
+            lastQShuffle = "0123";
+            lastQShuffle = shuffleString(lastQShuffle);
+            Log.d("TAG", "shuff " + lastQShuffle);
+
+            GlobalPreferenceManager.writeInt(getActivity(), quiz.getId() + "idx", currentQuestionIdx);
+            for(int k = 0; k < NOPTIONS; k ++) {
+                options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+            }
+            QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx);
+
+            title.setText("سوال " + String.valueOf(currentQuestionIdx + 1) + " از " + quiz.getQuestions().size() + "\n" + getArguments().getString("stepName"));
+            questionText.setText(question.getQuestionText());
+            for(int k = 0; k < NOPTIONS; k ++) {
+                options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
+            }
+
+            currentQuestionIdx ++;
+            if(currentQuestionIdx == quiz.getQuestions().size()) {
+                nextQuestion.setText("پایان آزمون و ثبت جواب ها");
+            }
         }
     }
 
@@ -308,6 +364,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         } else if(lastQShuffle.length() > 5) {
             lastQShuffle = lastQShuffle.substring(0, 4) + lastQShuffle.charAt(lastQShuffle.length()-1);
         }
+
+        shuffles.add(lastQShuffle);
 
         Log.d("TAG", "answer " + lastQShuffle);
 
@@ -387,4 +445,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
+    public void review(ArrayList<String> shuffles){
+        isFinished = true;
+        currentReviewIdx = currentQuestionIdx;
+        showNextQuestion();
+    }
+
 }

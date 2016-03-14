@@ -135,7 +135,7 @@
             android:visibility="gone" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
-            android:id="@+id/submit_answer_button"
+            android:id="@+id/review_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -143,7 +143,7 @@
             android:background="@drawable/buy_button"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="ثبت جواب‌ها"
+            android:text="مرور آزمون"
             android:textColor="@color/white"
             android:textSize="@dimen/fontsize.normal"
             android:visibility="invisible" />
