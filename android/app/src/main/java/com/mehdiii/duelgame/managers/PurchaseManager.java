@@ -35,6 +35,7 @@ public class PurchaseManager {
     public static final String BASE_64_PUBLIC_KEY = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDQ6R5cmQIA0CRQVsEQoMO5sbONC3Jxuf0ng05fRHvbGakNhDorp86k5KY7ikaHV8BbndgLdjROp/DX/Y8wJaJhdlmoyPfBoTqTIQofhEuZKVAKq6Z5qiIL/fTvx357nME+YTPda4SvrXQ8/lAoasf2bRVdpq2spsmP1HNa8xAs/WnJzF7ShGr84cvIMmo4cOVSi/P3EX/CzXpyU8nwbVW0Mkw6lJ+N+5vV2kun2PUCAwEAAQ==";
     public static final String TAG = "PURCHASE_MANAGER";
     public static final int TYPE_EXAM = 401;
+    public static final int TYPE_SUBSCRIBE = 402;
     private static PurchaseManager instance;
     static final int RC_REQUEST = 10001;
     private Activity activity;
@@ -153,6 +154,13 @@ public class PurchaseManager {
     }
 
     String purchaseId;
+
+    public synchronized void startSubscribe(String discountCode) {
+        currentPurchase = new PurchaseItem();
+        currentPurchase.setEntityType(TYPE_SUBSCRIBE);
+        currentPurchase.setDiscountCode(discountCode);
+        DuelApp.getInstance().sendMessage(currentPurchase.serialize(CommandType.GET_SUBSCRIPTION_PURCHASE_PERMISSION));
+    }
 
     public synchronized void startPurchase(String quizId) {
         currentPurchase = new PurchaseItem();
@@ -318,6 +326,7 @@ public class PurchaseManager {
                     }
                     break;
 
+                
                 case RECEIVE_EXAM_PURCHASE_PERMISSION:
                     Log.d("TAG", "hhh " + json);
                     try {

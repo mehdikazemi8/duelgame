@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_click_photo_to_choose_avatar">بزن روی عکس\nصورتکی که دوس داری رو انتخاب کن</string>
-    <string name="message_share">برای دانلود دوئل از لینک زیر استفاده کنید: %s</string>
+    <string name="message_share">برو اپلیکیشن دوئل کنکور رو از لینک زیر بگیر: %s</string>
     <string name="message_settings_save_successful">اطلاعات با موفقیت ذخیره شد.</string>
     <string name="message_settings_save_failed">نشد! لطفا بعدا دوباره تلاش کنید.</string>
     <string name="message_heart_is_low">قلبهایتان تمام شده است. لطفا کمی صبر کنید یا با خرج کمی الماس دوباره قلبهای خود را پرکنید.</string>

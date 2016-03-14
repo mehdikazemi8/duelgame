@@ -19,6 +19,11 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.GET_SUBSCRIPTION_PURCHASE_PERMISSION, "GSPP");
+        map.put(CommandType.RECEIVE_SUBSCRIPTION_PURCHASE_PERMISSION, "RSPP");
+        map.put(CommandType.GET_SUBSCRIPTION_PURCHASE_CONFIRMATION, "GSPC");
+        map.put(CommandType.RECEIVE_SUBSCRIPTION_PURCHASE_CONFIRMATION, "RSPC");
+
         map.put(CommandType.USE_DIAMOND, "UD");
 
         map.put(CommandType.LOG_COURSE_STEP_UP, "LCSU");

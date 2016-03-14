@@ -14,6 +14,7 @@
     <string name="button_buy_heart">خرید قلب</string>
     <string name="button_cancel">بیخیال</string>
     <string name="button_later">بذار بعدا</string>
+    <string name="button_later2">بعدا</string>
     <string name="button_buy_diamond">خرید الماس</string>
     <string name="button_refill_heart">بازیابی قلب</string>
     <string name="button_confirm">تایید</string>
@@ -32,4 +33,6 @@
     <string name="button_remove">حذف دوست</string>
     <string name="button_leave">دوستتون نیمد! می خواید خارج بشید؟</string>
     <string name="button_close">بستن</string>
+
+    <string name="button_subscribe">عضویت</string>
 </resources>

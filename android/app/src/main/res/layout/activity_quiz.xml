@@ -55,34 +55,100 @@
         android:background="@color/purple_dark"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:paddingTop="10dp">
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="آزمون های جمع بندی"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/title"
+            android:orientation="horizontal">
+
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/subscribe_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/subscribe_button"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:padding="8dp"
+                android:text="عضویت"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/quiz_info_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:background="@color/purple_dark"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp">
 
         <ImageButton
             android:id="@+id/info_button"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/info_white"
-            android:visibility="gone" />
+            android:background="@drawable/info_white" />
 
-        <com.mehdiii.duelgame.views.custom.CustomTextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:text="آزمون های جمع بندی"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fontsize.large" />
-    </RelativeLayout>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.mehdiii.duelgame.views.custom.CustomTextView
+                    android:id="@+id/invited_users_cnt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/caption_invited_users_cnt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fontsize.small" />
+            </LinearLayout>
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/free_quiz_cnt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/caption_free_quiz_cnt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize.small" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/menu_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
+        android:layout_below="@id/quiz_info_holder"
         android:orientation="horizontal">
 
         <com.mehdiii.duelgame.views.custom.CustomTextView

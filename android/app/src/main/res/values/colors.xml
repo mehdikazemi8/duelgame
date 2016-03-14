@@ -16,6 +16,7 @@
     <color name="yellow">#F3C766</color>
     <color name="golden_yellow">#E3D746</color>
     <color name="yellow_light">#d0bc77</color>
+    <color name="yellow_light2">#ffeb3b</color>
     <color name="gray">#717171</color>
     <color name="gray_light">#BBBBBB</color>
     <color name="gray_dark">#351F1F</color>
@@ -33,6 +34,7 @@
     <color name="purple_dark_2">#664559</color>
     <color name="black">#000</color>
     <color name="purple_light">#A81D6C</color>
+    <color name="purple_light2">#880D4C</color>
     <color name="background_1">#f1f0ff</color>
     <color name="background_2">#F1E0FF</color>
     <color name="brown">#605251</color>
@@ -49,4 +51,7 @@
     <color name="play_game_loser_score">#d84460</color>
     <color name="play_game_names">#6b6a6c</color>
     <color name="play_game_question_text">#ecf0f1</color>
+
+    <color name="purple_very_light">#FAFAFA</color>
+    <color name="purple_very_light2">#CACACA</color>
 </resources>

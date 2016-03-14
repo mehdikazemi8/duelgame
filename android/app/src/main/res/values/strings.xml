@@ -5,6 +5,14 @@
     <string name="caption_referral_code_explanation">اگه دوستت دوئل رو بهت معرفی کرده کدش رو بزن تا هم تو آزمون رایگان دریافت کنی هم دوستت\nمثلا fb60d</string>
     <string name="caption_referral_code">کد معرف</string>
 
+    <string name="caption_invited_users_cnt">تا الان %d نفر از طریق تو اومدن به دوئل کنکور</string>
+    <string name="caption_free_quiz_cnt">می‌تونی توی %d آزمون دیگه شرکت کنی</string>
+    <string name="caption_free_quiz_cnt_infinity">می‌تونی تو هر چند تا آزمون دیگه که خواستی شرکت کنی :-)</string>
+
+    <string name="caption_invite_friends_info">به ازای هر ۲ نفری که از طریق تو وارد دوئل بشن یک آزمون رایگان به همراه ۴۰۰ الماس دریافت می‌کنی</string>
+
+    <string name="caption_subscribe_description">\n\u2022 تمامی آزمون‌های جمع‌بندی قلم‌چی\n\u2022 تمامی آزمون‌های جمع‌بندی سنجش\n\u2022 تمامی آزمون‌های روزانه\n\u2022 روزانه ۴۰ قلب برای دوئل\n\u2022 ۷۰۰۰ الماس \n\nهزینه: %d تومان</string>
+
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
     <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۱۷۰ الماس بپردازی</string>
 

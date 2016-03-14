@@ -69,6 +69,16 @@ public class User extends BaseModel {
     private int freeExamCount;
     @SerializedName("invited_by_me")
     private int invitedByMe;
+    @SerializedName("subscription_price")
+    private int subscriptionPrice;
+
+    public int getSubscriptionPrice() {
+        return subscriptionPrice;
+    }
+
+    public void setSubscriptionPrice(int subscriptionPrice) {
+        this.subscriptionPrice = subscriptionPrice;
+    }
 
     public int getInvitedByMe() {
         return invitedByMe;

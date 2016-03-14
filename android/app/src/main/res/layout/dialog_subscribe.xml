@@ -20,7 +20,8 @@
             android:id="@+id/textView_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="right"
+            android:lineSpacingExtra="10sp"
             android:textSize="@dimen/fontsize.normal" />
 
     </LinearLayout>
@@ -36,11 +37,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/duel_flat_button"
+            android:background="@drawable/subscribe_button"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="@string/button_invite_friend"
-            android:textColor="@color/white" />
+            android:text="@string/button_subscribe"
+            android:textColor="@color/purple_dark"
+            android:textSize="@dimen/fontsize.normal" />
 
         <Button
             android:id="@+id/button_cancel"

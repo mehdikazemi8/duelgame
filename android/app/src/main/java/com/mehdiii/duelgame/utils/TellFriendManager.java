@@ -28,9 +28,7 @@ public class TellFriendManager {
                 String.format(context.getResources().getString(R.string.message_share),
                         "http://cafebazaar.ir/app/" + context.getPackageName()) +
                         "\n\n" +
-                        "کد کاربری من اینه: " + AuthManager.getCurrentUser().getId() +
-                        "\n\n" +
-                        "کانال تلگرام " + "\n" + "http://telegram.me/duelkonkoor"
+                        "موقع ثبت نام کد کاربریه من رو بزن " + AuthManager.getCurrentUser().getId()
         );
         sendIntent.setType("text/plain");
         context.startActivity(sendIntent);

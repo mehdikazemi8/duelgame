@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.Quiz;
@@ -27,15 +29,23 @@ import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.utils.Purchase;
+import com.mehdiii.duelgame.utils.TellFriendManager;
+import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.ViewOfflineDuelsFragment;
 import com.mehdiii.duelgame.views.activities.quiz.fragments.QuizInfoFragment;
 import com.mehdiii.duelgame.views.activities.quiz.fragments.adapters.QuizCardAdapter;
+import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
@@ -48,27 +58,46 @@ import java.util.StringTokenizer;
 public class QuizActivity extends ParentActivity implements View.OnClickListener {
 
     private final int LIMIT = 10;
-    private int offset = 0;
-
     private final int NUMBER_OF_TABS = 3;
-
     boolean[] isFocused = new boolean[NUMBER_OF_TABS];
     int focusedColor;
     int notFocusedColor;
     CustomTextView[] quizMenu = new CustomTextView[NUMBER_OF_TABS];
     String[] sendWhat = new String[]{"due", "running", "future"};
     int whichTabToShow;
-
     ProgressBar progressBar;
     ImageButton refreshButton;
-    ImageButton infoButton;
     ListView quizzesListView;
     QuizCardAdapter adapter;
     Quizzes quizzes;
-
     Button nextTen;
     Button previousTen;
     CustomTextView fromTo;
+    CustomButton subscribeButton;
+    CustomTextView invitedUsersCnt;
+    CustomTextView freeQuizCnt;
+    ImageButton infoButton;
+    LinearLayout infoHolder;
+    private int offset = 0;
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            Log.d("TAG", "QuizActivity onReceive " + type);
+            if(type == CommandType.RECEIVE_QUIZ_LIST_PAGE) {
+                if(progressBar.isShown()) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                quizzes = Quizzes.deserialize(json, Quizzes.class);
+                if(quizzes.getQuizzes().size() == 0) {
+                    // TODO
+                    return;
+                }
+
+                bindListViewData(quizzes);
+            }
+        }
+    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,35 +115,21 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
         fromTo = (CustomTextView) findViewById(R.id.from_to);
 
         refreshButton = (ImageButton) findViewById(R.id.refresh_button);
-        infoButton = (ImageButton) findViewById(R.id.info_button);
         quizzesListView = (ListView) findViewById(R.id.quizzes_list_view);
 
         quizMenu[0] = (CustomTextView) findViewById(R.id.menu_due);
         quizMenu[1] = (CustomTextView) findViewById(R.id.menu_running);
         quizMenu[2] = (CustomTextView) findViewById(R.id.menu_future);
+
+        subscribeButton = (CustomButton) findViewById(R.id.subscribe_button);
+        invitedUsersCnt = (CustomTextView) findViewById(R.id.invited_users_cnt);
+        freeQuizCnt = (CustomTextView) findViewById(R.id.free_quiz_cnt);
+        infoButton = (ImageButton) findViewById(R.id.info_button);
+
+        infoHolder = (LinearLayout) findViewById(R.id.quiz_info_holder);
     }
 
-    private void configure() {
-        previousTen.setOnClickListener(this);
-        nextTen.setOnClickListener(this);
-
-        previousTen.setTypeface(FontHelper.getIcons(this));
-        nextTen.setTypeface(FontHelper.getIcons(this));
-
-        // back colors
-        focusedColor = getResources().getColor(R.color.purple);
-        notFocusedColor = getResources().getColor(R.color.purple_dark);
-
-        // initial tab is running quizzes
-        whichTabToShow = 1;
-
-        // setting focused initiate state boolean
-        setFocusInitialState(1);
-        setBackColor();
-
-        // sending request to get running quizzes
-        sendFetchRequest();
-
+    private void configureTabs() {
         for (int i = 0; i < NUMBER_OF_TABS; i++) {
             quizMenu[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,6 +156,45 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
                 }
             });
         }
+    }
+
+    private void configure() {
+        previousTen.setOnClickListener(this);
+        nextTen.setOnClickListener(this);
+
+        previousTen.setTypeface(FontHelper.getIcons(this));
+        nextTen.setTypeface(FontHelper.getIcons(this));
+
+        // back colors
+        focusedColor = getResources().getColor(R.color.purple);
+        notFocusedColor = getResources().getColor(R.color.purple_dark);
+
+        // initial tab is running quizzes
+        whichTabToShow = 1;
+
+        // setting focused initiate state boolean
+        setFocusInitialState(1);
+        setBackColor();
+
+        // sending request to get running quizzes
+        sendFetchRequest();
+
+        // configure TABS
+        configureTabs();
+
+        subscribeButton.setOnClickListener(this);
+        infoButton.setOnClickListener(this);
+        infoHolder.setOnClickListener(this);
+
+        if(AuthManager.getCurrentUser().isSubscribedForExam()) {
+            freeQuizCnt.setText(getString(R.string.caption_free_quiz_cnt_infinity));
+        } else {
+            freeQuizCnt.setText(String.format(getString(R.string.caption_free_quiz_cnt),
+                    AuthManager.getCurrentUser().getFreeExamCount()));
+        }
+
+        invitedUsersCnt.setText(String.format(getString(R.string.caption_invited_users_cnt),
+                AuthManager.getCurrentUser().getInvitedByMe()));
     }
 
     private void setBackColor() {
@@ -173,6 +227,7 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+
         PurchaseManager.changeActivity(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, DuelApp.getInstance().getIntentFilter());
     }
@@ -210,12 +265,57 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     @Override
     protected void onPause() {
         super.onPause();
+
+        Log.d("TAG", "QuizActivity onPause");
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    private void handleInfoButton() {
+        ConfirmDialog tellFriendDialog = new ConfirmDialog(this, getResources().getString(R.string.caption_invite_friends_info), R.layout.dialog_invite_friends);
+        tellFriendDialog.setCancelable(false);
+        tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if((boolean)data) {
+                    TellFriendManager.tellFriends(QuizActivity.this);
+                }
+            }
+        });
+        tellFriendDialog.show();
+    }
+
+    private void handleSubscription() {
+        ConfirmDialog tellFriendDialog = new ConfirmDialog(this,
+                String.format(getResources().getString(R.string.caption_subscribe_description),
+                AuthManager.getCurrentUser().getSubscriptionPrice()),
+                R.layout.dialog_subscribe);
+        tellFriendDialog.setCancelable(false);
+        tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(Object data) {
+                if((boolean)data) {
+                    // TODO READ CODE FROM DIALOG
+                    PurchaseManager.getInstance().startSubscribe("abcd");
+                }
+            }
+        });
+        tellFriendDialog.show();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+            case R.id.info_button:
+            case R.id.quiz_info_holder:
+                handleInfoButton();
+                break;
+
+            case R.id.subscribe_button:
+                handleSubscription();
+                break;
+
             case R.id.next_ten:
                 offset += 10;
                 sendFetchRequest();
@@ -268,24 +368,4 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     public boolean isInQuizActivity() {
         return true;
     }
-
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            Log.d("TAG", "QuizActivity onReceive " + type);
-            if(type == CommandType.RECEIVE_QUIZ_LIST_PAGE) {
-                if(progressBar.isShown()) {
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                quizzes = Quizzes.deserialize(json, Quizzes.class);
-                    if(quizzes.getQuizzes().size() == 0) {
-                    // TODO
-                    return;
-                }
-
-                bindListViewData(quizzes);
-            }
-        }
-    });
 }

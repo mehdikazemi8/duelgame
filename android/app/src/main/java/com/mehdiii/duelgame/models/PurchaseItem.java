@@ -26,6 +26,16 @@ public class PurchaseItem extends BaseModel {
     private Boolean ok;
     @SerializedName("purchase_id")
     private String purchaseId;
+    @SerializedName("discount_code")
+    private String discountCode;
+
+    public String getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(String discountCode) {
+        this.discountCode = discountCode;
+    }
 
     public String getQuizId() {
         return quizId;
