@@ -272,21 +272,10 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     }
 
     private void handleSubscription() {
-        ConfirmDialog tellFriendDialog = new ConfirmDialog(this,
-                String.format(getResources().getString(R.string.caption_subscribe_description),
-                AuthManager.getCurrentUser().getSubscriptionPrice()),
-                R.layout.dialog_subscribe);
-        tellFriendDialog.setCancelable(true);
-        tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(Object data) {
-                if((boolean)data) {
-                    // TODO READ CODE FROM DIALOG
-                    PurchaseManager.getInstance().startSubscribe("abcd");
-                }
-            }
-        });
-        tellFriendDialog.show();
+        ConfirmDialog subscriptionDialog = new ConfirmDialog(this,
+                getString(R.string.caption_subscribe_description),
+                R.layout.dialog_subscribe, AuthManager.getCurrentUser().getSubscriptionPrice(), true);
+        subscriptionDialog.show();
     }
 
     @Override
