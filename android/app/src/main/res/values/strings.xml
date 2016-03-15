@@ -14,7 +14,7 @@
     <string name="caption_subscribe_description">\n\u2022 تمامی آزمون‌های جمع‌بندی قلم‌چی\n\u2022 تمامی آزمون‌های جمع‌بندی سنجش\n\u2022 تمامی آزمون‌های روزانه\n\u2022 روزانه ۴۰ قلب برای دوئل\n\u2022 ۷۰۰۰ الماس \n\nهزینه: %d تومان</string>
 
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
-    <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۱۷۰ الماس بپردازی</string>
+    <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۲۹۰ الماس بپردازی</string>
 
     <string name="quiz_running">باز</string>
     <string name="quiz_due">تمام شده</string>

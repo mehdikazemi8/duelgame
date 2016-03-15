@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ import com.mehdiii.duelgame.models.events.OnStepCompleted;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 
 import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
@@ -63,6 +67,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     String lastQShuffle;
     QuizAnswer quizAnswer;
     StepResult stepResult;
+
+    CustomTextView verdict;
+    LinearLayout verdictHolder;
+
+    ImageButton infoButton;
 
     ArrayList<String> shuffles = new ArrayList<>();
     boolean isFinished = false;
@@ -110,6 +119,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         falsesView = (CustomTextView) view.findViewById(R.id.falses);
         truesView = (CustomTextView) view.findViewById(R.id.trues);
         nonesView = (CustomTextView) view.findViewById(R.id.nones);
+
+        infoButton = (ImageButton) view.findViewById(R.id.info_button);
+
+        verdict = (CustomTextView) view.findViewById(R.id.verdict);
+        verdictHolder = (LinearLayout) view.findViewById(R.id.verdict_holder);
     }
 
     private void configure() {
@@ -126,6 +140,9 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         Log.d("tag", "ffffffffff" + getArguments().getString("stepId"));
         nextQuestion.setOnClickListener(this);
         submitAnswer.setOnClickListener(this);
+
+        infoButton.setOnClickListener(this);
+
         stepResult = new StepResult();
         stepResult.setCategory(10004);
         String sid = "";
@@ -137,9 +154,17 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         startQuiz();
     }
 
+    private void handleInfoButton() {
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.info_button:
+                handleInfoButton();
+                break;
+
             case R.id.option_0:
                 lastQShuffle += lastQShuffle.charAt(0);
                 break;
@@ -174,10 +199,9 @@ public class StepFragment extends Fragment implements View.OnClickListener {
                 showNextQuestion();
                 break;
 
-            case R.id.review_button:{
+            case R.id.review_button:
                 review(shuffles);
                 break;
-            }
         }
 
     }
@@ -261,6 +285,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             truesView.setVisibility(View.VISIBLE);
             falsesView.setVisibility(View.VISIBLE);
             submitAnswer.setVisibility(View.VISIBLE);
+            submitAnswer.setClickable(true);
             result.setVisibility(View.VISIBLE);
             title.setText("نتیجه آزمون");
             calculateScore();
@@ -270,11 +295,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-
         if (isFinished){
-            if(currentQuestionIdx - currentReviewIdx + 1== quiz.getQuestions().size()){
+            if(currentQuestionIdx - currentReviewIdx == quiz.getQuestions().size()){
                 EventBus.getDefault().post(new OnStepCompleted());
                 getActivity().getSupportFragmentManager().popBackStack();
+                return;
             }
 
             nonesView.setVisibility(View.GONE);
@@ -282,6 +307,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             falsesView.setVisibility(View.GONE);
             submitAnswer.setVisibility(View.GONE);
             result.setVisibility(View.GONE);
+
+            verdictHolder.setVisibility(View.VISIBLE);
 
             nextQuestion.setVisibility(View.VISIBLE);
             questionText.setVisibility(View.VISIBLE);
@@ -293,24 +320,36 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             star3View.setVisibility(View.GONE);
             nextQuestion.setText("سوال بعدی");
 
-
             lastQShuffle = shuffles.get(currentQuestionIdx - currentReviewIdx);
             QuestionForQuiz question = quiz.getQuestions().get(currentQuestionIdx - currentReviewIdx);
 
             title.setText("سوال " + String.valueOf(currentQuestionIdx- currentReviewIdx + 1) + " از " + quiz.getQuestions().size() + "\n" + getArguments().getString("stepName"));
             questionText.setText(question.getQuestionText());
+
             for(int k = 0; k < NOPTIONS; k ++) {
+                options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
+
                 String ans = lastQShuffle.substring(lastQShuffle.length()-1);
-                if (ans=="0" && k == Integer.valueOf(ans)) {
+                // chosen this option
+                if(lastQShuffle.charAt(4) == '0' && lastQShuffle.charAt(k) == '0') {
                     options[k].setTextColor(getResources().getColor(R.color.correct_answer));
-                }
-                else if(ans!="0" && k == Integer.valueOf(ans)){
+                } else if(lastQShuffle.charAt(k) == lastQShuffle.charAt(4)) {
                     options[k].setTextColor(getResources().getColor(R.color.wrong_answer));
-                }
-                else {
+                } else {
                     options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
                 }
-                options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
+            }
+
+
+            if(lastQShuffle.charAt(4) == '9') {
+                verdict.setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
+                verdict.setText("نزدی");
+            } else if(lastQShuffle.charAt(4) == '0') {
+                verdict.setTextColor(getResources().getColor(R.color.correct_answer));
+                verdict.setText("درست");
+            } else {
+                verdict.setTextColor(getResources().getColor(R.color.wrong_answer));
+                verdict.setText("غلط");
             }
 
             currentQuestionIdx ++;

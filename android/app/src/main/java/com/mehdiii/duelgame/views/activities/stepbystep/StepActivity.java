@@ -266,11 +266,14 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
             int stars = -1;
             if (stepId == 0){
                 stars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId]), -1);
-                if(stars == -1)
+                if(stars == -1) {
                     GlobalPreferenceManager.writeInt(this, String.valueOf(stepIds[stepId]), 0);
+                    stars = 0;
+                }
             }
             else
                 stars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId]), -1);
+
             int nextStars = -1;
             if (stepId + 1 < stepIds.length)
                 nextStars = GlobalPreferenceManager.readInteger(this, String.valueOf(stepIds[stepId + 1]), -1);

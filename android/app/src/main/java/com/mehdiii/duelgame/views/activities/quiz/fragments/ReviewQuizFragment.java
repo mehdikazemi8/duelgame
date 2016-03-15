@@ -173,6 +173,7 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
             description.setText("");
         else
             description.setText(question.getDescription());
+
         if(lastQShuffle.charAt(4) == '9') {
             verdictText.setText("نزدی");
             verdictText.setTextColor(getResources().getColor(R.color.purple_dark3));
