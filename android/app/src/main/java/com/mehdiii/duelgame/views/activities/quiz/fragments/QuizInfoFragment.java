@@ -2,6 +2,8 @@ package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import com.google.android.gms.games.event.EventRef;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.async.GetQuizQuestions;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
@@ -29,6 +32,7 @@ import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
+import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.TellFriendManager;
@@ -40,8 +44,16 @@ import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.BuyQuizDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,9 +204,12 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
         showProgressDialog();
         // send request for getting questions and then wait in broadcast receiver
-        GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
-        request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
-        DuelApp.getInstance().sendMessage(request.serialize());
+
+        new GetQuizQuestions(getActivity(), quiz.getId()).execute();
+
+//        GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+//        request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
+//        DuelApp.getInstance().sendMessage(request.serialize());
     }
 
     private void showQuizResults() {
@@ -288,8 +303,20 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
-                            PurchaseManager.getInstance().startPurchase(quiz.getId());
-                            showProgressDialog();
+
+                            /*
+                               kharide azmoon ro zade
+                               hala age gheymatesh 0 bashe get buy quiz mikonim
+                               dar gheyre in soorat proceye kharid ro shoroo mikonim
+                            * */
+                            if(finalExamPrice == 0) {
+                                GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
+                                request.setCommand(CommandType.GET_BUY_QUIZ);
+                                DuelApp.getInstance().sendMessage(request.serialize());
+                            } else {
+                                PurchaseManager.getInstance().startPurchase(quiz.getId());
+                                showProgressDialog();
+                            }
                         } else {
                             if(finalExamPrice != 0 && AuthManager.getCurrentUser().getFreeExamCount() != 0) {
                                 GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());

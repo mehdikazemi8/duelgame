@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.async.GetQuizQuestions;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.CourseResult;
 import com.mehdiii.duelgame.models.GetBuyQuizRequest;
@@ -131,9 +132,11 @@ public class ReviewQuizFragment extends Fragment implements View.OnClickListener
             progressBar.setVisibility(View.VISIBLE);
 
             // send request for getting questions with answers and then wait in broadcast receiver
-            GetBuyQuizRequest request = new GetBuyQuizRequest(quizId);
-            request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
-            DuelApp.getInstance().sendMessage(request.serialize());
+//            GetBuyQuizRequest request = new GetBuyQuizRequest(quizId);
+//            request.setCommand(CommandType.GET_QUIZ_QUESTIONS);
+//            DuelApp.getInstance().sendMessage(request.serialize());
+            Log.d("TAG", "boro be GetQuizQuestions ");
+            new GetQuizQuestions(getActivity(), quizId).execute();
         } else {
             startReview(quizJson);
         }
