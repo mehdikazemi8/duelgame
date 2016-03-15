@@ -96,15 +96,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.mehdiii.duelgame.views.custom.CustomTextView
-                android:id="@+id/textView_last_step_star"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/yellow"
-                android:text="@string/step_title"
-                android:textSize="@dimen/fontsize.normal" />
+
             <com.mehdiii.duelgame.views.custom.CustomTextView
                 android:id="@+id/textView_last_step_star_count"
                 android:layout_width="0dp"
@@ -112,6 +104,16 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textColor="@color/white"
+                android:text="@string/step_title"
+                android:textSize="@dimen/fontsize.normal" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/textView_last_step_star"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/yellow"
                 android:text="@string/step_title"
                 android:textSize="@dimen/fontsize.normal" />
 

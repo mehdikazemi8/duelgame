@@ -311,17 +311,19 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
 
-//        if (getNumberOfVisibleCourses() == 0)
-//            rankingsHolder.setVisibility(View.GONE);
+        if (getNumberOfVisibleCourses() == 0)
+            rankingsHolder.setVisibility(View.GONE);
+        else
+            rankingsHolder.setVisibility(View.VISIBLE);
 
-//        setCoursesRank();
+        setCoursesRank();
 
-//        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
-//        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
-//        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
-//        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
-//        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
-//        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
+        courseScores.get(10001).setText(String.valueOf(user.getScore("10001", "week")));
+        courseScores.get(10002).setText(String.valueOf(user.getScore("10002", "week")));
+        courseScores.get(10003).setText(String.valueOf(user.getScore("10003", "week")));
+        courseScores.get(10004).setText(String.valueOf(user.getScore("10004", "week")));
+        courseScores.get(10005).setText(String.valueOf(user.getScore("10005", "week")));
+        courseScores.get(10006).setText(String.valueOf(user.getScore("10006", "week")));
 
         if (user.isExtremeHeart()) {
             heartsImageView.setImageResource(R.drawable.extreme_heart);
