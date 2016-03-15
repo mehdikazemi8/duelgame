@@ -71,6 +71,16 @@ public class User extends BaseModel {
     private int invitedByMe;
     @SerializedName("subscription_price")
     private int subscriptionPrice;
+    @SerializedName("motd")
+    private String motd;
+
+    public String getMotd() {
+        return motd;
+    }
+
+    public void setMotd(String motd) {
+        this.motd = motd;
+    }
 
     public int getSubscriptionPrice() {
         return subscriptionPrice;

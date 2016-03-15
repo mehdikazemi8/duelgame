@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,6 +55,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     CustomTextView pendingOfflineDuels;
     CustomTextView openExamNotTaken;
+
+    ImageButton infoButton;
 
     TextView diamondCount;
     ImageView avatarImageView;
@@ -104,15 +107,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        AppRater ar = new AppRater();
 //        ar.show(getActivity(), true);
 
-        if(AuthManager.getCurrentUser() != null && AuthManager.getCurrentUser().getPendingOfflineChallenges() > 0) {
-            // TODO Loading baraye accept kardane challenge
-            Log.d("TAG", "hhjj " + AuthManager.getCurrentUser().getPendingOfflineChallenges());
-            AlertDialog dialog = new AlertDialog(getActivity(),
-                    String.format(getString(R.string.caption_number_of_pending_duels),
-                            AuthManager.getCurrentUser().getPendingOfflineChallenges()));
-            dialog.show();
-//            AuthManager.getCurrentUser().setPendingOfflineChallenges(0);
-        }
+
     }
 
     private void configureCourseHolders() {
@@ -136,6 +131,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         buyDiamondButton.setOnClickListener(this);
         offlineDuelsListsButton.setOnClickListener(this);
         duel2Button.setOnClickListener(this);
+        infoButton.setOnClickListener(this);
 
         // set font-face
         FontHelper.setKoodakFor(view.getContext(), offlineDuelsListsButton, duel2Button, textViewHearts, /*textViewSendReport,*/
@@ -205,6 +201,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void find(View view) {
+        infoButton = (ImageButton) view.findViewById(R.id.info_button);
         pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
         openExamNotTaken = (CustomTextView) view.findViewById(R.id.open_exams_not_taken);
         diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
@@ -263,9 +260,29 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         EventBus.getDefault().unregister(this);
     }
 
+    private void handleInfoButton() {
+        String msg = "";
+        if(AuthManager.getCurrentUser() != null && AuthManager.getCurrentUser().getPendingOfflineChallenges() > 0) {
+            msg = String.format(getString(R.string.caption_number_of_pending_duels),
+                    AuthManager.getCurrentUser().getPendingOfflineChallenges()) +
+            "\n\n" +
+            "-----" +
+            "\n\n";
+        }
+
+        msg = msg + AuthManager.getCurrentUser().getMotd();
+
+        AlertDialog dialog = new AlertDialog(getActivity(), msg);
+        dialog.show();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.info_button:
+                handleInfoButton();
+                break;
+
             case R.id.button_add_friend:
                 break;
 

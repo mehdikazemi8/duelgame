@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/background_1"
         android:padding="@dimen/space.medium">
 
@@ -13,20 +13,32 @@
             android:id="@+id/rankings_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/space.medium"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/space.long">
+
+                <ImageButton
+                    android:id="@+id/info_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/space.long"
+                    android:layout_marginRight="@dimen/space.long"
+                    android:background="@drawable/info" />
 
                 <com.mehdiii.duelgame.views.custom.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="این هفته"
+                    android:text="عملکرد این هفته"
                     android:textColor="@color/purple_dark"
                     android:textSize="@dimen/fontsize.normal" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -505,22 +517,22 @@
                 android:id="@+id/dddd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:gravity="center">
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1">
-                <com.mehdiii.duelgame.views.custom.CustomButton
-                    android:id="@+id/quiz_button"
-                    style="@style/home_buttons"
+                    <com.mehdiii.duelgame.views.custom.CustomButton
+                        android:id="@+id/quiz_button"
+                        style="@style/home_buttons"
 
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="آزمون" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="آزمون" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -609,7 +621,6 @@
 
                 android:gravity="center"
                 android:orientation="vertical">
-
 
             </LinearLayout>
         </RelativeLayout>
