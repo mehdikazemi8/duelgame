@@ -293,6 +293,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             submitAnswer();
             animateStars();
 
+            EventBus.getDefault().post(new OnStepCompleted());
+
             return;
         }
 
