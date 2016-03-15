@@ -185,7 +185,8 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         usernameEditText.setText(user.getName());
         emailEditText.setText(user.getEmail());
         schoolEditText.setText(user.getSchool());
-        spinnerMajor.setSelection(Integer.valueOf(user.getMajor()));
+        if(user.getMajor() != null)
+            spinnerMajor.setSelection(Integer.valueOf(user.getMajor()));
         spinnerProvince.setSelection(user.getProvince());
         switchGender.setChecked(user.getGender() == 1);
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));

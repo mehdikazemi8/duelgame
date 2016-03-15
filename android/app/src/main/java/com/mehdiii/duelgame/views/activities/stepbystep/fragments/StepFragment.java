@@ -155,7 +155,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     }
 
     private void handleInfoButton() {
-
+        AlertDialog dialog = new AlertDialog(getActivity(), getString(R.string.step_duel_stars_explanation));
+        dialog.show();
     }
 
     @Override
