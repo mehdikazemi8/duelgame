@@ -100,8 +100,8 @@ public class StepOfflineDuelDialog extends Dialog {
                     Intent intent = new Intent(getContext(), DuelOfflineWaitingActivity.class);
                     intent.putExtra("opponent_user_number", opponentUserNumber);
                     intent.putExtra("category", ParentActivity.category);
-                    intent.putExtra("book", Integer.valueOf(sid.substring(sid.length() - 3, sid.length() - 1)));
-                    intent.putExtra("chapter", Integer.valueOf(sid.substring(sid.length() - 1)));
+                    intent.putExtra("book", sid.substring(sid.length() - 3, sid.length() - 1));
+                    intent.putExtra("chapter", sid.substring(sid.length() - 1));
                     intent.putExtra("master", true);
                     getContext().startActivity(intent);
                     dismiss();

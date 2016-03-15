@@ -64,7 +64,7 @@ public class ParentActivity extends ActionBarActivity {
                 if(canHandleChallengeRequest()) {
                     DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
                     try {
-                        category = String.valueOf(request.getCategory());
+                        category = request.getCategory();
                         AnswerDuelWithFriendRequestDialog dialog = new AnswerDuelWithFriendRequestDialog(ParentActivity.this, request);
                         dialog.setCancelable(false);
                         dialog.onDecisionMade(onDecisionMadeListener());
@@ -198,10 +198,11 @@ public class ParentActivity extends ActionBarActivity {
                 DUEL_HOUR_INTERVAL, pendingIntent);
     }
 
-
-
     protected static Random rand = new Random();
-    public static String category;
+    public static int category;
+    public static String book = "0";
+    public static String chapter = "0";
+
     public static int NUMBER_OF_QUESTIONS = 6;
     public static List<Question> questionsToAsk = new ArrayList<>();
     protected static int userPoints;

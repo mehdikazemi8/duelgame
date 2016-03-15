@@ -366,7 +366,7 @@ public class GameResultActivity extends ParentActivity {
         animateProgress();
         user.setScore(user.getScore() + totalXP);
         // score of this category is updated
-        user.addScore(ParentActivity.category, totalXP);
+        user.addScore(String.valueOf(ParentActivity.category), totalXP);
         EventBus.getDefault().post(new OnPurchaseResult());
     }
 
@@ -530,6 +530,8 @@ public class GameResultActivity extends ParentActivity {
         Intent i = new Intent(this, WaitingActivity.class);
         i.putExtra("user_number", opponentUser.getId());
         i.putExtra("category", Integer.valueOf(category));
+        i.putExtra("book", ParentActivity.book);
+        i.putExtra("chapter", ParentActivity.chapter);
         i.putExtra("message", getResources().getString(R.string.message_duel_with_friends_default));
         i.putExtra("master", true);
         startActivity(i);

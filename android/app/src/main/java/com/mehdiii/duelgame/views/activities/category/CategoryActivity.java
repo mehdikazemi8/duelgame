@@ -119,7 +119,7 @@ public class CategoryActivity extends ParentActivity {
     }
 
     public void clicked(View view) {
-        ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
+        ParentActivity.category = Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1;
         startActivity(new Intent(this, RankingActivity.class));
 
         /*
@@ -150,19 +150,19 @@ public class CategoryActivity extends ParentActivity {
 
     public void wannaPlay(View view) {
         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
-        ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
+        ParentActivity.category = Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1;
         cat.setCategory(ParentActivity.category);
         DuelApp.getInstance().sendMessage(cat.serialize());
         // 'score' shows the score of his/her last category that he/she has played
         AuthManager.getCurrentUser().setScore(
-                AuthManager.getCurrentUser().getScore(ParentActivity.category, "week")
+                AuthManager.getCurrentUser().getScore(String.valueOf(ParentActivity.category), "week")
         );
         startActivity(new Intent(this, WaitingActivity.class));
         this.finish();
     }
 
     public void showRank(View view) {
-        ParentActivity.category = String.valueOf(Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1);
+        ParentActivity.category = Integer.parseInt(view.getContentDescription().toString()) + 10000 + 1;
         startActivity(new Intent(this, RankingActivity.class));
     }
 }

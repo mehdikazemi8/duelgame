@@ -11,19 +11,19 @@ public class StartOfflineDuelRequest extends BaseModel {
     @SerializedName("opponent_user_number")
     private String opponentUserNumber;
     @SerializedName("category")
-    private String category;
+    private int category;
     @SerializedName("book")
-    private int book;
+    private String book;
     @SerializedName("chapter")
-    private int chapter;
+    private String chapter;
 
-    public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, String category) {
+    public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, int category) {
         super(command);
         this.opponentUserNumber = opponentUserNumber;
         this.category = category;
     }
 
-    public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, String category, int book, int chapter) {
+    public StartOfflineDuelRequest(CommandType command, String opponentUserNumber, int category, String book, String chapter) {
         super(command);
         this.opponentUserNumber = opponentUserNumber;
         this.category = category;
@@ -31,7 +31,7 @@ public class StartOfflineDuelRequest extends BaseModel {
         this.chapter = chapter;
     }
 
-    public StartOfflineDuelRequest(String opponentUserNumber, String category) {
+    public StartOfflineDuelRequest(String opponentUserNumber, int category) {
         this.opponentUserNumber = opponentUserNumber;
         this.category = category;
     }
@@ -44,11 +44,11 @@ public class StartOfflineDuelRequest extends BaseModel {
         this.opponentUserNumber = opponentUserNumber;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 }

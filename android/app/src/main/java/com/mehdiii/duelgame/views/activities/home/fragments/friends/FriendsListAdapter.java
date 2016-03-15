@@ -149,6 +149,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friend> {
                     @Override
                     public void onComplete(Object data) {
                         if((boolean)data) {
+                            Log.d("TAG", "FriendsListAdapter onComplete");
                             DuelDialog dialog = new DuelDialog(getContext(), true, friend.getId());
                             dialog.show();
                         } else {

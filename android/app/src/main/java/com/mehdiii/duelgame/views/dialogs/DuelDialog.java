@@ -65,11 +65,11 @@ public class DuelDialog extends Dialog {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Log.d("TAG", "aaa");
-                String[] categories = getContext().getResources().getStringArray(R.array.categories_keys);
+                int[] categories = getContext().getResources().getIntArray(R.array.categories_keys);
                 ParentActivity.category = categories[i];
                 // 'score' shows the score of his/her last category that he/she has played
                 AuthManager.getCurrentUser().setScore(
-                        AuthManager.getCurrentUser().getScore(ParentActivity.category, "week")
+                        AuthManager.getCurrentUser().getScore(String.valueOf(ParentActivity.category), "week")
                 );
 
 
@@ -81,7 +81,7 @@ public class DuelDialog extends Dialog {
                         dismiss();
                         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
                         cat.setCategory(categories[i]);
-                        StepOfflineDuelDialog stepOfflineDuelDialog= new StepOfflineDuelDialog(getContext(), cat, opponentUserNumber);
+                        StepOfflineDuelDialog stepOfflineDuelDialog = new StepOfflineDuelDialog(getContext(), cat, opponentUserNumber);
                         stepOfflineDuelDialog.show();
                         return;
                     } else {
@@ -93,10 +93,13 @@ public class DuelDialog extends Dialog {
                         EventBus.getDefault().post(new OnFinishActivity());
                     }
                 } else {
+
                     Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
                     cat.setCategory(categories[i]);
 
                     // frshd added this
+
+                    Log.d("TAG", "mostaghim " + i);
 
                     if(i == 3)
                     {
@@ -105,6 +108,8 @@ public class DuelDialog extends Dialog {
                         stepDuelDialog.show();
                         return;
                     }
+
+
 
                     DuelApp.getInstance().sendMessage(cat.serialize());
                     getContext().startActivity(new Intent(getContext(), WaitingActivity.class));

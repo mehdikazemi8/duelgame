@@ -16,12 +16,11 @@ public class CategoryManager {
 
     private static void load(Context context) {
         String[] values = context.getResources().getStringArray(R.array.categories_values);
-        String[] keys = context.getResources().getStringArray(R.array.categories_keys);
+        int[] keys = context.getResources().getIntArray(R.array.categories_keys);
 
         int counter = 0;
-        for (String key : keys) {
-            int k = Integer.parseInt(key);
-            map.put(k, values[counter++]);
+        for (int key : keys) {
+            map.put(key, values[counter++]);
         }
         loaded = true;
     }

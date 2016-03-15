@@ -258,12 +258,17 @@ public class WaitingActivity extends ParentActivity {
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             String userNumber = extras.getString("user_number", null);
-            int category = extras.getInt("category", -1);
+            int category = extras.getInt("category", -1) ;
+            String book = extras.getString("book", "0");
+            String chapter = extras.getString("chapter", "0");
             String message = extras.getString("message", getResources().getString(R.string.message_duel_with_friends_default));
             boolean isMaster = extras.getBoolean("master");
 
             if (userNumber != null) {
                 WannaChallenge challenge = new WannaChallenge(userNumber, category, message);
+                challenge.setBook(String.valueOf(book));
+                challenge.setChapter(String.valueOf(chapter));
+
                 if (isMaster)
                     DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
                 else

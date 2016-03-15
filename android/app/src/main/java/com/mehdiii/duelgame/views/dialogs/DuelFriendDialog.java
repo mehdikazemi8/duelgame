@@ -59,11 +59,11 @@ public class DuelFriendDialog extends Dialog {
         courses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String[] categories = getContext().getResources().getStringArray(R.array.categories_keys);
-                int categoryId = Integer.parseInt(categories[i]);
+                int[] categories = getContext().getResources().getIntArray(R.array.categories_keys);
+
                 String message = messageEditText.getText().toString().trim();
                 if (onResult != null) {
-                    onResult.getChallenge(new WannaChallenge(null, categoryId, message));
+                    onResult.getChallenge(new WannaChallenge(null, categories[i], message));
                 }
             }
         });

@@ -116,7 +116,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             courseHolders.get(courseId).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ParentActivity.category = String.valueOf(courseId);
+                    ParentActivity.category = courseId;
                     getActivity().startActivity(new Intent(getActivity(), RankingActivity.class));
                 }
             });

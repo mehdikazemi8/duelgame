@@ -169,14 +169,14 @@
         <item>زیست</item>
     </string-array>
 
-    <string-array name="categories_keys">
+    <integer-array name="categories_keys">
         <item>10001</item>
         <item>10002</item>
         <item>10003</item>
         <item>10004</item>
         <item>10005</item>
         <item>10006</item>
-    </string-array>
+    </integer-array>
 
     <string-array name="step_values">
         <item>زبان ۳، درس ۱</item>

@@ -72,7 +72,7 @@ public class ViewRankingFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
-        DuelApp.getInstance().sendMessage((new GetCourseRanking(ParentActivity.category, periodType)).serialize(CommandType.GET_COURSE_RANKING));
+        DuelApp.getInstance().sendMessage((new GetCourseRanking(String.valueOf(ParentActivity.category), periodType)).serialize(CommandType.GET_COURSE_RANKING));
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }

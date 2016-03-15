@@ -23,6 +23,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
 import com.mehdiii.duelgame.models.MutualStats;
@@ -43,6 +44,8 @@ import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
+import com.mehdiii.duelgame.views.dialogs.StepDuelDialog;
+import com.mehdiii.duelgame.views.dialogs.StepOfflineDuelDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -199,6 +202,10 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     FriendsListAdapter.OnUserDecisionIsMade onUserDecisionIsMadeListener = new FriendsListAdapter.OnUserDecisionIsMade() {
         @Override
         public void onDuel(final Friend request) {
+
+            Log.d("TAG", "onDuel " + request.getId());
+            Log.d("TAG", "onDuel " + request.getName());
+
             final DuelFriendDialog dialog = new DuelFriendDialog(FriendsFragment.this.activity);
             dialog.setOnResult(new DuelFriendDialog.OnResult() {
                 @Override
@@ -211,26 +218,45 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
                             .setLabel("send_duel_request")
                             .build());
 
+                    Log.d("TAG", "onDuel a " + challenge.getCategory());
+                    Log.d("TAG", "onDuel a " + challenge.getBook());
+                    Log.d("TAG", "onDuel a " + challenge.getUserNumber());
+
 //                    AlertDialog dialog = new AlertDialog(FriendsFragment.this.activity, "به زودی این قابلیت اضافه خواهد شد.");
 //                    dialog.show();
 
 //                    challenge.setUserNumber(request.getId());
 //                    DuelApp.getInstance().sendMessage(challenge.serialize(CommandType.SEND_WANNA_CHALLENGE));
-//
-                    ((ParentActivity) getActivity()).category = String.valueOf(challenge.getCategory());
 
-                    Intent i = new Intent(getActivity(), WaitingActivity.class);
-                    i.putExtra("user_number", request.getId());
-                    i.putExtra("category", challenge.getCategory());
-                    i.putExtra("message", challenge.getMessage());
-                    i.putExtra("master", true);
+                    ((ParentActivity) getActivity()).category = challenge.getCategory();
 
-                    if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
-                        Log.d("FRIEND_FRAGMENT", "activity is null");
-                        return;
+                    if(challenge.getCategory() == 10004) {
+                        Log.d("TAG", "onDuel b zaban");
+
+                        StepDuelDialog stepDuelDialog = new StepDuelDialog(getActivity(), challenge, request.getId(), true);
+                        stepDuelDialog.show();
+
+                    } else {
+
+                        Log.d("TAG", "onDuel b gheyre zaban");
+
+                        ParentActivity.book = "0";
+                        ParentActivity.chapter = "0";
+
+                        Intent i = new Intent(getActivity(), WaitingActivity.class);
+                        i.putExtra("user_number", request.getId());
+                        i.putExtra("category", challenge.getCategory());
+                        i.putExtra("message", challenge.getMessage());
+                        i.putExtra("master", true);
+
+                        if (FriendsFragment.this.activity == null || !(FriendsFragment.this.activity instanceof ParentActivity)) {
+                            Log.d("FRIEND_FRAGMENT", "activity is null");
+                            return;
+                        }
+
+                        startActivity(i);
                     }
 
-                    startActivity(i);
                     dialog.dismiss();
                 }
             });
