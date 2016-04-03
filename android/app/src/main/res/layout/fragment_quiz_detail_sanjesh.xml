@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fillViewport="false"
+    android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:src="@drawable/sanjesh"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textView_caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="10sp"
+            android:textSize="@dimen/fontsize.small"
+            android:text="@string/quiz_description_sanjesh"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+</ScrollView>

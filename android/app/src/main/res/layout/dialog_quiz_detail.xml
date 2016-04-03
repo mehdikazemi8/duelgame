@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_dark">
+
+    <LinearLayout
+        android:id="@+id/container_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space.long"
+        android:text="@string/quiz_detail"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/fontsize.large" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/space.medium"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/button_close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/close_button" />
+
+    <LinearLayout
+        android:id="@+id/static_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator_avatars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/quiz_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="هزینه: ۵۵۰۰۰ تومان"
+            android:textSize="@dimen/fontsize.normal"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/package_discount"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/edit_text_border"
+                android:hint="کد تخفیف"
+                android:layout_margin="5dp"
+                android:padding="4dp" />
+            <com.mehdiii.duelgame.views.custom.CustomButton
+                android:id="@+id/button_confirm"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/subscribe_button"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_margin="5dp"
+                android:text="@string/button_subscribe"
+                android:textColor="@color/purple_dark"
+                android:textSize="@dimen/fontsize.normal" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_avatars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_header"
+        android:layout_marginTop="10dp"
+        android:layout_above="@id/static_actions"/>
+</RelativeLayout>

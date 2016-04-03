@@ -40,6 +40,7 @@ import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.QuizDetailDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,10 +273,12 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
     }
 
     private void handleSubscription() {
-        ConfirmDialog subscriptionDialog = new ConfirmDialog(this,
-                getString(R.string.caption_subscribe_description),
-                R.layout.dialog_subscribe, AuthManager.getCurrentUser().getSubscriptionPrice(), true);
-        subscriptionDialog.show();
+//        ConfirmDialog subscriptionDialog = new ConfirmDialog(this,
+//                getString(R.string.caption_subscribe_description),
+//                R.layout.dialog_subscribe, AuthManager.getCurrentUser().getSubscriptionPrice(), true);
+//        subscriptionDialog.show();
+        QuizDetailDialog quizDetailDialog = new QuizDetailDialog();
+        quizDetailDialog.show(getSupportFragmentManager(), "TAG");
     }
 
     @Override

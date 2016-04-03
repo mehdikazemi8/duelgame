@@ -11,7 +11,12 @@
 
     <string name="caption_invite_friends_info">معرفی هر ۲ نفر\n=\nیک آزمون رایگان\n+\n۴۰۰ الماس</string>
 
-    <string name="caption_subscribe_description">\u2022 ۵ آزمون جمع‌بندی برای قلم‌چی\n\u2022 ۸ آزمون جمع‌بندی برای سنجش\n\u2022 بیش از ۱۰۰ آزمون جمع‌بندی روزانه تا کنکور\n\u2022 روزانه ۴۰ قلب برای دوئل\n\u2022 ۷۰۰۰ الماس\n</string>
+    <string name="caption_subscribe_description"> ۸ آزمون جمع‌بندی برای قلم‌چی\n۵ آزمون جمع‌بندی برای سنجش\n۱۰۰ آزمون جمع‌بندی روزانه تا کنکور\nروزانه ۴۰ قلب برای دوئل\n۷۰۰۰ الماس</string>
+    <string name="quiz_description_ghalamchi">جمع‌بندی عمومی قلم‌چی ۲۱ اسفند\nجمع‌بندی عمومی قلم‌چی ۷ فروردین\nجمع‌بندی عمومی قلم‌چی ۲۰ فروردین\nجمع‌بندی عمومی قلم‌چی ۳ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۱۷ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۳۱ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۲۱ خرداد\nجمع‌بندی عمومی قلم‌چی ۴ تیر\nجمع‌بندی عمومی قلم‌چی ۱۸ تیر</string>
+    <string name="quiz_description_sanjesh">جمع‌بندی عمومی سنجش ۲۰ فروردین\nجمع‌بندی عمومی سنجش ۱۰ اردیبهشت\nجمع‌بندی عمومی سنجش ۲۴ اردیبهشت\nجمع‌بندی عمومی سنجش ۷ خرداد\nجمع‌بندی عمومی سنجش ۱۱ تیر</string>
+    <string name="quiz_description_daily">توضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش</string>
+    <string name="quiz_description_heart">توضیحات دریافت قلب\n حالت عادی و حالت عضویت</string>
+    <string name="quiz_description_diamond">توضیحات تعداد الماس\n روش های دریافت الماس\n موارد استفاده الماس</string>
     <string name="subscription_price">هزینه: %d تومان</string>
 
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
@@ -222,5 +227,7 @@
     <string name="field">رشته</string>
     <string name="step_title">درس به درس</string>
     <string name="not_enough_diamond">متاسفانه الماس کافی نداری...</string>
+
+    <string name="quiz_detail">بسته‌ی ویژه</string>
 
 </resources>
