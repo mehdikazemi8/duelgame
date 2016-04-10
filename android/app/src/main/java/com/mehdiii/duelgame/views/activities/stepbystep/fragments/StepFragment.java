@@ -137,7 +137,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         star2View.setTypeface(FontHelper.getIcons(getActivity()));
         star3View.setTypeface(FontHelper.getIcons(getActivity()));
 
-        Log.d("tag", "ffffffffff" + getArguments().getString("stepId"));
+
         nextQuestion.setOnClickListener(this);
         submitAnswer.setOnClickListener(this);
 

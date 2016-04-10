@@ -73,6 +73,16 @@ public class User extends BaseModel {
     private int subscriptionPrice;
     @SerializedName("motd")
     private String motd;
+    @SerializedName("course_map")
+    private CourseMap courseMap;
+
+    public CourseMap getCourseMap() {
+        return courseMap;
+    }
+
+    public void setCourseMap(CourseMap courseMap) {
+        this.courseMap = courseMap;
+    }
 
     public String getMotd() {
         return motd;

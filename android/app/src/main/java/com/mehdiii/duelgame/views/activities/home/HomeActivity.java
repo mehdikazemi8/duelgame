@@ -1,5 +1,6 @@
 package com.mehdiii.duelgame.views.activities.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,13 +22,20 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.CourseMap;
 import com.mehdiii.duelgame.models.DrawerItem;
 import com.mehdiii.duelgame.models.SendGcmCode;
+import com.mehdiii.duelgame.models.StepCourse;
+import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -41,6 +49,8 @@ import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -218,9 +228,20 @@ public class HomeActivity extends ParentActivity {
         setAlarmForDuelHour(this);
         cancelDuelHourNotification();
 
+
+
+//        CourseMap courseMap2 = BaseModel.deserialize(newj, CourseMap.class);
+//        for (StepCourse i : courseMap2.getStepCourses()){
+//            for(int j=0 ; j < i.getNum_chapters() ; j++){
+//                GlobalPreferenceManager.writeInt(this, String.valueOf(i.getCategory()) +
+//                        String.valueOf(i.getBook()) +
+//                        String.valueOf(j), i.getProgress().get(j));
+//            }
+//        }
+//        Log.d("TAG", "stared:" + GlobalPreferenceManager.readInteger(this, "1000441", -1));
+
         find();
         configure();
-
 
         // Check device for Play Services APK.
         if (checkPlayServices()) {
@@ -403,4 +424,16 @@ public class HomeActivity extends ParentActivity {
     public boolean canHandleChallengeRequest() {
         return true;
     }
+
+//    TODO GCM Receive
+//    BroadcastReceiver commandListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+//        @Override
+//        public void onReceive(String json, CommandType type) {
+//            if (CommandType.GET_COURSE_MAP == type && !isFinishing()) {
+////                final User user = BaseModel.deserialize(json, User.class);
+//                Log.d("taggg", "" + (json));
+//            }
+//        }
+//    });
+
 }

@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_1"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_dark"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageButton
+            android:id="@+id/info_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/info_white"
+            android:visibility="gone" />
+
+        <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="@string/course_to_course"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize.large" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                style="@style/step_line"
+                android:layout_below="@id/header"
+                android:paddingTop="10dp">
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000411_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۱"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000411_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000412_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۲"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000412_star"
+                                android:text="aaa"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="50dp"
+                style="@style/step_line"
+                >
+                <RelativeLayout
+                    style="@style/step_box">
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line"
+                >
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000414_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۴"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000414_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000413_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000413_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="50dp"
+                style="@style/step_line"
+                >
+
+                <RelativeLayout
+                    android:gravity="center"
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line"
+                >
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000415_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۵"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000415_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000416_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۶"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000416_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="50dp"
+                style="@style/step_line"
+                >
+                <RelativeLayout
+                    style="@style/step_box">
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line"
+                >
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000422_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۲"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000422_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000421_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۱"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000421_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="50dp"
+                style="@style/step_line"
+                >
+
+                <RelativeLayout
+                    style="@style/step_box"
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line">
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000423_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۳"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000423_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box">
+                    <LinearLayout
+                        android:id="@+id/cbc1000424_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۴"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000424_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line"
+                android:layout_height="50dp"
+                >
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:id="@+id/c10002s"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line">
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000426_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۶"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000426_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000425_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۵"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000425_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="50dp"
+                style="@style/step_line">
+                <RelativeLayout
+                    style="@style/step_box"
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        >
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/purple"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/step_line"
+                android:paddingBottom="10dp">
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000427_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۷"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000427_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/purple"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    style="@style/step_box"
+                    >
+                    <LinearLayout
+                        android:id="@+id/cbc1000428_holder"
+                        style="@style/step">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_book_text"
+                                android:textSize="20dp"
+                                android:text="زبان پیش"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                style="@style/step_chapter_text"
+                                android:text="درس ۸"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/step_star"
+                                android:id="@+id/cbc1000428_star"
+                                android:text="aaa"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/step_fragment_holder"/>
+</RelativeLayout>

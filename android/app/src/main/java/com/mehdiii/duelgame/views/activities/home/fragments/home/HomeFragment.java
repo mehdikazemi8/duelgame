@@ -1,9 +1,11 @@
 package com.mehdiii.duelgame.views.activities.home.fragments.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +20,24 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.ChangePage;
+import com.mehdiii.duelgame.models.CourseMap;
+import com.mehdiii.duelgame.models.StepCourse;
 import com.mehdiii.duelgame.models.User;
+import com.mehdiii.duelgame.models.base.BaseModel;
+import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.AvatarHelper;
 import com.mehdiii.duelgame.utils.CategoryManager;
+import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
+import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -43,6 +52,7 @@ import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -91,7 +101,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         Log.d("TAG", "onResume onViewCreated");
 
         /**
@@ -198,6 +209,67 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 courseRanks.get(courseId).setText("-");
             }
         }
+    }
+
+    private void setProgress() {
+        //        these are initial values for test
+
+        StepCourse stepCourse = new StepCourse();
+        stepCourse.setBook(41);
+        stepCourse.setCategory(10004);
+        stepCourse.setCourse_id("first_id");
+        stepCourse.setName("زبان ۳");
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(0, 3);
+        arrayList.add(1, 2);
+        arrayList.add(2, 2);
+        arrayList.add(3, 0);
+        arrayList.add(4, 0);
+        stepCourse.setProgress(arrayList);
+        stepCourse.setNum_chapters(5);
+        ArrayList<StepCourse> stepCourses = new ArrayList<>();
+        stepCourses.add(0, stepCourse);
+
+        arrayList.add(0, 2);
+        arrayList.add(1, 1);
+        arrayList.add(2, 1);
+        arrayList.add(3, 3);
+        arrayList.add(4, 3);
+
+        stepCourse = new StepCourse();
+        stepCourse.setBook(42);
+        stepCourse.setCategory(10004);
+        stepCourse.setCourse_id("sec_id");
+        stepCourse.setName("زبان پیش");
+        stepCourse.setProgress(arrayList);
+        stepCourse.setNum_chapters(5);
+        stepCourses.add(1, stepCourse);
+
+        stepCourse = new StepCourse();
+        stepCourse.setBook(11);
+        stepCourse.setCategory(10001);
+        stepCourse.setCourse_id("third_id");
+        stepCourse.setName("ادبیات ۲");
+        stepCourse.setProgress(arrayList);
+        stepCourse.setNum_chapters(5);
+        stepCourses.add(2, stepCourse);
+
+        stepCourse = new StepCourse();
+        stepCourse.setBook(12);
+        stepCourse.setCategory(10001);
+        stepCourse.setCourse_id("4th_id");
+        stepCourse.setName("ادبیات ۳");
+        stepCourse.setProgress(arrayList);
+        stepCourse.setNum_chapters(5);
+        stepCourses.add(3, stepCourse);
+
+        CourseMap courseMap = new CourseMap();
+        courseMap.setStepCourses(stepCourses);
+//        String newj = courseMap.serialize();
+//        Log.d("TAG", "courseMAP" + newj);
+//        GlobalPreferenceManager.writeString(getActivity(), "progress", newj);
+        User user = AuthManager.getCurrentUser();
+        user.setCourseMap(courseMap);
     }
 
     private void find(View view) {
@@ -321,7 +393,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         } else {
             Log.d("TAG", "bindViewData HomeFragment user is NOT null");
         }
-
+        setProgress();
         setPendingOfflineDuels();
         setOpenExamNotTaken();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
@@ -350,6 +422,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             this.textViewHearts.setVisibility(View.VISIBLE);
         this.textViewHearts.setText(String.valueOf((user.getHeart())));
     }
+
+
 
     public void startGame() {
         if (!HeartTracker.getInstance().canUseHeart()) {
@@ -410,4 +484,14 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onBringToFront() {
         super.onBringToFront();
     }
+
+    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
+            Log.d("TAG", "course map recieved" + cm.serialize());
+//            User user = AuthManager.getCurrentUser();
+//            user.setCourseMap(cm);
+        }
+    });
 }

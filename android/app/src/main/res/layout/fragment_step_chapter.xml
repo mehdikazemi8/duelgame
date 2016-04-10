@@ -13,17 +13,8 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <ImageButton
-            android:id="@+id/info_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:background="@drawable/info_white"
-            android:visibility="gone" />
-
         <com.mehdiii.duelgame.views.custom.CustomTextView
+            android:id="@+id/chapter_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -33,16 +24,16 @@
             android:textColor="@color/white"
             android:textSize="@dimen/fontsize.large" />
     </RelativeLayout>
-        <ListView
-            android:id="@+id/course_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:divider="@null"
-            android:layout_below="@id/header"
-            android:dividerHeight="0dp"/>
+    <ListView
+        android:id="@+id/chapter_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:divider="@null"
+        android:layout_below="@id/header"
+        android:dividerHeight="0dp"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chapter_fragment_holder"/>
+        android:id="@+id/step_fragment_holder"/>
 </RelativeLayout>

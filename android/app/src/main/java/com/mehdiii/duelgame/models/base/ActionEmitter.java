@@ -124,6 +124,9 @@ public class ActionEmitter {
         map.put(CommandType.SEND_GET_ONLINE_USERS, "GOUL");
         map.put(CommandType.RECEIVE_GET_ONLINE_USERS, "ROUL");
         map.put(CommandType.REPORT_PROBLEM, "RP");
+        map.put(CommandType.GET_COURSE_MAP, "GCM");
+        map.put(CommandType.GET_COURSE_CHAPTER_QUESTION, "GCCQ");
+
     }
 
     public String getCommandCode(CommandType type) {
