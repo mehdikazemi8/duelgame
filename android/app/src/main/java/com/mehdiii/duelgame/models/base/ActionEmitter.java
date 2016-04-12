@@ -27,6 +27,7 @@ public class ActionEmitter {
         map.put(CommandType.USE_DIAMOND, "UD");
 
         map.put(CommandType.LOG_COURSE_STEP_UP, "LCSU");
+        map.put(CommandType.LOG_COURSE_CHAPTER_PASS, "LCCP");
 
         map.put(CommandType.GET_CHALLENGE_UPDATES, "GCU");
         map.put(CommandType.RECEIVE_CHALLENGE_UPDATES, "RCU");

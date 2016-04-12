@@ -393,7 +393,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         } else {
             Log.d("TAG", "bindViewData HomeFragment user is NOT null");
         }
-        setProgress();
+//        setProgress();
         setPendingOfflineDuels();
         setOpenExamNotTaken();
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
@@ -489,9 +489,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         @Override
         public void onReceive(String json, CommandType type) {
             CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
-            Log.d("TAG", "course map recieved" + cm.serialize());
-//            User user = AuthManager.getCurrentUser();
-//            user.setCourseMap(cm);
+            Log.d("TAG", "course map received" + cm.serialize());
+            User user = AuthManager.getCurrentUser();
+            user.setCourseMap(cm);
         }
     });
 }

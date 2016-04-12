@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.mehdiii.duelgame.models.StepProblemCollection;
 import com.mehdiii.duelgame.models.UseDiamond;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.StepManager;
@@ -36,7 +38,9 @@ import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.RetakeStepDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -62,7 +66,7 @@ public class StepChapterFragment extends Fragment {
 
 //        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
 //        viewWidth = metrics.widthPixels;
-
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         find(view);
         configure();
     }
@@ -150,6 +154,21 @@ public class StepChapterFragment extends Fragment {
         ccq.setChapter_index(i);
         DuelApp.getInstance().sendMessage(ccq.serialize(CommandType.GET_COURSE_CHAPTER_QUESTION));
 
+//        FOR INITIAL TEST TILL ARIAN COME
+//        Bundle bundle = new Bundle();
+//        ArrayList<QuestionForQuiz> parsedQuestions = new ArrayList<>();
+//        Map<String, Integer> questionArchive;
+//        questionArchive = new HashMap<>();
+//        questionArchive.put("1000411", R.array.cbc1000411);
+//        parsedQuestions = getQuestions(questionArchive.get("10004111"));
+//        quiz = new Quiz();
+//        bundle.putString("quiz", quiz.serialize());
+//        stepFragment = StepFragment.getInstance();
+//        stepFragment.setArguments(bundle);
+//        getActivity().getSupportFragmentManager().beginTransaction().
+//                add(R.id.step_fragment_holder, stepFragment).
+//                addToBackStack(null).commit();
+
     }
     public static StepChapterFragment getInstance() {
         return new StepChapterFragment();
@@ -158,19 +177,18 @@ public class StepChapterFragment extends Fragment {
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
-            Log.d("TAG", "course map recieved" + cm.serialize());
-//            User user = AuthManager.getCurrentUser();
-//            user.setCourseMap(cm);
             Bundle bundle = new Bundle();
-            ArrayList<QuestionForQuiz> parsedQuestions = new ArrayList<>();
             StepProblemCollection spc = StepProblemCollection.deserialize(json, StepProblemCollection.class);
-//        parsedQuestions = getQuestions(questionArchive.get(s));
+            Log.d("TAG", "questions recieved" + spc.serialize());
             quiz = new Quiz();
             quiz.setQuestions(spc.getQuestions());
+
             bundle.putString("quiz", quiz.serialize());
-//        bundle.putString("stepName", StepManager.getStep(this, s));
-//        bundle.putString("stepId", s);
+            bundle.putString("courseId", getArguments().getString("courseId"));
+            bundle.putInt("chapterIndex", spc.getChapter_index());
+            bundle.putInt("category", getArguments().getInt("category"));
+            bundle.putInt("book", getArguments().getInt("book") );
+
             stepFragment = StepFragment.getInstance();
             stepFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().
@@ -178,4 +196,28 @@ public class StepChapterFragment extends Fragment {
                     addToBackStack(null).commit();
         }
     });
+
+    public ArrayList<QuestionForQuiz> getQuestions(int stepId) {
+        String[] questions = getResources().getStringArray(stepId);
+        ArrayList<QuestionForQuiz> parsedQuestions = new ArrayList<>();
+        for (String question : questions) {
+            String[] splitted = question.split("###");
+            QuestionForQuiz newquestion = new QuestionForQuiz();
+            ArrayList<String> options = new ArrayList<>();
+            for (int iterator = 0; iterator < splitted.length; iterator++) {
+                if (iterator == 0)
+                    newquestion.setQuestionText(splitted[iterator]);
+                else if (iterator == 1)
+                    newquestion.setAnswer(splitted[iterator]);
+                if (iterator > 0)
+                    options.add(splitted[iterator]);
+            }
+            newquestion.setOptions(options);
+            newquestion.setCategory("10004");
+            newquestion.setCourseName(CategoryManager.getCategory(getActivity(), 10004));
+            newquestion.setDescription("bello");
+            parsedQuestions.add(newquestion);
+        }
+        return parsedQuestions;
+    }
 }

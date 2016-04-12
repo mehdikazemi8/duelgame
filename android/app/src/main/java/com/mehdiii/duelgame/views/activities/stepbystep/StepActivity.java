@@ -83,7 +83,8 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
                 bundle.putString("courseId", courseMap.getStepCourses().get(i).getCourse_id());
                 bundle.putIntegerArrayList("chapterStars", courseMap.getStepCourses().get(i).getProgress());
                 bundle.putInt("chapterCount", courseMap.getStepCourses().get(i).getNum_chapters());
-
+                bundle.putInt("category", courseMap.getStepCourses().get(i).getCategory());
+                bundle.putInt("book", courseMap.getStepCourses().get(i).getBook());
                 chapterFragment = StepChapterFragment.getInstance();
                 chapterFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()

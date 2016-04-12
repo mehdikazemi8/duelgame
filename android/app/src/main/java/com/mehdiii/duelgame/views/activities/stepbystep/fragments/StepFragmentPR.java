@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -13,20 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
-import com.mehdiii.duelgame.models.ChapterResult;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
+import com.mehdiii.duelgame.models.StepResult;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnStepCompleted;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -34,7 +31,6 @@ import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +39,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by frshd on 2/25/16.
  */
-public class StepFragment extends Fragment implements View.OnClickListener {
+public class StepFragmentPR extends Fragment implements View.OnClickListener {
 
     final int NOPTIONS = 4;
     Quiz quiz;
@@ -66,7 +62,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     TextView star3View;
     String lastQShuffle;
     QuizAnswer quizAnswer;
-    ChapterResult chapterResult;
+    StepResult stepResult;
 
     CustomTextView verdict;
     LinearLayout verdictHolder;
@@ -77,12 +73,12 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     boolean isFinished = false;
     int viewWidth = 1000;
 
-    public StepFragment() {
+    public StepFragmentPR() {
         super();
     }
 
-    public static StepFragment getInstance() {
-        return new StepFragment();
+    public static StepFragmentPR getInstance() {
+        return new StepFragmentPR();
     }
 
     @Nullable
@@ -143,11 +139,13 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
         infoButton.setOnClickListener(this);
 
-
-        chapterResult = new ChapterResult();
-        chapterResult.setChapter(getArguments().getInt("chapterIndex"));
-        chapterResult.setCourse_id(getArguments().getString("courseId"));
-        chapterResult.setCommand(CommandType.LOG_COURSE_CHAPTER_PASS);
+        stepResult = new StepResult();
+        stepResult.setCategory(10004);
+        String sid = "";
+        sid = getArguments().getString("stepId");
+        stepResult.setBook(Integer.valueOf(sid.substring(sid.length() - 3, sid.length() - 1)));
+        stepResult.setChapter(Integer.valueOf(sid.substring(sid.length() - 1)));
+        stepResult.setCommand(CommandType.LOG_COURSE_STEP_UP);
         // start quiz
         startQuiz();
     }
@@ -221,11 +219,11 @@ public class StepFragment extends Fragment implements View.OnClickListener {
     }
 
     private void submitAnswer() {
-        Log.d("TAG", "func submitAnswer " + chapterResult.serialize());
-//        int lastRes = GlobalPreferenceManager.readInteger(getActivity(), getArguments().getString("stepId"), -1);
-//        if (lastRes < stars)
-//            GlobalPreferenceManager.writeInt(getActivity(), getArguments().getString("stepId"), stars);
-        DuelApp.getInstance().sendMessage(chapterResult.serialize());
+        Log.d("TAG", "func submitAnswer " + stepResult.serialize());
+        int lastRes = GlobalPreferenceManager.readInteger(getActivity(), getArguments().getString("stepId"), -1);
+        if (lastRes < stars)
+            GlobalPreferenceManager.writeInt(getActivity(), getArguments().getString("stepId"), stars);
+        DuelApp.getInstance().sendMessage(stepResult.serialize());
 
     }
 
@@ -271,8 +269,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
         Log.d("TAG", "func showNextQuestion");
         if(currentQuestionIdx > 0 && isFinished==false) {
-//            addAnswer(quiz.getQuestions().get(currentQuestionIdx - 1).getCategory());
-            addAnswer(getArguments().getInt("category"));
+            addAnswer(quiz.getQuestions().get(currentQuestionIdx - 1).getCategory());
         }
 
         if(currentQuestionIdx == quiz.getQuestions().size() && isFinished==false) {
@@ -395,7 +392,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         return output.toString();
     }
 
-    private void addAnswer(int category) {
+    private void addAnswer(String category) {
         if(lastQShuffle == null) {
             return;
         }
@@ -412,14 +409,14 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
         if(quizAnswer.getAnswers() != null) {
             for(OneCourseAnswer oneCourseAnswer : quizAnswer.getAnswers()) {
-                if(oneCourseAnswer.getCategory().equals(String.valueOf(category))) {
+                if(oneCourseAnswer.getCategory().equals(category)) {
                     oneCourseAnswer.addAnswer(lastQShuffle);
                     return;
                 }
             }
         }
 
-        OneCourseAnswer oneCourseAnswer = new OneCourseAnswer(String.valueOf(category));
+        OneCourseAnswer oneCourseAnswer = new OneCourseAnswer(category);
         oneCourseAnswer.addAnswer(lastQShuffle);
         quizAnswer.addOneCourseAnswer(oneCourseAnswer);
     }
@@ -444,10 +441,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             }
         }
         score = (trues*100.0)/total;
-
-        chapterResult.setCorrect(trues);
-        chapterResult.setAll(total);
-
+        stepResult.setCorrect(trues);
+        stepResult.setAll(total);
         result.setText("درصد پاسخ‌های درست : " + (int) Math.round(score) + " %");
         truesView.setText("تعداد پاسخ‌های درست: " + trues);
         falsesView.setText("تعداد پاسخ‌های نادرست: " + falses);
@@ -462,6 +457,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         else
             stars = 0;
 
+        stepResult.setStars(stars);
         if (stars >= 0){
             switch (stars){
                 case 0:
