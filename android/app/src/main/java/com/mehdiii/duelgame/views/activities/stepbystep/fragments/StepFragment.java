@@ -222,11 +222,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
     private void submitAnswer() {
         Log.d("TAG", "func submitAnswer " + chapterResult.serialize());
-//        int lastRes = GlobalPreferenceManager.readInteger(getActivity(), getArguments().getString("stepId"), -1);
-//        if (lastRes < stars)
-//            GlobalPreferenceManager.writeInt(getActivity(), getArguments().getString("stepId"), stars);
         DuelApp.getInstance().sendMessage(chapterResult.serialize());
-
     }
 
     public void animateStars() {
@@ -271,7 +267,6 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
         Log.d("TAG", "func showNextQuestion");
         if(currentQuestionIdx > 0 && isFinished==false) {
-//            addAnswer(quiz.getQuestions().get(currentQuestionIdx - 1).getCategory());
             addAnswer(getArguments().getInt("category"));
         }
 
@@ -293,7 +288,6 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             animateStars();
 
             EventBus.getDefault().post(new OnStepCompleted());
-
             return;
         }
 

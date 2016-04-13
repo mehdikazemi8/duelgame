@@ -30,18 +30,18 @@ import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
 import de.greenrobot.event.EventBus;
 
-public class DuelDialog extends Dialog {
+public class DuelDialogPR extends Dialog {
     ListView courses;
 
     boolean offlineDuel = false;
     String opponentUserNumber;
     boolean stepDuel = false;
 
-    public DuelDialog(Context context) {
+    public DuelDialogPR(Context context) {
         super(context);
     }
 
-    public DuelDialog(Context context, boolean offlineDuel, String opponentUserNumber) {
+    public DuelDialogPR(Context context, boolean offlineDuel, String opponentUserNumber) {
         super(context);
         this.offlineDuel = offlineDuel;
         this.opponentUserNumber = opponentUserNumber;
@@ -68,6 +68,8 @@ public class DuelDialog extends Dialog {
         courses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d("TAG", "aaa");
                 int[] categories = getContext().getResources().getIntArray(R.array.categories_keys);
                 ParentActivity.category = categories[i];
                 // 'score' shows the score of his/her last category that he/she has played
@@ -76,15 +78,19 @@ public class DuelDialog extends Dialog {
                 );
 
 //              checking for dynamic duel on chapters
+
                 CourseMap courseMap = user.getCourseMap();
-                Log.d("TAG", "course map here"+courseMap.serialize());
                 for( StepCourse stepCourse : courseMap.getStepCourses()){
                     if( stepCourse.getCategory() == ParentActivity.category)
                         stepDuel = true;
                 }
 
+
                 if(offlineDuel) {
-                    if(stepDuel){
+//                    Log.d("TAG", ParentActivity.category + " " + opponentUserNumber);
+//                    DuelApp.getInstance().sendMessage(new StartOfflineDuelRequest(CommandType.WANNA_START_OFFLINE_DUEL, opponentUserNumber, ParentActivity.category).serialize());
+                    if(i == 3)
+                    {
                         dismiss();
                         Category cat = Category.newInstance(Category.CategoryType.WANNA_PLAY);
                         cat.setCategory(categories[i]);
@@ -108,12 +114,16 @@ public class DuelDialog extends Dialog {
 
                     Log.d("TAG", "mostaghim " + i);
 
-                    if (stepDuel){
+                    if(i == 3)
+                    {
                         dismiss();
                         StepDuelDialog stepDuelDialog = new StepDuelDialog(getContext(), cat);
                         stepDuelDialog.show();
                         return;
                     }
+
+
+
                     DuelApp.getInstance().sendMessage(cat.serialize());
                     getContext().startActivity(new Intent(getContext(), WaitingActivity.class));
                 }

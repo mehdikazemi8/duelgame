@@ -63,9 +63,6 @@ public class StepChapterFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-//        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
-//        viewWidth = metrics.widthPixels;
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         find(view);
         configure();
@@ -74,7 +71,6 @@ public class StepChapterFragment extends Fragment {
     private void find(View view) {
         header = (CustomTextView) view.findViewById(R.id.chapter_header);
         chaptersList = (ListView) view.findViewById(R.id.chapter_list);
-
     }
 
     private void configure() {
@@ -85,8 +81,11 @@ public class StepChapterFragment extends Fragment {
         chapterForSteps = new ArrayList<>();
         for (int i=0; i<chapterCount; i++){
             ChapterForStep cfs = new ChapterForStep();
-            cfs.setName(String.valueOf(i+1));
-            cfs.setStars(stars.get(i));
+            cfs.setName(String.valueOf(i + 1));
+            if (stars.size()!=0 && stars.size()>i)
+                cfs.setStars(stars.get(i));
+            else
+                cfs.setStars(0);
             chapterForSteps.add(i,cfs);
         }
         StepChapterListAdapter adapter = new StepChapterListAdapter(getActivity(), R.layout.template_step_chapter,chapterForSteps);
@@ -94,22 +93,26 @@ public class StepChapterFragment extends Fragment {
         chaptersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("TAG", "clicked " + i);
-
                 checkRetake(i);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("courseName", courseMap.getStepCourses().get(i).getName());
-//                bundle.putIntegerArrayList("chapterStars", courseMap.getStepCourses().get(i).getProgress());
-//                bundle.putInt("chapterCount", courseMap.getStepCourses().get(i).getNum_chapters());
-
-//                chapterFragment = StepChapterFragment.getInstance();
-//                chapterFragment.setArguments(bundle);
-//                getSupportFragmentManager().beginTransaction()
-//                        .add( R.id.chapter_fragment_holder, chapterFragment)
-//                        .addToBackStack(null).commit();
-
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onPause() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onResume() {
+        super.onDestroy();
     }
 
     private void checkRetake(final int i) {
@@ -119,7 +122,6 @@ public class StepChapterFragment extends Fragment {
             final RetakeStepDialog retakeStepDialog = new RetakeStepDialog(getActivity(),
                     String.format(getResources().getString(R.string.caption_diamond_cnt), AuthManager.getCurrentUser().getDiamond()) +
                             getResources().getString(R.string.caption_retake_step));
-
             retakeStepDialog.setOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(Object data) {
@@ -142,33 +144,15 @@ public class StepChapterFragment extends Fragment {
             });
             retakeStepDialog.show();
         }
+        else
+            startStep(i);
     }
 
-//    @Override
-//    public void onClick(View view) {
-//
-//    }
     private void startStep(int i) {
         CourseChapterQuestion ccq = new CourseChapterQuestion();
         ccq.setCourse_id(getArguments().getString("courseId"));
         ccq.setChapter_index(i);
         DuelApp.getInstance().sendMessage(ccq.serialize(CommandType.GET_COURSE_CHAPTER_QUESTION));
-
-//        FOR INITIAL TEST TILL ARIAN COME
-//        Bundle bundle = new Bundle();
-//        ArrayList<QuestionForQuiz> parsedQuestions = new ArrayList<>();
-//        Map<String, Integer> questionArchive;
-//        questionArchive = new HashMap<>();
-//        questionArchive.put("1000411", R.array.cbc1000411);
-//        parsedQuestions = getQuestions(questionArchive.get("10004111"));
-//        quiz = new Quiz();
-//        bundle.putString("quiz", quiz.serialize());
-//        stepFragment = StepFragment.getInstance();
-//        stepFragment.setArguments(bundle);
-//        getActivity().getSupportFragmentManager().beginTransaction().
-//                add(R.id.step_fragment_holder, stepFragment).
-//                addToBackStack(null).commit();
-
     }
     public static StepChapterFragment getInstance() {
         return new StepChapterFragment();
@@ -182,13 +166,11 @@ public class StepChapterFragment extends Fragment {
             Log.d("TAG", "questions recieved" + spc.serialize());
             quiz = new Quiz();
             quiz.setQuestions(spc.getQuestions());
-
             bundle.putString("quiz", quiz.serialize());
             bundle.putString("courseId", getArguments().getString("courseId"));
             bundle.putInt("chapterIndex", spc.getChapter_index());
             bundle.putInt("category", getArguments().getInt("category"));
             bundle.putInt("book", getArguments().getInt("book") );
-
             stepFragment = StepFragment.getInstance();
             stepFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().
@@ -196,28 +178,4 @@ public class StepChapterFragment extends Fragment {
                     addToBackStack(null).commit();
         }
     });
-
-    public ArrayList<QuestionForQuiz> getQuestions(int stepId) {
-        String[] questions = getResources().getStringArray(stepId);
-        ArrayList<QuestionForQuiz> parsedQuestions = new ArrayList<>();
-        for (String question : questions) {
-            String[] splitted = question.split("###");
-            QuestionForQuiz newquestion = new QuestionForQuiz();
-            ArrayList<String> options = new ArrayList<>();
-            for (int iterator = 0; iterator < splitted.length; iterator++) {
-                if (iterator == 0)
-                    newquestion.setQuestionText(splitted[iterator]);
-                else if (iterator == 1)
-                    newquestion.setAnswer(splitted[iterator]);
-                if (iterator > 0)
-                    options.add(splitted[iterator]);
-            }
-            newquestion.setOptions(options);
-            newquestion.setCategory("10004");
-            newquestion.setCourseName(CategoryManager.getCategory(getActivity(), 10004));
-            newquestion.setDescription("bello");
-            parsedQuestions.add(newquestion);
-        }
-        return parsedQuestions;
-    }
 }

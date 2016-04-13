@@ -13,13 +13,19 @@ import android.widget.ListView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.Category;
+import com.mehdiii.duelgame.models.CourseForDuel;
+import com.mehdiii.duelgame.models.CourseMap;
+import com.mehdiii.duelgame.models.StepCourse;
 import com.mehdiii.duelgame.models.StepForDuel;
+import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.events.OnFinishActivity;
 import com.mehdiii.duelgame.utils.StepManager;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.duelofflinewaiting.DuelOfflineWaitingActivity;
+import com.mehdiii.duelgame.views.activities.home.fragments.adapters.CourseListAdapter;
 import com.mehdiii.duelgame.views.activities.home.fragments.adapters.StepListAdapter;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
 
@@ -37,23 +43,6 @@ public class StepOfflineDuelDialog extends Dialog {
     Category category;
     ListView steps;
     String opponentUserNumber;
-
-    int stepIds[] = new int[]{
-            1000411,
-            1000412,
-            1000413,
-            1000414,
-            1000415,
-            1000416,
-            1000421,
-            1000422,
-            1000423,
-            1000424,
-            1000425,
-            1000426,
-            1000427,
-            1000428
-    };
 
     public StepOfflineDuelDialog(Context context,Category category, String opponentUserNumber) {
         super(context);
@@ -76,32 +65,41 @@ public class StepOfflineDuelDialog extends Dialog {
 
 
     private void configure() {
-        final List<StepForDuel> stepList = new ArrayList<>();
-        for (int s : stepIds){
-            StepForDuel temp = new StepForDuel();
-            temp.setName(StepManager.getStep(getContext(), String.valueOf(s)));
-            temp.setStars(GlobalPreferenceManager.readInteger(getContext(), String.valueOf(s), -1));
-            temp.setStepId(s);
-            stepList.add(temp);
+        User user = AuthManager.getCurrentUser();
+        CourseMap courseMap = user.getCourseMap();
+        ArrayList<StepCourse> stepCourses = courseMap.getStepByCategory(category.getCategory());
+        final List<CourseForDuel> courseList = new ArrayList<>();
+        for ( StepCourse stepCourse: stepCourses){
+            for(int j = 0; j < stepCourse.getNum_chapters() ; j++){
+                CourseForDuel temp = new CourseForDuel();
+                temp.setName(stepCourse.getName());
+                temp.setStepId(stepCourse.getCourse_id());
+                if (stepCourse.getProgress().size()!=0 && stepCourse.getProgress().size() > j)
+                    temp.setStars(stepCourse.getProgress().get(j));
+                else
+                    temp.setStars(0);
+                temp.setChapter(j);
+                temp.setCategory(stepCourse.getCategory());
+                temp.setBook(stepCourse.getBook());
+                courseList.add(temp);
+            }
         }
-        StepListAdapter adapter = new StepListAdapter(getContext(), R.layout.template_step_list_dialog, stepList);
+        CourseListAdapter adapter = new CourseListAdapter(getContext(), R.layout.template_step_list_dialog, courseList);
         steps.setAdapter(adapter);
         steps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (stepList.get(i).getStars() <= 0){
+                if (courseList.get(i).getStars() <= 0){
                     String message = getContext().getResources().getString(R.string.step_duel_not_passed_yet);
                     AlertDialog ad = new AlertDialog(getContext(), message);
                     ad.show();
                 }else {
-                    String sid = String.valueOf(stepList.get(i).getStepId());
-
                     Log.d("TAG", "category to server" + category.serialize());
                     Intent intent = new Intent(getContext(), DuelOfflineWaitingActivity.class);
                     intent.putExtra("opponent_user_number", opponentUserNumber);
-                    intent.putExtra("category", ParentActivity.category);
-                    intent.putExtra("book", sid.substring(sid.length() - 3, sid.length() - 1));
-                    intent.putExtra("chapter", sid.substring(sid.length() - 1));
+                    intent.putExtra("category", courseList.get(i).getCategory());
+                    intent.putExtra("book", courseList.get(i).getBook());
+                    intent.putExtra("chapter",courseList.get(i).getChapter());
                     intent.putExtra("master", true);
                     getContext().startActivity(intent);
                     dismiss();

@@ -19,4 +19,13 @@ public class CourseMap extends BaseModel {
     public void setStepCourses(ArrayList<StepCourse> stepCourses) {
         this.stepCourses = stepCourses;
     }
+
+    public ArrayList<StepCourse> getStepByCategory(int category){
+        ArrayList<StepCourse> stepCourses = new ArrayList<>();
+        for (StepCourse stepCourse: this.stepCourses ){
+            if (stepCourse.getCategory() == category )
+                stepCourses.add(stepCourse);
+        }
+        return stepCourses;
+    }
 }

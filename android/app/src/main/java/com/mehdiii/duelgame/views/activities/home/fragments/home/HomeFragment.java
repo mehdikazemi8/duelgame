@@ -114,11 +114,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
          * configure click listeners and setup typeface
          */
         configure(view);
-
-//        AppRater ar = new AppRater();
-//        ar.show(getActivity(), true);
-
-
     }
 
     private void configureCourseHolders() {
@@ -189,8 +184,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 courseRanks.get(courseId).setText(String.valueOf(user.getRank(String.valueOf(courseId))));
                 totalRanks += 1;
             } else {
-//                courseHolders.get(courseId).setVisibility(View.GONE);
-
                 courseRanks.get(courseId).setText("-");
             }
         }
@@ -209,67 +202,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 courseRanks.get(courseId).setText("-");
             }
         }
-    }
-
-    private void setProgress() {
-        //        these are initial values for test
-
-        StepCourse stepCourse = new StepCourse();
-        stepCourse.setBook(41);
-        stepCourse.setCategory(10004);
-        stepCourse.setCourse_id("first_id");
-        stepCourse.setName("زبان ۳");
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(0, 3);
-        arrayList.add(1, 2);
-        arrayList.add(2, 2);
-        arrayList.add(3, 0);
-        arrayList.add(4, 0);
-        stepCourse.setProgress(arrayList);
-        stepCourse.setNum_chapters(5);
-        ArrayList<StepCourse> stepCourses = new ArrayList<>();
-        stepCourses.add(0, stepCourse);
-
-        arrayList.add(0, 2);
-        arrayList.add(1, 1);
-        arrayList.add(2, 1);
-        arrayList.add(3, 3);
-        arrayList.add(4, 3);
-
-        stepCourse = new StepCourse();
-        stepCourse.setBook(42);
-        stepCourse.setCategory(10004);
-        stepCourse.setCourse_id("sec_id");
-        stepCourse.setName("زبان پیش");
-        stepCourse.setProgress(arrayList);
-        stepCourse.setNum_chapters(5);
-        stepCourses.add(1, stepCourse);
-
-        stepCourse = new StepCourse();
-        stepCourse.setBook(11);
-        stepCourse.setCategory(10001);
-        stepCourse.setCourse_id("third_id");
-        stepCourse.setName("ادبیات ۲");
-        stepCourse.setProgress(arrayList);
-        stepCourse.setNum_chapters(5);
-        stepCourses.add(2, stepCourse);
-
-        stepCourse = new StepCourse();
-        stepCourse.setBook(12);
-        stepCourse.setCategory(10001);
-        stepCourse.setCourse_id("4th_id");
-        stepCourse.setName("ادبیات ۳");
-        stepCourse.setProgress(arrayList);
-        stepCourse.setNum_chapters(5);
-        stepCourses.add(3, stepCourse);
-
-        CourseMap courseMap = new CourseMap();
-        courseMap.setStepCourses(stepCourses);
-//        String newj = courseMap.serialize();
-//        Log.d("TAG", "courseMAP" + newj);
-//        GlobalPreferenceManager.writeString(getActivity(), "progress", newj);
-        User user = AuthManager.getCurrentUser();
-        user.setCourseMap(courseMap);
     }
 
     private void find(View view) {
@@ -321,7 +253,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         super.onResume();
 
         Log.d("TAG", "onResume HomeFragment");
-
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         EventBus.getDefault().register(this);
         bindViewData();
     }
@@ -330,6 +263,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 
     private void handleInfoButton() {
@@ -492,6 +426,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             Log.d("TAG", "course map received" + cm.serialize());
             User user = AuthManager.getCurrentUser();
             user.setCourseMap(cm);
+            Log.d("TAG", "course map received" + user.getCourseMap().serialize());
         }
     });
 }

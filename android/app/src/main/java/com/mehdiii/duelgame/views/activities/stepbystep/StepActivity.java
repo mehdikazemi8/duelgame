@@ -39,6 +39,8 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
 
     ListView courseList;
     Fragment chapterFragment;
+    CourseMap courseMap;
+    List<ProgressForStep> progressList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,6 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
 
         find();
         configure();
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
     }
 
     private void find() {
@@ -57,8 +58,8 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
 
     private void configure() {
 
-        final List<ProgressForStep> progressList = new ArrayList<>();
-        final CourseMap courseMap = AuthManager.getCurrentUser().getCourseMap();
+        progressList = new ArrayList<>();
+        courseMap = AuthManager.getCurrentUser().getCourseMap();
         for(StepCourse cm : courseMap.getStepCourses()){
             Log.d("TAG", "step courses " + cm.getName() +  cm.getProgress());
             int stars = 0;
