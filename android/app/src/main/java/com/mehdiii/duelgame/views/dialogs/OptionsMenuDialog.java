@@ -24,6 +24,7 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.category.CategoryActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.addquestion.AddQuestionFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
@@ -47,6 +48,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout settings;
     LinearLayout totalDuelHour;
     LinearLayout flashCard;
+    LinearLayout addQuestion;
 
     public OptionsMenuDialog() {
         super();
@@ -90,6 +92,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         settings = (LinearLayout) view.findViewById(R.id.option_settings);
         totalDuelHour = (LinearLayout) view.findViewById(R.id.option_total_duel_hour);
         flashCard = (LinearLayout) view.findViewById(R.id.option_flash_card);
+        addQuestion = (LinearLayout) view.findViewById(R.id.option_add_question);
     }
 
     private void configure() {
@@ -101,6 +104,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         settings.setOnClickListener(this);
         totalDuelHour.setOnClickListener(this);
         flashCard.setOnClickListener(this);
+        addQuestion.setOnClickListener(this);
     }
 
     @Override
@@ -160,6 +164,15 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
                 Intent intent = new Intent(getContext(), FlashCardActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.option_add_question:
+//                EventBus.getDefault().post(new ChangePage(ParentActivity.ADD_QUESTION_PAGE));
+                AddQuestionFragment addQuestionFragmentment = (AddQuestionFragment) Fragment.instantiate(getActivity(), AddQuestionFragment.class.getName(), null);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_holder, addQuestionFragmentment, ParentActivity.ADD_QUESTION_FRAGMENT)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+
         }
     }
 

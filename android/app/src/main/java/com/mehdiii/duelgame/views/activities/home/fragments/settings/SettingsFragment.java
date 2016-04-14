@@ -70,35 +70,6 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
     User newSettings = new User();
     ProgressDialog progressDialog = null;
 
-    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
-                if (progressDialog != null)
-                    progressDialog.dismiss();
-
-                DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
-                int message = 0;
-                if (report != null && report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
-
-                    AuthManager.getCurrentUser().setName(newSettings.getName());
-                    AuthManager.getCurrentUser().setGender(newSettings.getGender());
-                    AuthManager.getCurrentUser().setEmail(newSettings.getEmail());
-                    AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
-                    AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
-                    AuthManager.getCurrentUser().setMajor(newSettings.getMajor());
-                    AuthManager.getCurrentUser().setSchool(newSettings.getSchool());
-                    // notify user changed to update ui
-                    EventBus.getDefault().post(new OnPurchaseResult());
-                    // set message for toast
-                    message = R.string.message_settings_save_successful;
-                } else message = R.string.message_settings_save_failed;
-
-                DuelApp.getInstance().toast(message, Toast.LENGTH_SHORT);
-            }
-        }
-    });
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_settings, container, false);
@@ -243,7 +214,6 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
             newSettings.setProvince(this.spinnerProvince.getSelectedItemPosition());
             newSettings.setGender(this.switchGender.isChecked() ? 1 : 0);
             Log.d("TAG", "user edited"+ newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));
-//            ;
             DuelApp.getInstance().sendMessage(newSettings.serialize(CommandType.SEND_UPDATE_SETTINGS));
         }
     }
@@ -264,5 +234,34 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         }
         return true;
     }
+    BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_UPDATE_SETTINGS) {
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                DeliveryReport report = BaseModel.deserialize(json, DeliveryReport.class);
+                int message = 0;
+                if (report != null && report.getStatusType() == DeliveryReport.DeliveryReportType.SUCCESSFUL) {
+
+                    AuthManager.getCurrentUser().setName(newSettings.getName());
+                    AuthManager.getCurrentUser().setGender(newSettings.getGender());
+                    AuthManager.getCurrentUser().setEmail(newSettings.getEmail());
+                    AuthManager.getCurrentUser().setAvatar(newSettings.getAvatar());
+                    AuthManager.getCurrentUser().setProvince(newSettings.getProvince());
+                    AuthManager.getCurrentUser().setMajor(newSettings.getMajor());
+                    AuthManager.getCurrentUser().setSchool(newSettings.getSchool());
+                    // notify user changed to update ui
+                    EventBus.getDefault().post(new OnPurchaseResult());
+                    // set message for toast
+                    message = R.string.message_settings_save_successful;
+                } else message = R.string.message_settings_save_failed;
+
+                DuelApp.getInstance().toast(message, Toast.LENGTH_SHORT);
+            }
+        }
+    });
+
 
 }

@@ -39,6 +39,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.addquestion.AddQuestionFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.duelhour.DuelHourFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
@@ -228,18 +229,6 @@ public class HomeActivity extends ParentActivity {
         setAlarmForDuelHour(this);
         cancelDuelHourNotification();
 
-
-
-//        CourseMap courseMap2 = BaseModel.deserialize(newj, CourseMap.class);
-//        for (StepCourse i : courseMap2.getStepCourses()){
-//            for(int j=0 ; j < i.getNum_chapters() ; j++){
-//                GlobalPreferenceManager.writeInt(this, String.valueOf(i.getCategory()) +
-//                        String.valueOf(i.getBook()) +
-//                        String.valueOf(j), i.getProgress().get(j));
-//            }
-//        }
-//        Log.d("TAG", "stared:" + GlobalPreferenceManager.readInteger(this, "1000441", -1));
-
         find();
         configure();
 
@@ -351,7 +340,10 @@ public class HomeActivity extends ParentActivity {
             getSupportFragmentManager().popBackStack();
             return;
         }
-
+        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.ADD_QUESTION_FRAGMENT) != null ) {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
         ConfirmDialog dialog = new ConfirmDialog(this, getResources().getString(R.string.message_are_you_sure_to_exit));
         dialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
@@ -399,6 +391,16 @@ public class HomeActivity extends ParentActivity {
                     .commit();
 
             settingsFragment.onBringToFront();
+        }
+
+        // add question fragment
+        if(change.getPage() == ParentActivity.ADD_QUESTION_PAGE) {
+            FlippableFragment addQuestionFragment = (FlippableFragment) Fragment.instantiate(this, AddQuestionFragment.class.getName(), null);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, addQuestionFragment, ParentActivity.ADD_QUESTION_FRAGMENT)
+                    .addToBackStack(null)
+                    .commit();
+
+            addQuestionFragment.onBringToFront();
         }
     }
 

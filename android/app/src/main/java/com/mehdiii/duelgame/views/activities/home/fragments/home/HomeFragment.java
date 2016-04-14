@@ -253,7 +253,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         super.onResume();
 
         Log.d("TAG", "onResume HomeFragment");
-        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
+//        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         EventBus.getDefault().register(this);
         bindViewData();
@@ -422,11 +422,13 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
-            Log.d("TAG", "course map received" + cm.serialize());
-            User user = AuthManager.getCurrentUser();
-            user.setCourseMap(cm);
-            Log.d("TAG", "course map received" + user.getCourseMap().serialize());
+            if (type == CommandType.RECEIVE_COURSE_MAP) {
+                CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
+                Log.d("TAG", "course map received" + cm.serialize());
+                User user = AuthManager.getCurrentUser();
+                user.setCourseMap(cm);
+                Log.d("TAG", "course map received" + user.getCourseMap().serialize());
+            }
         }
     });
 }

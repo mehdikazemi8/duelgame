@@ -3,6 +3,7 @@
     <string name="message_click_photo_to_choose_avatar">بزن روی عکس\nصورتکی که دوس داری رو انتخاب کن</string>
     <string name="message_share">برو اپلیکیشن دوئل کنکور رو از لینک زیر بگیر: %s</string>
     <string name="message_settings_save_successful">اطلاعات با موفقیت ذخیره شد.</string>
+    <string name="new_question_send_successful">سوال با موفقیت ارسال شد.</string>
     <string name="message_settings_save_failed">نشد! لطفا بعدا دوباره تلاش کنید.</string>
     <string name="message_heart_is_low">قلبهایتان تمام شده است. لطفا کمی صبر کنید یا با خرج کمی الماس دوباره قلبهای خود را پرکنید.</string>
     <string name="error_add_friend_invalid">کد وارد شده صحیح نیست. لطفا دقت کنید.</string>
@@ -32,4 +33,15 @@
     <string name="message_purchase_successful">خرید با موفقیت انجام شد.</string>
     <string name="message_purchase_failed">خرید انجام نشد.</string>
     <string name="message_yes">آره</string>
+
+    <string name="add_question_duplicate_answer">گزینه‌های مشابه وارد نکنید.</string>
+    <string name="add_question_validate_chapter">لطفا درس مربوط به سوال را وارد کنید.</string>
+    <string name="add_question_validate_book">لطفا کتاب مربوط به سوال را وارد کنید.</string>
+    <string name="add_question_validate_option2">لطفا گزینه‌ی دوم را وارد کنید.</string>
+    <string name="add_question_validate_option3">لطفا گزینه‌ی سوم را وارد کنید.</string>
+    <string name="add_question_validate_option4">لطفا گزینه‌ی چهارم را وارد کنید.</string>
+    <string name="add_question_validate_answer">لطفا جواب سوال را وارد کنید.</string>
+    <string name="add_question_validate_question">لطفا صورت سوال را وارد کنید</string>
+    <string name="add_question_header">به ازای هر سوالی که می‌فرستی بعد از تایید ۳ قلب دریافت می‌کنی.</string>
+
 </resources>

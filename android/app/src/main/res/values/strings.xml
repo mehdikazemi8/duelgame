@@ -14,9 +14,9 @@
     <string name="caption_subscribe_description"> ۸ آزمون جمع‌بندی برای قلم‌چی\n۵ آزمون جمع‌بندی برای سنجش\n۱۰۰ آزمون جمع‌بندی روزانه تا کنکور\nروزانه ۴۰ قلب برای دوئل\n۷۰۰۰ الماس</string>
     <string name="quiz_description_ghalamchi">جمع‌بندی عمومی قلم‌چی ۲۱ اسفند\nجمع‌بندی عمومی قلم‌چی ۷ فروردین\nجمع‌بندی عمومی قلم‌چی ۲۰ فروردین\nجمع‌بندی عمومی قلم‌چی ۳ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۱۷ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۳۱ اردیبهشت\nجمع‌بندی عمومی قلم‌چی ۲۱ خرداد\nجمع‌بندی عمومی قلم‌چی ۴ تیر\nجمع‌بندی عمومی قلم‌چی ۱۸ تیر</string>
     <string name="quiz_description_sanjesh">جمع‌بندی عمومی سنجش ۲۰ فروردین\nجمع‌بندی عمومی سنجش ۱۰ اردیبهشت\nجمع‌بندی عمومی سنجش ۲۴ اردیبهشت\nجمع‌بندی عمومی سنجش ۷ خرداد\nجمع‌بندی عمومی سنجش ۱۱ تیر</string>
-    <string name="quiz_description_daily">توضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش\nتوضیحات آزمون های سنجش</string>
-    <string name="quiz_description_heart">توضیحات دریافت قلب\n حالت عادی و حالت عضویت</string>
-    <string name="quiz_description_diamond">توضیحات تعداد الماس\n روش های دریافت الماس\n موارد استفاده الماس</string>
+    <string name="quiz_description_daily">آزمون‌های جمع بندی دوئل به صورت روزانه برگزار می‌شود و شامل همه‌ی درس‌هاست.\nبا شرکت در آزمون‌های روزانه می‌تونید درس‌های عمومی و زیست شناسی رو تا روز کنکور حسابی دوره کنید\nرتبه‌ی شما بعد هر آزمون روزانه مشخص می‌شه و می‌تونید روند پیشرفت‌تون رو ببینید.</string>
+    <string name="quiz_description_heart">جای ۵ قلب در روز ۴۰ قلب دریافت می‌کنید</string>
+    <string name="quiz_description_diamond">۷۰۰۰ الماس هم دریافت می‌کنید.</string>
     <string name="subscription_price">هزینه: %d تومان</string>
 
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
@@ -113,6 +113,125 @@
         <item>همدان</item>
         <item>یزد</item>
     </string-array>
+    <string-array name="chapters">
+            <item >انتخاب درس</item>
+            <item >درس/فصل اول</item>
+            <item >درس/فصل دوم</item>
+            <item >درس/فصل سوم</item>
+            <item >درس/فصل چهارم</item>
+            <item >درس/فصل پنجم</item>
+            <item >درس/فصل ششم</item>
+            <item >درس/فصل هفتم</item>
+            <item >درس/فصل هشتم</item>
+            <item >درس/فصل نهم</item>
+            <item >درس/فصل دهم</item>
+            <item >درس/فصل یازدهم</item>
+            <item >درس/فصل دوازدهم</item>
+            <item >درس/فصل سیزدهم</item>
+            <item >درس/فصل چهاردهم</item>
+            <item >درس/فصل پانزدهم</item>
+            <item >درس/فصل شانزدهم</item>
+            <item >درس/فصل هفدهم</item>
+            <item >درس/فصل هجدهم</item>
+            <item >درس/فصل نوزدهم</item>
+            <item >درس/فصل بیستم</item>
+            <item >درس/فصل بیست و یکم</item>
+            <item >درس/فصل بیست و دوم</item>
+            <item >درس/فصل بیست و سوم</item>
+            <item >درس/فصل بیست و چهارم</item>
+            <item >درس/فصل بیست و پنجم</item>
+            <item >درس/فصل بیست و ششم</item>
+            <item >درس/فصل بیست و هفتم</item>
+            <item >درس/فصل بیست و هشتم</item>
+            <item >درس/فصل بیست و نهم</item>
+            <item >درس/فصل سی ام</item>
+    </string-array>
+<integer-array name="chaptersId">
+    <item>0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+        <item >5</item>
+        <item >6</item>
+        <item >7</item>
+        <item >8</item>
+        <item >9</item>
+        <item >10</item>
+        <item >11</item>
+        <item >12</item>
+        <item >13</item>
+        <item >14</item>
+        <item >15</item>
+        <item >16</item>
+        <item >17</item>
+        <item >18</item>
+        <item >19</item>
+        <item >20</item>
+        <item >21</item>
+        <item >22</item>
+        <item >23</item>
+        <item >24</item>
+        <item >25</item>
+        <item >26</item>
+        <item >27</item>
+        <item >28</item>
+        <item >29</item>
+        <item >30</item>
+    
+</integer-array>
+    <string-array name="courses">
+            <item >انتخاب کتاب</item>
+            <item >ادبیات ۲</item>
+            <item >ادبیات ۳</item>
+            <item >ادبیات پیش دانشگاهی</item>
+            <item >زبان فارسی ۳</item>
+
+            <item >عربی ۱</item>
+            <item >عربی ۲</item>
+            <item >عربی ۳</item>
+
+            <item >دین و زندگی ۲</item>
+            <item >دین و زندگی ۳</item>
+            <item >دین و زندگی پیش دانشگاهی</item>
+
+            <item >زبان ۳</item>
+            <item >زبان پیش دانشگاهی</item>
+
+            <item >شیمی ۲</item>
+            <item >شیمی ۳</item>
+            <item >شیمی پیش دانشگاهی</item>
+
+            <item >زیست ۲</item>
+            <item >زیست ۳</item>
+            <item >زیست پیش دانشگاهی</item>
+    </string-array>
+    <integer-array name="coursesId">
+        <item>0</item>
+        <item >11</item>
+        <item >12</item>
+        <item >13</item>
+        <item >14</item>
+
+        <item >21</item>
+        <item >22</item>
+        <item >23</item>
+
+        <item >31</item>
+        <item >32</item>
+        <item >33</item>
+
+        <item >41</item>
+        <item >42</item>
+
+        <item >51</item>
+        <item >52</item>
+        <item >53</item>
+
+        <item >61</item>
+        <item >62</item>
+        <item >63</item>
+    </integer-array>
 
     <string-array name="majors">
         <item>انتخاب رشته</item>
