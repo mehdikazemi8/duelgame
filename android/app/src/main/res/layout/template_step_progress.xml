@@ -9,39 +9,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:background="@color/purple_sexy">
-
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            android:id="@+id/progress_star_count"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/step_title"
-            android:textSize="@dimen/fontsize.normal" />
-
-        <com.mehdiii.duelgame.views.custom.CustomTextView
-            android:id="@+id/progress_star"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/yellow"
-            android:text="@string/step_title"
-            android:textSize="@dimen/fontsize.normal" />
-
+        android:layout_margin="50dp"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/step_box_active">
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:id="@+id/progress"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
+            android:layout_gravity="center"
             android:textColor="@color/white"
             android:text="@string/step_title"
-            android:textSize="@dimen/fontsize.normal" />
+            android:layout_margin="20dp"
+            android:textSize="@dimen/fontsize.largex" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp"
+            >
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/progress_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/yellow"
+                android:text="@string/step_title"
+                android:layout_gravity="center"
+                android:textSize="@dimen/fontsize.large" />
+
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                android:id="@+id/progress_star_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:text="@string/step_title"
+                android:textSize="@dimen/fontsize.large" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -21,8 +21,10 @@ import android.widget.TextView;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.ChapterResult;
+import com.mehdiii.duelgame.models.CourseMap;
 import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
@@ -202,7 +204,6 @@ public class StepFragment extends Fragment implements View.OnClickListener {
                 review(shuffles);
                 break;
         }
-
     }
 
     private void startQuiz() {
@@ -284,6 +285,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             result.setVisibility(View.VISIBLE);
             title.setText("نتیجه آزمون");
             calculateScore();
+            initialSubmitAnswer();
             submitAnswer();
             animateStars();
 
@@ -374,6 +376,12 @@ public class StepFragment extends Fragment implements View.OnClickListener {
                 nextQuestion.setText("پایان آزمون و ثبت جواب ها");
             }
         }
+    }
+
+    private void initialSubmitAnswer() {
+        CourseMap cm = AuthManager.getCurrentUser().getCourseMap();
+        cm.getStepByCategoryAndBook(getArguments().getInt("category"), getArguments().getInt("book"))
+                .addToProgress(getArguments().getInt("chapterIndex"), stars);
     }
 
     private String shuffleString(String input) {

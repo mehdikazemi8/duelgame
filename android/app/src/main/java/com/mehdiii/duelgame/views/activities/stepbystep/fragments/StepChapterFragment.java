@@ -27,6 +27,7 @@ import com.mehdiii.duelgame.models.StepProblemCollection;
 import com.mehdiii.duelgame.models.UseDiamond;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnStepCompleted;
 import com.mehdiii.duelgame.utils.CategoryManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -82,10 +85,15 @@ public class StepChapterFragment extends Fragment {
         for (int i=0; i<chapterCount; i++){
             ChapterForStep cfs = new ChapterForStep();
             cfs.setName(String.valueOf(i + 1));
-            if (stars.size()!=0 && stars.size()>i)
+            if (stars.size()!=0 && stars.size()>i) {
                 cfs.setStars(stars.get(i));
-            else
+            }
+            else if(stars.size()!=0 && stars.size()==i)
                 cfs.setStars(0);
+            else if(stars.size()==0 && i==0)
+                cfs.setStars(0);
+            else
+                cfs.setStars(-1);
             chapterForSteps.add(i,cfs);
         }
         StepChapterListAdapter adapter = new StepChapterListAdapter(getActivity(), R.layout.template_step_chapter,chapterForSteps);
@@ -108,11 +116,13 @@ public class StepChapterFragment extends Fragment {
     public void onPause() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onDestroy();
+        EventBus.getDefault().register(this);
     }
 
     private void checkRetake(final int i) {
@@ -144,6 +154,8 @@ public class StepChapterFragment extends Fragment {
             });
             retakeStepDialog.show();
         }
+        else if (stars == -1)
+            return;
         else
             startStep(i);
     }
@@ -170,7 +182,9 @@ public class StepChapterFragment extends Fragment {
             bundle.putString("courseId", getArguments().getString("courseId"));
             bundle.putInt("chapterIndex", spc.getChapter_index());
             bundle.putInt("category", getArguments().getInt("category"));
-            bundle.putInt("book", getArguments().getInt("book") );
+            bundle.putInt("book", getArguments().getInt("book"));
+            int chapInd = spc.getChapter_index() + 1;
+            bundle.putString("stepName", getArguments().getString("courseName")+" درس"+chapInd);
             stepFragment = StepFragment.getInstance();
             stepFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().
@@ -178,4 +192,35 @@ public class StepChapterFragment extends Fragment {
                     addToBackStack(null).commit();
         }
     });
+
+
+    public void onEvent(OnStepCompleted event) {
+        putStepStars();
+    }
+
+    private void putStepStars() {
+        int chapterCount = getArguments().getInt("chapterCount");
+        ArrayList<Integer> stars = AuthManager.getCurrentUser()
+                .getCourseMap()
+                .getStepByCategoryAndBook(getArguments().getInt("category"), getArguments().getInt("book"))
+                .getProgress();
+
+        chapterForSteps = new ArrayList<>();
+        for (int i=0; i<chapterCount; i++){
+            ChapterForStep cfs = new ChapterForStep();
+            cfs.setName(String.valueOf(i + 1));
+            if (stars.size()!=0 && stars.size()>i) {
+                cfs.setStars(stars.get(i));
+            }
+            else if(stars.size()!=0 && stars.size()==i)
+                cfs.setStars(0);
+            else if(stars.size()==0 && i==0)
+                cfs.setStars(0);
+            else
+                cfs.setStars(-1);
+            chapterForSteps.add(i,cfs);
+        }
+        StepChapterListAdapter adapter = new StepChapterListAdapter(getActivity(), R.layout.template_step_chapter,chapterForSteps);
+        chaptersList.setAdapter(adapter);
+    }
 }

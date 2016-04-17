@@ -28,4 +28,11 @@ public class CourseMap extends BaseModel {
         }
         return stepCourses;
     }
+    public StepCourse getStepByCategoryAndBook(int category, int book){
+        for (StepCourse stepCourse: this.stepCourses ){
+            if (stepCourse.getCategory() == category && stepCourse.getBook() == book )
+                return stepCourse;
+        }
+        return null;
+    }
 }

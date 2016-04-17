@@ -51,7 +51,7 @@ public class ProgressListAdapter  extends ArrayAdapter<ProgressForStep> {
         textViewLastStepStar = (CustomTextView) convertView.findViewById(R.id.progress_star);
         textViewLastStepStarCount = (CustomTextView) convertView.findViewById(R.id.progress_star_count);
 
-        this.textViewLastStepStarCount.setText(progresses.get(position).getStars() + " از " + progresses.get(position).getTotalStars());
+        this.textViewLastStepStarCount.setText(progresses.get(position).getStars() + " از " + progresses.get(position).getTotalStars()*3);
         this.textViewLastStep.setText( progresses.get(position).getName());
         this.textViewLastStepStar.setText("c");
         this.textViewLastStepStar.setTypeface(FontHelper.getIcons(getContext()));

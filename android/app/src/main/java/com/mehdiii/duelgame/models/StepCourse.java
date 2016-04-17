@@ -69,4 +69,9 @@ public class StepCourse extends BaseModel {
     public void setProgress(ArrayList<Integer> progress) {
         this.progress = progress;
     }
+
+    public void addToProgress(int index, int star){
+        if(this.progress.get(index)<star)
+            this.progress.add(index, star);
+    }
 }

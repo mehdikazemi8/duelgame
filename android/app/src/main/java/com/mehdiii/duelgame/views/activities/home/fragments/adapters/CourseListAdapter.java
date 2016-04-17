@@ -43,7 +43,8 @@ public class CourseListAdapter extends ArrayAdapter<CourseForDuel> {
         }
         CustomTextView stepBook = (CustomTextView) convertView.findViewById(R.id.step_book);
         TextView stepStar = (TextView) convertView.findViewById(R.id.step_stars);
-        stepBook.setText(steps.get(position).getName());
+        int chapterNum = steps.get(position).getChapter() + 1;
+        stepBook.setText(steps.get(position).getName() + " درس" + chapterNum);
         stepStar.setTypeface(FontHelper.getIcons(getContext()));
         int stars = steps.get(position).getStars();
         switch (stars){
