@@ -9,9 +9,11 @@
         android:id="@+id/chapter_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:layout_gravity="center"
         android:orientation="horizontal"
-        android:background="@color/purple_sexy">
+        android:background="@drawable/step_box_active">
 
         <com.mehdiii.duelgame.views.custom.CustomTextView
             android:id="@+id/chapter_star"
@@ -19,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_gravity="center"
             android:textColor="@color/yellow"
             android:text="@string/step_title"
             android:textSize="@dimen/fontsize.normal" />
@@ -28,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+
             android:textColor="@color/white"
             android:text="@string/step_title"
             android:textSize="@dimen/fontsize.normal" />

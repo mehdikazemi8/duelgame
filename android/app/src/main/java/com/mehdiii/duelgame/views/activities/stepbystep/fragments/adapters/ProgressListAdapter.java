@@ -5,16 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.ProgressForStep;
-import com.mehdiii.duelgame.models.StepForDuel;
-import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by frshd on 4/7/16.
@@ -24,8 +21,7 @@ public class ProgressListAdapter  extends ArrayAdapter<ProgressForStep> {
 
     private LayoutInflater layoutInflater;
     CustomTextView textViewLastStep;
-    CustomTextView textViewLastStepStar;
-    CustomTextView textViewLastStepStarCount;
+    CircleProgress circleProgress;
 
     public ProgressListAdapter(Context context, int resource, List<ProgressForStep> steps) {
         super(context, resource);
@@ -48,37 +44,14 @@ public class ProgressListAdapter  extends ArrayAdapter<ProgressForStep> {
         }
 
         textViewLastStep = (CustomTextView) convertView.findViewById(R.id.progress);
-        textViewLastStepStar = (CustomTextView) convertView.findViewById(R.id.progress_star);
-        textViewLastStepStarCount = (CustomTextView) convertView.findViewById(R.id.progress_star_count);
+        circleProgress = (CircleProgress) convertView.findViewById(R.id.donut_progress);
+        this.textViewLastStep.setText(progresses.get(position).getName());
+        circleProgress.setFinishedColor(getContext().getResources().getColor(R.color.purple_sexy));
+        circleProgress.setUnfinishedColor(getContext().getResources().getColor(R.color.purple_sexy_trans));
+        int progressPercentage = (int)((progresses.get(position).getStars() / (float) (progresses.get(position).getTotalStars() * 3)) * 100);
+        circleProgress.setProgress(progressPercentage);
+        circleProgress.setTextColor(getContext().getResources().getColor(R.color.white));
 
-        this.textViewLastStepStarCount.setText(progresses.get(position).getStars() + " از " + progresses.get(position).getTotalStars()*3);
-        this.textViewLastStep.setText( progresses.get(position).getName());
-        this.textViewLastStepStar.setText("c");
-        this.textViewLastStepStar.setTypeface(FontHelper.getIcons(getContext()));
-
-//        CustomTextView stepBook = (CustomTextView) convertView.findViewById(R.id.step_book);
-//        TextView stepStar = (TextView) convertView.findViewById(R.id.step_stars);
-//        stepBook.setText(progresses.get(position).getName());
-//        stepStar.setTypeface(FontHelper.getIcons(getContext()));
-//        int stars = progresses.get(position).getStars();
-//        switch (stars){
-//            case -1:
-//                stepStar.setText("Z");
-//                break;
-//            case 0:
-//                stepStar.setText("aaa");
-//                break;
-//            case 1:
-//                stepStar.setText("caa");
-//                break;
-//            case 2:
-//                stepStar.setText("cca");
-//                break;
-//            case 3:
-//                stepStar.setText("ccc");
-//                break;
-//        }
         return convertView;
     }
-
 }

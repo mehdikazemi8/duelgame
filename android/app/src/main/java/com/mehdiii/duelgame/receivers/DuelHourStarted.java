@@ -25,7 +25,7 @@ public class DuelHourStarted extends BroadcastReceiver {
         Log.d("TAG", "DuelHourStarted onReceive");
 
         NotificationHelper.setLEDNotification(context);
-        NotificationHelper.setVibration(context);
+//        NotificationHelper.setVibration(context);
         NotificationHelper.setStatusBarNotification(context);
     }
 }

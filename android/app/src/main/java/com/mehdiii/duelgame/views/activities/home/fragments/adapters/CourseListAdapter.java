@@ -44,7 +44,7 @@ public class CourseListAdapter extends ArrayAdapter<CourseForDuel> {
         CustomTextView stepBook = (CustomTextView) convertView.findViewById(R.id.step_book);
         TextView stepStar = (TextView) convertView.findViewById(R.id.step_stars);
         int chapterNum = steps.get(position).getChapter() + 1;
-        stepBook.setText(steps.get(position).getName() + " درس" + chapterNum);
+        stepBook.setText(steps.get(position).getName() + "\nدرس " + chapterNum);
         stepStar.setTypeface(FontHelper.getIcons(getContext()));
         int stars = steps.get(position).getStars();
         switch (stars){
@@ -52,7 +52,7 @@ public class CourseListAdapter extends ArrayAdapter<CourseForDuel> {
                 stepStar.setText("Z");
                 break;
             case 0:
-                stepStar.setText("aaa");
+                stepStar.setText("Z");
                 break;
             case 1:
                 stepStar.setText("caa");

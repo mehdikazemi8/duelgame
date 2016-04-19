@@ -103,6 +103,30 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         super.onViewCreated(view, savedInstanceState);
         DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
+
+//        Initial data for coursemap
+//        CourseMap cm = new CourseMap();
+//        ArrayList< StepCourse > sc = new ArrayList<>();
+//        for (int i = 0 ; i < 5 ; i++)
+//        {
+//            StepCourse scatom = new StepCourse();
+//            scatom.setName("زبان" + i);
+//            scatom.setNum_chapters(10);
+//            ArrayList<Integer> pro = new ArrayList<>();
+//            pro.add(1);
+//            pro.add(i%3);
+//            pro.add(3);
+//            scatom.setProgress(pro);
+//            scatom.setCourse_id("aa123");
+//            scatom.setCategory(i+1);
+//            scatom.setBook(i);
+//            cm.setStepCourses(sc);
+//            sc.add(scatom);
+//        }
+//        cm.setStepCourses(sc);
+//        AuthManager.getCurrentUser().setCourseMap(cm);
+//        Initial coursemap finished
+
         Log.d("TAG", "onResume onViewCreated");
 
         /**

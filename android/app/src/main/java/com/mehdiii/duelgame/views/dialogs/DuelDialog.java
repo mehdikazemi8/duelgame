@@ -79,7 +79,7 @@ public class DuelDialog extends Dialog {
                 CourseMap courseMap = user.getCourseMap();
                 Log.d("TAG", "course map here"+courseMap.serialize());
                 for( StepCourse stepCourse : courseMap.getStepCourses()){
-                    if( stepCourse.getCategory() == ParentActivity.category)
+                    if( stepCourse.getCategory() == ParentActivity.category && ParentActivity.category == 10004)
                         stepDuel = true;
                 }
 
