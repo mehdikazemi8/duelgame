@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,6 +49,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.onlineusers.OnlineUs
 import com.mehdiii.duelgame.views.activities.home.fragments.settings.SettingsFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
@@ -82,16 +85,25 @@ public class HomeActivity extends ParentActivity {
     List<Fragment> childFragments;
     ScoresDialog scoresDialog;
 
+    boolean gotDuel = false;
+    boolean gotQuiz = false;
+
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
             if(view.getId() == R.id.button_more_options) {
-                OptionsMenuDialog menuDialog = new OptionsMenuDialog();
-                menuDialog.setContext(HomeActivity.this);
-                menuDialog.show(getSupportFragmentManager(), "OPTIONS_MENU");
-
-                return;
+                if (!gotDuel){
+                    setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول یک بار دوئل کنی.");
+                    return;
+                } else if (!gotQuiz){
+                    setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک آزمون شرکت کنی.");
+                    return;
+                } else {
+                    OptionsMenuDialog menuDialog = new OptionsMenuDialog();
+                    menuDialog.setContext(HomeActivity.this);
+                    menuDialog.show(getSupportFragmentManager(), "OPTIONS_MENU");
+                    return;}
             }
 
             if (previous != null)
@@ -104,24 +116,44 @@ public class HomeActivity extends ParentActivity {
                     viewPager.setCurrentItem(3, true);
                     break;
                 case R.id.button_friends:
-                    viewPager.setCurrentItem(2, true);
-                    break;
+                    if (!gotDuel){
+                        setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول یک بار دوئل کنی.");
+                        break;
+                    } else if (!gotQuiz){
+                        setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک آزمون شرکت کنی.");
+                        break;
+                    } else {
+                        viewPager.setCurrentItem(2, true);
+                        break;
+                    }
                 case R.id.button_duel_hour:
-                    viewPager.setCurrentItem(1, true);
-                    break;
+                    if(!gotDuel){
+                        setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول یک بار دوئل کنی.");
+                        break;
+                    } else if (!gotQuiz){
+                        setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول در یک آزمون شرکت کنی.");
+                        break;
+                    } else {
+                        viewPager.setCurrentItem(1, true);
+                        break;
+                    }
                 case R.id.button_online_users:
-                    viewPager.setCurrentItem(0, true);
-                    break;
-//                case R.id.button:
-//                    viewPager.setCurrentItem(1, true);
-//                    break;
-//                case R.id.button_settings:
-//                    viewPager.setCurrentItem(0, true);
-//                    break;
+                    if(!gotDuel){
+                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول یک بار دوئل کنی.");
+                        break;
+                    } else if (!gotQuiz){
+                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک آزمون شرکت کنی.");
+                        break;
+                    } else {
+                        viewPager.setCurrentItem(0, true);
+                        break;
+                    }
             }
         }
     };
+
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         }
@@ -129,6 +161,7 @@ public class HomeActivity extends ParentActivity {
 
         @Override
         public void onPageSelected(int position) {
+
             if (previous != null)
                 previous.toggle();
 
@@ -137,8 +170,7 @@ public class HomeActivity extends ParentActivity {
                 @Override
                 public void run() {
                     for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
-                        getSupportFragmentManager().popBackStack();
-                }
+                        getSupportFragmentManager().popBackStack();}
             });
 
             switch (position) {
@@ -160,6 +192,7 @@ public class HomeActivity extends ParentActivity {
                     break;
             }
 
+
             if (selection != null) {
                 selection.toggle();
                 previous = selection;
@@ -169,7 +202,16 @@ public class HomeActivity extends ParentActivity {
         @Override
         public void onPageScrollStateChanged(int state) {
         }
+
     };
+
+    private void setHomeButtonsState(ToggleButton toggledButton, String msg){
+        AlertDialog dialog = new AlertDialog(HomeActivity.this, msg);
+        dialog.show();
+        homeButton.toggle();
+        toggledButton.toggle();
+        previous = homeButton;
+    }
 
     public static void registerInBackground() {
         registerInBackground(null);
@@ -254,6 +296,16 @@ public class HomeActivity extends ParentActivity {
 
         if(! DuelApp.getInstance().isConnected())
             DuelApp.getInstance().connectToWs();
+
+        if (AuthManager.getCurrentUser().getScore() == 0 )
+            gotDuel = false;
+        else
+            gotDuel = true;
+
+        if (AuthManager.getCurrentUser().getQuizTaken() == 0 || true)
+            gotQuiz = false;
+        else
+            gotQuiz = true;
     }
 
     private boolean checkPlayServices() {
@@ -286,6 +338,18 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void configure() {
+        
+        if (AuthManager.getCurrentUser().getScore() == 0 || true)
+
+            gotDuel = false;
+        else
+            gotDuel = true;
+
+        if (AuthManager.getCurrentUser().getQuizTaken() == 0 )
+            gotQuiz = false;
+        else
+            gotQuiz = true;
+
         scoresDialog = new ScoresDialog(HomeActivity.this);
 
         createChildFragments();

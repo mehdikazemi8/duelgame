@@ -75,6 +75,16 @@ public class User extends BaseModel {
     private String motd;
     @SerializedName("course_map")
     private CourseMap courseMap;
+    @SerializedName("exams_taken")
+    private int QuizTaken;
+
+    public int getQuizTaken() {
+        return QuizTaken;
+    }
+
+    public void setQuizTaken(int quizTaken) {
+        QuizTaken = quizTaken;
+    }
 
     public CourseMap getCourseMap() {
         return courseMap;

@@ -84,6 +84,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Map<Integer, CustomTextView> courseRanks;
     Map<Integer, CustomTextView> courseScores;
     Map<Integer, LinearLayout> courseHolders;
+
+    boolean gotDuel = false;
+    boolean gotQuiz = false;
+
     int courseIds[] = new int []{
         10001,
         10002,
@@ -129,14 +133,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
         Log.d("TAG", "onResume onViewCreated");
 
-        /**
-         * find controls and bind view data
-         */
         find(view);
-
-        /**
-         * configure click listeners and setup typeface
-         */
         configure(view);
     }
 
@@ -154,6 +151,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void configure(View view) {
+
+        if(AuthManager.getCurrentUser().getScore()==0 )
+            gotDuel = false;
+        else
+            gotDuel = true;
+
+        if (AuthManager.getCurrentUser().getQuizTaken() == 0 || true)
+            gotQuiz = false;
+        else
+            gotQuiz = true;
 
         configureCourseHolders();
 
@@ -327,18 +334,44 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 break;
 
             case R.id.button_offline_duels_lists:
-                Intent intent = new Intent(getActivity(), OfflineDuelsListsActivity.class);
-                intent.putExtra("tab", 0);
-                startActivity(intent);
-                break;
+                if (!gotDuel){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید یک بار دوئل کنی.");
+                    dialog.show();
+                    break;
+                } else if (!gotQuiz){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک آزمون شرکت کنی.");
+                    dialog.show();
+                    break;
+                } else {
+                    Intent intent = new Intent(getActivity(), OfflineDuelsListsActivity.class);
+                    intent.putExtra("tab", 0);
+                    startActivity(intent);
+                    break;
+                }
 
             case R.id.quiz_button:
-                startActivity(new Intent(getActivity(), QuizActivity.class));
-                break;
+                if (!gotDuel){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید یک بار دوئل کنی.");
+                    dialog.show();
+                    break;
+                } else {
+                    startActivity(new Intent(getActivity(), QuizActivity.class));
+                    break;
+                }
 
             case R.id.step_quiz:
-                startActivity(new Intent(getActivity(), StepActivity.class));
-                break;
+                if (!gotDuel){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید یک بار دوئل کنی.");
+                    dialog.show();
+                    break;
+                } else if (!gotQuiz){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک آزمون شرکت کنی.");
+                    dialog.show();
+                    break;
+                } else {
+                    startActivity(new Intent(getActivity(), StepActivity.class));
+                    break;
+                }
         }
     }
 
