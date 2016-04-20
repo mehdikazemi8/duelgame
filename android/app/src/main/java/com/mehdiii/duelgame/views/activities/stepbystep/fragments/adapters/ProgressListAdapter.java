@@ -53,7 +53,7 @@ public class ProgressListAdapter  extends ArrayAdapter<ProgressForStep> {
         circleProgress.setProgress(progressPercentage);
         circleProgress.setTextColor(getContext().getResources().getColor(R.color.white));
 
-        circleProgress.setTextSize(75.f);
+        circleProgress.setTextSize(getContext().getResources().getDimension(R.dimen.progress_font_size));
 
         return convertView;
     }

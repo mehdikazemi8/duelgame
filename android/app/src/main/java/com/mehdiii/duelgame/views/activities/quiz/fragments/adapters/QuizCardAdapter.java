@@ -94,7 +94,7 @@ public class QuizCardAdapter extends ArrayAdapter<Quiz> {
         int quizPrice = quiz.getPrice() - quiz.getPrice() * quiz.getDiscount() / 100;
 
         holder.timeToQuiz.setText(calculateTimeToQuiz(quiz.getTimeToQuiz(), status) +
-                (quizPrice == 0 ? " - رایگان" : ""));
+                (quizPrice == 0 ? " --- رایگان" : ""));
 
         holder.title.setText(quiz.getTitle());
         holder.isTaken.setTypeface(FontHelper.getIcons(getContext()));
