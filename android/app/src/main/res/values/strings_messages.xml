@@ -42,6 +42,6 @@
     <string name="add_question_validate_option4">لطفا گزینه‌ی چهارم را وارد کنید.</string>
     <string name="add_question_validate_answer">لطفا جواب سوال را وارد کنید.</string>
     <string name="add_question_validate_question">لطفا صورت سوال را وارد کنید</string>
-    <string name="add_question_header">به ازای هر سوالی که می‌فرستی بعد از تایید ۳ قلب دریافت می‌کنی.</string>
+    <string name="add_question_header">به ازای هر سوالی که می‌فرستی بعد از تایید 5 قلب دریافت می‌کنی.</string>
 
 </resources>

@@ -102,7 +102,7 @@ public class ProfileDialog extends Dialog {
     private void bindViewData() {
         Log.d("TAG", "ProfileDialog bindViewData"+ friend.getSchool());
         StepProgress zaban = new StepProgress();
-        List<StepProgress> progresses= friend.getStepProgress();
+        List<StepProgress> progresses = friend.getStepProgress();
         if(progresses!=null){
             for ( StepProgress p : progresses){
                 if(p.getCategory()==10004){

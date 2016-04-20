@@ -15,7 +15,7 @@
             android:layout_height="100dp"
             android:padding="2dp"
             android:layout_gravity="center"
-            android:src="@drawable/diamond"
+            android:src="@drawable/diamond_large"
             android:visibility="visible" />
 
         <TextView

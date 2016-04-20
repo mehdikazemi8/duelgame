@@ -96,7 +96,7 @@ public class AddQuestionFragment extends FlippableFragment implements View.OnCli
 
     private void configure() {
 
-        FontHelper.setKoodakFor(getActivity(),headerText , questionText, answerText, option2, option3,
+        FontHelper.setKoodakFor(getActivity(), headerText , questionText, answerText, option2, option3,
                 option4, description, sendButton);
         sendButton.setOnClickListener(this);
 
