@@ -38,6 +38,7 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
+import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
@@ -85,18 +86,15 @@ public class HomeActivity extends ParentActivity {
     List<Fragment> childFragments;
     ScoresDialog scoresDialog;
 
-    boolean gotDuel = false;
-    boolean gotQuiz = false;
-
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
             if(view.getId() == R.id.button_more_options) {
-                if (!gotDuel){
+                if (!UserFlowHelper.gotDuel()){
                     setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول یک بار دوئل کنی.");
                     return;
-                } else if (!gotQuiz){
+                } else if (!UserFlowHelper.gotQuiz()){
                     setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک آزمون شرکت کنی.");
                     return;
                 } else {
@@ -115,33 +113,36 @@ public class HomeActivity extends ParentActivity {
                 case R.id.button_home:
                     viewPager.setCurrentItem(3, true);
                     break;
+
                 case R.id.button_friends:
-                    if (!gotDuel){
+                    if (!UserFlowHelper.gotDuel()){
                         setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول یک بار دوئل کنی.");
                         break;
-                    } else if (!gotQuiz){
+                    } else if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک آزمون شرکت کنی.");
                         break;
                     } else {
                         viewPager.setCurrentItem(2, true);
                         break;
                     }
+
                 case R.id.button_duel_hour:
-                    if(!gotDuel){
+                    if(!UserFlowHelper.gotDuel()){
                         setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول یک بار دوئل کنی.");
                         break;
-                    } else if (!gotQuiz){
+                    } else if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول در یک آزمون شرکت کنی.");
                         break;
                     } else {
                         viewPager.setCurrentItem(1, true);
                         break;
                     }
+
                 case R.id.button_online_users:
-                    if(!gotDuel){
+                    if(!UserFlowHelper.gotDuel()){
                         setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول یک بار دوئل کنی.");
                         break;
-                    } else if (!gotQuiz){
+                    } else if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک آزمون شرکت کنی.");
                         break;
                     } else {
@@ -296,16 +297,6 @@ public class HomeActivity extends ParentActivity {
 
         if(! DuelApp.getInstance().isConnected())
             DuelApp.getInstance().connectToWs();
-
-        if (AuthManager.getCurrentUser().getScore() == 0 )
-            gotDuel = false;
-        else
-            gotDuel = true;
-
-        if (AuthManager.getCurrentUser().getQuizTaken() == 0 || true)
-            gotQuiz = false;
-        else
-            gotQuiz = true;
     }
 
     private boolean checkPlayServices() {
@@ -338,18 +329,6 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void configure() {
-        
-        if (AuthManager.getCurrentUser().getScore() == 0 || true)
-
-            gotDuel = false;
-        else
-            gotDuel = true;
-
-        if (AuthManager.getCurrentUser().getQuizTaken() == 0 )
-            gotQuiz = false;
-        else
-            gotQuiz = true;
-
         scoresDialog = new ScoresDialog(HomeActivity.this);
 
         createChildFragments();

@@ -43,9 +43,9 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
 
-//    public static String BASE_URL = "http://192.168.177.153:8000";
+    public static String BASE_URL = "http://192.168.177.153:8000";
 
-    public static String BASE_URL = "http://duelgame.ir:8000";
+//    public static String BASE_URL = "http://duelgame.ir:8000";
 
 //    static protected String wsuri = "ws://duelgame.ir:9003";
 

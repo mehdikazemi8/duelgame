@@ -45,6 +45,8 @@ public class GetQuizQuestions extends AsyncTask<Void, Void, String> {
             URI uri = new URI(DuelApp.BASE_URL + "/quizzes/" + quizId + "/questions?user_id=" +
                     DeviceManager.getDeviceId(mContext));
 
+            Log.d("TAG", "uri111 " + uri.toString());
+
             HttpGet httpGet = new HttpGet(uri);
             HttpResponse response = httpClient.execute(httpGet);
 

@@ -195,17 +195,23 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     private void sendGetQuestionsRequest() {
+        Log.d("TAG", "sendGetQuestionsRequest");
         // if we have saved data of quiz, then there is no need to request it again
         String quizJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"quiz", null);
         if(quizJson != null) {
             startQuizFragment(quizJson);
+            Log.d("TAG", "sendGetQuestionsRequest 222");
             return;
         }
+
+        Log.d("TAG", "sendGetQuestionsRequest 333");
 
         showProgressDialog();
         // send request for getting questions and then wait in broadcast receiver
 
         new GetQuizQuestions(getActivity(), quiz.getId()).execute();
+
+        Log.d("TAG", "sendGetQuestionsRequest 444");
 
 //        GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
 //        request.setCommand(CommandType.GET_QUIZ_QUESTIONS);

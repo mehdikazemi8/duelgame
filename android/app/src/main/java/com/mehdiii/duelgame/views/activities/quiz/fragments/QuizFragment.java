@@ -321,6 +321,13 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             }
 
             if(type == CommandType.RECEIVED_SUBMIT_QUIZ_ANSWER) {
+
+                Log.d("TAG", "RECEIVED_SUBMIT_QUIZ_ANSWER " + AuthManager.getCurrentUser().getQuizTaken());
+                AuthManager.getCurrentUser().setQuizTaken(
+                        AuthManager.getCurrentUser().getQuizTaken() + 1
+                );
+                Log.d("TAG", "RECEIVED_SUBMIT_QUIZ_ANSWER " + AuthManager.getCurrentUser().getQuizTaken());
+
                 try {
                     JSONObject parser = new JSONObject(json);
                     if( !parser.getString("id").equals(quiz.getId()) )

@@ -39,6 +39,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
+import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
@@ -84,9 +85,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Map<Integer, CustomTextView> courseRanks;
     Map<Integer, CustomTextView> courseScores;
     Map<Integer, LinearLayout> courseHolders;
-
-    boolean gotDuel = false;
-    boolean gotQuiz = false;
 
     int courseIds[] = new int []{
         10001,
@@ -151,16 +149,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     }
 
     private void configure(View view) {
-
-        if(AuthManager.getCurrentUser().getScore()==0 )
-            gotDuel = false;
-        else
-            gotDuel = true;
-
-        if (AuthManager.getCurrentUser().getQuizTaken() == 0 || true)
-            gotQuiz = false;
-        else
-            gotQuiz = true;
 
         configureCourseHolders();
 
@@ -334,11 +322,12 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 break;
 
             case R.id.button_offline_duels_lists:
-                if (!gotDuel){
+                Log.d("TAG", "button_offline_duels_lists " + UserFlowHelper.gotDuel() + " " + UserFlowHelper.gotQuiz());
+                if (!UserFlowHelper.gotDuel()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید یک بار دوئل کنی.");
                     dialog.show();
                     break;
-                } else if (!gotQuiz){
+                } else if (!UserFlowHelper.gotQuiz()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک آزمون شرکت کنی.");
                     dialog.show();
                     break;
@@ -350,7 +339,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 }
 
             case R.id.quiz_button:
-                if (!gotDuel){
+                if (!UserFlowHelper.gotDuel()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید یک بار دوئل کنی.");
                     dialog.show();
                     break;
@@ -360,11 +349,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 }
 
             case R.id.step_quiz:
-                if (!gotDuel){
+                if (!UserFlowHelper.gotDuel()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید یک بار دوئل کنی.");
                     dialog.show();
                     break;
-                } else if (!gotQuiz){
+                } else if (!UserFlowHelper.gotQuiz()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک آزمون شرکت کنی.");
                     dialog.show();
                     break;
@@ -413,8 +402,6 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             this.textViewHearts.setVisibility(View.VISIBLE);
         this.textViewHearts.setText(String.valueOf((user.getHeart())));
     }
-
-
 
     public void startGame() {
         if (!HeartTracker.getInstance().canUseHeart()) {
