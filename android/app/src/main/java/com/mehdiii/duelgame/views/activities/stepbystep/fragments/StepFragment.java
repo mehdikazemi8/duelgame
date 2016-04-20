@@ -32,6 +32,7 @@ import com.mehdiii.duelgame.models.QuizAnswer;
 import com.mehdiii.duelgame.models.StepCourse;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnStepCompleted;
+import com.mehdiii.duelgame.models.events.OnStepProgressChanged;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
@@ -291,6 +292,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             animateStars();
 
             EventBus.getDefault().post(new OnStepCompleted());
+            EventBus.getDefault().post(new OnStepProgressChanged());
             return;
         }
 

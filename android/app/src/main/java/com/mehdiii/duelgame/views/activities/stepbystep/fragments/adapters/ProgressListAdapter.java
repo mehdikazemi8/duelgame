@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.views.activities.stepbystep.fragments.adapters;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,8 @@ public class ProgressListAdapter  extends ArrayAdapter<ProgressForStep> {
         int progressPercentage = (int)((progresses.get(position).getStars() / (float) (progresses.get(position).getTotalStars() * 3)) * 100);
         circleProgress.setProgress(progressPercentage);
         circleProgress.setTextColor(getContext().getResources().getColor(R.color.white));
+
+        circleProgress.setTextSize(75.f);
 
         return convertView;
     }

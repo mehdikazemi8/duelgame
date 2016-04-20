@@ -13,6 +13,7 @@ import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.async.GetQuizQuestions;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.CourseMap;
 import com.mehdiii.duelgame.models.ProgressForStep;
 import com.mehdiii.duelgame.models.StepCourse;
@@ -20,6 +21,7 @@ import com.mehdiii.duelgame.models.StepForDuel;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.events.OnStepProgressChanged;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
@@ -57,7 +59,10 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
     }
 
     private void configure() {
+        initArrayList();
+    }
 
+    private void initArrayList() {
         progressList = new ArrayList<>();
         courseMap = AuthManager.getCurrentUser().getCourseMap();
         for(StepCourse cm : courseMap.getStepCourses()){
@@ -92,7 +97,11 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
                         .add( R.id.chapter_fragment_holder, chapterFragment)
                         .addToBackStack(null).commit();
             }
-            });
+        });
+    }
+
+    public void onEvent(OnStepProgressChanged changed) {
+        initArrayList();
     }
 
     @Override
