@@ -164,11 +164,13 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                     reviewQuiz.setVisibility(View.VISIBLE);
                     reviewResults.setVisibility(View.VISIBLE);
                 } else {
-                    reviewQuiz.setVisibility(View.VISIBLE);
-                    reviewResults.setVisibility(View.VISIBLE);
+                    attendQuiz.setVisibility(View.VISIBLE);
+//                    reviewQuiz.setVisibility(View.VISIBLE);
+//                    reviewResults.setVisibility(View.VISIBLE);
                 }
             } else {
-                reviewResults.setVisibility(View.VISIBLE);
+                registerQuiz.setVisibility(View.VISIBLE);
+//                reviewResults.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -338,7 +340,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startQuizFragment(String json) {
-        if(quiz.getTaken() || !quiz.getStatus().equals("running"))
+//        if(quiz.getTaken() || !quiz.getStatus().equals("running"))
+        if(quiz.getTaken())
             return;
 
         QuizFragment fragment = QuizFragment.getInstance();
