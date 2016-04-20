@@ -324,11 +324,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
             case R.id.button_offline_duels_lists:
                 Log.d("TAG", "button_offline_duels_lists " + UserFlowHelper.gotDuel() + " " + UserFlowHelper.gotQuiz());
                 if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید یک بار دوئل کنی.");
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
                     dialog.show();
                     break;
                 } else if (!UserFlowHelper.gotQuiz()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک آزمون شرکت کنی.");
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nآزمون\n\n شرکت کنی.");
                     dialog.show();
                     break;
                 } else {
@@ -340,7 +340,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.quiz_button:
                 if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید یک بار دوئل کنی.");
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
                     dialog.show();
                     break;
                 } else {
@@ -350,11 +350,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.step_quiz:
                 if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید یک بار دوئل کنی.");
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
                     dialog.show();
                     break;
                 } else if (!UserFlowHelper.gotQuiz()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک آزمون شرکت کنی.");
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک \n\nآزمون\n\n شرکت کنی.");
                     dialog.show();
                     break;
                 } else {

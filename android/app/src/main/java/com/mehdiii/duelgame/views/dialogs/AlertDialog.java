@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.views.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -56,7 +57,6 @@ public class AlertDialog extends Dialog {
         });
 
         textView.setText(this.message);
-
     }
 
     OnCompleteListener onCompleteListener = null;
