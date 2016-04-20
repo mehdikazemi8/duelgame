@@ -112,6 +112,8 @@ public class StepActivity extends ParentActivity implements View.OnClickListener
         }
     }
 
-
-
+    @Override
+    public boolean canHandleChallengeRequest() {
+        return true;
+    }
 }

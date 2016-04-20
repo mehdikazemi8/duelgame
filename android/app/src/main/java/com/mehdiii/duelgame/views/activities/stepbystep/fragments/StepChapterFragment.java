@@ -66,7 +66,7 @@ public class StepChapterFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
+
         find(view);
         configure();
     }
@@ -109,7 +109,6 @@ public class StepChapterFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 
     @Override
@@ -122,6 +121,7 @@ public class StepChapterFragment extends Fragment {
     @Override
     public void onResume() {
         super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         EventBus.getDefault().register(this);
     }
 
@@ -170,30 +170,6 @@ public class StepChapterFragment extends Fragment {
         return new StepChapterFragment();
     }
 
-    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            Bundle bundle = new Bundle();
-            StepProblemCollection spc = StepProblemCollection.deserialize(json, StepProblemCollection.class);
-            Log.d("TAG", "questions recieved" + spc.serialize());
-            quiz = new Quiz();
-            quiz.setQuestions(spc.getQuestions());
-            bundle.putString("quiz", quiz.serialize());
-            bundle.putString("courseId", getArguments().getString("courseId"));
-            bundle.putInt("chapterIndex", spc.getChapter_index());
-            bundle.putInt("category", getArguments().getInt("category"));
-            bundle.putInt("book", getArguments().getInt("book"));
-            int chapInd = spc.getChapter_index() + 1;
-            bundle.putString("stepName", getArguments().getString("courseName")+" درس"+chapInd);
-            stepFragment = StepFragment.getInstance();
-            stepFragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().
-                    add(R.id.step_fragment_holder, stepFragment).
-                    addToBackStack(null).commit();
-        }
-    });
-
-
     public void onEvent(OnStepCompleted event) {
         putStepStars();
     }
@@ -238,4 +214,30 @@ public class StepChapterFragment extends Fragment {
         StepChapterListAdapter adapter = new StepChapterListAdapter(getActivity(), R.layout.template_step_chapter,chapterForSteps);
         chaptersList.setAdapter(adapter);
     }
+
+    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if(type == CommandType.RECEIVE_COURSE_CHAPTER_QUESTION) {
+                Bundle bundle = new Bundle();
+                StepProblemCollection spc = StepProblemCollection.deserialize(json, StepProblemCollection.class);
+                Log.d("TAG", "questions recieved" + spc.serialize());
+                quiz = new Quiz();
+                quiz.setQuestions(spc.getQuestions());
+                bundle.putString("quiz", quiz.serialize());
+                bundle.putString("courseId", getArguments().getString("courseId"));
+                bundle.putInt("chapterIndex", spc.getChapter_index());
+                bundle.putInt("category", getArguments().getInt("category"));
+                bundle.putInt("book", getArguments().getInt("book"));
+                int chapInd = spc.getChapter_index() + 1;
+                bundle.putString("stepName", getArguments().getString("courseName")+" درس"+chapInd);
+                stepFragment = StepFragment.getInstance();
+                stepFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        add(R.id.step_fragment_holder, stepFragment).
+                        addToBackStack(null).commit();
+            }
+        }
+    });
+
 }

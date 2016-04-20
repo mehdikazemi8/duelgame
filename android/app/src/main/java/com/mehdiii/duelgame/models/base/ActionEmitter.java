@@ -127,7 +127,10 @@ public class ActionEmitter {
         map.put(CommandType.REPORT_PROBLEM, "RP");
         map.put(CommandType.GET_COURSE_MAP, "GCM");
         map.put(CommandType.RECEIVE_COURSE_MAP, "RCM");
+
         map.put(CommandType.GET_COURSE_CHAPTER_QUESTION, "GCCQ");
+        map.put(CommandType.RECEIVE_COURSE_CHAPTER_QUESTION, "RCCQ");
+
         map.put(CommandType.SEND_NEW_QUESTION, "SNQ");
         map.put(CommandType.RECEIVE_NEW_QUESTION, "RNQ");
     }
