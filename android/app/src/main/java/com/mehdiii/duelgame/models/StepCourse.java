@@ -1,5 +1,7 @@
 package com.mehdiii.duelgame.models;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
@@ -71,7 +73,21 @@ public class StepCourse extends BaseModel {
     }
 
     public void addToProgress(int index, int star){
-        if(this.progress.get(index)<star)
-            this.progress.add(index, star);
+        Log.d("TAG", "addToProgress " + index + " " + star);
+
+        if(star == 0)
+            return;
+
+        if(progress.size() == 0) {
+            progress.add(star);
+        } else {
+
+            if(progress.size() <= index) {
+                progress.add(star);
+            } else {
+                if(progress.get(index) < star)
+                    progress.set(index, star);
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ import com.mehdiii.duelgame.models.OneCourseAnswer;
 import com.mehdiii.duelgame.models.QuestionForQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizAnswer;
+import com.mehdiii.duelgame.models.StepCourse;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnStepCompleted;
 import com.mehdiii.duelgame.utils.FontHelper;
@@ -380,8 +381,10 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
     private void initialSubmitAnswer() {
         CourseMap cm = AuthManager.getCurrentUser().getCourseMap();
-        cm.getStepByCategoryAndBook(getArguments().getInt("category"), getArguments().getInt("book"))
-                .addToProgress(getArguments().getInt("chapterIndex"), stars);
+        StepCourse temp = cm.getStepByCategoryAndBook(getArguments().getInt("category"), getArguments().getInt("book"));
+        Log.d("TEMP", "abcd " + temp.getCategory() + " " + temp.getBook());
+        Log.d("TEMP", "abcd " + temp.getProgress().toString());
+        temp.addToProgress(getArguments().getInt("chapterIndex"), stars);
     }
 
     private String shuffleString(String input) {

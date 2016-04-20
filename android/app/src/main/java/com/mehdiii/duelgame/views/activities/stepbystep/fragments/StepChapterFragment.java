@@ -206,20 +206,35 @@ public class StepChapterFragment extends Fragment {
                 .getProgress();
 
         chapterForSteps = new ArrayList<>();
-        for (int i=0; i<chapterCount; i++){
+        ArrayList <Integer> intArray = new ArrayList<>();
+
+        for (int i=0; i < chapterCount; i++) {
             ChapterForStep cfs = new ChapterForStep();
             cfs.setName(String.valueOf(i + 1));
-            if (stars.size()!=0 && stars.size()>i) {
-                cfs.setStars(stars.get(i));
+
+            if(stars.size() == 0) {
+                if(i == 0) {
+                    cfs.setStars(0);
+                } else {
+                    cfs.setStars(-1);
+                }
+            } else {
+                if(i < stars.size()) {
+                    cfs.setStars(stars.get(i));
+                } else if(i == stars.size()) {
+                    cfs.setStars(0);
+                } else {
+                    cfs.setStars(-1);
+                }
             }
-            else if(stars.size()!=0 && stars.size()==i)
-                cfs.setStars(0);
-            else if(stars.size()==0 && i==0)
-                cfs.setStars(0);
-            else
-                cfs.setStars(-1);
-            chapterForSteps.add(i,cfs);
+            chapterForSteps.add(cfs);
         }
+
+//        AuthManager.getCurrentUser()
+//                .getCourseMap()
+//                .getStepByCategoryAndBook(getArguments().getInt("category"), getArguments().getInt("book"))
+//                .setProgress(intArray);
+
         StepChapterListAdapter adapter = new StepChapterListAdapter(getActivity(), R.layout.template_step_chapter,chapterForSteps);
         chaptersList.setAdapter(adapter);
     }
