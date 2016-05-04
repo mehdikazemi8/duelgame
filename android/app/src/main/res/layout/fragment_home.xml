@@ -44,6 +44,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:gravity="center">
 
                 <LinearLayout
@@ -197,6 +198,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:gravity="center">
 
                 <LinearLayout
@@ -505,16 +507,21 @@
 
         </LinearLayout>
 
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rankings_holder"
+            android:layout_below="@id/chart1"
             android:layout_marginTop="10dp"
 
             >
 
             <LinearLayout
-                android:id="@+id/dddd"
+                android:id="@+id/firstline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -566,7 +573,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dddd"
+                android:id="@+id/thirdline"
+                android:layout_below="@id/firstline"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingTop="5dp">
@@ -613,7 +621,21 @@
 
 
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thirdline"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+            <Button
+                android:id="@+id/button_flash_card"
+                style="@style/home_buttons"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="5dp"
+                android:text="فلش کارت" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

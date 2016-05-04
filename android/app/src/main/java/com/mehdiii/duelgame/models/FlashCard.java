@@ -1,9 +1,13 @@
 package com.mehdiii.duelgame.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.mehdiii.duelgame.managers.DateManager;
 import com.mehdiii.duelgame.models.base.BaseModel;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FlashCard extends BaseModel {
     @SerializedName("title")
@@ -30,6 +34,58 @@ public class FlashCard extends BaseModel {
     int[] seen;
     @SerializedName("to_ask")
     int[] toAsk;
+    @SerializedName("daily_count")
+    int dailyCount;
+    @SerializedName("last_day")
+    Calendar lastDay;
+    @SerializedName("daily_statistics")
+    List<DailyFlashCardStatistics> dailyFlashCardStatistics;
+    @SerializedName("alarm")
+    Calendar alarm;
+
+    public Calendar getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(Calendar alarm) {
+        this.alarm = alarm;
+    }
+
+    public void addStat(DailyFlashCardStatistics dfc){
+        for(DailyFlashCardStatistics day : dailyFlashCardStatistics){
+            if(DateManager.isSameDay(dfc.getDate(), day.getDate())) {
+
+                day.plusNumber();
+                return;
+            }
+        }
+        this.dailyFlashCardStatistics.add(dfc);
+        return;
+    }
+
+    public List<DailyFlashCardStatistics> getDailyFlashCardStatistics() {
+        return dailyFlashCardStatistics;
+    }
+
+    public void setDailyFlashCardStatistics(List<DailyFlashCardStatistics> dailyFlashCardStatistics) {
+        this.dailyFlashCardStatistics = dailyFlashCardStatistics;
+    }
+
+    public int getDailyCount() {
+        return dailyCount;
+    }
+
+    public void setDailyCount(int dailyCount) {
+        this.dailyCount = dailyCount;
+    }
+
+    public Calendar getLastDay() {
+        return lastDay;
+    }
+
+    public void setLastDay(Calendar lastDay) {
+        this.lastDay = lastDay;
+    }
 
     public String getTitle() {
         return title;

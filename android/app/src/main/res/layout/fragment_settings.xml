@@ -245,7 +245,6 @@
                 android:layout_toRightOf="@id/switch_gender"
                 android:text="@string/caption_boy"
                 android:textSize="@dimen/fontsize.normal" />
-
         </RelativeLayout>
 
         <RelativeLayout

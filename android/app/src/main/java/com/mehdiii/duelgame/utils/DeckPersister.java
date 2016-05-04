@@ -1,6 +1,7 @@
 package com.mehdiii.duelgame.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.FlashCard;

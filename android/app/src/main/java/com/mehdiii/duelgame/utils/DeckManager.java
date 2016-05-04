@@ -1,14 +1,24 @@
 package com.mehdiii.duelgame.utils;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tagmanager.DataLayer;
+import com.mehdiii.duelgame.managers.DateManager;
 import com.mehdiii.duelgame.models.Card;
+import com.mehdiii.duelgame.models.DailyFlashCardStatistics;
 import com.mehdiii.duelgame.models.FlashCard;
 import com.mehdiii.duelgame.models.Pair;
+import com.mehdiii.duelgame.views.activities.flashcards.fragments.FlashCardStatisticsFragment;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Created by Omid on 7/22/2015.
@@ -112,6 +122,38 @@ public class DeckManager {
         else
             currentCard.resetWeight();
 
+        if(deck.getDailyCount()>0){
+            deck.setDailyCount(deck.getDailyCount()-1);
+        }
+        List<DailyFlashCardStatistics> daily = deck.getDailyFlashCardStatistics();
+
+        boolean found = false;
+        if(daily!=null)
+        {
+            for( DailyFlashCardStatistics day : daily){
+                if(DateManager.isToday(day.getDate())){
+                    day.setNumber(day.getNumber()+1);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                DailyFlashCardStatistics x = new DailyFlashCardStatistics();
+                x.setNumber(1);
+                Calendar c = Calendar.getInstance();
+//                c.add(Calendar.DATE, -2);
+                x.setDate(c);
+                daily.add(x);
+            }
+        }else{
+            DailyFlashCardStatistics x = new DailyFlashCardStatistics();
+            x.setNumber(1);
+            x.setDate(Calendar.getInstance());
+            daily = new ArrayList<DailyFlashCardStatistics>();
+            daily.add(x);
+            deck.setDailyFlashCardStatistics(daily);
+        }
+
         groups.get(currentCard.getWeight()).add(currentCard);
         syncer.set(new Pair<>(currentCard.getIndex(), currentCard.getWeight()));
     }
@@ -144,5 +186,9 @@ public class DeckManager {
 
     public interface OnChangeListener {
         void onNextCardHit(Card card);
+    }
+
+    public Map<Integer, Queue<Card>> getGroups(){
+        return this.groups;
     }
 }

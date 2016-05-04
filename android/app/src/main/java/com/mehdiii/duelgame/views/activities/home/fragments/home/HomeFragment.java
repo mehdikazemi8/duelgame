@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.RadarData;
+import com.github.mikephil.charting.data.RadarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
@@ -41,6 +52,7 @@ import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.ScoreHelper;
 import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
+import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
@@ -77,6 +89,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Button buyDiamondButton;
     Button offlineDuelsListsButton;
     Button duel2Button;
+    Button flashCard;
     CustomButton stepButton;
     TextView textViewHearts;
     ImageView heartsImageView;
@@ -85,6 +98,9 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     Map<Integer, CustomTextView> courseRanks;
     Map<Integer, CustomTextView> courseScores;
     Map<Integer, LinearLayout> courseHolders;
+    private RadarChart mChart;
+    int screenW;
+    int screenH;
 
     int courseIds[] = new int []{
         10001,
@@ -151,7 +167,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     private void configure(View view) {
 
         configureCourseHolders();
-
+        configureChart();
         refillButton.setOnClickListener(this);
         buyDiamondButton.setOnClickListener(this);
         offlineDuelsListsButton.setOnClickListener(this);
@@ -159,7 +175,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         infoButton.setOnClickListener(this);
 
         // set font-face
-        FontHelper.setKoodakFor(view.getContext(), offlineDuelsListsButton, duel2Button, textViewHearts, /*textViewSendReport,*/
+        FontHelper.setKoodakFor(view.getContext(), offlineDuelsListsButton, duel2Button, flashCard, textViewHearts, /*textViewSendReport,*/
                 diamondCount, titleTextView/*, levelText, totalRankingText,
                 totalRanking, friendsRankingText, friendsRanking,
                 provinceRanking, provinceRankingText*/, textViewCounter
@@ -170,7 +186,101 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
         quizButton.setOnClickListener(this);
         stepButton.setOnClickListener(this);
+        flashCard.setOnClickListener(this);
     }
+
+    private void configureChart() {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        screenW = metrics.widthPixels;
+        screenH = metrics.heightPixels;
+        mChart.setLayoutParams(new RelativeLayout.LayoutParams((int) (screenW), (int) (screenW)));
+        mChart.setDescription("");
+        mChart.setWebLineWidth(1.5f);
+        mChart.setWebLineWidthInner(0.75f);
+        mChart.setWebAlpha(100);
+
+
+        setData();
+
+        mChart.animateXY(
+                1400, 1400,
+                Easing.EasingOption.EaseInOutQuad,
+                Easing.EasingOption.EaseInOutQuad);
+
+        XAxis xAxis = mChart.getXAxis();
+//        xAxis.setTypeface(tf);
+        xAxis.setTextSize(9f);
+
+        YAxis yAxis = mChart.getYAxis();
+//        yAxis.setTypeface(tf);
+        yAxis.setLabelCount(5, false);
+        yAxis.setTextSize(9f);
+        yAxis.setAxisMinValue(0f);
+
+        Legend l = mChart.getLegend();
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+//        l.setTypeface(tf);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(5f);
+    }
+
+
+
+    private String[] mParties = new String[]{
+            "زبان", "ادبیات", "عربی", "دین و زندگی", "زیست"
+    };
+
+    public void setData() {
+
+        float mult = 150;
+        int cnt = 9;
+
+        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
+
+        // IMPORTANT: In a PieChart, no values (Entry) should have the same
+        // xIndex (even if from different DataSets), since no values can be
+        // drawn above each other.
+        for (int i = 0; i < cnt; i++) {
+            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+        }
+
+        for (int i = 0; i < cnt; i++) {
+            yVals2.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+        }
+
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        for (int i = 0; i < cnt; i++)
+            xVals.add(mParties[i % mParties.length]);
+
+        RadarDataSet set1 = new RadarDataSet(yVals1, "Set 1");
+        set1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        set1.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        set1.setDrawFilled(true);
+        set1.setLineWidth(2f);
+
+        RadarDataSet set2 = new RadarDataSet(yVals2, "Set 2");
+        set2.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+        set2.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+        set2.setDrawFilled(true);
+        set2.setLineWidth(2f);
+
+        ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
+        sets.add(set1);
+        sets.add(set2);
+
+        RadarData data = new RadarData(xVals, sets);
+        data.setValueTypeface(FontHelper.getKoodak(getActivity()));
+        data.setValueTextSize(8f);
+        data.setDrawValues(false);
+
+        mChart.setData(data);
+
+        mChart.invalidate();
+    }
+
+
 
     private void setPendingOfflineDuels() {
         if(AuthManager.getCurrentUser().getPendingOfflineChallenges() == 0) {
@@ -239,9 +349,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         offlineDuelsListsButton = (Button) view.findViewById(R.id.button_offline_duels_lists);
         duel2Button = (Button) view.findViewById(R.id.button_duel2);
         stepButton = (CustomButton) view.findViewById(R.id.step_quiz);
-
+        flashCard = (Button) view.findViewById(R.id.button_flash_card);
         quizButton = (CustomButton) view.findViewById(R.id.quiz_button);
         rankingsHolder = (LinearLayout) view.findViewById(R.id.rankings_holder);
+        mChart = (RadarChart) view.findViewById(R.id.chart1);
         courseRanks = new HashMap<>();
         courseRanks.put(10001, (CustomTextView) view.findViewById(R.id.c10001_rank));
         courseRanks.put(10002, (CustomTextView) view.findViewById(R.id.c10002_rank));
@@ -361,6 +472,11 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                     startActivity(new Intent(getActivity(), StepActivity.class));
                     break;
                 }
+
+            case R.id.button_flash_card:
+                Intent intent = new Intent(getActivity(), FlashCardActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
