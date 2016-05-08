@@ -65,6 +65,15 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/button_purchase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space.short"
+                        android:background="@drawable/duel_flat_button"
+                        android:text="@string/caption_purchase"
+                        android:textColor="@color/white" />
+
+                    <Button
                         android:id="@+id/button_go"
                         style="?android:borderlessButtonStyle"
                         android:layout_width="wrap_content"
@@ -82,7 +91,7 @@
                         android:background="@drawable/duel_flat_button"
                         android:text="آمار عملکرد"
                         android:textColor="@color/white" />
-                    
+
                     <Button
                         android:id="@+id/button_settings"
                         style="?android:borderlessButtonStyle"
@@ -91,14 +100,6 @@
                         android:layout_marginTop="@dimen/space.short"
                         android:background="@drawable/duel_flat_button"
                         android:text="تنظیمات"
-                        android:textColor="@color/white" />
-                    <Button
-                        android:id="@+id/button_purchase"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space.short"
-                        android:background="@drawable/duel_flat_button"
-                        android:text="@string/caption_purchase"
                         android:textColor="@color/white" />
 
                 </LinearLayout>

@@ -62,14 +62,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     int screenW;
     int screenH;
 
-
     TextView ownedTextView;
     TextView titleTextView;
     TextView priceTextView;
     Button goButton;
     Button purchaseButton;
-    Button statisticsButton;
     Button settingButton;
+    Button statisticsButton;
     ProgressBar progressBar;
     private PieChart mChart;
 
@@ -128,8 +127,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindData() {
-
-
         if (card.getOwned() == 1)
             purchaseButton.setVisibility(View.INVISIBLE);
 
@@ -154,6 +151,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         goButton.setText(buttonText);
 
+        Log.d("TAG", "ccard" + card.serialize());
+        Log.d("TAG", "ccard" + card.getOwned());
+
+        if(card.getOwned() != 1 || !DeckPersister.hasDeck(getActivity(), card.getId())) {
+            settingButton.setEnabled(false);
+            statisticsButton.setEnabled(false);
+        }
     }
 
     @Override
@@ -209,6 +213,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startPracticeIfPossible() {
+        Log.d("TAG", "startPracticeIfPossible " + card.getProgress() + " " + card.getPercentFree());
+        Log.d("TAG", "startPracticeIfPossible " + card.getCards().size() + " " + card.getPercentFree());
+
         if (card.getProgress() < card.getPercentFree() || card.getOwned() == 1) {
             // open practice fragment
             Bundle bundle = new Bundle();

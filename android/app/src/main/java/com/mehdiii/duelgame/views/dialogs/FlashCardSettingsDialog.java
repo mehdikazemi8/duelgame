@@ -123,7 +123,7 @@ public class FlashCardSettingsDialog extends Dialog implements View.OnClickListe
     }
 
     public void saveSettings(){
-        if(notifSwitch.isChecked()){
+        if(notifSwitch.isChecked()) {
             AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, notifTimePicker.getCurrentHour());

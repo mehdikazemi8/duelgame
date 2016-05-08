@@ -66,16 +66,18 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
                 FlashCard fc = dp.getDeck(getContext(), getItem(position).getId());
             if(fc.getDailyFlashCardStatistics()!= null){
 
-
                 for(int i = 0 ; i<fc.getDailyFlashCardStatistics().size(); i++ ){
                     Log.d("TAG","salammm " + fc.getDailyFlashCardStatistics().get(i).getNumber()+ fc.getDailyFlashCardStatistics().get(i).getDate());
                 }
             }
+
                 Log.d("TAG", "fc: " +fc.serialize());
                 DeckManager deckManager = new DeckManager(fc, fc.getSeen(), fc.getId());
                 Map<Integer, Queue<Card>> deckStatistics = deckManager.getGroups();
                 int total = 0;
                 int hadSeen = 0;
+
+
 
                 for (int i=0 ; i < deckStatistics.size() ; i++)
                 {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -159,7 +160,14 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_FLASH_CARD_LIST) {
+                Log.d("TAG", "RECEIVE_FLASH_CARD_LIST " + json);
+
                 FlashCardList list = FlashCardList.deserialize(json, FlashCardList.class);
+
+                for(FlashCard fc : list.getList()) {
+                    Log.d("TAG", "RECEIVE_FLASH_CARD_LIST " + fc.getProgress());
+                }
+
                 MemoryCache.set(FLASH_CARD_LIST_CACHE, list);
                 bindListData(list);
             } else if (type == CommandType.RECEIVE_GET_FLASH_CARD_REQUEST) {
