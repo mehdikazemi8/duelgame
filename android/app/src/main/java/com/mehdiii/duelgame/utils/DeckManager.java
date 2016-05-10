@@ -122,9 +122,11 @@ public class DeckManager {
         else
             currentCard.resetWeight();
 
-        if(deck.getDailyCount()>0){
-            deck.setDailyCount(deck.getDailyCount()-1);
-        }
+//        if(deck.getDailyCount()>0){
+//            deck.setDailyCount(deck.getDailyCount()-1);
+//        }
+        deck.setDailyCount(deck.getDailyCount()+1);
+
         List<DailyFlashCardStatistics> daily = deck.getDailyFlashCardStatistics();
 
         boolean found = false;
@@ -141,7 +143,6 @@ public class DeckManager {
                 DailyFlashCardStatistics x = new DailyFlashCardStatistics();
                 x.setNumber(1);
                 Calendar c = Calendar.getInstance();
-//                c.add(Calendar.DATE, -2);
                 x.setDate(c);
                 daily.add(x);
             }

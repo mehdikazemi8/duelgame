@@ -21,6 +21,7 @@ public class OnBootCompletedReceiver extends WakefulBroadcastReceiver {
         if (intent.getAction().equals(ACTION_NAME)) {
             Log.d(TAG, "heart tracker received boot complete intent.");
             ParentActivity.setAlarmForDuelHour(context);
+            ParentActivity.setAlarmForFlashCards(context);
 //            HeartTracker.configure(context).show();
         }
     }

@@ -11,8 +11,13 @@ import android.util.Log;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
+import com.mehdiii.duelgame.managers.FlashCardSettingManager;
+import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.FlashCardSetting;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.splash.StartActivity;
+
+import java.util.Calendar;
 
 /**
  * Created by mehdiii on 12/16/15.
@@ -23,6 +28,14 @@ public class NotificationHelper {
     public static void setVibration(Context context) {
         if(!ParentActivity.isItNearDuelHour())
             return;
+
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(500);
+    }
+
+    public static void setVibrationForFlashCardReminder(Context context, String cardId) {
+//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+//            return;
 
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
@@ -42,12 +55,26 @@ public class NotificationHelper {
         Log.d("TAG", "setLEDNotification end");
     }
 
+    public static void setLEDNotificationForFlashCardReminder(Context context, String cardId) {
+//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+//            return;
+
+        Log.d("TAG", "setLEDNotificationForFlashCardReminder start");
+        Notification notf = new NotificationCompat.Builder(context)
+                .setAutoCancel(false)
+                .setLights(0x00FF00, 3000, 500)
+                .build();
+        NotificationManager mNotificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(LED_NOTIFICATION, notf);
+        Log.d("TAG", "setLEDNotification end");
+    }
+
     public static void cancelLEDNotification(Context context) {
         NotificationManager mNotificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(LED_NOTIFICATION);
     }
 
-    public static void setStatusBarNotification(Context context) {
+    public static void setDuelHourStatusBarNotification(Context context) {
         if(!ParentActivity.isItNearDuelHour())
             return;
 
@@ -68,6 +95,34 @@ public class NotificationHelper {
                         .setContentText(context.getResources().getString(R.string.message_duel_hour_started))
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
+
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(ParentActivity.DUEL_HOUR_NOTIFICATION_ID, mBuilder.build());
+    }
+
+    public static void setFlashCardStatusBarNotification(Context context, String title, String cardId) {
+//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+//            return;
+
+        Log.d("TAG", "setFlashCardStatusBarNotification start");
+        Intent openAppIntent = new Intent(context, StartActivity.class);
+        openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        PendingIntent pendingIntent;
+        if(DuelApp.getInstance().getResumedActivities() == 0)
+            pendingIntent = PendingIntent.getActivity(context, 0, openAppIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        else
+            pendingIntent = PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
+
+        android.support.v4.app.NotificationCompat.Builder mBuilder =
+                new android.support.v4.app.NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.logo)
+                        .setContentTitle(context.getResources().getString(R.string.app_name))
+                        .setContentText(context.getResources().getString(R.string.message_flashcard_started, title))
+                                .setContentIntent(pendingIntent)
+                                .setAutoCancel(true);
 
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

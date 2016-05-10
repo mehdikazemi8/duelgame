@@ -17,11 +17,16 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.FlashCardSettingManager;
+import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChallengeRequestDecision;
 import com.mehdiii.duelgame.models.ChallengeUpdates;
 import com.mehdiii.duelgame.models.DuelOpponentRequest;
+import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.FlashCardSetting;
+import com.mehdiii.duelgame.models.FlashCardsSettings;
 import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.OfflineDuel;
 import com.mehdiii.duelgame.models.Question;
@@ -31,7 +36,10 @@ import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.receivers.DuelHourStarted;
+import com.mehdiii.duelgame.receivers.FlashCardReminder;
 import com.mehdiii.duelgame.utils.CategoryManager;
+import com.mehdiii.duelgame.utils.DeckManager;
+import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
@@ -61,7 +69,7 @@ public class ParentActivity extends ActionBarActivity {
                     AuthManager.authenticate(ParentActivity.this, user);
                 }
             } else if (type == CommandType.RECEIVE_CHALLENGE_REQUEST) {
-                if(canHandleChallengeRequest()) {
+                if (canHandleChallengeRequest()) {
                     DuelOpponentRequest request = BaseModel.deserialize(json, DuelOpponentRequest.class);
                     try {
                         category = request.getCategory();
@@ -73,7 +81,7 @@ public class ParentActivity extends ActionBarActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if(isInQuizActivity()) {
+                } else if (isInQuizActivity()) {
                     DuelOpponentRequest data = BaseModel.deserialize(json, DuelOpponentRequest.class);
                     ChallengeRequestDecision requestDecision = new ChallengeRequestDecision(CommandType.SEND_ANSWER_OF_CHALLENGE_REQUEST);
                     requestDecision.setDecision(6);
@@ -81,22 +89,22 @@ public class ParentActivity extends ActionBarActivity {
                     requestDecision.setCategory(data.getCategory());
                     DuelApp.getInstance().sendMessage(requestDecision.serialize());
                 }
-            } else if(type == CommandType.RECEIVE_CHALLENGE_UPDATES) {
+            } else if (type == CommandType.RECEIVE_CHALLENGE_UPDATES) {
                 Log.d("TAG", "update " + json);
                 ChallengeUpdates updates = ChallengeUpdates.deserialize(json, ChallengeUpdates.class);
-                if(updates == null)
+                if (updates == null)
                     return;
 
-                if(updates.isChallengeResult()) {
+                if (updates.isChallengeResult()) {
                     OfflineDuel challengeResult = updates.getFirstChallengeResult();
                     AnswerDuelOfflineDialog dialog = new AnswerDuelOfflineDialog(ParentActivity.this, challengeResult);
                     dialog.show();
-                } else if(updates.isNewChallenge()) {
+                } else if (updates.isNewChallenge()) {
                     OfflineDuel newChallenge = updates.getFirstNewChallenge();
                     String message = newChallenge.getOpponent().getName() +
                             "\n" +
                             " توی درس " +
-                            CategoryManager.getCategory(getApplicationContext(), Integer.valueOf(newChallenge.getCategory()) ) +
+                            CategoryManager.getCategory(getApplicationContext(), Integer.valueOf(newChallenge.getCategory())) +
                             " به دوئل نوبتی دعوتت کرده." +
                             "\n" +
                             "برو تو لیست دوئل‌های نوبتی جوابش رو بده.";
@@ -147,7 +155,20 @@ public class ParentActivity extends ActionBarActivity {
         calendar.set(Calendar.SECOND, DUEL_HOUR_SECOND);
         long duelHour = calendar.getTimeInMillis();
 
-        return Math.abs(now - duelHour) < 1000*60*2;
+        return Math.abs(now - duelHour) < 1000 * 60 * 2;
+    }
+
+    public static boolean isItNearFlashCardReminder(Context context, String cardId) {
+
+        FlashCardSetting flashCardSetting = FlashCardSettingManager.getSettingById(context, cardId);
+        Calendar alarm = flashCardSetting.getAlarm();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        long now = calendar.getTimeInMillis();
+        long reminder = alarm.getTimeInMillis();
+
+        return Math.abs(now - reminder) < 1000 * 60 * 2;
     }
 
     public void onEvent(BuyNotification notif) {
@@ -162,9 +183,9 @@ public class ParentActivity extends ActionBarActivity {
     }
 
     public void onEvent(OnPurchaseResult purchaseResult) {
-        if(purchaseResult == null) {
+        if (purchaseResult == null) {
             Log.d("TAG", "alert is null");
-        } else if(purchaseResult.getStatus() == null) {
+        } else if (purchaseResult.getStatus() == null) {
             Log.d("TAG", "alert.getStatus is null");
         }
 
@@ -199,6 +220,34 @@ public class ParentActivity extends ActionBarActivity {
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 DUEL_HOUR_INTERVAL, pendingIntent);
+    }
+
+    public static void setAlarmForFlashCards(Context context) {
+        String json = GlobalPreferenceManager.readString(context, "FlashCardSettings", "");
+        if (json == null || json.isEmpty()) {
+            return;
+        } else {
+
+            FlashCardsSettings flashCardsSettings = FlashCardsSettings.deserialize(json, FlashCardsSettings.class);
+            List<FlashCardSetting> oldFlashCardSettingList = flashCardsSettings.getFlashCardSettings();
+
+            for (int i = 0; i < oldFlashCardSettingList.size(); i++) {
+
+                if (oldFlashCardSettingList.get(i).getAlarm() != null) {
+
+                    DeckPersister dp = new DeckPersister();
+                    FlashCard flashCard = dp.getDeck(context, oldFlashCardSettingList.get(i).getCardId());
+                    Calendar alarm = oldFlashCardSettingList.get(i).getAlarm();
+                    Intent intent = new Intent(context, FlashCardReminder.class);
+                    intent.putExtra("flashCardName", flashCard.getTitle());
+                    intent.putExtra("flashCardId", oldFlashCardSettingList.get(i).getCardId());
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(),
+                            DUEL_HOUR_INTERVAL, pendingIntent);
+                }
+            }
+        }
     }
 
     protected static Random rand = new Random();
@@ -259,6 +308,7 @@ public class ParentActivity extends ActionBarActivity {
     }
 
     ProgressDialog dialog;
+
     public void onEvent(OnConnectionStateChanged status) {
         if (status.getState() == OnConnectionStateChanged.ConnectionState.DISCONNECTED ||
                 status.getState() == OnConnectionStateChanged.ConnectionState.CONNECTED) {

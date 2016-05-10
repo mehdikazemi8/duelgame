@@ -214,7 +214,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
     private void startPracticeIfPossible() {
         Log.d("TAG", "startPracticeIfPossible " + card.getProgress() + " " + card.getPercentFree());
-        Log.d("TAG", "startPracticeIfPossible " + card.getCards().size() + " " + card.getPercentFree());
 
         if (card.getProgress() < card.getPercentFree() || card.getOwned() == 1) {
             // open practice fragment
@@ -262,7 +261,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         // just an easy way for reloading this at easiest way possible.
         getFragmentManager().beginTransaction().remove(this).commit();
 
-        // tell its' mother activity to load again.
+        // tell its mother activity to load again.
         ((FlashCardActivity) getActivity()).reloadAsync();
     }
 
@@ -283,8 +282,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void turnWaitingMode(boolean waiting) {
+
         goButton.setEnabled(!waiting);
         purchaseButton.setEnabled(!waiting);
+
     }
 
     private void setData() {

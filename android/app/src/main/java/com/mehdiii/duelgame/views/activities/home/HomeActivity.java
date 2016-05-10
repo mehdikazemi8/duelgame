@@ -270,6 +270,7 @@ public class HomeActivity extends ParentActivity {
         context = getApplicationContext();
 
         setAlarmForDuelHour(this);
+        setAlarmForFlashCards(this);
         cancelDuelHourNotification();
 
         find();

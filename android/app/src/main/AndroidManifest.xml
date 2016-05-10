@@ -48,6 +48,10 @@
             android:enabled="true" />
 
         <receiver
+            android:name=".receivers.FlashCardReminder"
+            android:enabled="true" />
+
+        <receiver
             android:name=".receivers.OnBootCompletedReceiver"
             android:enabled="true">
             <intent-filter>
