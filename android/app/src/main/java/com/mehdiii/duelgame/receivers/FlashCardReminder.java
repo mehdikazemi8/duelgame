@@ -18,7 +18,7 @@ public class FlashCardReminder extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("TAG", "FlashCardReminder onReceive");
 
-        String title = (String) intent.getExtras().get("flashCardNaandroi me");
+        String title = (String) intent.getExtras().get("flashCardName");
         String cardId = (String) intent.getExtras().get("flashCardId");
         NotificationHelper.setLEDNotificationForFlashCardReminder(context, cardId);
 //        NotificationHelper.setVibrationForFlashCardReminder(context, cardId);

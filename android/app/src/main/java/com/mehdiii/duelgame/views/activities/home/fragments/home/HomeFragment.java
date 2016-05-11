@@ -31,6 +31,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.FlashCardIdManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.managers.PurchaseManager;
@@ -78,6 +79,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
     CustomTextView pendingOfflineDuels;
     CustomTextView openExamNotTaken;
+    CustomTextView pendingFlashCards;
 
     ImageButton infoButton;
 
@@ -337,6 +339,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         infoButton = (ImageButton) view.findViewById(R.id.info_button);
         pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
         openExamNotTaken = (CustomTextView) view.findViewById(R.id.open_exams_not_taken);
+        pendingFlashCards = (CustomTextView) view.findViewById(R.id.pending_flashcards);
         diamondCount = (TextView) view.findViewById(R.id.home_diamond_cnt);
         avatarImageView = (ImageView) view.findViewById(R.id.imageView_avatar);
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
@@ -434,11 +437,12 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 
             case R.id.button_offline_duels_lists:
                 Log.d("TAG", "button_offline_duels_lists " + UserFlowHelper.gotDuel() + " " + UserFlowHelper.gotQuiz());
-                if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
-                    dialog.show();
-                    break;
-                } else if (!UserFlowHelper.gotQuiz()){
+//                if (!UserFlowHelper.gotDuel()){
+//                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
+//                    dialog.show();
+//                    break;
+//                } else
+                if (!UserFlowHelper.gotQuiz()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nآزمون\n\n شرکت کنی.");
                     dialog.show();
                     break;
@@ -450,21 +454,22 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 }
 
             case R.id.quiz_button:
-                if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
-                    dialog.show();
-                    break;
-                } else {
+//                if (!UserFlowHelper.gotDuel()){
+//                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی در آزمون‌های روزانه و جمع‌بندی قلمچی و سنجش شرکت کنی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
+//                    dialog.show();
+//                    break;
+//                } else {
                     startActivity(new Intent(getActivity(), QuizActivity.class));
                     break;
-                }
+//                }
 
             case R.id.step_quiz:
-                if (!UserFlowHelper.gotDuel()){
-                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
-                    dialog.show();
-                    break;
-                } else if (!UserFlowHelper.gotQuiz()){
+//                if (!UserFlowHelper.gotDuel()){
+//                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک \n\nدوئل\n\n شرکت کنی.");
+//                    dialog.show();
+//                    break;
+//                } else
+                if (!UserFlowHelper.gotQuiz()){
                     AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی به سوالات درس به درس پاسخ بدی اول باید در یک \n\nآزمون\n\n شرکت کنی.");
                     dialog.show();
                     break;
@@ -492,6 +497,8 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
 //        setProgress();
         setPendingOfflineDuels();
         setOpenExamNotTaken();
+        setPendingFlashCards();
+
         avatarImageView.setImageResource(AvatarHelper.getResourceId(getActivity(), user.getAvatar()));
         diamondCount.setText(String.valueOf(user.getDiamond()));
         titleTextView.setText(ScoreHelper.getTitle(user.getScore()));
@@ -517,6 +524,17 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         } else
             this.textViewHearts.setVisibility(View.VISIBLE);
         this.textViewHearts.setText(String.valueOf((user.getHeart())));
+    }
+
+    private void setPendingFlashCards() {
+
+        if(FlashCardIdManager.getPendingFlashCards(getActivity())==0) {
+            pendingFlashCards.setVisibility(View.GONE);
+        } else {
+            pendingFlashCards.setVisibility(View.VISIBLE);
+            pendingFlashCards.setText(String.valueOf(FlashCardIdManager.getPendingFlashCards(getActivity())));
+        }
+
     }
 
     public void startGame() {

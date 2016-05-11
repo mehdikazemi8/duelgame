@@ -23,6 +23,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.managers.HeartTracker;
 import com.mehdiii.duelgame.models.Category;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendList;
@@ -37,12 +38,18 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.TellFriendManager;
+import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.activities.waiting.WaitingActivity;
+import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.dialogs.AddFriendDialog;
+import com.mehdiii.duelgame.views.dialogs.AlertDialog;
+import com.mehdiii.duelgame.views.dialogs.DuelDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelFriendDialog;
+import com.mehdiii.duelgame.views.dialogs.HeartLowDialog;
 import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 import com.mehdiii.duelgame.views.dialogs.StepDuelDialog;
 import com.mehdiii.duelgame.views.dialogs.StepOfflineDuelDialog;
@@ -61,6 +68,10 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     private Button buttonTellFriend;
     private ImageButton refreshButton;
     private ProgressBar progressBar;
+
+    Button duel2Button;
+    Button offlineDuelsListsButton;
+    CustomTextView pendingOfflineDuels;
 
     private ProgressDialog progressDialog;
     private ProfileDialog profileDialog = null;
@@ -95,6 +106,9 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         textViewCode = (TextView) view.findViewById(R.id.textView_code);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         refreshButton = (ImageButton) view.findViewById(R.id.refresh_button);
+        pendingOfflineDuels = (CustomTextView) view.findViewById(R.id.pending_offline_duels);
+        offlineDuelsListsButton = (Button) view.findViewById(R.id.button_offline_duels_lists);
+        duel2Button = (Button) view.findViewById(R.id.button_duel2);
     }
 
     private void configure() {
@@ -102,10 +116,15 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         buttonTellFriend.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
         if (this.activity != null)
-            FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend);
+            FontHelper.setKoodakFor(this.activity, textViewCode, buttonAddFriend, buttonTellFriend
+            ,offlineDuelsListsButton, duel2Button, pendingOfflineDuels);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("لطفا کمی صبر کنید");
+
+        offlineDuelsListsButton.setOnClickListener(this);
+        duel2Button.setOnClickListener(this);
+
     }
 
     @Override
@@ -134,6 +153,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         User currentUser = AuthManager.getCurrentUser();
         if (currentUser != null)
             textViewCode.setText("کد شما " + currentUser.getId());
+        setPendingOfflineDuels();
     }
 
     @Override
@@ -298,6 +318,21 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
             case R.id.refresh_button:
                 sendFetchRequest();
                 break;
+            case R.id.button_duel2:
+                startGame();
+                break;
+            case R.id.button_offline_duels_lists:
+                Log.d("TAG", "button_offline_duels_lists " + UserFlowHelper.gotDuel() + " " + UserFlowHelper.gotQuiz());
+                if (!UserFlowHelper.gotQuiz()){
+                    AlertDialog dialog = new AlertDialog(getActivity(), "برای اینکه بتونی دوئل نوبتی انجام بدی اول باید در یک \n\nآزمون\n\n شرکت کنی.");
+                    dialog.show();
+                    break;
+                } else {
+                    Intent intent = new Intent(getActivity(), OfflineDuelsListsActivity.class);
+                    intent.putExtra("tab", 0);
+                    startActivity(intent);
+                    break;
+                }
         }
     }
 
@@ -367,4 +402,25 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
         });
         dialog.show();
     }
+
+    private void setPendingOfflineDuels() {
+        if(AuthManager.getCurrentUser().getPendingOfflineChallenges() == 0) {
+            pendingOfflineDuels.setVisibility(View.GONE);
+        } else {
+            pendingOfflineDuels.setVisibility(View.VISIBLE);
+            pendingOfflineDuels.setText( String.valueOf(AuthManager.getCurrentUser().getPendingOfflineChallenges()));
+        }
+    }
+
+    public void startGame() {
+        if (!HeartTracker.getInstance().canUseHeart()) {
+            HeartLowDialog dialog = new HeartLowDialog(getActivity());
+            dialog.show();
+            return;
+        }
+
+        DuelDialog duelDialog = new DuelDialog(getActivity());
+        duelDialog.show();
+    }
+
 }

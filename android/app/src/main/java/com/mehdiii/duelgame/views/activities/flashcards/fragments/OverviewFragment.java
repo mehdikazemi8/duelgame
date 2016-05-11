@@ -65,6 +65,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     TextView ownedTextView;
     TextView titleTextView;
     TextView priceTextView;
+    TextView countTextView;
     Button goButton;
     Button purchaseButton;
     Button settingButton;
@@ -91,6 +92,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         ownedTextView = (TextView) view.findViewById(R.id.textView_owned);
         titleTextView = (TextView) view.findViewById(R.id.textView_title);
         priceTextView = (TextView) view.findViewById(R.id.textView_price);
+        countTextView = (TextView) view.findViewById(R.id.textView_count);
         goButton = (Button) view.findViewById(R.id.button_go);
         purchaseButton = (Button) view.findViewById(R.id.button_purchase);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
@@ -102,7 +104,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         purchaseButton.setOnClickListener(this);
         statisticsButton.setOnClickListener(this);
         settingButton.setOnClickListener(this);
-        FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView,
+        FontHelper.setKoodakFor(getActivity(), ownedTextView, titleTextView, priceTextView, countTextView,
                 goButton, purchaseButton, statisticsButton, settingButton);
 
         bindData();
@@ -132,6 +134,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         this.ownedTextView.setText(card.getOwned() == 1 ? "OWNED" : "NOT OWNED");
         this.priceTextView.setText(String.valueOf((int) card.getPrice()) + " تومان");
+        this.countTextView.setText(String.valueOf((int) card.getCount()) + "عدد فلش کارت ");
         this.titleTextView.setText(card.getTitle());
 
         String buttonText = null;

@@ -41,6 +41,14 @@
                     android:textSize="25sp" />
 
                 <TextView
+                    android:id="@+id/textView_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/brown"
+                    android:textSize="17sp" />
+
+                <TextView
                     android:id="@+id/textView_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

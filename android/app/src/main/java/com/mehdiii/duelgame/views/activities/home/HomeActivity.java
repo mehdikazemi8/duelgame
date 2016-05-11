@@ -91,10 +91,11 @@ public class HomeActivity extends ParentActivity {
         public void onClick(View view) {
 
             if(view.getId() == R.id.button_more_options) {
-                if (!UserFlowHelper.gotDuel()){
-                    setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
-                    return;
-                } else if (!UserFlowHelper.gotQuiz()){
+//                if (!UserFlowHelper.gotDuel()){
+//                    setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
+//                    return;
+//                } else
+                if (!UserFlowHelper.gotQuiz()){
                     setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                     return;
                 } else {
@@ -115,10 +116,11 @@ public class HomeActivity extends ParentActivity {
                     break;
 
                 case R.id.button_friends:
-                    if (!UserFlowHelper.gotDuel()){
-                        setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
-                        break;
-                    } else if (!UserFlowHelper.gotQuiz()){
+//                    if (!UserFlowHelper.gotDuel()){
+//                        setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
+//                        break;
+//                    } else
+                    if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
@@ -127,10 +129,11 @@ public class HomeActivity extends ParentActivity {
                     }
 
                 case R.id.button_duel_hour:
-                    if(!UserFlowHelper.gotDuel()){
-                        setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
-                        break;
-                    } else if (!UserFlowHelper.gotQuiz()){
+//                    if(!UserFlowHelper.gotDuel()){
+//                        setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
+//                        break;
+//                    } else
+                    if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت ( رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
@@ -139,10 +142,11 @@ public class HomeActivity extends ParentActivity {
                     }
 
                 case R.id.button_online_users:
-                    if(!UserFlowHelper.gotDuel()){
-                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
-                        break;
-                    } else if (!UserFlowHelper.gotQuiz()){
+//                    if(!UserFlowHelper.gotDuel()){
+//                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
+//                        break;
+//                    } else
+                    if (!UserFlowHelper.gotQuiz()){
                         setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {

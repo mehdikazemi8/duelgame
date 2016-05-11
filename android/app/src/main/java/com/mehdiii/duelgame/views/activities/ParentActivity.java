@@ -239,11 +239,12 @@ public class ParentActivity extends ActionBarActivity {
                     FlashCard flashCard = dp.getDeck(context, oldFlashCardSettingList.get(i).getCardId());
                     Calendar alarm = oldFlashCardSettingList.get(i).getAlarm();
                     Intent intent = new Intent(context, FlashCardReminder.class);
+                    Log.d("TAG", "title flash "+flashCard.getTitle());
                     intent.putExtra("flashCardName", flashCard.getTitle());
                     intent.putExtra("flashCardId", oldFlashCardSettingList.get(i).getCardId());
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i+2000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(),
+                    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(),
                             DUEL_HOUR_INTERVAL, pendingIntent);
                 }
             }

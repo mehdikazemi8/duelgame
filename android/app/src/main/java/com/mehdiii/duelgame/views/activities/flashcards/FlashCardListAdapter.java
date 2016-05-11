@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.DateManager;
+import com.mehdiii.duelgame.managers.FlashCardIdManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.models.Card;
 import com.mehdiii.duelgame.models.FlashCard;
@@ -66,6 +67,7 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
         if (placeHolder != null) {
 
             placeHolder.deckTitle.setText(getItem(position).getTitle());
+
             placeHolder.data = getItem(position);
             DeckPersister deckPersister = new DeckPersister();
 
@@ -76,6 +78,7 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
                 circleProgressSet(placeHolder);
                 setDailyGoal(flashCard, deckPersister);
                 setDeckAlert(flashCard, deckPersister, placeHolder);
+                FlashCardIdManager.saveFlashCardId(getContext(), flashCard);
 
             }else {
 

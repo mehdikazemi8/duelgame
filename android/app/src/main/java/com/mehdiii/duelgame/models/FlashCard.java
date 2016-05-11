@@ -42,6 +42,16 @@ public class FlashCard extends BaseModel {
     List<DailyFlashCardStatistics> dailyFlashCardStatistics;
     @SerializedName("alarm")
     Calendar alarm;
+    @SerializedName("count")
+    int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public Calendar getAlarm() {
         return alarm;
