@@ -35,7 +35,7 @@
                 <com.mehdiii.duelgame.views.custom.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="عملکرد این هفته"
+                    android:text="امتیاز کل"
                     android:textColor="@color/purple_dark"
                     android:textSize="@dimen/fontsize.normal" />
 
@@ -509,6 +509,7 @@
 
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/chart1"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

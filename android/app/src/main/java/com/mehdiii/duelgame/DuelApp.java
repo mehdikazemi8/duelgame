@@ -46,9 +46,9 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 //    public static String BASE_URL = "http://192.168.177.153:8000";
     public static String BASE_URL = "http://duelgame.ir:8000";
 
-//    static protected String wsuri = "ws://duelgame.ir:9003";
+    static protected String wsuri = "ws://duelgame.ir:9003";
 //    static protected String wsuri = "ws://192.168.44.23:9000";
-    static protected String wsuri = "ws://192.168.177.153:9000";
+//    static protected String wsuri = "ws://192.168.177.153:9000";
 //    static protected String wsuri = "ws://192.168.1.110:9000";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "a]ppVersion";
