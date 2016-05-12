@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.animations.FlipAnimation;
 import com.mehdiii.duelgame.models.Card;
+import com.mehdiii.duelgame.models.events.OnCardClicked;
 import com.mehdiii.duelgame.utils.FontHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Omid on 7/22/2015.
@@ -69,6 +72,8 @@ public class CardView extends RelativeLayout {
                 flipAnimation.reverse();
 
             rootLayout.startAnimation(flipAnimation);
+
+            EventBus.getDefault().post(new OnCardClicked());
         }
     };
 

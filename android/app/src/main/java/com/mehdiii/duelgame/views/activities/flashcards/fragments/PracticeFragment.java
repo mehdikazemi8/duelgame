@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,10 +16,13 @@ import android.widget.Button;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.models.Card;
 import com.mehdiii.duelgame.models.FlashCard;
+import com.mehdiii.duelgame.models.events.OnCardClicked;
 import com.mehdiii.duelgame.utils.DeckManager;
 import com.mehdiii.duelgame.utils.DeckPersister;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.views.custom.CardView;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Omid on 7/22/2015.
@@ -62,6 +66,10 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 //        deck.organize();
         deckManager = new DeckManager(deck, deck.getToAsk(), deck.getId());
         hit(firstCard, deckManager.hit());
+
+        negativeButton.setEnabled(false);
+        positiveButton.setEnabled(false);
+        EventBus.getDefault().register(this);
     }
 
     private void hit(CardView view, Card card) {
@@ -100,6 +108,12 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
     }
 
     int parity = 0;
+
+    public void onEvent(OnCardClicked c) {
+        Log.d("TAG", "cardtouch");
+        negativeButton.setEnabled(true);
+        positiveButton.setEnabled(true);
+    }
 
     private void moveNext(boolean answered) {
         final DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
@@ -189,8 +203,10 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
 
 //            negativeButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
 //            positiveButton.animate().alpha(100).setDuration(ANIMATION_DURATION);
-            negativeButton.setEnabled(true);
-            positiveButton.setEnabled(true);
+
+
+//            negativeButton.setEnabled(true);
+//            positiveButton.setEnabled(true);
         }
     }
 
@@ -203,10 +219,12 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
             float diffY = e2.getY() - e1.getY();
 
             if (Math.abs(diffX) > Math.abs(diffY) && SWIPE_THRESHOLD < Math.abs(diffX)) {
-                if (diffX > 0)
+                if (diffX > 0){
                     mainCard.swipeRight();
-                else
+                }
+                else {
                     mainCard.swipeLeft();
+                }
                 return true;
             }
 
