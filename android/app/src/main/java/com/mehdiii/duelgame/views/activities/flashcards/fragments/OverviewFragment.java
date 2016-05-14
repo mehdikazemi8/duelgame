@@ -130,11 +130,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
     private void bindData() {
         if (card.getOwned() == 1)
-            purchaseButton.setVisibility(View.INVISIBLE);
+            purchaseButton.setVisibility(View.GONE);
 
         this.ownedTextView.setText(card.getOwned() == 1 ? "OWNED" : "NOT OWNED");
         this.priceTextView.setText(String.valueOf((int) card.getPrice()) + " تومان");
-        this.countTextView.setText(String.valueOf((int) card.getCount()) + "عدد فلش کارت ");
+        this.countTextView.setText(String.valueOf((int) card.getCount()) + " عدد فلش‌کارت");
         this.titleTextView.setText(card.getTitle());
 
         String buttonText = null;
@@ -247,7 +247,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
      * @param c receive notice
      */
     public void onEvent(OnFlashCardReceived c) {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
         turnWaitingMode(false);
         card = DeckPersister.getDeck(getActivity(), card.getId());
         bindData();
