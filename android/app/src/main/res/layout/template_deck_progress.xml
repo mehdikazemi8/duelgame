@@ -15,9 +15,12 @@
         android:padding="10dp">
         <com.github.lzyzsd.circleprogress.CircleProgress
             android:id="@+id/circle_progress"
-            android:layout_gravity="center"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_gravity="center"
+            donut_progress:circle_finished_color="@color/gray_light"
+            donut_progress:circle_text_size="@dimen/progress_font_size_small"
+            donut_progress:circle_unfinished_color="@color/gray_light"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,52 +28,52 @@
             android:orientation="horizontal">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:orientation="vertical">
-            <com.mehdiii.duelgame.views.custom.CustomTextView
-                android:id="@+id/deck_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple_sexy"
-                android:padding="5dp"
-                android:text="فلش کارت"
-                android:textSize="@dimen/fontsize.normal" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:layout_weight="9"
+                android:orientation="vertical">
                 <com.mehdiii.duelgame.views.custom.CustomTextView
-                    android:id="@+id/deck_alert"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/deck_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_sexy"
-                    android:text="عملکرد امروز"
-                    android:textSize="@dimen/fontsize.small" />
-                <com.mehdiii.duelgame.views.custom.IconTextView
-                    android:id="@+id/alert_icon"
-                    style="@style/home_options_menu_icon"
                     android:padding="5dp"
-                    android:paddingRight="0dp"
-                    android:textSize="@dimen/fontsize.small"
-                    android:text="V" />
+                    android:text="فلش کارت"
+                    android:textColor="@color/purple_sexy"
+                    android:textSize="@dimen/fontsize.normal" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+                    <com.mehdiii.duelgame.views.custom.CustomTextView
+                        android:id="@+id/deck_alert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="عملکرد امروز"
+                        android:textColor="@color/purple_sexy"
+                        android:textSize="@dimen/fontsize.small" />
+                    <com.mehdiii.duelgame.views.custom.IconTextView
+                        android:id="@+id/alert_icon"
+                        style="@style/home_options_menu_icon"
+                        android:padding="5dp"
+                        android:text="V"
+                        android:textColor="@color/blue_dark"
+                        android:textSize="@dimen/fontsize.small" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginRight="0dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginRight="0dp"
-            android:orientation="vertical">
-
-        </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

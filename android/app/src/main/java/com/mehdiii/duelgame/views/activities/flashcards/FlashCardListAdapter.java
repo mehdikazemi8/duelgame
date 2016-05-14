@@ -38,55 +38,48 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
     int totalProgress = 0;
 
     public FlashCardListAdapter(Context context, int resource, FlashCardList list) {
-
         super(context, resource);
         inflater = LayoutInflater.from(context);
         this.flashCards = list.getList();
-
-        }
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view;
-
         if (convertView == null) {
-
-            view = inflater.inflate(R.layout.template_deck_progress, null);
+            convertView = inflater.inflate(R.layout.template_deck_progress, null);
             ViewHolder holder = new ViewHolder();
-            holder.deckTitle = (CustomTextView) view.findViewById(R.id.deck_name);
-            holder.deckAlert = (CustomTextView) view.findViewById(R.id.deck_alert);
-            holder.alertIcon = (IconTextView) view.findViewById(R.id.alert_icon);
-            holder.circleProgress = (CircleProgress) view.findViewById(R.id.circle_progress);
+            holder.deckTitle = (CustomTextView) convertView.findViewById(R.id.deck_name);
+            holder.deckAlert = (CustomTextView) convertView.findViewById(R.id.deck_alert);
+            holder.alertIcon = (IconTextView) convertView.findViewById(R.id.alert_icon);
+            holder.circleProgress = (CircleProgress) convertView.findViewById(R.id.circle_progress);
             FontHelper.setKoodakFor(getContext(), holder.deckAlert, holder.deckTitle);
-            view.setTag(holder);
+            convertView.setTag(holder);
+        }
 
-        } else view = convertView;
-
-        ViewHolder placeHolder = (ViewHolder) view.getTag();
+        ViewHolder placeHolder = (ViewHolder) convertView.getTag();
 
         if (placeHolder != null) {
-
             placeHolder.deckTitle.setText(getItem(position).getTitle());
-
             placeHolder.data = getItem(position);
             DeckPersister deckPersister = new DeckPersister();
-
             if(deckPersister.hasDeck(getContext(), getItem(position).getId())){
-
                 FlashCard flashCard = deckPersister.getDeck(getContext(), getItem(position).getId());
                 calculateProgress(flashCard);
                 circleProgressSet(placeHolder);
                 setDailyGoal(flashCard, deckPersister);
                 setDeckAlert(flashCard, deckPersister, placeHolder);
                 FlashCardIdManager.saveFlashCardId(getContext(), flashCard);
-
-            }else {
-
+            } else {
                 placeHolder.deckAlert.setText("شروع نکرده‌اید");
-
+                placeHolder.alertIcon.setText("V");
+                placeHolder.alertIcon.setTextColor(getContext().getResources().getColor(R.color.blue_dark));
+                placeHolder.circleProgress.setUnfinishedColor(getContext().getResources().getColor(R.color.gray_light));
+                placeHolder.circleProgress.setFinishedColor(getContext().getResources().getColor(R.color.gray_light));
+                placeHolder.circleProgress.setTextSize(getContext().getResources().getDimension(R.dimen.progress_font_size_small));
+                placeHolder.circleProgress.setProgress(0);
             }
         }
-        return view;
+        return convertView;
     }
 
     private void setDeckAlert(FlashCard flashCard, DeckPersister deckPersister, ViewHolder placeHolder) {
@@ -101,7 +94,6 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
             placeHolder.alertIcon.setTextColor(getContext().getResources().getColor(R.color.green));
         }
         Log.d("TAG", "daily: " + flashCard.getDailyCount());
-
     }
 
     public void calculateProgress(FlashCard flashCard){
@@ -124,8 +116,7 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
         circleProgress.setUnfinishedColor(getContext().getResources().getColor(R.color.purple_sexy_trans));
         circleProgress.setProgress(totalProgress);
         circleProgress.setTextColor(getContext().getResources().getColor(R.color.white));
-
-        circleProgress.setTextSize(getContext().getResources().getDimension(R.dimen.progress_font_size));
+        circleProgress.setTextSize(getContext().getResources().getDimension(R.dimen.progress_font_size_large));
     }
 
     public void setDailyGoal(FlashCard flashCard, DeckPersister deckPersister){
@@ -136,19 +127,11 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
                 flashCard.setDailyCount(0);
                 deckPersister.saveDeck(getContext(), flashCard);
             }
-        }else {
+        } else {
             flashCard.setLastDay(calendar);
             flashCard.setDailyCount(0);
             deckPersister.saveDeck(getContext(), flashCard);
         }
-    }
-
-    public class ViewHolder {
-        CustomTextView deckTitle;
-        CustomTextView deckAlert;
-        IconTextView alertIcon;
-        CircleProgress circleProgress;
-        FlashCard data;
     }
 
     @Override
@@ -193,8 +176,16 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
                 }
             }
 
-         return 20;
+            return 20;
 
         }
+    }
+
+    public class ViewHolder {
+        CustomTextView deckTitle;
+        CustomTextView deckAlert;
+        IconTextView alertIcon;
+        CircleProgress circleProgress;
+        FlashCard data;
     }
 }
