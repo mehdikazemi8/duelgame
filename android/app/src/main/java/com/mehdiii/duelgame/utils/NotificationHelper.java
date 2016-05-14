@@ -34,8 +34,8 @@ public class NotificationHelper {
     }
 
     public static void setVibrationForFlashCardReminder(Context context, String cardId) {
-//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
-//            return;
+        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+            return;
 
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
@@ -56,8 +56,8 @@ public class NotificationHelper {
     }
 
     public static void setLEDNotificationForFlashCardReminder(Context context, String cardId) {
-//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
-//            return;
+        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+            return;
 
         Log.d("TAG", "setLEDNotificationForFlashCardReminder start");
         Notification notf = new NotificationCompat.Builder(context)
@@ -102,8 +102,8 @@ public class NotificationHelper {
     }
 
     public static void setFlashCardStatusBarNotification(Context context, String title, String cardId) {
-//        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
-//            return;
+        if(!ParentActivity.isItNearFlashCardReminder(context, cardId))
+            return;
 
         Log.d("TAG", "setFlashCardStatusBarNotification start");
         Intent openAppIntent = new Intent(context, StartActivity.class);

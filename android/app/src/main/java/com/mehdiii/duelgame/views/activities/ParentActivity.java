@@ -161,6 +161,10 @@ public class ParentActivity extends ActionBarActivity {
     public static boolean isItNearFlashCardReminder(Context context, String cardId) {
 
         FlashCardSetting flashCardSetting = FlashCardSettingManager.getSettingById(context, cardId);
+        if(flashCardSetting == null) {
+            return false;
+        }
+
         Calendar alarm = flashCardSetting.getAlarm();
 
         Calendar calendar = Calendar.getInstance();
@@ -238,13 +242,13 @@ public class ParentActivity extends ActionBarActivity {
                     DeckPersister dp = new DeckPersister();
                     FlashCard flashCard = dp.getDeck(context, oldFlashCardSettingList.get(i).getCardId());
                     Calendar alarm = oldFlashCardSettingList.get(i).getAlarm();
+
                     Intent intent = new Intent(context, FlashCardReminder.class);
-                    Log.d("TAG", "title flash "+flashCard.getTitle());
                     intent.putExtra("flashCardName", flashCard.getTitle());
                     intent.putExtra("flashCardId", oldFlashCardSettingList.get(i).getCardId());
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i+2000, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(),
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(),
                             DUEL_HOUR_INTERVAL, pendingIntent);
                 }
             }

@@ -9,13 +9,17 @@ import com.mehdiii.duelgame.models.FlashCardsSettings;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mehdiii.duelgame.views.activities.ParentActivity.setAlarmForFlashCards;
+
 /**
  * Created by frshd on 5/10/16.
  */
 public class FlashCardSettingManager {
 
+    public static final String FLASH_CARD_SETTINGS = "FlashCardSettings";
+
     public static FlashCardsSettings init(Context context){
-        String json = GlobalPreferenceManager.readString(context, "FlashCardSettings", "");
+        String json = GlobalPreferenceManager.readString(context, FLASH_CARD_SETTINGS, "");
         if (json == null || json.isEmpty()) {
             return null;
         }
@@ -33,7 +37,7 @@ public class FlashCardSettingManager {
             List<FlashCardSetting> flashCardSettings = new ArrayList<>();
             flashCardSettings.add(flashCardSetting);
             flashCardsSettings2.setFlashCardSettings(flashCardSettings);
-            GlobalPreferenceManager.writeString(context, "FlashCardSettings", flashCardsSettings2.serialize());
+            GlobalPreferenceManager.writeString(context, FLASH_CARD_SETTINGS, flashCardsSettings2.serialize());
             Log.d("TAG", "flashCardsSettings " + flashCardsSettings2.serialize());
 
         }else {
@@ -52,19 +56,18 @@ public class FlashCardSettingManager {
             }
 
             flashCardsSettings.setFlashCardSettings(oldFlashCardSettingList);
-            GlobalPreferenceManager.writeString(context, "FlashCardSettings", flashCardsSettings.serialize());
+            GlobalPreferenceManager.writeString(context, FLASH_CARD_SETTINGS, flashCardsSettings.serialize());
             Log.d("TAG", "flashCardsSettings " + flashCardsSettings.serialize());
-
         }
+
+        setAlarmForFlashCards(context);
     }
 
     public static FlashCardSetting getSettingById(Context context, String cardId){
         FlashCardsSettings flashCardsSettings = init(context);
         if(flashCardsSettings==null){
             return null;
-        }
-        else {
-
+        } else {
             List<FlashCardSetting> oldFlashCardSettingList= flashCardsSettings.getFlashCardSettings();
 
             for (int i=0 ; i<oldFlashCardSettingList.size() ; i++) {

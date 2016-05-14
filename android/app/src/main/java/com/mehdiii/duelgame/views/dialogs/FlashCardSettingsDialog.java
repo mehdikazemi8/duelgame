@@ -119,8 +119,7 @@ public class FlashCardSettingsDialog extends Dialog implements View.OnClickListe
                     notifTimePicker.setEnabled(true);
                     notifTimePicker.setVisibility(View.VISIBLE);
                     notifTime.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     notifTimePicker.setEnabled(false);
                     notifTimePicker.setVisibility(View.GONE);
                     notifTime.setVisibility(View.GONE);
@@ -162,33 +161,24 @@ public class FlashCardSettingsDialog extends Dialog implements View.OnClickListe
                 dismiss();
                 break;
         }
-
     }
 
     public void saveSettings(){
-
         FlashCardSetting flashCardSetting = new FlashCardSetting();
         flashCardSetting.setCardId(card.getId());
         flashCardSetting.setDailyGoal(wordPicker.getValue());
 
         if(notifSwitch.isChecked()) {
-
 //            AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, notifTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, notifTimePicker.getCurrentMinute());
 //            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
-            setAlarmForFlashCards(getContext());
             flashCardSetting.setAlarm(calendar);
-
-        }else{
-
+        } else {
             flashCardSetting.setAlarm(null);
-
         }
-
         FlashCardSettingManager.saveSetting(getContext(), flashCardSetting);
-
     }
 }
 
