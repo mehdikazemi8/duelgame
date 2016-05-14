@@ -109,7 +109,8 @@
                         android:layout_marginTop="@dimen/space.short"
                         android:background="@drawable/duel_flat_button"
                         android:text="تنظیمات"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
