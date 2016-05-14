@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -113,6 +114,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.info_button:
+                Log.d("TAG", "info_button");
                 handleInfoButton();
                 break;
 
@@ -141,7 +143,7 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         screenW = metrics.widthPixels;
         screenH = metrics.heightPixels;
-        mChart.setLayoutParams(new RelativeLayout.LayoutParams((int) (screenW), (int) (screenW)));
+        mChart.setLayoutParams(new LinearLayout.LayoutParams((int) (screenW), (int) (screenW)));
         mChart.setDescription("");
         mChart.setWebLineWidth(1.5f);
         mChart.setWebLineWidthInner(0.75f);
