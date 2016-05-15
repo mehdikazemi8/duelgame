@@ -332,7 +332,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
 
                 String ans = lastQShuffle.substring(lastQShuffle.length()-1);
                 // chosen this option
-                if(lastQShuffle.charAt(4) == '0' && lastQShuffle.charAt(k) == '0') {
+                if(lastQShuffle.charAt(k) == '0') {
                     options[k].setTextColor(getResources().getColor(R.color.correct_answer));
                 } else if(lastQShuffle.charAt(k) == lastQShuffle.charAt(4)) {
                     options[k].setTextColor(getResources().getColor(R.color.wrong_answer));
@@ -340,6 +340,8 @@ public class StepFragment extends Fragment implements View.OnClickListener {
                     options[k].setTextColor(getResources().getColor(R.color.play_game_option_btn_text));
                 }
             }
+
+
 
 
             if(lastQShuffle.charAt(4) == '9') {
@@ -357,7 +359,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             if(currentQuestionIdx - currentReviewIdx == quiz.getQuestions().size()) {
                 nextQuestion.setText("پایان مرور");
             }
-        }else {
+        } else {
             lastQShuffle = "0123";
             lastQShuffle = shuffleString(lastQShuffle);
             Log.d("TAG", "shuff " + lastQShuffle);
