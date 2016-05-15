@@ -81,7 +81,7 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
 //            bindListData((FlashCardList) MemoryCache.get(FLASH_CARD_LIST_CACHE));
 //        } else
             // request from server
-            DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.SEND_GET_FLASH_CARD_LIST));
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.SEND_GET_FLASH_CARD_LIST));
     }
 
     private void bindListData(FlashCardList list) {
