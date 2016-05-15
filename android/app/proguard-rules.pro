@@ -133,3 +133,5 @@
 # BEGIN: mint
 -keep class com.splunk.** { *; }
 # END: mint
+
+-dontwarn com.github.mikephil.**
