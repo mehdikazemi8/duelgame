@@ -24,6 +24,8 @@ import com.mehdiii.duelgame.views.custom.CustomTextView;
 import com.mehdiii.duelgame.views.custom.IconTextView;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -41,6 +43,23 @@ public class FlashCardListAdapter extends ArrayAdapter<FlashCard> {
         super(context, resource);
         inflater = LayoutInflater.from(context);
         this.flashCards = list.getList();
+
+        for(FlashCard flashCard : flashCards) {
+            Log.d("TAG", "xxx 1 " + flashCard.getOwned());
+        }
+        Collections.sort(flashCards, new Comparator<FlashCard>() {
+            @Override
+            public int compare(FlashCard x, FlashCard y) {
+                if(x.getOwned() != y.getOwned()) {
+                    return x.getOwned() > y.getOwned() ? -1 : 1;
+                } else {
+                    return x.getTitle().compareTo(y.getTitle());
+                }
+            }
+        });
+        for(FlashCard flashCard : flashCards) {
+            Log.d("TAG", "xxx 2 " + flashCard.getOwned());
+        }
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

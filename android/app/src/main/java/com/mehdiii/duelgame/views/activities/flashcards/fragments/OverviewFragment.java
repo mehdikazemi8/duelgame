@@ -116,7 +116,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         DeckPersister dp = new DeckPersister();
         if(dp.hasDeck(getActivity(), card.getId())) {
             configChart();
-        }else {
+        } else {
             mChart.setVisibility(View.GONE);
         }
     }
@@ -129,6 +129,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindData() {
+        Log.d("TAG", "bindData OverviewFragment");
+
         if (card.getOwned() == 1)
             purchaseButton.setVisibility(View.GONE);
 
@@ -137,7 +139,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         this.countTextView.setText(String.valueOf((int) card.getCount()) + " عدد فلش‌کارت");
         this.titleTextView.setText(card.getTitle());
 
-        String buttonText = null;
+        String buttonText = "بزن بریم";
         if (!DeckPersister.hasDeck(getActivity(), card.getId()))
             if (card.getOwned() == 1)
                 buttonText = "دریافت";
@@ -149,8 +151,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             buttonText = "بزن بریم";
         else if (card.getProgress() < card.getPercentFree())
             buttonText = "امتحان کنید";
-        else
-            goButton.setVisibility(View.INVISIBLE);
 
         goButton.setText(buttonText);
 
@@ -160,6 +160,18 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         if(card.getOwned() != 1 || !DeckPersister.hasDeck(getActivity(), card.getId())) {
             settingButton.setEnabled(false);
             statisticsButton.setEnabled(false);
+        }
+
+        Log.d("TAG", "hhjjhh " + card.getOwned() + " " + card.getProgress() + " " + card.getPercentFree());
+
+        if(card.getOwned() == 1) {
+            goButton.setEnabled(true);
+        } else {
+            if(card.getProgress() >= card.getPercentFree()) {
+                goButton.setEnabled(false);
+            } else {
+                goButton.setEnabled(true);
+            }
         }
     }
 
@@ -230,8 +242,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                     .addToBackStack(null)
                     .commit();
         } else {
-
-            DuelApp.getInstance().toast(R.string.message_heart_is_low, Toast.LENGTH_SHORT);
+            DuelApp.getInstance().toast(R.string.message_buy_flashcard, Toast.LENGTH_LONG);
         }
     }
 
@@ -247,6 +258,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
      * @param c receive notice
      */
     public void onEvent(OnFlashCardReceived c) {
+        Log.d("TAG", "onEvent OverviewFragment");
         progressBar.setVisibility(View.GONE);
         turnWaitingMode(false);
         card = DeckPersister.getDeck(getActivity(), card.getId());
@@ -285,10 +297,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     }
 
     private void turnWaitingMode(boolean waiting) {
-
         goButton.setEnabled(!waiting);
         purchaseButton.setEnabled(!waiting);
 
+        Log.d("TAG", "turnWaitingMode " + (!waiting));
     }
 
     private void setData() {

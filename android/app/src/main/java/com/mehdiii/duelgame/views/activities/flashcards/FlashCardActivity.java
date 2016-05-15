@@ -27,6 +27,9 @@ import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.flashcards.fragments.OverviewFragment;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -54,6 +57,8 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
         infoButton = (ImageButton) findViewById(R.id.info_button);
         listView.setOnItemClickListener(listViewClickListener);
         infoButton.setOnClickListener(this);
+
+        getFlashCards();
     }
 
 
@@ -62,7 +67,6 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         PurchaseManager.changeActivity(this);
-        getFlashCards();
     }
 
     @Override
@@ -81,7 +85,6 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
     }
 
     private void bindListData(FlashCardList list) {
-
         FlashCardListAdapter adapter = new FlashCardListAdapter(this, 0, list);
         this.listView.setAdapter(adapter);
 
@@ -107,9 +110,9 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        // if this activity is going to be seen again.
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1)
-            getFlashCards();
+//        if this activity is going to be seen again.
+//        if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+//            getFlashCards();
 
         super.onBackPressed();
     }

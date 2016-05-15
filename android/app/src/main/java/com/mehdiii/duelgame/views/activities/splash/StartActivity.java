@@ -72,8 +72,9 @@ public class StartActivity extends ParentActivity {
                             loginOrRegisterUser(user);
                         }
                     });
-                } else
+                } else {
                     loginOrRegisterUser(user);
+                }
             }
         }
     });

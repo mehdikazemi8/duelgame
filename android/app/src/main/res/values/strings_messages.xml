@@ -6,6 +6,7 @@
     <string name="new_question_send_successful">سوال با موفقیت ارسال شد.</string>
     <string name="message_settings_save_failed">نشد! لطفا بعدا دوباره تلاش کنید.</string>
     <string name="message_heart_is_low">قلبهایتان تمام شده است. لطفا کمی صبر کنید یا با خرج کمی الماس دوباره قلبهای خود را پرکنید.</string>
+    <string name="message_buy_flashcard">لطفا برای ادامه این فلش کارت را خریداری کنید</string>
     <string name="error_add_friend_invalid">کد وارد شده صحیح نیست. لطفا دقت کنید.</string>
 
     <string name="error_add_friend_duplicate">درخواست دوستی قبلا ارسال شده.</string>

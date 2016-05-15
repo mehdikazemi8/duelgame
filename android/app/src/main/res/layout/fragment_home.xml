@@ -536,8 +536,6 @@
                     <com.mehdiii.duelgame.views.custom.CustomButton
                         android:id="@+id/quiz_button"
                         style="@style/home_buttons"
-
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="آزمون" />
