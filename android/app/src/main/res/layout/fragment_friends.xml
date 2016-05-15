@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/duel_flat_button"
+                android:background="@drawable/bg_button_blue_dark"
                 android:text="@string/button_tell_friends"
                 android:textColor="@color/white" />
         </LinearLayout>

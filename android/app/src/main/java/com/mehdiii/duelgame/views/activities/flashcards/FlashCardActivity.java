@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -39,6 +40,9 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
     private static final String FLASH_CARD_LIST_CACHE = "flash_card_list_cache";
     private ListView listView;
     private ImageButton infoButton;
+
+    ProgressBar progressBar;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -55,6 +59,7 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
 
         listView = (ListView) findViewById(R.id.deck_list);
         infoButton = (ImageButton) findViewById(R.id.info_button);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         listView.setOnItemClickListener(listViewClickListener);
         infoButton.setOnClickListener(this);
 
@@ -77,6 +82,7 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
 
     private void getFlashCards() {
 
+        progressBar.setVisibility(View.VISIBLE);
 //        if (MemoryCache.get(FLASH_CARD_LIST_CACHE) != null) {
 //            bindListData((FlashCardList) MemoryCache.get(FLASH_CARD_LIST_CACHE));
 //        } else
@@ -136,6 +142,10 @@ public class FlashCardActivity extends ParentActivity implements View.OnClickLis
     private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
+            if(progressBar != null) {
+                progressBar.setVisibility(View.GONE);
+            }
+
             if (type == CommandType.RECEIVE_FLASH_CARD_LIST) {
                 Log.d("TAG", "RECEIVE_FLASH_CARD_LIST " + json);
 

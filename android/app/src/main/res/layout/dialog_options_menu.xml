@@ -9,15 +9,14 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/option_add_question"
+            android:id="@+id/option_store"
             style="@style/home_options_menu">
             <com.mehdiii.duelgame.views.custom.CustomTextView
                 style="@style/home_options_menu_text"
-                android:text="اضافه کردن سوال"
-                android:textStyle="bold"/>
+                android:text="فروشگاه" />
             <com.mehdiii.duelgame.views.custom.IconTextView
                 style="@style/home_options_menu_icon"
-                android:text="G" />
+                android:text="H" />
         </LinearLayout>
 
         <View style="@style/home_options_menu_separator" />
@@ -49,19 +48,6 @@
         <View style="@style/home_options_menu_separator" />
 
         <LinearLayout
-            android:id="@+id/option_store"
-            style="@style/home_options_menu">
-            <com.mehdiii.duelgame.views.custom.CustomTextView
-                style="@style/home_options_menu_text"
-                android:text="فروشگاه" />
-            <com.mehdiii.duelgame.views.custom.IconTextView
-                style="@style/home_options_menu_icon"
-                android:text="H" />
-        </LinearLayout>
-
-        <View style="@style/home_options_menu_separator" />
-
-        <LinearLayout
             android:id="@+id/option_telegram_channel"
             style="@style/home_options_menu">
             <com.mehdiii.duelgame.views.custom.CustomTextView
@@ -88,6 +74,20 @@
         <View style="@style/home_options_menu_separator" />
 
         <LinearLayout
+            android:id="@+id/option_add_question"
+            style="@style/home_options_menu">
+            <com.mehdiii.duelgame.views.custom.CustomTextView
+                style="@style/home_options_menu_text"
+                android:text="اضافه کردن سوال"
+                android:textStyle="bold"/>
+            <com.mehdiii.duelgame.views.custom.IconTextView
+                style="@style/home_options_menu_icon"
+                android:text="G" />
+        </LinearLayout>
+
+        <View style="@style/home_options_menu_separator" />
+
+        <LinearLayout
             android:id="@+id/option_contact_us"
             style="@style/home_options_menu">
             <com.mehdiii.duelgame.views.custom.CustomTextView
@@ -102,6 +102,7 @@
 
         <LinearLayout
             android:id="@+id/option_flash_card"
+            android:visibility="gone"
             style="@style/home_options_menu">
             <com.mehdiii.duelgame.views.custom.CustomTextView
                 style="@style/home_options_menu_text"
