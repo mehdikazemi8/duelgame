@@ -71,13 +71,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
-        Log.d("TAG", "onResume onViewCreated");
 
+        Log.d("TAG", "onResume onViewCreated");
         find(view);
         configure(view);
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
     }
+
+
+
+
 
     private void find(View view) {
         infoButton = (ImageButton) view.findViewById(R.id.info_button);

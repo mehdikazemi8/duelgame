@@ -12,354 +12,29 @@
 
         <LinearLayout
             android:id="@+id/rankings_holder"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/space.medium">
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/space.long">
-
-                <ImageButton
-                    android:id="@+id/info_button"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/space.long"
-                    android:layout_marginRight="@dimen/space.long"
-                    android:background="@drawable/info"
-                    android:clickable="true" />
-
-                <com.mehdiii.duelgame.views.custom.CustomTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="امتیاز کل"
-                    android:textColor="@color/purple_dark"
-                    android:textSize="@dimen/fontsize.normal" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:id="@+id/c10001_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="ادبیات"
-                            android:textSize="20dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10001_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10001_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/background_1" />
-
-                <LinearLayout
-                    android:id="@+id/c10002_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="عربی"
-                            android:textSize="20dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10002_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10002_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/background_1" />
-
-                <LinearLayout
-                    android:id="@+id/c10003_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="دین و زندگی"
-                            android:textSize="20dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10003_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10003_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/background_1" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:id="@+id/c10004_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="زبان"
-                            android:textSize="20dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10004_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10004_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/background_1" />
-
-                <LinearLayout
-                    android:id="@+id/c10005_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="شیمی"
-                            android:textSize="20dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10005_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10005_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/background_1" />
-
-                <LinearLayout
-                    android:id="@+id/c10006_holder"
-                    style="@style/home_ranking">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="زیست"
-                            android:textSize="20dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10006_score"
-                            style="@style/home_ranking_text"
-                            android:text="۰" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="امتیاز: " />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/c10006_rank"
-                            style="@style/home_ranking_text"
-                            android:text="۱" />
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            style="@style/home_ranking_text"
-                            android:text="رتبه: " />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:layout_weight="2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -400,47 +75,46 @@
                                 android:id="@+id/button_buy_diamond"
                                 style="@style/button_home_recharge" />
                         </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="10:10"
-                            android:textColor="@color/purple_dark"
-                            android:textSize="@dimen/fontsize.normal"
-                            android:visibility="invisible" />
-
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="3"
-                    android:gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
-                    <ImageView
-                        android:id="@+id/imageView_avatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <ImageButton
+                        android:id="@+id/info_button"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_gravity="center"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="avatar"
-                        android:onClick="viewLevels"
-                        android:src="@drawable/av1" />
+                        android:layout_marginLeft="@dimen/space.long"
+                        android:layout_marginRight="@dimen/space.long"
+                        android:background="@drawable/info"
+                        android:clickable="true" />
+
+                    <com.mehdiii.duelgame.views.custom.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="امتیاز کل"
+                        android:textColor="@color/purple_dark"
+                        android:textSize="@dimen/fontsize.normal" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:layout_weight="2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="vertical">
-
 
                         <LinearLayout
                             android:id="@+id/container_hearts"
