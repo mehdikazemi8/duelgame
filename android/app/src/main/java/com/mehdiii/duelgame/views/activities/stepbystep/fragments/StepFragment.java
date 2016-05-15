@@ -330,7 +330,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
             for(int k = 0; k < NOPTIONS; k ++) {
                 options[k].setText(question.getOptions().get(Integer.valueOf("" + lastQShuffle.charAt(k))));
 
-                String ans = lastQShuffle.substring(lastQShuffle.length()-1);
+//                String ans = lastQShuffle.substring(lastQShuffle.length()-1);
                 // chosen this option
                 if(lastQShuffle.charAt(k) == '0') {
                     options[k].setTextColor(getResources().getColor(R.color.correct_answer));

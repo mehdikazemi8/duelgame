@@ -154,15 +154,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         goButton.setText(buttonText);
 
-        Log.d("TAG", "ccard" + card.serialize());
-        Log.d("TAG", "ccard" + card.getOwned());
-
         if(card.getOwned() != 1 || !DeckPersister.hasDeck(getActivity(), card.getId())) {
             settingButton.setEnabled(false);
             statisticsButton.setEnabled(false);
         }
-
-        Log.d("TAG", "hhjjhh " + card.getOwned() + " " + card.getProgress() + " " + card.getPercentFree());
 
         if(card.getOwned() == 1) {
             goButton.setEnabled(true);

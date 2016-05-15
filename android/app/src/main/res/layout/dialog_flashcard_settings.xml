@@ -74,12 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="10dp"
-                android:background="@color/purple_sexy" />
+                android:background="@color/purple_sexy"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/notif_text"
@@ -94,7 +96,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space.medium"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/notif_off_text"
