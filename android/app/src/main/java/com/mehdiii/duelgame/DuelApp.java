@@ -151,16 +151,20 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     }
 
     public void sendMessage(String json) {
-        Log.d("sentit", json);
-        if(wsc == null) {
-            Log.e("sentit", "wsc is null");
-            return;
+        try {
+            Log.d("sentit", json);
+            if(wsc == null) {
+                Log.e("sentit", "wsc is null");
+                return;
+            }
+            if(!wsc.isConnected()) {
+                Log.e("sentit", "wsc is not connected");
+                return;
+            }
+            wsc.sendTextMessage(json);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if(!wsc.isConnected()) {
-            Log.e("sentit", "wsc is not connected");
-            return;
-        }
-        wsc.sendTextMessage(json);
     }
 
     /**
