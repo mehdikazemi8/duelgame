@@ -404,6 +404,10 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     }
 
     private void setPendingOfflineDuels() {
+        if(AuthManager.getCurrentUser() == null) {
+            return;
+        }
+
         if(AuthManager.getCurrentUser().getPendingOfflineChallenges() == 0) {
             pendingOfflineDuels.setVisibility(View.GONE);
         } else {
