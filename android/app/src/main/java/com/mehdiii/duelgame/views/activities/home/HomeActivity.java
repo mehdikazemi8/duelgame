@@ -84,7 +84,7 @@ public class HomeActivity extends ParentActivity {
     FlippableFragment duelHourFragment;
 
     List<Fragment> childFragments;
-    ScoresDialog scoresDialog;
+//    ScoresDialog scoresDialog;
 
     private View.OnClickListener pageSelectorClickListener = new View.OnClickListener() {
         @Override
@@ -321,7 +321,7 @@ public class HomeActivity extends ParentActivity {
     }
 
     public void viewLevels(View view) {
-        scoresDialog.show();
+        //scoresDialog.show();
     }
 
     private void find() {
@@ -334,7 +334,7 @@ public class HomeActivity extends ParentActivity {
     }
 
     private void configure() {
-        scoresDialog = new ScoresDialog(HomeActivity.this);
+        //scoresDialog = new ScoresDialog(HomeActivity.this);
 
         createChildFragments();
 
@@ -462,8 +462,8 @@ public class HomeActivity extends ParentActivity {
 
         if (alert != null && alert.getStatus() != null && alert.getStatus().equals("invalid"))
             DuelApp.getInstance().toast(R.string.message_invalid_purchase, Toast.LENGTH_LONG);
-        else
-            scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
+//        else
+//            scoresDialog.setUserScore(AuthManager.getCurrentUser().getScore());
     }
 
     public void clickSample(View view) {
