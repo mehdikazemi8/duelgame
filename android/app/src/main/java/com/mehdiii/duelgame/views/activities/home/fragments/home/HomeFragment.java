@@ -178,6 +178,10 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
         int cnt = 6;
         int[] scores = new int[6];
         User user = AuthManager.getCurrentUser();
+        if(user == null) {
+            return;
+        }
+
         for(int i =0 ; i < 6; i++){
             int cid  = 10001 + i;
             scores[i] = user.getScore(String.valueOf(cid), "overall");
