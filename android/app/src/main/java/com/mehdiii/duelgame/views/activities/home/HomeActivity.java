@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -273,6 +274,8 @@ public class HomeActivity extends ParentActivity {
 
         context = getApplicationContext();
 
+
+
         setAlarmForDuelHour(this);
         setAlarmForFlashCards(this);
         cancelDuelHourNotification();
@@ -296,12 +299,21 @@ public class HomeActivity extends ParentActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         PurchaseManager.changeActivity(this);
 
         if(! DuelApp.getInstance().isConnected())
             DuelApp.getInstance().connectToWs();
+
+        DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
     }
 
     private boolean checkPlayServices() {
@@ -474,6 +486,20 @@ public class HomeActivity extends ParentActivity {
     public boolean canHandleChallengeRequest() {
         return true;
     }
+
+    private BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (type == CommandType.RECEIVE_COURSE_MAP) {
+                CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
+                Log.d("TAG", "course map received" + cm.serialize());
+                User user = AuthManager.getCurrentUser();
+                user.setCourseMap(cm);
+                Log.d("TAG", "course map received" + user.getCourseMap().serialize());
+            }
+        }
+    });
+
 
 //    TODO GCM Receive
 //    BroadcastReceiver commandListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
