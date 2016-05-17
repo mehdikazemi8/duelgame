@@ -17,6 +17,169 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/firstline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1">
+
+                        <com.mehdiii.duelgame.views.custom.CustomButton
+                            android:id="@+id/quiz_button"
+                            style="@style/home_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="آزمون" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/round_background"
+                            android:elevation="2dp">
+
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                android:id="@+id/open_exams_not_taken"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="0"
+                                android:textColor="@color/purple_dark"
+                                android:textSize="@dimen/fontsize.small" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <com.mehdiii.duelgame.views.custom.CustomButton
+                        android:id="@+id/step_quiz"
+                        style="@style/home_buttons"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/course_to_course" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/thirdline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/firstline"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/button_duel2"
+                        style="@style/home_buttons"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="دوئل" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1">
+
+                        <Button
+                            android:id="@+id/button_offline_duels_lists"
+                            style="@style/home_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:text="دوئل نوبتی" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/round_background"
+                            android:elevation="2dp">
+
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                android:id="@+id/pending_offline_duels"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="0"
+                                android:textColor="@color/purple_dark"
+                                android:textSize="@dimen/fontsize.small" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/thirdline"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1">
+                        <Button
+                            android:id="@+id/button_flash_card"
+                            style="@style/home_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="فلش کارت" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/round_background"
+                            android:elevation="2dp">
+
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                android:id="@+id/pending_flashcards"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="0"
+                                android:textColor="@color/purple_dark"
+                                android:textSize="@dimen/fontsize.small" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,9 +242,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:layout_gravity="center">
 
                     <ImageButton
@@ -188,167 +352,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <LinearLayout
-                android:id="@+id/firstline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1">
-
-                    <com.mehdiii.duelgame.views.custom.CustomButton
-                        android:id="@+id/quiz_button"
-                        style="@style/home_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="آزمون" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/round_background"
-                        android:elevation="2dp">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/open_exams_not_taken"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="4dp"
-                            android:text="0"
-                            android:textColor="@color/purple_dark"
-                            android:textSize="@dimen/fontsize.small" />
-                    </LinearLayout>
-                </FrameLayout>
-
-                <com.mehdiii.duelgame.views.custom.CustomButton
-                    android:id="@+id/step_quiz"
-                    style="@style/home_buttons"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/course_to_course" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/thirdline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/firstline"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/button_duel2"
-                    style="@style/home_buttons"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="5dp"
-                    android:text="دوئل" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/button_offline_duels_lists"
-                        style="@style/home_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:text="دوئل نوبتی" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/round_background"
-                        android:elevation="2dp">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/pending_offline_duels"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="4dp"
-                            android:text="0"
-                            android:textColor="@color/purple_dark"
-                            android:textSize="@dimen/fontsize.small" />
-                    </LinearLayout>
-                </FrameLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/thirdline"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1">
-                    <Button
-                        android:id="@+id/button_flash_card"
-                        style="@style/home_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="فلش کارت" />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/round_background"
-                        android:elevation="2dp">
-
-                        <com.mehdiii.duelgame.views.custom.CustomTextView
-                            android:id="@+id/pending_flashcards"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="4dp"
-                            android:text="0"
-                            android:textColor="@color/purple_dark"
-                            android:textSize="@dimen/fontsize.small" />
-                    </LinearLayout>
-                </FrameLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-
-                android:gravity="center"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

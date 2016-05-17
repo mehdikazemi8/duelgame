@@ -53,6 +53,9 @@ public class CardView extends RelativeLayout {
     boolean isBound = false;
 
     public void bind(Card card) {
+        if(card == null)
+            return;
+
         isBound = true;
         this.frontTextView.setText(card.getFront());
         this.backTextView.setText(card.getBack());

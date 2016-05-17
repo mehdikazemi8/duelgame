@@ -84,6 +84,10 @@ public class PracticeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void hit(CardView view, Card card) {
+        if(card == null) {
+            return;
+        }
+
         view.bind(card);
 
         if (card.isDisabled()) {
