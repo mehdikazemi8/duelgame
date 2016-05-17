@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -62,6 +63,11 @@ public class DuelDialog extends Dialog {
     private void configure() {
         // setting list view that shows courses
         final User user = AuthManager.getCurrentUser();
+        if(user == null) {
+            DuelApp.getInstance().toast(R.string.toast_try_again, Toast.LENGTH_LONG);
+            return;
+        }
+
         String[] coursesNames = getContext().getResources().getStringArray(R.array.categories_values);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.template_course_challenge_dialog, R.id.course_name, coursesNames);
         courses.setAdapter(adapter);

@@ -20,6 +20,7 @@
     <string name="subscription_price">هزینه: %d تومان</string>
 
     <string name="caption_diamond_cnt">%d تا الماس داری\n\n</string>
+    <string name="toast_try_again">لطفا اپلیکیشن رو کامل ببند و دوباره امتحان کن</string>
     <string name="caption_retake_step">برای اینکه این مرحله رو دوباره بگذرونی و ستاره‌هات رو افزایش بدی باید ۲۹۰ الماس بپردازی</string>
 
     <string name="quiz_running">باز</string>

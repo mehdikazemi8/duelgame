@@ -177,7 +177,7 @@ public class WaitingActivity extends ParentActivity {
         matched = true;
         OpponentCollection collection = BaseModel.deserialize(json, OpponentCollection.class);
 
-        if (collection == null || collection.getOpponents() == null)
+        if (collection == null || collection.getOpponents() == null || collection.getOpponents().size() == 0)
             return;
 
         opponentUser = collection.getOpponents().get(0);
