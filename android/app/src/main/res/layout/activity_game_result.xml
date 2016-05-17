@@ -499,6 +499,7 @@
                     android:id="@+id/game_result_duel_others"
                     style="@style/button_game_result_footer"
                     android:onClick="wannaChallenge"
+                    android:background="@drawable/duel_flat_button"
                     android:text="@string/caption_duel_again" />
 
                 <Button
