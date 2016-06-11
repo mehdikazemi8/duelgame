@@ -417,7 +417,7 @@ public class FriendsFragment extends FlippableFragment implements View.OnClickLi
     }
 
     public void startGame() {
-        if (!HeartTracker.getInstance().canUseHeart()) {
+        if (HeartTracker.getInstance() != null && !HeartTracker.getInstance().canUseHeart()) {
             HeartLowDialog dialog = new HeartLowDialog(getActivity());
             dialog.show();
             return;

@@ -492,10 +492,12 @@ public class HomeActivity extends ParentActivity {
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.RECEIVE_COURSE_MAP) {
                 CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
-                Log.d("TAG", "course map received" + cm.serialize());
+//                Log.d("TAG", "course map received" + cm.serialize());
                 User user = AuthManager.getCurrentUser();
-                user.setCourseMap(cm);
-                Log.d("TAG", "course map received" + user.getCourseMap().serialize());
+                if(user != null) {
+                    user.setCourseMap(cm);
+                }
+//                Log.d("TAG", "course map received" + user.getCourseMap().serialize());
             }
         }
     });

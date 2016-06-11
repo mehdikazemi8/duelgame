@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -29,17 +30,20 @@ import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.FlashCardIdManager;
 import com.mehdiii.duelgame.models.CourseMap;
+import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
+import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.activities.flashcards.FlashCardActivity;
+import com.mehdiii.duelgame.views.activities.home.HomeActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.quiz.QuizActivity;
 import com.mehdiii.duelgame.views.activities.stepbystep.StepActivity;
@@ -131,8 +135,16 @@ public class HomeFragment extends FlippableFragment implements View.OnClickListe
                 }
 
             case R.id.button_flash_card:
-                Intent intent = new Intent(getActivity(), FlashCardActivity.class);
-                startActivity(intent);
+                if(AuthManager.getCurrentUser() == null) {
+                    DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(getActivity())).serialize());
+                    Toast.makeText(getActivity(), getString(R.string.please_try_again_later), Toast.LENGTH_LONG).show();
+                } else if(AuthManager.getCurrentUser().getCourseMap() == null) {
+                    DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
+                    Toast.makeText(getActivity(), getString(R.string.please_try_again_later), Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(getActivity(), FlashCardActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

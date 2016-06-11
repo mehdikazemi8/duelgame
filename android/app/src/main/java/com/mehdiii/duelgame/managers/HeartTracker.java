@@ -24,9 +24,12 @@ public class HeartTracker {
     boolean isExtremeHeart;
     int timeLeft;
     boolean running = false;
-    private static HeartTracker instance;
+    private static HeartTracker instance = null;
 
     public static HeartTracker getInstance() {
+        if(instance == null) {
+            instance = new HeartTracker();
+        }
         return instance;
     }
 
