@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -16,11 +18,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.mehdiii.duelgame.api.ChatApi;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.SyncData;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
+import com.mehdiii.duelgame.models.chat.DaoMaster;
+import com.mehdiii.duelgame.models.chat.DaoSession;
+import com.mehdiii.duelgame.models.chat.MessageDao;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
@@ -35,6 +41,8 @@ import de.greenrobot.event.EventBus;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DuelApp extends Application implements Application.ActivityLifecycleCallbacks {
     public static final String PROPERTY_ID = "UA-62041991-1";
@@ -42,6 +50,9 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     private static DuelApp instance;
     static protected WebSocketConnection wsc = new WebSocketConnection();
     Map<Integer, BaseModel> pendingMessages = new HashMap<>();
+
+
+
 
 //    public static String BASE_URL = "http://192.168.177.153:8000";
     public static String BASE_URL = "http://duelgame.ir:8000";
@@ -66,6 +77,9 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
             connectToWs();
 
         PurchaseManager.init(this);
+
+        retrofit = getRetrofit();
+        configureORM();
     }
 
     public boolean isConnected() {
@@ -353,5 +367,35 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         Log.d("TAG", "ActivityLifecycle onActivityCreated");
+    }
+
+
+
+    // Chat section
+    public static final String DB_NAME = "duel_db";
+    private static Retrofit retrofit;
+    public static SQLiteDatabase db;
+    public static DaoMaster daoMaster;
+    public static DaoSession daoSession;
+    public static Cursor cursor;
+    public static MessageDao messageDao;
+
+    public static Retrofit getRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    public static ChatApi createChatApi() {
+        return retrofit.create(ChatApi.class);
+    }
+
+    private void configureORM() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DB_NAME, null);
+        db = helper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        messageDao = daoSession.getMessageDao();
     }
 }

@@ -1,6 +1,5 @@
 package com.mehdiii.duelgame.views.activities.quiz;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,32 +20,23 @@ import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.Quizzes;
-import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
-import com.mehdiii.duelgame.models.events.OnDiamondChangeNotice;
-import com.mehdiii.duelgame.models.events.OnFinishActivity;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.FontHelper;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
-import com.mehdiii.duelgame.utils.Purchase;
 import com.mehdiii.duelgame.utils.TellFriendManager;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.activities.offlineduellists.fragments.ViewOfflineDuelsFragment;
 import com.mehdiii.duelgame.views.activities.quiz.fragments.QuizInfoFragment;
 import com.mehdiii.duelgame.views.activities.quiz.fragments.adapters.QuizCardAdapter;
 import com.mehdiii.duelgame.views.custom.CustomButton;
 import com.mehdiii.duelgame.views.custom.CustomTextView;
-import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.QuizDetailDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by mehdiii on 1/14/16.
@@ -272,11 +262,14 @@ public class QuizActivity extends ParentActivity implements View.OnClickListener
         tellFriendDialog.show();
     }
 
+
+
     private void handleSubscription() {
 //        ConfirmDialog subscriptionDialog = new ConfirmDialog(this,
 //                getString(R.string.caption_subscribe_description),
 //                R.layout.dialog_subscribe, AuthManager.getCurrentUser().getSubscriptionPrice(), true);
 //        subscriptionDialog.show();
+
         QuizDetailDialog quizDetailDialog = new QuizDetailDialog();
         quizDetailDialog.show(getSupportFragmentManager(), "TAG");
     }
