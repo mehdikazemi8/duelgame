@@ -16,8 +16,11 @@
             android:id="@+id/message_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="10"
-            android:maxLength="600" />
+            android:background="@drawable/edit_text_border"
+            android:maxLength="600"
+            android:padding="@dimen/avatar_padding" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             android:id="@+id/button_send"

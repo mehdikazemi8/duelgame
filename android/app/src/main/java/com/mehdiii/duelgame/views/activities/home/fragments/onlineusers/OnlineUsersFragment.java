@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
+import com.mehdiii.duelgame.models.ChatUpdate;
 import com.mehdiii.duelgame.models.Friend;
 import com.mehdiii.duelgame.models.FriendRequest;
 import com.mehdiii.duelgame.models.OnlineUsersList;
@@ -39,11 +40,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class OnlineUsersFragment extends FlippableFragment implements View.OnClickListener {
     ListView listView;
     MessageAdapter adapter;
-    private ProgressBar progressBar;
     Activity activity = null;
 
     EditText textMessage;
@@ -64,7 +65,6 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 
     private void find(View view) {
         this.listView = (ListView) view.findViewById(R.id.listView_chats);
-        this.progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         textMessage = (EditText) view.findViewById(R.id.message_text);
         sendButton = (CustomButton) view.findViewById(R.id.button_send);
     }
@@ -74,8 +74,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 
         adapter = new MessageAdapter(getActivity(), R.layout.template_message, DuelApp.messageDao.loadAll());
         listView.setAdapter(adapter);
+        listView.setSelection(listView.getCount());
     }
-
 
     @Override
     public void onResume() {
@@ -113,17 +113,19 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         adapter.notifyDataSetChanged();
         adapter = new MessageAdapter(getActivity(), R.layout.template_message, messageList);
         listView.setAdapter(adapter);
+        listView.setSelection(listView.getCount());
+        Log.d("TAGaaa", "listView.getCount() " + listView.getCount());
     }
 
     private void saveMessage(String messageStr) {
-        Message myMessage = new Message();
-        myMessage.setAvatar(AuthManager.getCurrentUser().getAvatar());
-        myMessage.setChatId("public");
-        myMessage.setName(AuthManager.getCurrentUser().getName());
-        myMessage.setSender(AuthManager.getCurrentUser().getId());
-        myMessage.setText(messageStr);
-        myMessage.setTimestamp(ChatHelper.getLastMessageTimestamp());
-        DuelApp.messageDao.insert(myMessage);
+//        Message myMessage = new Message();
+//        myMessage.setAvatar(AuthManager.getCurrentUser().getAvatar());
+//        myMessage.setChatId("public");
+//        myMessage.setName(AuthManager.getCurrentUser().getName());
+//        myMessage.setSender(AuthManager.getCurrentUser().getId());
+//        myMessage.setText(messageStr);
+//        myMessage.setTimestamp(ChatHelper.getLastMessageTimestamp());
+//        DuelApp.messageDao.insert(myMessage);
     }
 
     private void sendMessage() {
@@ -133,6 +135,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
             return;
         }
         textMessage.setText("");
+
+        Log.d("TAGaaa", "sendMessage " + messageStr);
 
         saveMessage(messageStr);
         bindListViewData(DuelApp.messageDao.loadAll());
@@ -193,9 +197,13 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
     private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
-            if (false) {
-                if (progressBar != null)
-                    progressBar.setVisibility(View.GONE);
+            if (type == CommandType.YOU_HAVE_NEW_MESSAGE) {
+                Log.d("TAGaaa", "YOU_HAVE_NEW_MESSAGE");
+
+                ChatUpdate update = ChatUpdate.deserialize(json, ChatUpdate.class);
+                if("public".equals(update.getRoom())) {
+                    sendFetchRequest();
+                }
             } else if(type == CommandType.RECEIVE_ADD_FRIEND) {
             }
         }

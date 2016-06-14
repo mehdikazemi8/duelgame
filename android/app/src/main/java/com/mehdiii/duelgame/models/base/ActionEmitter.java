@@ -19,6 +19,8 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.YOU_HAVE_NEW_MESSAGE, "YHNM");
+
         map.put(CommandType.GET_SUBSCRIPTION_PURCHASE_PERMISSION, "GSPP");
         map.put(CommandType.RECEIVE_SUBSCRIPTION_PURCHASE_PERMISSION, "RSPP");
         map.put(CommandType.GET_SUBSCRIPTION_PURCHASE_CONFIRMATION, "GSPC");
