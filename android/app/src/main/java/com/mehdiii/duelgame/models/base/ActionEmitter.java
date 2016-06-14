@@ -19,6 +19,11 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.SAVE_PHONE_NUMBER, "SPN");
+        map.put(CommandType.RECEIVE_SAVE_PHONE_NUMBER, "RSPN");
+        map.put(CommandType.VERIFY_PHONE_NUMBER, "VPN");
+        map.put(CommandType.RECEIVE_VERIFY_PHONE_NUMBER, "RVPN");
+
         map.put(CommandType.YOU_HAVE_NEW_MESSAGE, "YHNM");
 
         map.put(CommandType.GET_SUBSCRIPTION_PURCHASE_PERMISSION, "GSPP");

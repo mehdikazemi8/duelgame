@@ -78,6 +78,17 @@ public class User extends BaseModel {
     @SerializedName("exams_taken")
     private int QuizTaken;
 
+    @SerializedName("phone_number_verified")
+    private boolean phoneNumberVerified;
+
+    public boolean isPhoneNumberVerified() {
+        return phoneNumberVerified;
+    }
+
+    public void setPhoneNumberVerified(boolean phoneNumberVerified) {
+        this.phoneNumberVerified = phoneNumberVerified;
+    }
+
     public int getQuizTaken() {
         return QuizTaken;
     }

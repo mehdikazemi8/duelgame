@@ -352,6 +352,17 @@
 
     <string name="please_try_again_later">لطفا چند ثانیه دیگه امتحان کن</string>
 
-
+    <string name="caption_enter_phone_number">شماره تلفن خود را برای تایید وارد نمایید</string>
+    <string name="hint_phone">شماره تلفن</string>
+    <string name="hint_verification_code">کد تایید</string>
+    <string name="caption_enter_verification_code">کدِ تایید برای شما پیامک شد آن را وارد کنید</string>
+    <string name="button_send">ارسال</string>
+    <string name="enter_phone_correct">شماره تلفن خود را به صورت صحیح وارد کنید</string>
+    <string name="enter_verification_code_toast">کد تاییدی که پیامک شده را وارد کنید</string>
+    <string name="try_again_later">چند دقیقه دیگه دوباره امتحان کن</string>
+    <string name="send_correct_code">کد ارسالی اشتباه است، دوباره بفرست</string>
+    <string name="verified_you_can_chat">تایید شد، حالا می تونی پیام ارسال کنی</string>
+    <string name="sending_verification_code">در حال ارسال کد تایید ...</string>
+    <string name="checking_verification_code">در حال چک کردن...</string>
 
 </resources>

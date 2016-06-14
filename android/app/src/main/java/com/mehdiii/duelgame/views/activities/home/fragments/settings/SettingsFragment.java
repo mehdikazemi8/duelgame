@@ -234,6 +234,7 @@ public class SettingsFragment extends FlippableFragment implements View.OnClickL
         }
         return true;
     }
+
     BroadcastReceiver receiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {

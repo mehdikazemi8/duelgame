@@ -32,6 +32,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.dialogs.GetPhoneNumberDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -140,7 +141,23 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 //        DuelApp.messageDao.insert(myMessage);
     }
 
+    private void verifyPhoneNumber() {
+        GetPhoneNumberDialog dialog = new GetPhoneNumberDialog(getActivity());
+        dialog.setCancelable(false);
+        dialog.show();
+
+    }
+
     private void sendMessage() {
+        try {
+            if(!AuthManager.getCurrentUser().isPhoneNumberVerified()) {
+                verifyPhoneNumber();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         final String messageStr = textMessage.getText().toString().trim();
         if (messageStr.isEmpty()) {
             textMessage.setText("");

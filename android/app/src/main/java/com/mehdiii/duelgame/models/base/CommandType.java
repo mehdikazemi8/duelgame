@@ -3,6 +3,11 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    SAVE_PHONE_NUMBER,
+    RECEIVE_SAVE_PHONE_NUMBER,
+    VERIFY_PHONE_NUMBER,
+    RECEIVE_VERIFY_PHONE_NUMBER,
+
     YOU_HAVE_NEW_MESSAGE,
 
     GET_SUBSCRIPTION_PURCHASE_PERMISSION,
