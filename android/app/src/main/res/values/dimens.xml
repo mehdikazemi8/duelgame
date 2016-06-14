@@ -21,6 +21,7 @@
     <dimen name="fbutton_default_shadow_height">4dp</dimen>
 
     <dimen name="avatar_size">75dp</dimen>
+    <dimen name="send_button_size">40dp</dimen>
     <dimen name="avatar_size_chat">35dp</dimen>
     <dimen name="avatar_padding">8dp</dimen>
     <dimen name="cup_size">70dp</dimen>
