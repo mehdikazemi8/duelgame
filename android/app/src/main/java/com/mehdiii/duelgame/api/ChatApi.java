@@ -3,6 +3,7 @@ package com.mehdiii.duelgame.api;
 import com.mehdiii.duelgame.models.chat.responses.GetMessagesResponse;
 import com.mehdiii.duelgame.models.chat.responses.SendMessageResponse;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,5 +22,5 @@ public interface ChatApi {
     @Headers("Content-Type: text/plain")
     @POST("/messages/public")
     Call<SendMessageResponse> sendMessage(@Query("user_id") String userId,
-                                          @Body String messageText);
+                                          @Body RequestBody messageText);
 }

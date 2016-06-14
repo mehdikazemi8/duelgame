@@ -37,6 +37,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,10 +73,7 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 
     private void configure() {
         sendButton.setOnClickListener(this);
-
-        adapter = new MessageAdapter(getActivity(), R.layout.template_message, DuelApp.messageDao.loadAll());
-        listView.setAdapter(adapter);
-        listView.setSelection(listView.getCount());
+        bindListViewData(DuelApp.messageDao.loadAll());
     }
 
     @Override
@@ -110,7 +109,20 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
     }
 
     private void bindListViewData(List<Message> messageList) {
-        adapter.notifyDataSetChanged();
+//        for(Message message : messageList) {
+//            Log.d("TAGaaa", "listView " + message.getTimestamp());
+//        }
+
+        Collections.sort(messageList, new Comparator<Message>() {
+            @Override
+            public int compare(Message x, Message y) {
+                if(!x.getTimestamp().equals( y.getTimestamp() )) {
+                    return x.getTimestamp() < y.getTimestamp() ? -1 : +1;
+                }
+                return x.getSender().compareTo(y.getSender());
+            }
+        });
+
         adapter = new MessageAdapter(getActivity(), R.layout.template_message, messageList);
         listView.setAdapter(adapter);
         listView.setSelection(listView.getCount());
@@ -142,20 +154,23 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         bindListViewData(DuelApp.messageDao.loadAll());
 
         Call<SendMessageResponse> call = DuelApp.createChatApi().sendMessage(
-                DeviceManager.getDeviceId(getActivity()), messageStr
+                DeviceManager.getDeviceId(getActivity()),
+                RequestBody.create(MediaType.parse("text/plain"), messageStr)
         );
 
         call.enqueue(new Callback<SendMessageResponse>() {
             @Override
             public void onResponse(Call<SendMessageResponse> call, Response<SendMessageResponse> response) {
+                Log.d("TAGaaa", "isSuccessful false " + response.raw().toString());
                 if(!response.isSuccessful()) {
+                    Log.d("TAGaaa", "isSuccessful false");
 
                 }
             }
 
             @Override
             public void onFailure(Call<SendMessageResponse> call, Throwable t) {
-
+                Log.d("TAGaaa", "isSuccessful faaaaail");
             }
         });
     }

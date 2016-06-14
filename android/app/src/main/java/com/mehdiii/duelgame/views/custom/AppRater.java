@@ -34,7 +34,7 @@ public class AppRater {
     private final static String APP_TITLE = "دوئل کنکور";
     private final static String APP_PNAME = "YOUR-PACKAGE-NAME";
 
-    private final static int WIN_UNTIL_PROMPT = 5;
+    private final static int WIN_UNTIL_PROMPT = 2;
 
     public static void show(Context mContext, boolean wonThisGame) {
         Log.d("TAG", "AppRater show");
