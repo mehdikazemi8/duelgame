@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.mehdiii.duelgame.models.chat.DaoSession;
 import com.mehdiii.duelgame.models.chat.MessageDao;
 import com.mehdiii.duelgame.models.events.OnConnectionStateChanged;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
+import com.mehdiii.duelgame.utils.CleanDB;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.splunk.mint.Mint;
@@ -81,6 +83,8 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
         retrofit = getRetrofit();
         configureORM();
+
+        new CleanDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public boolean isConnected() {
