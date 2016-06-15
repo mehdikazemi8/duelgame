@@ -43,6 +43,7 @@ import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class DuelApp extends Application implements Application.ActivityLifecycleCallbacks {
     public static final String PROPERTY_ID = "UA-62041991-1";
@@ -383,7 +384,7 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     public static Retrofit getRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
 

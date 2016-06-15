@@ -135,3 +135,30 @@
 # END: mint
 
 -dontwarn com.github.mikephil.**
+
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+
+-dontwarn com.fasterxml.jackson.**
+-keepnames class com.fasterxml.jackson.** { *; }
+-dontwarn com.squareup.**
+-dontwarn okio.**
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-keepclasseswithmembers interface * {
+    @retrofit2.* <methods>;
+}
+
+-dontwarn org.codehaus.mojo.**
+
+-keepattributes RuntimeVisibleAnnotations
+-keepattributes RuntimeInvisibleAnnotations
+-keepattributes RuntimeVisibleParameterAnnotations
+-keepattributes RuntimeInvisibleParameterAnnotations
+
+-keepattributes EnclosingMethod

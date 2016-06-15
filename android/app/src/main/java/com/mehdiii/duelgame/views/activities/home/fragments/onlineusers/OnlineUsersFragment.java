@@ -5,23 +5,16 @@ import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.models.ChatUpdate;
-import com.mehdiii.duelgame.models.Friend;
-import com.mehdiii.duelgame.models.FriendRequest;
-import com.mehdiii.duelgame.models.OnlineUsersList;
-import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.chat.Message;
 import com.mehdiii.duelgame.models.chat.responses.GetMessagesResponse;
@@ -43,7 +36,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class OnlineUsersFragment extends FlippableFragment implements View.OnClickListener {
     ListView listView;
@@ -67,7 +59,7 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
     }
 
     private void find(View view) {
-        this.listView = (ListView) view.findViewById(R.id.listView_chats);
+        listView = (ListView) view.findViewById(R.id.listView_chats);
         textMessage = (EditText) view.findViewById(R.id.message_text);
         sendButton = (CustomButton) view.findViewById(R.id.button_send);
     }
@@ -110,9 +102,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
     }
 
     private void bindListViewData(List<Message> messageList) {
-//        for(Message message : messageList) {
-//            Log.d("TAGaaa", "listView " + message.getTimestamp());
-//        }
+        if(messageList == null || messageList.size() == 0)
+            return;
 
         Collections.sort(messageList, new Comparator<Message>() {
             @Override
@@ -127,7 +118,6 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         adapter = new MessageAdapter(getActivity(), R.layout.template_message, messageList);
         listView.setAdapter(adapter);
         listView.setSelection(listView.getCount());
-        Log.d("TAGaaa", "listView.getCount() " + listView.getCount());
     }
 
     private void saveMessage(String messageStr) {
@@ -165,10 +155,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         }
         textMessage.setText("");
 
-        Log.d("TAGaaa", "sendMessage " + messageStr);
-
-        saveMessage(messageStr);
-        bindListViewData(DuelApp.messageDao.loadAll());
+        //saveMessage(messageStr);
+        //bindListViewData(DuelApp.messageDao.loadAll());
 
         Call<SendMessageResponse> call = DuelApp.createChatApi().sendMessage(
                 DeviceManager.getDeviceId(getActivity()),
@@ -178,20 +166,15 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         call.enqueue(new Callback<SendMessageResponse>() {
             @Override
             public void onResponse(Call<SendMessageResponse> call, Response<SendMessageResponse> response) {
-                Log.d("TAGaaa", "isSuccessful false " + response.raw().toString());
                 if(!response.isSuccessful()) {
-                    Log.d("TAGaaa", "isSuccessful false");
-
                 }
             }
 
             @Override
             public void onFailure(Call<SendMessageResponse> call, Throwable t) {
-                Log.d("TAGaaa", "isSuccessful faaaaail");
             }
         });
     }
-
 
     @Override
     public void onClick(View view) {
@@ -210,13 +193,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
             @Override
             public void onResponse(Call<GetMessagesResponse> call, Response<GetMessagesResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("TAGaaazzz", response.raw().toString());
                     DuelApp.messageDao.insertInTx(response.body().getMessages());
                     bindListViewData(DuelApp.messageDao.loadAll());
-                }
-
-                for (Message message : response.body().getMessages()) {
-                    Log.d("TAGaaa", "p" + message.getTimestamp() + " " + message.getText());
                 }
             }
             @Override
@@ -230,15 +208,11 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         @Override
         public void onReceive(String json, CommandType type) {
             if (type == CommandType.YOU_HAVE_NEW_MESSAGE) {
-                Log.d("TAGaaa", "YOU_HAVE_NEW_MESSAGE");
-
                 ChatUpdate update = ChatUpdate.deserialize(json, ChatUpdate.class);
                 if("public".equals(update.getRoom())) {
                     sendFetchRequest();
                 }
-            } else if(type == CommandType.RECEIVE_ADD_FRIEND) {
             }
         }
     });
-
 }
