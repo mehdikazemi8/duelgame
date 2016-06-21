@@ -13,6 +13,7 @@
         <ImageButton
             android:id="@+id/button_close"
             android:layout_width="32dp"
+            android:visibility="gone"
             android:layout_height="32dp"
             android:layout_gravity="left"
             android:background="@drawable/close_button" />

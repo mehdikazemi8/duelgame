@@ -8,6 +8,7 @@
     <string name="message_heart_is_low">قلبهایتان تمام شده است. لطفا کمی صبر کنید یا با خرج کمی الماس دوباره قلبهای خود را پرکنید.</string>
     <string name="message_buy_flashcard">لطفا برای ادامه این فلش کارت را خریداری کنید</string>
     <string name="error_add_friend_invalid">کد وارد شده صحیح نیست. لطفا دقت کنید.</string>
+    <string name="success_add_friend">به لیست دوستانِ شما اضافه شد</string>
 
     <string name="error_add_friend_duplicate">درخواست دوستی قبلا ارسال شده.</string>
     <string name="invalid_add_friend_code_empty">لطفا کد دوست خود را وارد نمایید.</string>

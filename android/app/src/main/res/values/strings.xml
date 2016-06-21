@@ -361,8 +361,16 @@
     <string name="enter_verification_code_toast">کد تاییدی که پیامک شده را وارد کنید</string>
     <string name="try_again_later">چند دقیقه دیگه دوباره امتحان کن</string>
     <string name="send_correct_code">کد ارسالی اشتباه است، دوباره بفرست</string>
-    <string name="verified_you_can_chat">تایید شد، حالا می تونی پیام ارسال کنی</string>
+    <string name="verified_you_can_chat">ممنون، شماره تلفن شما تایید شد.</string>
     <string name="sending_verification_code">در حال ارسال کد تایید ...</string>
     <string name="checking_verification_code">در حال چک کردن...</string>
+
+    <string name="button_adding_friend">افزودن به دوستان</string>
+    <string name="button_block">بلاک</string>
+    <string name="button_offline_duel">دوئل نوبتی</string>
+
+    <string name="message_block_request_sent">درخواست بلاک ارسال شد</string>
+    <string name="cant_send_message_now">متاسفانه به دلیل گزارش دیگر کاربرها فعلا نمی‌تونی پیام بدی</string>
+
 
 </resources>

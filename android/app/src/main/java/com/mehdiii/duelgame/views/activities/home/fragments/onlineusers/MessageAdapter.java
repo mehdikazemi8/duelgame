@@ -41,12 +41,22 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         return convertView;
     }
 
+    private static String BACKEND = "backend";
+
     private void initViews(int position, ViewHolder holder) {
         holder.messageText.setText(getItem(position).getText());
-        holder.name.setText(getItem(position).getName());
-        Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), getItem(position).getAvatar())).into(
-                holder.avatar
-        );
+
+        if(getItem(position).getSender().equals(BACKEND)) {
+            holder.name.setText("@DuelKonkoor");
+            Picasso.with(getContext()).load(R.drawable.ic_launcher).into(
+                    holder.avatar
+            );
+        } else {
+            holder.name.setText(getItem(position).getName());
+            Picasso.with(getContext()).load(AvatarHelper.getResourceId(getContext(), getItem(position).getAvatar())).into(
+                    holder.avatar
+            );
+        }
     }
 
     protected class ViewHolder {

@@ -67,6 +67,12 @@ public class GetPhoneNumberDialog extends Dialog implements View.OnClickListener
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
     }
 
+    @Override
+    public void setOnDismissListener(OnDismissListener listener) {
+        super.setOnDismissListener(listener);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+    }
+
     private void findControls() {
         phoneNumber = (EditText) findViewById(R.id.phone_number);
         sendButton = (CustomButton) findViewById(R.id.button_send);

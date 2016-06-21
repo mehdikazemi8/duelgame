@@ -83,10 +83,11 @@ public class DuelDialog extends Dialog {
 
 //              checking for dynamic duel on chapters
                 CourseMap courseMap = user.getCourseMap();
-                Log.d("TAG", "course map here"+courseMap.serialize());
-                for( StepCourse stepCourse : courseMap.getStepCourses()){
-                    if( stepCourse.getCategory() == ParentActivity.category && ParentActivity.category == 10004)
-                        stepDuel = true;
+                if(courseMap != null) {
+                    for( StepCourse stepCourse : courseMap.getStepCourses()){
+                        if( stepCourse.getCategory() == ParentActivity.category && ParentActivity.category == 10004)
+                            stepDuel = true;
+                    }
                 }
 
                 if(offlineDuel) {

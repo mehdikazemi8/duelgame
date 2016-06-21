@@ -5,11 +5,14 @@ import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
@@ -25,6 +28,7 @@ import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.custom.CustomButton;
+import com.mehdiii.duelgame.views.dialogs.BlockAddDuelDialog;
 import com.mehdiii.duelgame.views.dialogs.GetPhoneNumberDialog;
 
 import java.util.Collections;
@@ -117,6 +121,18 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 
         adapter = new MessageAdapter(getActivity(), R.layout.template_message, messageList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!((Message)parent.getAdapter().getItem(position)).getSender().equals("backend")) {
+                    BlockAddDuelDialog dialog = new BlockAddDuelDialog(getActivity(),
+                            ((Message)parent.getAdapter().getItem(position)).getSender(),
+                            ((Message)parent.getAdapter().getItem(position)).getAvatar(),
+                            ((Message)parent.getAdapter().getItem(position)).getName());
+                    dialog.show();
+                }
+            }
+        });
         listView.setSelection(listView.getCount());
     }
 
@@ -135,7 +151,6 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         GetPhoneNumberDialog dialog = new GetPhoneNumberDialog(getActivity());
         dialog.setCancelable(false);
         dialog.show();
-
     }
 
     private void sendMessage() {
@@ -166,7 +181,8 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
         call.enqueue(new Callback<SendMessageResponse>() {
             @Override
             public void onResponse(Call<SendMessageResponse> call, Response<SendMessageResponse> response) {
-                if(!response.isSuccessful()) {
+                if(response.code() == 403) {
+                    DuelApp.getInstance().toast(R.string.cant_send_message_now, Toast.LENGTH_LONG);
                 }
             }
 

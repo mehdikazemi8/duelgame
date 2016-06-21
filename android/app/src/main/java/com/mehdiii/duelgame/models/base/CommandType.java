@@ -3,6 +3,8 @@ package com.mehdiii.duelgame.models.base;
 public enum CommandType {
     UNKNOWN,
 
+    BLOCK_REQUEST,
+
     SAVE_PHONE_NUMBER,
     RECEIVE_SAVE_PHONE_NUMBER,
     VERIFY_PHONE_NUMBER,

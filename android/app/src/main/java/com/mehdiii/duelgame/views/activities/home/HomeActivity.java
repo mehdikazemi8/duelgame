@@ -53,6 +53,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 import com.mehdiii.duelgame.views.custom.ToggleButton;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
+import com.mehdiii.duelgame.views.dialogs.GetPhoneNumberDialog;
 import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
 import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
 
@@ -274,8 +275,6 @@ public class HomeActivity extends ParentActivity {
 
         context = getApplicationContext();
 
-
-
         setAlarmForDuelHour(this);
         setAlarmForFlashCards(this);
         cancelDuelHourNotification();
@@ -296,6 +295,14 @@ public class HomeActivity extends ParentActivity {
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
+
+        try {
+            if(!AuthManager.getCurrentUser().isPhoneNumberVerified()) {
+                verifyPhoneNumber();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -314,6 +321,12 @@ public class HomeActivity extends ParentActivity {
             DuelApp.getInstance().connectToWs();
 
         DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
+    }
+
+    private void verifyPhoneNumber() {
+        GetPhoneNumberDialog dialog = new GetPhoneNumberDialog(this);
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     private boolean checkPlayServices() {

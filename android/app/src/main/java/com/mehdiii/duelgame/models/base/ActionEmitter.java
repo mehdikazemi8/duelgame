@@ -19,6 +19,8 @@ public class ActionEmitter {
 
     private void init() {
 
+        map.put(CommandType.BLOCK_REQUEST, "BR");
+
         map.put(CommandType.SAVE_PHONE_NUMBER, "SPN");
         map.put(CommandType.RECEIVE_SAVE_PHONE_NUMBER, "RSPN");
         map.put(CommandType.VERIFY_PHONE_NUMBER, "VPN");
