@@ -18,7 +18,6 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="com.mehdiii.duelgame.gcm.permission.C2D_MESSAGE" />
 
-
     <application
         android:name=".DuelApp"
         android:allowBackup="true"

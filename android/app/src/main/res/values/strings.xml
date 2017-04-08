@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="permission_read_phone_state_rationale">برای ادامه و ثبت نام نیاز به این دسترسی وجود داره</string>
+    <string name="permission_ok">باشه</string>
+
     <string name="course_to_course">درس‌به‌درس</string>
     <string name="caption_referral_code_explanation">اگه دوستت دوئل رو بهت معرفی کرده کدش رو بزن تا هم تو آزمون رایگان دریافت کنی هم دوستت\nمثلا fb60d</string>
     <string name="caption_referral_code">کد معرف</string>

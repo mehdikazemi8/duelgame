@@ -2,8 +2,6 @@ package com.mehdiii.duelgame.views.activities.quiz.fragments;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
-import com.google.android.gms.games.event.EventRef;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.async.GetQuizQuestions;
@@ -25,14 +21,13 @@ import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
 import com.mehdiii.duelgame.models.BoughtQuiz;
+import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.PurchaseCreated;
 import com.mehdiii.duelgame.models.Quiz;
 import com.mehdiii.duelgame.models.QuizCourse;
-import com.mehdiii.duelgame.models.GetBuyQuizRequest;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.TookQuiz;
-import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.utils.TellFriendManager;
@@ -44,16 +39,8 @@ import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.BuyQuizDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,18 +52,55 @@ import de.greenrobot.event.EventBus;
 
 public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
-    private Quiz quiz;
     CustomTextView title;
     CustomTextView fromTo;
     ListView coursesListView;
     ProgressDialog progressDialog;
-
     CustomButton attendQuiz;
     CustomButton registerQuiz;
     CustomButton reviewQuiz;
     CustomButton reviewResults;
-
     ImageButton infoButton;
+    private Quiz quiz;
+    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
+        @Override
+        public void onReceive(String json, CommandType type) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+
+            if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
+                // write data of quiz so you won't ask for it again and again
+                GlobalPreferenceManager.writeString(getActivity(), quiz.getId() + "quiz", json);
+                startQuizFragment(json);
+            } else if (type == CommandType.RECEIVE_BUY_QUIZ) {
+                try {
+                    if (new JSONObject(json).get("id").equals(quiz.getId())) {
+                        quiz.setOwned(true);
+                        configure();
+                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
+
+                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
+                        dialog.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (type == CommandType.RECEIVE_EXAM_PURCHASE_CONFIRMATION) {
+                PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
+                if (purchaseConfirm != null && purchaseConfirm.getOk()) {
+                    if (purchaseConfirm.getQuizId().equals(quiz.getId())) {
+                        quiz.setOwned(true);
+                        configure();
+                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
+
+                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
+                        dialog.show();
+                    }
+                }
+            }
+        }
+    });
 
     public QuizInfoFragment() {
     }
@@ -113,7 +137,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
     private List<String> getCoursesQuestionsCount(List<QuizCourse> quizCourses) {
         List<String> res = new ArrayList<>();
-        for(QuizCourse quizCourse : quizCourses) {
+        for (QuizCourse quizCourse : quizCourses) {
             res.add(quizCourse.getCourseName() + ": " + quizCourse.getCount() + " سوال" + "-" + quizCourse.getSyllabus());
         }
         return res;
@@ -141,15 +165,15 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         registerQuiz.setVisibility(View.GONE);
 
         // configuring buttons
-        if(quiz.getStatus().equals("future")) {
-            if(quiz.getOwned()) {
+        if (quiz.getStatus().equals("future")) {
+            if (quiz.getOwned()) {
                 attendQuiz.setVisibility(View.VISIBLE);
             } else {
                 registerQuiz.setVisibility(View.VISIBLE);
             }
-        } else if(quiz.getStatus().equals("running")) {
-            if(quiz.getOwned()) {
-                if(quiz.getTaken()) {
+        } else if (quiz.getStatus().equals("running")) {
+            if (quiz.getOwned()) {
+                if (quiz.getTaken()) {
                     reviewQuiz.setVisibility(View.VISIBLE);
                     reviewResults.setVisibility(View.VISIBLE);
                 } else {
@@ -158,9 +182,9 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
             } else {
                 registerQuiz.setVisibility(View.VISIBLE);
             }
-        } else if(quiz.getStatus().equals("due")) {
-            if(quiz.getOwned()) {
-                if(quiz.getTaken()) {
+        } else if (quiz.getStatus().equals("due")) {
+            if (quiz.getOwned()) {
+                if (quiz.getTaken()) {
                     reviewQuiz.setVisibility(View.VISIBLE);
                     reviewResults.setVisibility(View.VISIBLE);
                 } else {
@@ -199,8 +223,8 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     private void sendGetQuestionsRequest() {
         Log.d("TAG", "sendGetQuestionsRequest");
         // if we have saved data of quiz, then there is no need to request it again
-        String quizJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId()+"quiz", null);
-        if(quizJson != null) {
+        String quizJson = GlobalPreferenceManager.readString(getActivity(), quiz.getId() + "quiz", null);
+        if (quizJson != null) {
             startQuizFragment(quizJson);
             Log.d("TAG", "sendGetQuestionsRequest 222");
             return;
@@ -249,7 +273,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         tellFriendDialog.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(Object data) {
-                if((boolean)data) {
+                if ((boolean) data) {
                     TellFriendManager.tellFriends(getActivity());
                 }
             }
@@ -257,17 +281,16 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
         tellFriendDialog.show();
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.attend_quiz_button:
-                if(quiz.getStatus().equals("future")) {
+                if (quiz.getStatus().equals("future")) {
                     AlertDialog dialog = new AlertDialog(getActivity(), "از " + quiz.getStart() + " تا " + quiz.getEnd() + " فرصت داری توی این آزمون شرکت کنی.");
                     dialog.show();
                     break;
                 }
-                if(GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1) != -1) {
+                if (GlobalPreferenceManager.readInteger(getActivity(), quiz.getId() + "idx", -1) != -1) {
                     sendGetQuestionsRequest();
                     break;
                 }
@@ -276,7 +299,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 dialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
-                        if((boolean)data) {
+                        if ((boolean) data) {
                             sendGetQuestionsRequest();
                         }
                     }
@@ -298,7 +321,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.register_quiz_button:
 
-                final int finalExamPrice = quiz.getPrice()-quiz.getPrice()*quiz.getDiscount()/100;
+                final int finalExamPrice = quiz.getPrice() - quiz.getPrice() * quiz.getDiscount() / 100;
 
                 BuyQuizDialog buyQuizDialog = new BuyQuizDialog(
                         getActivity(),
@@ -310,14 +333,14 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                 buyQuizDialog.setOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(Object data) {
-                        if((boolean)data) {
+                        if ((boolean) data) {
 
                             /*
                                kharide azmoon ro zade
                                hala age gheymatesh 0 bashe get buy quiz mikonim
                                dar gheyre in soorat proceye kharid ro shoroo mikonim
                             * */
-                            if(finalExamPrice == 0) {
+                            if (finalExamPrice == 0) {
                                 GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
                                 request.setCommand(CommandType.GET_BUY_QUIZ);
                                 DuelApp.getInstance().sendMessage(request.serialize());
@@ -326,7 +349,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
                                 showProgressDialog();
                             }
                         } else {
-                            if(finalExamPrice != 0 && AuthManager.getCurrentUser().getFreeExamCount() != 0) {
+                            if (finalExamPrice != 0 && AuthManager.getCurrentUser().getFreeExamCount() != 0) {
                                 GetBuyQuizRequest request = new GetBuyQuizRequest(quiz.getId());
                                 request.setCommand(CommandType.GET_BUY_QUIZ);
                                 DuelApp.getInstance().sendMessage(request.serialize());
@@ -341,7 +364,7 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
 
     private void startQuizFragment(String json) {
 //        if(quiz.getTaken() || !quiz.getStatus().equals("running"))
-        if(quiz.getTaken())
+        if (quiz.getTaken())
             return;
 
         QuizFragment fragment = QuizFragment.getInstance();
@@ -357,49 +380,9 @@ public class QuizInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onEvent(TookQuiz tookQuiz) {
-        if(quiz.getId().equals(tookQuiz.getId())) {
+        if (quiz.getId().equals(tookQuiz.getId())) {
             quiz.setTaken(true);
             configure();
         }
     }
-
-    private BroadcastReceiver broadcastReceiver = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
-        @Override
-        public void onReceive(String json, CommandType type) {
-            if(progressDialog != null) {
-                progressDialog.dismiss();
-            }
-
-            if (type == CommandType.RECEIVE_QUIZ_QUESTIONS) {
-                // write data of quiz so you won't ask for it again and again
-                GlobalPreferenceManager.writeString(getActivity(), quiz.getId()+"quiz", json);
-                startQuizFragment(json);
-            } else if(type == CommandType.RECEIVE_BUY_QUIZ) {
-                try {
-                    if(new JSONObject(json).get("id").equals(quiz.getId())) {
-                        quiz.setOwned(true);
-                        configure();
-                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
-
-                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
-                        dialog.show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if(type == CommandType.RECEIVE_EXAM_PURCHASE_CONFIRMATION) {
-                PurchaseCreated purchaseConfirm = BaseModel.deserialize(json, PurchaseCreated.class);
-                if(purchaseConfirm != null && purchaseConfirm.getOk()) {
-                    if( purchaseConfirm.getQuizId().equals(quiz.getId()) ) {
-                        quiz.setOwned(true);
-                        configure();
-                        EventBus.getDefault().post(new BoughtQuiz(quiz.getId()));
-
-                        AlertDialog dialog = new AlertDialog(getActivity(), getResources().getString(R.string.caption_quiz_bought_successfully));
-                        dialog.show();
-                    }
-                }
-            }
-        }
-    });
 }

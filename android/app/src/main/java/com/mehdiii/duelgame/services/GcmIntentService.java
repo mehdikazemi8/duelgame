@@ -1,14 +1,11 @@
 package com.mehdiii.duelgame.services;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mehdiii.duelgame.DuelApp;
@@ -57,25 +54,24 @@ public class GcmIntentService extends IntentService {
 
                             NotificationManager notificationManager =
                                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                            int icon = R.drawable.ic_launcher;
-                            CharSequence notiText = title;
-                            long meow = System.currentTimeMillis();
 
-                            Notification notification = new Notification(icon, notiText, meow);
-
-                            Context context = getApplicationContext();
                             Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-                            notification.setLatestEventInfo(context, title, message, contentIntent);
 
-                            int SERVER_DATA_RECEIVED = 1;
-                            notificationManager.notify(SERVER_DATA_RECEIVED, notification);
+                            android.support.v4.app.NotificationCompat.Builder mBuilder =
+                                    new android.support.v4.app.NotificationCompat.Builder(getApplicationContext())
+                                            .setSmallIcon(R.drawable.ic_launcher)
+                                            .setContentTitle(title)
+                                            .setContentText(message)
+                                            .setContentIntent(contentIntent)
+                                            .setAutoCancel(true);
 
+                            notificationManager.notify(ParentActivity.OPEN_DUEL_ID, mBuilder.build());
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                } else if(type.equals(OPEN_DUEL)) {
+                } else if (type.equals(OPEN_DUEL)) {
                     try {
                         String message = extras.getString("message");
                         String title = extras.getString("title");
@@ -85,10 +81,9 @@ public class GcmIntentService extends IntentService {
 
                         PendingIntent pendingIntent;
                         boolean autoCancel = false;
-                        if(DuelApp.getInstance().getResumedActivities() == 0) {
+                        if (DuelApp.getInstance().getResumedActivities() == 0) {
                             pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, openAppIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                        }
-                        else {
+                        } else {
                             pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
                             autoCancel = true;
                         }

@@ -1,13 +1,15 @@
 package com.mehdiii.duelgame.views.activities.splash;
 
-import android.app.NotificationManager;
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
@@ -18,19 +20,16 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
 import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
-import com.mehdiii.duelgame.models.LoginRequest;
 import com.mehdiii.duelgame.models.UpdateVersion;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.receivers.PokeDuelReceiver;
-import com.mehdiii.duelgame.utils.DeviceManager;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
 import com.mehdiii.duelgame.views.OnCompleteListener;
@@ -44,7 +43,11 @@ import java.util.Calendar;
 public class StartActivity extends ParentActivity {
     private static final int ANIMATION_DURATION_PER_CIRCLE_IN_MILLS = 3000;
     private static final int CIRCLES_COUNT = 1;
-
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
+    /**
+     * UPDATE DIALOG
+     */
+    private static long lastCheck = 0;
     boolean isSent = false;
     RelativeLayout layout;
     int[] splashColors;
@@ -53,17 +56,12 @@ public class StartActivity extends ParentActivity {
     ImageView[] circlesImage;
     long[] offsets;
     int counter = 0;
-    /**
-     * UPDATE DIALOG
-     */
-    private static long lastCheck = 0;
-
     BroadcastReceiver commandListener = new DuelBroadcastReceiver(new OnMessageReceivedListener() {
         @Override
         public void onReceive(String json, CommandType type) {
             if (CommandType.RECEIVE_LOGIN_INFO == type && !isFinishing()) {
                 final User user = BaseModel.deserialize(json, User.class);
-                Log.d("taggg", "" + (user==null));
+                Log.d("taggg", "" + (user == null));
                 Log.d("taggg", "" + (json));
                 if (user != null && user.getUpdateVersion() != null) {
                     displayUpdateDialog(user.getUpdateVersion(), new OnCompleteListener() {
@@ -117,9 +115,12 @@ public class StartActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Log.d("TAG", "onEvent onCreate");
-
         cancelDuelHourNotification();
+        layout = (RelativeLayout) findViewById(R.id.container_wrapper);
+        splashColors = SplashColors.getArray(this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
+
+        loadIMEI();
 
 //        try {
 //            PurchaseManager.getInstance().consumePurchase();
@@ -127,20 +128,67 @@ public class StartActivity extends ParentActivity {
 //
 //        }
 
-        layout = (RelativeLayout) findViewById(R.id.container_wrapper);
-        splashColors = SplashColors.getArray(this);
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(commandListener, DuelApp.getInstance().getIntentFilter());
-
         // TODO: just works, doesn't make sense !!!
 //        if(DuelApp.getInstance().isConnected())
 //            DuelApp.getInstance().sendMessage(new LoginRequest(CommandType.SEND_USER_LOGIN_REQUEST, DeviceManager.getDeviceId(this)).serialize());
+    }
 
+    private void doPermissionGrantedStuffs() {
         if (AuthManager.isLoggedin()) {
             loginOrRegisterUser(AuthManager.getCurrentUser());
         }
     }
 
+    private void loadIMEI() {
+        // Check if the READ_PHONE_STATE permission is already available.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // READ_PHONE_STATE permission has not been granted.
+            requestReadPhoneStatePermission();
+        } else {
+            // READ_PHONE_STATE permission is already been granted.
+            doPermissionGrantedStuffs();
+        }
+    }
+
+    private void requestReadPhoneStatePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_PHONE_STATE)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example if the user has previously denied the permission.
+            new AlertDialog.Builder(this)
+                    .setTitle("اعطای دسترسی")
+                    .setMessage(getString(R.string.permission_read_phone_state_rationale))
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.permission_ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //re-request
+                            ActivityCompat.requestPermissions(StartActivity.this,
+                                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                        }
+                    })
+                    .show();
+        } else {
+            // READ_PHONE_STATE permission has not been granted yet. Request it directly.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE},
+                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHONE_STATE) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // READ_PHONE_STATE permission has been granted, proceed with displaying IMEI Number
+                //alertAlert(getString(R.string.permision_available_read_phone_state));
+                doPermissionGrantedStuffs();
+            } else {
+            }
+        }
+    }
 
     private void addAnimations(final ImageView image) {
         if (counter >= CIRCLES_COUNT)
