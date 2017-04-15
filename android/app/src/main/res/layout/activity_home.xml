@@ -35,22 +35,22 @@
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_online_users"
                 style="@style/home_nav_buttons"
-                android:text="R" />
+                android:text="@string/icon.online" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_duel_hour"
                 style="@style/home_nav_buttons"
-                android:text="G" />
+                android:text="@string/icon.cup" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_friends"
                 style="@style/home_nav_buttons"
-                android:text="D" />
+                android:text="@string/icon.friend" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_home"
                 style="@style/home_nav_buttons"
-                android:text="C" />
+                android:text="@string/icon.home" />
 
         </LinearLayout>
 

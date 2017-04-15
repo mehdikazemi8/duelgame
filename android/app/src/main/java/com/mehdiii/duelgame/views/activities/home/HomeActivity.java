@@ -9,14 +9,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,14 +19,10 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
 import com.mehdiii.duelgame.managers.AuthManager;
-import com.mehdiii.duelgame.managers.GlobalPreferenceManager;
 import com.mehdiii.duelgame.managers.PurchaseManager;
-import com.mehdiii.duelgame.models.BuyNotification;
 import com.mehdiii.duelgame.models.ChangePage;
 import com.mehdiii.duelgame.models.CourseMap;
-import com.mehdiii.duelgame.models.DrawerItem;
 import com.mehdiii.duelgame.models.SendGcmCode;
-import com.mehdiii.duelgame.models.StepCourse;
 import com.mehdiii.duelgame.models.User;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
@@ -55,9 +45,6 @@ import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.ConfirmDialog;
 import com.mehdiii.duelgame.views.dialogs.GetPhoneNumberDialog;
 import com.mehdiii.duelgame.views.dialogs.OptionsMenuDialog;
-import com.mehdiii.duelgame.views.dialogs.ScoresDialog;
-
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,19 +79,20 @@ public class HomeActivity extends ParentActivity {
         @Override
         public void onClick(View view) {
 
-            if(view.getId() == R.id.button_more_options) {
+            if (view.getId() == R.id.button_more_options) {
 //                if (!UserFlowHelper.gotDuel()){
 //                    setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
 //                    return;
 //                } else
-                if (!UserFlowHelper.gotQuiz()){
+                if (!UserFlowHelper.gotQuiz()) {
                     setHomeButtonsState(homeButton, "برای اینکه بتونی گزینه‌های بیشتر رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                     return;
                 } else {
                     OptionsMenuDialog menuDialog = new OptionsMenuDialog();
                     menuDialog.setContext(HomeActivity.this);
                     menuDialog.show(getSupportFragmentManager(), "OPTIONS_MENU");
-                    return;}
+                    return;
+                }
             }
 
             if (previous != null)
@@ -122,7 +110,7 @@ public class HomeActivity extends ParentActivity {
 //                        setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
 //                        break;
 //                    } else
-                    if (!UserFlowHelper.gotQuiz()){
+                    if (!UserFlowHelper.gotQuiz()) {
                         setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
@@ -135,7 +123,7 @@ public class HomeActivity extends ParentActivity {
 //                        setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت دوئل رو ببینی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
 //                        break;
 //                    } else
-                    if (!UserFlowHelper.gotQuiz()){
+                    if (!UserFlowHelper.gotQuiz()) {
                         setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت ( رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
@@ -148,7 +136,7 @@ public class HomeActivity extends ParentActivity {
 //                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
 //                        break;
 //                    } else
-                    if (!UserFlowHelper.gotQuiz()){
+                    if (!UserFlowHelper.gotQuiz()) {
                         setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
@@ -177,7 +165,8 @@ public class HomeActivity extends ParentActivity {
                 @Override
                 public void run() {
                     for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
-                        getSupportFragmentManager().popBackStack();}
+                        getSupportFragmentManager().popBackStack();
+                }
             });
 
             switch (position) {
@@ -212,7 +201,7 @@ public class HomeActivity extends ParentActivity {
 
     };
 
-    private void setHomeButtonsState(ToggleButton toggledButton, String msg){
+    private void setHomeButtonsState(ToggleButton toggledButton, String msg) {
         AlertDialog dialog = new AlertDialog(HomeActivity.this, msg);
         dialog.show();
         homeButton.toggle();
@@ -297,7 +286,7 @@ public class HomeActivity extends ParentActivity {
         }
 
         try {
-            if(!AuthManager.getCurrentUser().isPhoneNumberVerified()) {
+            if (!AuthManager.getCurrentUser().isPhoneNumberVerified()) {
                 verifyPhoneNumber();
             }
         } catch (Exception e) {
@@ -317,7 +306,7 @@ public class HomeActivity extends ParentActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, DuelApp.getInstance().getIntentFilter());
         PurchaseManager.changeActivity(this);
 
-        if(! DuelApp.getInstance().isConnected())
+        if (!DuelApp.getInstance().isConnected())
             DuelApp.getInstance().connectToWs();
 
         DuelApp.getInstance().sendMessage(new BaseModel().serialize(CommandType.GET_COURSE_MAP));
@@ -376,7 +365,7 @@ public class HomeActivity extends ParentActivity {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), childFragments, null);
         viewPager.setAdapter(adapter);
-        this.viewPager.setOnPageChangeListener(pageChangeListener);
+        this.viewPager.addOnPageChangeListener(pageChangeListener);
         this.viewPager.setCurrentItem(3);
         viewPager.setOffscreenPageLimit(4);
     }
@@ -397,23 +386,27 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onBackPressed() {
-        Log.d("TAG", "onBackPressed " + getSupportFragmentManager().getFragments().size());
 
-        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.STORE_FRAGMENT) != null ) {
+        if (getSupportFragmentManager().findFragmentByTag(OnlineUsersFragment.class.getCanonicalName()) != null) {
             getSupportFragmentManager().popBackStack();
             return;
         }
 
-        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.DUEL_HOUR_TOTAL_FRAGMENT) != null ) {
+        if (getSupportFragmentManager().findFragmentByTag(ParentActivity.STORE_FRAGMENT) != null) {
             getSupportFragmentManager().popBackStack();
             return;
         }
 
-        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.SETTINGS_FRAGMENT) != null ) {
+        if (getSupportFragmentManager().findFragmentByTag(ParentActivity.DUEL_HOUR_TOTAL_FRAGMENT) != null) {
             getSupportFragmentManager().popBackStack();
             return;
         }
-        if( getSupportFragmentManager().findFragmentByTag(ParentActivity.ADD_QUESTION_FRAGMENT) != null ) {
+
+        if (getSupportFragmentManager().findFragmentByTag(ParentActivity.SETTINGS_FRAGMENT) != null) {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
+        if (getSupportFragmentManager().findFragmentByTag(ParentActivity.ADD_QUESTION_FRAGMENT) != null) {
             getSupportFragmentManager().popBackStack();
             return;
         }
@@ -449,7 +442,7 @@ public class HomeActivity extends ParentActivity {
         Log.d("TAG", "onEvent ChangePage " + change.getPage());
 
         // store fragment
-        if(change.getPage() == ParentActivity.STORE_PAGE) {
+        if (change.getPage() == ParentActivity.STORE_PAGE) {
             FlippableFragment storeFragment = (FlippableFragment) Fragment.instantiate(this, StoreFragment.class.getName(), null);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, storeFragment, ParentActivity.STORE_FRAGMENT)
                     .addToBackStack(null)
@@ -457,7 +450,7 @@ public class HomeActivity extends ParentActivity {
         }
 
         // settings fragment
-        if(change.getPage() == ParentActivity.SETTINGS_PAGE) {
+        if (change.getPage() == ParentActivity.SETTINGS_PAGE) {
             FlippableFragment settingsFragment = (FlippableFragment) Fragment.instantiate(this, SettingsFragment.class.getName(), null);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, settingsFragment, ParentActivity.SETTINGS_FRAGMENT)
                     .addToBackStack(null)
@@ -467,7 +460,7 @@ public class HomeActivity extends ParentActivity {
         }
 
         // add question fragment
-        if(change.getPage() == ParentActivity.ADD_QUESTION_PAGE) {
+        if (change.getPage() == ParentActivity.ADD_QUESTION_PAGE) {
             FlippableFragment addQuestionFragment = (FlippableFragment) Fragment.instantiate(this, AddQuestionFragment.class.getName(), null);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, addQuestionFragment, ParentActivity.ADD_QUESTION_FRAGMENT)
                     .addToBackStack(null)
@@ -479,9 +472,9 @@ public class HomeActivity extends ParentActivity {
 
     @Override
     public void onEvent(OnPurchaseResult alert) {
-        if(alert == null) {
+        if (alert == null) {
             Log.d("TAG", "alert is null");
-        } else if(alert.getStatus() == null) {
+        } else if (alert.getStatus() == null) {
             Log.d("TAG", "alert.getStatus is null");
         }
 
@@ -507,7 +500,7 @@ public class HomeActivity extends ParentActivity {
                 CourseMap cm = CourseMap.deserialize(json, CourseMap.class);
 //                Log.d("TAG", "course map received" + cm.serialize());
                 User user = AuthManager.getCurrentUser();
-                if(user != null) {
+                if (user != null) {
                     user.setCourseMap(cm);
                 }
 //                Log.d("TAG", "course map received" + user.getCourseMap().serialize());

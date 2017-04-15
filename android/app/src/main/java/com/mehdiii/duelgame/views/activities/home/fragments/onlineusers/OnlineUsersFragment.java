@@ -60,6 +60,7 @@ public class OnlineUsersFragment extends FlippableFragment implements View.OnCli
 
         find(view);
         configure();
+        sendFetchRequest();
     }
 
     private void find(View view) {

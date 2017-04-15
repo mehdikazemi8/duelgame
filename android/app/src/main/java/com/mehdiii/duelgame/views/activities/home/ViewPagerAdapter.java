@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by omid on 4/5/2015.
- */
 public class ViewPagerAdapter extends FragmentPagerAdapter /*implements PagerSlidingTabStrip.IconTabProvider */ {
 
     private List<Fragment> fragments;
@@ -23,6 +20,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter /*implements PagerSli
     public List<Fragment> exportList() {
         return fragments;
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return this.categories.get(position);

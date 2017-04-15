@@ -14,25 +14,16 @@ import android.widget.ProgressBar;
 
 import com.mehdiii.duelgame.DuelApp;
 import com.mehdiii.duelgame.R;
-import com.mehdiii.duelgame.models.DuelHourInfo;
-import com.mehdiii.duelgame.models.MutualStats;
-import com.mehdiii.duelgame.models.RemoveFriend;
 import com.mehdiii.duelgame.models.UserForRanklist;
 import com.mehdiii.duelgame.models.base.BaseModel;
 import com.mehdiii.duelgame.models.base.CommandType;
 import com.mehdiii.duelgame.models.responses.RankList;
 import com.mehdiii.duelgame.utils.DuelBroadcastReceiver;
 import com.mehdiii.duelgame.utils.OnMessageReceivedListener;
-import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
-import com.mehdiii.duelgame.views.dialogs.AlertDialog;
-import com.mehdiii.duelgame.views.dialogs.ProfileDialog;
 
 import java.util.List;
 
-/**
- * Created by mehdiii on 12/30/15.
- */
 public class DuelHourTotalFragment extends Fragment {
 
     private boolean viewAvailable;
@@ -72,7 +63,7 @@ public class DuelHourTotalFragment extends Fragment {
     }
 
     private boolean areEqual(List<Integer> a, List<Integer> b) {
-        if(a.size() != b.size() || a.size() != 3)
+        if (a.size() != b.size() || a.size() != 3)
             return false;
 
         return a.get(0).equals(b.get(0)) &&
@@ -82,11 +73,11 @@ public class DuelHourTotalFragment extends Fragment {
 
     private void bindListViewData(RankList list) {
 
-        List <UserForRanklist> all = list.getTop();
-        if(list.getTop().size() != 0) {
+        List<UserForRanklist> all = list.getTop();
+        if (list.getTop().size() != 0) {
             UserForRanklist separator = new UserForRanklist(0, ParentActivity.SEPARATOR_CUP);
             all.add(separator);
-            for(UserForRanklist user : list.getNear())
+            for (UserForRanklist user : list.getNear())
                 all.add(user);
         }
 
@@ -115,7 +106,7 @@ public class DuelHourTotalFragment extends Fragment {
         public void onReceive(String json, CommandType type) {
 
             if (type == CommandType.RECEIVE_DUEL_HOUR_RANKING_TOTAL) {
-                if(!viewAvailable)
+                if (!viewAvailable)
                     return;
                 if (progressBar != null)
                     progressBar.setVisibility(View.GONE);

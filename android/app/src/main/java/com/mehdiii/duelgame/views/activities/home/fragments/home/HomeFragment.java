@@ -14,7 +14,9 @@ import com.mehdiii.duelgame.models.events.OnHeartChangeNotice;
 import com.mehdiii.duelgame.models.events.OnPurchaseResult;
 import com.mehdiii.duelgame.models.events.OnSyncDataReceived;
 import com.mehdiii.duelgame.utils.UserFlowHelper;
+import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.addquestion.AddQuestionFragment;
 import com.mehdiii.duelgame.views.activities.offlineduellists.OfflineDuelsListsActivity;
 import com.mehdiii.duelgame.views.dialogs.AlertDialog;
 import com.mehdiii.duelgame.views.dialogs.DuelDialog;
@@ -106,4 +108,12 @@ public class HomeFragment extends FlippableFragment {
         }
     }
 
+    @OnClick(R.id.add_question)
+    public void addQuestion() {
+        AddQuestionFragment addQuestionFragment = new AddQuestionFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_holder, addQuestionFragment, ParentActivity.ADD_QUESTION_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
 }

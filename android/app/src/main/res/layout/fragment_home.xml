@@ -94,6 +94,7 @@
 
         <com.mehdiii.duelgame.views.custom.CustomButton
             style="@style/home_buttons"
+            android:id="@+id/add_question"
             android:text="افزودن سوال" />
 
         <com.mehdiii.duelgame.views.custom.CustomButton

@@ -375,5 +375,9 @@
     <string name="message_block_request_sent">درخواست بلاک ارسال شد</string>
     <string name="cant_send_message_now">متاسفانه به دلیل گزارش دیگر کاربرها فعلا نمی‌تونی پیام بدی</string>
 
+    <string name="icon.online">R</string>
+    <string name="icon.cup">G</string>
+    <string name="icon.friend">D</string>
+    <string name="icon.home">C</string>
 
 </resources>

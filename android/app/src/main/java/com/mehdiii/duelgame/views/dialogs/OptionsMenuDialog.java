@@ -27,6 +27,7 @@ import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.addquestion.AddQuestionFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.duelhourtotal.DuelHourTotalFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.home.HomeFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.onlineusers.OnlineUsersFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.store.StoreFragment;
 
 import de.greenrobot.event.EventBus;
@@ -48,7 +49,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
     LinearLayout settings;
     LinearLayout totalDuelHour;
     LinearLayout flashCard;
-    LinearLayout addQuestion;
+    LinearLayout sendMessage;
 
     public OptionsMenuDialog() {
         super();
@@ -92,7 +93,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         settings = (LinearLayout) view.findViewById(R.id.option_settings);
         totalDuelHour = (LinearLayout) view.findViewById(R.id.option_total_duel_hour);
         flashCard = (LinearLayout) view.findViewById(R.id.option_flash_card);
-        addQuestion = (LinearLayout) view.findViewById(R.id.option_add_question);
+        sendMessage = (LinearLayout) view.findViewById(R.id.option_send_message);
     }
 
     private void configure() {
@@ -104,7 +105,7 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
         settings.setOnClickListener(this);
         totalDuelHour.setOnClickListener(this);
         flashCard.setOnClickListener(this);
-        addQuestion.setOnClickListener(this);
+        sendMessage.setOnClickListener(this);
     }
 
     @Override
@@ -164,14 +165,22 @@ public class OptionsMenuDialog extends DialogFragment implements View.OnClickLis
                 Intent intent = new Intent(getContext(), FlashCardActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.option_add_question:
-//                EventBus.getDefault().post(new ChangePage(ParentActivity.ADD_QUESTION_PAGE));
-                AddQuestionFragment addQuestionFragmentment = (AddQuestionFragment) Fragment.instantiate(getActivity(), AddQuestionFragment.class.getName(), null);
+
+            case R.id.option_send_message:
+                OnlineUsersFragment onlineUsersFragment = (OnlineUsersFragment) Fragment.instantiate(getContext(), OnlineUsersFragment.class.getCanonicalName(), null);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_holder, addQuestionFragmentment, ParentActivity.ADD_QUESTION_FRAGMENT)
+                        .replace(R.id.fragment_holder, onlineUsersFragment, onlineUsersFragment.getClass().getCanonicalName())
                         .addToBackStack(null)
                         .commit();
                 break;
+//            case R.id.option_add_question:
+//                EventBus.getDefault().post(new ChangePage(ParentActivity.ADD_QUESTION_PAGE));
+//                AddQuestionFragment addQuestionFragmentment = (AddQuestionFragment) Fragment.instantiate(getActivity(), AddQuestionFragment.class.getName(), null);
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_holder, addQuestionFragmentment, ParentActivity.ADD_QUESTION_FRAGMENT)
+//                        .addToBackStack(null)
+//                        .commit();
+//                break;
 
         }
     }
