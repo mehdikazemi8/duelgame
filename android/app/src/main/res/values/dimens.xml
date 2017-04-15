@@ -6,6 +6,7 @@
     <dimen name="space.short">5dp</dimen>
     <dimen name="space.medium">10dp</dimen>
     <dimen name="space.long">20dp</dimen>
+
     <dimen name="fontsize.normal">20sp</dimen>
     <dimen name="fontsize.normal2">22sp</dimen>
     <dimen name="fontsize.largex">27sp</dimen>
@@ -19,6 +20,8 @@
     <dimen name="fbutton_default_padding_top">5dp</dimen>
     <dimen name="fbutton_default_padding_bottom">5dp</dimen>
     <dimen name="fbutton_default_shadow_height">4dp</dimen>
+
+    <dimen name="heart_size">25dp</dimen>
 
     <dimen name="avatar_size">75dp</dimen>
     <dimen name="send_button_size">40dp</dimen>

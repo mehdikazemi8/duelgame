@@ -1,0 +1,75 @@
+<com.mehdiii.duelgame.views.custom.CustomButton
+                        android:id="@+id/step_quiz"
+                        style="@style/home_buttons"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/course_to_course" />
+
+
+                        <com.mehdiii.duelgame.views.custom.CustomButton
+                            android:id="@+id/quiz_button"
+                            style="@style/home_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="آزمون" />
+
+                             <com.mehdiii.duelgame.views.custom.CustomTextView
+                                android:id="@+id/open_exams_not_taken"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="0"
+                                android:textColor="@color/purple_dark"
+                                android:textSize="@dimen/fontsize.small" />
+
+
+ <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+
+                    <com.mehdiii.duelgame.views.custom.CustomButton
+                        android:id="@+id/step_quiz"
+                        style="@style/home_buttons"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/course_to_course" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1">
+
+                        <com.mehdiii.duelgame.views.custom.CustomButton
+                            android:id="@+id/quiz_button"
+                            style="@style/home_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="آزمون" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/round_background"
+                            android:elevation="2dp">
+
+                            <com.mehdiii.duelgame.views.custom.CustomTextView
+                                android:id="@+id/open_exams_not_taken"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="0"
+                                android:textColor="@color/purple_dark"
+                                android:textSize="@dimen/fontsize.small" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+                           

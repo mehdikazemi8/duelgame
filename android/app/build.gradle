@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 25
@@ -36,11 +38,13 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-//    compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:mediarouter-v7:25.3.1'
+
     compile 'com.google.android.gms:play-services-tagmanager:10.2.1'
     compile 'com.google.android.gms:play-services:10.2.1'
+
     compile project(':ViewPagerIndicator')
     compile project(':switchButton')
     compile project(':circleprogress')
@@ -48,9 +52,11 @@ dependencies {
     compile files('libs/greendao-2.0.0.jar')
     compile files('libs/eventbus-2.4.0.jar')
     compile files('libs/mpandroidchartlibrary-2-2-4.jar')
-
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile  'com.squareup.retrofit2:converter-scalars:2.0.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.0.2'
+
+    compile 'com.jakewharton:butterknife:8.5.1'
+    apt 'com.jakewharton:butterknife-compiler:8.5.1'
 }

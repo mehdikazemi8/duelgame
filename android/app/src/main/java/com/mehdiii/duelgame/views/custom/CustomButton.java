@@ -1,15 +1,12 @@
 package com.mehdiii.duelgame.views.custom;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.mehdiii.duelgame.utils.FontHelper;
 
-/**
- * Created by mehdiii on 1/14/16.
- */
-public class CustomButton extends Button {
+public class CustomButton extends AppCompatButton {
     public CustomButton(Context context) {
         super(context);
         fixFont();

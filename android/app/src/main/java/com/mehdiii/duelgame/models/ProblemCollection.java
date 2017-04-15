@@ -6,9 +6,7 @@ import com.mehdiii.duelgame.models.base.BaseModel;
 
 import java.util.List;
 
-/**
- * Created by Omid on 5/6/2015.
- */
+
 public class ProblemCollection extends BaseModel {
     @SerializedName("problems")
     private List<Question> questions;
