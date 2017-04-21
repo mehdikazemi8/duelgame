@@ -379,5 +379,6 @@
     <string name="icon.cup">G</string>
     <string name="icon.friend">D</string>
     <string name="icon.home">C</string>
+    <string name="icon.book">S</string>
 
 </resources>

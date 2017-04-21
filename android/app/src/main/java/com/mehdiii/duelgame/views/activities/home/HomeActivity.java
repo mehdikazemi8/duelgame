@@ -33,6 +33,7 @@ import com.mehdiii.duelgame.utils.UserFlowHelper;
 import com.mehdiii.duelgame.views.OnCompleteListener;
 import com.mehdiii.duelgame.views.activities.ParentActivity;
 import com.mehdiii.duelgame.views.activities.home.fragments.FlippableFragment;
+import com.mehdiii.duelgame.views.activities.home.fragments.QuizFlashCartFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.addquestion.AddQuestionFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.duelhour.DuelHourFragment;
 import com.mehdiii.duelgame.views.activities.home.fragments.friends.FriendsFragment;
@@ -60,6 +61,7 @@ public class HomeActivity extends ParentActivity {
     static String SENDER_ID = "753066845572";
     ViewPager viewPager;
     ViewPagerAdapter adapter;
+    ToggleButton quizFlashCartButton;
     ToggleButton onlineUsersButton;
     ToggleButton duelHourButton;
     ToggleButton moreOptionsButton;
@@ -71,6 +73,7 @@ public class HomeActivity extends ParentActivity {
     FlippableFragment onlineUsersFragment;
     FlippableFragment friendsFragment;
     FlippableFragment duelHourFragment;
+    FlippableFragment quizFlashCartFragment;
 
     List<Fragment> childFragments;
 //    ScoresDialog scoresDialog;
@@ -114,7 +117,7 @@ public class HomeActivity extends ParentActivity {
                         setHomeButtonsState(friendsButton, "برای اینکه بتونی لیست دوستانت رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
-                        viewPager.setCurrentItem(2, true);
+                        viewPager.setCurrentItem(1, true);
                         break;
                     }
 
@@ -127,11 +130,11 @@ public class HomeActivity extends ParentActivity {
                         setHomeButtonsState(duelHourButton, "برای اینکه بتونی  رتبه‌های ساعت ( رو ببینی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
-                        viewPager.setCurrentItem(1, true);
+                        viewPager.setCurrentItem(0, true);
                         break;
                     }
 
-                case R.id.button_online_users:
+                case R.id.button_quiz_flash_cart:
 //                    if(!UserFlowHelper.gotDuel()){
 //                        setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nدوئل\n\n شرکت کنی.");
 //                        break;
@@ -140,7 +143,7 @@ public class HomeActivity extends ParentActivity {
                         setHomeButtonsState(onlineUsersButton, "برای اینکه بتونی دیگران رو به لیست دوستات اضافه کنی باید اول در یک \n\nآزمون\n\n شرکت کنی.");
                         break;
                     } else {
-                        viewPager.setCurrentItem(0, true);
+                        viewPager.setCurrentItem(2, true);
                         break;
                     }
             }
@@ -170,15 +173,16 @@ public class HomeActivity extends ParentActivity {
             });
 
             switch (position) {
-                case 0:
-                    selection = onlineUsersButton;
-                    onlineUsersFragment.onBringToFront();
+                case 2:
+//                    selection = onlineUsersButton;
+                    selection = quizFlashCartButton;
+                    quizFlashCartFragment.onBringToFront();
                     break;
-                case 1:
+                case 0:
                     selection = duelHourButton;
                     duelHourFragment.onBringToFront();
                     break;
-                case 2:
+                case 1:
                     selection = friendsButton;
                     friendsFragment.onBringToFront();
                     break;
@@ -343,7 +347,7 @@ public class HomeActivity extends ParentActivity {
         this.moreOptionsButton = (ToggleButton) findViewById(R.id.button_more_options);
         this.homeButton = (ToggleButton) findViewById(R.id.button_home);
         this.friendsButton = (ToggleButton) findViewById(R.id.button_friends);
-        this.onlineUsersButton = (ToggleButton) findViewById(R.id.button_online_users);
+        this.quizFlashCartButton = (ToggleButton) findViewById(R.id.button_quiz_flash_cart);
         this.duelHourButton = (ToggleButton) findViewById(R.id.button_duel_hour);
     }
 
@@ -357,7 +361,8 @@ public class HomeActivity extends ParentActivity {
 
 //        this.storeButton.setOnClickListener(pageSelectorClickListener);
         this.friendsButton.setOnClickListener(pageSelectorClickListener);
-        this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
+//        this.onlineUsersButton.setOnClickListener(pageSelectorClickListener);
+        this.quizFlashCartButton.setOnClickListener(pageSelectorClickListener);
         this.duelHourButton.setOnClickListener(pageSelectorClickListener);
         this.homeButton.setOnClickListener(pageSelectorClickListener);
 //        this.rankingButton.setOnClickListener(pageSelectorClickListener);
@@ -377,10 +382,12 @@ public class HomeActivity extends ParentActivity {
         duelHourFragment = (FlippableFragment) Fragment.instantiate(this, DuelHourFragment.class.getName(), null);
         onlineUsersFragment = (FlippableFragment) Fragment.instantiate(this, OnlineUsersFragment.class.getName(), null);
         homeFragment = (FlippableFragment) Fragment.instantiate(this, HomeFragment.class.getName(), null);
+        quizFlashCartFragment = new QuizFlashCartFragment();
 
-        childFragments.add(onlineUsersFragment);
+//        childFragments.add(onlineUsersFragment);
         childFragments.add(duelHourFragment);
         childFragments.add(friendsFragment);
+        childFragments.add(quizFlashCartFragment);
         childFragments.add(homeFragment);
     }
 

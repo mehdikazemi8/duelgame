@@ -33,11 +33,6 @@
                 android:text="N" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
-                android:id="@+id/button_online_users"
-                style="@style/home_nav_buttons"
-                android:text="@string/icon.online" />
-
-            <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_duel_hour"
                 style="@style/home_nav_buttons"
                 android:text="@string/icon.cup" />
@@ -46,6 +41,11 @@
                 android:id="@+id/button_friends"
                 style="@style/home_nav_buttons"
                 android:text="@string/icon.friend" />
+
+            <com.mehdiii.duelgame.views.custom.ToggleButton
+                android:id="@+id/button_quiz_flash_cart"
+                style="@style/home_nav_buttons"
+                android:text="@string/icon.book" />
 
             <com.mehdiii.duelgame.views.custom.ToggleButton
                 android:id="@+id/button_home"
