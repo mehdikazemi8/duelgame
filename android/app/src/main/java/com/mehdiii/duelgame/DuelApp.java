@@ -44,7 +44,6 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class DuelApp extends Application implements Application.ActivityLifecycleCallbacks {
@@ -123,12 +122,12 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
     private void syncData(String json) {
         BaseModel baseModel = BaseModel.deserialize(json, BaseModel.class);
-        if(baseModel != null &&
+        if (baseModel != null &&
                 baseModel.getCommand() != null &&
                 baseModel.getCommand() == CommandType.RECEIVE_SYNC_DATA) {
 
             SyncData syncData = SyncData.deserialize(json, SyncData.class);
-            if(AuthManager.getCurrentUser() != null && syncData != null && syncData.getDiamond() != null) {
+            if (AuthManager.getCurrentUser() != null && syncData != null && syncData.getDiamond() != null) {
                 AuthManager.getCurrentUser().setDiamond(syncData.getDiamond());
                 AuthManager.getCurrentUser().setHeart(syncData.getHeart());
                 AuthManager.getCurrentUser().setPendingOfflineChallenges(syncData.getPendingOfflineChallenges());
@@ -170,11 +169,11 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     public void sendMessage(String json) {
         try {
             Log.d("sentit", json);
-            if(wsc == null) {
+            if (wsc == null) {
                 Log.e("sentit", "wsc is null");
                 return;
             }
-            if(!wsc.isConnected()) {
+            if (!wsc.isConnected()) {
                 Log.e("sentit", "wsc is not connected");
                 return;
             }
@@ -357,13 +356,13 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
 
     @Override
     public void onActivityPaused(Activity activity) {
-        resumedActivities --;
+        resumedActivities--;
         Log.d("TAG", "ActivityLifecycle onActivityPaused " + getResumedActivities() + " " + Calendar.getInstance().getTime().toString());
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        resumedActivities ++;
+        resumedActivities++;
         Log.d("TAG", "ActivityLifecycle onActivityResumed " + getResumedActivities() + " " + Calendar.getInstance().getTime().toString());
     }
 
@@ -371,7 +370,6 @@ public class DuelApp extends Application implements Application.ActivityLifecycl
     public void onActivityCreated(Activity activity, Bundle bundle) {
         Log.d("TAG", "ActivityLifecycle onActivityCreated");
     }
-
 
 
     // Chat section

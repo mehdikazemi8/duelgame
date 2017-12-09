@@ -20,7 +20,6 @@ public interface ChatApi {
     @GET("/messages/public")
     Call<GetMessagesResponse> getMessages(@Query("user_id") String userId,
                                           @Query("timestamp") Long timestamp);
-
     @Headers("Content-Type: text/plain")
     @POST("/messages/public")
     Call<SendMessageResponse> sendMessage(@Query("user_id") String userId,

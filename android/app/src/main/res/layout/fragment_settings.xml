@@ -235,7 +235,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:offColor="@color/pink" />
+                app:kswBackColor="@color/pink" />
 
             <TextView
                 android:id="@+id/textView_boy"

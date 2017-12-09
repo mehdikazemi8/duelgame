@@ -105,7 +105,7 @@
                 android:id="@+id/switch_gender"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:offColor="@color/pink" />
+                app:kswBackColor="@color/pink" />
 
             <TextView
                 android:id="@+id/textView_boy"
